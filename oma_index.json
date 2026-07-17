@@ -1,0 +1,2031 @@
+{
+  "updatedAt": "2026-05-19T20:27:12.625Z",
+  "items": [
+    {
+      "id": "nandu-2026",
+      "competition": "nandu",
+      "year": 2026,
+      "title": "35ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2026/nandu_intercolegial_2026.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2025",
+      "competition": "oma",
+      "year": 2025,
+      "title": "42ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2025/oma_inter_2025.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2025/oma_zonal_2025.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2025/oma_regional_2025.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2025/oma_nacional_2025.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2025",
+      "competition": "nandu",
+      "year": 2025,
+      "title": "34ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2025/inter_n_2025.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2025/zonal_n_2025.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2025/nandu_regional_2025.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2025/nandu_nacional_2025.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2024",
+      "competition": "oma",
+      "year": 2024,
+      "title": "41ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2024/Intercolegial_2024.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2024/ZONAL_OMA_2024.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2024/REGIONAL_OMA_2024.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2024/NACIONAL_OMA_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2024",
+      "competition": "nandu",
+      "year": 2024,
+      "title": "33ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2024/inter_n_2024.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2024/zonal_n_2024.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2024/regional_n_2024.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2024/nacional_n_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2024",
+      "competition": "imo",
+      "year": 2024,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "65 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2024/IMO_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "iberoamericana-2024",
+      "competition": "iberoamericana",
+      "year": 2024,
+      "title": "Olimpíada Iberoamericana de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "Selección argentina",
+          "url": "/contents/enunciados/pdf/iberoamericana/2024/Sel_ibero_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "rioplatense-2024",
+      "competition": "rioplatense",
+      "year": 2024,
+      "title": "Olimpíada Matemática Rioplatense",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXXI Olimpíada Matemática Rioplatense",
+          "url": "/contents/enunciados/pdf/rioplatense/2024/RIOPLATENSE_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2024",
+      "competition": "mayo",
+      "year": 2024,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "Primer Nivel",
+          "url": "/contents/enunciados/pdf/mayo/2024/enunciados_MAYO_nivel1_2024.pdf"
+        },
+        {
+          "label": "Segundo Nivel",
+          "url": "/contents/enunciados/pdf/mayo/2024/enunciados_MAYO_nivel2_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2024",
+      "competition": "torneo-ciudades",
+      "year": 2024,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XLV Torneo Internacional de las Ciudades. Primavera de 2024 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2024/XLV_TORNEO_PRI_2024.pdf"
+        },
+        {
+          "label": "XLVI Torneo Internacional de las Ciudades. Otoño de 2024 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2024/XLVI_TORNEO_OTO_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "irani-geometria-2024",
+      "competition": "irani-geometria",
+      "year": 2024,
+      "title": "Olimpíada Iraní de Geometría",
+      "visible": true,
+      "files": [
+        {
+          "label": "XI Olimpíada de Iraní de Geometría",
+          "url": "/contents/enunciados/pdf/irani-geometria/2024/IGO_2024.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2023",
+      "competition": "oma",
+      "year": 2023,
+      "title": "40ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2023/Intercolegial_2023.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2023/Zonal_2023.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2023/regional_2023.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2023/Nacional_OMA_2023.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2023",
+      "competition": "nandu",
+      "year": 2023,
+      "title": "32ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2023/inter_n_2023.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2023/zonal_n_2023.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2023/regional_n_2023.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2023/nacional_n_2023.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2023",
+      "competition": "imo",
+      "year": 2023,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "64 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2023/IMO_2023.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2022",
+      "competition": "oma",
+      "year": 2022,
+      "title": "39ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2022/Intercolegial_2022.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2022/Zonal_OMA_2022.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2022/regional_2022.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2022/Nacional_OMA_2022.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2022",
+      "competition": "nandu",
+      "year": 2022,
+      "title": "31ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2022/inter_n_2022.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2022/zonal_n_2022.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2022/regional_n_2022.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2022/nacional_n_2022.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2022",
+      "competition": "imo",
+      "year": 2022,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "63 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2022/IMO_2022.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2021",
+      "competition": "oma",
+      "year": 2021,
+      "title": "38ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2021/Intercolegial_OMA_2021.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2021/Zonal_OMA_2021.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2021/RegionalOMA_2021.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2021/Nacional_OMA_2021.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2021",
+      "competition": "nandu",
+      "year": 2021,
+      "title": "30ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2021/inter_n_2021.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2021/zonal_n_2021.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2021/regional_n_2021.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2021/nacional_n_2021.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2021",
+      "competition": "imo",
+      "year": 2021,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "62 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2021/IMO_2021.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2021",
+      "competition": "mayo",
+      "year": 2021,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXVII Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2021/enunciados_mayo_2021.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2020",
+      "competition": "oma",
+      "year": 2020,
+      "title": "37ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2020/Intercolegial2020.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2020/Zonal_OMA_2020.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2020/Regional_OMA_2020.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2020/Nacional_OMA_2020.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2020",
+      "competition": "nandu",
+      "year": 2020,
+      "title": "29ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2020/inter_n_2020.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2020/zonal_n_2020.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2020/regional_n_2020.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2020/nacional_n_2020.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2020",
+      "competition": "pretorneos",
+      "year": 2020,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2020/pretorneo_2020.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2020",
+      "competition": "imo",
+      "year": 2020,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "61 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2020/IMO_2020.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2020",
+      "competition": "mayo",
+      "year": 2020,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXVI Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2020/Mayo_2020.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2019",
+      "competition": "oma",
+      "year": 2019,
+      "title": "36ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2019/Intercolegial_2019.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2019/Zonal_2019.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2019/regional_2019.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2019/Nacional_OMA_2019.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2019",
+      "competition": "nandu",
+      "year": 2019,
+      "title": "28ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2019/inter_n_2019.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2019/zonal_n_2019.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2019/reg_nandu_2019.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2019/nacional_n_2019.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2019",
+      "competition": "provinciales",
+      "year": 2019,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "2019 - Olimpíadas Regionales - Torneo: Urbana - Metropolitana - Santa Fe",
+          "url": "/contents/enunciados/pdf/provinciales/2019/Urbana_2019.pdf"
+        },
+        {
+          "label": "2019 - Olimpíadas Regionales - Bonaerense - Cordoba - La Pampa - Neuquen - NOA - NEA - Golfo - Entre Ríos - Mendoza",
+          "url": "/contents/enunciados/pdf/provinciales/2019/OTRAS_PROV_OMA_2019.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2019",
+      "competition": "pretorneos",
+      "year": 2019,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2019/PRIMER_PRETORNEO_2019.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2019/SEGUNDO_PRETORNEO_2019.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2019",
+      "competition": "imo",
+      "year": 2019,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "60 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2019/IMO_2019.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2019",
+      "competition": "mayo",
+      "year": 2019,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXV Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2019/enunciados_mayo_2019.pdf"
+        }
+      ]
+    },
+    {
+      "id": "irani-geometria-2019",
+      "competition": "irani-geometria",
+      "year": 2019,
+      "title": "Olimpíada Iraní de Geometría",
+      "visible": true,
+      "files": [
+        {
+          "label": "VI Olimpíada de Iraní de Geometría",
+          "url": "/contents/enunciados/pdf/irani-geometria/2019/IGO2019.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2018",
+      "competition": "oma",
+      "year": 2018,
+      "title": "35ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2018/Intercolegial_2018.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2018/Zonal_2018.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2018/regional_2018.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2018/Nacional_OMA_2018.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2018",
+      "competition": "nandu",
+      "year": 2018,
+      "title": "27ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2018/inter_n_2018.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2018/zonal_n_2018.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2018/nandu_regional_2018.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2018/nacional_n_2018.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2018",
+      "competition": "provinciales",
+      "year": 2018,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "2018 - Olimpíadas Regionales - Torneo: Urbana - Metropolitana - Santa Fe",
+          "url": "/contents/enunciados/pdf/provinciales/2018/URBANA_2018.pdf"
+        },
+        {
+          "label": "2018 - Olimpíadas Regionales - Bonaerense - Cordoba - La Pampa - Neuquen - NOA - NEA - Golfo - Entre Ríos - Mendoza",
+          "url": "/contents/enunciados/pdf/provinciales/2018/OTRAS_PROV_OMA_2018.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2018",
+      "competition": "pretorneos",
+      "year": 2018,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2018/PRIMER_PRETORNEO_2018.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2018/SEGUNDO_PRETORNEO_2018.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2018",
+      "competition": "imo",
+      "year": 2018,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "59 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2018/IMO_2018.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2018",
+      "competition": "mayo",
+      "year": 2018,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXIV Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2018/enunciados_Mayo_2018.pdf"
+        }
+      ]
+    },
+    {
+      "id": "irani-geometria-2018",
+      "competition": "irani-geometria",
+      "year": 2018,
+      "title": "Olimpíada Iraní de Geometría",
+      "visible": true,
+      "files": [
+        {
+          "label": "V Olimpíada de Iraní de Geometría",
+          "url": "/contents/enunciados/pdf/irani-geometria/2018/IGO2018.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2017",
+      "competition": "oma",
+      "year": 2017,
+      "title": "34ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2017/Intercolegial_2017.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2017/Zonal_2017.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2017/regionaloma2017.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2017/Nacional_OMA_2017.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2017",
+      "competition": "nandu",
+      "year": 2017,
+      "title": "26ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2017/inter_n_2017.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2017/zonal_n_2017.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2017/NanduRegional2017.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2017/nac_niandu_2017.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2017",
+      "competition": "provinciales",
+      "year": 2017,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "2017 - Olimpíadas Regionales - Torneo: Urbana - Metropolitana - Corredor de los Fortines y Costa Atlántica",
+          "url": "/contents/enunciados/pdf/provinciales/2017/URBANA_2017.pdf"
+        },
+        {
+          "label": "2017 - Olimpíadas Regionales - Cordoba - Santa Fe - La Pampa - Neuquen - NOA - NEA - Golfo - Entre Ríos - Mendoza",
+          "url": "/contents/enunciados/pdf/provinciales/2017/OTRAS_PROV_OMA_2017.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2017",
+      "competition": "pretorneos",
+      "year": 2017,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2017/PRIMER_PRETORNEO_2017.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2017/SEGUNDO_PRETORNEO_2017.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2017",
+      "competition": "imo",
+      "year": 2017,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "58 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2017/IMO_2017.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2017",
+      "competition": "mayo",
+      "year": 2017,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXIII Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2017/enunciados_mayo_2017.pdf"
+        }
+      ]
+    },
+    {
+      "id": "irani-geometria-2017",
+      "competition": "irani-geometria",
+      "year": 2017,
+      "title": "Olimpíada Iraní de Geometría",
+      "visible": true,
+      "files": [
+        {
+          "label": "IV Olimpíada de Iraní de Geometría",
+          "url": "/contents/enunciados/pdf/irani-geometria/2017/IGO2017.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2016",
+      "competition": "oma",
+      "year": 2016,
+      "title": "33ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2016/Intercolegial_2016.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2016/Zonal_2016.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2016/regionaloma2016.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2016/Nacional_OMA_2016.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2016",
+      "competition": "nandu",
+      "year": 2016,
+      "title": "25ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2016/INTER_N_2016.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2016/zonal_n_2016.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2016/regional_n_2016.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2016/nacional_n_2016.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2016",
+      "competition": "provinciales",
+      "year": 2016,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "2016 - Olimpíada Matemática ñandú, certamen provincial",
+          "url": "/contents/enunciados/pdf/provinciales/2016/prov_n_2016_otros.pdf"
+        },
+        {
+          "label": "2016 - Olimpíada Matemática ñandú, certamen provincial Córdoba, Santa Fe, Regional Bonaerense y Regional Metropilitano",
+          "url": "/contents/enunciados/pdf/provinciales/2016/prov_n_ba_yotros_2016.pdf"
+        },
+        {
+          "label": "2016 - Olimpíadas Regionales - Torneo: Urbana - Metropolitana - Corredor de los Fortines y Costa Atlántica",
+          "url": "/contents/enunciados/pdf/provinciales/2016/URBANA_2016.pdf"
+        },
+        {
+          "label": "2016 - Olimpíadas Regionales - Cordoba - Santa Fe - La Pampa - Neuquen - NOA - NEA - Golfo - Entre Ríos - Mendoza",
+          "url": "/contents/enunciados/pdf/provinciales/2016/OTRAS_PROV_OMA_2016.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2016",
+      "competition": "pretorneos",
+      "year": 2016,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2016/PRIMER_PRETORNEO_2016.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2016/SEGUNDO_PRETORNEO_2016.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2016",
+      "competition": "imo",
+      "year": 2016,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "57 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2016/IMO_2016.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2016",
+      "competition": "mayo",
+      "year": 2016,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXII Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2016/enunciados_mayo_2016.pdf"
+        }
+      ]
+    },
+    {
+      "id": "irani-geometria-2016",
+      "competition": "irani-geometria",
+      "year": 2016,
+      "title": "Olimpíada Iraní de Geometría",
+      "visible": true,
+      "files": [
+        {
+          "label": "III Olimpíada de Iraní de Geometría",
+          "url": "/contents/enunciados/pdf/irani-geometria/2016/IGO2016.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2015",
+      "competition": "oma",
+      "year": 2015,
+      "title": "32ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2015/Intercolegial_2015.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2015/Zonal_2015.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2015/regionaloma2015.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2015/nacional_oma_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2015",
+      "competition": "nandu",
+      "year": 2015,
+      "title": "24ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2015/inter_n_2015.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2015/zonal_n_2015.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2015/regional_n_2015.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2015/nacional_n_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2015",
+      "competition": "provinciales",
+      "year": 2015,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "2015 - Olimpíada Matemática ñandú, certamen provincial",
+          "url": "/contents/enunciados/pdf/provinciales/2015/prov_n_2015_otros.pdf"
+        },
+        {
+          "label": "2015 - Olimpíada Matemática ñandú, certamen provincial Córdoba, Santa Fe, Regional Bonaerense y Regional Metropilitano",
+          "url": "/contents/enunciados/pdf/provinciales/2015/prov_n_ba_yotros_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2015",
+      "competition": "pretorneos",
+      "year": 2015,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2015/PRIMER_PRETORNEO_2015.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2015/SEGUNDO_PRETORNEO_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2015",
+      "competition": "imo",
+      "year": 2015,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "56 Olimpíada Internacional de Matemática - Prueba de selección",
+          "url": "/contents/enunciados/pdf/imo/2015/SELECCION_IMO_2015.pdf"
+        },
+        {
+          "label": "56 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2015/IMO_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "iberoamericana-2015",
+      "competition": "iberoamericana",
+      "year": 2015,
+      "title": "Olimpíada Iberoamericana de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "Selección argentina",
+          "url": "/contents/enunciados/pdf/iberoamericana/2015/Selibero_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cono-sur-2015",
+      "competition": "cono-sur",
+      "year": 2015,
+      "title": "Olimpíada Matemática del Cono Sur",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXVII Olimpíada Matemática del Cono Sur - Selección",
+          "url": "/contents/enunciados/pdf/cono-sur/2015/SELECCION_CONO_SUR_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2015",
+      "competition": "mayo",
+      "year": 2015,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXI Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2015/enunciados_mayo_2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "irani-geometria-2015",
+      "competition": "irani-geometria",
+      "year": 2015,
+      "title": "Olimpíada Iraní de Geometría",
+      "visible": true,
+      "files": [
+        {
+          "label": "II Olimpíada de Iraní de Geometría",
+          "url": "/contents/enunciados/pdf/irani-geometria/2015/IGO2015.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2014",
+      "competition": "oma",
+      "year": 2014,
+      "title": "31ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2014/Zonal_2014.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2014/regionaloma2014.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2014/Nacional_OMA_2014.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2014",
+      "competition": "nandu",
+      "year": 2014,
+      "title": "23ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2014/inter_n_2014.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2014/zonal_n_2014.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2014/regionaln2014.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2014/nacional_n_2014.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2014",
+      "competition": "provinciales",
+      "year": 2014,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "2014 - Olimpíada Matemática ñandú, certamen provincial",
+          "url": "/contents/enunciados/pdf/provinciales/2014/provles_n_2014.pdf"
+        },
+        {
+          "label": "2014 - Olimpíada Matemática ñandú, certamen provincial Buenos Aires",
+          "url": "/contents/enunciados/pdf/provinciales/2014/prov_n_ba_2014.pdf"
+        },
+        {
+          "label": "2014 - Olimpíada Matemática ñandú, certamen metropolitano",
+          "url": "/contents/enunciados/pdf/provinciales/2014/metro_n_2014.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2014",
+      "competition": "pretorneos",
+      "year": 2014,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2014/SEGUNDO_PRETORNEO_2014.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2014",
+      "competition": "imo",
+      "year": 2014,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "55 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2014/IMO_2014.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2014",
+      "competition": "cuenca-pacifico",
+      "year": 2014,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXVI Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2014/XXVI_APMO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2014",
+      "competition": "mayo",
+      "year": 2014,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XX Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2014/Mayo_2014.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2014",
+      "competition": "torneo-ciudades",
+      "year": 2014,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXXV Torneo Internacional de las Ciudades. Primavera de 2014 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2014/XXXV_TORNEO_DE_LAS_CIUDADES_PRI.pdf"
+        },
+        {
+          "label": "XXXVI Torneo Internacional de las Ciudades. Otoño de 2014 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2014/XXXVI_TORNEO_DE_LAS_CIUDADES_OTO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2013",
+      "competition": "oma",
+      "year": 2013,
+      "title": "30ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Intercolegial",
+          "url": "/contents/enunciados/pdf/oma/2013/Intercolegial_2013pagina.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2013/Z_o_2013.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2013/regional_2013oma.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/oma/2013/Nacional_OMA_2013.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2013",
+      "competition": "nandu",
+      "year": 2013,
+      "title": "22ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Interescolar",
+          "url": "/contents/enunciados/pdf/nandu/2013/omn22int.pdf"
+        },
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/nandu/2013/Temario_Zonaln2013.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2013/regional2013.pdf"
+        },
+        {
+          "label": "Nacional",
+          "url": "/contents/enunciados/pdf/nandu/2013/nacional_n_2013.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2013",
+      "competition": "provinciales",
+      "year": 2013,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "2013 - Olimpíada Matemática ñandú, certamen provincial y metropolitano",
+          "url": "/contents/enunciados/pdf/provinciales/2013/Metro13.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2013",
+      "competition": "pretorneos",
+      "year": 2013,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2013/PRIMER_PRETORNEO_2013.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2013/SEGUNDO_PRETORNEO_2013.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2013",
+      "competition": "imo",
+      "year": 2013,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "54 Olimpíada Internacional de Matemática - Prueba de selección",
+          "url": "/contents/enunciados/pdf/imo/2013/SELECCION_IMO_2013.pdf"
+        },
+        {
+          "label": "54 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2013/IMO_2013.pdf"
+        }
+      ]
+    },
+    {
+      "id": "iberoamericana-2013",
+      "competition": "iberoamericana",
+      "year": 2013,
+      "title": "Olimpíada Iberoamericana de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "Selección argentina",
+          "url": "/contents/enunciados/pdf/iberoamericana/2013/Selibero_2013.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cono-sur-2013",
+      "competition": "cono-sur",
+      "year": 2013,
+      "title": "Olimpíada Matemática del Cono Sur",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXIV Olimpíada Matemática del Cono Sur - Selección",
+          "url": "/contents/enunciados/pdf/cono-sur/2013/SELECCION_CONO_SUR_2013.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2013",
+      "competition": "cuenca-pacifico",
+      "year": 2013,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXV Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2013/XXV_APMO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2013",
+      "competition": "mayo",
+      "year": 2013,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XIX Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2013/Mayo_2013.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2013",
+      "competition": "torneo-ciudades",
+      "year": 2013,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXXIV Torneo Internacional de las Ciudades. Primavera de 2013 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2013/XXXIV_TORNEO_DE_LAS_CIUDADES_PRI.pdf"
+        },
+        {
+          "label": "XXXV Torneo Internacional de las Ciudades. Otoño de 2013 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2013/XXXV_TORNEO_DE_LAS_CIUDADES_OTO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "oma-2012",
+      "competition": "oma",
+      "year": 2012,
+      "title": "29ª Olimpíada Matemática Argentina",
+      "visible": true,
+      "files": [
+        {
+          "label": "Zonal",
+          "url": "/contents/enunciados/pdf/oma/2012/Z_o_2012.pdf"
+        },
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/oma/2012/regional_2012oma.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nandu-2012",
+      "competition": "nandu",
+      "year": 2012,
+      "title": "21ª Olimpíada Matemática Ñandú",
+      "visible": true,
+      "files": [
+        {
+          "label": "Regional",
+          "url": "/contents/enunciados/pdf/nandu/2012/regional2012.pdf"
+        }
+      ]
+    },
+    {
+      "id": "provinciales-2012",
+      "competition": "provinciales",
+      "year": 2012,
+      "title": "Olimpíadas Provinciales",
+      "visible": true,
+      "files": [
+        {
+          "label": "Temarios",
+          "url": "/contents/enunciados/pdf/provinciales/2012/Cuencas_temarios2.pdf"
+        },
+        {
+          "label": "Soluciones",
+          "url": "/contents/enunciados/pdf/provinciales/2012/SolCuencas2Parana.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2012",
+      "competition": "pretorneos",
+      "year": 2012,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2012/primerpretorneo2012.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2012/segundopretorneo2012.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2012",
+      "competition": "imo",
+      "year": 2012,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "53 Olimpíada Internacional de Matemática - Prueba de selección",
+          "url": "/contents/enunciados/pdf/imo/2012/SELECCION_IMO_2012.pdf"
+        },
+        {
+          "label": "53 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2012/IMO_2012.pdf"
+        }
+      ]
+    },
+    {
+      "id": "iberoamericana-2012",
+      "competition": "iberoamericana",
+      "year": 2012,
+      "title": "Olimpíada Iberoamericana de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "Selección argentina",
+          "url": "/contents/enunciados/pdf/iberoamericana/2012/Selibero_2012.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cono-sur-2012",
+      "competition": "cono-sur",
+      "year": 2012,
+      "title": "Olimpíada Matemática del Cono Sur",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXIII Olimpíada Matemática del Cono Sur - Selección",
+          "url": "/contents/enunciados/pdf/cono-sur/2012/SELECCION_CONO_SUR_2012.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2012",
+      "competition": "mayo",
+      "year": 2012,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XVIII Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2012/mayo2012.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2012",
+      "competition": "torneo-ciudades",
+      "year": 2012,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXXIII Torneo Internacional de las Ciudades. Primavera de 2012 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2012/XXXIII_TORNEO_DE_LAS_CIUDADES_PRI.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2011",
+      "competition": "pretorneos",
+      "year": 2011,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2011/PRIMER_PRETORNEO_2011.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2011/segundopretorneo2011.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2011",
+      "competition": "imo",
+      "year": 2011,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "52 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2011/IMO_2011.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2011",
+      "competition": "mayo",
+      "year": 2011,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XVII Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2011/mayo2011.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2011",
+      "competition": "torneo-ciudades",
+      "year": 2011,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXXIII Torneo Internacional de las Ciudades. Otoño de 2011 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2011/XXXIII_TORNEO_DE_LAS_CIUDADES_OTO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2010",
+      "competition": "pretorneos",
+      "year": 2010,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2010/PRIMER_PRETORNEO_2010.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2010/SEGUNDO_PRETORNEO_2010.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2010",
+      "competition": "imo",
+      "year": 2010,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "51 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2010/IMO_2010.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2010",
+      "competition": "cuenca-pacifico",
+      "year": 2010,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXII Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2010/XXII_APMO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2010",
+      "competition": "torneo-ciudades",
+      "year": 2010,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXXI Torneo Internacional de las Ciudades. Otoño de 2010 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2010/XXXI_TORNEO_DE_LAS_CIUDADES_OTO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2009",
+      "competition": "pretorneos",
+      "year": 2009,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2009/PRIMER_PRETORNEO_2009.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2009/SEGUNDO_PRETORNEO_2009.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2009",
+      "competition": "imo",
+      "year": 2009,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "50 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2009/IMO_2009.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2009",
+      "competition": "cuenca-pacifico",
+      "year": 2009,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXI Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2009/XXI_APMO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2009",
+      "competition": "torneo-ciudades",
+      "year": 2009,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXX Torneo Internacional de las Ciudades. Otoño de 2009 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2009/XXX_TORNEO_DE_LAS_CIUDADES_OTO.pdf"
+        },
+        {
+          "label": "XXXI Torneo Internacional de las Ciudades. Primavera de 2009 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2009/XXXI_TORNEO_DE_LAS_CIUDADES_PRI.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2008",
+      "competition": "pretorneos",
+      "year": 2008,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2008/PRIMER_PRETORNEO_2008.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2008/SEGUNDO_PRETORNEO_2008.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2008",
+      "competition": "imo",
+      "year": 2008,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "49 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2008/IMO_2008.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2008",
+      "competition": "cuenca-pacifico",
+      "year": 2008,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XX Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2008/XX_APMO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2007",
+      "competition": "pretorneos",
+      "year": 2007,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2007/PRIMER_PRETORNEO_2007.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2007/SEGUNDO_PRETORNEO_2007.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2007",
+      "competition": "imo",
+      "year": 2007,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "48 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2007/IMO_2007.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2007",
+      "competition": "cuenca-pacifico",
+      "year": 2007,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XIX Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2007/XIX_APMO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2007",
+      "competition": "mayo",
+      "year": 2007,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XIII Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2007/Mayo2007.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2007",
+      "competition": "torneo-ciudades",
+      "year": 2007,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXVIII Torneo Internacional de las Ciudades. Otoño de 2007 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2007/XXVIII_TORNEO_DE_LAS_CIUDADES_OTO.pdf"
+        },
+        {
+          "label": "XXIX Torneo Internacional de las Ciudades. Primavera de 2007 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2007/XXIX_TORNEO_DE_LAS_CIUDADES_PRI.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2006",
+      "competition": "pretorneos",
+      "year": 2006,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "1er Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2006/PRIMER_PRETORNEO_2006.pdf"
+        },
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2006/SEGUNDO_PRETORNEO_2006.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2006",
+      "competition": "imo",
+      "year": 2006,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "47 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2006/IMO_2006.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2006",
+      "competition": "cuenca-pacifico",
+      "year": 2006,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XVIII Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2006/XVIII_APMO.pdf"
+        }
+      ]
+    },
+    {
+      "id": "pretorneos-2005",
+      "competition": "pretorneos",
+      "year": 2005,
+      "title": "Pretorneos",
+      "visible": true,
+      "files": [
+        {
+          "label": "2do Pretorneo",
+          "url": "/contents/enunciados/pdf/pretorneos/2005/SEGUNDO_PRETORNEO_2005.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2005",
+      "competition": "imo",
+      "year": 2005,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "46 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2005/IMO_2005.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cuenca-pacifico-2005",
+      "competition": "cuenca-pacifico",
+      "year": 2005,
+      "title": "Olimpíada de la Cuenca del Pacífico",
+      "visible": true,
+      "files": [
+        {
+          "label": "XVII Olimpíada de la Cuenca del Pacífico",
+          "url": "/contents/enunciados/pdf/cuenca-pacifico/2005/XVII_Olimpiada_Matematica_de_la_Cuenca_del_Pacifico.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mayo-2005",
+      "competition": "mayo",
+      "year": 2005,
+      "title": "Olimpíada de Mayo",
+      "visible": true,
+      "files": [
+        {
+          "label": "XI Olimpíada de Mayo",
+          "url": "/contents/enunciados/pdf/mayo/2005/Mayo2005.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2005",
+      "competition": "torneo-ciudades",
+      "year": 2005,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXVII Torneo Internacional de las Ciudades. Primavera de 2005 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2005/XXVII_TORNEO_DE_LAS_CIUDADES_PRI.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2004",
+      "competition": "imo",
+      "year": 2004,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "45 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2004/IMO_2004.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2004",
+      "competition": "torneo-ciudades",
+      "year": 2004,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXV Torneo Internacional de las Ciudades. Primavera de 2004 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2004/XXV_TORNEO_DE_LAS_CIUDADES_Pri.pdf"
+        }
+      ]
+    },
+    {
+      "id": "imo-2003",
+      "competition": "imo",
+      "year": 2003,
+      "title": "Olimpíada Internacional de Matemática",
+      "visible": true,
+      "files": [
+        {
+          "label": "44 Olimpíada Internacional de Matemática",
+          "url": "/contents/enunciados/pdf/imo/2003/IMO_2003.pdf"
+        }
+      ]
+    },
+    {
+      "id": "torneo-ciudades-2003",
+      "competition": "torneo-ciudades",
+      "year": 2003,
+      "title": "Torneo Internacional de las Ciudades",
+      "visible": true,
+      "files": [
+        {
+          "label": "XXIV Torneo Internacional de las Ciudades. Primavera de 2003 del Hemisferio Norte",
+          "url": "/contents/enunciados/pdf/torneo-ciudades/2003/XXIV_TORNEO_DE_LAS_CIUDADES_Pri.pdf"
+        }
+      ]
+    }
+  ]
+}

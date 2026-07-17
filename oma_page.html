@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivo de enunciados</title>
+
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="/headers_footers/headers.css" rel="stylesheet" type="text/css">
+    <script src="/headers_footers/header_maker.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/enunciados/enunciados.css">
+    <script src="/enunciados/enunciados.js" defer></script>
+</head>
+<body>
+<header id="main_header"></header>
+
+<main class="archive-page">
+    <section class="archive-hero">
+        <div class="container">
+            <h1>Archivo de enunciados</h1>
+            <p>Acá vas a encontrar pruebas tomadas desde que comenzó la Olimpíada, tanto en OMA como en Ñandú y otros certámenes.</p>
+        </div>
+    </section>
+
+    <section class="archive-layout container">
+        <aside class="archive-filters" aria-label="Filtros del archivo">
+            <h2>Filtrar por</h2>
+
+            <label for="year-filter">Año</label>
+            <select id="year-filter" class="form-select"></select>
+
+            <div class="filter-group">
+                <span class="filter-label">Nacionales</span>
+                <div id="national-filters" class="filter-buttons"></div>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Internacionales</span>
+                <div id="international-filters" class="filter-buttons international"></div>
+            </div>
+        </aside>
+
+        <section class="archive-results" aria-live="polite">
+            <div id="archive-count" class="archive-count"></div>
+            <div id="archive-list" class="archive-list"></div>
+            <nav id="archive-pagination" class="archive-pagination" aria-label="Paginación"></nav>
+        </section>
+    </section>
+</main>
+
+<footer id="footer_info"></footer>
+</body>
+</html>
