@@ -24,6 +24,8 @@ Course files follow `nandu_n1_<stage>_<topic>_<kind>.md`, where stage is `region
 
 Scraping/download artifacts: `download.sh` (gdown fetch of PDFs; needs `source venv/bin/activate` first), `oma_index.json`, `oma_page.html`, `enunciados.js`, `zonal_list.txt` — all derived from www.oma.org.ar. The `venv/` has PDF-extraction tooling (pypdf, pymupdf, pdfplumber) used via `python3` one-liners/scripts to turn PDFs into `.md`.
 
+**Printing materials:** `build_pdf.py` turns any course `.md` into a print-ready `<name>_print.pdf` — markdown → HTML → Chrome headless (A5 pages) → two A5 pages imposed on landscape A4, with page numbers and a cut line. Run as `venv/bin/python3 build_pdf.py <files.md>` (needs the venv's `markdown` + `pymupdf` and Google Chrome); print at 100% scale with no "2 pages per sheet" in the printer dialog. Pagination rules (chapter/block kept whole, tables and callouts unbreakable, no orphaned headings) live in the CSS inside the script — keep them generic across the course, don't tune them for one document. The `/pdf` slash command (`.claude/commands/pdf.md`) wraps this, including the visual check of rendered pages. Only some files get printed — never build PDFs for the whole repo unasked.
+
 ## Domain model
 
 Every regional-stage paper has exactly 3 problems with the type fixed by position: №1 = Т1 (arithmetic/linear systems), №2 = Т2 (perimeter geometry from a lettered figure), №3 = Т3 (systematic counting). Types split into 8 blocks (1a–1c, 2a–2b, 3a–3c); their definitions lived in the now-deleted regional roadmap, and the block labels survive only as references inside the textbooks and `schet_korpus_resheniya`. Course sequence: СЛАУ → Перевод → Фигуры → Счёт → боевая фаза (working the real bank).
