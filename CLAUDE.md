@@ -28,6 +28,8 @@ Scraping/download artifacts: `download.sh` (gdown fetch of PDFs; needs `source v
 
 Every regional-stage paper has exactly 3 problems with the type fixed by position: №1 = Т1 (arithmetic/linear systems), №2 = Т2 (perimeter geometry from a lettered figure), №3 = Т3 (systematic counting). Types split into 8 blocks (1a–1c, 2a–2b, 3a–3c); their definitions lived in the now-deleted regional roadmap, and the block labels survive only as references inside the textbooks and `schet_korpus_resheniya`. Course sequence: СЛАУ → Перевод → Фигуры → Счёт → боевая фаза (working the real bank).
 
+**Corpus finding on №1 techniques (July 2026 audit of ~68 Nivel-1 papers):** «вычти сценарий» (subtracting two near-twin equations) is THE dominant opening move of the regional №1 — 7 of 14 years 2012–2025, including **all five of 2021–2025** (2025 is literally the textbook's `x + y/2` shape); it also appears at zonal (1997, 2002, 2007, 2016, 2023). Drill it to automatism. «Сложи всё» in its pure circular form (`a+b, b+c, a+c` — build the total by adding all equations) has **zero hits** in the №1 Nivel-1 corpus across all stages (zonal 1996–2025, provincial 2000–2025, regional 2012–2025); only its second half (subtract an equation from a *given* total, e.g. zonal 2007, provincial 2025) occurs — and that is again «вычти». The pure circular shape exists in Ñandú but at Tercer Nivel (zonal 2025). So «сложи всё» is taught once as a bridge idea, not drilled. Provincial №1 is a different genre altogether: mostly working-backwards/process problems, almost never dense systems (covered by the doski appendix on working backwards).
+
 ## Hard rules when authoring or editing materials
 
 These conventions are load-bearing across all existing pairs — keep them:
