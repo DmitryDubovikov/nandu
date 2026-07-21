@@ -45,7 +45,8 @@ li { margin: 0 0 .2em; }
 li > ul, li > ol { margin: .15em 0 .15em; }
 
 code, kbd { font-family: "Menlo", "DejaVu Sans Mono", monospace; font-size: .92em;
-            background: #f0f0f0; padding: 0 .18em; border-radius: 2px; }
+            background: #f0f0f0; padding: 0 .18em; border-radius: 2px;
+            white-space: pre-wrap; }
 pre { background: #f4f4f4; border-left: 2.5pt solid #999; padding: .35em .5em;
       margin: .4em 0; break-inside: avoid; page-break-inside: avoid; }
 pre code { background: none; padding: 0; font-size: .9em; line-height: 1.25; }
