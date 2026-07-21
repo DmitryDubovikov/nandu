@@ -36,6 +36,7 @@
 | `ключ-ист` | `nandu_problemas/historico/Provinciales_N1.md` — офиц. ответы всех лет, раздел «Respuestas» |
 | `ключ-рег` | `nandu_problemas/historico/Regionales_N1.md` — офиц. ответы регионала |
 | `ключ-Т3` | `nandu_n1_regional_schet_korpus_resheniya.md` — разбор №3 регионала по годам, файл родителя |
+| `ключ-Т2` | `nandu_n1_regional_figury_klyuch.md` — системы, ответы и лайфхаки по всем 14 задачам №2, файл родителя |
 
 ---
 
