@@ -9,4 +9,4 @@ En la figura: BCDF es un rectángulo. DE = EF y AF = CF. DE = 1/3 DC. B es punto
 [Figura: rectángulo BCDF con triángulos E y A]
 ### Problema 3
 En el tablero, Ana quiere ubicar cuatro fichas rectangulares, una en cada fila. Si dos fichas están ubicadas en filas consecutivas, deben cubrir por lo menos dos casillas de una misma columna. ¿De cuántas maneras puede hacerlo? Explica cómo las contaste.
-[Figura: tablero con ejemplos válido e inválido — reconstrucción: tablero de 4 filas x 6 columnas, fichas de 1x3; única variante consistente con la respuesta oficial «68 maneras» (verificado por enumeración exhaustiva); la transcripción decía «4x5»]
+[Figura: tablero de 4 filas x 5 columnas; fichas de 1x2 (dominó), una por fila. Fuente: PDF original del Metropolitano (oma_provincial/provincial_2025_metro_silvia.pdf). Las 4 posiciones por fila y la condición «filas consecutivas se solapan en ≥1 columna» dan 13+21+21+13 = 68 maneras (respuesta oficial, verificado por enumeración). Corrige la reconstrucción anterior «4x6 / fichas 1x3».]

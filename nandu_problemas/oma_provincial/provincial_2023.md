@@ -9,4 +9,4 @@ En la figura: ABCE es un rectángulo. DE = DF. BC = FC. EF = 9/10 CD. Perímetro
 [Figura: rectángulo ABCE con triángulos D]
 ### Problema 3
 Se trazan 4 rectas horizontales, en cada una de ellas se marcan algunos puntos como muestra la figura. Se quiere dibujar cuadriláteros cuyos vértices cumplan estas condiciones: son puntos marcados en la figura; 2 vértices están en una de las rectas y los otros 2 vértices están en otra de las rectas. ¿Cuántos cuadriláteros distintos se pueden dibujar? Explica cómo los contaste.
-[Figura: 4 rectas horizontales con puntos marcados]
+[Figura: 4 rectas horizontales con, de arriba hacia abajo, 2, 3, 4 y 5 puntos marcados. Fuente: provincial_2023_metro_silvia.pdf]
