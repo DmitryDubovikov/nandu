@@ -81,6 +81,8 @@ def wrap_sections(body):
     chunks = parts[1:] if head else parts
     out = [head] if head else []
     for c in chunks:
+        if not c.strip():
+            continue  # пустой ведущий кусок (документ начинается сразу с заголовка) — иначе Chrome даёт пустую первую страницу
         # «ЧАСТЬ …» (h1 с коротким подзаголовком) приклеиваем к следующей главе
         out.append("<section>" + c + "</section>")
     html = "".join(out)
