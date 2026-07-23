@@ -41,5 +41,26 @@ for ((i=0; i<n; i++)); do
     echo "XXX FAILED: $name"
   fi
 done
+# === OMA secundaria (the SEPARATE Olimpíada Matemática Argentina, not Ñandú) ===
+# 2021–2025, stages inter/zonal/regional/nacional; each PDF has the 3 OMA niveles.
+# Fetched from oma.org.ar via the tracked oma_index.json. PDFs are gitignored.
+echo "=========================================================="
+echo ">>> OMA secundaria 2021-2025 (curl from oma.org.ar)"
+mkdir -p nandu_problemas/oma
+python3 - <<'PYEOF'
+import json, subprocess, os
+d = json.load(open('oma_index.json'))
+base = "https://www.oma.org.ar"
+stage = {'Intercolegial': 'inter', 'Zonal': 'zonal', 'Regional': 'regional', 'Nacional': 'nacional'}
+for it in d['items']:
+    if it['competition'] == 'oma' and 2021 <= it['year'] <= 2025:
+        for f in it['files']:
+            st = stage.get(f['label'], f['label'].lower())
+            dest = f"nandu_problemas/oma/oma_{st}_{it['year']}.pdf"
+            subprocess.run(["curl", "-fsSL", "-A", "Mozilla/5.0", "-o", dest, base + f['url']])
+            ok = os.path.exists(dest) and os.path.getsize(dest) > 0
+            print(f"    {'OK  ' if ok else 'FAIL'} {dest}")
+PYEOF
+
 echo "=========================================================="
 echo "DONE"

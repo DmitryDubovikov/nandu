@@ -52,7 +52,7 @@
 | 13 | 2019 №2 | ACDF **120**; ACDOF **144**; DPRF **216** |
 | 14 | 2013 №2 | R **106**; C **76**; Фигура 3 **218** |
 
-Рисунки — `nandu_problemas/oma_regional/regional_<год>.pdf`.
+Рисунки — `nandu_problemas/omn_regional/regional_<год>.pdf`.
 
 ---
 

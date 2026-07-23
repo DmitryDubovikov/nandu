@@ -30,8 +30,8 @@
 | `schet_4` | `nandu_n1_regional_schet_4_sborka_uchebnik.md` |
 | `schet_5` | `nandu_n1_regional_schet_5_opredelitel.md` |
 | `doski` | `nandu_n1_provincial_doski_uchebnik.md` + `..._reshebnik.md` |
-| `туры-пров` | `nandu_problemas/oma_provincial/provincial_<год>.md` |
-| `туры-рег` | `nandu_problemas/oma_regional/regional_<год>.md` |
+| `туры-пров` | `nandu_problemas/omn_provincial/provincial_<год>.md` |
+| `туры-рег` | `nandu_problemas/omn_regional/regional_<год>.md` |
 | `ключ-пров` | `nandu_n1_provincial_korpus_resheniya.md` — разбор туров 2022–2025, файл родителя |
 | `ключ-ист` | `nandu_problemas/historico/Provinciales_N1.md` — офиц. ответы всех лет, раздел «Respuestas» |
 | `ключ-рег` | `nandu_problemas/historico/Regionales_N1.md` — офиц. ответы регионала |

@@ -158,7 +158,7 @@ Con piezas rectangulares de 8cm de perímetro y con base igual al triple de la a
 [Figura: columnas crecientes de piezas rectangulares]
 ### Problema 3
 Juan tiene fichas redondas de color verde, fichas cuadradas de color blanco y fichas cuadradas de color negro. Quiere ubicar una ficha en cada casilla de este tablero de manera que se cumplan estas dos condiciones: no hay fichas del mismo color en casillas vecinas; no hay más de dos fichas cuadradas seguidas. ¿De cuántas maneras puede Juan completar el tablero? Explica cómo las contaste.
-[Figura: tablero 1x7 — corregido: el PDF oficial (oma_provincial/provincial_2015.pdf) muestra 7 casillas; la respuesta oficial «100 maneras» corresponde a 7 casillas (verificado por enumeración exhaustiva)]
+[Figura: tablero 1x7 — corregido: el PDF oficial (omn_provincial/provincial_2015.pdf) muestra 7 casillas; la respuesta oficial «100 maneras» corresponde a 7 casillas (verificado por enumeración exhaustiva)]
 
 ## Año 2016
 ### Problema 1

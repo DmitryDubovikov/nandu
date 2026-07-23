@@ -8,7 +8,7 @@
 >
 > **Корпус.** 2017, 2018, 2019, 2022, 2023, 2024, 2025 — семь туров. В **2020 и 2021 провинциальный этап не проводился** (пандемия). Годы до 2017 сознательно не рассматриваются: слишком старые, формат мог отличаться.
 >
-> Условия: `nandu_problemas/oma_provincial/provincial_<год>.md`. Ключи: `historico/Provinciales_N1.md`. Разборы 2022–2025: `nandu_n1_provincial_korpus_resheniya.md`.
+> Условия: `nandu_problemas/omn_provincial/provincial_<год>.md`. Ключи: `historico/Provinciales_N1.md`. Разборы 2022–2025: `nandu_n1_provincial_korpus_resheniya.md`.
 
 ---
 
