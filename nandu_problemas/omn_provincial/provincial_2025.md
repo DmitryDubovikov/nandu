@@ -6,7 +6,7 @@
 Hoy la suma de las edades de tres personas es 109 años. Dentro de 15 años, la edad de una de ellas será igual a la suma de las edades que tienen hoy las otras dos. Hoy la diferencia de edad entre dos de esas tres personas es de 14 años. ¿Qué edades pueden tener hoy cada una de las tres personas? Dar todas las posibilidades.
 ### Problema 2
 En la figura: BCDF es un rectángulo. DE = EF y AF = CF. DE = 1/3 DC. B es punto medio de AC. Perímetro de BCF = 120cm. Perímetro de ACF = 144cm. Perímetro de BCDEF = 148cm. ¿Cuál es el perímetro de BCDF? ¿Cuál es el perímetro de CDEF? ¿Cuál es el perímetro de ACDEF?
-[Figura: rectángulo BCDF con triángulos E y A]
+[Figura: A, B y C alineados sobre la base (B punto medio de AC); rectángulo BCDF con F encima de B y D encima de C; el triángulo E es el «techo» apoyado sobre FD (E arriba, unido a F y a D); se traza además AF. Fuente: provincial_2025_metro_silvia.pdf]
 ### Problema 3
 En el tablero, Ana quiere ubicar cuatro fichas rectangulares, una en cada fila. Si dos fichas están ubicadas en filas consecutivas, deben cubrir por lo menos dos casillas de una misma columna. ¿De cuántas maneras puede hacerlo? Explica cómo las contaste.
 [Figura: tablero de 4 filas x 5 columnas; fichas de 1x2 (dominó), una por fila. Fuente: PDF original del Metropolitano (omn_provincial/provincial_2025_metro_silvia.pdf). Las 4 posiciones por fila y la condición «filas consecutivas se solapan en ≥1 columna» dan 13+21+21+13 = 68 maneras (respuesta oficial, verificado por enumeración). Corrige la reconstrucción anterior «4x6 / fichas 1x3».]
