@@ -32,7 +32,7 @@
 | `doski` | `nandu_n1_provincial_doski_uchebnik.md` + `..._reshebnik.md` |
 | `туры-пров` | `nandu_problemas/omn_provincial/provincial_<год>.md` |
 | `туры-рег` | `nandu_problemas/omn_regional/regional_<год>.md` |
-| `ключ-пров` | `nandu_n1_provincial_korpus_resheniya.md` — разбор туров 2022–2025, файл родителя |
+| `ключ-пров` | `nandu_n1_provincial_resheniya_<год>.md` — разборы туров по годам (2018, 2019, 2022–2025), файлы родителя |
 | `ключ-ист` | `nandu_problemas/historico/Provinciales_N1.md` — офиц. ответы всех лет, раздел «Respuestas» |
 | `ключ-рег` | `nandu_problemas/historico/Regionales_N1.md` — офиц. ответы регионала |
 | `ключ-Т3` | `nandu_n1_regional_schet_korpus_resheniya.md` — разбор №3 регионала по годам, файл родителя |
