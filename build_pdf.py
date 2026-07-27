@@ -19,7 +19,7 @@ CSS = """
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 body {
   font-family: "PT Serif", Georgia, "Times New Roman", serif;
-  font-size: 11.8pt; line-height: 1.34; color: #000; margin: 0;
+  font-size: 11.2pt; line-height: 1.34; color: #000; margin: 0;
   orphans: 3; widows: 3; text-align: left; hyphens: auto;
 }
 p { margin: 0 0 .42em; }
@@ -28,15 +28,15 @@ h1, h2, h3, h4 {
   line-height: 1.18; break-after: avoid-page; page-break-after: avoid;
   break-inside: avoid; margin: .75em 0 .3em;
 }
-h1 { font-size: 17pt; margin-top: 0; }
-h2 { font-size: 14.2pt; border-bottom: 1.2pt solid #000; padding-bottom: 2pt; }
+h1 { font-size: 16.2pt; margin-top: 0; }
+h2 { font-size: 13.5pt; border-bottom: 1.2pt solid #000; padding-bottom: 2pt; }
 /* Секция = глава/блок. Короткие секции пакуются по две на страницу,
    длинные Chrome всё равно перенесёт на новую страницу целиком. */
 section { break-inside: avoid; page-break-inside: avoid; }
 section + section { margin-top: 1.1em; }
 .keep { break-inside: avoid; page-break-inside: avoid; }
-h3 { font-size: 12.6pt; }
-h4 { font-size: 11.8pt; }
+h3 { font-size: 12pt; }
+h4 { font-size: 11.2pt; }
 /* заголовок + следующие два абзаца держим вместе */
 h2 + *, h3 + *, h4 + * { break-before: avoid-page; page-break-before: avoid; }
 
@@ -47,9 +47,13 @@ li > ul, li > ol { margin: .15em 0 .15em; }
 code, kbd { font-family: "Menlo", "DejaVu Sans Mono", monospace; font-size: .92em;
             background: #f0f0f0; padding: 0 .18em; border-radius: 2px;
             white-space: pre-wrap; }
+/* псевдографика (схемы, ряды лампочек) переносом ломается — не переносим,
+   а подгоняем кегль по ширине скриптом ниже */
 pre { background: #f4f4f4; border-left: 2.5pt solid #999; padding: .35em .5em;
-      margin: .4em 0; break-inside: avoid; page-break-inside: avoid; }
-pre code { background: none; padding: 0; font-size: .9em; line-height: 1.25; }
+      margin: .4em 0; break-inside: avoid; page-break-inside: avoid;
+      white-space: pre; overflow: hidden; }
+pre code { background: none; padding: 0; font-size: .9em; line-height: 1.25;
+           white-space: inherit; }
 
 blockquote { margin: .5em 0; padding: .35em .6em; border-left: 3pt solid #444;
              background: #f6f6f6; break-inside: avoid; page-break-inside: avoid; }
@@ -68,6 +72,32 @@ hr { border: none; border-top: .8pt solid #bbb; margin: .7em 0; }
 strong { font-weight: 700; }
 img { max-width: 100%; }
 """
+
+# Подгонка кегля псевдографики: каждый <pre> ужимаем, пока строки не влезут
+# по ширине (пол — .62em, ниже уже нечитаемо; такие блоки переносим как раньше).
+FIT_PRE = """<script>
+// экранная ширина окна не равна печатной, поэтому меряем не по окну,
+// а по ширине наборной полосы A5 (148mm - поля 2x11mm), минус поля врезки
+var probe = document.createElement('div');
+probe.style.cssText = 'position:absolute;visibility:hidden;width:126mm';
+document.body.appendChild(probe);
+var avail = probe.clientWidth * 0.95;
+probe.remove();
+document.querySelectorAll('pre').forEach(function (pre) {
+  var inner = pre.firstElementChild || pre;
+  var width = function () {
+    var r = document.createRange();
+    r.selectNodeContents(inner);
+    return r.getBoundingClientRect().width;
+  };
+  var s = 1.0;
+  while (width() > avail && s > 0.62) {
+    s -= 0.02;
+    pre.style.fontSize = s.toFixed(2) + 'em';
+  }
+  if (width() > avail) pre.style.whiteSpace = 'pre-wrap';  // не влезло даже так
+});
+</script>"""
 
 HTML = """<!doctype html><html lang="ru"><head><meta charset="utf-8">
 <title>{title}</title><style>{css}</style></head><body>{body}</body></html>"""
@@ -115,7 +145,7 @@ def md_to_pdf_a5(md_path, out_pdf):
         r'<div class="keep">\1\2</div>', body, flags=re.S)
     body = wrap_sections(body)
 
-    html = HTML.format(title=os.path.basename(md_path), css=CSS, body=body)
+    html = HTML.format(title=os.path.basename(md_path), css=CSS, body=body + FIT_PRE)
     with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8") as f:
         f.write(html)
         html_path = f.name
