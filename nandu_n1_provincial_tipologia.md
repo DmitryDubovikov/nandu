@@ -8,7 +8,7 @@
 >
 > **Корпус.** 2017, 2018, 2019, 2022, 2023, 2024, 2025 — семь туров. В **2020 и 2021 провинциальный этап не проводился** (пандемия). Годы до 2017 сознательно не рассматриваются: слишком старые, формат мог отличаться.
 >
-> Условия: `nandu_problemas/omn_provincial/provincial_<год>.md`. Ключи: `historico/Provinciales_N1.md`. Разборы по годам: `nandu_n1_provincial_resheniya_<год>.md` (2018, 2019, 2022–2025). Тренировочные двойники по этой типологии (разогрев перед боевой фазой): `nandu_n1_provincial_trenirovka.md`. Памятка перед туром: `nandu_n1_provincial_pamyatka.md`.
+> Условия: `nandu_problemas/omn_provincial/provincial_<год>.md`. Ключи: `historico/Provinciales_N1.md`. Разборы по годам: `nandu_n1_provincial_resheniya_<год>.md` (2018, 2019, 2022–2025). Тренировочные двойники по этой типологии (разогрев перед боевой фазой): `nandu_n1_provincial_trenirovka.md`. Памятка перед туром: `nandu_n1_provincial_pamyatka.md`. Определитель досок (свёртка `doski_uchebnik` в маршрут, едет на тур): `nandu_n1_provincial_doski_opredelitel.md`.
 
 ---
 
