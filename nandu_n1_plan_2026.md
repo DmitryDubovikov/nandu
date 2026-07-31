@@ -11,7 +11,7 @@
 >
 > **Колонка «Пров.»:** ✔ — материал готовит к задачам, которых на **региональном туре 27 августа не бывает**. Это метка ветки, а не «лишнего»: всё отмеченное работает на провинциальный финал 20 августа, а доски — ещё и на национальный этап. Пусто — работает на оба тура. **Резать не из чего** (см. «Запас времени»): если время горит, ужимаемся темпом.
 >
-> **Разминка.** С 28 июля каждое занятие начинается с 5 минут по `schet_3`.
+> **Таблицы умножения счёта.** Их две: `schet_3` про атомы и `schet_3-сборка` про приёмы разрезки и склейки. Дневных разминок-диктовок в них больше нет — формат другой: каждая таблица перечитывается целиком примерно раз в неделю, вслух проговаривая ход.
 
 ---
 
@@ -26,7 +26,8 @@
 | `figury` | `nandu_n1_regional_figury_uchebnik.md` |
 | `schet_1` | `nandu_n1_regional_schet_1_atomy_uchebnik.md` |
 | `schet_2` | `nandu_n1_regional_schet_2_reshebnik.md` |
-| `schet_3` | `nandu_n1_regional_schet_3_tablitsa.md` |
+| `schet_3` | `nandu_n1_regional_schet_3_tablitsa.md` — таблица умножения атомов |
+| `schet_3-сборка` | `nandu_n1_regional_schet_3_tablitsa_sborki.md` — таблица умножения сборки |
 | `schet_4` | `nandu_n1_regional_schet_4_sborka_uchebnik.md` |
 | `schet_5` | `nandu_n1_regional_schet_5_opredelitel.md` (теория + условия, едет на тур) + `..._opredelitel_podskazki.md` + `..._opredelitel_resheniya.md` |
 | `doski` | `nandu_n1_provincial_doski_uchebnik.md` + `..._reshebnik.md` |
