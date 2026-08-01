@@ -10,16 +10,18 @@ import subprocess
 import sys
 import tempfile
 
+import html as html_mod
+
 import markdown
 
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 CSS = """
-@page { size: 148mm 210mm; margin: 12mm 11mm 14mm 11mm; }
+@page { size: 148mm 210mm; margin: 10mm 9.5mm 12mm 9.5mm; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 body {
   font-family: "PT Serif", Georgia, "Times New Roman", serif;
-  font-size: 11.2pt; line-height: 1.34; color: #000; margin: 0;
+  font-size: 10pt; line-height: 1.28; color: #000; margin: 0;
   orphans: 3; widows: 3; text-align: left; hyphens: auto;
 }
 p { margin: 0 0 .42em; }
@@ -28,17 +30,21 @@ h1, h2, h3, h4 {
   line-height: 1.18; break-after: avoid-page; page-break-after: avoid;
   break-inside: avoid; margin: .75em 0 .3em;
 }
-h1 { font-size: 16.2pt; margin-top: 0; }
-h2 { font-size: 13.5pt; border-bottom: 1.2pt solid #000; padding-bottom: 2pt; }
+h1 { font-size: 14.4pt; margin-top: 0; }
+h2 { font-size: 12pt; border-bottom: 1.2pt solid #000; padding-bottom: 2pt; }
 /* Секция = глава/блок. Короткие секции пакуются по две на страницу,
    длинные Chrome всё равно перенесёт на новую страницу целиком. */
-section { break-inside: avoid; page-break-inside: avoid; }
+section { break-inside: auto; page-break-inside: auto; }
 section + section { margin-top: 1.1em; }
 .keep { break-inside: avoid; page-break-inside: avoid; }
-h3 { font-size: 12pt; }
-h4 { font-size: 11.2pt; }
+h3 { font-size: 10.7pt; }
+h4 { font-size: 10pt; }
 /* заголовок + следующие два абзаца держим вместе */
 h2 + *, h3 + *, h4 + * { break-before: avoid-page; page-break-before: avoid; }
+/* абзац-врез целиком жирным с двоеточием («Типичные ошибки:») работает как
+   заголовок списка — не оставляем его одного внизу страницы */
+p.lead { break-after: avoid-page; page-break-after: avoid; }
+p.lead + * { break-before: avoid-page; page-break-before: avoid; }
 
 ul, ol { margin: .25em 0 .5em; padding-left: 1.15em; }
 li { margin: 0 0 .2em; }
@@ -54,6 +60,9 @@ pre { background: #f4f4f4; border-left: 2.5pt solid #999; padding: .35em .5em;
       white-space: pre; overflow: hidden; }
 pre code { background: none; padding: 0; font-size: .9em; line-height: 1.25;
            white-space: inherit; }
+/* рамки из ─│┌ рисуются символами: при межстрочнике >1 палочки не достают до
+   горизонталей и клетка рассыпается на отрезки — строки ставим впритык */
+pre.boxart code { line-height: 1.0; }
 
 blockquote { margin: .5em 0; padding: .35em .6em; border-left: 3pt solid #444;
              background: #f6f6f6; break-inside: avoid; page-break-inside: avoid; }
@@ -103,6 +112,43 @@ HTML = """<!doctype html><html lang="ru"><head><meta charset="utf-8">
 <title>{title}</title><style>{css}</style></head><body>{body}</body></html>"""
 
 
+PRE_TOKEN = "@@PREBLOCK{}@@"
+BOXART = "─│┌┐└┘├┤┬┴┼╔╗╚╝║═"
+
+
+def extract_pre(text):
+    """Вынимаем блоки ``` до markdown и возвращаем их готовым <pre> после.
+
+    Иначе блок внутри цитаты («> ```») markdown кодом не считает: он ставит
+    inline-<code>, теряет отступ первой строки и набирает текстовым
+    межстрочником — рамки из ─│┌ разъезжаются и рвутся по вертикали."""
+    blocks = []
+
+    def take(m):
+        quote, body = m.group("q") or "", m.group("body")
+        if quote:  # снимаем «> » с каждой строки, содержимое не трогаем
+            body = "\n".join(re.sub(r"^>[ ]?", "", ln) for ln in body.split("\n"))
+        blocks.append(body.rstrip("\n"))
+        return quote + PRE_TOKEN.format(len(blocks) - 1)
+
+    text = re.sub(
+        r"(?m)^(?P<q>>[ ]?)?```[^\n]*\n(?P<body>.*?)^(?P=q)?```[ \t]*$",
+        take, text, flags=re.S)
+    return text, blocks
+
+
+def restore_pre(body, blocks):
+    for i, code in enumerate(blocks):
+        cls = "boxart" if any(ch in code for ch in BOXART) else ""
+        pre = '<pre{}><code>{}</code></pre>'.format(
+            f' class="{cls}"' if cls else "", html_mod.escape(code))
+        token = PRE_TOKEN.format(i)
+        # markdown завернул одинокий токен в абзац — абзац снимаем
+        body = re.sub(r"<p>\s*" + token + r"\s*</p>", lambda _m: pre, body)
+        body = body.replace(token, pre)
+    return body
+
+
 def wrap_sections(body):
     """Каждую главу/блок (от h1/h2 до следующего) заворачиваем в <section>,
     чтобы она не рвалась посередине, но короткие соседи ложились на один лист."""
@@ -128,10 +174,12 @@ def md_to_pdf_a5(md_path, out_pdf):
     # в исходниках списки часто идут сразу за строкой текста, без пустой строки —
     # markdown их тогда не видит; вставляем пустую строку
     text = re.sub(r"(?m)^(?![-*+] |\d+[.)] |\s*$)(.+)\n(?=(?:[-*+] |\d+[.)] ))", r"\1\n\n", text)
+    text, pre_blocks = extract_pre(text)
     body = markdown.markdown(
         text,
         extensions=["tables", "fenced_code", "sane_lists", "attr_list", "nl2br"],
     )
+    body = restore_pre(body, pre_blocks)
     # таблицы с >14 строк помечаем как «длинные» — им разрешён разрыв
     def mark_long(m):
         html = m.group(0)
@@ -143,6 +191,9 @@ def md_to_pdf_a5(md_path, out_pdf):
     body = re.sub(
         r"(<p>(?:(?!</p>).){0,90}</p>)\s*(<(?:pre|table)\b.*?</(?:pre|table)>)",
         r'<div class="keep">\1\2</div>', body, flags=re.S)
+    # «Типичные ошибки:» и подобные — абзац целиком жирный, ведёт список
+    body = re.sub(r"<p>(<strong>(?:(?!</p>).)*?</strong>)</p>(?=\s*<[ou]l)",
+                  r'<p class="lead">\1</p>', body, flags=re.S)
     body = wrap_sections(body)
 
     html = HTML.format(title=os.path.basename(md_path), css=CSS, body=body + FIT_PRE)
