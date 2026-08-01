@@ -36,4 +36,4 @@
 
 ## Печать
 
-`venv/bin/python3 build_pdf.py school5/<файл>.md` — как для остальных материалов курса.
+`venv/bin/python3 build_pdf.py 26-27/school5/<файл>.md` — как для остальных материалов курса.
