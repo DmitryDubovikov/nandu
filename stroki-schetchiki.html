@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Строки и счётчики</title>
+<style>
+:root{
+  --bg:#FAF9F6; --panel:#FFFFFF; --ink:#23231F; --ink2:#6A695F; --ink3:#9A9890;
+  --line:#DFDDD3; --line2:#C6C4B8;
+  --s0:#D8452F; --s1:#E09112; --s2:#4C8F2A; --s3:#2A6FA8; --s4:#6B57C4;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#17171A; --panel:#202024; --ink:#EDEBE4; --ink2:#A6A49B; --ink3:#77756D;
+        --line:#33333A; --line2:#45454E;
+        --s0:#F0705A; --s1:#EDAE45; --s2:#79BE4F; --s3:#5A9CD6; --s4:#9585E0;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 ui-sans-serif,system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  padding:28px 20px 60px}
+main{max-width:880px;margin:0 auto}
+h1{font-size:23px;font-weight:500;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--ink2);font-size:15px;margin:0 0 22px;max-width:62ch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+label{font-size:13px;color:var(--ink2)}
+select,input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(--panel);
+  border:1px solid var(--line2);border-radius:7px;padding:6px 9px}
+select{min-width:min(380px,100%)}
+input[type=number]{width:64px}
+button{font:inherit;font-size:14px;color:var(--ink);background:transparent;
+  border:1px solid var(--line2);border-radius:7px;padding:6px 13px;cursor:pointer}
+button:hover{background:var(--bg)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--s3);outline-offset:1px}
+#rule{font-size:14px;color:var(--ink2);margin:12px 0 0}
+#verdict{font-size:14px;margin:6px 0 0}
+#state-def{font-size:14px;color:var(--ink2);border-left:2px solid var(--line2);padding-left:12px;margin:0}
+#ans{font-size:15px;margin-left:auto;white-space:nowrap}
+#ans b{font-weight:500}
+svg{display:block;width:100%;height:auto}
+svg text{font:inherit}
+.tier-label{font-size:12px;fill:var(--ink3)}
+.num{font-size:15px}
+.tot{font-size:15px;fill:var(--ink)}
+.totlab{font-size:12px;fill:var(--ink3)}
+.plus{fill:var(--ink3)}
+.eq{fill:var(--ink)}
+path.edge,g.tier,text.num,g.totg{transition:opacity .35s ease}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+footer{color:var(--ink3);font-size:13px;margin-top:24px;max-width:70ch}
+</style>
+</head>
+<body>
+<main>
+<h1>Строки и счётчики</h1>
+<p class="sub">Задачи, где доска заполняется строка за строкой, а условие связывает только соседние строки. Дерево вариантов тут не нужно: достаточно держать по одному числу на каждое положение фигуры в строке.</p>
+
+<div class="panel">
+  <div class="row">
+    <label for="task">Задача</label>
+    <select id="task"></select>
+    <label for="rows">Строк</label>
+    <input id="rows" type="number" min="2" max="6" value="3">
+    <button id="step">Следующая строка</button>
+    <button id="all">Показать всё</button>
+    <button id="reset">Сброс</button>
+    <span id="ans"></span>
+  </div>
+  <p id="rule"></p>
+  <p id="verdict"></p>
+</div>
+
+<div class="panel">
+  <svg id="sv" role="img" aria-labelledby="svt"><title id="svt">Ярусы строк с числами способов и итогом по каждой строке</title></svg>
+</div>
+
+<p id="state-def">Число под картинкой — сколько есть способов заполнить все строки сверху до этой включительно, если в этой строке фигура стоит именно так. Каждое такое число равно сумме чисел тех положений строки выше, откуда сюда ведёт стрелка. Итог справа — ответ на задачу для доски из этого числа строк.</p>
+
+<footer>Метод работает, пока условие связывает только две соседние строки. Если условие смотрит через строку, считает клетки по всей доске или требует чего-то от доски целиком — состояние нужно расширять, и таблица становится больше.</footer>
+</main>
+
+<script>
+const PAL=['--s0','--s1','--s2','--s3','--s4'];
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(PAL[n%5]).trim();
+const L='ABCDE';
+const singles=n=>[...Array(n)].map((_,i)=>({label:String(i+1),cells:[i]}));
+const dominoes=n=>[...Array(n-1)].map((_,i)=>({label:L[i],cells:[i,i+1]}));
+const ringDom=n=>[...Array(n)].map((_,i)=>({label:L[i],cells:[i,(i+1)%n]}));
+const inter=(a,b)=>a.cells.some(c=>b.cells.includes(c));
+const ringFar=n=>(a,b)=>{const d=Math.abs(a.cells[0]-b.cells[0]);return Math.min(d,n-d)>=2;};
+
+const TASKS=[
+ {n:'3 столбца, одна клетка в строке, соседние строки в разных столбцах',
+  cells:3,states:singles(3),ok:(a,b)=>!inter(a,b),
+  rule:'Закрашенные клетки соседних строк не стоят в одном столбце.'},
+ {n:'4 клетки, фишка 1×2, соседние строки пересекаются',
+  cells:4,states:dominoes(4),ok:inter,
+  rule:'Фишки соседних строк накрывают хотя бы один общий столбец.'},
+ {n:'4 клетки, фишка 1×2, соседние строки не пересекаются',
+  cells:4,states:dominoes(4),ok:(a,b)=>!inter(a,b),
+  rule:'Фишки соседних строк не имеют ни одного общего столбца.'},
+ {n:'4 столбца, одна клетка в строке, соседние строки в разных столбцах',
+  cells:4,states:singles(4),ok:(a,b)=>!inter(a,b),
+  rule:'Закрашенные клетки соседних строк не стоят в одном столбце.'},
+ {n:'4 столбца, одна клетка в строке, столбцы отличаются хотя бы на 2',
+  cells:4,states:singles(4),ok:(a,b)=>Math.abs(a.cells[0]-b.cells[0])>=2,
+  rule:'Между закрашенными клетками соседних строк есть хотя бы один пустой столбец.'},
+ {n:'5 клеток, фишка 1×2, соседние строки пересекаются',
+  cells:5,states:dominoes(5),ok:inter,
+  rule:'Фишки соседних строк накрывают хотя бы один общий столбец.'},
+ {n:'Кольцо из 4 клеток, фишка 1×2, соседние строки пересекаются',
+  cells:4,states:ringDom(4),ok:inter,ring:1,
+  rule:'Клетки замкнуты в кольцо: 4-я соседствует с 1-й. Фишки соседних строк накрывают общий столбец.'},
+ {n:'Кольцо из 5 столбцов, одна клетка, столбцы не соседние по кольцу',
+  cells:5,states:singles(5),ok:ringFar(5),ring:1,
+  rule:'Столбцы замкнуты в кольцо: 5-й соседствует с 1-м. Клетки соседних строк не в одном и не в соседних столбцах.'}
+];
+
+const $=id=>document.getElementById(id);
+const sel=$('task');
+TASKS.forEach((t,i)=>{const o=document.createElement('option');o.value=i;o.textContent=t.n;sel.appendChild(o);});
+sel.value=1;
+let shown=1;
+
+function values(T,rows){
+ const S=T.states.length,V=[new Array(S).fill(1)];
+ for(let r=1;r<rows;r++){const p=V[r-1],c=new Array(S).fill(0);
+  for(let j=0;j<S;j++)for(let i=0;i<S;i++)if(T.ok(T.states[i],T.states[j]))c[j]+=p[i];
+  V.push(c);}
+ return V;
+}
+
+function draw(){
+ const T=TASKS[+sel.value],rows=Math.max(2,Math.min(6,+$('rows').value||3));
+ const S=T.states.length,V=values(T,rows);
+ const W=680,CW=T.cells<=4?20:17,SW=T.cells*CW;
+ const xc=i=>40+(i+.5)*((W-190)/S);
+ const TY=t=>54+t*132,H=54+(rows-1)*132+66;
+ const TX=W-118;
+ const p=[];
+ p.push('<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>');
+
+ for(let t=0;t+1<rows;t++)for(let i=0;i<S;i++)for(let j=0;j<S;j++){
+  if(!T.ok(T.states[i],T.states[j]))continue;
+  const x1=xc(i),x2=xc(j),y1=TY(t)+46,y2=TY(t+1)-8;
+  p.push('<path class="edge" d="M'+x1+' '+y1+' C'+x1+' '+(y1+38)+','+x2+' '+(y2-38)+','+x2+' '+y2+'" fill="none" stroke="'+cv(i)+'" stroke-width="1.8" opacity="'+(shown>t+1?1:0)+'" marker-end="url(#ah)"/>');
+ }
+
+ for(let i=0;i<S;i++)
+  p.push('<text x="'+xc(i)+'" y="34" text-anchor="middle" font-size="13" fill="'+cv(i)+'">'+T.states[i].label+'</text>');
+
+ for(let t=0;t<rows;t++){
+  const vis=t<shown;
+  p.push('<g class="tier" opacity="'+(vis?1:0)+'"><text class="tier-label" x="2" y="'+(TY(t)+14)+'">строка '+(t+1)+'</text>');
+  for(let i=0;i<S;i++){
+   const x0=xc(i)-SW/2,st=T.states[i];
+   for(let c=0;c<T.cells;c++){
+    const on=st.cells.includes(c);
+    p.push('<rect x="'+(x0+c*CW)+'" y="'+TY(t)+'" width="'+CW+'" height="'+CW+'" rx="2" fill="'+(on?cv(i):'var(--panel)')+'" stroke="'+(on?cv(i):'var(--line2)')+'" stroke-width="1"/>');
+   }
+   const mn=Math.min(...st.cells),mx=Math.max(...st.cells);
+   if(mx-mn>1){const a=x0+mn*CW+CW/2,b=x0+mx*CW+CW/2,y=TY(t)+CW;
+    p.push('<path d="M'+a+' '+y+' C'+a+' '+(y+12)+','+b+' '+(y+12)+','+b+' '+y+'" fill="none" stroke="'+cv(i)+'" stroke-width="1" stroke-dasharray="3 3"/>');}
+  }
+  p.push('</g>');
+  for(let i=0;i<S;i++){
+   let txt;
+   if(t===0)txt='<tspan fill="'+cv(i)+'">1</tspan>';
+   else{
+    const src=[];for(let k=0;k<S;k++)if(T.ok(T.states[k],T.states[i]))src.push(k);
+    txt=src.length?src.map(k=>'<tspan fill="'+cv(k)+'">'+V[t-1][k]+'</tspan>').join('<tspan class="plus"> + </tspan>')+'<tspan class="eq"> = '+V[t][i]+'</tspan>'
+                  :'<tspan class="eq">0</tspan>';
+   }
+   p.push('<text class="num" x="'+xc(i)+'" y="'+(TY(t)+CW+24)+'" text-anchor="middle" opacity="'+(vis?1:0)+'">'+txt+'</text>');
+  }
+  const sum=V[t].reduce((a,b)=>a+b,0);
+  p.push('<g class="totg" opacity="'+(vis?1:0)+'"><line x1="'+(TX-14)+'" y1="'+(TY(t)-4)+'" x2="'+(TX-14)+'" y2="'+(TY(t)+CW+10)+'" stroke="var(--line2)" stroke-width="1"/>'+
+    '<text class="totlab" x="'+TX+'" y="'+(TY(t)+2)+'">ответ для '+(t+1)+' строк</text>'+
+    '<text class="tot" x="'+TX+'" y="'+(TY(t)+24)+'">'+sum+'</text></g>');
+ }
+
+ const sv=$('sv');
+ sv.setAttribute('viewBox','0 0 '+W+' '+H);
+ sv.innerHTML=sv.querySelector('title').outerHTML+p.join('');
+
+ const deg=T.states.map((_,i)=>T.states.filter((_,j)=>T.ok(T.states[i],T.states[j])).length);
+ const even=new Set(deg).size===1;
+ $('rule').textContent=T.rule+' Положений в строке: '+S+'.';
+ $('verdict').innerHTML=even
+  ? 'Из каждого положения ровно '+deg[0]+' продолжени'+(deg[0]==1?'е':deg[0]<5?'я':'й')+'. Множитель общий, поэтому итог каждой строки ровно в '+deg[0]+' раз(а) больше предыдущего — числа справа растут одинаково.'
+  : 'Число продолжений разное: '+deg.join(', ')+'. Общего множителя нет, итог справа растёт неровно — поэтому одного числа мало и приходится хранить все.';
+ $('verdict').style.color=even?'var(--s2)':'var(--s0)';
+ const total=V[shown-1].reduce((a,b)=>a+b,0);
+ $('ans').innerHTML=shown<rows?('после '+shown+' строк: <b>'+total+'</b>'):('ответ: <b>'+total+'</b>');
+}
+
+$('step').onclick=()=>{const r=+$('rows').value;if(shown<r){shown++;draw();}};
+$('all').onclick=()=>{shown=+$('rows').value;draw();};
+$('reset').onclick=()=>{shown=1;draw();};
+sel.onchange=()=>{shown=1;draw();};
+$('rows').oninput=()=>{shown=1;draw();};
+matchMedia('(prefers-color-scheme:dark)').addEventListener('change',draw);
+draw();
+</script>
+</body>
+</html>
