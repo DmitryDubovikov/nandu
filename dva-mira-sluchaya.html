@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Два мира случая</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --bg2:#131923;
+    --ink:#e8eef6;
+    --muted:#93a1b1;
+    --dim:#5d6b7c;
+    --blue:#5ba8f5;
+    --gold:#f0a83c;
+    --green:#5fd38d;
+    --red:#f2686c;
+    --violet:#b98cf0;
+    --line:#243040;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ——— прогресс и навигация ——— */
+  #bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--blue),var(--gold));z-index:50;transition:width .12s linear}
+  #dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:9px}
+  #dots button{
+    width:8px;height:8px;padding:0;border:0;border-radius:50%;
+    background:#2b3746;cursor:pointer;transition:background .25s, transform .25s;
+  }
+  #dots button:hover{background:#4a5a6c}
+  #dots button.on{background:var(--ink);transform:scale(1.45)}
+  @media (max-width:760px){#dots{display:none}}
+
+  /* ——— сцены ——— */
+  section{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:8vh 20px;position:relative;
+  }
+  .wrap{width:100%;max-width:940px}
+  .wrap > *{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+  section.in .wrap > *{opacity:1;transform:none}
+  section.in .wrap > *:nth-child(2){transition-delay:.08s}
+  section.in .wrap > *:nth-child(3){transition-delay:.16s}
+  section.in .wrap > *:nth-child(4){transition-delay:.24s}
+  section.in .wrap > *:nth-child(5){transition-delay:.32s}
+
+  .kicker{
+    font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 14px;
+  }
+  h1{font-size:clamp(38px,7vw,68px);line-height:1.03;margin:0 0 22px;font-weight:400;letter-spacing:-.02em}
+  h2{font-size:clamp(26px,4.2vw,40px);line-height:1.12;margin:0 0 20px;font-weight:400;letter-spacing:-.01em}
+  p{font-size:clamp(17px,2vw,20.5px);line-height:1.62;color:#cfdae6;margin:0 0 16px;max-width:47em}
+  p.after{color:var(--muted);font-size:clamp(16px,1.8vw,18.5px)}
+  .lead{font-size:clamp(19px,2.3vw,23px);color:#dae4ef}
+  em{color:var(--ink);font-style:italic}
+  b{font-weight:600;color:#fff}
+  .fine{font-size:15px;color:var(--dim);line-height:1.5}
+  .stage{width:100%;height:clamp(250px,44vh,420px);margin:22px 0 20px;position:relative}
+  canvas{width:100%;height:100%;display:block;border-radius:10px;background:var(--bg2)}
+  .again{
+    font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-size:13.5px;color:var(--muted);background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer;
+    transition:color .2s,border-color .2s;margin:0 0 18px;
+  }
+  .again:hover{color:var(--ink);border-color:#3d4c5e}
+  .actbar{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .tag{
+    font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  }
+  .rule{height:1px;background:var(--line);border:0;margin:34px 0 30px;max-width:47em}
+  ul.take{list-style:none;padding:0;margin:0;max-width:47em}
+  ul.take li{
+    font-size:clamp(17px,2vw,20px);line-height:1.55;color:#cfdae6;
+    padding:14px 0 14px 22px;border-top:1px solid var(--line);position:relative;
+  }
+  ul.take li:before{content:"—";position:absolute;left:0;color:var(--dim)}
+  .scrollhint{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+    font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim);animation:bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translate(-50%,0);opacity:.55}50%{transform:translate(-50%,7px);opacity:1}}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<nav id="dots"></nav>
+
+<!-- 0 ——————————————————————————————— -->
+<section id="s0" data-title="Крючок">
+  <div class="wrap">
+    <p class="kicker">Удивительное открытие про наш мир</p>
+    <h1>Два мира случая</h1>
+    <div class="stage"><canvas id="cv-s0"></canvas></div>
+    <p class="lead">Слева — человек вдвое выше среднего. Таких не было <em>никогда</em>: ни одного за всю историю людей. Справа — человек, у которого в десять тысяч раз больше подписчиков, чем у соседа. Таких ты знаешь по именам.</p>
+    <p>И там и там — просто числа: сантиметры, подписчики. Почему «в 2 раза больше» невозможно, а «в 10 000 раз больше» никого не удивляет?</p>
+  </div>
+  <div class="scrollhint">листай вниз</div>
+</section>
+
+<!-- 1 ——————————————————————————————— -->
+<section id="s1" data-title="Нормальное распределение">
+  <div class="wrap">
+    <p class="kicker">Акт I · Мир, где все рядом</p>
+    <h2>Нормальное распределение</h2>
+    <p>Чтобы ответить на этот вопрос, придётся признать неприятную вещь: случайность бывает устроена по-разному. Дальше слово «мир» будет значить именно это — не планету, а способ, каким в чём-то устроена случайность. Начнём с того мира, который устроен привычно.</p>
+    <p>Когда результат складывается из множества мелких независимых причин — сотни генов, тысячи обедов, случайные болезни в детстве, — получается вот такая форма. Её называют <b>нормальным распределением</b>, или просто колоколом.</p>
+    <p>Внизу — доска с гвоздиками. Шарик падает сверху и на каждом гвоздике отскакивает влево или вправо, как повезёт: никто им не управляет. В самом низу он попадает в один из столбиков — и чем выше столбик, тем больше шариков туда упало.</p>
+    <div class="stage"><canvas id="cv-s1"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s1">ещё раз</button><span class="tag">каждый шарик отскакивает наугад</span></div>
+    <p class="after">Каждый шарик идёт своей случайной дорогой — а вместе они каждый раз рисуют одну и ту же гору: почти все оказываются у середины, и чем дальше от середины, тем их меньше. Середину такой горы называют <b>средним</b>: это самый обычный, самый частый размер.</p>
+  </div>
+</section>
+
+<!-- 2 ——————————————————————————————— -->
+<section id="s2" data-title="Хвост колокола">
+  <div class="wrap">
+    <p class="kicker">Акт I</p>
+    <h2>Как быстро гаснет хвост колокола</h2>
+    <p>Шарики были моделью. Заменим их на людей: каждый гвоздик — одна мелкая причина, а столбик внизу — сколько людей получилось такого роста. Рост людей ложится в тот же самый колокол, и середина у него — 170 см.</p>
+    <p>У этой горы есть правый край — люди заметно выше среднего. Такой край называют <b>хвостом</b>: там редкие случаи, и чем дальше, тем их меньше. Главный вопрос про любой хвост — как быстро «редко» превращается в «никогда». Пойдём вправо шагами по 7 сантиметров и на каждом шаге посмотрим, на скольких человек приходится один такой.</p>
+    <div class="stage"><canvas id="cv-s2"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s2">ещё раз</button></div>
+    <p class="after">Каждый шаг вправо стоит не «немного дороже» предыдущего, а во много раз дороже. Людей на Земле восемь миллиардов, а всех людей за всю историю — около ста миллиардов. Отсюда и видно, где хвост кончается: людей выше двух метров в мире много, выше 220 см — уже единицы на всю страну, а трёхметровых не было и не будет никогда.</p>
+    <p class="fine">Честная оговорка: настоящий рост — не идеальный колокол. У самого края реальных людей заметно больше, чем обещает эта модель: самый высокий человек в истории был 272 см, а модель считает такой рост невозможным. Так что лестница верно показывает, <em>как стремительно</em> гаснет хвост, но у самого его конца ей верить нельзя. Модель — это модель.</p>
+  </div>
+</section>
+
+<!-- 3 ——————————————————————————————— -->
+<section id="s3" data-title="Степенное распределение">
+  <div class="wrap">
+    <p class="kicker">Акт II · Мир, где кто-то улетает</p>
+    <h2>Степенное распределение</h2>
+    <p>Теперь другой мир. Возьмём 64 человека и измерим у каждого не рост, а число подписчиков. Каждому нарисуем свою полоску: её высота — сколько подписчиков у этого человека.</p>
+    <p>Слева наверху золотым написано, какому числу подписчиков отвечает самый верх картинки. Это число всё время растёт само: как только появляется кто-то крупнее всех прежних, картинку приходится ужимать, иначе его полоска не помещается.</p>
+    <div class="stage"><canvas id="cv-s3"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s3">ещё раз</button><span class="tag">картинка ужимается сама</span></div>
+    <p class="after">Сначала люди стоят вперемешку и формы не видно. Поэтому мы выстраиваем их по убыванию — и форма появляется: обрыв слева, потом длинный низкий хвост вправо. Такую форму называют <b>степенным распределением</b>.</p>
+    <p class="after">Наверху, в отдельной полоске со своей шкалой в сантиметрах, — рост тех же самых 64 человек, выстроенный точно так же. Линия почти ровная: самый высокий выше самого низкого примерно в 1,2 раза. Вот она, разница двух миров — не в числах, а в форме.</p>
+  </div>
+</section>
+
+<!-- 4 ——————————————————————————————— -->
+<section id="s4" data-title="Оба хвоста">
+  <div class="wrap">
+    <p class="kicker">Акт II</p>
+    <h2>Оба хвоста на одной оси</h2>
+    <p>Теперь сравним их честно. Возьмём по три тысячи человек из каждого мира и разложим всех вдоль одной оси: чем правее точка, тем больше у человека — во сколько раз больше среднего. Каждая точка — один человек; по высоте внутри дорожки они раскиданы просто чтобы не слипаться, никакого смысла в этом нет.</p>
+    <p>Метка поедет вправо и на каждой остановке пересчитает, сколько точек осталось <em>правее</em> неё.</p>
+    <div class="stage"><canvas id="cv-s4"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s4">ещё раз</button><span class="tag">по 3000 человек в каждой дорожке</span></div>
+    <p class="after">Верхняя дорожка обрывается почти сразу: за отметкой «вдвое больше среднего» не остаётся никого. Нижняя тянется через весь экран, и кто-нибудь всегда обнаруживается даже там, куда колокол не дотягивается вовсе. В среднем на каждую тысячу человек степенного мира приходится один, у кого в десять раз больше среднего.</p>
+  </div>
+</section>
+
+<!-- 5 ——————————————————————————————— -->
+<section id="s5" data-title="Граница реальности">
+  <div class="wrap">
+    <p class="kicker">Акт II</p>
+    <h2>Где «редко» превращается в «не бывает»</h2>
+    <p>Тут нужна честность, иначе мы соврём. В математике оба хвоста бесконечны: вероятность — то есть насколько часто такое случается — нигде не становится ровно нулём, и человек трёх метров ростом формально не запрещён.</p>
+    <p>Но живём мы не в математике, а людей конечное число. Как только толпа, в которой такой человек встретился бы, оказывается больше, чем все люди, когда-либо жившие на Земле, «очень редко» превращается в «не бывает». Посмотрим, где эта граница проходит для двух наших миров.</p>
+    <div class="stage"><canvas id="cv-s5"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s5">ещё раз</button><span class="tag">каждая ступенька — толпа во много раз больше предыдущей</span></div>
+    <p class="after">Колокол упирается в границу почти сразу: «вдвое больше среднего» ещё найдётся в большом городе, а «втрое больше» — уже нигде, столько людей никогда не жило. Степенной мир на всём пути, который мы прошли, до границы не доходит: даже «в сто раз больше среднего» — это один человек на триста с лишним тысяч, то есть несколько таких на средний город.</p>
+    <p class="after">Вот что на самом деле значит «хвост длиннее». Не бесконечность — до неё нам нет дела. А то, докуда хвост дотягивается в настоящем мире.</p>
+  </div>
+</section>
+
+<!-- 5b ——————————————————————————————— -->
+<section id="s5b" data-title="Другая линейка">
+  <div class="wrap">
+    <p class="kicker">Акт II · как это увидеть</p>
+    <h2>Другая линейка</h2>
+    <p>Мы уже умеем различать два мира по тому, докуда дотягивается хвост. Но есть способ куда быстрее: у степенного мира есть примета, по которой его узнают с одного взгляда. Чтобы её увидеть, надо поменять ось — и это честное математическое действие, а не фокус.</p>
+    <p>Обычно засечки на оси стоят через равные прибавления: 0, 250, 500, 750. Тогда всё маленькое слипается в кучу у левого края. А можно расставить их через равные умножения: 1, 10, 100, 1000. Сами числа при этом никуда не деваются — меняется только линейка, по которой мы их раскладываем.</p>
+    <div class="stage"><canvas id="cv-s5b"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s5b">ещё раз</button></div>
+    <p class="after">Следи за золотыми точками: это одни и те же числа до и после. На обычной оси 2 и 20 стоят почти в одном месте, а на новой разъезжаются на треть экрана. Такую линейку называют <b>логарифмической</b>.</p>
+  </div>
+</section>
+
+<!-- 6 ——————————————————————————————— -->
+<section id="s6" data-title="Примета">
+  <div class="wrap">
+    <p class="kicker">Акт II · примета</p>
+    <h2>Прямая линия</h2>
+    <p>Теперь возьмём эту линейку и приложим её сразу к обеим осям: и к «во сколько раз больше среднего», и к «как часто такое встречается». Со степенным распределением при этом происходит удивительное: кривая выпрямляется в <em>прямую линию</em>. Ровную.</p>
+    <div class="stage"><canvas id="cv-s6"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s6">другая линейка / обычная</button></div>
+    <p class="after">Это и есть примета. Если точки на такой оси легли на прямую — перед тобой степенной мир, даже если ты про него больше ничего не знаешь. Колокол на той же оси падает обрывом. Именно так учёные и проверяют, с каким из двух миров имеют дело.</p>
+  </div>
+</section>
+
+<!-- 7 ——————————————————————————————— -->
+<section id="s7" data-title="Ловушка">
+  <div class="wrap">
+    <p class="kicker">Акт III · Ловушка</p>
+    <h2>Соблазнительная история</h2>
+    <p>Мы научились различать два мира. Дальше — то, ради чего всё затевалось: что этот хвост значит для тебя лично. И тут начинается самое опасное место урока, потому что напрашивается очень красивый вывод.</p>
+    <p>Звучит он так. В степенном мире есть толпа у основания — и есть хвост, те самые люди, у которых в сто раз больше остальных: подписчиков, денег, побед. Раз так, значит, толпа ленится, а в хвост попадают те, кто старается. Просто старайся — и окажешься там.</p>
+    <div class="stage"><canvas id="cv-s7"></canvas></div>
+    <p class="after">Звучит отлично. Прежде чем поверить, зададим один вопрос — он и окажется главным вопросом урока: <em>откуда в мире вообще берутся такие люди?</em> Почему у степенного распределения хвост есть, а у колокола его, считай, нет?</p>
+  </div>
+</section>
+
+<!-- 8 ——————————————————————————————— -->
+<section id="s8" data-title="Эффект Матфея">
+  <div class="wrap">
+    <p class="kicker">Акт III</p>
+    <h2>Эффект Матфея</h2>
+    <p>Первый ответ — и он неожиданный: хвост умеет вырастать сам, безо всякого старания. У этого механизма есть имя — <b>эффект Матфея</b>, по строчке из Евангелия «всякому имеющему дастся». Учёные назвали так простое правило: у кого уже есть, тому легче получить ещё.</p>
+    <p>Проверим его на игре. Двадцать игроков, у каждого одна монета; один из них отмечен фиолетовым — пусть это будешь ты. Каждый ход одна новая монета достаётся кому-то одному, и шанс получить её тем больше, чем больше монет у тебя уже есть. Никто не умнее, никто не старается больше — правила буквально одинаковые для всех.</p>
+    <div class="stage"><canvas id="cv-s8"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s8">ещё раз</button><span class="tag">запусти несколько раз — победитель меняется</span></div>
+    <p class="after">Хвост вырос из ничего: из того, кому случайно повезло в первые несколько ходов. Так растут подписчики, деньги, репутация, ссылки на сайт — везде, где новое достаётся тем, у кого уже что-то есть.</p>
+  </div>
+</section>
+
+<!-- 9 ——————————————————————————————— -->
+<section id="s9" data-title="Кто раньше">
+  <div class="wrap">
+    <p class="kicker">Акт III</p>
+    <h2>Кто подключился раньше</h2>
+    <p>Второй ответ — сети. Сеть — это точки, соединённые связями: города и дороги, люди и знакомства, сайты и ссылки. Точку в сети называют <b>узлом</b>.</p>
+    <p>Растёт сеть так: приходит новый узел и цепляется к тому, у кого уже много связей, — к большому городу ведёт больше дорог, на известный сайт ставят больше ссылок. На рисунке ранние узлы оказываются в середине и нарисованы жёлтым, поздние — по краю и синие, а размер точки показывает, сколько у неё связей.</p>
+    <div class="stage"><canvas id="cv-s9"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s9">ещё раз</button></div>
+    <p class="after">Обведены две группы: первые двенадцать узлов, пришедшие в сеть, и последние двенадцать. Они устроены совершенно одинаково — вся разница в том, что первые уже были на месте, когда подключались остальные. Посмотри внизу на среднее число связей: у ранних их в несколько раз больше. Отдельному узлу может не повезти, но в среднем ранний обгоняет позднего просто за счёт момента прихода.</p>
+  </div>
+</section>
+
+<!-- 10 ——————————————————————————————— -->
+<section id="s10" data-title="Параллельные миры">
+  <div class="wrap">
+    <p class="kicker">Акт III</p>
+    <h2>Четыреста параллельных миров</h2>
+    <p>Механизм понятен. Но остаётся честный вопрос: а если всё-таки стараться — насколько это помогает? Это можно проверить прямо.</p>
+    <p>Дадим тебе в этой игре настоящее преимущество: ты стараешься, и тебя замечают заметно чаще остальных. А потом прогоним ту же игру с самого начала четыреста раз. Каждый квадратик — отдельный прогон, отдельный «параллельный мир»: тот же ты, то же старание, другие случайности в первых ходах. Чем ярче квадратик, тем больше монет тебе досталось в том мире.</p>
+    <div class="stage"><canvas id="cv-s10"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s10">ещё раз</button><span class="tag">каждый квадратик — отдельный мир</span></div>
+    <p class="after">Справа то же самое посчитано ещё раз для миров, где ты не стараешься. Старание работает по-настоящему: самым крупным ты выходишь примерно вчетверо чаще, чем без него. И при этом в четырёх мирах из десяти — с тем же самым старанием — тебе достаётся меньше, чем если бы двадцать игроков просто поделили монеты поровну. Вот честный ответ: старание <b>необходимо и недостаточно</b>.</p>
+  </div>
+</section>
+
+<!-- 11 ——————————————————————————————— -->
+<section id="s11" data-title="Кривая сдвигается">
+  <div class="wrap">
+    <p class="kicker">Акт IV · Что на самом деле в твоих руках</p>
+    <h2>Старание двигает всю кривую</h2>
+    <p>Значит ли это, что стараться бессмысленно? Нет. Просто работа делает не то, что ей приписывают.</p>
+    <p>На картинке — все исходы, которые с тобой могут случиться. По горизонтали: насколько хорошо получилось — скажем, скольким людям пригодилось то, что ты сделал. По вертикали: как часто выпадает именно такой исход. Работа не покупает билет в хвост — таких билетов не продают. Она берёт всю кривую целиком и двигает её вправо: обычный день становится чуть лучше, а редкий отличный исход — заметно чаще.</p>
+    <div class="stage"><canvas id="cv-s11"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s11">ещё раз</button></div>
+    <p class="after">И ещё одно, чего на графике не видно. Шанс приходит ко многим и почти всегда неожиданно. Разница между людьми чаще не в том, пришёл ли шанс, а в том, было ли чем его удержать.</p>
+  </div>
+</section>
+
+<!-- 12 ——————————————————————————————— -->
+<section id="s12" data-title="Складывается само">
+  <div class="wrap">
+    <p class="kicker">Акт IV</p>
+    <h2>Единственное «богатый богатеет», которое запускаешь ты сам</h2>
+    <p>И последний поворот. Вспомни механизм из третьего акта: у кого уже есть, тому легче получить ещё. С деньгами и подписчиками ты им не управляешь — там решают чужие случайности. А с тем, что ты умеешь, управляешь полностью: каждое новое понятое цепляется за уже понятое, и дальше идёт быстрее.</p>
+    <p>На картинке две линии, и обе прибавляют каждый день одинаково маленький шажок — один процент. Только серая считает этот процент от того, с чего начали, а зелёная — от того, что уже накопилось.</p>
+    <div class="stage"><canvas id="cv-s12"></canvas></div>
+    <div class="actbar"><button class="again" data-again="s12">ещё раз</button></div>
+    <p class="after">Это не обещание успеха. Это просто арифметика: то, что растёт от самого себя, ведёт себя совсем не так, как то, что прибавляется по кусочку.</p>
+  </div>
+</section>
+
+<!-- 13 ——————————————————————————————— -->
+<section id="s13" data-title="Что унести">
+  <div class="wrap">
+    <p class="kicker">Итог</p>
+    <h2>Что стоит унести</h2>
+    <ul class="take">
+      <li>Мир бывает двух устройств: где все рядом (колокол) и где кто-то улетает (степенное). Отличить их можно по форме, если выстроить всех по убыванию, и совсем надёжно — по прямой линии на логарифмической линейке.</li>
+      <li>«Хвост длиннее» значит не «бесконечный», а «дотягивается до чисел, которые в жизни правда встречаются». У колокола хвост кончается почти сразу; у степенного он дотягивается так далеко, что до конца мы в своей жизни не доходим.</li>
+      <li>Хвост — не награда за старание. Он часто вырастает сам: из «у кого есть — тому дают ещё», из сетей и из того, кто когда пришёл.</li>
+      <li>Старание не покупает хвост. Оно двигает вправо всю твою кривую и делает тебя тем, кто сможет поймать шанс, если тот появится.</li>
+    </ul>
+    <hr class="rule">
+    <p class="fine">Дальше можно проверить самому: возьми любые числа из жизни — сколько очков набирают игроки твоей команды, сколько просмотров у роликов канала, сколько людей в городах твоей страны — выстрой по убыванию и посмотри, колокол это или степенное.</p>
+  </div>
+</section>
+
+<script>
+"use strict";
+/* ============================================================
+   Мини-каркас сцен: одна rAF-петля, рисует только активную сцену.
+   ============================================================ */
+const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SPEED = REDUCED ? 6 : 1;
+
+const C = {
+  ink:'#e8eef6', muted:'#93a1b1', dim:'#5d6b7c', line:'#243040',
+  blue:'#5ba8f5', gold:'#f0a83c', green:'#5fd38d', red:'#f2686c', violet:'#b98cf0',
+  bg:'#131923'
+};
+const SANS = 'ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif';
+
+const SUPD = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+function sup(n){ return String(n).split('').map(d => SUPD[+d] || d).join(''); }
+function fmt(n){ return Math.round(n).toLocaleString('ru-RU').replace(/,/g,' '); }
+function lerp(a,b,t){ return a + (b-a)*t; }
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function easeOut(t){ return 1 - Math.pow(1-t, 3); }
+function easeInOut(t){ return t<0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+function gauss(){ let u=0,v=0; while(!u)u=Math.random(); while(!v)v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function pareto(a, xmin){ return xmin*Math.pow(Math.random(), -1/a); }
+
+function T(ctx, txt, x, y, o){
+  o = o || {};
+  ctx.save();
+  ctx.font = (o.weight||'400') + ' ' + (o.size||13) + 'px ' + (o.family||SANS);
+  ctx.fillStyle = o.color || C.muted;
+  ctx.textAlign = o.align || 'left';
+  ctx.textBaseline = o.base || 'alphabetic';
+  if(o.alpha != null) ctx.globalAlpha = o.alpha;
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function line(ctx, x1,y1,x2,y2, color, w, dash){
+  ctx.save(); ctx.strokeStyle=color; ctx.lineWidth=w||1;
+  if(dash) ctx.setLineDash(dash);
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.restore();
+}
+function rrect(ctx,x,y,w,h,r){
+  r = Math.min(r, w/2, h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+
+const SCENES = {};
+function defineScene(id, def){ SCENES[id] = { def:def, cv:document.getElementById('cv-'+id), ctx:null, st:null }; }
+
+function fit(s){
+  const cv = s.cv;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = cv.clientWidth, h = cv.clientHeight;
+  cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  s.ctx = cv.getContext('2d');
+  s.ctx.setTransform(dpr,0,0,dpr,0,0);
+  s.W = w; s.H = h;
+}
+function initScene(s){
+  fit(s);
+  s.st = { t:0 };
+  if(s.def.init) s.def.init(s.st, s.W, s.H);
+}
+
+let activeId = null;
+function activate(id){
+  if(!SCENES[id]) return;
+  if(activeId === id) return;
+  activeId = id;
+  initScene(SCENES[id]);
+}
+
+let last = 0;
+function loop(ts){
+  if(!last) last = ts;
+  const dt = clamp((ts-last)/1000, 0, 0.05) * SPEED;
+  last = ts;
+  const s = SCENES[activeId];
+  if(s && s.ctx){
+    s.st.t += dt;
+    s.ctx.clearRect(0,0,s.W,s.H);
+    s.ctx.fillStyle = C.bg; s.ctx.fillRect(0,0,s.W,s.H);
+    s.def.draw(s.ctx, s.W, s.H, s.st, dt);
+    // досмотрел до конца — держим последний кадр 8 секунд и запускаем заново
+    if(s.def.isDone && s.def.isDone(s.st)){
+      s.st.hold = (s.st.hold || 0) + dt;
+      if(s.st.hold > 8) initScene(s);
+    }
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ============================================================
+   Сцена 0 — крючок
+   ============================================================ */
+function person(ctx, x, gy, h, color, ghost){
+  if(!(h > 2)) return;            // нулевая/отрицательная высота — рисовать нечего
+  const hr = h*0.105;
+  ctx.save();
+  if(ghost){ ctx.strokeStyle = color; ctx.lineWidth = 1.6; ctx.setLineDash([5,5]); }
+  else ctx.fillStyle = color;
+  // голова
+  ctx.beginPath(); ctx.arc(x, gy - h + hr, hr, 0, 7); ghost ? ctx.stroke() : ctx.fill();
+  // тело
+  const bw = h*0.17, bt = gy - h + hr*2.3, bh = h*0.44;
+  ctx.beginPath(); rrect(ctx, x-bw/2, bt, bw, bh, bw*0.4); ghost ? ctx.stroke() : ctx.fill();
+  // ноги
+  const lw = h*0.055;
+  ctx.beginPath(); rrect(ctx, x-bw*0.42, bt+bh-lw, lw, gy-(bt+bh)+lw, lw/2); ghost?ctx.stroke():ctx.fill();
+  ctx.beginPath(); rrect(ctx, x+bw*0.42-lw, bt+bh-lw, lw, gy-(bt+bh)+lw, lw/2); ghost?ctx.stroke():ctx.fill();
+  ctx.restore();
+}
+
+defineScene('s0', {
+  init(st){ st.p = 0; },
+  isDone(st){ return st.p >= 1; },
+  draw(ctx, W, H, st, dt){
+    st.p = Math.min(1, st.p + dt*0.5);
+    const e = easeOut(st.p);
+    const mid = W/2, gy = H - 46;
+    line(ctx, mid, 22, mid, H-22, C.line, 1);
+
+    // ——— левая половина: рост ———
+    const cx = mid*0.5;
+    line(ctx, 26, gy, mid-26, gy, C.line, 1);
+    const h1 = Math.min((H-110), 118);
+    person(ctx, cx-46, gy, h1, '#6d7f92', false);
+    T(ctx, '170 см', cx-46, gy+20, {size:12, color:C.dim, align:'center'});
+
+    const h2full = h1*2;
+    const h2 = h2full*e;
+    person(ctx, cx+46, gy, h2, C.red, true);
+    if(st.p > .55){
+      const a = (st.p-.55)/.45;
+      T(ctx, '340 см', cx+46, gy+20, {size:12, color:C.red, align:'center', alpha:a});
+      // крест
+      ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = C.red; ctx.lineWidth = 3;
+      const kx = cx+46, ky = gy - h2full*0.55, r = 15;
+      ctx.beginPath(); ctx.moveTo(kx-r,ky-r); ctx.lineTo(kx+r,ky+r);
+      ctx.moveTo(kx+r,ky-r); ctx.lineTo(kx-r,ky+r); ctx.stroke(); ctx.restore();
+    }
+    T(ctx, 'такого человека не было никогда', cx, gy+40, {size:12, color:C.dim, align:'center'});
+
+    // ——— правая половина: подписчики ———
+    const rx = mid + mid*0.5;
+    line(ctx, mid+26, gy, W-26, gy, C.line, 1);
+    const bw = 34;
+    // маленький
+    ctx.fillStyle = '#6d7f92';
+    ctx.beginPath(); rrect(ctx, rx-72-bw/2, gy-14, bw, 14, 3); ctx.fill();
+    T(ctx, '1 000', rx-72, gy+20, {size:12, color:C.dim, align:'center'});
+    // огромный — уходит за верх
+    const bigTop = lerp(gy, -60, e);
+    ctx.fillStyle = C.gold;
+    ctx.beginPath(); rrect(ctx, rx+34-bw/2, bigTop, bw, gy-bigTop, 3); ctx.fill();
+    T(ctx, '10 000 000', rx+34, gy+20, {size:12, color:C.gold, align:'center'});
+    if(st.p > .6){
+      const a = (st.p-.6)/.4;
+      // на узком экране подписи справа не помещаются — уводим их влево от полоски
+      const room = W - (rx+34+26) > 210;
+      const lx2 = room ? rx+34+26 : rx+34-24, al = room ? 'left' : 'right';
+      T(ctx, '↑ полоска не помещается:', lx2, 40, {size:12, color:C.gold, alpha:a, align:al});
+      T(ctx, 'она в 10 000 раз выше соседней', lx2, 56, {size:12, color:C.gold, alpha:a, align:al});
+    }
+    T(ctx, 'а таких людей мы знаем по именам', rx, gy+40, {size:12, color:C.dim, align:'center'});
+  }
+});
+
+/* ============================================================
+   Сцена 1 — доска Гальтона
+   ============================================================ */
+defineScene('s1', {
+  init(st, W, H){
+    st.rows = 12;
+    st.bins = new Array(st.rows+1).fill(0);
+    st.balls = [];
+    st.spawned = 0;
+    st.total = 320;
+    st.acc = 0;
+    st.done = 0;
+    st.sx = clamp((W-70)/(st.rows+3), 16, 46);
+    st.top = 22;
+    st.pegH = Math.max(110, H*0.44);
+    st.floor = H - 24;
+  },
+  isDone(st){ return st.done >= st.total; },
+  draw(ctx, W, H, st, dt){
+    const cx = W/2, sx = st.sx, rows = st.rows;
+    const rowH = st.pegH / rows;
+    const baseY = st.top + st.pegH + 6;
+
+    // колышки
+    ctx.fillStyle = '#31404f';
+    for(let r=0;r<rows;r++){
+      for(let i=0;i<=r;i++){
+        const x = cx + (i - r/2)*sx, y = st.top + r*rowH;
+        ctx.beginPath(); ctx.arc(x, y, 1.9, 0, 7); ctx.fill();
+      }
+    }
+
+    // рождение шариков
+    st.acc += dt;
+    while(st.spawned < st.total && st.acc > 0.035){
+      st.acc -= 0.035;
+      const steps = [];
+      let pos = 0;
+      for(let r=0;r<rows;r++){ const s = Math.random()<0.5?-1:1; steps.push(s); pos += s; }
+      st.balls.push({ steps:steps, k:0, f:0, bin:(pos+rows)/2 });
+      st.spawned++;
+    }
+
+    // движение
+    const maxBin = Math.max(1, Math.max.apply(null, st.bins));
+    for(let i=st.balls.length-1;i>=0;i--){
+      const b = st.balls[i];
+      b.f += dt*11;
+      while(b.f >= 1 && b.k < rows){ b.f -= 1; b.k++; }
+      if(b.k >= rows){
+        st.bins[b.bin]++; st.done++;
+        st.balls.splice(i,1); continue;
+      }
+      let off = 0;
+      for(let j=0;j<b.k;j++) off += b.steps[j];
+      const nxt = off + b.steps[b.k];
+      const x = cx + lerp(off, nxt, b.f)*sx/2;
+      const y = st.top + (b.k + b.f)*rowH;
+      ctx.fillStyle = C.blue;
+      ctx.beginPath(); ctx.arc(x, y, 3, 0, 7); ctx.fill();
+    }
+
+    // корзины
+    const plotH = st.floor - baseY - 4;
+    for(let i=0;i<st.bins.length;i++){
+      const h = (st.bins[i]/Math.max(6,maxBin))*plotH;
+      const x = cx + (i - rows/2)*sx - sx*0.42;
+      ctx.fillStyle = 'rgba(91,168,245,.75)';
+      ctx.beginPath(); rrect(ctx, x, st.floor-h, sx*0.84, h, 2); ctx.fill();
+    }
+    line(ctx, 20, st.floor, W-20, st.floor, C.line, 1);
+
+    // теоретическая кривая, когда почти всё упало
+    if(st.done > st.total*0.55){
+      const a = clamp((st.done - st.total*0.55)/(st.total*0.3),0,1);
+      ctx.save(); ctx.globalAlpha = a*0.9;
+      ctx.strokeStyle = C.gold; ctx.lineWidth = 2; ctx.beginPath();
+      const sigma = Math.sqrt(rows)/2;
+      for(let px=0;px<=200;px++){
+        const bi = px/200*rows;
+        const z = (bi - rows/2)/sigma;
+        const dens = Math.exp(-z*z/2);
+        // высота: приводим к текущей высоте центральной корзины
+        const centerCount = st.bins[Math.round(rows/2)] || 1;
+        const h = dens * (centerCount/Math.max(6,maxBin)) * plotH;
+        const x = cx + (bi - rows/2)*sx;
+        const y = st.floor - h;
+        px ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+      }
+      ctx.stroke(); ctx.restore();
+      const centerCount = st.bins[Math.round(rows/2)] || 1;
+      T(ctx, 'колокол', cx + sx*1.3, st.floor - (centerCount/Math.max(6,maxBin))*plotH - 12,
+        {size:13, color:C.gold, alpha:a});
+    }
+    T(ctx, 'упало шариков: ' + st.done, 24, H-8, {size:11.5, color:C.dim});
+  }
+});
+
+/* ============================================================
+   Сцена 2 — лестница «1 из N»
+   ============================================================ */
+const LADDER = [
+  {cm:177, txt:'один на 6 человек'},
+  {cm:184, txt:'один на 44 человека'},
+  {cm:191, txt:'один на 741 человека'},
+  {cm:198, txt:'один на 31 600 человек'},
+  {cm:205, txt:'один на 3,5 миллиона'},
+  {cm:212, txt:'один на миллиард'},
+  {cm:219, txt:'один на 800 миллиардов'},
+  {cm:226, txt:'один на полтора квадриллиона'}
+];
+defineScene('s2', {
+  init(st){ st.k = 0; st.pos = 0; st.wait = 0.7; st.final = 0; },
+  isDone(st){ return st.final >= 1; },
+  draw(ctx, W, H, st, dt){
+    const padL = 46, padR = 40, baseY = H-46;
+    const sig = (W - padL - padR - 60)/10.4;  // ширина одного шага
+    const x0 = padL + sig*1.2;                // µ = 170
+    const top = 62;                           // сверху место под две строки подписи
+    const xOf = k => x0 + k*sig;
+    const yOf = k => baseY - Math.exp(-k*k/2)*(baseY-top);
+
+    // кривая
+    ctx.strokeStyle = C.blue; ctx.lineWidth = 2; ctx.beginPath();
+    for(let p=0;p<=300;p++){
+      const k = -1.6 + p/300*10.8;
+      const x = xOf(k), y = yOf(k);
+      p ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+    }
+    ctx.stroke();
+    line(ctx, 20, baseY, W-20, baseY, C.line, 1);
+
+    // продвижение
+    st.wait -= dt;
+    if(st.wait <= 0 && st.k < LADDER.length){
+      st.k++; st.wait = 0.95;
+      if(st.k === LADDER.length) st.wait = 1.5;
+    }
+    if(st.k >= LADDER.length && st.wait <= 0) st.final = Math.min(1, st.final + dt*0.8);
+
+    st.pos = lerp(st.pos, st.k, 1-Math.pow(0.001, dt));
+
+    // закрашенный хвост
+    if(st.pos > 0.02){
+      ctx.save(); ctx.fillStyle = 'rgba(240,168,60,.35)'; ctx.beginPath();
+      ctx.moveTo(xOf(st.pos), baseY);
+      for(let p=0;p<=120;p++){ const k = st.pos + p/120*(9.2-st.pos); ctx.lineTo(xOf(k), yOf(k)); }
+      ctx.lineTo(xOf(9.2), baseY); ctx.closePath(); ctx.fill(); ctx.restore();
+    }
+
+    // метка
+    const mx = xOf(st.pos);
+    line(ctx, mx, top-14, mx, baseY, C.gold, 1.5);
+    const cur = LADDER[Math.max(0,Math.min(LADDER.length-1, st.k-1))];
+    if(st.k > 0){
+      const lx = clamp(mx, 150, W-150);
+      T(ctx, cur.cm + ' см', mx, baseY+20, {size:13, color:C.gold, align:'center', weight:'600'});
+      T(ctx, cur.txt, lx, top-22, {size:16, color:C.ink, align:'center', weight:'600'});
+      T(ctx, 'такой рост встречается:', lx, top-42, {size:11.5, color:C.dim, align:'center'});
+    }
+    T(ctx, '170 см — средний', x0, baseY+38, {size:11.5, color:C.dim, align:'center'});
+
+    // финальный удар
+    if(st.final > 0){
+      ctx.save(); ctx.globalAlpha = easeOut(st.final);
+      ctx.fillStyle = 'rgba(19,25,35,.93)'; ctx.fillRect(0,0,W,H);
+      T(ctx, 'а «вдвое выше среднего», 340 см:', W/2, H/2-52, {size:14, color:C.muted, align:'center'});
+      T(ctx, 'один на 10'+sup(130), W/2, H/2, {size:40, color:C.gold, align:'center', weight:'600'});
+      T(ctx, '10'+sup(130)+' — это единица, за которой ещё 130 нулей', W/2, H/2+30,
+        {size:13, color:C.muted, align:'center'});
+      T(ctx, 'для сравнения: всех атомов видимой Вселенной — около 10'+sup(80),
+        W/2, H/2+54, {size:13, color:C.dim, align:'center'});
+      ctx.restore();
+    }
+  }
+});
+
+/* ============================================================
+   Сцена 3 — гистограмма, которая не помещается
+   ============================================================ */
+const N3 = 64;
+defineScene('s3', {
+  init(st){
+    // чемпион нужен крупный, но не настолько, чтобы задавить весь хвост в ноль:
+    // иначе форма, ради которой сцена и затевается, перестаёт читаться
+    let v, tries = 0, r = 0;
+    do {
+      v = []; for(let i=0;i<N3;i++) v.push(pareto(1.25, 400));
+      r = Math.max.apply(null,v)/median(v);
+      tries++;
+    } while(tries < 200 && (r < 8 || r > 26));
+    st.vals = v;
+    // рост тех же людей — понадобится в конце, чтобы сравнить формы
+    st.rost = []; for(let i=0;i<N3;i++) st.rost.push(170 + gauss()*7);
+    st.rost.sort((a,b)=>b-a);
+    // куда каждая полоска переедет, когда выстроим по убыванию
+    const idx = v.map((x,i)=>i).sort((a,b)=>v[b]-v[a]);
+    st.slot = new Array(N3);
+    idx.forEach((orig, place) => { st.slot[orig] = place; });
+    st.n = 0; st.acc = 0; st.axis = 3000;
+    st.phase = 0; st.mix = 0; st.pause = 0; st.rostShow = 0;
+  },
+  isDone(st){ return st.rostShow >= 1; },
+  draw(ctx, W, H, st, dt){
+    const padL = 96, padR = 24, baseY = H-46;
+    const bandH = 40, bandTop = 26;          // отдельная полоса для роста: у него своя шкала
+    const top = bandTop + bandH + 22;
+    const plotW = W - padL - padR, plotH = baseY - top;
+    const bw = plotW/N3;
+
+    if(st.phase === 0){                       // полоски появляются вперемешку
+      st.acc += dt;
+      while(st.n < N3 && st.acc > 0.085){ st.acc -= 0.085; st.n++; }
+      if(st.n === N3){ st.pause += dt; if(st.pause > 1.2) st.phase = 1; }
+    } else if(st.phase === 1){                 // выстраиваем по убыванию
+      st.mix = Math.min(1, st.mix + dt*0.55);
+      if(st.mix === 1){ st.phase = 2; st.pause = 0; }
+    } else {                                   // накладываем рост тех же людей
+      st.pause += dt;
+      if(st.pause > 0.9) st.rostShow = Math.min(1, st.rostShow + dt*0.7);
+    }
+
+    let mx = 3000;
+    for(let i=0;i<st.n;i++) mx = Math.max(mx, st.vals[i]);
+    st.axis = lerp(st.axis, mx*1.08, 1-Math.pow(0.02, dt));
+
+    const k = easeInOut(st.mix);
+    for(let i=0;i<st.n;i++){
+      const h = st.vals[i]/st.axis*plotH;
+      const place = lerp(i, st.slot[i], k);
+      ctx.fillStyle = (st.vals[i] === mx && st.n > 3) ? C.gold : 'rgba(91,168,245,.85)';
+      ctx.beginPath(); rrect(ctx, padL + place*bw + bw*0.12, baseY-h, bw*0.76, Math.max(1.2,h), 1.5);
+      ctx.fill();
+    }
+    line(ctx, padL-6, baseY, W-padR, baseY, C.line, 1);
+    line(ctx, padL-6, top, padL-6, baseY, C.line, 1);
+
+    // контур по вершинам — чтобы форма читалась и там, где полоски низкие
+    if(st.mix > 0.98){
+      const sorted = st.vals.slice().sort((a,b)=>b-a);
+      ctx.save(); ctx.strokeStyle = C.gold; ctx.lineWidth = 1.6; ctx.globalAlpha = 0.85;
+      ctx.beginPath();
+      for(let i=0;i<N3;i++){
+        const x = padL + i*bw + bw*0.5, y = baseY - sorted[i]/st.axis*plotH;
+        i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+      }
+      ctx.stroke(); ctx.restore();
+    }
+
+    // рост тех же людей — в своей полосе и со своей шкалой, чтобы ничего не путалось
+    if(st.rostShow > 0){
+      const a = easeOut(st.rostShow);
+      const lo = 150, hi = 195;
+      ctx.save(); ctx.globalAlpha = a;
+      ctx.strokeStyle = '#93a1b1'; ctx.lineWidth = 2; ctx.beginPath();
+      for(let i=0;i<N3;i++){
+        const x = padL + i*bw + bw*0.5;
+        const y = bandTop + bandH - (st.rost[i]-lo)/(hi-lo)*bandH;
+        i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+      }
+      ctx.stroke();
+      line(ctx, padL-6, bandTop, padL-6, bandTop+bandH, C.line, 1);
+      line(ctx, padL-6, bandTop+bandH+11, W-padR, bandTop+bandH+11, C.line, 1);
+      ctx.restore();
+      T(ctx, '195 см', padL-14, bandTop+5,        {size:10.5, color:C.dim, align:'right', alpha:a});
+      T(ctx, '150 см', padL-14, bandTop+bandH+4,  {size:10.5, color:C.dim, align:'right', alpha:a});
+      T(ctx, 'рост тех же 64 человек, тоже по убыванию — у этой полосы своя шкала, в сантиметрах',
+        padL + 8, bandTop - 8, {size:11.5, color:C.muted, alpha:a});
+    }
+
+    // подписи шкалы
+    T(ctx, fmt(st.axis), padL-14, top+5, {size:13, color:C.gold, align:'right', weight:'600'});
+    T(ctx, 'подписчиков', padL-14, top+21, {size:11, color:C.dim, align:'right'});
+    T(ctx, '0', padL-14, baseY+4, {size:12, color:C.dim, align:'right'});
+    T(ctx, st.phase === 0 ? 'по горизонтали — 64 человека, вперемешку'
+         : (st.mix < 1 ? 'выстраиваем их по числу подписчиков'
+                       : 'слева самый крупный, дальше по убыванию'),
+      padL, H-12, {size:11.5, color:C.dim});
+
+    if(st.n > 5){
+      const arr = st.vals.slice(0,st.n).sort((a,b)=>a-b);
+      const med = arr[Math.floor(arr.length/2)];
+      T(ctx, 'у самого крупного подписчиков в ' + fmt(mx/med) + ' ' + razPlural(Math.round(mx/med)) +
+        ' больше, чем у человека из середины списка',
+        W-padR, H-12, {size:11.5, color:C.gold, align:'right'});
+    }
+  }
+});
+function median(a){ const s = a.slice().sort((x,y)=>x-y); return s[Math.floor(s.length/2)]; }
+
+/* ============================================================
+   Сцена 4 — оба хвоста в одном масштабе
+   ============================================================ */
+const SIG = 0.2, ALPHA = 2.5, XMIN = 0.6;
+function normSurvivalDigits(x){          // -log10 P(X > x), µ=1
+  const k = (x-1)/SIG;
+  if(k <= 0) return 0;
+  return k*k/(2*Math.LN10) + Math.log10(k*Math.sqrt(2*Math.PI));
+}
+function powSurvivalDigits(x){ return ALPHA*Math.log10(x/XMIN); }
+function oneIn(digits){
+  if(digits < 9) return '1 из ' + fmt(Math.pow(10,digits));
+  return '1 из 10' + sup(Math.round(digits));
+}
+const STOPS = [2,5,10];
+function razPlural(n){ const t = n % 100; if(t >= 11 && t <= 14) return 'раз';
+  const d = n % 10; return (d >= 2 && d <= 4) ? 'раза' : 'раз'; }
+
+// Две дорожки по 1000 человек: одна общая ось, никакой вертикальной величины —
+// сравниваем только то, докуда дотягиваются точки, и считаем их поштучно.
+const N4 = 3000, XMAX4 = 12;
+defineScene('s4', {
+  init(st){
+    st.a = []; st.b = [];
+    for(let i=0;i<N4;i++){
+      st.a.push({v: 1 + gauss()*SIG, y: Math.random()});
+      st.b.push({v: pareto(ALPHA, XMIN),  y: Math.random()});
+    }
+    st.shown = 0; st.i = 0; st.wait = 1.4; st.pos = 0.5;
+  },
+  isDone(st){ return st.i >= STOPS.length && st.wait < 1.4; },
+  draw(ctx, W, H, st, dt){
+    const padL = 44, padR = 26, top = 74, baseY = H-46;
+    const xOf = v => padL + clamp(v,0,XMAX4)/XMAX4*(W-padL-padR);
+    const bandH = (baseY-top-16)/2;
+    const bands = [
+      {arr: st.a, y0: top,             color: C.blue, name: 'колокол'},
+      {arr: st.b, y0: top+bandH+16,    color: C.gold, name: 'степенное'}
+    ];
+
+    st.shown = Math.min(N4, st.shown + dt*1400);
+
+    bands.forEach(b => {
+      ctx.fillStyle = b.color === C.blue ? 'rgba(91,168,245,.5)' : 'rgba(240,168,60,.5)';
+      let out = 0;
+      for(let i=0;i<st.shown;i++){          // fillRect, а не arc: точек три тысячи на дорожку
+        const p = b.arr[i];
+        if(p.v > XMAX4){ out++; continue; }
+        ctx.fillRect(xOf(p.v)-1.4, b.y0 + 8 + p.y*(bandH-16) - 1.4, 2.8, 2.8);
+      }
+      T(ctx, b.name, padL, b.y0 - 4, {size:12.5, color:b.color});
+      if(out > 0) T(ctx, '→ ' + out + ' улетели за край', W-padR, b.y0 + bandH*0.5,
+        {size:11.5, color:b.color, align:'right'});
+    });
+
+    line(ctx, padL-8, baseY, W-16, baseY, C.line, 1);
+    for(let v=1; v<=XMAX4; v+=1){
+      const x = xOf(v);
+      line(ctx, x, baseY, x, baseY+4, C.line, 1);
+      if(v===1 || v%2===0) T(ctx, '×'+v, x, baseY+18, {size:11.5, color:C.dim, align:'center'});
+    }
+    T(ctx, '×1 — обычный, средний человек', xOf(1), baseY+34, {size:11, color:C.dim, align:'center'});
+    T(ctx, 'во сколько раз больше среднего →', W-16, H-10, {size:11.5, color:C.dim, align:'right'});
+    T(ctx, 'каждая точка — один человек, по 3000 в каждой дорожке', padL, top-52,
+      {size:11.5, color:C.dim});
+
+    // метка идёт по остановкам и пересчитывает точки правее себя
+    if(st.shown >= N4){
+      st.wait -= dt;
+      if(st.wait <= 0 && st.i < STOPS.length){ st.i++; st.wait = 2.6; }
+    }
+    const targ = st.i ? STOPS[st.i-1] : 0.5;
+    st.pos = lerp(st.pos, targ, 1-Math.pow(0.004, dt));
+    const mx = xOf(st.pos);
+    line(ctx, mx, top-24, mx, baseY, '#ffffff66', 1.5, [4,4]);
+
+    if(st.i > 0){
+      const v = STOPS[st.i-1];
+      const ca = st.a.filter(p => p.v > v).length, cb = st.b.filter(p => p.v > v).length;
+      const bx = clamp(mx, 170, W-170);
+      T(ctx, 'правее метки, то есть больше среднего в ' + v + ' ' + razPlural(v) + ':',
+        bx, top-52, {size:12, color:C.muted, align:'center'});
+      T(ctx, 'у колокола — ' + ca + ' человек из 3000', bx, top-32,
+        {size:14.5, color:C.blue, align:'center', weight:'600'});
+      T(ctx, 'у степенного — ' + cb + ' из 3000', bx, top-12,
+        {size:14.5, color:C.gold, align:'center', weight:'600'});
+    }
+  }
+});
+
+/* ============================================================
+   Сцена 5 — считаем нули
+   ============================================================ */
+// сколько людей надо перебрать, чтобы встретить такого — в знакомых величинах
+const CROWDS = [
+  {n:30,           name:'класс'},
+  {n:1000,         name:'школа'},
+  {n:100000,       name:'небольшой город'},
+  {n:3000000,      name:'большой город'},
+  {n:50000000,     name:'страна'},
+  {n:8000000000,   name:'все люди на Земле'},
+  {n:110000000000, name:'все люди за всю историю'}
+];
+const LIMIT = 11.04;                 // log10 от «всех людей за историю»
+defineScene('s5', {
+  init(st){ st.n = 0; st.acc = 0; st.xs = [2,3,10,100]; },
+  isDone(st){ return st.n >= st.xs.length; },
+  draw(ctx, W, H, st, dt){
+    const padL = 168, padR = 20, top = 40, baseY = H-44;
+    const TOPD = 12;                    // верх шкалы — 10¹² человек
+    const plotH = baseY-top;
+    const yOf = d => baseY - clamp(d,0,TOPD)/TOPD*plotH;
+    st.acc += dt;
+    while(st.n < st.xs.length && st.acc > 1.1){ st.acc -= 1.1; st.n++; }
+
+    // лестница знакомых толп
+    CROWDS.forEach(c => {
+      const y = yOf(Math.log10(c.n));
+      line(ctx, padL-6, y, W-padR, y, '#1c2635', 1);
+      T(ctx, c.name, padL-12, y+4, {size:11.5, color:C.dim, align:'right'});
+    });
+    // граница реальности
+    const ly = yOf(LIMIT);
+    line(ctx, padL-6, ly, W-padR, ly, C.red, 1, [5,4]);
+    T(ctx, 'выше — столько людей нет', padL-12, ly+17, {size:11, color:C.red, align:'right'});
+    line(ctx, padL-6, baseY, W-padR, baseY, C.line, 1);
+
+    const slot = (W-padL-padR)/st.xs.length;
+    for(let i=0;i<st.n;i++){
+      const x = padL + i*slot, v = st.xs[i];
+      const nd = normSurvivalDigits(v), pd = powSurvivalDigits(v);
+      const bw = slot*0.26;
+      // колокол
+      const xb = x + slot*0.14;
+      ctx.fillStyle = C.blue;
+      ctx.beginPath(); rrect(ctx, xb, yOf(nd), bw, baseY-yOf(nd), 2); ctx.fill();
+      if(nd > TOPD)
+        T(ctx, 'нужно 10' + sup(Math.round(nd)) + ' человек', xb+bw/2, top-6,
+          {size:12, color:C.blue, align:'center', weight:'600'});
+      // степенное
+      const xg = x + slot*0.52;
+      ctx.fillStyle = C.gold;
+      ctx.beginPath(); rrect(ctx, xg, yOf(pd), bw, baseY-yOf(pd), 2); ctx.fill();
+      T(ctx, fmt(Math.pow(10,pd)) + ' чел.', xg+bw/2, yOf(pd)-7,
+        {size:11, color:C.gold, align:'center'});
+
+      T(ctx, 'больше среднего в '+v+' '+razPlural(v), x+slot*0.4, baseY+18,
+        {size:11.5, color:C.dim, align:'center'});
+    }
+    T(ctx, 'колокол', padL-6, top-24, {size:12, color:C.blue});
+    T(ctx, 'степенное', padL+66, top-24, {size:12, color:C.gold});
+  }
+});
+
+/* ============================================================
+   Сцена 5b — как переставляются засечки на оси
+   ============================================================ */
+const DOTS5B = [1,2,5,10,20,50,100,200,500,1000];
+defineScene('s5b', {
+  init(st){ st.p = 0; st.m = 0; },
+  isDone(st){ return st.m >= 1; },
+  draw(ctx, W, H, st, dt){
+    st.p += dt;
+    if(st.p > 3) st.m = Math.min(1, st.m + dt*0.4);
+    const t = easeInOut(st.m);
+
+    const padL = 40, padR = 40, y = H*0.52;
+    const plotW = W-padL-padR;
+    const lin = v => padL + v/1000*plotW;
+    const lg  = v => padL + (Math.log10(v))/3*plotW;
+    const X = v => lerp(lin(v), lg(v), t);
+
+    line(ctx, padL, y, W-padR, y, C.muted, 1.5);
+
+    // засечки обычной оси — гаснут
+    [0,250,500,750,1000].forEach(v => {
+      const x = lerp(lin(v), lg(Math.max(v,1)), t);
+      ctx.save(); ctx.globalAlpha = 1-t;
+      line(ctx, x, y-7, x, y+7, C.dim, 1);
+      ctx.restore();
+      T(ctx, fmt(v), x, y+26, {size:12, color:C.dim, align:'center', alpha:1-t});
+    });
+    // засечки сжатой оси — проявляются
+    [1,10,100,1000].forEach(v => {
+      const x = X(v);
+      ctx.save(); ctx.globalAlpha = t;
+      line(ctx, x, y-7, x, y+7, C.violet, 1.5);
+      ctx.restore();
+      T(ctx, fmt(v), x, y+26, {size:12.5, color:C.violet, align:'center', alpha:t, weight:'600'});
+    });
+
+    // сами числа-точки: их значения не меняются, меняется только место на оси
+    DOTS5B.forEach(v => {
+      const x = X(v);
+      ctx.fillStyle = C.gold;
+      ctx.beginPath(); ctx.arc(x, y, 4.5, 0, 7); ctx.fill();
+    });
+    // две подписанные точки, чтобы было видно, как они разъезжаются
+    [[2,-1],[20,1]].forEach(m => {
+      const x = X(m[0]), dy = m[1] < 0 ? -30 : -52;
+      line(ctx, x, y-8, x, y+dy+6, '#ffffff33', 1);
+      T(ctx, 'число ' + m[0], x, y+dy, {size:12, color:C.ink, align:'center'});
+    });
+
+    T(ctx, t < 0.5 ? 'обычная ось: соседние засечки отличаются на +250'
+                   : 'сжатая ось: соседние засечки отличаются в 10 раз',
+      W/2, 34, {size:14, color: t<0.5 ? C.muted : C.violet, align:'center'});
+    T(ctx, t < 0.5 ? 'все маленькие числа слиплись в кучу у левого края'
+                   : 'те же самые числа — просто разложены по другой линейке',
+      W/2, 56, {size:12, color:C.dim, align:'center'});
+  }
+});
+
+/* ============================================================
+   Сцена 6 — log-log очки
+   ============================================================ */
+defineScene('s6', {
+  init(st){ st.t2 = 0; st.target = 0; st.hold = 1.2; },
+  again(st){ st.target = st.target ? 0 : 1; st.hold = -1; },
+  draw(ctx, W, H, st, dt){
+    if(st.hold > 0){ st.hold -= dt; if(st.hold <= 0) st.target = 1; }
+    st.t2 += (st.target - st.t2) * Math.min(1, dt*1.6);
+    const t = easeInOut(clamp(st.t2,0,1));
+
+    const padL = 52, padR = 30, top = 34, baseY = H-46;
+    const XLO = 0.1, XHI = 200, YLO = 1e-12, YHI = 3;
+    const plotW = W-padL-padR, plotH = baseY-top;
+    const lx = v => padL + clamp(v/XHI,0,1)*plotW;
+    const gx = v => padL + (Math.log10(clamp(v,XLO,XHI))-Math.log10(XLO))/(Math.log10(XHI)-Math.log10(XLO))*plotW;
+    const ly = v => baseY - clamp(v/YHI,0,1)*plotH;
+    const gy = v => baseY - (Math.log10(clamp(v,YLO,YHI))-Math.log10(YLO))/(Math.log10(YHI)-Math.log10(YLO))*plotH;
+    const X = v => lerp(lx(v), gx(v), t);
+    const Y = v => lerp(ly(v), gy(v), t);
+
+    line(ctx, padL-8, baseY, W-padR, baseY, C.line, 1);
+    line(ctx, padL-8, top, padL-8, baseY, C.line, 1);
+
+    // подписи оси X: линейные гаснут, логарифмические проявляются
+    [0,50,100,150,200].forEach(v => T(ctx, v, lerp(lx(v),gx(Math.max(v,XLO)),t), baseY+18,
+      {size:11, color:C.dim, align:'center', alpha:1-t}));
+    [0.1,1,10,100].forEach(v => T(ctx, v<1?'0,1':String(v), lerp(lx(v),gx(v),t), baseY+18,
+      {size:11, color:C.violet, align:'center', alpha:t}));
+    T(ctx, t>0.5 ? 'шаг = ×10' : 'шаг = +50', padL, top-12, {size:11.5, color: t>0.5?C.violet:C.dim});
+
+    // степенная
+    ctx.strokeStyle = C.gold; ctx.lineWidth = 2.2; ctx.beginPath();
+    for(let p=0;p<=300;p++){
+      const v = XMIN*Math.pow(XHI/XMIN, p/300);
+      const d = Math.pow(XMIN/v, ALPHA+1)*2.5;
+      p?ctx.lineTo(X(v),Y(d)):ctx.moveTo(X(v),Y(d));
+    }
+    ctx.stroke();
+
+    // нормальная: шаги по логарифму — иначе в «очках» кривая ломается на отрезки
+    ctx.strokeStyle = C.blue; ctx.lineWidth = 2.2; ctx.beginPath();
+    let started = false;
+    for(let p=0;p<=400;p++){
+      const v = XLO*Math.pow(XHI/XLO, p/400);
+      const z = (v-1)/SIG;
+      const d = Math.exp(-z*z/2)*2.5;
+      if(d < YLO){ if(started) break; continue; }   // ниже пола шкалы — обрыв
+      started ? ctx.lineTo(X(v),Y(d)) : ctx.moveTo(X(v),Y(d));
+      started = true;
+    }
+    ctx.stroke();
+
+    if(t > 0.75){
+      const a = (t-0.75)/0.25;
+      ctx.save(); ctx.globalAlpha = a*0.8;
+      const v1 = XMIN*1.4, v2 = 150;
+      const d1 = Math.pow(XMIN/v1, ALPHA+1)*2.5, d2 = Math.pow(XMIN/v2, ALPHA+1)*2.5;
+      line(ctx, X(v1), Y(d1), X(v2), Y(d2), '#ffffff', 1.2, [6,5]);
+      ctx.restore();
+      T(ctx, 'прямая!', X(30), Y(Math.pow(XMIN/30, ALPHA+1)*2.5)-14, {size:13, color:C.ink, alpha:a, weight:'600'});
+    }
+    T(ctx, 'степенное', W-padR, top+14, {size:12.5, color:C.gold, align:'right'});
+    T(ctx, 'колокол', W-padR, top+32, {size:12.5, color:C.blue, align:'right'});
+    T(ctx, 'часто', padL-14, top+14, {size:11, color:C.dim, align:'right'});
+    T(ctx, 'редко', padL-14, baseY-4, {size:11, color:C.dim, align:'right'});
+    T(ctx, 'по вертикали — как часто встречается, по горизонтали — во сколько раз больше среднего',
+      padL-8, H-10, {size:11, color:C.dim});
+  }
+});
+
+/* ============================================================
+   Сцена 7 — ловушка
+   ============================================================ */
+defineScene('s7', {
+  isDone(st){ return st.p > 3.6; },
+  init(st, W, H){
+    st.p = 0;
+    st.crowd = [];
+    for(let i=0;i<260;i++){
+      const u = Math.pow(Math.random(), 2.1);
+      st.crowd.push({ x: u, y: Math.random(), d: Math.random() });
+    }
+  },
+  draw(ctx, W, H, st, dt){
+    st.p += dt*0.32;
+    const padL = 40, padR = 40, baseY = H-46, top = 46;
+    const plotW = W-padL-padR;
+    const xOf = u => padL + u*plotW;
+
+    // силуэт кривой
+    ctx.strokeStyle = '#2b3a4d'; ctx.lineWidth = 1.5; ctx.beginPath();
+    for(let p=0;p<=200;p++){
+      const u = p/200;
+      const h = Math.pow(0.06/(u*0.9+0.06), 2.0);
+      ctx.lineTo(xOf(u), baseY - h*(baseY-top)*0.95);
+    }
+    ctx.stroke();
+
+    // толпа
+    const app = clamp(st.p*1.6, 0, 1);
+    st.crowd.forEach((c,i) => {
+      if(i/st.crowd.length > app) return;
+      const h = Math.pow(0.06/(c.x*0.9+0.06), 2.0)*(baseY-top)*0.95;
+      const y = baseY - c.y*h*0.92 - 2;
+      ctx.fillStyle = 'rgba(147,161,177,'+(0.3+c.d*0.4)+')';
+      ctx.beginPath(); ctx.arc(xOf(c.x), y, 2.1, 0, 7); ctx.fill();
+    });
+    line(ctx, padL-10, baseY, W-padR+10, baseY, C.line, 1);
+
+    // звезда в хвосте
+    const starX = xOf(0.93), starY = baseY - 26;
+    if(st.p > 0.5){
+      const a = clamp((st.p-0.5)*2,0,1);
+      const tw = 0.8 + 0.2*Math.sin(st.p*5);
+      ctx.save(); ctx.globalAlpha = a;
+      ctx.fillStyle = C.gold;
+      star(ctx, starX, starY, 14*tw, 5);
+      ctx.restore();
+      T(ctx, 'хвост', starX, baseY+20, {size:12.5, color:C.gold, align:'center', alpha:a});
+    }
+    T(ctx, 'толпа', xOf(0.08), baseY+20, {size:12.5, color:C.muted, align:'center'});
+    T(ctx, 'каждая серая точка — один человек', padL-10, top-14, {size:11.5, color:C.dim});
+    T(ctx, 'сколько у него подписчиков →', W-padR+10, H-10, {size:11.5, color:C.dim, align:'right'});
+
+    // стрелка «просто старайся»
+    if(st.p > 0.85){
+      const a = clamp((st.p-0.85)*1.6,0,1);
+      const fade = st.p > 2.2 ? clamp(1-(st.p-2.2), 0.25, 1) : 1;
+      ctx.save(); ctx.globalAlpha = a*fade;
+      ctx.strokeStyle = C.green; ctx.lineWidth = 2;
+      const ax = xOf(0.14), ay = baseY-30, bx = starX-20, by = starY-20;
+      ctx.beginPath(); ctx.moveTo(ax, ay);
+      ctx.quadraticCurveTo((ax+bx)/2, ay - 86, bx, by); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(bx,by); ctx.lineTo(bx-11,by-3); ctx.lineTo(bx-4,by+9);
+      ctx.closePath(); ctx.fillStyle = C.green; ctx.fill();
+      T(ctx, '«просто старайся»', (ax+bx)/2, ay-64, {size:14, color:C.green, align:'center', weight:'600'});
+      ctx.restore();
+    }
+    // вопрос — над всей картинкой, чтобы не толкаться со звездой
+    if(st.p > 2.3){
+      const a = clamp((st.p-2.3)*1.2,0,1);
+      T(ctx, '?', W/2, top+52, {size:46, color:C.red, align:'center', alpha:a, weight:'600'});
+      T(ctx, 'а откуда взялся сам хвост?', W/2, top+18, {size:15, color:C.red, align:'center', alpha:a});
+    }
+  }
+});
+function star(ctx, cx, cy, r, n){
+  ctx.beginPath();
+  for(let i=0;i<n*2;i++){
+    const rr = i%2 ? r*0.42 : r;
+    const a = -Math.PI/2 + i*Math.PI/n;
+    const x = cx + Math.cos(a)*rr, y = cy + Math.sin(a)*rr;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  }
+  ctx.closePath(); ctx.fill();
+}
+
+/* ============================================================
+   Сцена 8 — эффект Матфея
+   ============================================================ */
+defineScene('s8', {
+  init(st){
+    st.n = 20; st.hero = 7;
+    st.coins = new Array(st.n).fill(1);
+    st.total = st.n; st.step = 0; st.acc = 0; st.flash = -1; st.flashT = 0;
+    st.max = 1;
+  },
+  isDone(st){ return st.step >= 700; },
+  draw(ctx, W, H, st, dt){
+    const padL = 30, padR = 30, top = 46, baseY = H-46;
+    const plotH = baseY-top, plotW = W-padL-padR;
+    const slot = plotW/st.n;
+
+    // темп: сначала медленно, потом всё быстрее
+    const interval = Math.max(0.005, 0.34*Math.pow(0.945, st.step));
+    st.acc += dt;
+    while(st.step < 700 && st.acc > interval){
+      st.acc -= interval;
+      let r = Math.random()*st.total, i = 0;
+      while(r > st.coins[i] && i < st.n-1){ r -= st.coins[i]; i++; }
+      st.coins[i]++; st.total++; st.step++;
+      st.flash = i; st.flashT = 0.28;
+      if(st.coins[i] > st.max) st.max = st.coins[i];
+    }
+    if(st.flashT > 0) st.flashT -= dt;
+
+    for(let i=0;i<st.n;i++){
+      const h = st.coins[i]/st.max*plotH;
+      const x = padL + i*slot + slot*0.16;
+      const w = slot*0.68;
+      const isHero = i === st.hero;
+      ctx.fillStyle = isHero ? C.violet : 'rgba(91,168,245,.8)';
+      if(st.flash === i && st.flashT > 0) ctx.fillStyle = C.gold;
+      ctx.beginPath(); rrect(ctx, x, baseY-h, w, Math.max(2,h), 2); ctx.fill();
+      if(st.coins[i] > st.max*0.28 || isHero)
+        T(ctx, st.coins[i], x+w/2, baseY-h-7, {size:11.5, color: isHero?C.violet:C.muted, align:'center'});
+      if(isHero) T(ctx, 'ты', x+w/2, baseY+18, {size:12, color:C.violet, align:'center'});
+    }
+    line(ctx, padL-8, baseY, W-padR+8, baseY, C.line, 1);
+
+    T(ctx, 'высота столбика — сколько монет у игрока · правила у всех одинаковые',
+      padL, top-16, {size:12, color:C.dim});
+    T(ctx, 'ход ' + st.step, W-padR, top-16, {size:12, color:C.dim, align:'right'});
+
+    if(st.step >= 700){
+      const mn = Math.min.apply(null, st.coins);
+      T(ctx, 'у самого богатого в ' + Math.round(st.max/mn) + ' раз больше, чем у самого бедного',
+        W/2, H-10, {size:13, color:C.gold, align:'center'});
+    }
+  }
+});
+
+/* ============================================================
+   Сцена 9 — сеть с предпочтительным присоединением
+   ============================================================ */
+defineScene('s9', {
+  init(st, W, H){
+    st.N = 150; st.n = 1; st.acc = 0;
+    st.deg = [1]; st.edges = []; st.total = 1;
+    st.G = 12;                     // сравниваем группы, а не двух случайных узлов:
+                                   // у одного узла разброс слишком велик, чтобы что-то доказывать
+    st.Rx = W*0.40; st.Ry = H*0.38;
+  },
+  isDone(st){ return st.n >= st.N; },
+  draw(ctx, W, H, st, dt){
+    const cx = W/2, cy = H/2 + 6;
+    const GA = Math.PI*(3-Math.sqrt(5));
+    const pos = i => {
+      const r = Math.sqrt((i+0.6)/st.N);
+      return [cx + Math.cos(i*GA)*r*st.Rx, cy + Math.sin(i*GA)*r*st.Ry];
+    };
+
+    st.acc += dt;
+    while(st.n < st.N && st.acc > 0.028){
+      st.acc -= 0.028;
+      let r = Math.random()*st.total, j = 0;
+      while(r > st.deg[j] && j < st.n-1){ r -= st.deg[j]; j++; }
+      st.edges.push([st.n, j]);
+      st.deg[st.n] = 1; st.deg[j]++; st.total += 2;
+      st.n++;
+    }
+
+    // рёбра
+    ctx.strokeStyle = 'rgba(93,107,124,.28)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    st.edges.forEach(e => {
+      const a = pos(e[0]), b = pos(e[1]);
+      ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]);
+    });
+    ctx.stroke();
+
+    // узлы
+    for(let i=0;i<st.n;i++){
+      const p = pos(i), d = st.deg[i]||1;
+      const rr = 2.2 + 2.0*Math.sqrt(d-1);
+      const early = 1 - i/st.N;
+      ctx.fillStyle = 'rgba(' + Math.round(lerp(110,240,early)) + ',' +
+                      Math.round(lerp(140,168,early)) + ',' +
+                      Math.round(lerp(190,60,early)) + ',.9)';
+      ctx.beginPath(); ctx.arc(p[0],p[1],rr,0,7); ctx.fill();
+    }
+
+    // обводим первых и последних, чтобы было видно, кого сравниваем
+    function ring(i, color){
+      if(i >= st.n) return;
+      const p = pos(i), d = st.deg[i] || 1;
+      ctx.strokeStyle = color; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(p[0], p[1], 3.6 + 2.0*Math.sqrt(d-1) + 5, 0, 7); ctx.stroke();
+    }
+    for(let i=0;i<st.G;i++) ring(i, 'rgba(240,168,60,.8)');
+    for(let i=st.N-st.G;i<st.N;i++) ring(i, 'rgba(91,168,245,.8)');
+
+    if(st.n >= st.N){
+      let e = 0, l = 0;
+      for(let i=0;i<st.G;i++) e += st.deg[i];
+      for(let i=st.N-st.G;i<st.N;i++) l += st.deg[i];
+      const dec = v => String(Math.round(v*10)/10).replace('.', ',');
+      T(ctx, 'первые ' + st.G + ' узлов: в среднем ' + dec(e/st.G) + ' связи на узел',
+        22, H-30, {size:12, color:C.gold});
+      T(ctx, 'последние ' + st.G + ': в среднем ' + dec(l/st.G),
+        22, H-12, {size:12, color:C.blue});
+    } else {
+      T(ctx, 'узлов: ' + st.n, 22, H-12, {size:11.5, color:C.dim});
+    }
+    T(ctx, 'чем раньше узел пришёл в сеть, тем он желтее', W-22, H-12,
+      {size:11.5, color:C.dim, align:'right'});
+  }
+});
+
+/* ============================================================
+   Сцена 10 — 400 параллельных миров
+   ============================================================ */
+const EFFORT = 1.25;   // «ты стараешься»: тебя замечают чаще остальных
+function runWorld(agents, ticks, eff){
+  const c = new Array(agents).fill(1);
+  let wtot = agents - 1 + eff;            // герой = индекс 0, его вес × eff
+  for(let s=0;s<ticks;s++){
+    let r = Math.random()*wtot, i = 0;
+    while(true){
+      const w = i===0 ? c[0]*eff : c[i];
+      if(r <= w || i === agents-1) break;
+      r -= w; i++;
+    }
+    c[i]++;
+    wtot += (i===0 ? eff : 1);
+  }
+  let tot = 0, best = 0;
+  for(let i=0;i<agents;i++){ tot += c[i]; if(c[i] > best) best = c[i]; }
+  return { share: c[0]/tot, top: c[0] === best };
+}
+defineScene('s10', {
+  init(st){
+    st.M = 400; st.done = 0; st.res = [];
+    st.tops = 0; st.below = 0;    // с усилием
+    st.tops0 = 0; st.below0 = 0;  // тот же мир без усилия — для сравнения
+  },
+  isDone(st){ return st.done >= st.M; },
+  draw(ctx, W, H, st, dt){
+    const cols = 25, rows = 16;
+    const gs = Math.min((W-200)/cols, (H-70)/rows);
+    const gw = gs*cols, gh = gs*rows;
+    const ox = 22, oy = (H-gh)/2 + 8;
+
+    for(let k=0;k<6 && st.done < st.M;k++){
+      const r = runWorld(20, 260, EFFORT);
+      st.res.push(r.share);
+      if(r.top) st.tops++;
+      if(r.share < 0.05) st.below++;
+      const r0 = runWorld(20, 260, 1);
+      if(r0.top) st.tops0++;
+      if(r0.share < 0.05) st.below0++;
+      st.done++;
+    }
+
+    for(let i=0;i<st.done;i++){
+      const c = i%cols, r = Math.floor(i/cols);
+      const e = Math.pow(clamp(st.res[i]/0.35, 0, 1), 0.7);
+      ctx.fillStyle = 'rgba(' + Math.round(lerp(40,240,e)) + ',' +
+                      Math.round(lerp(56,172,e)) + ',' +
+                      Math.round(lerp(76,64,e)) + ',1)';
+      ctx.fillRect(ox + c*gs + 1, oy + r*gs + 1, gs-2, gs-2);
+    }
+
+    const px = ox + gw + 22;
+    T(ctx, 'чем ярче квадратик, тем больше монет тебе досталось в том мире',
+      ox, oy-12, {size:11.5, color:C.dim});
+    if(st.done < st.M){
+      T(ctx, 'миров пройдено:', px, oy+16, {size:12, color:C.dim});
+      T(ctx, st.done, px, oy+38, {size:18, color:C.muted, weight:'600'});
+      return;
+    }
+    // итоги: с усилием против того же мира без усилия (столбиком — влезает и на узком экране)
+    function row(label, val, val0, color, y){
+      T(ctx, label, px, y, {size:12, color:C.muted});
+      T(ctx, val + ' мирах из 400', px, y+24, {size:16, color:color, weight:'600'});
+      T(ctx, 'если бы не старался — в ' + val0, px, y+42, {size:11.5, color:C.dim});
+    }
+    row('ты оказался самым крупным в', st.tops, st.tops0, C.gold, oy+16);
+    row('тебе досталось меньше, чем поровну, в', st.below, st.below0, C.blue, oy+92);
+    T(ctx, 'старание во всех четырёхстах мирах', px, oy+162, {size:11.5, color:C.dim});
+    T(ctx, 'было одно и то же', px, oy+178, {size:11.5, color:C.dim});
+  }
+});
+
+/* ============================================================
+   Сцена 11 — сдвиг всей кривой
+   ============================================================ */
+function logn(x, mu, s){
+  if(x <= 0) return 0;
+  const z = (Math.log(x)-mu)/s;
+  return Math.exp(-z*z/2)/x;
+}
+defineScene('s11', {
+  init(st){ st.sh = 0; st.wait = 0.7; },
+  isDone(st){ return st.sh >= 1; },
+  draw(ctx, W, H, st, dt){
+    if(st.wait > 0) st.wait -= dt; else st.sh = Math.min(1, st.sh + dt*0.5);
+    const k = easeInOut(st.sh);
+
+    const padL = 40, padR = 30, top = 40, baseY = H-46;
+    const XMAX = 8, plotW = W-padL-padR, plotH = baseY-top;
+    const xOf = v => padL + v/XMAX*plotW;
+    const S = 0.62, MU0 = 0, MU1 = 0.62;
+    const PEAK = logn(Math.exp(MU0-S*S), MU0, S);
+    const yOf = d => baseY - d/PEAK*plotH*0.82;
+    const thr = 3.4;
+
+    // хвостовые области
+    function tail(mu, color){
+      ctx.save(); ctx.fillStyle = color; ctx.beginPath();
+      ctx.moveTo(xOf(thr), baseY);
+      for(let p=0;p<=120;p++){ const v = thr + p/120*(XMAX-thr); ctx.lineTo(xOf(v), yOf(logn(v,mu,S))); }
+      ctx.lineTo(xOf(XMAX), baseY); ctx.closePath(); ctx.fill(); ctx.restore();
+    }
+    function curve(mu, color, w){
+      ctx.strokeStyle = color; ctx.lineWidth = w; ctx.beginPath();
+      for(let p=0;p<=300;p++){ const v = 0.02 + p/300*XMAX; const x = xOf(v), y = yOf(logn(v,mu,S));
+        p?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+      ctx.stroke();
+    }
+    tail(MU0, 'rgba(109,127,146,.35)');
+    curve(MU0, '#54637a', 1.6);
+    const mu = lerp(MU0, MU1, k);
+    tail(mu, 'rgba(95,211,141,.30)');
+    curve(mu, C.green, 2.4);
+
+    line(ctx, xOf(thr), top-6, xOf(thr), baseY, '#ffffff44', 1, [4,4]);
+    T(ctx, 'редкий хороший исход →', xOf(thr)+8, top+6, {size:11.5, color:C.muted});
+    line(ctx, padL-8, baseY, W-padR, baseY, C.line, 1);
+    T(ctx, 'по горизонтали — насколько хорошо сложилось →', padL, H-12, {size:11.5, color:C.dim});
+    T(ctx, '↑ как часто складывается именно так', padL, top+10, {size:11.5, color:C.dim});
+    // каждую кривую подписываем на её же вершине
+    const mode0 = Math.exp(MU0-S*S), modeK = Math.exp(mu-S*S);
+    T(ctx, 'до', xOf(mode0)-8, yOf(logn(mode0,MU0,S))-12, {size:12.5, color:'#7c8ca1', align:'right'});
+    if(k > 0.12)
+      T(ctx, 'после вложенной работы', xOf(modeK)+10, yOf(logn(modeK,mu,S))-12,
+        {size:12.5, color:C.green});
+    T(ctx, 'закрашено — как часто выпадает редкий хороший исход', xOf(thr)+8, baseY-10,
+      {size:11, color:C.dim});
+    if(k > 0.9) T(ctx, 'кривая сдвинулась вся, и закрашенного стало заметно больше',
+      W-padR, H-12, {size:11.5, color:C.green, align:'right'});
+  }
+});
+
+/* ============================================================
+   Сцена 12 — складывается само с собой
+   ============================================================ */
+defineScene('s12', {
+  init(st){ st.d = 0; },
+  isDone(st){ return st.d >= 365; },
+  draw(ctx, W, H, st, dt){
+    st.d = Math.min(365, st.d + dt*105);
+    const padL = 46, padR = 168, top = 34, baseY = H-46;
+    const plotW = W-padL-padR, plotH = baseY-top;
+    const YMAX = 40;
+    const xOf = d => padL + d/365*plotW;
+    const yOf = v => baseY - clamp(v/YMAX,0,1)*plotH;
+
+    for(let g=10; g<=40; g+=10){
+      line(ctx, padL, yOf(g), W-padR, yOf(g), '#1c2635', 1);
+      T(ctx, '×'+g, padL-10, yOf(g)+4, {size:11, color:C.dim, align:'right'});
+    }
+    line(ctx, padL, baseY, W-padR, baseY, C.line, 1);
+
+    // прибавляем по кусочку
+    ctx.strokeStyle = '#54637a'; ctx.lineWidth = 2; ctx.beginPath();
+    for(let d=0; d<=st.d; d+=2){ const v = 1 + d*0.01; const x=xOf(d), y=yOf(v); d?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+    ctx.stroke();
+    // умножаем
+    ctx.strokeStyle = C.green; ctx.lineWidth = 2.6; ctx.beginPath();
+    for(let d=0; d<=st.d; d+=2){ const v = Math.pow(1.01, d); const x=xOf(d), y=yOf(v); d?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+    ctx.stroke();
+
+    const lin = 1 + st.d*0.01, exp = Math.pow(1.01, st.d);
+    const dec = v => String(Math.round(v*10)/10).replace('.', ',');
+    T(ctx, 'во сколько раз больше, чем в начале', padL-38, top-12, {size:11, color:C.dim});
+    T(ctx, 'день ' + Math.round(st.d), W-padR, top-12, {size:12, color:C.dim, align:'right'});
+    T(ctx, '+1% от первого дня', W-padR+12, yOf(Math.min(lin,YMAX)) + 4,
+      {size:12, color:'#7c8ca1'});
+    T(ctx, 'каждый день ×1,01', W-padR+12, yOf(Math.min(exp,YMAX)) - 6,
+      {size:12.5, color:C.green, weight:'600'});
+    T(ctx, 'стало ×' + dec(lin), W-padR+12, yOf(Math.min(lin,YMAX)) + 20, {size:11.5, color:C.dim});
+    T(ctx, 'стало ×' + dec(exp), W-padR+12, yOf(Math.min(exp,YMAX)) + 12, {size:11.5, color:C.green});
+    T(ctx, 'одинаковый шажок каждый день — разница только в том, от чего его считать',
+      padL, H-12, {size:11.5, color:C.dim});
+  }
+});
+
+/* ============================================================
+   Наблюдатели, навигация, кнопки
+   ============================================================ */
+const sections = Array.prototype.slice.call(document.querySelectorAll('section'));
+
+const dots = document.getElementById('dots');
+sections.forEach(sec => {
+  const b = document.createElement('button');
+  b.title = sec.dataset.title || '';
+  b.addEventListener('click', () => sec.scrollIntoView({behavior:'smooth', block:'start'}));
+  dots.appendChild(b);
+});
+const dotEls = Array.prototype.slice.call(dots.children);
+
+// появление текста
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.12 });
+sections.forEach(s => io.observe(s));
+
+// активная сцена = та, чей центр ближе всего к центру экрана
+// (надёжнее порога пересечения: секция с длинным текстом может быть выше экрана)
+let cur = -1;
+function pickActive(){
+  const mid = window.innerHeight/2;
+  let best = 0, bestD = Infinity;
+  for(let i=0;i<sections.length;i++){
+    const r = sections[i].getBoundingClientRect();
+    const d = Math.abs((r.top + r.bottom)/2 - mid);
+    if(d < bestD){ bestD = d; best = i; }
+  }
+  if(best === cur) return;
+  cur = best;
+  dotEls.forEach((d,j) => d.classList.toggle('on', j === best));
+  const id = sections[best].id;
+  if(SCENES[id]) activate(id); else activeId = null;
+}
+
+document.querySelectorAll('.again').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.again, s = SCENES[id];
+    if(!s) return;
+    if(s.def.again && s.st){ s.def.again(s.st); }
+    else { activeId = null; activate(id); }
+  });
+});
+
+const bar = document.getElementById('bar');
+let ticking = false;
+function onScroll(){
+  const max = document.body.scrollHeight - window.innerHeight;
+  bar.style.width = (max > 0 ? (window.scrollY/max*100) : 0) + '%';
+  if(!ticking){
+    ticking = true;
+    requestAnimationFrame(() => { ticking = false; pickActive(); });
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll(); pickActive();
+
+let rt;
+window.addEventListener('resize', () => {
+  clearTimeout(rt);
+  rt = setTimeout(() => { const id = activeId; activeId = null; if(id) activate(id); }, 160);
+});
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
