@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Раскраски доски 2×4 в три цвета</title>
+<style>
+:root{
+  --bg:#FAF9F6; --panel:#FFFFFF; --ink:#23231F; --ink2:#6A695F; --ink3:#9A9890;
+  --line:#DFDDD3; --line2:#C6C4B8; --empty:#F1EFE8;
+  --s0:#D8452F; --s1:#E09112; --s2:#4C8F2A; --s3:#2A6FA8; --s4:#6B57C4;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#17171A; --panel:#202024; --ink:#EDEBE4; --ink2:#A6A49B; --ink3:#77756D;
+        --line:#33333A; --line2:#45454E; --empty:#26262B;
+        --s0:#F0705A; --s1:#EDAE45; --s2:#79BE4F; --s3:#5A9CD6; --s4:#9585E0;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 ui-sans-serif,system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  padding:28px 20px 60px}
+main{max-width:880px;margin:0 auto}
+h1{font-size:23px;font-weight:500;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--ink2);font-size:15px;margin:0 0 22px;max-width:66ch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+button{font:inherit;font-size:14px;color:var(--ink);background:transparent;
+  border:1px solid var(--line2);border-radius:7px;padding:6px 13px;cursor:pointer}
+button:hover{background:var(--bg)}
+button[aria-pressed=true]{border-color:var(--s3);color:var(--s3)}
+button:focus-visible{outline:2px solid var(--s3);outline-offset:1px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tabs button{padding:7px 15px}
+.hint{font-size:14px;color:var(--ink2);margin:12px 0 0;max-width:70ch}
+.count{font-size:15px;margin:12px 0 0}
+.count b{font-weight:500}
+.big{font-size:17px}
+svg{display:block}
+svg text{font:inherit}
+.grid{display:grid;gap:11px;margin-top:14px;justify-content:start}
+.grid svg{margin:0 auto}
+.cross{transition:opacity .35s ease}
+.chip{display:inline-block;border:1px solid var(--line2);border-radius:6px;padding:1px 8px;font-size:14px;margin-right:5px}
+.chip.on{border-color:var(--s3);color:var(--s3)}
+.pal{display:inline-flex;gap:10px;align-items:center;font-size:14px;color:var(--ink2)}
+.sw{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:4px}
+.off{opacity:.35;text-decoration:line-through}
+.groupttl{font-size:14px;color:var(--ink2);margin:16px 0 0}
+.bar{display:flex;gap:6px;margin-top:12px}
+.seg{flex:1;border:1px solid var(--line2);border-radius:8px;padding:9px 11px;opacity:.3;transition:opacity .4s ease}
+.seg.on{opacity:1}
+.seg .n{font-size:19px;display:block}
+.seg .l{font-size:13px;color:var(--ink2)}
+footer{color:var(--ink3);font-size:13px;margin-top:24px;max-width:72ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<h1>Раскраски доски 2×4 в три цвета</h1>
+<p class="sub">Доску 2×4 красят тремя красками, каждую клетку одной. Две клетки <b>левого</b> столбца обязаны быть одного цвета; две клетки <b>правого</b> столбца — тоже одного (не обязательно того же). Остальные четыре клетки свободны. Сколько раскрасок, в которых встречаются все три цвета?</p>
+
+<div class="tabs">
+  <button id="t1" aria-pressed="true">Сколько объектов</button>
+  <button id="t2" aria-pressed="false">Ровно два цвета</button>
+  <button id="t3" aria-pressed="false">Игрушечный случай</button>
+</div>
+
+<!-- ── вкладка 1 ────────────────────────────────────────────── -->
+<section id="p1">
+<div class="panel">
+  <div class="row">
+    <button id="s1next">Следующий объект</button>
+    <button id="s1all">Показать всё</button>
+    <button id="s1reset">Сброс</button>
+    <span class="pal">клетку можно щёлкнуть — цвет сменится</span>
+  </div>
+  <div id="b1" style="margin-top:16px"></div>
+  <p class="count" id="c1"></p>
+  <p class="hint" id="h1"></p>
+  <div id="b1x" hidden>
+    <p class="hint" style="margin-bottom:8px"><b>А почему мы не выгнали запрещённые раскраски?</b> Потому что мы их ни разу не сделали. Вот такая картинка условие нарушает:</p>
+    <div class="row" style="align-items:flex-start;gap:18px">
+      <div id="bad"></div>
+      <p class="hint" style="margin:0;max-width:44ch">Чтобы она у нас получилась, левый столбец надо было бы красить <i>дважды</i> — отдельно верхнюю клетку, отдельно нижнюю. Но мы красили его <b>одним</b> движением, одной краской. Такой картинки среди наших 729 просто нет: выгонять нечего.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── вкладка 2 ────────────────────────────────────────────── -->
+<section id="p2" hidden>
+<div class="panel">
+  <div class="row">
+    <span style="font-size:14px;color:var(--ink2)">Пара красок:</span>
+    <button class="pair" data-p="0" aria-pressed="true">Ж + К</button>
+    <button class="pair" data-p="1" aria-pressed="false">Ж + З</button>
+    <button class="pair" data-p="2" aria-pressed="false">К + З</button>
+    <button class="pair" data-p="3" aria-pressed="false">все три пары</button>
+    <button id="s2cross">Зачеркнуть одноцветные</button>
+    <button id="s2reset">Сброс</button>
+  </div>
+  <p class="count" id="c2"></p>
+  <div id="b2"></div>
+  <p class="hint" id="h2"></p>
+</div>
+</section>
+
+<!-- ── вкладка 3 ────────────────────────────────────────────── -->
+<section id="p3" hidden>
+<div class="panel">
+  <p class="count" style="margin-top:0">Та же машина, но объектов не шесть, а <b>два</b>. Тогда все раскраски помещаются на экран, и их можно просто пересчитать пальцем.</p>
+  <p class="groupttl">Ровно один цвет — <b>3</b> штуки:</p>
+  <div id="b3a" class="grid" style="grid-template-columns:repeat(6,max-content)"></div>
+  <p class="groupttl">Ровно два цвета — <b>6</b> штук: 3 пары красок × (2 × 2 − 2 одноцветные) = 3 × 2 = 6</p>
+  <div id="b3b" class="grid" style="grid-template-columns:repeat(6,max-content)"></div>
+  <p class="count">Сложим: 3 + 6 = 9 — ровно столько, сколько всего раскрасок двух объектов (3 × 3 = 9). ✓ Машина ничего не потеряла и ничего не сосчитала дважды. На шести объектах она работает так же, просто картинок 729 и на экран они не влезают.</p>
+</div>
+</section>
+
+<!-- ── итог ─────────────────────────────────────────────────── -->
+<div class="panel">
+  <p class="count" style="margin-top:0">Все раскраски: <b id="tot">?</b> — и каждая попадает ровно в один из трёх миров.</p>
+  <div class="bar">
+    <div class="seg" id="g1"><span class="n">3</span><span class="l">ровно один цвет</span></div>
+    <div class="seg" id="g2"><span class="n">186</span><span class="l">ровно два цвета</span></div>
+    <div class="seg" id="g3"><span class="n">540</span><span class="l">все три цвета — ответ</span></div>
+  </div>
+  <p class="hint">Ширины блоков одинаковые, а не пропорциональные: 3 из 729 на честной шкале была бы толщиной в волос. Проверка суммой: 3 + 186 + 540 = 729 ✓</p>
+</div>
+
+<footer>Объект — это то, что красится одним движением: склеенный столбец из двух клеток или одна свободная клетка. Считать надо по объектам: клеток на доске 8, но выбор делается только шесть раз.</footer>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const CVAR=['--s1','--s0','--s2'], CNAME=['Ж','К','З'];
+const cv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+/* объекты: 0 — левый столбец, 1..4 — свободные клетки, 5 — правый столбец */
+const CELLOBJ=[[0,1,3,5],[0,2,4,5]];
+
+/* ── рисовалка доски 2×4 ──────────────────────────────────── */
+function board(colors,cell,o={}){
+  const W=4*cell, H=2*cell, pad=o.brackets?40:2, p=[];
+  for(let r=0;r<2;r++)for(let c=0;c<4;c++){
+    const ob=CELLOBJ[r][c], k=o.cells?o.cells[r][c]:colors[ob];
+    const fill=k==null?'var(--empty)':cv(CVAR[k]);
+    const strk=k==null?'var(--line2)':cv(CVAR[k]);
+    p.push('<rect '+(o.click?'class="cellbtn" data-obj="'+ob+'" ':'')+
+      'x="'+(pad+c*cell)+'" y="'+(pad+r*cell)+'" width="'+cell+'" height="'+cell+
+      '" rx="'+(cell>12?3:1.5)+'" fill="'+fill+'" stroke="'+strk+'" stroke-width="1"'+
+      (o.click?' style="cursor:pointer"':'')+'/>');
+  }
+  if(o.hi!=null){
+    for(let r=0;r<2;r++)for(let c=0;c<4;c++) if(CELLOBJ[r][c]===o.hi)
+      p.push('<rect x="'+(pad+c*cell-2)+'" y="'+(pad+r*cell-2)+'" width="'+(cell+4)+'" height="'+(cell+4)+
+        '" rx="5" fill="none" stroke="'+cv('--s3')+'" stroke-width="2"/>');
+  }
+  if(o.brackets){
+    [[0,'один объект'],[3,'один объект']].forEach(([c,txt])=>{
+      const x=pad+c*cell+cell/2, y=pad+H;
+      p.push('<path d="M'+(x-cell/2+4)+' '+(y+5)+' q0 8 '+(cell/2-4)+' 8 q'+(cell/2-4)+' 0 '+(cell/2-4)+' -8" fill="none" stroke="var(--line2)" stroke-width="1.4"/>');
+      p.push('<text x="'+x+'" y="'+(y+30)+'" text-anchor="middle" font-size="12" fill="var(--ink3)">'+txt+'</text>');
+    });
+  }
+  if(o.cross)
+    p.push('<g class="cross" opacity="'+(o.crossOn?1:0)+'">'+
+      '<rect x="'+pad+'" y="'+pad+'" width="'+W+'" height="'+H+'" fill="var(--panel)" opacity=".55"/>'+
+      '<line x1="'+pad+'" y1="'+pad+'" x2="'+(pad+W)+'" y2="'+(pad+H)+'" stroke="var(--ink)" stroke-width="2.2"/>'+
+      '<line x1="'+(pad+W)+'" y1="'+pad+'" x2="'+pad+'" y2="'+(pad+H)+'" stroke="var(--ink)" stroke-width="2.2"/></g>');
+  const hh=H+2*pad+(o.brackets?24:0);
+  return '<svg width="'+(W+2*pad)+'" height="'+hh+'" viewBox="0 0 '+(W+2*pad)+' '+hh+'" role="img"><title>'+
+    (o.title||'доска 2×4')+'</title>'+p.join('')+'</svg>';
+}
+
+/* ── вкладки ──────────────────────────────────────────────── */
+const TABS=[['t1','p1'],['t2','p2'],['t3','p3']];
+TABS.forEach(([b,p])=>$(b).onclick=()=>{
+  TABS.forEach(([b2,p2])=>{const on=b2===b;$(b2).setAttribute('aria-pressed',on);$(p2).hidden=!on;});
+});
+
+/* ── вкладка 1: сколько объектов ──────────────────────────── */
+const DEMO=[0,2,1,0,2,1];
+let step=0, cols1=[null,null,null,null,null,null];
+function draw1(){
+  $('b1').innerHTML=board(cols1,46,{brackets:1,click:1,hi:step<6?step:null,title:'доска 2×4 со склеенными боковыми столбцами'});
+  $('b1').querySelectorAll('.cellbtn').forEach(r=>r.onclick=()=>{
+    const i=+r.dataset.obj; if(cols1[i]==null)return; cols1[i]=(cols1[i]+1)%3; draw1();
+  });
+  const chips=[...Array(step)].map(()=>'<span class="chip on">3</span>').join(
+    '<span style="color:var(--ink3)">×</span> ');
+  let t='';
+  if(step===0) t='Ещё ничего не выбрано. Считать будем не клетки, а <b>объекты</b>: то, что красится одним движением.';
+  else if(step<6) t='Объект '+step+' из 6: у него на выбор <b>3</b> краски. Выборы случаются вместе, в одной картинке, — значит перемножаем.';
+  else t='Шесть объектов, у каждого 3 краски: 3⁶ = <b>729</b> раскрасок всего.';
+  $('c1').innerHTML=step?chips+' &nbsp;=&nbsp; <b class="big">'+Math.pow(3,step)+'</b>':'';
+  $('h1').innerHTML=t+(step===6?'<br>Если бы мы красили по клеткам, вышло бы 3⁸ = 6561 картинок — но большинство из них условие запрещает, и их пришлось бы потом выгонять. Считая по объектам, мы их вообще не делаем.':'');
+  $('b1x').hidden=step<6;
+  if(step===6){
+    light('g1');
+    $('bad').innerHTML=board(null,40,{cells:[[0,2,1,0],[1,0,2,1]],title:'запрещённая раскраска: клетки левого столбца разного цвета'});
+  }
+  $('tot').textContent=step===6?'729':'?';
+}
+function nextObj(){ if(step<6){ cols1[step]=DEMO[step]; step++; draw1(); } }
+$('s1next').onclick=nextObj;
+$('s1all').onclick=()=>{ while(step<6) nextObj(); };
+$('s1reset').onclick=()=>{ step=0; cols1=[null,null,null,null,null,null]; draw1(); };
+
+/* ── вкладка 2: ровно два цвета ───────────────────────────── */
+const PAIRS=[[0,1],[0,2],[1,2]];
+let pair=0, crossed=false;
+function pairBlock(pi){
+  const [a,b]=PAIRS[pi], out=[];
+  for(let i=0;i<64;i++){
+    const cols=[...Array(6)].map((_,j)=>((i>>j)&1)?b:a);
+    const mono=(i===0||i===63);
+    out.push(board(cols,12,{cross:mono,crossOn:mono&&crossed,title:'раскраска '+(i+1)}));
+  }
+  const third=[0,1,2].find(c=>c!==a&&c!==b);
+  return '<p class="groupttl"><span class="pal">'+
+    [a,b].map(c=>'<span><span class="sw" style="background:'+cv(CVAR[c])+'"></span>'+CNAME[c]+'</span>').join(' ')+
+    ' <span class="off"><span class="sw" style="background:'+cv(CVAR[third])+'"></span>'+CNAME[third]+
+    '</span> — третья краска в этой паре не участвует вовсе</span></p>'+
+    '<div class="grid" style="grid-template-columns:repeat(8,max-content)">'+out.join('')+'</div>';
+}
+function draw2(){
+  const list=pair===3?[0,1,2]:[pair];
+  $('b2').innerHTML=list.map(pairBlock).join('');
+  $('c2').innerHTML= 'Красим шесть объектов, но <b>только двумя</b> красками: 2 × 2 × 2 × 2 × 2 × 2 = <b>64</b> картинки.'+
+    (crossed?' Две из них обошлись одной краской — слово «ровно» их не пускает: 64 − 2 = <b class="big">62</b>.':'');
+  $('h2').innerHTML= crossed
+    ? 'Пар красок три (Ж+К, Ж+З, К+З), на каждую приходится 62 раскраски → <b>3 × 62 = 186</b>.<br>Двойного счёта нет: по готовой картинке видно, <i>какие две</i> краски в ней встретились, значит она лежит ровно в одной паре. Нажми «все три пары» — экраны не повторяются.'
+    : 'Найди глазами две картинки, где вторая краска так и не пригодилась, — и нажми «Зачеркнуть одноцветные».';
+  if(crossed){ light('g2'); $('tot').textContent='729'; }
+}
+document.querySelectorAll('.pair').forEach(btn=>btn.onclick=()=>{
+  pair=+btn.dataset.p;
+  document.querySelectorAll('.pair').forEach(b=>b.setAttribute('aria-pressed',b===btn));
+  draw2();
+});
+$('s2cross').onclick=()=>{ crossed=true; draw2(); };
+$('s2reset').onclick=()=>{ crossed=false; draw2(); };
+
+/* ── вкладка 3: игрушечный случай ─────────────────────────── */
+function pill(cols,cell){
+  const p=cols.map((k,i)=>'<rect x="'+(2+i*cell)+'" y="2" width="'+cell+'" height="'+cell+
+    '" rx="3" fill="'+cv(CVAR[k])+'" stroke="'+cv(CVAR[k])+'"/>').join('');
+  return '<svg width="'+(cols.length*cell+4)+'" height="'+(cell+4)+'" role="img"><title>раскраска двух объектов</title>'+p+'</svg>';
+}
+function draw3(){
+  const one=[],two=[];
+  for(let a=0;a<3;a++)for(let b=0;b<3;b++)(a===b?one:two).push(pill([a,b],34));
+  $('b3a').innerHTML=one.join(''); $('b3b').innerHTML=two.join('');
+}
+
+/* ── итоговая полоска ─────────────────────────────────────── */
+function light(id){
+  $(id).classList.add('on');
+  if($('g1').classList.contains('on')&&$('g2').classList.contains('on')) $('g3').classList.add('on');
+}
+
+function drawAll(){ draw1(); draw2(); draw3(); }
+matchMedia('(prefers-color-scheme:dark)').addEventListener('change',drawAll);
+drawAll();
+</script>
+</body>
+</html>
