@@ -1,7 +1,5 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## What this repository is
 
 Not a software project. It is a set of **Russian-language study materials** preparing a child (10–11 y.o.)
@@ -34,10 +32,9 @@ order derived from the window data), the practice trio `nandu_n1_nacional_prakti
 (21 generated problems over 12 types, rebalanced by real frequency), and `resheniya/` — per-year battle keys
 (2025 written).
 
-⚠ **Corpus key `nandu_problemas/historico/Nacionales_N1.md` has three confirmed errors** —
-**2020 №5** (D 180 / MPRU 384, not 198/414), **2021 №6** (204, not 360; that row also drops №3) and
-**2025 №6** (the board is 3×4 per the original PDF → 720, not 6480). Each was verified by two independent
-enumerations. Never quote the key without checking these; details and the PDF figure corrections are in the README.
+⚠ **Corpus key `nandu_problemas/historico/Nacionales_N1.md` has three confirmed errors** — 2020 №5, 2021 №6
+(that row also drops №3) and 2025 №6. Never quote the key without checking these: the corrected values, their
+verification and the PDF figure corrections are in `national_level1/README.md`.
 
 ⚠ **There is no day-by-day plan for the national branch.** `nandu_n1_nacional_plan{,_short,_szhatyy}.md` were
 written and then **deleted by the user (28 July 2026)** — dating the branch was judged premature. Do not
@@ -54,18 +51,13 @@ re-create them unasked. Branch debts: `resheniya/nandu_n1_nacional_resheniya_{20
   and **OMA = `oma/`** (a separate, harder secundaria olympiad, no course material targets it).
   `nandu_problemas/2025/` is OMA, not Ñandú. Details in `README.md`.
 - `national_level1/` — the national branch (above).
-- `26-27/`, `27-28/` — season folders for everything that is **not** the current Ñandú N1 push, so a season's work
-  never requires hopping between directories. `26-27/{school5,school6,nandu_level2,tinkov}`,
-  `27-28/{tinkov,school7,nandu_level3}`. Each has its own `README.md` — read it before writing there.
-  The `tinkov/` folders are a **карман, not a schedule**: no dates, no ☐-days in any tracker.
-  ⚠ No briefs or roadmaps in `27-28/` — a plan-shaped file nobody implements is a reminder the user has to carry;
-  either write the concrete pair or drop the idea. (An OMA-bridge roadmap lived there and was deleted; do not re-create it.)
-- `combinatorics_v1/` — archived first version of the счёт materials; unused, except
-  `combinatorics_v1/nandu_n1_regional_schet_session_prompt.md`, which is the live workflow for authoring a new pair (rule 7).
+- `26-27/{school5,school6,nandu_level2,tinkov}`, `27-28/{tinkov,school7,nandu_level3}` — season folders for everything
+  that is **not** the current Ñandú N1 push, so a season's work never requires hopping between directories.
+  Each has its own `README.md` — read it before writing there. Two standing prohibitions:
+  the `tinkov/` folders are a **карман, not a schedule** (no dates, no ☐-days in any tracker), and
+  **no briefs or roadmaps in `27-28/`** — either write the concrete pair or drop the idea.
 
-**Printing:** `venv/bin/python3 build_pdf.py <files.md>` → `<name>_print.pdf` (A5 pages imposed two-up on landscape A4).
-The `/pdf` slash command wraps it. Only some files get printed — never build PDFs for the whole repo unasked.
-Details in `README.md`.
+**Printing:** the `/pdf` slash command (details in `README.md`). Never build PDFs for the whole repo unasked.
 
 ## Domain model
 
@@ -75,11 +67,6 @@ Problem types are stable across stages and largely fixed by position:
 At the regional stage each paper is exactly 3 problems with the type fixed by position (№1 = Т1, №2 = Т2, №3 = Т3);
 the national paper has 6 over two days. Per-stage типологии hold the full breakdown:
 `national_level1/nandu_n1_nacional_tipologia.md` and `nandu_n1_provincial_tipologia.md`.
-
-**Corpus finding on Т1 technique** (July 2026 audit of ~68 Nivel-1 papers): subtracting two near-twin equations
-(plain elimination, «вычитание уравнений») is THE dominant opening move of the regional №1 — 7 of 14 years 2012–2025,
-including all five of 2021–2025. Drill it to automatism. «Сложи всё» in its pure circular form (`a+b, b+c, a+c`)
-has **zero hits** in the Nivel-1 №1 corpus at any stage — taught once as a bridge idea, not drilled.
 
 ## Hard rules when authoring or editing materials
 
@@ -145,14 +132,6 @@ These conventions are load-bearing across all existing pairs — keep them.
       not a local one. **The national branch has no phrases yet**: it gets its own phrase-book section in the national
       памятка, seeded from the provincial one, before phrases are added to national material.
     - **Budget ≈180 Spanish characters** (two handwritten lines), simple rioplatense at 10–11-year-old level.
-    - **Verification is mandatory and independent** (rule 4's standard): an agent seeing only the statement and the record
-      re-solves the problem and judges whether the claim is *true*, carries justification rather than arithmetic, is natural
-      Spanish, and fits the budget. The first pass caught three factually false phrases — this check is not a formality.
+    - **Verification by rule 4's standard**, plus: the claim is *true*, it carries justification rather than arithmetic,
+      the Spanish is natural, it fits the budget. The first pass caught three false phrases — not a formality.
     - `grep -rn 💬` lists the whole layer.
-
-## Progress tracking
-
-There is **no dated plan for the national branch** (see above). `nandu_n1_plan_2026.md` is the last dated schedule —
-it runs only to the 27 Aug regional tour and ends with a dangling pointer to the deleted national plans.
-Pace decisions that still hold (fixed dates, material order, which years to use for two-day simulations) are recorded
-in `national_level1/README.md`, section «Даты и темп» — keep them there, not here.
