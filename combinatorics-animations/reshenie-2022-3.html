@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Решение по правилам</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+
+  /* ——— шапка: условие + запись решения ——— */
+  header{display:flex;justify-content:flex-end;align-items:center;gap:18px;
+    padding:10px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;min-height:48px}
+  #rec{font:14.5px/1.9 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:right}
+  #rec .dimart{color:var(--dim)}
+
+  /* ——— слайд ——— */
+  main{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:18px 22px}
+  #condblock{width:100%;max-width:940px;margin-bottom:18px}
+  .slide{display:none;width:100%;max-width:940px}
+  .slide.on{display:block}
+  .q{font-size:clamp(24px,3.6vw,34px);line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
+  .q .sig{color:var(--gold)}
+  .a{display:none}
+  .slide.ph1 .a{display:block}
+  .move{font-size:clamp(18px,2.4vw,23px);color:#dae4ef;margin:6px 0 0}
+  .move b{font-weight:600;color:#fff}
+  p{font-size:clamp(15.5px,1.8vw,17.5px);line-height:1.55;color:#cfdae6;margin:12px 0 0;max-width:52em}
+  p.mut{color:var(--muted)}
+
+  .board{background:var(--bg2);border-radius:10px;padding:20px 16px;margin:16px 0 0;overflow-x:auto}
+  .brow{display:flex;justify-content:center;gap:24px;align-items:flex-start;flex-wrap:wrap}
+  .num{display:inline-flex}
+  .d{width:26px;height:34px;line-height:32px;text-align:center;
+    font:19px ui-monospace,Menlo,Consolas,monospace;color:var(--ink);
+    background:#1a2230;border:1px solid #2c394c;position:relative}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px}
+  .d:last-child{border-radius:0 6px 6px 0}
+  .d.cut{background:#20304a;border-color:#3d5a82;color:var(--blue)}
+  .d.sp{color:var(--gold)}
+  .d.free{color:var(--blue)}
+  .d.dm{color:var(--dim)}
+  .xover{position:absolute;inset:0;background:#1a2230;color:var(--dim);
+    font:19px/32px ui-monospace,Menlo,monospace;text-align:center;border-radius:inherit}
+  .big .d{width:34px;height:44px;line-height:42px;font-size:25px}
+
+  .wcol{display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;
+    padding:14px 12px 10px}
+  .wlab{font:15px ui-monospace,Menlo,monospace;color:var(--muted);margin-bottom:2px}
+  .ell{color:var(--gold);font-size:28px;line-height:1.05;font-weight:600;margin:2px 0 0}
+  .wn{font:15px ui-monospace,Menlo,monospace;color:var(--ink)}
+  .wframe{position:absolute;inset:0;border:1.5px solid;border-radius:10px;pointer-events:none}
+  .wframe.g{border-color:var(--green)}
+  .wframe.b{border-color:var(--red)}
+
+  .chip{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:14.5px;color:#cfdae6;
+    border:1px solid var(--line);border-radius:999px;padding:6px 15px;display:inline-block}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 0}
+  /* ——— три проверки разреза ——— */
+  .rules{max-width:52em;margin:16px 0 0;font-family:ui-sans-serif,-apple-system,sans-serif}
+  .rules .row{display:flex;gap:12px;align-items:baseline;padding:9px 10px;
+    border-top:1px solid var(--line);font-size:16px;line-height:1.45;color:#cfdae6}
+  .rules .row:last-child{border-bottom:1px solid var(--line)}
+  .rules .n{color:var(--dim);font-size:14px}
+  .rules .v{margin-left:auto;white-space:nowrap;font-size:15px}
+  .rules .v .y{color:var(--green)}
+  .rules .v .n{color:var(--red)}
+  .rules .v .why{color:var(--muted)}
+  @keyframes rowon{0%{background:transparent}35%{background:#1c2534}100%{background:transparent}}
+  .anim.run:not(.fast) .rules .row.chkrow{animation:rowon 1s ease 1 both;
+    animation-delay:calc(var(--i,0)*.45s - .3s)}
+
+  .frm{font:clamp(18px,2.6vw,24px)/1.5 ui-monospace,Menlo,monospace;color:var(--ink)}
+  .frm .g{color:var(--green)}
+  .frm .mu{color:var(--muted)}
+  .plan{border:1px solid var(--line);border-radius:10px;background:var(--bg2);
+    padding:14px 20px;display:inline-block;margin-top:16px}
+  .der{font:16.5px/2 ui-monospace,Menlo,monospace;color:#cfdae6;text-align:left}
+  .der .res{color:var(--green);font-size:19px}
+
+  /* ——— пошаговое проявление при раскрытии хода ——— */
+  .anim .st{opacity:0;transform:translateY(8px);
+    transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--i,0)*.45s)}
+  .anim.run .st{opacity:1;transform:none}
+  .anim:not(.run) .st{transition:none}
+  .anim.fast .st{transition-delay:0s!important;transition-duration:.15s}
+  @keyframes flash{0%{background:#1a2230}45%{background:#5a2730;border-color:var(--red);color:var(--red)}100%{background:#1a2230}}
+  .anim.run:not(.fast) .prow .d.pcell{animation:flash .8s ease 1 both;animation-delay:calc(var(--i,0)*.45s + .5s)}
+
+  /* ——— низ: навигация ——— */
+  footer{display:flex;align-items:center;justify-content:center;gap:14px;
+    padding:12px 22px 16px;border-top:1px solid var(--line);flex-wrap:wrap;
+    font-family:ui-sans-serif,-apple-system,sans-serif}
+  footer button{font:inherit;font-size:14.5px;color:var(--ink);background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer}
+  footer button:hover:not(:disabled){border-color:#3d4c5e}
+  footer button:disabled{opacity:.3;cursor:default}
+  #next{border-color:#3d5a82;color:var(--blue);min-width:170px}
+  #stepnums{display:flex;gap:6px}
+  #stepnums button{width:30px;height:30px;padding:0;border-radius:50%;font-size:12.5px;color:var(--dim)}
+  #stepnums button.seen{color:var(--ink)}
+  #stepnums button.cur{border-color:var(--blue);color:var(--blue)}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .anim .st{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div id="rec" aria-live="polite"></div>
+</header>
+
+<main>
+
+<div id="condblock">
+  <div class="board" style="margin:0">
+    <div style="text-align:center">
+      <span class="num big"><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span></span>
+      <div class="chips">
+        <span class="chip">ровно одна цифра 1</span>
+        <span class="chip">ровно одна цифра 2</span>
+        <span class="chip">число чётное</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1 ————————————————————————— -->
+<div class="slide" id="sl0">
+  <div class="a">
+    <p class="mut">Региональный тур 2022, №3 — сколько таких чисел? Маршрут решения:</p>
+    <div class="rules">
+      <div class="row"><span class="n">1</span><span><b>Три первых вопроса.</b> Что здесь один способ? Какое условие самое жёсткое? Задача цельная — или режется?</span></div>
+      <div class="row"><span class="n">2</span><span><b>Разрез.</b> Раздели все подходящие числа на миры — части, которые не пересекаются и вместе покрывают всё. Разрез выбирай по сигналам условия и прогони через три проверки.</span></div>
+      <div class="row"><span class="n">3</span><span><b>Счёт миров.</b> Каждый мир считай отдельно: выписывай его числа по порядку, пока не увидишь закономерность, — дальше считает расстановка. Одинаковые миры посчитай один раз и умножь.</span></div>
+      <div class="row"><span class="n">4</span><span><b>Сборка.</b> Подставь числа миров в план: миры складываются — закон «ИЛИ». В конце пересчитай ответ вторым способом.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 ————————————————————————— -->
+<div class="slide" id="sl1">
+  <p class="q">Вопрос 1. <span class="sig">Что здесь один способ?</span></p>
+  <div class="a">
+    <p class="move">Способ — <b>целиком заполненная четвёрка клеток</b>.</p>
+    <div class="board anim">
+      <div class="brow">
+        <div class="st" style="--i:0"><span class="num big"><span class="d">1</span><span class="d free">0</span><span class="d free">3</span><span class="d">2</span></span></div>
+        <div class="st" style="--i:1"><span class="num big"><span class="d">1</span><span class="d free">3</span><span class="d free">0</span><span class="d">2</span></span></div>
+      </div>
+    </div>
+    <p>Swap-тест: 0 и 3 поменялись местами — другое число. 1032 и 1302 — два способа.</p>
+  </div>
+</div>
+
+<!-- 3 ————————————————————————— -->
+<div class="slide" id="sl2">
+  <p class="q">Вопрос 2. <span class="sig">Какое условие самое жёсткое?</span></p>
+  <div class="a">
+    <div class="board anim">
+      <div style="position:relative;width:min(680px,100%);margin:0 auto">
+      <svg viewBox="0 0 680 240" style="width:100%;display:block">
+        <g class="st" style="--i:0">
+          <line x1="120" y1="52" x2="266" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="120" y1="52" x2="312" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="120" y1="52" x2="358" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="120" y1="52" x2="404" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+        </g>
+        <g class="st" style="--i:1">
+          <line x1="340" y1="52" x2="266" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="340" y1="52" x2="312" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="340" y1="52" x2="358" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="340" y1="52" x2="404" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+        </g>
+        <g class="st" style="--i:2">
+          <line x1="560" y1="52" x2="404" y2="156" stroke="var(--gold)" stroke-width="2.6"/>
+        </g>
+        <g font-family="ui-sans-serif,sans-serif" font-size="14" fill="#cfdae6" text-anchor="middle">
+          <g class="st" style="--i:0"><rect x="55" y="20" width="130" height="30" rx="15" fill="none" stroke="#243040"/><text x="120" y="40">ровно одна 1</text></g>
+          <g class="st" style="--i:1"><rect x="275" y="20" width="130" height="30" rx="15" fill="none" stroke="#243040"/><text x="340" y="40">ровно одна 2</text></g>
+          <g class="st" style="--i:2"><rect x="500" y="20" width="120" height="30" rx="15" fill="none" stroke="var(--gold)"/><text x="560" y="40" fill="var(--gold)">чётное</text></g>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="24" text-anchor="middle">
+          <rect x="248" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="294" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="340" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="386" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <text x="266" y="192" fill="#5d6b7c">·</text><text x="312" y="192" fill="#5d6b7c">·</text>
+          <text x="358" y="192" fill="#5d6b7c">·</text><text x="404" y="192" fill="#5d6b7c">·</text>
+          <g class="st" style="--i:3">
+            <rect x="382" y="156" width="44" height="54" rx="8" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <text x="404" y="234" font-family="ui-sans-serif,sans-serif" font-size="13.5" fill="var(--gold)">самая зажатая клетка</text>
+          </g>
+        </g>
+      </svg>
+      </div>
+    </div>
+    <p>«Ровно одна 1» и «ровно одна 2» размазаны по числу. Всё давление «чётного» приходится на одну клетку — на <b>клетку единиц</b>. Она самая зажатая, поэтому разбери её раньше всех остальных — хоть она и стоит в конце числа.</p>
+  </div>
+</div>
+
+<!-- 4 ————————————————————————— -->
+<div class="slide" id="sl3">
+  <p class="q">Вопрос 3. <span class="sig">Задача цельная — или режется?</span></p>
+  <div class="a">
+    <p class="move">Режется — это <b>сумма миров</b>.</p>
+    <p>Клетку единиц держат сразу два условия: «чётное» и «ровно одна 2». Пока они сцеплены на одной клетке, одним произведением этапов задачу не собрать — сначала разрежь её на миры, а этапы перемножай уже внутри мира.</p>
+    <p>Резать можно по-разному, но любой разрез обязан пройти три проверки:</p>
+    <div class="rules">
+      <div class="row"><span class="n">1</span><span>Миры не пересекаются: ни одно число не попадает в два мира сразу.</span></div>
+      <div class="row"><span class="n">2</span><span>Миры вместе покрывают всё: каждое число нашло свой мир.</span></div>
+      <div class="row"><span class="n">3</span><span>Внутри миров помнить нечего: после разреза ни одно условие не осталось живым.</span></div>
+    </div>
+    <p>Первые две проверки отвечают за верность: каждое число посчитано ровно один раз. Третья — за цену: сколько работы останется внутри миров.</p>
+  </div>
+</div>
+
+<!-- 5 ————————————————————————— -->
+<div class="slide" id="sl4">
+  <p class="q">Сигнал: <span class="sig">«ровно одна 2»</span>. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Место особой цифре — первым.</b> Двойка стоит ровно в одном из четырёх мест числа — миров четыре:</p>
+    <div class="board anim">
+      <div class="brow" id="bworlds"></div>
+      <div class="rules">
+        <div class="row chkrow" style="--i:6"><span class="n">1</span><span>Миры не пересекаются</span><span class="v st" style="--i:6"><span class="y">✓</span> <span class="why">двойка стоит ровно в одном месте</span></span></div>
+        <div class="row chkrow" style="--i:7"><span class="n">2</span><span>Миры вместе покрывают всё</span><span class="v st" style="--i:7"><span class="y">✓</span> <span class="why">какое-то место у двойки есть всегда</span></span></div>
+        <div class="row chkrow" style="--i:8.5"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:8.5"><span class="n">✗</span> <span class="why">«чётное» живо в трёх мирах</span></span></div>
+      </div>
+    </div>
+    <p>«Чётное» не исчезло: в 2xxx, x2xx, xx2x тебе придётся заново разбирать клетку единиц у каждого числа. Погасло оно только в xxx2. Разрез верный, но дорогой — <b>убери его в карман</b>: пригодится для пересчёта.</p>
+  </div>
+</div>
+
+<!-- 6 ————————————————————————— -->
+<div class="slide" id="sl5">
+  <p class="q">Сигнал: <span class="sig">«чётное»</span>. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Разбери клетку единиц раньше всех</b> — она самая зажатая. Чётная цифра в ней бывает пятью способами:</p>
+    <div class="board anim">
+      <div class="brow" id="aworlds"></div>
+      <div class="rules">
+        <div class="row chkrow" style="--i:6"><span class="n">1</span><span>Миры не пересекаются</span><span class="v st" style="--i:6"><span class="y">✓</span> <span class="why">клетка единиц у числа одна</span></span></div>
+        <div class="row chkrow" style="--i:7"><span class="n">2</span><span>Миры вместе покрывают всё</span><span class="v st" style="--i:7"><span class="y">✓</span> <span class="why">какая-то чётная цифра там стоит</span></span></div>
+        <div class="row chkrow" style="--i:8"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:8"><span class="y">✓</span> <span class="why">клетка единиц уже выбрана — «чётное» исчезло</span></span></div>
+      </div>
+    </div>
+    <p>Клетка единиц внутри мира уже выбрана — «чётное» исчезло во всех пяти мирах разом. Осталась расстановка 1 и 2.</p>
+    <p><span class="plan frm">Ответ = М0 + М2 + М4 + М6 + М8</span></p>
+  </div>
+</div>
+
+<!-- 7 ————————————————————————— -->
+<div class="slide" id="sl6">
+  <p class="q">Мир <span class="sig">xxx0</span>. Первый ход счёта?</p>
+  <div class="a">
+    <p class="move"><b>Выписывай по порядку</b> — со старшей клетки, до закономерности.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol" id="w0list"></div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:7">места для <span style="color:var(--gold)">1</span> и <span style="color:var(--gold)">2</span>: 3 · 2 = 6</div>
+          <div class="st" style="--i:8">свободная клетка: 8 цифр</div>
+          <div class="st" style="--i:9">6 · 8 = 48</div>
+          <div class="st" style="--i:10">ноль впереди: <span style="color:var(--red)">0120, 0210</span> — <span style="color:var(--red)">− 2</span></div>
+          <div class="st res" style="--i:11">М0 = 48 − 2 = 46</div>
+        </div>
+      </div>
+    </div>
+    <p>Закономерность: клетка единиц всегда 0, работают три остальные. <span style="color:var(--gold)">1 и 2</span> гуляют по этим трём клеткам — таких расстановок 3 · 2 = 6. Оставшаяся клетка <span style="color:var(--blue)">свободна</span> — в неё годится любая из 8 цифр, кроме 1 и 2. Вместе 6 · 8 = 48; ведущий ноль отнимает два расклада — 0120 и 0210: 48 − 2 = 46.</p>
+  </div>
+</div>
+
+<!-- 8 ————————————————————————— -->
+<div class="slide" id="sl7">
+  <p class="q">Миры <span class="sig">xxx4, xxx6, xxx8</span>. Пересчитывать?</p>
+  <div class="a">
+    <p class="move"><b>Нет.</b> Одинаковые миры не пересчитывай: посчитай один раз и умножь.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:26px" id="copycols"></div>
+      <p class="st" style="--i:6;text-align:center;margin:16px 0 0;font-size:15.5px;color:var(--green)">закрой разрезанную клетку — строчка в строчку</p>
+    </div>
+    <p>xxx4, xxx6, xxx8 устроены так же, как уже посчитанный xxx0, — по 46 в каждом. Четыре одинаковых мира вместе: <b>46 · 4</b>.</p>
+  </div>
+</div>
+
+<!-- 9 ————————————————————————— -->
+<div class="slide" id="sl8">
+  <p class="q">Мир <span class="sig">xxx2</span>. Где особая цифра?</p>
+  <div class="a">
+    <p class="move"><b>Уже в клетке единиц</b> — ход «место особой цифре» сделан сам. Гуляет только 1, свободных клеток две.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol" id="w2list"></div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:7">место для <span style="color:var(--gold)">1</span>: 3</div>
+          <div class="st" style="--i:8">две свободные клетки: 8 · 8 = 64</div>
+          <div class="st" style="--i:9">3 · 64 = 192</div>
+          <div class="st" style="--i:10">ноль впереди: <span style="color:var(--red)">01x2 и 0x12</span>, по 8 — <span style="color:var(--red)">− 16</span></div>
+          <div class="st res" style="--i:11">М2 = 192 − 16 = 176</div>
+        </div>
+      </div>
+    </div>
+    <p>Потому мир и крупнее остальных: две свободные клетки вместо одной.</p>
+  </div>
+</div>
+
+<!-- 10 ————————————————————————— -->
+<div class="slide" id="sl9">
+  <p class="q">Числа миров готовы. <span class="sig">Что дальше?</span></p>
+  <div class="a">
+    <p class="move"><b>Подставь числа миров в план</b> — миры складываются, закон «ИЛИ», — <b>и пересчитай вторым способом</b>.</p>
+    <div class="board anim" style="text-align:center">
+      <div class="frm st" style="--i:0;margin-bottom:12px"><span class="mu">Ответ =</span> 46 + 176 + 46 + 46 + 46</div>
+      <div class="frm st" style="--i:1;margin-bottom:12px">= 176 + 46 · 4</div>
+      <div class="frm st" style="--i:2;font-size:clamp(30px,5vw,44px);margin-bottom:16px">= <span class="g">360</span></div>
+      <div class="der st" style="--i:3;display:inline-block;margin-bottom:12px">
+        <div>2xxx: единице нельзя в конец (выйдет нечётное) — 2 места; клетка единиц — 4 цифры; свободная — 8: 2 · 4 · 8 = 64</div>
+        <div>x2xx: та же машина — 64, минус 4 расклада с нулём в первой клетке: 60</div>
+        <div>xx2x: устроен как x2xx — тоже 60</div>
+        <div>xxx2: это наш мир М2 — 176</div>
+      </div>
+      <div class="frm st" style="--i:4">карман: 64 + 60 + 60 + 176 = <span class="g">360</span> <span style="color:var(--green)">✓</span></div>
+      <p class="st mut" style="--i:5;text-align:center;margin:12px 0 0;font-size:15px">два разреза — один ответ: не потеряли и не посчитали дважды</p>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <button id="prev">← назад</button>
+  <div id="stepnums"></div>
+  <button id="next">показать ход</button>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+
+/* ——— данные (сверены полным перебором) ——— */
+const BW=[['2xxx',[2010,2014,2016,2018],0,0],['x2xx',[1200,1204,1206,1208],1,0],
+          ['xx2x',[1020,1024,1026,1028],2,0],['xxx2',[1002,1032,1042,1052],3,1]];
+const AW=[['xxx0',[1020,1200,1230,1240]],['xxx2',[1002,1032,1042,1052]],['xxx4',[1024,1204,1234,1244]],
+          ['xxx6',[1026,1206,1236,1246]],['xxx8',[1028,1208,1238,1248]]];
+const W0=[1020,1200,1230,1240,1250], W2=[1002,1032,1042,1052,1062];
+const COPY=[['xxx0',[1020,1200,1230,1240]],['xxx4',[1024,1204,1234,1244]],
+            ['xxx6',[1026,1206,1236,1246]],['xxx8',[1028,1208,1238,1248]]];
+
+function numHTML(n,opts={}){
+  return '<span class="num'+(opts.big?' big':'')+'">'+[...String(n)].map((ch,i)=>{
+    let cls='d';
+    if(opts.mode==='cut'&&i===opts.cut)cls+=' cut';
+    if(opts.mode==='insight'){
+      if(i===opts.cut)cls+=' dm';
+      else if(ch==='1'||ch==='2')cls+=' sp';
+      else cls+=' free';
+    }
+    const cover=(opts.cover&&i===opts.cut)?'<span class="xover st" style="--i:'+opts.cover+'">x</span>':'';
+    return '<span class="'+cls+'">'+ch+cover+'</span>';
+  }).join('')+'</span>';
+}
+
+$('bworlds').innerHTML=BW.map(([lab,list,cut,good],c)=>
+  '<div class="wcol'+(c===0?' prow':'')+'">'+
+  '<div class="wframe '+(good?'g':'b')+' st" style="--i:'+(8+c*0.4)+'"></div>'+
+  '<div class="wlab st" style="--i:'+c+'">'+lab+'</div>'+
+  list.map((n,j)=>{
+    const h=[...String(n)].map((ch,i)=>{
+      let cls='d'; if(i===cut)cls+=' cut';
+      if(c===0&&i===3)cls+=' pcell';
+      return '<span class="'+cls+'" style="--i:'+(3+j)+'">'+ch+'</span>';}).join('');
+    return '<span class="st" style="--i:'+(3+j)+'"><span class="num">'+h+'</span></span>';
+  }).join('')+
+  '<div class="ell st" style="--i:7">⋮</div></div>').join('');
+
+$('aworlds').innerHTML=AW.map(([lab,list],c)=>
+  '<div class="wcol">'+
+  '<div class="wframe g st" style="--i:'+(8.5+c*0.3)+'"></div>'+
+  '<div class="wlab st" style="--i:'+c*0.5+'">'+lab+'</div>'+
+  list.map((n,j)=>'<span class="st" style="--i:'+(1.5+j)+'">'+numHTML(n,{mode:'cut',cut:3})+'</span>').join('')+
+  '<div class="ell st" style="--i:6">⋮</div></div>').join('');
+
+function insightList(el,list){
+  el.innerHTML=list.map((n,j)=>'<span class="st" style="--i:'+j*1.2+'">'+
+    numHTML(n,{mode:'insight',cut:3,big:1})+'</span>').join('')+
+    '<div class="ell st" style="--i:6">⋮</div>';
+}
+insightList($('w0list'),W0); insightList($('w2list'),W2);
+
+$('copycols').innerHTML=COPY.map(([lab,list],c)=>
+  '<div class="wcol"><div class="wlab st" style="--i:0">'+lab+'</div>'+
+  list.map((n,j)=>'<span class="st" style="--i:'+(0.6+j*0.6)+'">'+
+    numHTML(n,{mode:'cut',cut:3,cover:3.5+j*0.4})+'</span>').join('')+
+  '<div class="ell st" style="--i:3">⋮</div>'+
+  '<div class="wn st" style="--i:5.4">46</div></div>').join('');
+
+/* ——— шаги ——— */
+const N=10;
+const TWO=[0,1,1,1,1,1,1,1,1,1];          /* у шага 0 нет вопроса */
+const TITLES=['маршрут','вопрос 1','вопрос 2','вопрос 3','сигнал «ровно одна 2»',
+  'сигнал «чётное»','мир xxx0','копии','мир xxx2','сборка'];
+const ART={4:['в кармане: разрез по месту двойки',1],
+  5:['Ответ = М0+М2+М4+М6+М8',0], 6:['М0 = 46',0], 7:['М4 = М6 = М8 = 46',0],
+  8:['М2 = 176',0], 9:['176 + 46 · 4 = 360 ✓<br>карман: 64 + 60 + 60 + 176 = 360 ✓',0]};
+
+let cur=0; const revealed=new Set([0]);
+const nums=$('stepnums');
+for(let i=0;i<N;i++){
+  const b=document.createElement('button'); b.textContent=i+1; b.title=TITLES[i];
+  b.onclick=()=>{ if(i<=maxReach()) go(i); };
+  nums.appendChild(b);
+}
+function maxReach(){ return Math.min(N-1, Math.max(...revealed)+1); }
+
+function render(anim){
+  for(let i=0;i<N;i++){
+    const sl=$('sl'+i), on=i===cur;
+    sl.classList.toggle('on',on);
+    sl.classList.toggle('ph1',revealed.has(i)||!TWO[i]);
+    sl.querySelectorAll('.anim').forEach(a=>{
+      a.classList.remove('run','fast');
+      if(on&&(revealed.has(i)||!TWO[i])){
+        if(anim==='fresh'){ void a.offsetHeight; a.classList.add('run'); }
+        else { a.classList.add('fast'); void a.offsetHeight; a.classList.add('run'); }
+      }
+    });
+  }
+  [...nums.children].forEach((b,i)=>{
+    b.classList.toggle('cur',i===cur);
+    b.classList.toggle('seen',revealed.has(i));
+    b.disabled=i>maxReach();
+  });
+  $('prev').disabled=cur===0;
+  const done=revealed.has(cur);
+  $('next').textContent=!done&&TWO[cur]?'показать ход':(cur<N-1?'дальше →':'конец');
+  $('next').disabled=done&&cur===N-1;
+  $('rec').innerHTML=Object.keys(ART).filter(k=>revealed.has(+k))
+    .map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('');
+}
+function go(i,mode){ cur=i; render(mode||'fast'); }
+$('next').onclick=()=>{
+  if(!revealed.has(cur)){ revealed.add(cur); render('fresh'); }
+  else if(cur<N-1){ cur++; if(!TWO[cur])revealed.add(cur); render(TWO[cur]?'fast':'fresh'); }
+};
+$('prev').onclick=()=>{ if(cur>0) go(cur-1); };
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')$('next').click();
+  if(e.key==='ArrowLeft')$('prev').click();
+});
+revealed.add(0); render('fresh');
+</script>
+</body>
+</html>

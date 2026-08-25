@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Решение по этапам</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+
+  /* ——— шапка: запись решения ——— */
+  header{display:flex;justify-content:flex-end;align-items:center;gap:18px;
+    padding:10px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;min-height:48px}
+  #rec{font:14.5px/1.9 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:right}
+  #rec .dimart{color:var(--dim)}
+
+  /* ——— слайд ——— */
+  main{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:18px 22px}
+  #condblock{width:100%;max-width:940px;margin-bottom:18px}
+  .slide{display:none;width:100%;max-width:940px}
+  .slide.on{display:block}
+  .q{font-size:clamp(24px,3.6vw,34px);line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
+  .q .sig{color:var(--gold)}
+  .a{display:none}
+  .slide.ph1 .a{display:block}
+  .move{font-size:clamp(18px,2.4vw,23px);color:#dae4ef;margin:6px 0 0}
+  .move b{font-weight:600;color:#fff}
+  p{font-size:clamp(15.5px,1.8vw,17.5px);line-height:1.55;color:#cfdae6;margin:12px 0 0;max-width:52em}
+  p.mut{color:var(--muted)}
+
+  .board{background:var(--bg2);border-radius:10px;padding:20px 16px;margin:16px 0 0;overflow-x:auto}
+  .brow{display:flex;justify-content:center;gap:24px;align-items:flex-start;flex-wrap:wrap}
+  .num{display:inline-flex}
+  .d{width:26px;height:34px;line-height:32px;text-align:center;
+    font:19px ui-monospace,Menlo,Consolas,monospace;color:var(--ink);
+    background:#1a2230;border:1px solid #2c394c;position:relative}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px}
+  .d:last-child{border-radius:0 6px 6px 0}
+  .d.dm{color:var(--dim)}
+  .d.cR{background:#c2454d;border-color:#d9666d}
+  .d.cG{background:#2e9c5f;border-color:#4cbd7e}
+  .d.cB{background:#3f7fd1;border-color:#5f9be6}
+  .d.cK{background:#04060a;border-color:#4a5563}
+  .d.hl{outline:2px solid var(--gold);outline-offset:-1px;z-index:1}
+  .big .d{width:34px;height:44px;line-height:42px;font-size:25px}
+  .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;
+    margin-right:5px;border:1px solid rgba(255,255,255,.18)}
+
+  .wcol{display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;
+    padding:14px 12px 10px}
+  .wlab{font:15px ui-monospace,Menlo,monospace;color:var(--muted);margin-bottom:2px}
+  .wn{font:15px ui-monospace,Menlo,monospace;color:var(--ink)}
+  .wframe{position:absolute;inset:0;border:1.5px solid;border-radius:10px;pointer-events:none}
+  .wframe.g{border-color:var(--green)}
+  .wframe.b{border-color:var(--red)}
+  .badwrap{position:relative;display:inline-flex}
+  .badfr{position:absolute;inset:-4px;border:1.5px solid var(--red);border-radius:8px;pointer-events:none}
+
+  .chip{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:14.5px;color:#cfdae6;
+    border:1px solid var(--line);border-radius:999px;padding:6px 15px;display:inline-block}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 0}
+  .rules{max-width:52em;margin:16px 0 0;font-family:ui-sans-serif,-apple-system,sans-serif}
+  .rules .row{display:flex;gap:12px;align-items:baseline;padding:9px 10px;
+    border-top:1px solid var(--line);font-size:16px;line-height:1.45;color:#cfdae6}
+  .rules .row:last-child{border-bottom:1px solid var(--line)}
+  .rules .n{color:var(--dim);font-size:14px}
+
+  .frm{font:clamp(18px,2.6vw,24px)/1.5 ui-monospace,Menlo,monospace;color:var(--ink)}
+  .frm .g{color:var(--green)}
+  .frm .mu{color:var(--muted)}
+  .plan{border:1px solid var(--line);border-radius:10px;background:var(--bg2);
+    padding:14px 20px;display:inline-block;margin-top:16px}
+  .der{font:16.5px/2 ui-monospace,Menlo,monospace;color:#cfdae6;text-align:left}
+  .der .res{color:var(--green);font-size:19px}
+
+  /* ——— пошаговое проявление при раскрытии хода ——— */
+  .anim .st{opacity:0;transform:translateY(8px);
+    transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--i,0)*.45s)}
+  .anim.run .st{opacity:1;transform:none}
+  .anim:not(.run) .st{transition:none}
+  .anim.fast .st{transition-delay:0s!important;transition-duration:.15s}
+
+  /* ——— низ: навигация ——— */
+  footer{display:flex;align-items:center;justify-content:center;gap:14px;
+    padding:12px 22px 16px;border-top:1px solid var(--line);flex-wrap:wrap;
+    font-family:ui-sans-serif,-apple-system,sans-serif}
+  footer button{font:inherit;font-size:14.5px;color:var(--ink);background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer}
+  footer button:hover:not(:disabled){border-color:#3d4c5e}
+  footer button:disabled{opacity:.3;cursor:default}
+  #next{border-color:#3d5a82;color:var(--blue);min-width:170px}
+  #stepnums{display:flex;gap:6px}
+  #stepnums button{width:30px;height:30px;padding:0;border-radius:50%;font-size:12.5px;color:var(--dim)}
+  #stepnums button.seen{color:var(--ink)}
+  #stepnums button.cur{border-color:var(--blue);color:var(--blue)}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .anim .st{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div id="rec" aria-live="polite"></div>
+</header>
+
+<main>
+
+<div id="condblock">
+  <div class="board" style="margin:0">
+    <div style="text-align:center">
+      <span class="num big"><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span></span>
+      <div class="chips">
+        <span class="chip"><span class="sw" style="background:#c2454d"></span>красный ·
+          <span class="sw" style="background:#2e9c5f"></span>зелёный ·
+          <span class="sw" style="background:#3f7fd1"></span>синий ·
+          <span class="sw" style="background:#04060a"></span>чёрный</span>
+        <span class="chip">ровно 1 красная клетка</span>
+        <span class="chip">ровно 2 зелёные клетки</span>
+        <span class="chip">использовать все четыре цвета</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1 ————————————————————————— -->
+<div class="slide" id="sl0">
+  <div class="a">
+    <p class="mut">Региональный тур 2023, №3 — сколько раскрасок полоски? Маршрут решения:</p>
+    <div class="rules">
+      <div class="row"><span class="n">1</span><span><b>Три первых вопроса.</b> Что здесь один способ? Какое условие самое жёсткое? Задача цельная — или режется?</span></div>
+      <div class="row"><span class="n">2</span><span><b>Жанр плана.</b> Определи, как собирается ответ: сумма миров, произведение этапов или «всё минус плохие». Жанр диктуют сигналы условия, а не твой вкус.</span></div>
+      <div class="row"><span class="n">3</span><span><b>Счёт этапов.</b> Каждый этап считай отдельно: выписывай его варианты по порядку, пока не увидишь закономерность, — дальше считает расстановка.</span></div>
+      <div class="row"><span class="n">4</span><span><b>Сборка.</b> Подставь числа этапов в план: этапы перемножаются — закон «И». В конце пересчитай ответ вторым способом.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 ————————————————————————— -->
+<div class="slide" id="sl1">
+  <p class="q">Вопрос 1. <span class="sig">Что здесь один способ?</span></p>
+  <div class="a">
+    <p class="move">Способ — <b>целиком раскрашенная полоска из шести клеток</b>.</p>
+    <div class="board anim">
+      <div class="brow">
+        <div class="st" style="--i:0" id="swapA"></div>
+        <div class="st" style="--i:1" id="swapB"></div>
+      </div>
+    </div>
+    <p>Swap-тест: синяя и чёрная клетки поменялись местами — получилась другая полоска. Обе подходят под все условия, и это два разных способа.</p>
+  </div>
+</div>
+
+<!-- 3 ————————————————————————— -->
+<div class="slide" id="sl2">
+  <p class="q">Вопрос 2. <span class="sig">Какое условие самое жёсткое?</span></p>
+  <div class="a">
+    <p class="move">Условия здесь <b>двух сортов</b> — и сорта неравны.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:28px;align-items:stretch">
+        <div class="wcol st" style="--i:0;padding:16px 18px">
+          <div class="wframe" style="border-color:var(--gold)"></div>
+          <div class="wlab" style="color:var(--gold)">жёсткие количества</div>
+          <span class="chip">ровно 1 красная клетка</span>
+          <span class="chip">ровно 2 зелёные клетки</span>
+          <div class="wn" style="font-size:13.5px;color:var(--muted)">сразу называют, сколько клеток забрать</div>
+        </div>
+        <div class="wcol st" style="--i:1.2;padding:16px 18px">
+          <div class="wframe" style="border-color:var(--dim)"></div>
+          <div class="wlab">мягкое условие</div>
+          <span class="chip">все четыре цвета</span>
+          <div class="wn" style="font-size:13.5px;color:var(--muted)">само по себе ничего не считает</div>
+        </div>
+      </div>
+    </div>
+    <p>Жёсткие количества самые ограниченные — разбери их первыми: выдай красной клетке и зелёным клеткам их места. Мягкое условие оставь напоследок: когда красная и зелёные пристроены, оно переродится в конкретное требование к трём остальным клеткам.</p>
+  </div>
+</div>
+
+<!-- 4 ————————————————————————— -->
+<div class="slide" id="sl3">
+  <p class="q">Вопрос 3. <span class="sig">Задача цельная — или режется?</span></p>
+  <div class="a">
+    <p class="move">Цельная — это <b>произведение этапов</b>.</p>
+    <p>Резать на миры незачем: никакие два условия не цепляются за одну и ту же клетку. Все выборы складываются в одну картинку — одну готовую полоску, — значит, этапы перемножаются.</p>
+    <p>Соблазн — красить полоску слева направо, клетка за клеткой. Проверь его:</p>
+    <div class="board anim">
+      <div class="brow" style="gap:40px">
+        <div class="wcol st" style="--i:0">
+          <div id="ltrA"></div>
+          <div class="wn" style="font-size:13.5px;color:var(--muted)">зелёные уже потрачены → в 4-й клетке 2 варианта</div>
+        </div>
+        <div class="wcol st" style="--i:1.2">
+          <div id="ltrB"></div>
+          <div class="wn" style="font-size:13.5px;color:var(--muted)">зелёных ещё нет → в 4-й клетке 3 варианта</div>
+        </div>
+      </div>
+    </div>
+    <p>Число вариантов в клетке зависит от того, сколько красного и зелёного уже потрачено: ветки получаются неравными, и одним умножением их не собрать. Поэтому выбирай не слева направо, а по условиям — от жёстких к мягкому.</p>
+  </div>
+</div>
+
+<!-- 5 ————————————————————————— -->
+<div class="slide" id="sl4">
+  <p class="q">Сигнал: <span class="sig">«жёсткие количества»</span>. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Место особым цветам — первым.</b> Этапы одной картинки:</p>
+    <div class="board anim" style="text-align:center">
+      <div class="frm st" style="--i:0;margin-bottom:6px"><span class="mu">[</span>место красной<span class="mu">]</span> <span class="g">И</span> <span class="mu">[</span>пара мест зелёным<span class="mu">]</span> <span class="g">И</span> <span class="mu">[</span>три остальные клетки<span class="mu">]</span></div>
+      <p class="st" style="--i:1.2;text-align:center;margin:10px auto 0">Красная клетка уже стоит — это вся норма «ровно 1»; обе зелёные стоят — вся норма «ровно 2». Сверх нормы эти цвета ставить нельзя, поэтому в трёх остальных клетках живут только синий и чёрный — «все четыре цвета» переродилось в «есть и синий, и чёрный».</p>
+      <div class="st" style="--i:2.4"><span class="plan frm">Ответ = К · З · Ост</span></div>
+      <div class="der" style="display:inline-block;margin-top:12px">
+        <div class="st" style="--i:3.4">К — места для красной клетки</div>
+        <div class="st" style="--i:4.2">З — пары мест для зелёных клеток</div>
+        <div class="st" style="--i:5">Ост — заполнения трёх остальных клеток синим и чёрным, обязательно обоими</div>
+      </div>
+    </div>
+    <p>План готов: ответ — произведение трёх этапов. Осталось найти К, З и Ост.</p>
+  </div>
+</div>
+
+<!-- 6 ————————————————————————— -->
+<div class="slide" id="sl5">
+  <p class="q">Этап <span class="sig">К</span>. Первый ход счёта?</p>
+  <div class="a">
+    <p class="move"><b>Выписывай по порядку</b> — красная в 1-й клетке, во 2-й, в 3-й…</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol" id="klist"></div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:7">красная — в любой из шести клеток</div>
+          <div class="st res" style="--i:8">К = 6</div>
+        </div>
+      </div>
+    </div>
+    <p>Закономерность видна сразу: одно место красной клетки — один вариант этапа, а клеток в полоске шесть.</p>
+  </div>
+</div>
+
+<!-- 7 ————————————————————————— -->
+<div class="slide" id="sl6">
+  <p class="q">Этап <span class="sig">З</span>. Как не потерять пары?</p>
+  <div class="a">
+    <p class="move"><b>Выписывай лесенкой:</b> фиксируй первую зелёную, гони вторую вправо.</p>
+    <p>Где бы ни стояла красная, свободных клеток остаётся 6 − 1 = 5. Для картинки поставь красную в 1-ю клетку — выбор произвольный, на счёт он не влияет.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:26px" id="zcols"></div>
+      <div style="text-align:center">
+        <div class="der" style="display:inline-block;margin-top:10px">
+          <div class="st" style="--i:12">лесенка: 4 + 3 + 2 + 1</div>
+          <div class="st res" style="--i:13">З = 10</div>
+        </div>
+      </div>
+    </div>
+    <p>Пара зелёных — это выбор двух клеток из пяти, порядок внутри пары не важен: зелёные клетки одинаковые. Лесенка перечисляет каждую пару ровно один раз.</p>
+  </div>
+</div>
+
+<!-- 8 ————————————————————————— -->
+<div class="slide" id="sl7">
+  <p class="q">Этап <span class="sig">Ост</span>. Что с мягким условием?</p>
+  <div class="a">
+    <p class="move"><b>«Всё минус плохие»:</b> сосчитай все заполнения, вычти одноцветные.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol" id="ostA"></div>
+        <div class="wcol" id="ostB"></div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:9">в каждой клетке 2 варианта: 2 · 2 · 2 = 8</div>
+          <div class="st" style="--i:10">одноцветные — все синие и все чёрные: <span style="color:var(--red)">− 2</span></div>
+          <div class="st res" style="--i:12">Ост = 6</div>
+        </div>
+      </div>
+    </div>
+    <p>«Есть и синий, и чёрный» ломается ровно в двух заполнениях — во всём синем и во всём чёрном. Остальные шесть подходят.</p>
+  </div>
+</div>
+
+<!-- 9 ————————————————————————— -->
+<div class="slide" id="sl8">
+  <p class="q">Числа этапов готовы. <span class="sig">Что дальше?</span></p>
+  <div class="a">
+    <p class="move"><b>Подставь числа этапов в план</b> — этапы перемножаются, закон «И», — <b>и пересчитай ответ вторым способом</b>.</p>
+    <div class="board anim" style="text-align:center">
+      <div class="frm st" style="--i:0;margin-bottom:12px"><span class="mu">Ответ =</span> К · З · Ост = 6 · 10 · 6</div>
+      <div class="frm st" style="--i:1;font-size:clamp(30px,5vw,44px);margin-bottom:16px">= <span class="g">360</span></div>
+      <div class="frm st" style="--i:2;margin-bottom:6px;font-size:clamp(15px,2vw,18px)"><span class="mu">пересчёт: разрежь этап Ост на миры по числу синих клеток</span></div>
+      <div class="frm st" style="--i:2.5;margin-bottom:6px;font-size:clamp(15px,2vw,18px)"><span class="mu">клеток три, оба цвета обязательны — синих 1 или 2: миров два</span></div>
+      <div class="frm st" style="--i:3;margin-bottom:6px;font-size:clamp(15px,2vw,18px)"><span class="mu">место единственной клетки редкого цвета среди трёх — 3 способа</span></div>
+      <div class="frm st" style="--i:3.4;margin-bottom:6px">одна синяя: 6 · 10 · 3 = 180</div>
+      <div class="frm st" style="--i:3.8;margin-bottom:6px">две синие: 6 · 10 · 3 = 180</div>
+      <div class="frm st" style="--i:4">180 + 180 = <span class="g">360</span> <span style="color:var(--green)">✓</span></div>
+      <p class="st mut" style="--i:5;text-align:center;margin:12px 0 0;font-size:15px">два пути — один ответ: этапы посчитаны верно</p>
+    </div>
+    <p>Во втором способе место одной синей клетки выбирается тремя способами, и место одной чёрной — тоже тремя: миры не пересекаются и вместе покрывают все шесть заполнений.</p>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <button id="prev">← назад</button>
+  <div id="stepnums"></div>
+  <button id="next">показать ход</button>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+
+/* ——— данные (сверены полным перебором: ответ 360 = ключ) ——— */
+const CLS={R:'cR',G:'cG',B:'cB',K:'cK',x:'dm'};
+const KLIST=['Rxxxxx','xRxxxx','xxRxxx','xxxRxx','xxxxRx','xxxxxR'];
+const ZCOLS=[['первая зелёная — клетка 2',['RGGxxx','RGxGxx','RGxxGx','RGxxxG']],
+             ['клетка 3',['RxGGxx','RxGxGx','RxGxxG']],
+             ['клетка 4',['RxxGGx','RxxGxG']],
+             ['клетка 5',['RxxxGG']]];
+const OSTA=['BBB','BBK','BKB','BKK'], OSTB=['KBB','KBK','KKB','KKK'];
+const BAD=['BBB','KKK'];
+
+function stripHTML(s,opts={}){
+  return '<span class="num'+(opts.big?' big':'')+'">'+[...s].map((ch,i)=>{
+    let cls='d '+CLS[ch];
+    if(opts.hl&&opts.hl.includes(i))cls+=' hl';
+    return '<span class="'+cls+'">'+(ch==='x'?'x':'')+'</span>';
+  }).join('')+'</span>';
+}
+
+/* вопрос 1: swap-тест — синяя и чёрная поменялись местами */
+$('swapA').innerHTML=stripHTML('RGGBKB',{big:1,hl:[3,4]});
+$('swapB').innerHTML=stripHTML('RGGKBB',{big:1,hl:[3,4]});
+
+/* вопрос 3: слева направо — ветки неравные */
+$('ltrA').innerHTML=stripHTML('RGGxxx',{hl:[3]});
+$('ltrB').innerHTML=stripHTML('RBKxxx',{hl:[3]});
+
+/* этап К: все шесть мест красной */
+$('klist').innerHTML=KLIST.map((s,j)=>
+  '<span class="st" style="--i:'+j+'">'+stripHTML(s)+'</span>').join('');
+
+/* этап З: лесенка пар */
+$('zcols').innerHTML=ZCOLS.map(([lab,list],c)=>
+  '<div class="wcol">'+
+  '<div class="wlab st" style="--i:'+c*0.5+';font-size:12.5px">'+lab+'</div>'+
+  list.map((s,j)=>'<span class="st" style="--i:'+(1.5+c*2+j*0.6)+'">'+stripHTML(s)+'</span>').join('')+
+  '<div class="wn st" style="--i:'+(10+c*0.4)+'">'+list.length+'</div></div>').join('');
+
+/* этап Ост: все восемь заполнений, одноцветные — в красной рамке */
+function ostList(el,list,base){
+  el.innerHTML=list.map((s,j)=>{
+    const bad=BAD.includes(s);
+    return '<span class="st'+(bad?' badwrap':'')+'" style="--i:'+(base+j)+'">'+stripHTML(s)+
+      (bad?'<span class="badfr st" style="--i:10.5"></span>':'')+'</span>';
+  }).join('');
+}
+ostList($('ostA'),OSTA,0); ostList($('ostB'),OSTB,4);
+
+/* ——— шаги ——— */
+const N=9;
+const TWO=[0,1,1,1,1,1,1,1,1];            /* у шага 0 нет вопроса */
+const TITLES=['маршрут','вопрос 1','вопрос 2','вопрос 3','план',
+  'этап К','этап З','этап Ост','сборка'];
+const ART={4:['Ответ = К · З · Ост',0], 5:['К = 6',0], 6:['З = 10',0],
+  7:['Ост = 8 − 2 = 6',0], 8:['6 · 10 · 6 = 360 ✓<br>пересчёт: 180 + 180 = 360 ✓',0]};
+
+let cur=0; const revealed=new Set([0]);
+const nums=$('stepnums');
+for(let i=0;i<N;i++){
+  const b=document.createElement('button'); b.textContent=i+1; b.title=TITLES[i];
+  b.onclick=()=>{ if(i<=maxReach()) go(i); };
+  nums.appendChild(b);
+}
+function maxReach(){ return Math.min(N-1, Math.max(...revealed)+1); }
+
+function render(anim){
+  for(let i=0;i<N;i++){
+    const sl=$('sl'+i), on=i===cur;
+    sl.classList.toggle('on',on);
+    sl.classList.toggle('ph1',revealed.has(i)||!TWO[i]);
+    sl.querySelectorAll('.anim').forEach(a=>{
+      a.classList.remove('run','fast');
+      if(on&&(revealed.has(i)||!TWO[i])){
+        if(anim==='fresh'){ void a.offsetHeight; a.classList.add('run'); }
+        else { a.classList.add('fast'); void a.offsetHeight; a.classList.add('run'); }
+      }
+    });
+  }
+  [...nums.children].forEach((b,i)=>{
+    b.classList.toggle('cur',i===cur);
+    b.classList.toggle('seen',revealed.has(i));
+    b.disabled=i>maxReach();
+  });
+  $('prev').disabled=cur===0;
+  const done=revealed.has(cur);
+  $('next').textContent=!done&&TWO[cur]?'показать ход':(cur<N-1?'дальше →':'конец');
+  $('next').disabled=done&&cur===N-1;
+  $('rec').innerHTML=Object.keys(ART).filter(k=>revealed.has(+k))
+    .map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('');
+}
+function go(i,mode){ cur=i; render(mode||'fast'); }
+$('next').onclick=()=>{
+  if(!revealed.has(cur)){ revealed.add(cur); render('fresh'); }
+  else if(cur<N-1){ cur++; if(!TWO[cur])revealed.add(cur); render(TWO[cur]?'fast':'fresh'); }
+};
+$('prev').onclick=()=>{ if(cur>0) go(cur-1); };
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')$('next').click();
+  if(e.key==='ArrowLeft')$('prev').click();
+});
+revealed.add(0); render('fresh');
+</script>
+</body>
+</html>

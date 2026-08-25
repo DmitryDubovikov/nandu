@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Решение по правилам 2025</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+
+  /* ——— шапка: условие + запись решения ——— */
+  header{display:flex;justify-content:flex-end;align-items:center;gap:18px;
+    padding:10px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;min-height:48px}
+  #rec{font:14.5px/1.9 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:right}
+  #rec .dimart{color:var(--dim)}
+
+  /* ——— слайд ——— */
+  main{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:18px 22px}
+  #condblock{width:100%;max-width:940px;margin-bottom:18px}
+  .slide{display:none;width:100%;max-width:940px}
+  .slide.on{display:block}
+  .q{font-size:clamp(24px,3.6vw,34px);line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
+  .q .sig{color:var(--gold)}
+  .a{display:none}
+  .slide.ph1 .a{display:block}
+  .move{font-size:clamp(18px,2.4vw,23px);color:#dae4ef;margin:6px 0 0}
+  .move b{font-weight:600;color:#fff}
+  p{font-size:clamp(15.5px,1.8vw,17.5px);line-height:1.55;color:#cfdae6;margin:12px 0 0;max-width:52em}
+  p.mut{color:var(--muted)}
+
+  .board{background:var(--bg2);border-radius:10px;padding:20px 16px;margin:16px 0 0;overflow-x:auto}
+  .brow{display:flex;justify-content:center;gap:24px;align-items:flex-start;flex-wrap:wrap}
+  .num{display:inline-flex}
+  .d{width:26px;height:34px;line-height:32px;text-align:center;
+    font:19px ui-monospace,Menlo,Consolas,monospace;color:var(--ink);
+    background:#1a2230;border:1px solid #2c394c;position:relative}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px}
+  .d:last-child{border-radius:0 6px 6px 0}
+  .d.cut{background:#20304a;border-color:#3d5a82;color:var(--blue)}
+  .d.sp{color:var(--gold)}
+  .d.free{color:var(--blue)}
+  .d.dm{color:var(--dim)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .big .d{width:34px;height:44px;line-height:42px;font-size:25px}
+
+  .wcol{display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;
+    padding:14px 12px 10px}
+  .wlab{font:15px ui-monospace,Menlo,monospace;color:var(--muted);margin-bottom:2px}
+  .ell{color:var(--gold);font-size:28px;line-height:1.05;font-weight:600;margin:2px 0 0}
+  .wn{font:15px ui-monospace,Menlo,monospace;color:var(--ink)}
+  .wframe{position:absolute;inset:0;border:1.5px solid;border-radius:10px;pointer-events:none}
+  .wframe.g{border-color:var(--green)}
+  .wframe.b{border-color:var(--red)}
+
+  .chip{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:14.5px;color:#cfdae6;
+    border:1px solid var(--line);border-radius:999px;padding:6px 15px;display:inline-block}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 0}
+  /* ——— три проверки разреза ——— */
+  .rules{max-width:52em;margin:16px 0 0;font-family:ui-sans-serif,-apple-system,sans-serif}
+  .rules .row{display:flex;gap:12px;align-items:baseline;padding:9px 10px;
+    border-top:1px solid var(--line);font-size:16px;line-height:1.45;color:#cfdae6}
+  .rules .row:last-child{border-bottom:1px solid var(--line)}
+  .rules .n{color:var(--dim);font-size:14px}
+  .rules .v{margin-left:auto;white-space:nowrap;font-size:15px}
+  .rules .v .y{color:var(--green)}
+  .rules .v .n{color:var(--red)}
+  .rules .v .why{color:var(--muted)}
+  @keyframes rowon{0%{background:transparent}35%{background:#1c2534}100%{background:transparent}}
+  .anim.run:not(.fast) .rules .row.chkrow{animation:rowon 1s ease 1 both;
+    animation-delay:calc(var(--i,0)*.45s - .3s)}
+
+  .frm{font:clamp(18px,2.6vw,24px)/1.5 ui-monospace,Menlo,monospace;color:var(--ink)}
+  .frm .g{color:var(--green)}
+  .frm .mu{color:var(--muted)}
+  .plan{border:1px solid var(--line);border-radius:10px;background:var(--bg2);
+    padding:14px 20px;display:inline-block;margin-top:16px}
+  .der{font:16.5px/2 ui-monospace,Menlo,monospace;color:#cfdae6;text-align:left}
+  .der .res{color:var(--green);font-size:19px}
+
+  /* ——— пошаговое проявление при раскрытии хода ——— */
+  .anim .st{opacity:0;transform:translateY(8px);
+    transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--i,0)*.45s)}
+  .anim.run .st{opacity:1;transform:none}
+  .anim:not(.run) .st{transition:none}
+  .anim.fast .st{transition-delay:0s!important;transition-duration:.15s}
+
+  /* ——— низ: навигация ——— */
+  footer{display:flex;align-items:center;justify-content:center;gap:14px;
+    padding:12px 22px 16px;border-top:1px solid var(--line);flex-wrap:wrap;
+    font-family:ui-sans-serif,-apple-system,sans-serif}
+  footer button{font:inherit;font-size:14.5px;color:var(--ink);background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer}
+  footer button:hover:not(:disabled){border-color:#3d4c5e}
+  footer button:disabled{opacity:.3;cursor:default}
+  #next{border-color:#3d5a82;color:var(--blue);min-width:170px}
+  #stepnums{display:flex;gap:6px}
+  #stepnums button{width:30px;height:30px;padding:0;border-radius:50%;font-size:12.5px;color:var(--dim)}
+  #stepnums button.seen{color:var(--ink)}
+  #stepnums button.cur{border-color:var(--blue);color:var(--blue)}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .anim .st{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div id="rec" aria-live="polite"></div>
+</header>
+
+<main>
+
+<div id="condblock">
+  <div class="board" style="margin:0">
+    <div style="text-align:center">
+      <span class="num big"><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span></span>
+      <div class="chips">
+        <span class="chip">пять цифр</span>
+        <span class="chip">цифры — только 7, 8, 9, 0</span>
+        <span class="chip">каждая — хотя бы раз</span>
+        <span class="chip">с нуля не начинается</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1 ————————————————————————— -->
+<div class="slide" id="sl0">
+  <div class="a">
+    <p class="mut">Региональный тур 2025, №3 — сколько таких чисел? Маршрут решения:</p>
+    <div class="rules">
+      <div class="row"><span class="n">1</span><span><b>Три первых вопроса.</b> Что здесь один способ? Какое условие самое жёсткое? Задача цельная — или режется?</span></div>
+      <div class="row"><span class="n">2</span><span><b>Разрез.</b> Раздели все подходящие числа на миры — части, которые не пересекаются и вместе покрывают всё. Разрез выбирай по сигналам условия и прогони через три проверки. Запрет, который твой разрез не погасил, снимай вычитанием: всё минус плохие.</span></div>
+      <div class="row"><span class="n">3</span><span><b>Счёт миров.</b> Каждый мир считай отдельно: выписывай его числа по порядку, пока не увидишь закономерность, — дальше считает расстановка. Одинаковые миры посчитай один раз и умножь.</span></div>
+      <div class="row"><span class="n">4</span><span><b>Сборка.</b> Подставь числа миров в план: миры складываются — закон «ИЛИ». В конце пересчитай ответ вторым способом.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 ————————————————————————— -->
+<div class="slide" id="sl1">
+  <p class="q">Вопрос 1. <span class="sig">Что здесь один способ?</span></p>
+  <div class="a">
+    <p class="move">Способ — <b>целиком заполненная пятёрка клеток</b>.</p>
+    <div class="board anim">
+      <div class="brow">
+        <div class="st" style="--i:0"><span class="num big"><span class="d">7</span><span class="d">0</span><span class="d free">8</span><span class="d free">9</span><span class="d">7</span></span></div>
+        <div class="st" style="--i:1"><span class="num big"><span class="d">7</span><span class="d">0</span><span class="d free">9</span><span class="d free">8</span><span class="d">7</span></span></div>
+      </div>
+    </div>
+    <p>Swap-тест: 8 и 9 поменялись клетками — получилось другое число. 70897 и 70987 — два способа.</p>
+  </div>
+</div>
+
+<!-- 3 ————————————————————————— -->
+<div class="slide" id="sl2">
+  <p class="q">Вопрос 2. <span class="sig">Какое условие самое жёсткое?</span></p>
+  <div class="a">
+    <p class="move">«Каждая — хотя бы раз»: <b>оно одно держит все пять клеток</b> — и выдаёт устройство числа.</p>
+    <div class="board anim">
+      <div style="position:relative;width:min(680px,100%);margin:0 auto">
+      <svg viewBox="0 0 680 250" style="width:100%;display:block">
+        <g class="st" style="--i:0">
+          <line x1="248" y1="66" x2="248" y2="148" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="294" y1="66" x2="294" y2="148" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="340" y1="66" x2="340" y2="148" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="386" y1="66" x2="386" y2="148" stroke="#3a4657" stroke-width="1.2"/>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="22" fill="#cfdae6" text-anchor="middle" class="st" style="--i:0">
+          <rect x="230" y="30" width="36" height="36" rx="8" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="276" y="30" width="36" height="36" rx="8" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="322" y="30" width="36" height="36" rx="8" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="368" y="30" width="36" height="36" rx="8" fill="#1a2230" stroke="#2c394c"/>
+          <text x="248" y="55">7</text><text x="294" y="55">8</text>
+          <text x="340" y="55">9</text><text x="386" y="55">0</text>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="24" text-anchor="middle">
+          <rect x="230" y="150" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="276" y="150" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="322" y="150" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="368" y="150" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="414" y="150" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <text x="248" y="182" fill="#5d6b7c">·</text><text x="294" y="182" fill="#5d6b7c">·</text>
+          <text x="340" y="182" fill="#5d6b7c">·</text><text x="386" y="182" fill="#5d6b7c">·</text>
+          <text x="432" y="182" fill="#5d6b7c">·</text>
+          <g class="st" style="--i:1">
+            <rect x="410" y="146" width="44" height="54" rx="8" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <text x="432" y="226" font-family="ui-sans-serif,sans-serif" font-size="13.5" fill="var(--gold)">лишняя клетка — ровно одна</text>
+          </g>
+        </g>
+      </svg>
+      </div>
+    </div>
+    <p>Пересчитай места: цифр четыре, клеток пять, пустых клеток не бывает. Лишняя клетка ровно одна — её занимает вторая копия какой-то цифры. Значит, <b>ровно одна цифра — двойник</b>, остальные встречаются по разу. «С нуля не начинается» давит слабее: только на одну клетку — на <b>старшую клетку</b>.</p>
+  </div>
+</div>
+
+<!-- 4 ————————————————————————— -->
+<div class="slide" id="sl3">
+  <p class="q">Вопрос 3. <span class="sig">Задача цельная — или режется?</span></p>
+  <div class="a">
+    <p class="move">Режется — это <b>сумма миров</b>.</p>
+    <p>Одним произведением этапов задачу не собрать: заполняя клетки слева направо, у каждой следующей клетки число вариантов зависит от того, какие цифры уже встали, — постоянных множителей нет. Значит, сначала разрежь на миры, а этапы перемножай уже внутри мира.</p>
+    <p>Резать можно по-разному, но любой разрез обязан пройти три проверки:</p>
+    <div class="rules">
+      <div class="row"><span class="n">1</span><span>Миры не пересекаются: ни одно число не попадает в два мира сразу.</span></div>
+      <div class="row"><span class="n">2</span><span>Миры вместе покрывают всё: каждое число нашло свой мир.</span></div>
+      <div class="row"><span class="n">3</span><span>Внутри миров помнить нечего: после разреза ни одно условие не осталось живым.</span></div>
+    </div>
+    <p>Первые две проверки отвечают за верность: каждое число посчитано ровно один раз. Третья — за цену: сколько работы останется внутри миров.</p>
+  </div>
+</div>
+
+<!-- 5 ————————————————————————— -->
+<div class="slide" id="sl4">
+  <p class="q">Сигнал: <span class="sig">«с нуля не начинается»</span>. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Кандидат 1 — разрез по старшей клетке.</b> Ноль в ней запрещён, стоит 7, 8 или 9 — три мира:</p>
+    <div class="board anim">
+      <div class="brow" id="cworlds"></div>
+      <div class="rules">
+        <div class="row chkrow" style="--i:6"><span class="n">1</span><span>Миры не пересекаются</span><span class="v st" style="--i:6"><span class="y">✓</span> <span class="why">старшая клетка у числа одна</span></span></div>
+        <div class="row chkrow" style="--i:7"><span class="n">2</span><span>Миры вместе покрывают всё</span><span class="v st" style="--i:7"><span class="y">✓</span> <span class="why">какая-то из 7, 8, 9 там стоит всегда</span></span></div>
+        <div class="row chkrow" style="--i:8.5"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:8.5"><span class="n">✗</span> <span class="why">«каждая хотя бы раз» живо во всех трёх</span></span></div>
+      </div>
+    </div>
+    <p>Запрет нуля этот разрез гасит: старшая клетка внутри мира уже выбрана. Но самое жёсткое условие живо целиком — в каждом мире тебе заново следить, появились ли остальные цифры. Разрез верный, но дорогой — <b>убери его в карман</b>: пригодится для пересчёта.</p>
+  </div>
+</div>
+
+<!-- 6 ————————————————————————— -->
+<div class="slide" id="sl5">
+  <p class="q">Сигнал: <span class="sig">«каждая — хотя бы раз»</span>. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Разбери двойника первым.</b> Двойником бывает 7, 8, 9 или 0 — четыре мира:</p>
+    <div class="board anim">
+      <div class="brow" id="dworlds"></div>
+      <div class="rules">
+        <div class="row chkrow" style="--i:6"><span class="n">1</span><span>Миры не пересекаются</span><span class="v st" style="--i:6"><span class="y">✓</span> <span class="why">двойник у числа ровно один</span></span></div>
+        <div class="row chkrow" style="--i:7"><span class="n">2</span><span>Миры вместе покрывают всё</span><span class="v st" style="--i:7"><span class="y">✓</span> <span class="why">клеток пять, цифр четыре — двойник есть всегда</span></span></div>
+        <div class="row chkrow" style="--i:8.5"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:8.5"><span class="n">✗</span> <span class="why">«с нуля не начинается» живо во всех четырёх</span></span></div>
+      </div>
+    </div>
+    <p>Не спеши в карман: живым осталось не размазанное по всем клеткам условие, а <b>запрет на одну клетку</b>. Запрет дешевле всего снять вычитанием. Считай <b>цепочки</b> — записи из пяти цифр, где ноль может стоять и впереди, — а потом вычти цепочки с нулём в старшей клетке. Мир цепочек с двойником 7 назови Ц7, остальные — Ц8, Ц9, Ц0; цепочки с нулём в старшей клетке назови Плохими.</p>
+    <p><span class="plan"><span class="frm"><span class="mu">Ответ =</span> Всего <span class="mu">−</span> Плохих</span><br><span class="frm"><span class="mu">Всего =</span> Ц7 + Ц8 + Ц9 + Ц0</span></span></p>
+  </div>
+</div>
+
+<!-- 7 ————————————————————————— -->
+<div class="slide" id="sl6">
+  <p class="q">Мир <span class="sig">Ц7</span>. Первый ход счёта?</p>
+  <div class="a">
+    <p class="move"><b>Выписывай цепочки по порядку</b> — до закономерности.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol" id="c7list"></div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:7">пара мест для <span style="color:var(--gold)">7</span>: 4+3+2+1 = 10</div>
+          <div class="st" style="--i:8">остальные три цифры: 3 · 2 · 1 = 6</div>
+          <div class="st res" style="--i:9">Ц7 = 10 · 6 = 60</div>
+        </div>
+      </div>
+    </div>
+    <p>Закономерность: две клетки из пяти занимает двойник <span style="color:var(--gold)">7</span> — первая семёрка в 1-й клетке — второй остаются 4 места (77xxx, 7x7xx, 7xx7x, 7xxx7), первая во 2-й — 3 места, дальше 2 и 1: лесенка 4 + 3 + 2 + 1 = 10; на три оставшиеся клетки встают <span style="color:var(--blue)">8, 9, 0</span> — перестановка трёх цифр, 3 · 2 · 1 = 6. Ноль впереди сейчас разрешён — вычитание сделает своё позже.</p>
+  </div>
+</div>
+
+<!-- 8 ————————————————————————— -->
+<div class="slide" id="sl7">
+  <p class="q">Миры <span class="sig">Ц8, Ц9, Ц0</span>. Пересчитывать?</p>
+  <div class="a">
+    <p class="move"><b>Нет.</b> Одинаковые миры не пересчитывай: посчитай один раз и умножь.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:56px" id="copycols"></div>
+      <p class="st" style="--i:6;text-align:center;margin:16px 0 0;font-size:15.5px;color:var(--green)">машина та же: 10 пар мест двойнику, перестановка остальных трёх — 6</p>
+    </div>
+    <p>В Ц8, Ц9, Ц0 меняется только имя двойника, счёт тот же — по 60 в каждом. Четыре одинаковых мира вместе:</p>
+    <p><span class="plan frm"><span class="mu">Всего =</span> 60 · 4 = 240</span></p>
+  </div>
+</div>
+
+<!-- 9 ————————————————————————— -->
+<div class="slide" id="sl8">
+  <p class="q">Плохие цепочки. <span class="sig">ноль в старшей клетке</span>. Как считать?</p>
+  <div class="a">
+    <p class="move"><b>Разрежь и их — по двойнику:</b> либо ноль двойник, либо двойник — кто-то из 7, 8, 9. Вторая ветка сама ветвится на три одинаковые:</p>
+    <div class="board anim">
+      <div style="max-width:680px;margin:0 auto 14px">
+      <svg viewBox="0 0 680 192" style="width:100%;display:block">
+        <g class="st" style="--i:0" font-family="ui-sans-serif,sans-serif" font-size="14" fill="#cfdae6" text-anchor="middle">
+          <rect x="248" y="8" width="184" height="28" rx="14" fill="none" stroke="#3a4657"/>
+          <text x="340" y="27">плохие: 0 впереди</text>
+        </g>
+        <g class="st" style="--i:0.7">
+          <line x1="312" y1="38" x2="170" y2="72" stroke="#3a4657" stroke-width="1.3"/>
+          <line x1="368" y1="38" x2="500" y2="72" stroke="#3a4657" stroke-width="1.3"/>
+          <g font-family="ui-sans-serif,sans-serif" font-size="14" fill="var(--gold)" text-anchor="middle">
+            <rect x="90" y="76" width="160" height="28" rx="14" fill="none" stroke="var(--gold)"/>
+            <text x="170" y="95">ноль — двойник</text>
+            <rect x="410" y="76" width="180" height="28" rx="14" fill="none" stroke="var(--gold)"/>
+            <text x="500" y="95">двойник — не ноль</text>
+          </g>
+          <text x="170" y="130" font-family="ui-sans-serif,sans-serif" font-size="12.5" fill="#93a1b1" text-anchor="middle">один мир</text>
+        </g>
+        <g class="st" style="--i:1.4">
+          <line x1="455" y1="106" x2="392" y2="138" stroke="#3a4657" stroke-width="1.3"/>
+          <line x1="500" y1="106" x2="500" y2="138" stroke="#3a4657" stroke-width="1.3"/>
+          <line x1="545" y1="106" x2="608" y2="138" stroke="#3a4657" stroke-width="1.3"/>
+          <g font-family="ui-monospace,monospace" font-size="14" fill="#e8eef6" text-anchor="middle">
+            <text x="392" y="160">двойник 7</text><text x="500" y="160">двойник 8</text><text x="608" y="160">двойник 9</text>
+          </g>
+          <text x="500" y="184" font-family="ui-sans-serif,sans-serif" font-size="12.5" fill="#93a1b1" text-anchor="middle">три одинаковые ветки — посчитай одну и умножь на 3</text>
+        </g>
+      </svg>
+      </div>
+      <div class="brow" style="gap:44px">
+        <div class="wcol" id="b0list"></div>
+        <div class="wcol" id="bxlist"></div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:8">двойник 0: второй ноль — 4 места (00xxx, 0x0xx, 0xx0x, 0xxx0)</div>
+          <div class="st" style="--i:9">перестановка 7, 8, 9: 6 → 4 · 6 = 24</div>
+          <div class="st" style="--i:10">двойник 7, 8 или 9: кто он — 3</div>
+          <div class="st" style="--i:11">пара мест из четырёх: 3+2+1 = 6</div>
+          <div class="st" style="--i:12">две цифры на два места: 2 → 3 · 6 · 2 = 36</div>
+          <div class="st res" style="--i:13">Плохих = 24 + 36 = 60</div>
+        </div>
+      </div>
+      <div class="rules">
+        <div class="row chkrow" style="--i:14"><span class="n">1</span><span>Миры не пересекаются</span><span class="v st" style="--i:14"><span class="y">✓</span> <span class="why">ноль либо двойник, либо нет</span></span></div>
+        <div class="row chkrow" style="--i:15"><span class="n">2</span><span>Миры вместе покрывают всё</span><span class="v st" style="--i:15"><span class="y">✓</span> <span class="why">третьего не дано</span></span></div>
+        <div class="row chkrow" style="--i:16"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:16"><span class="y">✓</span> <span class="why">старшая клетка и состав цифр уже известны</span></span></div>
+      </div>
+    </div>
+    <p>Старшая клетка уже занята нулём, поэтому внутри миров условий не осталось: расставляй оставшиеся четыре цифры по четырём клеткам.</p>
+    <p>Заметь: первые строки плохих ты уже видел — это начала списков Ц0 и Ц7. Плохие — не какие-то новые цепочки, а те же самые, у которых ноль оказался в старшей клетке.</p>
+  </div>
+</div>
+
+<!-- 10 ————————————————————————— -->
+<div class="slide" id="sl9">
+  <p class="q">Числа готовы. <span class="sig">Что дальше?</span></p>
+  <div class="a">
+    <p class="move"><b>Подставь числа в план</b> — <b>и пересчитай вторым способом</b>, разрезом из кармана.</p>
+    <div class="board anim" style="text-align:center">
+      <div class="frm st" style="--i:0;margin-bottom:12px"><span class="mu">Ответ =</span> 240 − 60</div>
+      <div class="frm st" style="--i:1;font-size:clamp(30px,5vw,44px);margin-bottom:16px">= <span class="g">180</span></div>
+      <div class="frm st" style="--i:2;margin-bottom:8px">карман: миры 7xxxx, 8xxxx, 9xxxx одинаковы</div>
+      <div class="frm st" style="--i:3;margin-bottom:8px;font-size:clamp(15px,2vw,18px)"><span class="mu">7xxxx, той же машиной, что Плохие: двойник 7 — второй семёрке 4 места, перестановка 8, 9, 0 — 6</span></div>
+      <div class="frm st" style="--i:3.4;margin-bottom:8px;font-size:clamp(15px,2vw,18px)"><span class="mu">двойник 8, 9 или 0 — пара мест 6, перестановка двух оставшихся — 2</span></div>
+      <div class="frm st" style="--i:3.8;margin-bottom:8px">двойник 7: 4 · 6 = 24; двойник 8, 9 или 0: 6 · 2 = 12</div>
+      <div class="frm st" style="--i:4;margin-bottom:8px">24 + 12 · 3 = 60</div>
+      <div class="frm st" style="--i:5">60 · 3 = <span class="g">180</span> <span style="color:var(--green)">✓</span></div>
+      <p class="st mut" style="--i:6;text-align:center;margin:12px 0 0;font-size:15px">два разреза — один ответ: не потеряли и не посчитали дважды</p>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <button id="prev">← назад</button>
+  <div id="stepnums"></div>
+  <button id="next">показать ход</button>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+
+/* ——— данные (сверены полным перебором) ——— */
+const CAND=[['7xxxx',['70089','70098','70789','70798']],
+            ['8xxxx',['80079','80097','80709','80779']],
+            ['9xxxx',['90078','90087','90708','90778']]];
+const DW=[['7 — двойник',['70789','70798','70879','70897'],'7'],
+          ['8 — двойник',['70889','70898','70988','78089'],'8'],
+          ['9 — двойник',['70899','70989','70998','78099'],'9'],
+          ['0 — двойник',['70089','70098','70809','70890'],'0']];
+const C7=['07789','07798','07879','07897','07978'];
+const COPY=[['Ц8',['07889','07898','07988','08789'],'8'],
+            ['Ц9',['07899','07989','07998','08799'],'9'],
+            ['Ц0',['00789','00798','00879','00897'],'0']];
+const BAD0=['00789','00798','00879','00897'];
+const BADX=['07789','07798','07879','07889'];
+
+function numHTML(s,cls,big){
+  return '<span class="num'+(big?' big':'')+'">'+[...s].map((ch,i)=>
+    '<span class="d'+(cls(ch,i)?' '+cls(ch,i):'')+'">'+ch+'</span>').join('')+'</span>';
+}
+
+$('cworlds').innerHTML=CAND.map(([lab,list],c)=>
+  '<div class="wcol">'+
+  '<div class="wframe b st" style="--i:'+(8.7+c*0.4)+'"></div>'+
+  '<div class="wlab st" style="--i:'+c+'">'+lab+'</div>'+
+  list.map((n,j)=>'<span class="st" style="--i:'+(2.5+j)+'">'+
+    numHTML(n,(ch,i)=>i===0?'cut':'')+'</span>').join('')+
+  '<div class="ell st" style="--i:6.5">⋮</div></div>').join('');
+
+$('dworlds').innerHTML=DW.map(([lab,list,dd],c)=>
+  '<div class="wcol">'+
+  '<div class="wlab st" style="--i:'+c*0.5+'">'+lab+'</div>'+
+  list.map((n,j)=>'<span class="st" style="--i:'+(2+j)+'">'+
+    numHTML(n,ch=>ch===dd?'sp':'')+'</span>').join('')+
+  '<div class="ell st" style="--i:6">⋮</div></div>').join('');
+
+$('c7list').innerHTML=C7.map((n,j)=>'<span class="st" style="--i:'+j*1.2+'">'+
+  numHTML(n,ch=>ch==='7'?'sp':'free',1)+'</span>').join('')+
+  '<div class="ell st" style="--i:6.2">⋮</div>';
+
+$('copycols').innerHTML=COPY.map(([lab,list,dd],c)=>
+  '<div class="wcol"><div class="wlab st" style="--i:'+c*0.4+'">'+lab+'</div>'+
+  list.map((n,j)=>'<span class="st" style="--i:'+(0.8+j*0.6)+'">'+
+    numHTML(n,ch=>ch===dd?'sp':'')+'</span>').join('')+
+  '<div class="ell st" style="--i:3.8">⋮</div>'+
+  '<div class="wn st" style="--i:5">60</div></div>').join('');
+
+function badCol(el,lab,list,dd,base){
+  el.innerHTML='<div class="wlab st" style="--i:'+base+'">'+lab+'</div>'+
+    list.map((n,j)=>{
+      const dbl=dd||[...String(n)].find(c=>String(n).split(c).length>2);
+      return '<span class="st" style="--i:'+(base+1+j)+'">'+
+        numHTML(n,(ch,i)=>i===0?'zr':(ch===dbl?'sp':''))+'</span>';}).join('')+
+    '<div class="ell st" style="--i:'+(base+5.5)+'">⋮</div>';
+}
+badCol($('b0list'),'0 — двойник',BAD0,'0',0);
+badCol($('bxlist'),'двойник 7, 8 или 9',BADX,'',1);
+
+/* ——— шаги ——— */
+const N=10;
+const TWO=[0,1,1,1,1,1,1,1,1,1];          /* у шага 0 нет вопроса */
+const TITLES=['маршрут','вопрос 1','вопрос 2','вопрос 3','сигнал «с нуля не начинается»',
+  'сигнал «каждая хотя бы раз»','мир Ц7','копии Ц8 Ц9 Ц0','плохие цепочки','сборка'];
+const ART={4:['в кармане: разрез по старшей клетке',1],
+  5:['Ответ = Всего − Плохих<br>Всего = Ц7 + Ц8 + Ц9 + Ц0',0], 6:['Ц7 = 60',0],
+  7:['Ц8 = Ц9 = Ц0 = 60<br>Всего = 240',0], 8:['Плохих = 24 + 36 = 60',0],
+  9:['240 − 60 = 180 ✓<br>карман: 60 · 3 = 180 ✓',0]};
+
+let cur=0; const revealed=new Set([0]);
+const nums=$('stepnums');
+for(let i=0;i<N;i++){
+  const b=document.createElement('button'); b.textContent=i+1; b.title=TITLES[i];
+  b.onclick=()=>{ if(i<=maxReach()) go(i); };
+  nums.appendChild(b);
+}
+function maxReach(){ return Math.min(N-1, Math.max(...revealed)+1); }
+
+function render(anim){
+  for(let i=0;i<N;i++){
+    const sl=$('sl'+i), on=i===cur;
+    sl.classList.toggle('on',on);
+    sl.classList.toggle('ph1',revealed.has(i)||!TWO[i]);
+    sl.querySelectorAll('.anim').forEach(a=>{
+      a.classList.remove('run','fast');
+      if(on&&(revealed.has(i)||!TWO[i])){
+        if(anim==='fresh'){ void a.offsetHeight; a.classList.add('run'); }
+        else { a.classList.add('fast'); void a.offsetHeight; a.classList.add('run'); }
+      }
+    });
+  }
+  [...nums.children].forEach((b,i)=>{
+    b.classList.toggle('cur',i===cur);
+    b.classList.toggle('seen',revealed.has(i));
+    b.disabled=i>maxReach();
+  });
+  $('prev').disabled=cur===0;
+  const done=revealed.has(cur);
+  $('next').textContent=!done&&TWO[cur]?'показать ход':(cur<N-1?'дальше →':'конец');
+  $('next').disabled=done&&cur===N-1;
+  $('rec').innerHTML=Object.keys(ART).filter(k=>revealed.has(+k))
+    .map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('');
+}
+function go(i,mode){ cur=i; render(mode||'fast'); }
+$('next').onclick=()=>{
+  if(!revealed.has(cur)){ revealed.add(cur); render('fresh'); }
+  else if(cur<N-1){ cur++; if(!TWO[cur])revealed.add(cur); render(TWO[cur]?'fast':'fresh'); }
+};
+$('prev').onclick=()=>{ if(cur>0) go(cur-1); };
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')$('next').click();
+  if(e.key==='ArrowLeft')$('prev').click();
+});
+revealed.add(0); render('fresh');
+</script>
+</body>
+</html>

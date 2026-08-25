@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Гости Хуаны</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+
+  /* ——— шапка: запись решения ——— */
+  header{display:flex;justify-content:flex-end;align-items:center;gap:18px;
+    padding:10px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;min-height:48px}
+  #rec{font:14.5px/1.9 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:right}
+  #rec .dimart{color:var(--dim)}
+
+  /* ——— слайд ——— */
+  main{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:18px 22px}
+  #condblock{width:100%;max-width:940px;margin-bottom:18px}
+  .slide{display:none;width:100%;max-width:940px}
+  .slide.on{display:block}
+  .q{font-size:clamp(24px,3.6vw,34px);line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
+  .q .sig{color:var(--gold)}
+  .a{display:none}
+  .slide.ph1 .a{display:block}
+  .move{font-size:clamp(18px,2.4vw,23px);color:#dae4ef;margin:6px 0 0}
+  .move b{font-weight:600;color:#fff}
+  p{font-size:clamp(15.5px,1.8vw,17.5px);line-height:1.55;color:#cfdae6;margin:12px 0 0;max-width:52em}
+  p.mut{color:var(--muted)}
+
+  .board{background:var(--bg2);border-radius:10px;padding:20px 16px;margin:16px 0 0;overflow-x:auto}
+  .brow{display:flex;justify-content:center;gap:24px;align-items:flex-start;flex-wrap:wrap}
+  .num{display:inline-flex}
+  .d{width:26px;height:34px;line-height:32px;text-align:center;
+    font:19px ui-monospace,Menlo,Consolas,monospace;color:var(--ink);
+    background:#1a2230;border:1px solid #2c394c;position:relative}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px}
+  .d:last-child{border-radius:0 6px 6px 0}
+  .d.cut{background:#20304a;border-color:#3d5a82;color:var(--blue)}
+  .d.sp{color:var(--gold)}
+  .d.free{color:var(--blue)}
+  .d.dm{color:var(--dim)}
+  .big .d{width:34px;height:44px;line-height:42px;font-size:25px}
+  .lsep{color:var(--dim);font:25px/44px ui-monospace,Menlo,monospace;padding:0 9px}
+  .lnote{font:14.5px/44px ui-sans-serif,-apple-system,sans-serif;color:var(--muted);padding-left:12px}
+  .lnote.ok{color:var(--green)}
+  .lnote.dif{color:var(--blue)}
+
+  .wcol{display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;
+    padding:14px 12px 10px}
+  .wlab{font:15px/1.35 ui-monospace,Menlo,monospace;color:var(--muted);margin-bottom:2px;text-align:center}
+  .ell{color:var(--gold);font-size:28px;line-height:1.05;font-weight:600;margin:2px 0 0}
+  .wn{font:15px ui-monospace,Menlo,monospace;color:var(--ink)}
+  .wframe{position:absolute;inset:0;border:1.5px solid;border-radius:10px;pointer-events:none}
+  .wframe.g{border-color:var(--green)}
+  .wframe.b{border-color:var(--red)}
+
+  .chip{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:14.5px;color:#cfdae6;
+    border:1px solid var(--line);border-radius:999px;padding:6px 15px;display:inline-block}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 0}
+  /* ——— три проверки разреза ——— */
+  .rules{max-width:52em;margin:16px 0 0;font-family:ui-sans-serif,-apple-system,sans-serif}
+  .rules .row{display:flex;gap:12px;align-items:baseline;padding:9px 10px;
+    border-top:1px solid var(--line);font-size:16px;line-height:1.45;color:#cfdae6}
+  .rules .row:last-child{border-bottom:1px solid var(--line)}
+  .rules .n{color:var(--dim);font-size:14px}
+  .rules .v{margin-left:auto;white-space:nowrap;font-size:15px}
+  .rules .v .y{color:var(--green)}
+  .rules .v .n{color:var(--red)}
+  .rules .v .why{color:var(--muted)}
+  @keyframes rowon{0%{background:transparent}35%{background:#1c2534}100%{background:transparent}}
+  .anim.run:not(.fast) .rules .row.chkrow{animation:rowon 1s ease 1 both;
+    animation-delay:calc(var(--i,0)*.45s - .3s)}
+
+  .frm{font:clamp(18px,2.6vw,24px)/1.5 ui-monospace,Menlo,monospace;color:var(--ink)}
+  .frm .g{color:var(--green)}
+  .frm .mu{color:var(--muted)}
+  .plan{border:1px solid var(--line);border-radius:10px;background:var(--bg2);
+    padding:14px 20px;display:inline-block;margin-top:16px}
+  .der{font:16.5px/2 ui-monospace,Menlo,monospace;color:#cfdae6;text-align:left}
+  .der .res{color:var(--green);font-size:19px}
+
+  /* ——— пошаговое проявление при раскрытии хода ——— */
+  .anim .st{opacity:0;transform:translateY(8px);
+    transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--i,0)*.45s)}
+  .anim.run .st{opacity:1;transform:none}
+  .anim:not(.run) .st{transition:none}
+  .anim.fast .st{transition-delay:0s!important;transition-duration:.15s}
+
+  /* ——— низ: навигация ——— */
+  footer{display:flex;align-items:center;justify-content:center;gap:14px;
+    padding:12px 22px 16px;border-top:1px solid var(--line);flex-wrap:wrap;
+    font-family:ui-sans-serif,-apple-system,sans-serif}
+  footer button{font:inherit;font-size:14.5px;color:var(--ink);background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer}
+  footer button:hover:not(:disabled){border-color:#3d4c5e}
+  footer button:disabled{opacity:.3;cursor:default}
+  #next{border-color:#3d5a82;color:var(--blue);min-width:170px}
+  #stepnums{display:flex;gap:6px}
+  #stepnums button{width:30px;height:30px;padding:0;border-radius:50%;font-size:12.5px;color:var(--dim)}
+  #stepnums button.seen{color:var(--ink)}
+  #stepnums button.cur{border-color:var(--blue);color:var(--blue)}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .anim .st{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div id="rec" aria-live="polite"></div>
+</header>
+
+<main>
+
+<div id="condblock">
+  <div class="board" style="margin:0">
+    <div class="brow">
+      <div style="text-align:center">
+        <div class="wlab">школа — позвать ровно 2</div>
+        <span class="num big"><span class="d">A</span><span class="d">B</span><span class="d">C</span><span class="d">D</span><span class="d">E</span></span>
+        <div class="wlab" style="margin-top:6px;font-size:13px">Agus, Bibi, Cami, Dani, Edu</div>
+      </div>
+      <div style="text-align:center">
+        <div class="wlab">клуб — позвать 3 или 4</div>
+        <span class="num big"><span class="d">F</span><span class="d">G</span><span class="d">M</span><span class="d">P</span><span class="d sp">S</span><span class="d sp">T</span></span>
+        <div class="wlab" style="margin-top:6px;font-size:13px">Fede, Gabi, Mar, Pau, Santi, Teo</div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip"><span style="color:var(--gold)">Santi и Teo — братья: позвать обоих или никого</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- 1 ————————————————————————— -->
+<div class="slide" id="sl0">
+  <div class="a">
+    <p class="mut">Региональный тур 2021, №3 — сколькими способами Хуана может выбрать гостей? Маршрут решения:</p>
+    <div class="rules">
+      <div class="row"><span class="n">1</span><span><b>Три первых вопроса.</b> Что здесь один способ? Какое условие самое жёсткое? Задача цельная — или режется?</span></div>
+      <div class="row"><span class="n">2</span><span><b>Жанр плана.</b> Определи, как собирается ответ: сумма миров, произведение этапов или «всё минус плохие». План заканчивается формулой «Ответ = …».</span></div>
+      <div class="row"><span class="n">3</span><span><b>Счёт блоков.</b> Каждый блок считай отдельно: выписывай его наборы по порядку, пока не увидишь закономерность, — дальше считает лесенка или готовый ход.</span></div>
+      <div class="row"><span class="n">4</span><span><b>Сборка.</b> Подставь числа блоков в план. В конце пересчитай ответ вторым способом.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 ————————————————————————— -->
+<div class="slide" id="sl1">
+  <p class="q">Вопрос 1. <span class="sig">Что здесь один способ?</span></p>
+  <div class="a">
+    <p class="move">Способ — <b>целиком выбранный список гостей</b>: школьная пара и клубный набор вместе.</p>
+    <div class="board anim">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div class="st" style="--i:0"><span class="num big"><span class="d dm">x</span><span class="d dm">x</span></span><span class="lsep">и</span><span class="num big"><span class="d dm">x</span><span class="d dm">x</span><span class="d dm">x</span></span><span class="lnote">или клубных четверо: xx и xxxx</span></div>
+        <div class="st" style="--i:1"><span class="num big"><span class="d">A</span><span class="d">B</span></span><span class="lsep">и</span><span class="num big"><span class="d">F</span><span class="d">G</span><span class="d">M</span></span></div>
+        <div class="st" style="--i:2"><span class="num big"><span class="d">A</span><span class="d">B</span></span><span class="lsep">и</span><span class="num big"><span class="d">F</span><span class="d">G</span><span class="d free">P</span></span><span class="lnote dif">другой список — другой способ</span></div>
+        <div class="st" style="--i:3"><span class="num big"><span class="d free">B</span><span class="d free">A</span></span><span class="lsep">и</span><span class="num big"><span class="d">F</span><span class="d">G</span><span class="d">M</span></span><span class="lnote ok">тот же список — тот же способ</span></div>
+      </div>
+    </div>
+    <p>Swap-тест: замени M на P — список другой, это два способа. Переставь A и B местами — список тот же: гости образуют группу, порядок записи не важен. Такие наборы называются сочетаниями.</p>
+  </div>
+</div>
+
+<!-- 3 ————————————————————————— -->
+<div class="slide" id="sl2">
+  <p class="q">Вопрос 2. <span class="sig">Какое условие самое жёсткое?</span></p>
+  <div class="a">
+    <div class="board anim">
+      <div style="position:relative;width:min(700px,100%);margin:0 auto">
+      <svg viewBox="0 0 700 250" style="width:100%;display:block">
+        <g class="st" style="--i:0">
+          <line x1="150" y1="52" x2="88"  y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="150" y1="52" x2="134" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="150" y1="52" x2="180" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="150" y1="52" x2="226" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="150" y1="52" x2="272" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+        </g>
+        <g class="st" style="--i:1">
+          <line x1="400" y1="52" x2="388" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="400" y1="52" x2="434" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="400" y1="52" x2="480" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="400" y1="52" x2="526" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="400" y1="52" x2="572" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+          <line x1="400" y1="52" x2="618" y2="158" stroke="#3a4657" stroke-width="1.2"/>
+        </g>
+        <g class="st" style="--i:2">
+          <line x1="590" y1="52" x2="572" y2="156" stroke="var(--gold)" stroke-width="2.6"/>
+          <line x1="590" y1="52" x2="618" y2="156" stroke="var(--gold)" stroke-width="2.6"/>
+        </g>
+        <g font-family="ui-sans-serif,sans-serif" font-size="14" fill="#cfdae6" text-anchor="middle">
+          <g class="st" style="--i:0"><rect x="80" y="20" width="140" height="30" rx="15" fill="none" stroke="#243040"/><text x="150" y="40">ровно 2 из школы</text></g>
+          <g class="st" style="--i:1"><rect x="330" y="20" width="140" height="30" rx="15" fill="none" stroke="#243040"/><text x="400" y="40">3 или 4 из клуба</text></g>
+          <g class="st" style="--i:2"><rect x="522" y="20" width="136" height="30" rx="15" fill="none" stroke="var(--gold)"/><text x="590" y="40" fill="var(--gold)">оба или никто</text></g>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="22" text-anchor="middle">
+          <rect x="70"  y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="116" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="162" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="208" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="254" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <text x="88"  y="191" fill="#e8eef6">A</text><text x="134" y="191" fill="#e8eef6">B</text>
+          <text x="180" y="191" fill="#e8eef6">C</text><text x="226" y="191" fill="#e8eef6">D</text>
+          <text x="272" y="191" fill="#e8eef6">E</text>
+          <rect x="370" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="416" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="462" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="508" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="554" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <rect x="600" y="160" width="36" height="46" rx="6" fill="#1a2230" stroke="#2c394c"/>
+          <text x="388" y="191" fill="#e8eef6">F</text><text x="434" y="191" fill="#e8eef6">G</text>
+          <text x="480" y="191" fill="#e8eef6">M</text><text x="526" y="191" fill="#e8eef6">P</text>
+          <text x="572" y="191" fill="var(--gold)">S</text><text x="618" y="191" fill="var(--gold)">T</text>
+          <g class="st" style="--i:3">
+            <rect x="550" y="156" width="90" height="54" rx="8" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <text x="595" y="234" font-family="ui-sans-serif,sans-serif" font-size="13.5" fill="var(--gold)">самая зажатая пара</text>
+          </g>
+        </g>
+      </svg>
+      </div>
+    </div>
+    <p>«Ровно 2 из школы» и «3 или 4 из клуба» задают только размеры. Всё давление «оба или никто» приходится на двух конкретных гостей — на <b>пару S и T</b>: эти двое ходят только вдвоём. Пара самая зажатая, поэтому разбери её судьбу раньше остальных клубных решений.</p>
+  </div>
+</div>
+
+<!-- 4 ————————————————————————— -->
+<div class="slide" id="sl3">
+  <p class="q">Вопрос 3. <span class="sig">Задача цельная — или режется?</span></p>
+  <div class="a">
+    <p class="move">Режется — на <b>два этапа</b>: школа <b>И</b> клуб.</p>
+    <p>Ни одно условие не связывает школу с клубом: «ровно 2» живёт в школе, «3 или 4» и «оба или никто» — в клубе. Любую школьную пару можно соединить с любым клубным набором, поэтому этапы независимы и ответ собирает произведение этапов — закон «И».</p>
+    <p><span class="plan frm"><span class="mu">Ответ =</span> Ш · К</span></p>
+    <p>Этап Ш посчитается сразу. А внутри клуба два условия сцеплены на одном наборе — клуб придётся резать на миры и миры складывать. Любой разрез обязан пройти три проверки:</p>
+    <div class="rules">
+      <div class="row"><span class="n">1</span><span>Миры не пересекаются: ни один набор не попадает в два мира сразу.</span></div>
+      <div class="row"><span class="n">2</span><span>Миры вместе покрывают всё: каждый набор нашёл свой мир.</span></div>
+      <div class="row"><span class="n">3</span><span>Внутри миров помнить нечего: после разреза ни одно условие не осталось живым.</span></div>
+    </div>
+    <p>Первые две проверки отвечают за верность: каждый набор посчитан ровно один раз. Третья — за цену: сколько работы останется внутри миров.</p>
+  </div>
+</div>
+
+<!-- 5 ————————————————————————— -->
+<div class="slide" id="sl4">
+  <p class="q">Этап <span class="sig">Ш</span>. Первый ход счёта?</p>
+  <div class="a">
+    <p class="move"><b>Выписывай пары по порядку</b> — сначала все пары с A, потом все новые пары с B, и дальше.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:40px">
+        <div class="wcol">
+          <div class="wlab">с A</div>
+          <span class="st" style="--i:0"><span class="num"><span class="d">A</span><span class="d">B</span></span></span>
+          <span class="st" style="--i:0.6"><span class="num"><span class="d">A</span><span class="d">C</span></span></span>
+          <span class="st" style="--i:1.2"><span class="num"><span class="d">A</span><span class="d">D</span></span></span>
+          <span class="st" style="--i:1.8"><span class="num"><span class="d">A</span><span class="d">E</span></span></span>
+          <div class="wn st" style="--i:6.5">4</div>
+        </div>
+        <div class="wcol">
+          <div class="wlab">с B</div>
+          <span class="st" style="--i:2.4"><span class="num"><span class="d">B</span><span class="d">C</span></span></span>
+          <span class="st" style="--i:3"><span class="num"><span class="d">B</span><span class="d">D</span></span></span>
+          <span class="st" style="--i:3.6"><span class="num"><span class="d">B</span><span class="d">E</span></span></span>
+          <div class="wn st" style="--i:7">3</div>
+        </div>
+        <div class="wcol">
+          <div class="wlab">с C</div>
+          <span class="st" style="--i:4.2"><span class="num"><span class="d">C</span><span class="d">D</span></span></span>
+          <span class="st" style="--i:4.8"><span class="num"><span class="d">C</span><span class="d">E</span></span></span>
+          <div class="wn st" style="--i:7.5">2</div>
+        </div>
+        <div class="wcol">
+          <div class="wlab">с D</div>
+          <span class="st" style="--i:5.4"><span class="num"><span class="d">D</span><span class="d">E</span></span></span>
+          <div class="wn st" style="--i:8">1</div>
+        </div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:8.8">лесенка: 4 + 3 + 2 + 1</div>
+          <div class="st res" style="--i:9.8">Ш = 10</div>
+        </div>
+      </div>
+    </div>
+    <p>Закономерность: каждая следующая буква открывает на одну пару меньше — пара с меньшей буквой уже выписана. Лесенка 4 + 3 + 2 + 1 и есть все сочетания из пяти по два.</p>
+  </div>
+</div>
+
+<!-- 6 ————————————————————————— -->
+<div class="slide" id="sl5">
+  <p class="q">Этап К. Сигнал <span class="sig">«3 или 4»</span>. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Разрежь клуб по числу гостей</b> — мир «зову 3» и мир «зову 4»:</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol">
+          <div class="wframe b st" style="--i:6"></div>
+          <div class="wlab st" style="--i:0">зову 3: xxx</div>
+          <span class="st" style="--i:1"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">M</span></span></span>
+          <span class="st" style="--i:2"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">P</span></span></span>
+          <span class="st" style="--i:3"><span class="num"><span class="d">F</span><span class="d">M</span><span class="d">P</span></span></span>
+          <span class="st" style="--i:4"><span class="num"><span class="d">F</span><span class="d sp">S</span><span class="d sp">T</span></span></span>
+          <div class="ell st" style="--i:5">⋮</div>
+        </div>
+        <div class="wcol">
+          <div class="wframe b st" style="--i:6"></div>
+          <div class="wlab st" style="--i:0.5">зову 4: xxxx</div>
+          <span class="st" style="--i:1.5"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">M</span><span class="d">P</span></span></span>
+          <span class="st" style="--i:2.5"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d sp">S</span><span class="d sp">T</span></span></span>
+          <span class="st" style="--i:3.5"><span class="num"><span class="d">F</span><span class="d">M</span><span class="d sp">S</span><span class="d sp">T</span></span></span>
+          <span class="st" style="--i:4.5"><span class="num"><span class="d">F</span><span class="d">P</span><span class="d sp">S</span><span class="d sp">T</span></span></span>
+          <div class="ell st" style="--i:5.5">⋮</div>
+        </div>
+      </div>
+      <div class="rules">
+        <div class="row chkrow" style="--i:7"><span class="n">1</span><span>Миры не пересекаются</span><span class="v st" style="--i:7"><span class="y">✓</span> <span class="why">в наборе либо три гостя, либо четыре</span></span></div>
+        <div class="row chkrow" style="--i:8"><span class="n">2</span><span>Миры вместе покрывают всё</span><span class="v st" style="--i:8"><span class="y">✓</span> <span class="why">других размеров условие не разрешает</span></span></div>
+        <div class="row chkrow" style="--i:9"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:9"><span class="n">✗</span> <span class="why">«оба или никто» живо в обоих мирах</span></span></div>
+      </div>
+    </div>
+    <p>В каждом мире тебе заново придётся следить за парой S и T: часть наборов с ней, часть без неё. Разрез верный, но дорогой — <b>убери его в карман</b>: пригодится для пересчёта.</p>
+  </div>
+</div>
+
+<!-- 7 ————————————————————————— -->
+<div class="slide" id="sl6">
+  <p class="q">Этап К. Сигнал <span class="sig">«оба или никто»</span>. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Разбери судьбу пары S и T первым</b> — она самая зажатая. Клуб режут два вопроса: судьба пары (идут или не идут) и размер набора (зову 3 или зову 4). Каждый вопрос даёт две ветки — мини-дерево: 2 · 2 = 4 мира.</p>
+    <div class="board anim">
+      <div style="max-width:680px;margin:0 auto 14px">
+      <svg viewBox="0 0 680 196" style="width:100%;display:block">
+        <g class="st" style="--i:0" font-family="ui-sans-serif,sans-serif" font-size="14" fill="#cfdae6" text-anchor="middle">
+          <rect x="270" y="8" width="140" height="28" rx="14" fill="none" stroke="#3a4657"/>
+          <text x="340" y="27">клубный набор</text>
+        </g>
+        <g class="st" style="--i:0.7">
+          <line x1="318" y1="38" x2="200" y2="72" stroke="#3a4657" stroke-width="1.3"/>
+          <line x1="362" y1="38" x2="480" y2="72" stroke="#3a4657" stroke-width="1.3"/>
+          <g font-family="ui-sans-serif,sans-serif" font-size="14" fill="var(--gold)" text-anchor="middle">
+            <rect x="122" y="76" width="150" height="28" rx="14" fill="none" stroke="var(--gold)"/>
+            <text x="197" y="95">S и T идут</text>
+            <rect x="408" y="76" width="150" height="28" rx="14" fill="none" stroke="var(--gold)"/>
+            <text x="483" y="95">S и T не идут</text>
+          </g>
+        </g>
+        <g class="st" style="--i:1.4">
+          <line x1="177" y1="106" x2="114" y2="138" stroke="#3a4657" stroke-width="1.3"/>
+          <line x1="217" y1="106" x2="280" y2="138" stroke="#3a4657" stroke-width="1.3"/>
+          <line x1="463" y1="106" x2="400" y2="138" stroke="#3a4657" stroke-width="1.3"/>
+          <line x1="503" y1="106" x2="566" y2="138" stroke="#3a4657" stroke-width="1.3"/>
+          <g font-family="ui-sans-serif,sans-serif" font-size="12.5" fill="#93a1b1" text-anchor="middle">
+            <text x="112" y="158">зову 3</text><text x="282" y="158">зову 4</text>
+            <text x="398" y="158">зову 3</text><text x="568" y="158">зову 4</text>
+          </g>
+          <g font-family="ui-monospace,monospace" font-size="15" fill="#e8eef6" text-anchor="middle">
+            <text x="112" y="180">М1</text><text x="282" y="180">М2</text>
+            <text x="398" y="180">М3</text><text x="568" y="180">М4</text>
+          </g>
+        </g>
+      </svg>
+      </div>
+      <div class="brow" style="gap:26px">
+        <div class="wcol">
+          <div class="wframe g st" style="--i:5.5"></div>
+          <div class="wlab st" style="--i:0">М1 — зову 3<br>S и T идут</div>
+          <span class="st" style="--i:2"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d">F</span></span></span>
+          <span class="st" style="--i:2.6"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d">G</span></span></span>
+          <span class="st" style="--i:3.2"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d">M</span></span></span>
+          <div class="ell st" style="--i:3.8">⋮</div>
+        </div>
+        <div class="wcol">
+          <div class="wframe g st" style="--i:5.8"></div>
+          <div class="wlab st" style="--i:0.4">М2 — зову 4<br>S и T идут</div>
+          <span class="st" style="--i:2.2"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d">F</span><span class="d">G</span></span></span>
+          <span class="st" style="--i:2.8"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d">F</span><span class="d">M</span></span></span>
+          <span class="st" style="--i:3.4"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d">F</span><span class="d">P</span></span></span>
+          <div class="ell st" style="--i:4">⋮</div>
+        </div>
+        <div class="wcol">
+          <div class="wframe g st" style="--i:6.1"></div>
+          <div class="wlab st" style="--i:0.8">М3 — зову 3<br>S и T не идут</div>
+          <span class="st" style="--i:2.4"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">M</span></span></span>
+          <span class="st" style="--i:3"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">P</span></span></span>
+          <span class="st" style="--i:3.6"><span class="num"><span class="d">F</span><span class="d">M</span><span class="d">P</span></span></span>
+          <div class="ell st" style="--i:4.2">⋮</div>
+        </div>
+        <div class="wcol">
+          <div class="wframe g st" style="--i:6.4"></div>
+          <div class="wlab st" style="--i:1.2">М4 — зову 4<br>S и T не идут</div>
+          <span class="st" style="--i:2.6"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">M</span><span class="d">P</span></span></span>
+        </div>
+      </div>
+      <div class="rules">
+        <div class="row chkrow" style="--i:7"><span class="n">1</span><span>Миры не пересекаются</span><span class="v st" style="--i:7"><span class="y">✓</span> <span class="why">судьба пары и размер набора определены однозначно</span></span></div>
+        <div class="row chkrow" style="--i:8"><span class="n">2</span><span>Миры вместе покрывают всё</span><span class="v st" style="--i:8"><span class="y">✓</span> <span class="why">какая-то судьба и какой-то размер есть всегда</span></span></div>
+        <div class="row chkrow" style="--i:9"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:9"><span class="y">✓</span> <span class="why">осталось добрать гостей из четвёрки F G M P</span></span></div>
+      </div>
+    </div>
+    <p>В каждом мире судьба пары решена и размер набора известен — оба условия погасли. Внутри мира остался свободный добор из четвёрки F, G, M, P.</p>
+    <p><span class="plan frm"><span class="mu">К =</span> М1 + М2 + М3 + М4</span></p>
+  </div>
+</div>
+
+<!-- 8 ————————————————————————— -->
+<div class="slide" id="sl7">
+  <p class="q">Миры <span class="sig">М1, М2</span>. S и T идут. Ход?</p>
+  <div class="a">
+    <p class="move"><b>S и T заняли два места</b> — добирай остальных из четвёрки F, G, M, P.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol">
+          <div class="wlab">М1 — добери одного</div>
+          <span class="st" style="--i:0"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">F</span></span></span>
+          <span class="st" style="--i:0.6"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">G</span></span></span>
+          <span class="st" style="--i:1.2"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">M</span></span></span>
+          <span class="st" style="--i:1.8"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">P</span></span></span>
+          <div class="wn st" style="--i:2.2">4</div>
+        </div>
+        <div class="wcol">
+          <div class="wlab">М2 — пары с F</div>
+          <span class="st" style="--i:2.6"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">F</span><span class="d free">G</span></span></span>
+          <span class="st" style="--i:3.2"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">F</span><span class="d free">M</span></span></span>
+          <span class="st" style="--i:3.8"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">F</span><span class="d free">P</span></span></span>
+          <div class="wn st" style="--i:4.2">3</div>
+        </div>
+        <div class="wcol">
+          <div class="wlab">пары с G</div>
+          <span class="st" style="--i:4.4"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">G</span><span class="d free">M</span></span></span>
+          <span class="st" style="--i:5"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">G</span><span class="d free">P</span></span></span>
+          <div class="wn st" style="--i:5.4">2</div>
+        </div>
+        <div class="wcol">
+          <div class="wlab">пары с M</div>
+          <span class="st" style="--i:5.6"><span class="num"><span class="d sp">S</span><span class="d sp">T</span><span class="d free">M</span><span class="d free">P</span></span></span>
+          <div class="wn st" style="--i:6">1</div>
+        </div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:6.6">М1: один из 4 → 4</div>
+          <div class="st" style="--i:7.6">М2: пара из 4 лесенкой: 3 + 2 + 1</div>
+          <div class="st res" style="--i:8.6">М1 = 4</div>
+          <div class="st res" style="--i:8.9">М2 = 3 + 2 + 1 = 6</div>
+        </div>
+      </div>
+    </div>
+    <p>Пара из четырёх — та же лесенка, что в школе, только короче: 3 + 2 + 1 = 6.</p>
+  </div>
+</div>
+
+<!-- 9 ————————————————————————— -->
+<div class="slide" id="sl8">
+  <p class="q">Миры <span class="sig">М3, М4</span>. S и T не идут. Ход?</p>
+  <div class="a">
+    <p class="move"><b>Весь набор добирай из четвёрки F, G, M, P.</b> Тройку из четырёх не выписывай лесенкой: выбрать тройку — то же самое, что выбрать, кто остаётся дома.</p>
+    <div class="board anim">
+      <div class="brow" style="gap:44px">
+        <div class="wcol">
+          <div class="wlab">М3 — кто дома?</div>
+          <span class="st" style="--i:0"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">M</span></span><span class="lnote">дома P</span></span>
+          <span class="st" style="--i:0.6"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">P</span></span><span class="lnote">дома M</span></span>
+          <span class="st" style="--i:1.2"><span class="num"><span class="d">F</span><span class="d">M</span><span class="d">P</span></span><span class="lnote">дома G</span></span>
+          <span class="st" style="--i:1.8"><span class="num"><span class="d">G</span><span class="d">M</span><span class="d">P</span></span><span class="lnote">дома F</span></span>
+        </div>
+        <div class="wcol">
+          <div class="wlab">М4 — вся четвёрка</div>
+          <span class="st" style="--i:2.6"><span class="num"><span class="d">F</span><span class="d">G</span><span class="d">M</span><span class="d">P</span></span></span>
+        </div>
+        <div class="der" style="align-self:center">
+          <div class="st" style="--i:3.6">М3: кто дома — 4 варианта → 4</div>
+          <div class="st" style="--i:4.6">М4: набор один → 1</div>
+          <div class="st" style="--i:5.6">К = 4 + 6 + 4 + 1</div>
+          <div class="st res" style="--i:6.6">К = 15</div>
+        </div>
+      </div>
+    </div>
+    <p>Все четыре мира посчитаны — сложи их: 4 + 6 + 4 + 1 = 15. Это и есть все клубные наборы.</p>
+  </div>
+</div>
+
+<!-- 10 ————————————————————————— -->
+<div class="slide" id="sl9">
+  <p class="q">Числа этапов готовы. <span class="sig">Что дальше?</span></p>
+  <div class="a">
+    <p class="move"><b>Подставь числа этапов в план</b> — этапы перемножаются, закон «И», — <b>и пересчитай вторым способом</b>.</p>
+    <div class="board anim" style="text-align:center">
+      <div class="frm st" style="--i:0;margin-bottom:12px"><span class="mu">Ответ =</span> Ш · К = 10 · 15</div>
+      <div class="frm st" style="--i:1;font-size:clamp(30px,5vw,44px);margin-bottom:16px">= <span class="g">150</span></div>
+      <div class="frm st" style="--i:2;margin-bottom:8px">карман: зову 3 → М1 + М3 = 4 + 4 = 8</div>
+      <div class="frm st" style="--i:2.5;margin-bottom:8px">зову 4 → М2 + М4 = 6 + 1 = 7</div>
+      <div class="frm st" style="--i:3">8 + 7 = <span class="g">15</span> <span style="color:var(--green)">✓</span></div>
+      <p class="st mut" style="--i:4;text-align:center;margin:12px 0 0;font-size:15px">два разреза клуба — одно К: не потеряли и не посчитали дважды</p>
+    </div>
+    <p>Оба разреза дали К = 15, ответ 150. На туре допиши фразой, почему можно перемножать: школьная пара и клубный набор выбираются независимо, поэтому 10 · 15.</p>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <button id="prev">← назад</button>
+  <div id="stepnums"></div>
+  <button id="next">показать ход</button>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+
+/* ——— шаги (все числа сверены полным перебором) ——— */
+const N=10;
+const TWO=[0,1,1,1,1,1,1,1,1,1];          /* у шага 0 нет вопроса */
+const TITLES=['маршрут','вопрос 1','вопрос 2','вопрос 3','этап Ш',
+  'сигнал «3 или 4»','сигнал «оба или никто»','миры М1, М2','миры М3, М4','сборка'];
+const ART={3:['Ответ = Ш · К',0], 4:['Ш = 10',0],
+  5:['в кармане: разрез «зову 3 / зову 4»',1],
+  6:['К = М1 + М2 + М3 + М4',0], 7:['М1 = 4, М2 = 6',0],
+  8:['М3 = 4, М4 = 1<br>К = 4 + 6 + 4 + 1 = 15',0],
+  9:['10 · 15 = 150 ✓<br>карман: 8 + 7 = 15 ✓',0]};
+
+let cur=0; const revealed=new Set([0]);
+const nums=$('stepnums');
+for(let i=0;i<N;i++){
+  const b=document.createElement('button'); b.textContent=i+1; b.title=TITLES[i];
+  b.onclick=()=>{ if(i<=maxReach()) go(i); };
+  nums.appendChild(b);
+}
+function maxReach(){ return Math.min(N-1, Math.max(...revealed)+1); }
+
+function render(anim){
+  for(let i=0;i<N;i++){
+    const sl=$('sl'+i), on=i===cur;
+    sl.classList.toggle('on',on);
+    sl.classList.toggle('ph1',revealed.has(i)||!TWO[i]);
+    sl.querySelectorAll('.anim').forEach(a=>{
+      a.classList.remove('run','fast');
+      if(on&&(revealed.has(i)||!TWO[i])){
+        if(anim==='fresh'){ void a.offsetHeight; a.classList.add('run'); }
+        else { a.classList.add('fast'); void a.offsetHeight; a.classList.add('run'); }
+      }
+    });
+  }
+  [...nums.children].forEach((b,i)=>{
+    b.classList.toggle('cur',i===cur);
+    b.classList.toggle('seen',revealed.has(i));
+    b.disabled=i>maxReach();
+  });
+  $('prev').disabled=cur===0;
+  const done=revealed.has(cur);
+  $('next').textContent=!done&&TWO[cur]?'показать ход':(cur<N-1?'дальше →':'конец');
+  $('next').disabled=done&&cur===N-1;
+  $('rec').innerHTML=Object.keys(ART).filter(k=>revealed.has(+k))
+    .map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('');
+}
+function go(i,mode){ cur=i; render(mode||'fast'); }
+$('next').onclick=()=>{
+  if(!revealed.has(cur)){ revealed.add(cur); render('fresh'); }
+  else if(cur<N-1){ cur++; if(!TWO[cur])revealed.add(cur); render(TWO[cur]?'fast':'fresh'); }
+};
+$('prev').onclick=()=>{ if(cur>0) go(cur-1); };
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')$('next').click();
+  if(e.key==='ArrowLeft')$('prev').click();
+});
+revealed.add(0); render('fresh');
+</script>
+</body>
+</html>
