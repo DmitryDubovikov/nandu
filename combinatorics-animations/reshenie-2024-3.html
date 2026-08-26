@@ -18,8 +18,28 @@
   /* ——— шапка: запись решения ——— */
   header{display:flex;justify-content:flex-end;align-items:center;gap:18px;
     padding:10px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;min-height:48px}
-  #rec{font:14.5px/1.9 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:right}
+  #rec{font:14px/1.7 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:left;
+    display:flex;gap:26px;flex-wrap:wrap;justify-content:flex-end}
+  #rec .mg{opacity:.32;min-width:130px}
+  #rec .mg.has{opacity:1}
+  #rec .ml{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px;color:var(--dim);
+    border-bottom:1px solid var(--line);margin-bottom:3px;padding-bottom:2px}
+  #rec .mg.cur .ml{color:var(--gold);border-color:var(--gold)}
   #rec .dimart{color:var(--dim)}
+
+  /* ——— карта решения ——— */
+  .map{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0 0}
+  .mc{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#0f141c}
+  .mc .mn{font:13px ui-sans-serif,-apple-system,sans-serif;color:var(--gold);letter-spacing:.04em}
+  .mc .mt{font-size:19px;color:var(--ink);margin:2px 0 8px}
+  .mc .mq{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:14.5px;color:var(--muted);line-height:1.45;min-height:3.9em}
+  .mc .mr{font:13.5px/1.7 ui-monospace,Menlo,monospace;color:var(--green);margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+  @media (max-width:820px){.map{grid-template-columns:1fr 1fr}}
+  .record{font:15px/1.75 ui-monospace,Menlo,monospace;color:#cfdae6;max-width:46em;margin:10px auto 0;text-align:left}
+  .record .ph{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:15px;line-height:1.5;margin-bottom:8px}
+  .record .ph i{color:var(--muted)}
+  .record .ln{padding-left:1.2em;text-indent:-1.2em}
+  .record b{color:var(--ink)}
 
   /* ——— слайд ——— */
   main{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:18px 22px}
@@ -49,6 +69,7 @@
   .d.cz{color:var(--green)}
   .d.cx{color:var(--dim)}
   .d.dm{color:var(--dim)}
+  .d.lk{opacity:.45;background:#12171f;border-style:dashed}
 
   .wcol{display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;
     padding:14px 12px 10px}
@@ -130,6 +151,7 @@
         <span class="chip">на каждой боковой стороне — ровно два цвета</span>
         <span class="chip">ни одного цвета 5 и более раз</span>
       </div>
+      <p class="mut" style="font-size:14.5px;margin:12px 0 0">T, L, R — углы. Шесть точек между углами — <b>внутренние</b>, их и красим. Левая сторона — T–L, правая — T–R, основание — L–R.</p>
     </div>
   </div>
 </div>
@@ -214,20 +236,20 @@
 <div class="slide" id="sl5">
   <p class="q">Боковые стороны. <span class="sig">Что даёт «ровно два цвета»?</span></p>
   <div class="a">
-    <p class="move"><b>Два цвета на каждой боковой стороне уже стоят в её вершинах</b> — внутренней паре новые цвета запрещены.</p>
+    <p class="move">На стороне четыре точки, но две из них — вершины, и они уже закрашены. <b>Два цвета на каждой боковой стороне уже стоят в её вершинах</b> — двум внутренним точкам новые цвета запрещены.</p>
     <div class="board anim">
       <div class="brow" style="gap:44px">
         <div class="wcol" id="leftlist"></div>
         <div class="wcol" id="rightlist"></div>
         <div class="der" style="align-self:center">
-          <div class="st" style="--i:6">каждая точка: 2 цвета</div>
+          <div class="st" style="--i:6">каждая внутренняя точка: 2 цвета</div>
           <div class="st" style="--i:7">цепочка: 2 · 2 = 4</div>
           <div class="st res" style="--i:8">Л = 2 · 2 = 4</div>
           <div class="st res" style="--i:8.3">П = 2 · 2 = 4</div>
         </div>
       </div>
     </div>
-    <p>Левая сторона держит красную T и синюю L — обе её внутренние точки только К или С. Правая держит красную T и зелёную R — только К или З. Пару внутренних точек записывай сверху вниз; оба списка полные, по четыре пары.</p>
+    <p>Левая сторона — это T–L: она держит красную T и синюю L, обе её внутренние точки (обведены) только К или С. Правая сторона — T–R: красная T и зелёная R, внутренние точки только К или З. В строке списка все четыре точки стороны: крайние клетки — вершины, они замкнуты; выбираем только две средние, записывай их сверху вниз — сначала верхняя точка, потом нижняя. Оба списка полные, по четыре пары.</p>
   </div>
 </div>
 
@@ -249,7 +271,7 @@
     </div>
     <p>Годных пар пять: КК, КС, КЗ, СК, ЗК. Перемножь стороны — получишь потолок этапа Вну:</p>
     <p><span class="plan frm"><span class="mu">потолок Вну =</span> Л · П · Осн = 4 · 4 · 5 = 80</span></p>
-    <p>Это ещё не Вну: условие «ни одного цвета 5 и более раз» живо и держит все три стороны сразу.</p>
+    <p>Потолок — это сколько раскрасок было бы, если бы последнего условия не существовало. Но условие «ни одного цвета 5 и более раз» живо: оно держит все три стороны сразу и часть из этих 80 выкинет. Настоящее Вну не больше 80 — выше потолка не прыгнуть. Само число не пропадёт: в конце из него вычтем плохие раскраски и проверим ответ.</p>
   </div>
 </div>
 
@@ -257,18 +279,15 @@
 <div class="slide" id="sl7">
   <p class="q">Условие <span class="sig">«ни одного цвета 5 и более раз»</span>. Кого оно душит?</p>
   <div class="a">
-    <p class="move"><b>Только красный.</b> Проверь потолок каждого цвета.</p>
+    <p class="move"><b>Только красный.</b> Найди максимум каждого цвета: поставь его на все шесть внутренних точек, где он разрешён, и сосчитай вместе с углом.</p>
     <div class="board anim">
-      <div class="brow" style="gap:44px">
-        <div class="der" style="align-self:center">
-          <div class="st" style="--i:0">синих максимум: L + пара левой + 1 на основании = <b>4</b></div>
-          <div class="st" style="--i:1">зелёных максимум: R + пара правой + 1 на основании = <b>4</b></div>
-          <div class="st" style="--i:2">красных максимум: T + все 6 внутренних = <span class="rd">7</span></div>
-          <div class="st res" style="--i:3">T уже красная — внутренних красных ≤ 4 − 1 = 3</div>
-        </div>
+      <div class="brow" style="gap:36px" id="greedy"></div>
+      <div class="der" style="text-align:center;margin-top:14px">
+        <div class="st" style="--i:13">красных всего ≤ 4 &nbsp;·&nbsp; одна уже есть — угол T</div>
+        <div class="st res" style="--i:14">внутренних красных ≤ 4 − 1 = 3</div>
       </div>
     </div>
-    <p>На основании красная точка есть всегда, поэтому синей там бывает не больше одной; правая сторона синих не содержит вовсе. Итого синих максимум четыре — до пяти не дотянуться, следить не надо. С зелёным то же самое. А красный дотягивается: T плюс шесть внутренних точек. Красных всего разрешено не больше четырёх, значит внутренних красных не больше трёх.</p>
+    <p>У синего есть запретная сторона — правая, там разрешены только К и З; у зелёного запретная — левая. На основании красная точка есть всегда, поэтому там синей (или зелёной) бывает не больше одной. Вот и выходит по четыре: до пяти не дотянуться, следить не надо. А красному запретных сторон нет — он разрешён на всех трёх, а на основании ещё и обязателен: угол T плюс шесть внутренних точек, семь. Красный — единственный, кто может нарушить условие. Красных всего разрешено не больше четырёх, одна уже стоит в углу T, значит внутренних красных не больше трёх.</p>
     <p>Обозначь число красных внутренних точек: i — на левой стороне, j — на правой, k — на основании. Условие сжалось до одного неравенства:</p>
     <p><span class="plan frm">i + j + k ≤ 3</span></p>
   </div>
@@ -278,7 +297,7 @@
 <div class="slide" id="sl8">
   <p class="q">Сигнал: <span class="sig">k = 1 или k = 2</span>. Ход?</p>
   <div class="a">
-    <p class="move"><b>Разрежь Вну на миры по числу красных точек основания.</b></p>
+    <p class="move"><b>Разрежь Вну на миры по числу красных точек основания.</b> На основании две внутренние точки, поэтому k бывает только 0, 1 или 2; k = 0 запрещает «все три цвета». Остаются два мира.</p>
     <div class="board anim">
       <div class="brow" style="gap:56px" id="kworlds"></div>
       <div class="rules">
@@ -287,7 +306,7 @@
         <div class="row chkrow" style="--i:8"><span class="n">3</span><span>Внутри миров помнить нечего</span><span class="v st" style="--i:8"><span class="y">✓</span> <span class="why">осталась не проверка, а готовый порог: i + j ≤ 3 − k</span></span></div>
       </div>
     </div>
-    <p>Каждый мир знает свой порог заранее: в М1 паре боковых разрешено i + j ≤ 2, в М2 — i + j ≤ 1. Между мирами условий не осталось. Внутри мира этапы перемножаются: основание И пара боковых сторон.</p>
+    <p>Каждый мир знает свой порог заранее: из трёх внутренних красных k уже ушли на основание, боковым остаётся 3 − k. В М1 паре боковых разрешено i + j ≤ 2, в М2 — i + j ≤ 1. Между мирами условий не осталось. Внутри мира этапы перемножаются: основание И пара боковых сторон.</p>
     <p><span class="plan frm">Вну = М1 + М2</span></p>
   </div>
 </div>
@@ -335,11 +354,52 @@
       <div class="frm st" style="--i:0;margin-bottom:12px"><span class="mu">Вну =</span> М1 + М2 = 44 + 5 = 49</div>
       <div class="frm st" style="--i:1;margin-bottom:16px"><span class="mu">Ответ =</span> Вер · Вну = 6 · 49</div>
       <div class="frm st" style="--i:2;font-size:clamp(30px,5vw,44px);margin-bottom:16px">= <span class="g">294</span></div>
-      <div class="frm st" style="--i:3;margin-bottom:8px">пересчёт «всё минус плохие»: плохих пар 4 · 5 + 1 · 11 = 31</div>
-      <div class="frm st" style="--i:4">80 − 31 = <span class="g">49</span> <span style="color:var(--green)">✓</span></div>
+      <div class="frm st" style="--i:3;margin-bottom:8px">пересчёт «всё минус плохие»: всё = потолок 80</div>
+      <div class="frm st" style="--i:3.5;margin-bottom:8px">плохих = 4 · 5 + 1 · 11 = 31</div>
+      <div class="frm st" style="--i:4">потолок − плохие = 80 − 31 = <span class="g">49</span> <span style="color:var(--green)">✓</span></div>
       <p class="st mut" style="--i:5;text-align:center;margin:12px 0 0;font-size:15px">два счёта Вну — одно число: не потеряли и не посчитали дважды</p>
     </div>
     <p>Плохие пары считаются из уже найденных чисел: в М1 их 16 − 11 = 5 на каждое из 4 оснований, в М2 их 16 − 5 = 11 на единственное основание.</p>
+  </div>
+</div>
+
+<!-- 12 ————————————————————————— -->
+<div class="slide" id="sl11">
+  <p class="q">Карта решения. <span class="sig">Что запомнить?</span></p>
+  <div class="a">
+    <p class="move"><b>Не одиннадцать шагов, а четыре вехи.</b> У каждой один вопрос и одно число. Умеешь по вопросу вехи восстановить шаг сам — запоминать больше нечего.</p>
+    <div class="board anim">
+      <div class="map">
+        <div class="mc st" style="--i:0"><div class="mn">веха 1</div><div class="mt">Углы</div>
+          <div class="mq">Какое условие самое жёсткое? Закрепи его и отдели: Ответ = [углы] И [внутренние].</div>
+          <div class="mr">Ответ = Вер · Вну<br>Вер = 6</div></div>
+        <div class="mc st" style="--i:1"><div class="mn">веха 2</div><div class="mt">Стороны врозь</div>
+          <div class="mq">Что даёт каждой стороне её собственное условие? Посчитай стороны по отдельности.</div>
+          <div class="mr">Л = 4, П = 4, Осн = 5<br>потолок 80</div></div>
+        <div class="mc st" style="--i:2"><div class="mn">веха 3</div><div class="mt">Кто опасен</div>
+          <div class="mq">Какое условие держит все стороны сразу — и кого оно душит? Сожми его до одного числа.</div>
+          <div class="mr">только красный<br>внутренних красных ≤ 3</div></div>
+        <div class="mc st" style="--i:3"><div class="mn">веха 4</div><div class="mt">Миры и сборка</div>
+          <div class="mq">Режь по тому, что забирает долю порога. Сколько в каждом мире? Сложи, умножь, пересчитай.</div>
+          <div class="mr">44 + 5 = 49<br>6 · 49 = 294 ✓</div></div>
+      </div>
+      <p class="st mut" style="--i:4;text-align:center;margin:14px 0 0;font-size:15px">Вехи 1–2 — для любой раскраски. Вехи 3–4 — то, что делает эту задачу боссом.</p>
+    </div>
+    <p>А это вся запись, которая идёт на бумагу. Слайды разворачивают вот эти девять строк — сдавать нужно их, а не слайды.</p>
+    <div class="board anim">
+      <div class="record">
+        <div class="ph st" style="--i:0"><b>Elijo los colores de los vértices y después los puntos interiores; las condiciones no dicen qué color va dónde, así que pinte como pinte los vértices sale la misma cuenta, por eso multiplico.</b><br><i>Сначала выбираю цвета вершин, потом внутренние точки; условия не говорят, какой цвет где, поэтому при любой раскраске вершин счёт один и тот же — потому и перемножаю.</i></div>
+        <div class="ln st" style="--i:1">Закрепляю T красная, L синяя, R зелёная. <b>Ответ = Вер · Вну</b></div>
+        <div class="ln st" style="--i:1.5">Вер = 3 · 2 · 1 = <b>6</b></div>
+        <div class="ln st" style="--i:2">левая: обе внутренние ∈ {К, С} → <b>4</b>; правая: ∈ {К, З} → <b>4</b></div>
+        <div class="ln st" style="--i:2.5">основание: нужен красный → 9 − 4 = <b>5</b></div>
+        <div class="ln st" style="--i:3">«не 5 одинаковых»: синих ≤ 4, зелёных ≤ 4 — следим только за красным, внутренних красных ≤ 3</div>
+        <div class="ln st" style="--i:3.5">i, j — красные слева и справа (1, 2, 1 способа), k — на основании (k = 1: 4 способа, k = 2: 1)</div>
+        <div class="ln st" style="--i:4">k = 1: 4 · 11 = <b>44</b>; k = 2: 1 · 5 = <b>5</b>; Вну = 44 + 5 = <b>49</b></div>
+        <div class="ln st" style="--i:4.5"><b>Ответ = 6 · 49 = 294.</b></div>
+        <div class="ph st" style="--i:5;margin-top:10px"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b><br><i>Это все случаи: они не повторяют друг друга и ни один не потерян.</i></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -359,7 +419,7 @@ const $=id=>document.getElementById(id);
    Вну = 49, плохих 31, ответ 6 · 49 = 294                           */
 
 const CMAP={K:['К','var(--red)'],S:['С','var(--blue)'],Z:['З','var(--green)'],
-            x:['x','var(--muted)'],'.':['·','var(--dim)']};
+            x:['x','var(--muted)'],'.':['·','var(--dim)'],n:['×','var(--dim)']};
 
 /* треугольник: точки в порядке T, L, R, l1, l2, r1, r2, b1, b2 */
 const PTS=[[150,32],[42,218],[258,218],[114,94],[78,156],[186,94],[222,156],[114,218],[186,218]];
@@ -371,11 +431,11 @@ function triSVG(cols,opts={}){
     const [x,y]=PTS[i], [ch,col]=CMAP[c];
     const grp=(st&&st[i]!==undefined)?'<g class="st" style="--i:'+st[i]+'">':'<g>';
     s+=grp;
-    if(c==='x'||c==='.')
+    if(c==='x'||c==='.'||c==='n')
       s+='<circle cx="'+x+'" cy="'+y+'" r="12" fill="#1a2230" stroke="#2c394c" stroke-width="1.4"/>';
     else
       s+='<circle cx="'+x+'" cy="'+y+'" r="12" fill="'+col+'"/>';
-    const tcol=(c==='x'||c==='.')?col:'#0d1117';
+    const tcol=(c==='x'||c==='.'||c==='n')?col:'#0d1117';
     s+='<text x="'+x+'" y="'+(y+5)+'" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14" font-weight="bold" fill="'+tcol+'">'+ch+'</text>';
     if(ring.includes(i))
       s+='<circle cx="'+x+'" cy="'+y+'" r="17" fill="none" stroke="var(--gold)" stroke-width="2"/>';
@@ -459,14 +519,28 @@ $('verlist').innerHTML=
   }).join('');
 
 /* слайд 6: боковые стороны — полные списки, сверены перебором */
+/* строка стороны: вершина | две внутренние | вершина; вершины замкнуты */
+function sideRow(a,inner,b){
+  const cl={К:'ck',С:'cs',З:'cz'};
+  return '<span class="num"><span class="d lk '+cl[a]+'">'+a+'</span>'+
+    [...inner].map(ch=>'<span class="d '+cl[ch]+'">'+ch+'</span>').join('')+
+    '<span class="d lk '+cl[b]+'">'+b+'</span></span>';
+}
 const LEFT=['КК','КС','СК','СС'], RIGHT=['КК','КЗ','ЗК','ЗЗ'];
+/* мини-треугольники: вершины закреплены, внутренние точки нужной стороны — x в обводке */
+const TRI_L=triSVG(['K','S','Z','x','x','.','.','.','.'],{ring:[3,4],w:150});
+const TRI_R=triSVG(['K','S','Z','.','.','x','x','.','.'],{ring:[5,6],w:150});
 $('leftlist').innerHTML='<div class="wframe g st" style="--i:8"></div>'+
-  '<div class="wlab st" style="--i:0">левая: T К, L С</div>'+
-  LEFT.map((t,j)=>'<span class="st" style="--i:'+(1+j)+'">'+cells(t)+'</span>').join('')+
+  '<div class="st" style="--i:0">'+TRI_L+'</div>'+
+  '<div class="wlab st" style="--i:0">левая сторона T–L</div>'+
+  '<div class="wlab st" style="--i:0.5;font-size:13px">T · верх · низ · L</div>'+
+  LEFT.map((t,j)=>'<span class="st" style="--i:'+(1+j)+'">'+sideRow('К',t,'С')+'</span>').join('')+
   '<div class="wn st" style="--i:8">4</div>';
 $('rightlist').innerHTML='<div class="wframe g st" style="--i:8"></div>'+
-  '<div class="wlab st" style="--i:0">правая: T К, R З</div>'+
-  RIGHT.map((t,j)=>'<span class="st" style="--i:'+(1+j)+'">'+cells(t)+'</span>').join('')+
+  '<div class="st" style="--i:0">'+TRI_R+'</div>'+
+  '<div class="wlab st" style="--i:0">правая сторона T–R</div>'+
+  '<div class="wlab st" style="--i:0.5;font-size:13px">T · верх · низ · R</div>'+
+  RIGHT.map((t,j)=>'<span class="st" style="--i:'+(1+j)+'">'+sideRow('К',t,'З')+'</span>').join('')+
   '<div class="wn st" style="--i:8">4</div>';
 
 /* слайд 7: основание — 9 пар всего, 4 плохих; сверено перебором */
@@ -480,6 +554,22 @@ $('basebad').innerHTML='<div class="wframe b st" style="--i:7"></div>'+
   BBAD.map((t,j)=>'<span class="st" style="--i:'+(4.5+j*0.4)+'">'+cells(t)+'</span>').join('')+
   '<div class="wn st" style="--i:7">− 4</div>';
 
+/* слайд 8: жадные раскраски — максимум каждого цвета; × = сторона, где цвет запрещён */
+const GREEDY=[
+  ['жадный синий', ['K','S','Z','S','S','n','n','K','S'],
+   ['угол L: 1','левая: 2','правая: нельзя, 0','основание: только 1'],'синих ≤ 4','cs'],
+  ['жадный зелёный',['K','S','Z','n','n','Z','Z','K','Z'],
+   ['угол R: 1','левая: нельзя, 0','правая: 2','основание: только 1'],'зелёных ≤ 4','cz'],
+  ['жадный красный',['K','S','Z','K','K','K','K','K','K'],
+   ['угол T: 1','левая: 2','правая: 2','основание: 2'],'красных до 7','rd']
+];
+$('greedy').innerHTML=GREEDY.map(([lab,tri,lines,tot,cl],c)=>
+  '<div class="wcol"><div class="st" style="--i:'+(c*4)+'">'+triSVG(tri,{w:150})+'</div>'+
+  '<div class="wlab st" style="--i:'+(c*4)+'">'+lab+'</div>'+
+  '<div class="der" style="font-size:15px;line-height:1.7">'+
+  lines.map((t,j)=>'<div class="st" style="--i:'+(c*4+0.5+j*0.6)+'">'+t+'</div>').join('')+
+  '<div class="st" style="--i:'+(c*4+3)+';font-size:17px;color:'+(cl==='rd'?'var(--red)':'var(--ink)')+'"><b>'+tot+'</b></div></div></div>').join('');
+
 /* слайд 9: миры по k — основания сверены перебором */
 const KW=[['М1: k = 1',['КС','КЗ','СК','ЗК'],'порог: i + j ≤ 2'],
           ['М2: k = 2',['КК'],'порог: i + j ≤ 1']];
@@ -492,14 +582,17 @@ $('kworlds').innerHTML=KW.map(([lab,list,por],c)=>
   '<div class="wn st" style="--i:'+(6.5+c*0.3)+'">'+por+'</div></div>').join('');
 
 /* ——— шаги ——— */
-const N=11;
-const TWO=[0,1,1,1,1,1,1,1,1,1,1];        /* у шага 0 нет вопроса */
+const N=12;
+const TWO=[0,1,1,1,1,1,1,1,1,1,1,0];      /* у шага 0 и у карты нет вопроса */
 const TITLES=['маршрут','вопрос 1','вопрос 2','вопрос 3','этап Вер','боковые стороны',
-  'основание','красный порог','разрез по k','миры М1, М2','сборка'];
+  'основание','красный порог','разрез по k','миры М1, М2','сборка','карта решения'];
 const ART={3:['Ответ = Вер · Вну',0], 4:['Вер = 6',0], 5:['Л = 4, П = 4',0],
   6:['Осн = 5<br>потолок Вну = 80',0], 7:['внутренних красных ≤ 3',0],
   8:['Вну = М1 + М2',0], 9:['М1 = 44, М2 = 5<br>Вну = 49',0],
   10:['6 · 49 = 294 ✓<br>пересчёт: 80 − 31 = 49 ✓',0]};
+/* вехи: подпись и какие шаги в неё входят (шапка группирует артефакты по вехам) */
+const MILES=[['1 · углы',[0,1,2,3,4]],['2 · стороны врозь',[5,6]],
+             ['3 · кто опасен',[7,8]],['4 · миры и сборка',[9,10,11]]];
 
 let cur=0; const revealed=new Set([0]);
 const nums=$('stepnums');
@@ -532,8 +625,12 @@ function render(anim){
   const done=revealed.has(cur);
   $('next').textContent=!done&&TWO[cur]?'показать ход':(cur<N-1?'дальше →':'конец');
   $('next').disabled=done&&cur===N-1;
-  $('rec').innerHTML=Object.keys(ART).filter(k=>revealed.has(+k))
-    .map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('');
+  $('rec').innerHTML=MILES.map(([lab,steps])=>{
+    const arts=steps.filter(k=>ART[k]&&revealed.has(k));
+    return '<div class="mg'+(arts.length?' has':'')+(steps.includes(cur)?' cur':'')+'">'+
+      '<div class="ml">'+lab+'</div>'+
+      arts.map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('')+'</div>';
+  }).join('');
 }
 function go(i,mode){ cur=i; render(mode||'fast'); }
 $('next').onclick=()=>{

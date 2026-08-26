@@ -18,8 +18,28 @@
   /* ——— шапка: условие + запись решения ——— */
   header{display:flex;justify-content:flex-end;align-items:center;gap:18px;
     padding:10px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;min-height:48px}
-  #rec{font:14.5px/1.9 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:right}
+  #rec{font:14px/1.7 ui-monospace,Menlo,Consolas,monospace;color:var(--green);text-align:left;
+    display:flex;gap:26px;flex-wrap:wrap;justify-content:flex-end}
+  #rec .mg{opacity:.32;min-width:130px}
+  #rec .mg.has{opacity:1}
+  #rec .ml{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px;color:var(--dim);
+    border-bottom:1px solid var(--line);margin-bottom:3px;padding-bottom:2px}
+  #rec .mg.cur .ml{color:var(--gold);border-color:var(--gold)}
   #rec .dimart{color:var(--dim)}
+
+  /* ——— карта решения ——— */
+  .map{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0 0}
+  .mc{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#0f141c}
+  .mc .mn{font:13px ui-sans-serif,-apple-system,sans-serif;color:var(--gold);letter-spacing:.04em}
+  .mc .mt{font-size:19px;color:var(--ink);margin:2px 0 8px}
+  .mc .mq{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:14.5px;color:var(--muted);line-height:1.45;min-height:3.9em}
+  .mc .mr{font:13.5px/1.7 ui-monospace,Menlo,monospace;color:var(--green);margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+  @media (max-width:820px){.map{grid-template-columns:1fr 1fr}}
+  .record{font:15px/1.75 ui-monospace,Menlo,monospace;color:#cfdae6;max-width:46em;margin:10px auto 0;text-align:left}
+  .record .ph{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:15px;line-height:1.5;margin-bottom:8px}
+  .record .ph i{color:var(--muted)}
+  .record .ln{padding-left:1.2em;text-indent:-1.2em}
+  .record b{color:var(--ink)}
 
   /* ——— слайд ——— */
   main{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:18px 22px}
@@ -129,6 +149,7 @@
         <span class="chip">каждая — хотя бы раз</span>
         <span class="chip">с нуля не начинается</span>
       </div>
+      <p class="mut" style="font-size:14.5px;margin:12px 0 0"><b>Старшая клетка</b> — первая слева. <b>Двойник</b> — цифра, которая стоит дважды. <b>Цепочка</b> — пять цифр, где ноль может стоять и впереди.</p>
     </div>
   </div>
 </div>
@@ -364,6 +385,44 @@
   </div>
 </div>
 
+<!-- 11 ————————————————————————— -->
+<div class="slide" id="sl10">
+  <p class="q">Карта решения. <span class="sig">Что запомнить?</span></p>
+  <div class="a">
+    <p class="move"><b>Не десять шагов, а четыре вехи.</b> У каждой один вопрос и одно число. Умеешь по вопросу вехи восстановить шаг сам — запоминать больше нечего.</p>
+    <div class="board anim">
+      <div class="map">
+        <div class="mc st" style="--i:0"><div class="mn">веха 1</div><div class="mt">Устройство числа</div>
+          <div class="mq">Какое условие держит все клетки сразу? Пересчитай места против цифр.</div>
+          <div class="mr">5 мест, 4 цифры<br>ровно один двойник</div></div>
+        <div class="mc st" style="--i:1"><div class="mn">веха 2</div><div class="mt">Разрез</div>
+          <div class="mq">По чему резать — и какой запрет дешевле снять вычитанием?</div>
+          <div class="mr">миры по двойнику<br>Ответ = Всего − Плохих</div></div>
+        <div class="mc st" style="--i:2"><div class="mn">веха 3</div><div class="mt">Счёт миров</div>
+          <div class="mq">Один мир по порядку до закономерности — и сколько таких же?</div>
+          <div class="mr">Ц7 = 10 · 6 = 60, ×4 = 240<br>Плохих = 24 + 36 = 60</div></div>
+        <div class="mc st" style="--i:3"><div class="mn">веха 4</div><div class="mt">Сборка</div>
+          <div class="mq">Подставь в план и пересчитай вторым разрезом — тем, что убрал в карман.</div>
+          <div class="mr">240 − 60 = 180 ✓<br>карман: 60 · 3 = 180 ✓</div></div>
+      </div>
+      <p class="st mut" style="--i:4;text-align:center;margin:14px 0 0;font-size:15px">Вехи 1–2 — для любой задачи «каждая цифра хотя бы раз». Веха 3 — здесь миры одинаковые, считай один и умножай.</p>
+    </div>
+    <p>А это вся запись, которая идёт на бумагу. Слайды разворачивают вот эти шесть строк — сдавать нужно их, а не слайды.</p>
+    <div class="board anim">
+      <div class="record">
+        <div class="ph st" style="--i:0"><b>Son 5 lugares y 4 dígitos, y cada uno aparece al menos una vez: entonces exactamente un dígito se repite dos veces. Cuento todos y resto los que empiezan con 0.</b><br><i>Мест пять, цифр четыре, и каждая встречается хотя бы раз — значит, ровно одна цифра повторяется дважды. Считаю все и вычитаю те, что начинаются с нуля.</i></div>
+        <div class="ln st" style="--i:1">Мест 5, цифр 4, каждая хотя бы раз → ровно одна цифра стоит дважды. <b>Ответ = Всего − Плохих</b> (Плохие — с нуля)</div>
+        <div class="ln st" style="--i:1.5">Всего: кто дважды <b>4</b> · пара мест из 5 (4+3+2+1) <b>10</b> · три цифры по трём местам <b>6</b> → <b>240</b></div>
+        <div class="ln st" style="--i:2">Плохие, ноль — двойник: второй ноль на 4 места · 7, 8, 9 по трём местам = 4 · 6 = <b>24</b></div>
+        <div class="ln st" style="--i:2.5">Плохие, дважды другая цифра: 3 · пара мест из 4 (3+2+1) · 2 = 3 · 6 · 2 = <b>36</b></div>
+        <div class="ln st" style="--i:3">Плохих = 24 + 36 = <b>60</b></div>
+        <div class="ln st" style="--i:3.5"><b>Ответ = 240 − 60 = 180.</b></div>
+        <div class="ph st" style="--i:4;margin-top:10px"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b><br><i>Это все случаи: они не повторяют друг друга и ни один не потерян.</i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </main>
 
 <footer>
@@ -433,11 +492,15 @@ badCol($('b0list'),'0 — двойник',BAD0,'0',0);
 badCol($('bxlist'),'двойник 7, 8 или 9',BADX,'',1);
 
 /* ——— шаги ——— */
-const N=10;
-const TWO=[0,1,1,1,1,1,1,1,1,1];          /* у шага 0 нет вопроса */
+const N=11;
+const TWO=[0,1,1,1,1,1,1,1,1,1,0];        /* у шага 0 и у карты нет вопроса */
 const TITLES=['маршрут','вопрос 1','вопрос 2','вопрос 3','сигнал «с нуля не начинается»',
-  'сигнал «каждая хотя бы раз»','мир Ц7','копии Ц8 Ц9 Ц0','плохие цепочки','сборка'];
-const ART={4:['в кармане: разрез по старшей клетке',1],
+  'сигнал «каждая хотя бы раз»','мир Ц7','копии Ц8 Ц9 Ц0','плохие цепочки','сборка','карта решения'];
+/* вехи: подпись и какие шаги в неё входят (шапка группирует артефакты по вехам) */
+const MILES=[['1 · устройство числа',[0,1,2,3]],['2 · разрез',[4,5]],
+             ['3 · счёт миров',[6,7,8]],['4 · сборка',[9,10]]];
+const ART={2:['5 мест, 4 цифры — ровно один двойник',0],
+  4:['в кармане: разрез по старшей клетке',1],
   5:['Ответ = Всего − Плохих<br>Всего = Ц7 + Ц8 + Ц9 + Ц0',0], 6:['Ц7 = 60',0],
   7:['Ц8 = Ц9 = Ц0 = 60<br>Всего = 240',0], 8:['Плохих = 24 + 36 = 60',0],
   9:['240 − 60 = 180 ✓<br>карман: 60 · 3 = 180 ✓',0]};
@@ -473,8 +536,12 @@ function render(anim){
   const done=revealed.has(cur);
   $('next').textContent=!done&&TWO[cur]?'показать ход':(cur<N-1?'дальше →':'конец');
   $('next').disabled=done&&cur===N-1;
-  $('rec').innerHTML=Object.keys(ART).filter(k=>revealed.has(+k))
-    .map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('');
+  $('rec').innerHTML=MILES.map(([lab,steps])=>{
+    const arts=steps.filter(k=>ART[k]&&revealed.has(k));
+    return '<div class="mg'+(arts.length?' has':'')+(steps.includes(cur)?' cur':'')+'">'+
+      '<div class="ml">'+lab+'</div>'+
+      arts.map(k=>'<div class="'+(ART[k][1]?'dimart':'')+'">'+ART[k][0]+'</div>').join('')+'</div>';
+  }).join('');
 }
 function go(i,mode){ cur=i; render(mode||'fast'); }
 $('next').onclick=()=>{
