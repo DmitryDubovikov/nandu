@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глава 4. Признаки делимости на 3 и на 9</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 6 из 12</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Проверять деление на 3 столбиком долго.</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">остаток числа при делении на 3<br>= остаток его суммы цифр при делении на 3</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">2 + 5 + 4<br>= 11</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">11<br>= 3 · 3 + 2</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Ответ = ∗ = К − В</span></button>
+<button class="art" data-art="5"><span class="lbl">Типичная ошибка №1</span><span class="val">применять признак к другим делителям.</span></button>
+<button class="art" data-art="6"><span class="lbl">Типичная ошибка №2</span><span class="val">«делится на 3 — значит, и на 9».</span></button>
+<button class="art" data-art="7"><span class="lbl">Типичная ошибка №3</span><span class="val">ошибиться в самой сумме цифр — тогда неверным окажется весь ответ, а признак тут ни при чём.</span></button>
+</aside>
+<main>
+  <h1>Глава 4. Признаки делимости на 3 и на 9</h1>
+  <p class="sub">Числа и цифры — Учебник · Часть A — Остатки и делимость</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Проверять деление на 3 столбиком долго. Есть короткий путь — <b>признак делимости</b>: правило, которое отвечает «делится или нет», не выполняя деления. Для 3 и 9 он звучит одинаково: <b>число делится на 3 (на 9) ровно тогда, когда его сумма цифр делится на 3 (на 9).</b></p></div></div>
+<p class="st">Больше того — признак называет и сам остаток. Сумма цифр ведь тоже число, значит, и её саму можно поделить с остатком:</p>
+<div id="a1" data-art="1"><div class="frm st">остаток числа при делении на 3 = остаток его суммы цифр при делении на 3</div></div>
+<p class="st">(и то же самое для 9). Посмотри на 254. Сумма цифр:</p>
+<div id="a2" data-art="2"><div class="frm st">2 + 5 + 4 = 11</div></div>
+<p class="st">Делю с остатком не число, а эту сумму:</p>
+<div id="a3" data-art="3"><div class="frm st">11 = 3 · 3 + 2</div></div>
+<p class="st">Остаток 2 — и у самого числа он такой же: 254 = 3 · 84 + 2 ✓ Выгода видна сразу: делить пришлось одиннадцать вместо двухсот пятидесяти четырёх.</p>
+<p class="st">Почему это работает — видно на том же 254:</p>
+<p class="st">254 = 2 · 100 + 5 · 10 + 4 = 2 · (99 + 1) + 5 · (9 + 1) + 4 = (2 · 99 + 5 · 9) + (2 + 5 + 4).</p>
+<p class="st">Первая скобка — это 2 · 99 + 5 · 9. И 99, и 9 делятся на 9 (99 = 9 · 11), поэтому вся скобка кратна 9. А раз 9 = 3 · 3, то она кратна и 3. Значит, эта скобка уходит целыми порциями — и на остаток по модулю 9, и на остаток по модулю 3 она не влияет вовсе. Вся судьба числа — во второй скобке, а это и есть сумма цифр 11. Вот почему остаток разрешено брать у неё вместо всего числа.</p>
+<p class="exam st"><b>Пример А (проверка большого числа).</b> Делится ли 7245 на 9?</p>
+<p class="st">Делить 7245 столбиком не будем — на вопрос «делится ли» отвечает сумма цифр: 7 + 2 + 4 + 5 = 18. А 18 = 9 · 2 делится на 9, значит, и 7245 делится на 9. Контроль делением: 7245 = 9 · 805 ✓</p>
+<p class="exam st"><b>Пример Б (признак-привратник).</b> В бидоне 1234 мл сока. Можно ли разлить его поровну в 3 стакана, целыми миллилитрами? А если в бидоне 1236 мл?</p>
+<p class="st">«Разлить поровну в 3 стакана целыми миллилитрами» — это ровно «делится на 3», а на такой вопрос отвечает сумма цифр; поэтому оба бидона проверяю ею, а столбиком не делю:</p>
+<ul class="st"><li>сумма цифр 1234: 1 + 2 + 3 + 4 = 10 — на 3 не делится → 1234 мл <b>нельзя</b>, и делить столбиком не пришлось;</li><li>сумма цифр 1236: 12 — делится на 3 → 1236 мл <b>можно</b>: по 412 мл (1236 = 3 · 412).</li></ul>
+<p class="exam st"><b>Пример В (восстановить цифру).</b> В числе 52∗4 звёздочкой закрыта одна цифра. Число делится на 9. Какая цифра закрыта?</p>
+<p class="step st"><b>Шаг 1 — план: перевести делимость в сумму цифр.</b> Про само число почти ничего не известно — известна его делимость на 9, а признак превращает её в условие на сумму цифр. Значит, вместо закрытой цифры буду искать всю сумму: как только станет ясно, чему она равна, звёздочка получится вычитанием.</p>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = ∗ = К − В</p>
+<p class="st">В — сумма видимых цифр (5, 2 и 4); К — сумма всех четырёх цифр числа; она обязана быть кратной 9, потому что число делится на 9.</p>
+<p class="st">Осталось найти: В и К.</p></div></div>
+<p class="step st"><b>Шаг 2 — считаем В (сумма видимых цифр).</b> Складываю всё, что не закрыто: 5 + 2 + 4. → <b>В = 11</b></p>
+<p class="step st"><b>Шаг 3 — ищем К (кратное 9).</b> Нужно понять, какие суммы вообще достижимы: звёздочка — цифра от 0 до 9, значит вся сумма где-то между 11 и 11 + 9 = 20. Кратных 9 в этом промежутке ровно одно: 18 — девятка меньше 11, а 27 больше 20. → <b>К = 18</b>, и другого варианта нет</p>
+<p class="step st"><b>Шаг 4 — сборка и контроль.</b> ∗ = 18 − 11 = <b>7</b>. Контроль: 5274 = 9 · 586 ✓</p>
+<div id="a5" data-art="5"><div class="card wrong st"><span class="tag">Типичная ошибка №1</span><p>применять признак к другим делителям. Сумма цифр работает <b>только для 3 и 9</b>. Для 2 и 5 смотрят последнюю цифру — это другой механизм, и для 4 или 7 ни тот ни другой не годится.</p></div></div>
+<div id="a6" data-art="6"><div class="card wrong st"><span class="tag">Типичная ошибка №2</span><p>«делится на 3 — значит, и на 9». Нет: у 12 сумма цифр 3 — на 3 делится, на 9 нет. Стрелка работает только в обратную сторону.</p></div></div>
+<div id="a7" data-art="7"><div class="card wrong st"><span class="tag">Типичная ошибка №3</span><p>ошибиться в самой сумме цифр — тогда неверным окажется весь ответ, а признак тут ни при чём. Поэтому сумму цифр складывай дважды: сначала слева направо, потом справа налево, и сравни результаты. А чтобы ответ читался с одного взгляда, у большой суммы возьми сумму цифр ещё раз: 7 + 2 + 4 + 5 = 18 → 1 + 8 = 9. С однозначным числом уже не запутаешься: 9 — значит, делится и на 3, и на 9.</p></div></div>
+<div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2022 №3 — «последняя цифра равна среднему трёх первых» значит «сумма трёх первых кратна 3»: признак превращает условие о цифрах в полочки главы 3. 2019 №3 (вопросы c–d) — «возможен ли такой периметр» это вопрос о кратности.</p></div>
+<hr>
+<div class="pager"><a href="05-glava-3-perebor-po-ostatkam-polochki-i-cikly.html">← Глава 3. Перебор по остаткам — полочки и циклы</a><a href="07-glava-5-invariant-chto-ne-menyaetsya.html">Глава 5. Инвариант — что не меняется →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

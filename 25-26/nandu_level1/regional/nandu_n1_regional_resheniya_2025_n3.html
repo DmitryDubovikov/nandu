@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2025 №3 — пятизначные из 7, 8, 9, 0</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+
+  /* ——————— каркас: ¼ сухой остаток | ¾ изложение ——————— */
+  .wrap{display:grid;grid-template-columns:minmax(240px,25%) 1fr;align-items:start}
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:26px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  main{padding:26px 40px 60vh;max-width:1000px}
+
+  /* ——————— левая колонка: несгораемые артефакты ——————— */
+  .rtitle{font-family:var(--sans);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 18px}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;
+    border:none;border-left:2px solid var(--line);padding:9px 0 11px 13px;margin:0 0 4px;
+    cursor:pointer;opacity:.28;transition:opacity .45s ease,border-color .45s ease}
+  .art.on{opacity:1}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11.5px;color:var(--dim);letter-spacing:.05em;
+    display:block;margin-bottom:3px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font:14.5px/1.5 var(--mono);color:var(--green);display:block}
+  .art .val.txt{font-family:var(--sans);font-size:14px;color:#cfdae6;line-height:1.45}
+  .art.fin .val{font-size:20px;color:var(--green)}
+
+  /* ——————— типографика изложения ——————— */
+  h1{font-size:clamp(24px,3vw,33px);line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 26px}
+  section{margin:0 0 clamp(48px,7vh,86px);scroll-margin-top:24px}
+  h2{font-size:clamp(20px,2.6vw,27px);line-height:1.25;margin:0 0 4px}
+  h2 .n{font-family:var(--sans);font-size:12.5px;letter-spacing:.12em;color:var(--gold);
+    display:block;margin-bottom:7px;text-transform:uppercase}
+  .goal{font-family:var(--sans);font-size:15.5px;color:var(--gold);margin:0 0 14px}
+  p{font-size:17px;line-height:1.6;color:#cfdae6;margin:14px 0 0;max-width:34em}
+  p.mut{color:var(--muted);font-size:16px}
+  b{color:#fff;font-weight:600}
+  em{color:var(--muted)}
+
+  .cond{border:1px solid var(--line);border-radius:14px;background:var(--bg2);padding:22px 24px}
+  .chips{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 0}
+  .chip{font-family:var(--sans);font-size:14px;color:#cfdae6;border:1px solid var(--line);
+    border-radius:999px;padding:6px 14px}
+
+  /* ——————— клетки и доски ——————— */
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:26px;height:34px;line-height:32px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px}
+  .d:last-child{border-radius:0 6px 6px 0}
+  .d.dm{color:var(--dim)}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.free{color:var(--blue)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .big .d{width:36px;height:46px;line-height:44px;font-size:26px}
+
+  .stage{background:var(--bg2);border-radius:12px;padding:22px 20px;margin:18px 0 0}
+  .grid{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+  .grp{display:flex;flex-direction:column;gap:7px;padding:11px 13px;border:1px solid var(--line);
+    border-radius:10px}
+  .grp .cap{font-family:var(--sans);font-size:12px;color:var(--dim)}
+  .cnt{font-family:var(--sans);font-size:13px;color:var(--gold);margin-top:2px}
+
+  /* ——————— формулы: каждая на своей строке ——————— */
+  .frm{font:clamp(18px,2.3vw,23px)/1.6 var(--mono);color:var(--ink);margin:16px 0 0}
+  .frm .g{color:var(--green)}
+  .frm .mu{color:var(--muted)}
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:18px 22px;
+    display:inline-block;margin:16px 0 0}
+  .plan .tag{font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:var(--blue);
+    text-transform:uppercase;display:block;margin-bottom:8px}
+  .res{display:inline-block;margin:18px 0 0;font:20px var(--mono);color:var(--green);
+    border-top:1px solid var(--line);padding-top:12px}
+
+  /* ——————— «заметь главное» и «почему не иначе» ——————— */
+  .key{border-left:3px solid var(--gold);background:#1a1408;border-radius:0 12px 12px 0;
+    padding:18px 22px;margin:18px 0 0}
+  .key .tag{font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:var(--gold);
+    text-transform:uppercase;display:block;margin-bottom:8px}
+  .key p:first-of-type{margin-top:0}
+  .wrong{border:1px dashed #5a3540;border-radius:12px;padding:16px 20px;margin:18px 0 0}
+  .wrong .tag{font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:var(--red);
+    text-transform:uppercase;display:block;margin-bottom:8px}
+  .wrong p{color:var(--muted);max-width:36em}
+
+  .qs{font-family:var(--sans);margin:16px 0 0;max-width:36em}
+  .qs .row{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);
+    font-size:16px;line-height:1.5;color:#cfdae6}
+  .qs .row:last-child{border-bottom:1px solid var(--line)}
+  .qs .k{color:var(--dim);font-size:13.5px;min-width:1.4em}
+
+  /* ——————— фразы для тура ——————— */
+  .say{border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:16px 0 0;
+    background:var(--bg2)}
+  .say .tag{font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--dim);
+    display:block;margin-bottom:9px}
+  .say .es{font-family:var(--sans);font-size:17px;line-height:1.5;color:#fff;font-weight:600}
+  .say .ru{font-family:var(--sans);font-size:15px;line-height:1.5;color:var(--muted);
+    font-style:italic;margin-top:8px}
+  .record{font:15px/1.9 var(--mono);color:#cfdae6;margin:16px 0 0}
+  .record .ln{padding-left:1.3em;text-indent:-1.3em}
+  details{margin:18px 0 0;border:1px solid var(--line);border-radius:12px;padding:0 20px}
+  summary{cursor:pointer;font-family:var(--sans);font-size:15px;color:var(--blue);padding:15px 0}
+  details[open] summary{border-bottom:1px solid var(--line);margin-bottom:6px}
+  details p{font-size:16px}
+
+  /* ——————— проявление при скролле ——————— */
+  html.anim .st{opacity:0;transform:translateY(10px);transition:opacity .55s ease,transform .55s ease}
+  html.anim section.seen .st{opacity:1;transform:none}
+  section.seen .st:nth-child(2){transition-delay:.12s}
+  section.seen .st:nth-child(3){transition-delay:.24s}
+  section.seen .st:nth-child(4){transition-delay:.36s}
+  section.seen .st:nth-child(5){transition-delay:.48s}
+  section.seen .st:nth-child(6){transition-delay:.6s}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:sticky;top:0;height:auto;max-height:34vh;border-right:none;
+      border-bottom:1px solid var(--line);padding:14px 16px}
+    .art{border-left:none;border-top:2px solid var(--line);padding:7px 0 8px}
+    main{padding:20px 18px 50vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<aside>
+  <p class="rtitle">Сухой остаток</p>
+  <button class="art" data-i="0"><span class="lbl">Наблюдение</span>
+    <span class="val txt">Ровно одна цифра стоит дважды, три остальные — по разу</span></button>
+  <button class="art" data-i="1"><span class="lbl">План</span>
+    <span class="val">Ответ = Всего − Плохих</span></button>
+  <button class="art" data-i="2"><span class="lbl">Шаг 2</span>
+    <span class="val">Всего = 4 · 10 · 6 = 240</span></button>
+  <button class="art" data-i="3"><span class="lbl">Шаг 3</span>
+    <span class="val">Плохих = 24 + 36 = 60</span></button>
+  <button class="art fin" data-i="4"><span class="lbl">Ответ</span>
+    <span class="val">180</span></button>
+</aside>
+
+<main>
+  <h1>Пятизначные числа из цифр 7, 8, 9, 0</h1>
+  <p class="sub">Региональный тур 2025, №3 · Т3: миры по «кто дважды» + «всё минус плохие»</p>
+
+  <section id="s-cond">
+    <div class="cond st">
+      <p style="margin:0;font-size:18px">Пятизначные числа, в записи которых каждая из цифр <b>7, 8, 9, 0</b> встречается один или несколько раз (других цифр нет). С нуля начинать нельзя. Сколько таких чисел? Объясни, как считал.</p>
+      <div style="text-align:center;margin:20px 0 0">
+        <span class="num big"><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span><span class="d dm">·</span></span>
+      </div>
+      <div class="chips">
+        <span class="chip">пять цифр</span>
+        <span class="chip">только 7, 8, 9, 0</span>
+        <span class="chip">каждая — хотя бы раз</span>
+        <span class="chip">с нуля не начинается</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-art="0">
+    <h2 class="st"><span class="n">🔍 С чего начать</span>Три первых вопроса</h2>
+    <p class="st">Первый вопрос: <b>что здесь один способ?</b> Одно пятизначное число целиком. Второй: <b>что на самом деле говорит «каждая цифра хотя бы раз»?</b> Третий: <b>как снять запрет «не начинается с нуля»?</b> Запреты почти всегда дешевле снимать вычитанием, а не следить за ними по ходу расстановки.</p>
+  </section>
+
+  <section data-art="0">
+    <h2 class="st"><span class="n">Заметь главное</span>Ровно одна цифра повторяется, и ровно два раза</h2>
+
+    <p class="st">Цифр четыре, мест пять, каждая цифра обязана появиться хотя бы раз — значит, четыре места разобраны по одной цифре, а лишнее место остаётся ровно одно.</p>
+
+    <div class="stage st">
+      <span class="num"><span class="d">7</span><span class="d">8</span><span class="d">9</span><span class="d">0</span><span class="d sp">?</span></span>
+      <div class="cnt">четыре цифры разобрали четыре места — лишнее одно</div>
+    </div>
+
+    <p class="st">Отдать его можно только какой-то одной из четырёх цифр. Поэтому любое подходящее число устроено одинаково: <b>одна цифра стоит дважды, три остальные — по разу</b>. Из этого сразу следует и то, как резать задачу: миры «кто именно дважды» — 7, 8, 9 или 0 — не пересекаются и покрывают всё.</p>
+
+    <div class="stage st">
+      <div id="who" class="grid"></div>
+      <div class="cnt">четыре мира: 7, 8, 9 или 0 стоит дважды</div>
+    </div>
+
+    <div class="wrong st">
+      <span class="tag">Почему не иначе</span>
+      <p>Соблазн — следить за нулём прямо по ходу расстановки. Но запрет цепляется за то, попал ли ноль в пару одинаковых, и ветки получаются неравные. Проще посчитать всё подряд, а потом вычесть числа, начинающиеся с нуля.</p>
+    </div>
+
+    <p class="mut st"><em>💬 Мысль «лишнее место ровно одно» и пойдёт во фразу-объяснение.</em></p>
+  </section>
+
+  <section data-art="1">
+    <h2 class="st"><span class="n">🗺 Шаг 1</span>План счёта</h2>
+
+    <div class="frm st"><span class="mu">[ все цепочки подряд, ноль где угодно ]</span> <span class="g">−</span> <span class="mu">[ начинающиеся с нуля ]</span></div>
+
+    <div class="plan st">
+      <span class="tag">✅ План готов</span>
+      <div class="frm" style="margin:0">Ответ = <span class="g">Всего</span> − <span class="g">Плохих</span></div>
+      <p class="mut" style="max-width:32em">где<br>
+      <b>Всего</b> — все цепочки из пяти цифр, где одна цифра дважды, а три остальные по разу, включая запрещённые с нулём впереди;<br>
+      <b>Плохих</b> — из них те, что начинаются с нуля.</p>
+      <p style="max-width:32em;margin-top:12px">Осталось найти: <b>Всего</b>, <b>Плохих</b>.</p>
+    </div>
+  </section>
+
+  <section data-art="2">
+    <h2 class="st"><span class="n">Шаг 2</span>Считаю Всего</h2>
+    <p class="goal st">Нужно собрать одну цепочку целиком — для этого делаю три выбора подряд, все в одной картинке, поэтому числа перемножаются:</p>
+
+    <div class="stage st">
+      <p style="margin:0 0 12px"><b>кто стоит дважды</b> — 7, 8, 9 или 0: <b>4</b> варианта (миры разные, но устроены одинаково, поэтому считаю один и умножаю на 4);</p>
+      <div id="who2" class="grid"></div>
+    </div>
+
+    <div class="stage st">
+      <p style="margin:0 0 12px"><b>какая пара мест достаётся этой цифре</b> — перечисляю пары лесенкой: пар с первым местом 4, со вторым — ещё 3, дальше 2 и 1: 4 + 3 + 2 + 1 = <b>10</b>;</p>
+      <div id="pairs" class="grid"></div>
+    </div>
+
+    <div class="stage st">
+      <p style="margin:0 0 12px"><b>три оставшиеся цифры по трём оставшимся местам</b> — перестановка: 3 · 2 · 1 = <b>6</b>.</p>
+      <div id="perm" class="grid"></div>
+    </div>
+
+    <div class="res st">→ Всего = 4 · 10 · 6 = <b style="color:var(--green)">240</b></div>
+  </section>
+
+  <section data-art="3">
+    <h2 class="st"><span class="n">Шаг 3</span>Считаю Плохих</h2>
+    <p class="goal st">Плохая — та, где на первом месте ноль. Тут два непересекающихся мира: ноль был двойником или не был.</p>
+
+    <div class="stage st">
+      <p style="margin:0 0 12px"><b>дважды был ноль.</b> Первое место занято одним нулём, второй ноль встаёт на любое из оставшихся 4 мест, а 7, 8, 9 раскладываются по трём оставшимся местам: 4 · 6 = <b>24</b>;</p>
+      <div id="badA" class="grid"></div>
+    </div>
+
+    <div class="stage st">
+      <p style="margin:0 0 12px"><b>дважды была другая цифра.</b> Кто именно — 7, 8 или 9: 3 варианта. Ноль стоит впереди, значит его пары мест нет, а для повторяющейся цифры пара выбирается из 4 оставшихся мест, лесенкой 3 + 2 + 1 = 6; две последние цифры садятся на 2 места двумя способами: 3 · 6 · 2 = <b>36</b>.</p>
+      <div id="badB" class="grid"></div>
+    </div>
+
+    <div class="res st">→ Плохих = 24 + 36 = <b style="color:var(--green)">60</b></div>
+  </section>
+
+  <section data-art="4">
+    <h2 class="st"><span class="n">Шаг 4</span>Сборка</h2>
+    <p class="goal st">Подставляю в план:</p>
+    <div class="frm st">Ответ = 240 − 60 = <span class="g">180</span></div>
+
+    <details class="st">
+      <summary>Пересчёт вторым способом — для контроля</summary>
+      <p>Считаю сразу «хорошие», разбирая по первой цифре. Первая цифра — 7, 8 или 9: 3 варианта. На 4 оставшихся места надо положить ноль, две другие цифры и ещё одну повторную. Кто повторяется — либо первая цифра, либо одна из трёх остальных:</p>
+      <p>— повторяется первая: на 4 места идут она сама, ноль и две оставшиеся цифры — все четыре разные, расстановок 4 · 3 · 2 · 1 = 24;</p>
+      <p>— повторяется одна из трёх остальных (3 варианта): пара мест для неё из 4 свободных, лесенкой 3 + 2 + 1 = 6, две последние цифры на 2 места — 2 способа: 3 · 6 · 2 = 36.</p>
+      <p>На одну первую цифру выходит 24 + 36 = 60, а всего 3 · 60 = <b>180</b> ✓</p>
+      <p class="mut"><em>Ответ: 180. (официальный ключ ✓; компьютерный перебор всех пятизначных цепочек из 7, 8, 9, 0 ✓)</em></p>
+    </details>
+  </section>
+
+  <section data-art="4">
+    <h2 class="st"><span class="n">✍ На туре</span>Что достаточно написать</h2>
+    <p class="mut st"><em>Разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение и фраза про полноту входят в образец наравне с числами.</em></p>
+
+    <div class="say st">
+      <span class="tag">💬 Фраза-объяснение (в начале)</span>
+      <p class="es" style="margin:0">Son 5 lugares y 4 dígitos, y cada uno aparece al menos una vez: entonces exactamente un dígito se repite dos veces. Cuento todos y resto los que empiezan con 0.</p>
+      <p class="ru" style="margin-top:8px">Мест пять, цифр четыре, и каждая встречается хотя бы раз — значит, ровно одна цифра повторяется дважды. Считаю все и вычитаю те, что начинаются с нуля.</p>
+    </div>
+
+    <div class="record st">
+      <div class="ln">Мест 5, цифр 4, каждая хотя бы раз → лишнее место одно → ровно одна цифра стоит дважды, три остальные по разу.</div>
+      <div class="ln" style="margin-top:10px"><b>План: Ответ = Всего − Плохих.</b> Плохие — те, что начинаются с нуля.</div>
+      <div class="ln">— Всего: кто дважды <b>4</b> · пара мест из 5 (4+3+2+1) <b>10</b> · три цифры по трём местам (3·2·1) <b>6</b> → <b>240</b></div>
+      <div class="ln">— Плохие, ноль был двойником: второй ноль на одно из 4 мест · 7,8,9 по трём местам = 4 · 6 = <b>24</b></div>
+      <div class="ln">— Плохие, дважды другая цифра: 3 цифры · пара мест из 4 (3+2+1) · 2 = 3 · 6 · 2 = <b>36</b></div>
+      <div class="ln">— Плохих = 24 + 36 = <b>60</b></div>
+      <div class="ln" style="margin-top:10px"><b>Ответ = 240 − 60 = 180.</b></div>
+    </div>
+
+    <div class="say st">
+      <span class="tag">💬 Фраза в конце — полнота</span>
+      <p class="es" style="margin:0">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</p>
+      <p class="ru" style="margin-top:8px">Это все случаи: они не повторяют друг друга и ни один не потерян.</p>
+    </div>
+  </section>
+</main>
+</div>
+
+<script>
+try{
+document.documentElement.classList.add('anim');
+const cell=(t,c)=>`<span class="d ${c||''}">${t}</span>`;
+const row=a=>`<span class="num">${a.map(x=>cell(x[0],x[1])).join('')}</span>`;
+const box=(cap,inner)=>`<div class="grp"><span class="cap">${cap}</span>${inner}</div>`;
+
+// кто стоит дважды — 4 мира
+const whoHtml=['7','8','9','0'].map(d=>
+  row([[d,'sp'],[d,'sp'],['·','dm'],['·','dm'],['·','dm']])).join('');
+document.getElementById('who').innerHTML=whoHtml;
+document.getElementById('who2').innerHTML=whoHtml;
+
+// пары мест из 5 — лесенкой
+let pairs='';
+for(let i=0;i<4;i++){
+  let g='';
+  for(let j=i+1;j<5;j++){
+    g+=row([0,1,2,3,4].map(k=>(k===i||k===j)?['★','sp']:['·','dm']))+'<br>';
+  }
+  pairs+=box(`первое место пары — №${i+1}`,g+`<span class="cnt">${4-i}</span>`);
+}
+document.getElementById('pairs').innerHTML=pairs;
+
+// перестановки трёх оставшихся цифр
+const P=[['7','8','9'],['7','9','8'],['8','7','9'],['8','9','7'],['9','7','8'],['9','8','7']];
+document.getElementById('perm').innerHTML=
+  P.map(p=>row(p.map(d=>[d,'free']))).join(' ');
+
+// мир A: 0 впереди, второй 0 на одном из 4 мест
+document.getElementById('badA').innerHTML=box('куда встаёт второй ноль',
+  [1,2,3,4].map(j=>row([0,1,2,3,4].map(k=>k===0?['0','zr']:(k===j?['0','zr']:['·','dm']))))
+    .join('<br>')+'<span class="cnt">4 места · 6 перестановок 7,8,9</span>');
+
+// мир B: 0 впереди, пара мест для другой цифры из 4 — лесенкой
+let bB='';
+for(let i=1;i<4;i++){
+  let g='';
+  for(let j=i+1;j<5;j++){
+    g+=row([0,1,2,3,4].map(k=>k===0?['0','zr']:((k===i||k===j)?['★','sp']:['·','dm'])))+'<br>';
+  }
+  bB+=box(`первое место пары — №${i+1}`,g+`<span class="cnt">${4-i}</span>`);
+}
+document.getElementById('badB').innerHTML=bB+
+  `<div class="cnt" style="width:100%">6 пар мест · 3 кандидата в двойники · 2 расстановки двух последних цифр</div>`;
+
+// ——— скролл: проявление секций и накопление сухого остатка ———
+const arts=[...document.querySelectorAll('.art')];
+const secs=[...document.querySelectorAll('section')];
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('seen')});
+},{threshold:.15});
+secs.forEach(s=>io.observe(s));
+
+const io2=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    const i=e.target.dataset.art;
+    if(i===undefined)return;
+    if(e.isIntersecting){
+      for(let k=0;k<=+i;k++)arts[k].classList.add('on');
+      arts.forEach(a=>a.classList.toggle('cur',a.dataset.i===i));
+    }
+  });
+},{rootMargin:'-30% 0px -50% 0px'});
+secs.forEach(s=>io2.observe(s));
+
+arts.forEach(a=>a.addEventListener('click',()=>{
+  const t=document.querySelector(`section[data-art="${a.dataset.i}"]`);
+  if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+}catch(e){document.documentElement.classList.remove('anim');console.error(e)}
+</script>
+</body>
+</html>
