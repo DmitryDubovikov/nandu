@@ -148,3 +148,8 @@ These conventions are load-bearing across all existing pairs — keep them.
     - **Verification by rule 4's standard**, plus: the claim is *true*, it carries justification rather than arithmetic,
       the Spanish is natural, it fits the budget. The first pass caught three false phrases — not a formality.
     - `grep -rn 💬` lists the whole layer.
+12. **Every tour gets a wide corpus sweep** (Aug 2026). Deep preparation stays on the target stage and the recent
+    years — that is where ~99% of the effort belongs. On top of it, before each tour, write
+    `<stage>/nandu_n<N>_<stage>_chego_ne_bylo.md`: the types that occur in the corpus **at or below the target stage,
+    over all years** and that the preparation does not cover — each as a name, one real example, and the single move
+    it turns on. The goal is recognition, not skill; the length is what the child will read in one sitting.
