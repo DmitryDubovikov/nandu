@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>П11.1. Полоска из восьми клеток</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 18 из 21</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Соседние тройки перекрываются двумя клетками, поэтому крайние числа у них обязаны совпасть — и вся полоска оказывается не восемью независимыми…</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Одно заполнение полоски = один выбор числа a, потому что всё остальное считается:
+
+b = 11 − a
+
+полоска = (a, b, 7), повторённое до конца
+
+Осталось…</span></button>
+</aside>
+<main>
+  
+  <h1>П11.1. Полоска из восьми клеток</h1>
+  <p class="sub">Национал — практика: разборы</p>
+<p class="st"><b>Условие.</b> В полоску из 8 клеток вписывают целые положительные числа так, чтобы сумма чисел в любых трёх подряд идущих клетках равнялась 18. Числа повторять можно. В 3-й клетке слева стоит 7:</p>
+<div class="st"><div class="tw"><table>
+<tr><th>клетка</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+<tr><td>число</td><td></td><td></td><td><b>7</b></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table></div></div>
+<p class="st">а) Выпиши все заполнения полоски.</p>
+<p class="st">б) Чему равна сумма всех восьми чисел? Зависит ли она от заполнения?</p>
+<p class="st">в) В скольких заполнениях число 7 стоит ровно в двух клетках?</p>
+<p class="st">г) Объясни, почему ты нашёл все заполнения и почему больше их нет.</p>
+<p class="step st"><b>Шаг 0 — жанр.</b> «Выпиши все заполнения» — список. Значит, перебор должен идти строго по порядку, чтобы никого не потерять и не повторить.</p>
+<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Соседние тройки перекрываются двумя клетками, поэтому крайние числа у них обязаны совпасть — и вся полоска оказывается не восемью независимыми числами, а тремя повторяющимися. Клетки 1, 4, 7 — это одно и то же число, клетки 2, 5, 8 — другое, клетки 3 и 6 — третье. Значит, данная семёрка задаёт не одну клетку, а сразу всю свою полочку, а свободным остаётся одно-единственное число: выбрал его — полоска дописалась сама. По той же причине сумма всех восьми клеток обязана быть одной и той же во всех заполнениях: в неё входит только сумма a + b, а она равна 11 по условию.</p></div></div>
+<figure class="st"><svg viewBox="0 0 700 200" width="100%" style="max-width:700px;display:block;margin:0 auto" font-family="var(--sans)" font-size="13">
+<rect x="30" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="58" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="58" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">1</text><rect x="86" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="114" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="114" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">2</text><rect x="142" y="90" width="56" height="56" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="170" y="128" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">7</text><text x="170" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">3</text><rect x="198" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="226" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="226" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">4</text><rect x="254" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="282" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="282" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">5</text><rect x="310" y="90" width="56" height="56" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="338" y="128" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">7</text><text x="338" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">6</text><rect x="366" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="394" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="394" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">7</text><rect x="422" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="450" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="450" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">8</text>
+<rect x="30" y="90" width="168" height="56" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5 4"/>
+<rect x="86" y="90" width="168" height="56" fill="none" stroke="var(--gold)" stroke-width="2"/>
+<text x="114" y="40" text-anchor="middle" fill="var(--muted)">клетки 1-2-3 = 18</text>
+<text x="170" y="62" text-anchor="middle" fill="var(--gold)">клетки 2-3-4 = 18</text>
+<text x="86" y="180" text-anchor="middle" fill="var(--muted)">общие две клетки</text>
+<text x="310" y="180" fill="var(--muted)">значит клетка 4 = клетке 1 — и дальше через три</text>
+</svg><figcaption>Соседние тройки делят две клетки, а сумма у них одна — поэтому крайние числа обязаны совпасть. Восемь клеток оказываются тремя повторяющимися, и свободного выбора остаётся один.</figcaption></figure>
+<p class="step st"><b>Шаг 1 — период: свожу восемь клеток к двум.</b> Неизвестных восемь, перебирать их деревом нельзя — нужно, чтобы свободных клеток осталось как можно меньше; для этого сравниваю две соседние тройки:</p>
+<ul class="st"><li>беру две соседние тройки: клетки 1-2-3 и 2-3-4, обе дают 18, клетки 2 и 3 у них общие → клетка 1 = 18 − (клетка 2 + клетка 3), и клетка 4 = 18 − (клетка 2 + клетка 3);</li><li>справа у обеих стоит одно и то же число → клетка 4 = клетке 1;</li><li>то же в любом месте полоски → числа повторяются через три клетки — <b>период 3</b>;</li><li>раскладываю позиции по полочкам остатка при делении на 3 → остаток 1: клетки 1, 4, 7 · остаток 2: клетки 2, 5, 8 · остаток 0: клетки 3, 6;</li><li>дана клетка 3 — это полочка «остаток 0» → вся эта полочка равна 7;</li><li>называю клетку 1 буквой a, клетку 2 — буквой b; тогда узор полоски — это (a, b, 7), и он повторяется до конца → из тройки 1-2-3: a + b + 7 = 18, то есть a + b = 11 — одно равенство на две неизвестные клетки.</li></ul>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов.</b> Одно заполнение полоски = один выбор числа a, потому что всё остальное считается:</p>
+<div class="frm st">b = 11 − a</div>
+<p class="st">полоска = (a, b, 7), повторённое до конца</p>
+<p class="st">Осталось найти: все годные a — перебираю их по порядку, пока b остаётся положительным.</p></div></div>
+<p class="step st"><b>Шаг 2 — перебор (ответ а).</b> Нужен список всех заполнений — для этого перебираю a подряд, пока b остаётся положительным. a = 1 → b = 10; a = 2 → 9; a = 3 → 8; a = 4 → 7; a = 5 → 6; a = 6 → 5; a = 7 → 4; a = 8 → 3; a = 9 → 2; a = 10 → 1; a = 11 → b = 0 — стоп, ноль не положителен. Итого <b>10 заполнений</b>:</p>
+<div class="st"><div class="tw"><table>
+<tr><th>a</th><th>b</th><th>Полоска целиком</th></tr>
+<tr><td>1</td><td>10</td><td>1 · 10 · 7 · 1 · 10 · 7 · 1 · 10</td></tr>
+<tr><td>2</td><td>9</td><td>2 · 9 · 7 · 2 · 9 · 7 · 2 · 9</td></tr>
+<tr><td>3</td><td>8</td><td>3 · 8 · 7 · 3 · 8 · 7 · 3 · 8</td></tr>
+<tr><td>4</td><td>7</td><td>4 · 7 · 7 · 4 · 7 · 7 · 4 · 7</td></tr>
+<tr><td>5</td><td>6</td><td>5 · 6 · 7 · 5 · 6 · 7 · 5 · 6</td></tr>
+<tr><td>6</td><td>5</td><td>6 · 5 · 7 · 6 · 5 · 7 · 6 · 5</td></tr>
+<tr><td>7</td><td>4</td><td>7 · 4 · 7 · 7 · 4 · 7 · 7 · 4</td></tr>
+<tr><td>8</td><td>3</td><td>8 · 3 · 7 · 8 · 3 · 7 · 8 · 3</td></tr>
+<tr><td>9</td><td>2</td><td>9 · 2 · 7 · 9 · 2 · 7 · 9 · 2</td></tr>
+<tr><td>10</td><td>1</td><td>10 · 1 · 7 · 10 · 1 · 7 · 10 · 1</td></tr>
+</table></div></div>
+<p class="step st"><b>Шаг 3 — сумма (ответ б).</b> На полочке «остаток 1» три клетки, на полочке «остаток 2» тоже три, на «остаток 0» — две. Сумма = 3a + 3b + 2 · 7 = 3 · (a + b) + 14 = 3 · 11 + 14 = <b>47</b>. От заполнения не зависит: в формулу входит только сумма a + b, а она задана условием.</p>
+<p class="step st"><b>Шаг 4 — где семёрок больше двух (ответ в).</b> Семёрка стоит в клетках 3 и 6 всегда — это две штуки. Лишние семёрки появляются, только если a = 7 (тогда семёрка ещё в клетках 1, 4, 7) или b = 7 (тогда в клетках 2, 5, 8). В моём списке это ровно две строки: (7, 4) и (4, 7). Значит, ровно две семёрки в 10 − 2 = <b>8 заполнениях</b>.</p>
+<p class="st"><b>Полнота (г).</b> Ни одно заполнение не потеряно: период доказан (две соседние тройки с общими клетками), поэтому вся полоска однозначно определяется парой (a, b), а пара — одним числом a, которое я перебрал подряд от наименьшего возможного до первого недопустимого. Ни одно не лишнее: разным a отвечают разные полоски (a стоит в первой клетке), значит, повторов в списке нет; каждое из десяти заполнений я проверил на условие «любые три подряд дают 18».</p>
+<p class="st"><b>Пересчёт вторым способом.</b> Сумма всей полоски по тройкам: клетки 1–3 дают 18, клетки 4–6 дают 18, остаются клетки 7 и 8, то есть a + b = 11. Всего 18 + 18 + 11 = 47 ✓ — сошлось, и это объясняет, почему сумма не зависит от заполнения.</p>
+<p class="st"><b>Ответ.</b> а) <b>10 заполнений</b> (в клетках 1 и 2 стоят числа, дающие в сумме 11: 1 и 10, 2 и 9, 3 и 8, 4 и 7, 5 и 6, 6 и 5, 7 и 4, 8 и 3, 9 и 2, 10 и 1; в клетке 3 стоит семёрка, и дальше эта тройка чисел повторяется до конца полоски).</p>
+<p class="st">б) Сумма всегда <b>47</b>, от заполнения она не зависит.</p>
+<p class="st">в) <b>8</b> заполнений.</p>
+<h3 class="st">Проверка вторым способом</h3>
+<p class="st">Перебор всех троек-узоров с положительными числами даёт ровно <b>10</b> полосок, у всех сумма <b>47</b>, ровно две семёрки — в <b>8</b> из них. Список совпал с таблицей разбора построчно.</p>
+<hr>
+<div class="pager"><a href="17-p10-2-lenta-kratnyh-trem.html">← П10.2. Лента кратных трём</a><a href="19-p11-2-kvadrat-tri-na-tri.html">П11.2. Квадрат три на три →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

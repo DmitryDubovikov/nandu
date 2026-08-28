@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глава 5. Период на доске</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 7 из 12</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Условие «сумма любых трёх подряд равна S» звучит страшно, но само себя упрощает.</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">клетка 1 + клетка 2 + клетка 3<br>= S</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">клетка 2 + клетка 3 + клетка 4<br>= S</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">клетка 4<br>= клетка 1</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">а) Сумма полоски = сложенные по трём полочкам произведения (число полочки × сколько на ней клеток)
+
+б) Способов = длина диапазона того единственного…</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val">Ответ = длина диапазона одной клетки t₁, через которую выражены все остальные.</span></button>
+<button class="art" data-art="6"><span class="lbl">План</span><span class="val">Сколько раз встречается число = сложенные по трём типам строк произведения (сколько строк такого типа × сколько раз число стоит в такой…</span></button>
+</aside>
+<main>
+  
+  <h1>Глава 5. Период на доске</h1>
+  <p class="sub">Доски 2 — Учебник</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Условие «сумма <b>любых трёх подряд</b> равна S» звучит страшно, но само себя упрощает. Возьми две соседние тройки — клетки 1-2-3 и клетки 2-3-4:</p></div></div>
+<div id="a1" data-art="1"><div class="frm st">клетка 1 + клетка 2 + клетка 3 = S</div></div>
+<div id="a2" data-art="2"><div class="frm st">клетка 2 + клетка 3 + клетка 4 = S</div></div>
+<p class="st">Слева в обеих строках сидит одна и та же пара, клетки 2 и 3, а справа — одно и то же число S. Убираю из обеих строк общую часть:</p>
+<div id="a3" data-art="3"><div class="frm st">клетка 4 = клетка 1</div></div>
+<p class="st">И так всюду: числа повторяются через три клетки. Это тот самый <b>цикл</b> из пары про числа: доска — дорожка из повторяющихся порций по три, и место клетки в порции говорит её <b>остаток</b> при делении на 3 (полочки!). Огромная доска оказывается маленьким узором, размноженным много раз, — а сколько раз и с каким хвостом, отвечает деление с остатком.</p>
+<p class="exam st"><b>Пример А (полоска).</b> В полоске 1×11 сумма любых трёх соседних клеток равна 15. Во 2-й клетке стоит 6, в 6-й — 4. а) Заполни полоску и найди сумму всех её чисел. б) А если известна только 2-я клетка, сколькими способами можно заполнить полоску целыми положительными числами?</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> В полоске одиннадцать клеток, а известны две — нужно, чтобы разных неизвестных стало мало. Беру две соседние тройки: (1,2,3) и (2,3,4) дают по 15, клетки 2 и 3 у них общие → клетка 4 = клетке 1, то есть <b>период 3</b>. Значит вся полоска — это три числа, разложенные по полочкам остатков от деления на 3: остаток 1 — клетки 1, 4, 7, 10 · остаток 2 — клетки 2, 5, 8, 11 · остаток 0 — клетки 3, 6, 9.</p>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<p class="st">а) Сумма полоски = сложенные по трём полочкам произведения (число полочки × сколько на ней клеток)</p>
+<p class="st">б) Способов = длина диапазона того единственного числа, которое осталось свободным</p>
+<p class="st">полочка — все клетки с одинаковым остатком номера при делении на 3; на всей полочке стоит одно и то же число</p>
+<p class="st">Осталось найти: три числа полочек и три размера полочек (для а), диапазон свободного числа (для б).</p></div></div>
+<p class="step st"><b>Шаг 2 — числа на полочках.</b> Нужны сами три числа: клетка 2 → полочка «остаток 2» вся равна 6; клетка 6 → полочка «остаток 0» вся равна 4; третье число берётся из тройки: 15 − 6 − 4 = 5 на полочке «остаток 1».</p>
+<p class="step st"><b>Шаг 3 — сколько клеток на каждой полочке.</b> Для суммы нужны размеры полочек — делю длину полоски на длину порции с остатком (ритуал Ч2):</p>
+<div class="frm st">11 = 3 · 3 + 2</div>
+<p class="st">Три полных порции — это клетки 1–9, и в них каждой полочке досталось ровно по 3 клетки. Хвост — клетки 10 и 11: десятая начинает новую порцию, её остаток 1, одиннадцатая идёт второй, её остаток 2. Значит хвост добавил по клетке двум полочкам: остаток 1 — 4 клетки, остаток 2 — 4, остаток 0 — 3.</p>
+<figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(11,34px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">1</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">2</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">3</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">7</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">8</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">9</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">10</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">11</span></div><div class="flab" style="margin-top:12px"><span style="color:var(--blue)">остаток 1 — клетки 1, 4, 7, 10 · число 5 · 4 клетки</span><br><span style="color:var(--gold)">остаток 2 — клетки 2, 5, 8, 11 · число 6 · 4 клетки</span><br><span style="color:var(--green)">остаток 0 — клетки 3, 6, 9 · число 4 · 3 клетки</span></div><div class="flab" style="margin-top:12px">11 = 3 · 3 + 2 — три полных порции (клетки 1–9) и хвост в две клетки, а хвост достался первым двум полочкам</div><figcaption>Полочки не поровну: хвост длиной 2 добавил по клетке только первым двум — поэтому 4, 4 и 3, а не «примерно по четыре».</figcaption></figure>
+<p class="step st"><b>Шаг 4 — сборка а).</b> Сумма = 4·5 + 4·6 + 3·4 = 20 + 24 + 12 = <b>56</b>.</p>
+<p class="step st"><b>Шаг 5 — считаю б).</b> Теперь дана только шестёрка: она сидит на полочке «остаток 2», а два других числа полоски назову p₁ — то, что стоит на полочке «остаток 1», и p₀ — на полочке «остаток 0». Тройка p₁, 6, p₀ идёт подряд, её сумма 15 → p₁ + p₀ = 9, оба положительные: p₁ = 1, …, 8 → <b>8 способов</b>.</p>
+<p class="exam st"><b>Пример Б (доска 3×8 — счёт способов).</b> В доску из 3 строк и 8 столбцов вписывают целые положительные числа так, что сумма любых трёх подряд идущих клеток — по горизонтали или по вертикали — равна 30. В верхней строке во 2-м столбце стоит 12, в средней в 4-м — 10, в нижней в 6-м — 5. Сколькими способами?</p>
+<p class="st">Буквы возьму по месту числа в порции: t₁, t₂, t₃ — первое, второе и третье число верхней строки, m — то же для средней, b — для нижней. Место в порции и полочка остатка — одно и то же: первое число порции сидит на полочке «остаток 1», второе — «остаток 2», третье — «остаток 0» (оно же последнее в порции).</p>
+<p class="step st"><b>Шаг 1 — план счёта: в каком порядке тут работать.</b> Первым идёт период: он сжимает каждую строку из восьми чисел до трёх. Вторым — данные: каждое сажаю на свою полочку, и три вписанных числа становятся тремя известными буквами. Третьими — столбцы: их восемь, но период делает их копиями друг друга, так что разных равенств будет всего три. И только после этого — «всё через одну клетку»: выражаю всё через t₁, и ответом будет длина её диапазона.</p>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = длина диапазона одной клетки t₁, через которую выражены все остальные.</p></div></div>
+<p class="step st"><b>Шаг 2 — период сжимает доску.</b> По горизонтали период 3: каждая строка — это три числа-полочки, верх (t₁, 12, t₃) · середина (m₁, m₂, m₃) · низ (b₁, b₂, b₃). А по вертикали периода <b>нет</b>: в столбце всего три клетки, он сам и есть одна тройка подряд, поэтому про каждый столбец известно ровно одно — сумма его трёх чисел равна 30.</p>
+<figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(8,36px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">1</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">2</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">3</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">4</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">5</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">6</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">7</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">8</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">12</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">t₃</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">12</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">t₃</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">12</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">m₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">m₂</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">m₃</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">10</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">m₂</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">m₃</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">m₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">m₂</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b₂</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b₃</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b₂</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">5</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b₁</span><span style="display:flex;align-items:center;justify-content:center;width:36px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b₂</span></div><div class="flab" style="margin-top:12px">период 3 по горизонтали: столбец 4 — копия 1-го, 5-й — копия 2-го, 6-й — копия 3-го. Значит разных столбцов всего три, и равенств-столбцов тоже три, а не восемь.</div><div class="flab" style="margin-top:12px"><span style="color:var(--gold)">вписанные числа</span> сели каждое на свою полочку: 12 — «остаток 2» верхней строки, 10 — «остаток 1» средней, 5 — «остаток 0» нижней</div><figcaption>По вертикали периода нет: столбец из трёх клеток — это и есть одна тройка подряд, про него известно ровно одно равенство.</figcaption></figure>
+<p class="step st"><b>Шаг 3 — сажаю данные на полочки.</b> Вписанные числа надо перевести в буквы: столбец 4 — остаток 1, столбец 6 — остаток 0 → <b>m₁ = 10, b₃ = 5</b>.</p>
+<p class="step st"><b>Шаг 4 — выписываю равенства.</b> Нужны связи между буквами. Сначала строки — в каждой три подряд идущих числа дают 30:</p>
+<div class="frm st">t₁ + 12 + t₃ = 30</div>
+<div class="frm st">t₁ + t₃ = 18</div>
+<div class="frm st">10 + m₂ + m₃ = 30</div>
+<div class="frm st">m₂ + m₃ = 20</div>
+<p class="st">Теперь столбцы. Их восемь, но период по горизонтали делает столбец 4 копией столбца 1, столбец 5 — копией столбца 2, столбец 6 — копией столбца 3 и так далее, поэтому разных равенств всего три — по одному на полочку:</p>
+<p class="st"><b>t₁ + 10 + b₁ = 30</b>, значит <b>b₁ = 20 − t₁</b></p>
+<p class="st"><b>12 + m₂ + b₂ = 30</b>, значит <b>b₂ = 18 − m₂</b></p>
+<p class="st"><b>t₃ + m₃ + 5 = 30</b>, значит <b>t₃ + m₃ = 25</b></p>
+<p class="step st"><b>Шаг 5 — выражаю всё через одну клетку.</b> Чтобы остался один-единственный диапазон, зову t₁ = x и выражаю через x всё остальное:</p>
+<div class="frm st">t₃ = 18 − x</div>
+<div class="frm st">m₃ = 25 − t₃ = 25 − (18 − x)</div>
+<p class="st">Минус перед скобкой переворачивает знаки внутри неё, поэтому «минус минус x» становится «плюс x»:</p>
+<div class="frm st">m₃ = 25 − 18 + x = 7 + x</div>
+<p class="st">Дальше так же, каждый раз аккуратно раскрывая скобку:</p>
+<div class="frm st">m₂ = 20 − m₃ = 20 − (7 + x) = 13 − x</div>
+<div class="frm st">b₁ = 20 − x</div>
+<div class="frm st">b₂ = 18 − m₂ = 18 − (13 − x) = 5 + x</div>
+<p class="st">Проверяю нижнюю строку — её я ещё ни разу не тратил:</p>
+<p class="st"><b>(20 − x) + (5 + x) + 5 = 30</b> ✓</p>
+<p class="st">Система честная.</p>
+<p class="step st"><b>Шаг 6 — диапазон x.</b> Границы дают сами клетки: каждая обязана остаться положительной.</p>
+<ul class="st"><li>x ≥ 1 — сама клетка t₁</li><li>m₂ = 13 − x ≥ 1, значит x ≤ 12</li><li>t₃ = 18 − x ≥ 1, значит x ≤ 17</li></ul>
+<p class="st">Самая жадная граница — от m₂, остальные мягче.</p>
+<p class="step st"><b>Шаг 7 — сборка.</b> x = 1, …, 12 → <b>12 способов</b>.</p>
+<p class="st">Других нет, потому что каждое заполнение однозначно называет своё x = t₁, а x пробежал весь диапазон. Проверка (Д5): x = 12 → верх 12-12-6, середина 10-1-19, низ 8-17-5; строки по 30 ✓, столбцы 12+10+8, 12+1+17, 6+19+5 — по 30 ✓.</p>
+<p class="exam st"><b>Пример В (доска-гигант: счёт клеток по полочкам).</b> Доска 7×7 заполнена диагональным узором из чисел 1, 2, 3: первая строка 1 2 3 1 2 3 1, вторая начинается с 2, третья с 3, четвёртая снова с 1 — и так далее. Какое число встречается чаще всех и сколько раз? Какова сумма всех чисел доски?</p>
+<pre class="ascii st">   1 2 3 1 2 3 1
+   2 3 1 2 3 1 2
+   3 1 2 3 1 2 3
+   1 2 3 1 2 3 1
+   2 3 1 2 3 1 2
+   3 1 2 3 1 2 3
+   1 2 3 1 2 3 1</pre>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Сорок девять клеток никто не пересчитывает по одной — нужно, чтобы доска распалась на порции. Она распадается дважды: и строка идёт узором по три, и сами строки идут циклом «с 1», «с 2», «с 3». Значит каждое число я сосчитаю по типам строк: сколько раз оно в строке такого типа × сколько таких строк.</p>
+<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<p class="st">Сколько раз встречается число = сложенные по трём типам строк произведения (сколько строк такого типа × сколько раз число стоит в такой строке)</p>
+<div class="frm st">Сумма доски = 1 · (сколько единиц) + 2 · (сколько двоек) + 3 · (сколько троек)</div>
+<p class="st">тип строки — с какого числа узора она начинается: «с 1», «с 2» или «с 3»</p>
+<p class="st">Осталось найти: сколько строк каждого типа и сколько раз каждое число стоит в строке каждого типа.</p></div></div>
+<p class="step st"><b>Шаг 2 — что делается в одной строке.</b> Одна строка из 7 клеток с периодом 3: 7 = 3 · 2 + 1 — две полные порции 1-2-3 и хвост в одну клетку. В двух полных порциях каждое число по 2 раза; хвост — это начало новой порции, то есть первое число узора: получается 1 — три раза, 2 и 3 — по два.</p>
+<p class="step st"><b>Шаг 3 — сколько строк каждого типа.</b> Строки тоже идут циклом по три: «с 1», «с 2», «с 3»; строк 7 = 3 · 2 + 1 → строк «с 1» — 3 (строки 1, 4, 7), «с 2» — 2, «с 3» — 2.</p>
+<p class="step st"><b>Шаг 4 — считаю единицы.</b> В строке «с 1» узор 1-2-3, единица в нём первая — значит их 3. В строке «с 2» узор 2-3-1, единица третья — значит 2. В строке «с 3» узор 3-1-2, единица вторая — тоже 2. Умножаю на число строк: строк «с 1» три → 3·3 = 9; строк «с 2» две → 2·2 = 4; строк «с 3» две → 2·2 = 4; всего 9 + 4 + 4 = <b>17</b>.</p>
+<p class="step st"><b>Шаг 5 — считаю двойки и тройки.</b> Двоек в строке «с 2» три (двойка — первое число узора), в строках «с 1» и «с 3» — по 2: строк «с 2» две → 2·3 = 6; строк «с 1» три → 3·2 = 6; строк «с 3» две → 2·2 = 4; итого <b>16</b>. Тройки добираю остатком: 49 − 17 − 16 = <b>16</b>.</p>
+<p class="step st"><b>Шаг 6 — сборка.</b> Чаще всех — <b>1: 17 раз</b>; сумма = 1·17 + 2·16 + 3·16 = 17 + 32 + 48 = <b>97</b>.</p>
+<p class="st">Запомни общий вид: длину строки дели на длину узора с остатком. Сколько получилось полных порций — столько раз встречается каждое число узора, а хвост длиной r добавляет по одному разу <b>первым r числам узора</b>. Хвост 1 — прибавка только первому; хвост 2 — первому и второму; хвоста нет — все поровну. То же правило работает и для строк: типы строк тоже идут порциями.</p>
+<p class="st">Проверка вторым способом (Д5): сумма по строкам. Строка «с 1»: 1·3 + 2·2 + 3·2 = 13; «с 2»: 2·3 + 3·2 + 1·2 = 14; «с 3»: 3·3 + 1·2 + 2·2 = 15. Итого 3·13 + 2·14 + 2·15 = 39 + 28 + 30 = 97 ✓.</p>
+<p class="st"><b>Типичные ошибки:</b></p>
+<ol class="st num"><li><span class="lin">1.</span> <b>Период «увидеть», а не вывести.</b> Доказательство — две соседние тройки с общими клетками. И осторожно: на доске из 3 строк по вертикали периода <b>нет</b> — столбец из трёх клеток это просто тройка с суммой S.</li><li><span class="lin">2.</span> <b>Сдвиг на единицу в полочках.</b> Клетка 6 — остаток 0, то есть «последняя в порции», как клетка 3, а не как клетка 1. Проверь на маленьком: 6 = 3 + 3.</li><li><span class="lin">3.</span> <b>Посчитать полочки «поровну».</b> В полоске из 11 клеток полочки размеров 4, 4, 3 — раздели с остатком и выпиши, кому сколько. «Примерно по четыре» — это потерянные клетки.</li><li><span class="lin">4.</span> <b>Забыть положительность в счёте способов.</b> Диапазон параметра режут все выраженные клетки сразу; стоп даёт самая жадная (в примере Б — клетка m₂).</li></ol>
+<div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2023 №1 — доска 3×9, «любые три подряд дают 40», три вписанных числа: период по строкам + столбцы-тройки, счёт способов через одну клетку (их 4). 2016 №3 — доска 123×123 с диагональным циклом 2-0-1-6: счёт клеток по полочкам (123 = 4 · 30 + 3) — машина примера В, только период 4.</p></div>
+<hr>
+<div class="pager"><a href="06-glava-4-latinskiy-kvadrat.html">← Глава 4. Латинский квадрат</a><a href="08-glava-6-proizvedenie-zazhimaet-silnee-summy.html">Глава 6. Произведение зажимает сильнее суммы →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

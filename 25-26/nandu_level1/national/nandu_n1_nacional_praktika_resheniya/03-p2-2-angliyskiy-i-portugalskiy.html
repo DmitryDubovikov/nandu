@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>П2.2. Английский и португальский</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 3 из 21</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ(б) = n</span></button>
+</aside>
+<main>
+  
+  <h1>П2.2. Английский и португальский</h1>
+  <p class="sub">Национал — практика: разборы</p>
+<p class="st"><b>Условие.</b> В школе 840 учеников. Три четверти всех учеников изучают английский язык. Две пятых всех учеников изучают португальский язык. Есть ученики, которые изучают оба языка, и есть те, кто не изучает ни одного. Учеников, которые не изучают ни одного из этих двух языков, вдвое меньше, чем тех, кто изучает только португальский.</p>
+<p class="st">а) Сколько учеников изучают английский и сколько — португальский?</p>
+<p class="st">б) Сколько учеников не изучают ни одного из этих двух языков?</p>
+<p class="st">в) Сколько учеников изучают оба языка?</p>
+<p class="st">г) Сколько учеников изучают ровно один из двух языков?</p>
+<p class="st">Вопросов четыре — подчеркни все.</p>
+<p class="step st"><b>Шаг 1 — считаю, сколько человек в каждом языке (вопрос а).</b> Нужны два числа изучающих — для этого беру от 840 обе доли:</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Язык и доля</th><th>Сколько учеников</th></tr>
+<tr><td>английский: три четверти от 840</td><td><code>840 · 3/4 = 630</code></td></tr>
+<tr><td>португальский: две пятых от 840</td><td><code>840 · 2/5 = 336</code></td></tr>
+</table></div></div>
+<p class="st">Оба числа — это <b>ответ а)</b>: английский изучают 630 учеников, португальский — 336.</p>
+<p class="st">Оба числа получились целыми — так и должно быть, это ученики, половинок тут не бывает. Вышла бы дробь — я бы вернулся и перечитал, от чего берётся доля.</p>
+<p class="step st"><b>Шаг 2 — план: полоска из четырёх зон.</b> Оставшиеся три вопроса — про пересечение языков, и чтобы никого не посчитать дважды, нужна картинка, где каждый ученик занимает ровно одно место. Рисую полоску и подписываю на ней четыре зоны: «только английский», «оба», «только португальский», «ни одного». Каждый ученик школы попадает ровно в одну зону — ни в две, ни в ноль. Поэтому четыре зоны в сумме дают 840, и никто не посчитан дважды.</p>
+<figure class="st"><svg viewBox="0 0 460 244" width="100%" style="max-width:520px;display:block;margin:0 auto" font-family="var(--sans)" font-size="13">
+<rect x="20" y="70" width="217" height="54" fill="#16263a" stroke="var(--blue)"/>
+<rect x="237" y="70" width="98" height="54" fill="#2a3550" stroke="var(--blue)"/>
+<rect x="335" y="70" width="70" height="54" fill="#1d1810" stroke="var(--gold)"/>
+<rect x="405" y="70" width="35" height="54" fill="#151d29" stroke="var(--gold)"/>
+<text x="128" y="102" text-anchor="middle" fill="var(--muted)">только английский</text>
+<text x="286" y="102" text-anchor="middle" fill="var(--muted)">оба</text>
+<text x="370" y="96" text-anchor="middle" fill="var(--muted)">только</text>
+<text x="370" y="112" text-anchor="middle" fill="var(--muted)">португ.</text>
+<text x="370" y="146" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)">2n</text>
+<text x="422" y="96" text-anchor="middle" fill="var(--muted)">ни</text>
+<text x="422" y="112" text-anchor="middle" fill="var(--muted)">одного</text>
+<text x="422" y="146" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)">n</text>
+<path d="M20 58 L20 48 L335 48 L335 58" fill="none" stroke="var(--blue)"/>
+<text x="177" y="40" text-anchor="middle" fill="var(--blue)">английский — 630</text>
+<path d="M237 136 L237 168 L405 168 L405 136" fill="none" stroke="var(--blue)"/>
+<text x="321" y="186" text-anchor="middle" fill="var(--blue)">португальский — 336</text>
+<path d="M20 200 L20 212 L440 212 L440 200" fill="none" stroke="var(--muted)"/>
+<text x="230" y="230" text-anchor="middle" fill="var(--muted)">вся школа — 840</text>
+</svg><figcaption>Зоны не налезают друг на друга и не оставляют дырок: каждый ученик стоит ровно в одной. Поэтому их можно складывать, а «оба» не посчитается дважды.</figcaption></figure>
+<p class="st">Обозначим <code>n</code> — сколько человек в зоне «ни одного». Тогда в зоне «только португальский» их вдвое больше, то есть <code>2n</code>. Две оставшиеся зоны теперь тоже выражаются через <code>n</code> — значит, всё держится на одной неизвестной.</p>
+<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<p class="st">Ответ(б) = <code>n</code></p>
+<p class="st">Ответ(в) = зона «оба» при найденном <code>n</code></p>
+<div class="frm st">Ответ(г) = (только английский) + (только португальский)</div>
+<p class="st">Буквы: <code>n</code> — сколько человек в зоне «ни одного»; тогда «только португальский» — это <code>2n</code>, а две оставшиеся зоны я выражу через <code>n</code> на следующем шаге.</p>
+<p class="st">Осталось найти: <code>n</code> — из равенства «четыре зоны дают 840».</p></div></div>
+<p class="step st"><b>Шаг 3 — считаю <code>n</code> (вопрос б).</b> Нужна зона «ни одного» — для этого выражаю через <code>n</code> все четыре зоны и складываю их:</p>
+<ul class="st"><li>португальский = «только португальский» + «оба» → оба <code>= 336 − 2n</code>;</li><li>английский = «только английский» + «оба» → только английский <code>= 630 − (336 − 2n) = 294 + 2n</code>;</li><li>все четыре зоны дают школу → <code>(294 + 2n) + (336 − 2n) + 2n + n = 840</code>;</li><li>привожу подобные → <code>630 + 3n = 840</code> → <code>3n = 210</code>;</li><li>делю → <code>n = 70</code>.</li></ul>
+<p class="st">→ <b>Ни одного языка не изучают 70 учеников.</b></p>
+<p class="step st"><b>Шаг 4 — считаю остальные зоны (вопрос в).</b> Нужна зона «оба», а заодно понадобятся и две крайние — подставляю <code>n = 70</code>:</p>
+<ul class="st"><li>оба → <code>336 − 2 · 70 = 196</code>;</li><li>только португальский → <code>2 · 70 = 140</code>;</li><li>только английский → <code>630 − 196 = 434</code>.</li></ul>
+<p class="st">→ <b>Оба языка изучают 196 учеников.</b></p>
+<p class="step st"><b>Шаг 5 — сборка (вопрос г).</b> «Ровно один» — это две зоны полоски: только английский и только португальский. Тех, кто в середине, брать нельзя.</p>
+<p class="st"><code>434 + 140 = 574</code>. <b>Ровно один язык изучают 574 ученика.</b></p>
+<p class="st"><b>Ответ.</b> а) Английский — 630, португальский — 336. б) 70. в) 196. г) 574.</p>
+<h3 class="st">Проверка вторым способом</h3>
+<p class="st">Считал я через уравнение с одной буквой. Проверяю <b>прямым заполнением полоски и вторым, независимым подсчётом «ровно одного»</b>:</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Зона</th><th>Учеников</th></tr>
+<tr><td>только английский</td><td>434</td></tr>
+<tr><td>оба</td><td>196</td></tr>
+<tr><td>только португальский</td><td>140</td></tr>
+<tr><td>ни одного</td><td>70</td></tr>
+<tr><td><b>всего</b></td><td><code>434 + 196 + 140 + 70 = 840</code> ✓</td></tr>
+</table></div></div>
+<p class="st">Сверяю с условиями: английский <code>434 + 196 = 630</code> — это ровно три четверти от 840 ✓; португальский <code>140 + 196 = 336</code> — ровно две пятых ✓; «ни одного» 70, «только португальский» 140, и <code>140 = 2 · 70</code> ✓.</p>
+<p class="st">«Ровно один» вторым способом: хотя бы один язык изучают <code>840 − 70 = 770</code>; из них надо выбросить тех, кто изучает оба: <code>770 − 196 = 574</code> ✓ — совпало с суммой двух крайних зон.</p>
+<hr>
+<div class="pager"><a href="02-p2-1-makulatura-chetyreh-klassov.html">← П2.1. Макулатура четырёх классов</a><a href="04-p3-1-braslety-na-yarmarke.html">П3.1. Браслеты на ярмарке →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

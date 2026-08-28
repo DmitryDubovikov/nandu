@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2. Типология: Т1–Т4 и штрихи</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 2 из 10</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Раздел</span><span class="val">Т1 — числовая текстовая задача</span></button>
+<button class="art" data-art="1"><span class="lbl">Раздел</span><span class="val">Т2 — периметры буквенной фигуры</span></button>
+<button class="art" data-art="2"><span class="lbl">Раздел</span><span class="val">Т3 — систематический счёт</span></button>
+<button class="art" data-art="3"><span class="lbl">Раздел</span><span class="val">Т4 — числовая доска</span></button>
+<button class="art" data-art="4"><span class="lbl">Раздел</span><span class="val">Таблица «год → номер → тип» (66 задач)</span></button>
+</aside>
+<main>
+  
+  <h1>2. Типология: Т1–Т4 и штрихи</h1>
+  <p class="sub">Ñandú Nivel 1 — Certamen Nacional: бриф разведки и план подготовки</p>
+<p class="st">Нотация та же, что в <code>nandu_n1_provincial_tipologia.md</code>: <b>номер = предмет задачи</b>, <b>штрих = другой инструмент внутри того же семейства</b>. Ниже — только национальная специфика; общее описание типов см. в провинциальной типологии.</p>
+<div id="a0" data-art="0"><h3 class="st">Т1 — числовая текстовая задача</h3></div>
+<ul class="st"><li><b>Т1</b> (базовый) — перевод → СЛАУ. <em>2021 №1 (равные разности), 2022 №4, 2023 №4 (4 напитка), 2017 №1.</em></li><li><b>Т1′</b> — доли и наборы, в т.ч. <b>доли от неизвестных количеств</b> и пересечение множеств. <em>2025 №1 (2/3 больших пакетов — чёрный чай), 2024 №4 (4/5 и 3/4 билетов), 2021 №4 (авто двух типов), 2019 №1 (доля от суммы остальных), 2013 №1.</em></li><li><b>Т1″</b> — процесс: многораундовая работа с конца и <b>циклы</b>. <em>2020 №1 (цикл 21 день на горизонте 365), 2020 №4, 2018 №4, 2017 №4, 2014 №1.</em></li><li><b>Т1‴</b> — целые решения, оптимизация, «все возможности». <em>2025 №4 (пачки по 6 и 25, ровно 380, минимальная цена), 2018 №1 (шаги +4/−7, минимальная разность), 2015 №1 (деление с остатком).</em></li></ul>
+<div id="a1" data-art="1"><h3 class="st">Т2 — периметры буквенной фигуры</h3></div>
+<ul class="st"><li><b>Т2</b> (базовый) — «кирпичик» + вычитание периметров, но тяжелее регионала: 3–5 данных периметров, пропорции отрезков (<code>5AB = 4GH</code>, <code>JK = 3/2 GJ</code>), середины отрезков, вопрос «периметр всей составной фигуры».</li><li><b>Т2′</b> — <b>сетка равных деталей</b>: фигура разрезана на N равных A/B/C/D (+ треугольники), спрашивают периметр детали или собранного из них куска. <em>2017 №5 (6A+4B+2C+2D), 2020 №5, 2021 №5, 2022 №2 (16 прямоугольников), 2022 №5, 2023 №5, 2025 №5, 2015 №2.</em> Ближайший знакомый родственник — провинциальная склейка, но здесь деталей много и они равны.</li><li><b>Т2″</b> — <b>растущий узор</b>: периметр как функция от числа звеньев + вопрос на делимость. Единственный случай: <em>2019 №3</em> (гирлянда шестиугольников, «возможен ли периметр 9102»). Мост между Т2 и счётом.</li></ul>
+<div id="a2" data-art="2"><h3 class="st">Т3 — систематический счёт</h3></div>
+<ul class="st"><li><b>Т3</b> (без доски) — расстановки, распределения, счёт чисел по признаку. <em>2024 №3 (6 домов из 4+3+3), 2019 №6 (палиндромы), 2017 №3, 2015 №3.</em></li><li><b>Т3′</b> — <b>на доске/полоске/сетке</b>: размещения с запретами соседства, раскраски по строкам-столбцам, укладки фигурок, счёт квадратов в сетке, периодические заполнения больших досок. <em>2025 №6 (2 тримино + 2 квадратика на 4×4), 2023 №3 (квадраты в сетке 7×7), 2022 №6, 2021 №3, 2020 №3, 2020 №6, 2016 №3 (доска 123×123), 2014 №3, 2013 №3.</em></li><li><b>Т3″</b> — ⭐ <b>числа и цифры</b> (на регионале и провинциале этого нет вообще): разрядная запись, криптарифмы, позиции цифр в длинных списках, кратность/чётность как инструмент. <em>2024 №6 (позиция 2024), 2023 №6 (ABC+CBA=1DDD), 2022 №3 (кратность 3), 2019 №4 (вычёркивание цифр), 2018 №6, 2017 №6 (JUNIO+JULIO=AGOSTO).</em></li></ul>
+<div id="a3" data-art="3"><h3 class="st">Т4 — числовая доска</h3></div>
+<p class="st">Отдельный номер: доска заполняется <b>числами</b> под условия сумм/произведений/латинского квадрата. Не текстовая задача и не счёт расстановок.</p>
+<ul class="st"><li><b>Т4</b> — «выписать все заполнения», ответ = список. <em>2024 №1 (крест), 2023 №1 (3×9, любые три подряд дают 40), 2022 №1 (латинский квадрат 6×6).</em></li><li><b>Т4′</b> — «сколько способов», ответ = число + объяснение полноты. <em>2025 №3 (ступенчатая доска, равные суммы столбцов), 2021 №6 (4×2, сумма строки и произведения столбцов), 2018 №3 (шестиугольник, суммы по 24, + максимум суммы).</em></li></ul>
+<div id="a4" data-art="4"><h3 class="st">Таблица «год → номер → тип» (66 задач)</h3></div>
+<div class="st"><div class="tw"><table>
+<tr><th>Год</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
+<tr><td>2013</td><td>Т1′</td><td>Т2</td><td>Т3′</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>2014</td><td>Т1″</td><td>Т2</td><td>Т3′</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>2015</td><td>Т1‴</td><td>Т2′</td><td>Т3</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>2016</td><td>Т1‴/Т3″</td><td>Т2</td><td>Т3′</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>2017</td><td>Т1</td><td>Т2</td><td>Т3</td><td>Т1″</td><td>Т2′</td><td>Т3″</td></tr>
+<tr><td>2018</td><td>Т1‴</td><td>Т2</td><td><b>Т4′</b></td><td>Т1″</td><td>Т2</td><td>Т3″</td></tr>
+<tr><td>2019</td><td>Т1′</td><td>Т2</td><td><b>Т2″</b></td><td>Т3″</td><td>Т2</td><td>Т3</td></tr>
+<tr><td>2020</td><td>Т1″</td><td>Т2</td><td>Т3′</td><td>Т1″</td><td>Т2′</td><td>Т3′</td></tr>
+<tr><td>2021</td><td>Т1</td><td>Т2</td><td>Т3′</td><td>Т1′</td><td>Т2′</td><td><b>Т4′</b></td></tr>
+<tr><td>2022</td><td><b>Т4</b></td><td>Т2′</td><td>Т3″</td><td>Т1</td><td>Т2′</td><td>Т3′</td></tr>
+<tr><td>2023</td><td><b>Т4</b></td><td>Т2</td><td>Т3′</td><td>Т1</td><td>Т2′</td><td>Т3″</td></tr>
+<tr><td>2024</td><td><b>Т4</b></td><td>Т2</td><td>Т3</td><td>Т1′</td><td>Т2</td><td>Т3″</td></tr>
+<tr><td>2025</td><td>Т1′</td><td>Т2</td><td><b>Т4′</b></td><td>Т1‴</td><td>Т2′</td><td>Т3′</td></tr>
+</table></div></div>
+<p class="st"><em>(2016 №1 — выбрать 5 из 10 простых с равными суммами — гибрид: перебор с чётностью, «все возможности»; равно уместен в Т1‴ и Т3″.)</em></p>
+<p class="st"><b>Сводка по всему корпусу (66):</b> Т1 — 18 (базовый 4, Т1′ 5, Т1″ 5, Т1‴ 3, гибрид 1) · Т2 — 23 (базовый 14, <b>Т2′ 8</b>, Т2″ 1) · Т3 — 19 (без доски 4, Т3′ 9, Т3″ 6) · Т4 — 6 (список 3, счёт способов 3).</p>
+<figure class="st"><div style="display:grid;grid-template-columns:52px repeat(6,1fr);gap:5px;font-family:system-ui,sans-serif;font-size:12.5px"><div></div><div style="text-align:center;color:var(--muted);padding-bottom:2px">№1</div><div style="text-align:center;color:var(--muted);padding-bottom:2px">№2</div><div style="text-align:center;color:var(--muted);padding-bottom:2px">№3</div><div style="text-align:center;color:var(--muted);padding-bottom:2px">№4</div><div style="text-align:center;color:var(--muted);padding-bottom:2px">№5</div><div style="text-align:center;color:var(--muted);padding-bottom:2px">№6</div><div style="color:var(--muted);line-height:26px">2013</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="color:var(--muted);line-height:26px">2014</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="color:var(--muted);line-height:26px">2015</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1‴</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="color:var(--muted);line-height:26px">2016</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т1‴/Т3″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="text-align:center;line-height:26px;color:var(--muted);border:1px dashed var(--line);border-radius:5px">—</div><div style="color:var(--muted);line-height:26px">2017</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3″</div><div style="color:var(--muted);line-height:26px">2018</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1‴</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(242,104,108,.14);border:1px solid rgba(242,104,108,.42);color:#f2686c">Т4′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3″</div><div style="color:var(--muted);line-height:26px">2019</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3</div><div style="color:var(--muted);line-height:26px">2020</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="color:var(--muted);line-height:26px">2021</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(242,104,108,.14);border:1px solid rgba(242,104,108,.42);color:#f2686c">Т4′</div><div style="color:var(--muted);line-height:26px">2022</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(242,104,108,.14);border:1px solid rgba(242,104,108,.42);color:#f2686c">Т4</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3″</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="color:var(--muted);line-height:26px">2023</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(242,104,108,.14);border:1px solid rgba(242,104,108,.42);color:#f2686c">Т4</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3″</div><div style="color:var(--muted);line-height:26px">2024</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(242,104,108,.14);border:1px solid rgba(242,104,108,.42);color:#f2686c">Т4</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3″</div><div style="color:var(--muted);line-height:26px">2025</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(242,104,108,.14);border:1px solid rgba(242,104,108,.42);color:#f2686c">Т4′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(91,168,245,.14);border:1px solid rgba(91,168,245,.42);color:#5ba8f5">Т1‴</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(95,211,141,.14);border:1px solid rgba(95,211,141,.42);color:#5fd38d">Т2′</div><div style="text-align:center;line-height:24px;border-radius:5px;background:rgba(240,168,60,.14);border:1px solid rgba(240,168,60,.42);color:#f0a83c">Т3′</div></div><div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-family:system-ui,sans-serif;font-size:12.5px;color:var(--muted)"><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(91,168,245,.5);border:1px solid #5ba8f5;margin-right:5px"></span>Т1 — текстовая</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(95,211,141,.5);border:1px solid #5fd38d;margin-right:5px"></span>Т2 — периметры</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(240,168,60,.5);border:1px solid #f0a83c;margin-right:5px"></span>Т3 — счёт</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(242,104,108,.5);border:1px solid #f2686c;margin-right:5px"></span>Т4 — числовая доска</span></div><div class="flab" style="margin-top:12px">Пустые клетки 2013–2016 — однодневный тур: задач было три, позиций №4–№6 не существовало.</div><figcaption>Тип задачи задаётся позицией только наполовину: колонки №2 и №5 держат один цвет, а №1 и №3 меняют его от года к году.</figcaption></figure>
+<hr>
+<div class="pager"><a href="01-1-format-nacionalnogo-etapa-po-korpusu.html">← 1. Формат национального этапа (по корпусу)</a><a href="03-3-okno-2019-2025-7-turov-42-zadachi-rabochaya-ba.html">3. Окно 2019–2025 (7 туров, 42 задачи) — рабочая база подготовки →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

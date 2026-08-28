@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глава 6. Разрядная запись — число из цифр</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 10 из 14</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Число раскладывается по разрядам:</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">583<br>= 5 · 100 + 8 · 10 + 3</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">100a + 10b + c (a ≠ 0, иначе запись не трёхзначная)</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">10a + b</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Ответ = формула разности через сами цифры числа — вида «какое-то число, умноженное на разность двух цифр». Когда она будет выписана, сразу станет видно, случайно ли вышло 2 · 99.</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val">Ответ = формула суммы через цифры числа; осталось её вывести и сверить по ней оба примера.</span></button>
+<button class="art" data-art="6"><span class="lbl">План</span><span class="val">Ответ = все числа, у которых цифры удовлетворяют условию Ц, где Ц — то, во что превращается «переворот больше на 27». Осталось: получить Ц и перебрать по нему числа.</span></button>
+<button class="art" data-art="7"><span class="lbl">Типичная ошибка №1</span><span class="val">складывать цифры там, где складываются числа.</span></button>
+<button class="art" data-art="8"><span class="lbl">Типичная ошибка №2</span><span class="val">потерять условие «первая цифра ≠ 0».</span></button>
+<button class="art" data-art="9"><span class="lbl">Типичная ошибка №3</span><span class="val">прочитать запись из букв как умножение.</span></button>
+</aside>
+<main>
+  
+  <h1>Глава 6. Разрядная запись — число из цифр</h1>
+  <p class="sub">Числа и цифры — Учебник</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Число раскладывается по разрядам:</p></div></div>
+<div id="a1" data-art="1"><div class="frm st">583 = 5 · 100 + 8 · 10 + 3</div></div>
+<p class="st">Это называется <b>разрядная запись</b>: каждая цифра сидит в своём <b>разряде</b> (сотни, десятки, единицы) и весит по-разному — пятёрка здесь не «5», а «500». То же самое буквами. Трёхзначное число с цифрами a, b, c:</p>
+<div id="a2" data-art="2"><div class="frm st">100a + 10b + c (a ≠ 0, иначе запись не трёхзначная)</div></div>
+<p class="st">Двузначное число с цифрами a, b:</p>
+<div id="a3" data-art="3"><div class="frm st">10a + b</div></div>
+<p class="st">В таких формулах знак умножения между числом и буквой обычно не пишут: <b>100a</b> значит 100 · a, а <b>10b</b> значит 10 · b. Это просто короткая запись, ничего нового в ней нет. Подставь цифры числа 583 — a = 5, b = 8, c = 3 — и получишь 100 · 5 + 10 · 8 + 3 = 583 ✓.</p>
+<figure class="st"><div class="fgrid" style="gap:18px;align-items:flex-end"><div class="rcol"><span class="flab">сотни</span><span class="d big">5</span><span class="wgt">вес 100</span><span class="val">500</span></div><div class="rcol"><span class="flab">десятки</span><span class="d big">8</span><span class="wgt">вес 10</span><span class="val">80</span></div><div class="rcol"><span class="flab">единицы</span><span class="d big">3</span><span class="wgt">вес 1</span><span class="val">3</span></div><div class="rcol"><span class="flab">&nbsp;</span><span class="eq">=</span><span class="wgt">&nbsp;</span><span class="val tot">583</span></div></div><div class="frm" style="margin-top:16px">583 = 5 · 100 + 8 · 10 + 3</div><div class="frm" style="border-color:var(--blue)">100a + 10b + c</div><figcaption>Цифра весит не собой, а своим разрядом: пятёрка здесь стоит 500. Буквы записывают то же самое сразу для всех чисел.</figcaption></figure>
+<p class="st">Что покупаем за эту запись: перестановки цифр превращаются в обычную арифметику.</p>
+<p class="exam st"><b>Пример А (переворот: разность).</b> Возьмём 583 и перевернём: 385. Разность 583 − 385 = 198 = 2 · 99. Случайность?</p>
+<p class="step st"><b>Шаг 1 — план: увидеть разность не как число, а как формулу из цифр.</b> Пока числа записаны как 583 и 385, про 198 сказать нечего — вычли и вычли. Нужно, чтобы в записи были видны сами цифры и их веса, — для этого разложу оба числа по разрядам и вычту разложения, собирая одинаковые цифры вместе.</p>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = формула разности через сами цифры числа — вида «какое-то число, умноженное на разность двух цифр». Когда она будет выписана, сразу станет видно, случайно ли вышло 2 · 99.</p>
+<p class="st">Осталось: разложить оба числа по разрядам, вычесть одно из другого и собрать одинаковые цифры вместе.</p></div></div>
+<p class="step st"><b>Шаг 2 — раскладываю оба числа по разрядам.</b> Чтобы цифры стало видно, пишу разрядную запись каждого:</p>
+<div class="frm st">583 = 5 · 100 + 8 · 10 + 3</div>
+<div class="frm st">385 = 3 · 100 + 8 · 10 + 5</div>
+<p class="step st"><b>Шаг 3 — вычитаю и собираю одинаковые цифры.</b> Нужно, чтобы каждая цифра встретилась в записи один раз, — тогда станет видно, с каким весом она входит. Десятки у обоих одинаковые, 8 · 10, и при вычитании уходят:</p>
+<div class="frm st">583 − 385 = (5 · 100 + 3) − (3 · 100 + 5)</div>
+<p class="st">Теперь собираю вместе пятёрки и вместе тройки. Пятёрка стоит в сотнях первого числа и в единицах второго:</p>
+<div class="frm st">5 · 100 − 5 = 5 · 99</div>
+<p class="st">Тройка наоборот — в единицах первого и в сотнях второго:</p>
+<div class="frm st">3 − 3 · 100 = −3 · 99</div>
+<p class="st">Складываю, что вышло:</p>
+<p class="st">5 · 99 − 3 · 99 = 99 · (5 − 3) = 198 ✓</p>
+<p class="step st"><b>Шаг 4 — сборка: то же буквами.</b> Чтобы правило работало не только на 583, повторяю тот же ход с буквами:</p>
+<p class="st">(100a + 10b + c) − (100c + 10b + a)</p>
+<p class="st">Десятки уходят, сотни и единицы собираются по цифрам: 100a − a = 99a и c − 100c = −99c. Остаётся</p>
+<div class="frm st">99 · (a − c)</div>
+<p class="st">Разность зависит только от крайних цифр и всегда кратна 99 (а значит, и 9, и 11).</p>
+<p class="exam st"><b>Пример Б (переворот: сумма).</b> 275 + 572 = 847. И 374 + 473 = 847. Почему ответ один?</p>
+<p class="step st"><b>Шаг 1 — план: понять, от чего сумма вообще зависит.</b> Два разных числа дали один ответ — значит, сумма чувствует в числе не все цифры, а что-то более грубое. Чтобы увидеть, что именно, нужна формула суммы через цифры: сложу разрядные записи буквами и посмотрю, какие цифры в неё войдут.</p>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = формула суммы через цифры числа; осталось её вывести и сверить по ней оба примера.</p></div></div>
+<p class="step st"><b>Шаг 2 — вывожу формулу.</b> Складываю буквами:</p>
+<p class="st">(100a + 10b + c) + (100c + 10b + a)</p>
+<p class="st">Собираю одинаковые буквы: 100a + a = 101a, потом 100c + c = 101c, потом 10b + 10b = 20b. Складываю, что вышло:</p>
+<p class="st">101a + 101c + 20b = <b>101 · (a + c) + 20 · b</b></p>
+<p class="step st"><b>Шаг 3 — читаю формулу.</b> В ней стоят только a + c и b — значит, сумма зависит <b>только</b> от суммы крайних цифр и от средней, а по отдельности крайние ей безразличны.</p>
+<p class="step st"><b>Шаг 4 — сборка: сверяю оба числа.</b> У 275 крайние 2 + 5 = 7, средняя 7; у 374 крайние 3 + 4 = 7, средняя тоже 7 — значит, у обоих одинаковые a + c и b, поэтому и ответ обязан быть одинаковым. Подставляю в формулу плана:</p>
+<p class="st">101 · 7 + 20 · 7 = 707 + 140 = 847 ✓</p>
+<p class="exam st"><b>Пример В (мини-задача целиком).</b> Двузначное число на 27 меньше своего переворота (и переворот тоже двузначный). Найди все такие числа.</p>
+<p class="step st"><b>Шаг 1 — план: перевести условие про переворот в условие про цифры.</b> Двузначных чисел девяносто, перебирать их все и каждое переворачивать долго. Нужно короткое требование к самим цифрам — для этого запишу число и переворот разрядной записью и вычту одно из другого: разность окажется формулой из цифр, и условие «на 27 меньше» превратится в условие на них.</p>
+<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все числа, у которых цифры удовлетворяют условию Ц, где Ц — то, во что превращается «переворот больше на 27». Осталось: получить Ц и перебрать по нему числа.</p></div></div>
+<p class="step st"><b>Шаг 2 — получаю условие Ц.</b> Число — это 10a + b, а переворот — 10b + a. Насколько переворот больше:</p>
+<div class="frm st">(10b + a) − (10a + b) = 9 · (b − a)</div>
+<p class="st">По условию эта разность равна 27:</p>
+<div class="frm st">9 · (b − a) = 27</div>
+<p class="st">→ <b>Ц: b − a = 3</b></p>
+<p class="step st"><b>Шаг 3 — перебираю числа по условию Ц.</b> Чтобы никого не потерять, иду по первой цифре подряд; обе цифры от 1 до 9, потому что двузначны и число, и его переворот: a = 1 → 14, a = 2 → 25, a = 3 → 36, a = 4 → 47, a = 5 → 58, a = 6 → 69; a = 7 → b = 10 — не цифра, стоп.</p>
+<p class="step st"><b>Шаг 4 — сборка и проверка.</b> <b>Шесть чисел</b>: 14, 25, 36, 47, 58, 69. Проверка одного (Ч3): 47 → 74; 74 − 47 = 27 ✓</p>
+<div id="a7" data-art="7"><div class="card wrong st"><span class="tag">Типичная ошибка №1</span><p>складывать цифры там, где складываются числа. В 583 пятёрка — это 500: вес разряда обязателен.</p></div></div>
+<div id="a8" data-art="8"><div class="card wrong st"><span class="tag">Типичная ошибка №2</span><p>потерять условие «первая цифра ≠ 0». «Число 047» — не трёхзначное число; и если переворот обязан быть двузначным/трёхзначным, последняя цифра исходного тоже не ноль.</p></div></div>
+<div id="a9" data-art="9"><div class="card wrong st"><span class="tag">Типичная ошибка №3</span><p>прочитать запись из букв как умножение. «Число с цифрами a, b, c» — это склейка разрядов, 100a + 10b + c, а вовсе не a · b · c. Поэтому мы всегда и пишем её разрядами.</p></div></div>
+<div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2023 №6 — сумма числа с переворотом в боевом размере: формула примера Б плюс переносы из главы 7.</p></div>
+<hr>
+<div class="pager"><a href="09-chast-b-chisla-i-cifry.html">← Часть B — Числа и цифры</a><a href="11-glava-7-stolbik-i-perenosy-kriptarifmy.html">Глава 7. Столбик и переносы — криптарифмы →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

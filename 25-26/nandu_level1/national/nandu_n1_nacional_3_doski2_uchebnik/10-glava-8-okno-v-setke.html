@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глава 8. Окно в сетке</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 10 из 12</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">«Сколько квадратов в сетке?» — это не про клетки: квадраты бывают 1×1, 2×2, 3×3 … Считаем только те, что сложены из целых клеток и стоят по линиям…</span></button>
+<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">У каждого окна k×k есть ровно одна левая верхняя клетка; и наоборот — назови клетку и размер, и окно уже нарисовано, второго такого нет.</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">n − (k − 1)<br>= n − k + 1</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">положений окна k×k<br>= (n − k + 1) · (n − k + 1)</span></button>
+<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">строка окна: от r − k + 1 до r</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val">все четыре ответа — суммы по размерам из одной таблицы диапазонов:
+
+а) Содержат К = сумма по размерам от (годные строки × годные столбцы вокруг…</span></button>
+</aside>
+<main>
+  
+  <h1>Глава 8. Окно в сетке</h1>
+  <p class="sub">Доски 2 — Учебник</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>«Сколько квадратов в сетке?» — это не про клетки: квадраты бывают 1×1, 2×2, 3×3 … Считаем только те, что сложены из целых клеток и стоят по линиям сетки, — косые не в счёт. Квадрат k×k удобно звать <b>окном</b>: окно скользит по сетке n×n (n — сторона сетки в клетках).</p></div></div>
+<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>У каждого окна k×k есть ровно одна левая верхняя клетка; и наоборот — назови клетку и размер, и окно уже нарисовано, второго такого нет. Значит считать окна — то же самое, что считать клетки, годные под левый верхний угол: ни одно окно не потеряется и ни одно не сосчитается дважды. Поэтому дальше я квадраты не рисую, а считаю клетки.</p></div></div>
+<p class="st">Сколько положений у окна k×k? Считаю по его левой верхней клетке: она может стоять в 1-й строке, во 2-й и так далее, но не ниже — под ней должны поместиться ещё k − 1 строк самого окна. Значит, последняя годная строка такая:</p>
+<div id="a2" data-art="2"><div class="frm st">n − (k − 1) = n − k + 1</div></div>
+<p class="st">Столько же вариантов и по столбцам, а строку с столбцом выбирают вместе, в одной картинке — это «И», их числа перемножаются:</p>
+<div id="a3" data-art="3"><div class="frm st">положений окна k×k = (n − k + 1) · (n − k + 1)</div></div>
+<p class="st">Проверь на крае: окно 4×4 в сетке 4×4 — 4 − 4 + 1 = 1 положение, и правда одно. Вопрос «сколько окон <b>содержат</b> помеченную клетку?» решается <b>диапазонами</b>: годные положения окна образуют прямоугольник, перемножь допустимые строки на допустимые столбцы.</p>
+<p class="st">Как найти диапазон. Положение окна я называю по его <b>левой верхней клетке</b>, и «строка окна» дальше значит «строка, в которой стоит эта клетка». Пусть помеченная клетка сидит в строке r, а окно накрывает k строк подряд, начиная со своей.</p>
+<p class="st">Чтобы помеченная строка попала внутрь окна, нужны две вещи сразу. Первая: окно не должно начинаться <b>под</b> ней. Если строка окна равна r + 1, то окно занимает строки r + 1, r + 2, … — помеченная клетка осталась выше. Значит, номер строки окна не больше r. Вторая: окно не должно начинаться слишком <b>высоко</b>. Если строка окна равна r − k, то окно занимает строки r − k, r − k + 1, …, r − 1 — помеченная клетка вывалилась снизу. Значит, номер строки окна не меньше r − k + 1.</p>
+<p class="st">Итого годятся строки с номерами от r − k + 1 до r — ровно k подряд идущих номеров:</p>
+<div id="a4" data-art="4"><div class="frm st">строка окна: от r − k + 1 до r</div></div>
+<p class="st">Но окно не должно и вылезти за край сетки, поэтому обе границы обрезаю по общему правилу:</p>
+<p class="st"><b>строка окна: не меньше 1 и не больше n − k + 1</b></p>
+<p class="st">Что уцелело после обрезки — то и считаю. Со столбцами точно так же.</p>
+<p class="st">Пример: сетка 4×4, помеченная клетка стоит во 2-й строке и во 2-м столбце — короче её адрес я буду писать так: <b>(2, 2)</b>, сначала строка, потом столбец.</p>
+<figure class="st"><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start"><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">помеченная клетка (2, 2)</div><div style="display:inline-grid;grid-template-columns:repeat(4,32px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">•</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">левые верхние клетки окон 2×2, накрывающих её</div><div style="display:inline-grid;grid-template-columns:repeat(4,32px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span></div><div class="flab" style="margin-top:8px">строки 1–2 <span style="opacity:.6">×</span> столбцы 1–2 → 4 окна</div></div></div><figcaption>Окно названо своей левой верхней клеткой — второго окна с тем же углом и размером не бывает, поэтому считать окна можно, считая клетки-углы.</figcaption></figure>
+<ul class="st"><li>окно 2×2: строки от 2 − 2 + 1 = 1 до 2. Край позволяет — верхняя граница n − k + 1 = 3, обрезать нечего, остаются строки 1 и 2, две штуки. Столбцы точно так же две. Окон 2 × 2 = <b>4</b>;</li><li>окно 3×3: строки от 2 − 3 + 1 = 0 до 2. Строки 0 не бывает, обрезаю снизу единицей; сверху граница n − k + 1 = 2, она ничего не отрезает. Остаются строки 1 и 2, две штуки. Столбцы так же две. Окон 2 × 2 = <b>4</b> — а всего окон 3×3 на сетке 4×4 тоже четыре, значит их помеченная клетка ловит все.</li></ul>
+<p class="st">Дальше знакомая арифметика: «не содержит» = все окна минус содержащие; «содержит обе» = оба требования сразу (диапазоны пересекаются). Всё считается <b>по размерам, таблицей</b> — и в каждом размере, прежде чем вычитать, делай проверку минуса: спроси, не может ли одно и то же окно оказаться плохим сразу по двум причинам. Может — значит, вычитая обе причины подряд, ты вычтешь его дважды, и плохих надо собирать мирами: отдельно те, что плохи только по первой причине, отдельно только по второй, отдельно те, что плохи сразу по обеим.</p>
+<p class="exam st"><b>Пример А.</b> Сетка 4×4. а) Сколько в ней всего квадратов? б) Помечена клетка во 2-й строке, 2-м столбце — её адрес (2, 2): как договорились, сначала строка, потом столбец. Сколько квадратов её содержат? в) Сколько не содержат?</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Размер окна</th><th>Всего позиций</th><th>Содержат клетку (2, 2)</th></tr>
+<tr><td>1×1</td><td>4 · 4 = 16</td><td>1</td></tr>
+<tr><td>2×2</td><td>3 · 3 = 9</td><td>строки 1–2 × столбцы 1–2 → 4</td></tr>
+<tr><td>3×3</td><td>2 · 2 = 4</td><td>строки 1–2 × столбцы 1–2 → 4 (все!)</td></tr>
+<tr><td>4×4</td><td>1</td><td>1</td></tr>
+<tr><td><b>итого</b></td><td><b>30</b></td><td><b>10</b></td></tr>
+</table></div></div>
+<p class="st">в) Не содержат: 30 − 10 = <b>20</b>. Проверка строки «2×2» (Д5): нарисуй сетку и обведи все окна 2×2, накрывающие клетку (2, 2), — их ровно 4 ✓.</p>
+<p class="exam st"><b>Пример Б (две клетки и «ни одной»).</b> Сетка 5×5. Помечены: К — в 3-й строке, 3-м столбце (центр) и З — в 1-й строке, 5-м столбце (угол). а) Сколько квадратов содержат К? б) Сколько содержат З? в) Сколько содержат обе? г) Сколько не содержат ни одной?</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Всё по размерам, таблицей. Чтобы окно накрыло сразу обе клетки, оно обязано захватить все строки от 1-й (там З) до 3-й (там К) — это три строки подряд; такую «ширину захвата» буду звать <b>размахом</b>: размах по строкам 3. И все столбцы от 3-го (К) до 5-го (З) — размах по столбцам тоже 3. Окно со стороной меньше 3 столько строк подряд просто не накроет, поэтому 1×1 и 2×2 отпадают, не считая. Для «ни одной» — всё минус плохие внутри каждого размера; проверка минуса: окно с обеими клетками плохое дважды, поэтому плохих собираю мирами: (только К) + (только З) + (обе).</p>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План готов:</b> все четыре ответа — суммы по размерам из одной таблицы диапазонов:</p>
+<div class="frm st">а) Содержат К = сумма по размерам от (годные строки × годные столбцы вокруг К)</div>
+<div class="frm st">б) Содержат З = то же самое вокруг З</div>
+<p class="st">в) Содержат обе = сумма по размерам от окон, чьи диапазоны годятся сразу для обеих клеток</p>
+<p class="st">г) Ни одной = сумма по размерам от Всего − [(К − обе) + (З − обе) + обе]</p>
+<p class="st">Осталось найти: на каждом размере четыре числа — Всего, К, З и обе.</p></div></div>
+<p class="step st"><b>Шаг 2 — таблица по размерам.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>Размер</th><th>Всего</th><th>Содержат К</th><th>Содержат З</th><th>Обе</th><th>Ни одной</th></tr>
+<tr><td>1×1</td><td>25</td><td>1</td><td>1</td><td>0</td><td>плохих (1−0) + (1−0) + 0 = 2 → 25 − 2 = <b>23</b></td></tr>
+<tr><td>2×2</td><td>16</td><td>4</td><td>1</td><td>0</td><td>плохих (4−0) + (1−0) + 0 = 5 → 16 − 5 = <b>11</b></td></tr>
+<tr><td>3×3</td><td>9</td><td>9</td><td>1</td><td>1</td><td>плохих (9−1) + (1−1) + 1 = 9 → 9 − 9 = <b>0</b></td></tr>
+<tr><td>4×4</td><td>4</td><td>4</td><td>1</td><td>1</td><td>плохих (4−1) + (1−1) + 1 = 4 → 4 − 4 = <b>0</b></td></tr>
+<tr><td>5×5</td><td>1</td><td>1</td><td>1</td><td>1</td><td>плохих (1−1) + (1−1) + 1 = 1 → 1 − 1 = <b>0</b></td></tr>
+<tr><td><b>итого</b></td><td><b>55</b></td><td><b>19</b></td><td><b>5</b></td><td><b>3</b></td><td><b>34</b></td></tr>
+</table></div></div>
+<p class="step st"><b>Шаг 3 — ответы.</b> а) <b>19</b>; б) <b>5</b>; в) <b>3</b>; г) <b>34</b>.</p>
+<p class="st">Заметь строку 3×3: содержащих К — все девять! Большое окно почти не умеет избегать центра: с размера 3 все окна плохие, и «ни одной» набирается только мелочью. Сверка суммой (как у миров): только-К (19−3) + только-З (5−3) + обе (3) + ни одной (34) = 16 + 2 + 3 + 34 = 55 ✓.</p>
+<p class="st"><b>Типичные ошибки:</b></p>
+<ol class="st num"><li><span class="lin">1.</span> <b>Квадраты = клетки.</b> В сетке 4×4 квадратов 30, а не 16. Считай все размеры таблицей.</li><li><span class="lin">2.</span> <b>Сдвиг на единицу.</b> Окон k×k в строке n − k + 1, а не n − k. Проверь на крае: окно 4×4 в сетке 4×4 одно.</li><li><span class="lin">3.</span> <b>Вычесть К и З по отдельности, не спросив про «обе».</b> Окно с обеими клетками — плохое дважды; проверка минуса в каждом размере, мирами.</li><li><span class="lin">4.</span> <b>Большому окну поверить «на глаз».</b> Окна больших размеров почти всегда цепляют помеченные клетки — но «почти» проверяется диапазоном, а не интуицией.</li></ol>
+<div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2023 №3 — сетка 7×7 с тремя помеченными клетками, четыре вопроса «содержат/не содержат»: таблица по размерам, диапазоны, миры. 2020 №3 — красная и синяя фишки на 4×4 без касания даже углом: это не окна, а <b>карта соседей</b> — ставишь первую фишку в клетку, закрашиваешь все клетки, которых ей нельзя касаться (соседние по стороне И по углу), считаешь, сколько клеток уцелело для второй, и складываешь по всем положениям первой.</p></div>
+<hr>
+<div class="pager"><a href="09-glava-7-ukladki-figurok.html">← Глава 7. Укладки фигурок</a><a href="11-karta-kakaya-glava-chto-zakryvaet.html">Карта: какая глава что закрывает →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

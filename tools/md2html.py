@@ -16,36 +16,53 @@ def inline(s):
     s = re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)', r'<em>\1</em>', s)
     return s
 
-FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−·×÷:=,.…\'’≠≤≥/]*[=][0-9A-Za-zА-Яа-яЁё\s()+\-−·×÷:=,.…\'’≠≤≥/]*$')
+FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−·×÷:=,.…\'’≠≤≥<>/√²³|]+$')
 
 def is_formula(line):
     """Строка-формула (правило 10: формула стоит на своей строке).
 
-    Допускается короткая оговорка в скобках после формулы: **10a + b** (a ≠ 0).
+    Признаются: **жирная** строка, `строка в бэктиках`, голая строка-выражение.
+    Допускается короткая оговорка в скобках: **10a + b** (a ≠ 0).
     """
     t = line.strip()
     tail = ''
-    m = re.fullmatch(r'(\*\*[^*]+\*\*)\s*(\([^()]{,60}\))', t)
+    m = re.fullmatch(r'((?:\*\*[^*]+\*\*)|(?:`[^`]+`))\s*(\([^()]{,60}\))', t)
     if m:
         t, tail = m.group(1), ' ' + m.group(2)
-    m = re.fullmatch(r'\*\*([^*]+)\*\*', t)
+    marked = False
+    m = re.fullmatch(r'\*\*([^*]+)\*\*', t) or re.fullmatch(r'`([^`]+)`', t)
     if m:
-        t = m.group(1)
-        if '=' in t or '·' in t or '→' in t:
+        t, marked = m.group(1).strip(), True
+
+    if is_prose(t):
+        return None
+    if len(t) > 90 or len(t.split()) > 30:
+        return None
+    if marked:
+        if re.search(r'[=≤≥<>·→]', t):
             return t + tail
-        # выражение без знака равенства: «100a + 10b + c»
-        if ('—' not in t and len(t) <= 60 and len(t.split()) <= 10
-                and re.search(r'[+\-−:]', t) and not t.rstrip().endswith(('.', ':', '!', '?'))
-                and re.search(r'\d', t)):
+        # выражение без знака отношения: «100a + 10b + c»
+        if re.search(r'[+−:]', t) and re.search(r'\d', t) and len(t.split()) <= 10:
             return t + tail
         return None
-    if len(t) > 70 or '=' not in t or '. ' in t or '—' in t:
+    # голая строка без разметки — требования строже
+    if not re.search(r'[=≤≥]', t) or '. ' in t or '—' in t:
         return None
-    if t.endswith(':') or re.search(r',\s+(и|а|но|значит|поэтому)\s', t.lower()):
-        return None   # это фраза, вводящая формулу, а не сама формула
-    if FORMULA.match(t) and len(t.split()) <= 14:
-        return t
-    return None
+    return t + tail if FORMULA.match(t) else None
+
+
+def is_prose(t):
+    """Фраза, а не формула: точка в конце, кавычки, двоеточие, союз-хвост."""
+    if t.endswith(('.', '!', '?', ':', ';', ',')):
+        return True
+    if re.search(r'[«»„“”]', t):
+        return True
+    if ',' in t and re.search(r'[а-яё]{4,}$', t.lower()):
+        return True
+    if re.search(r',\s+(и|а|но|значит|поэтому|тогда)\s', t.lower()):
+        return True
+    return False
+
 
 def parse(md):
     lines = md.split('\n')
@@ -184,8 +201,12 @@ def artifact(k, v, in_example=False):
     арифметика: формулы берём лишь из теоретической части главы.
     """
     if k == 'quote' and '✅' in v:
-        m = re.search(r'Ответ\s*=\s*[^\n]+', v.replace('*', ''))
-        return ('План', m.group(0).strip()) if m else ('План', first_sentence(v.replace('>', '')))
+        clean = re.sub(r'[*`>#]', '', v)
+        m = re.search(r'Ответ[^=\n]{0,24}=\s*[^\n]+', clean)
+        if m:
+            return ('План', m.group(0).strip())
+        clean = re.sub(r'✅|План готов[.:]?', '', clean)
+        return ('План', first_sentence(clean.strip()))
     if k != 'p':
         return None
     f = is_formula(v)
@@ -214,24 +235,23 @@ def split_chapters(md):
     sub = ' · '.join(head[1:])
     chapters, part, cur, pre = [], '', None, []
     for k, v in blocks:
-        if k == 'h1':
-            part = v
-            continue
-        if k == 'h2':
-            cur = {'title': v, 'part': part, 'blocks': []}
+        if k in ('h1', 'h2'):
+            part = v if k == 'h1' else part
+            cur = {'title': v, 'part': part if k == 'h2' else '',
+                   'ispart': k == 'h1', 'blocks': []}
             chapters.append(cur)
             continue
         if cur is None:
             pre.append((k, v))
             continue
         cur['blocks'].append((k, v))
-    return title, sub, chapters, pre
+    return title, sub, [c for c in chapters if c['blocks']], pre
 
 
 def val_html(lbl, val):
     """Формулы в сухом остатке переносятся по знаку равенства."""
     h = inline(val)
-    if lbl == 'Формула':
+    if lbl == 'Формула' and ',' not in val:
         h = re.sub(r'\s+=\s+', '<br>= ', h)
     return h
 
@@ -239,24 +259,31 @@ def val_html(lbl, val):
 def build_pages(md, visuals=None):
     visuals = visuals or {}
     title, sub, chapters, pre = split_chapters(md)
-    files, used = {}, set()
+    files, used, shown_part = {}, set(), None
     names = ['%02d-%s.html' % (n + 1, slug(c['title'])) for n, c in enumerate(chapters)]
 
     for n, c in enumerate(chapters):
-        arts, body, in_ex, seen = [], [], False, set()
-        for k, v in c['blocks']:
-            if k == 'p' and re.match(r'^\*\*Пример ', v):
+        # 1) какие блоки главы дают сухой остаток
+        spec, in_ex, seen = [], False, set()
+        for idx, (k, v) in enumerate(c['blocks']):
+            if k == 'p' and re.match(r'^\*\*(Разобранный пример|Пример|Разбор|Шаг \d)', v):
                 in_ex = True
             a = artifact(k, v, in_ex)
-            if a and a[1] in seen:
-                a = None
-            if a:
+            if a and a[1] not in seen:
                 seen.add(a[1])
+                spec.append((idx, a))
+        if not spec:      # родительские документы: остаток из подзаголовков
+            spec = [(idx, ('Раздел', re.sub(r'\*\*|\*|`', '', v)))
+                    for idx, (k, v) in enumerate(c['blocks']) if k in ('h3', 'h4')]
+        at = {idx: n for n, (idx, _) in enumerate(spec)}
+        arts = [a for _, a in spec]
+
+        # 2) одна сборка тела: разметка + якоря артефактов + иллюстрации
+        body = []
+        for idx, (k, v) in enumerate(c['blocks']):
             h = render_block((k, v))
-            if a:
-                i = len(arts)
-                arts.append(a)
-                h = f'<div id="a{i}" data-art="{i}">{h}</div>'
+            if idx in at:
+                h = f'<div id="a{at[idx]}" data-art="{at[idx]}">{h}</div>'
             body.append(h)
             key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v))[:60].strip()
             for anchor, figure in visuals.items():
@@ -269,16 +296,23 @@ def build_pages(md, visuals=None):
             f'<span class="val{" f" if lbl == "Формула" else ""}">{val_html(lbl, val)}</span>'
             f'</button>'
             for i, (lbl, val) in enumerate(arts)) or \
-            '<p class="flab">В этой главе выносить в остаток нечего — она вводная.</p>'
+            '<p class="flab">В этом разделе выносить в остаток нечего.</p>'
 
         prev = f'<a href="{names[n-1]}">← {html.escape(chapters[n-1]["title"])}</a>' if n else ''
         nxt = f'<a href="{names[n+1]}">{html.escape(chapters[n+1]["title"])} →</a>' if n < len(chapters) - 1 else ''
         chapnav = (f'<a href="index.html">все главы</a> · {n+1} из {len(chapters)}')
+        partlab = ''
+        if c.get('ispart'):
+            shown_part = c['title']   # заголовок части уже стоит титулом страницы
+        if c['part'] and c['part'] != shown_part:
+            partlab = f'<p class="partlab">{inline(c["part"])}</p>'
+            shown_part = c['part']
 
         files[names[n]] = (TEMPLATE
             .replace('{{TITLE}}', html.escape(c['title']))
             .replace('{{DOC}}', html.escape(title))
-            .replace('{{SUB}}', html.escape(c['part'] or sub))
+            .replace('{{PARTLAB}}', partlab)
+            .replace('{{SUB}}', '')
             .replace('{{CHAPNAV}}', chapnav)
             .replace('{{NAV}}', nav)
             .replace('{{BODY}}', '\n'.join(body))
@@ -382,9 +416,9 @@ def check(md_path, html_path, minrun=3):
         raw = open(html_path).read()
     nfig = len(re.findall(r'<figure', raw))
     raw = re.sub(r'<figure.*?</figure>|<title>.*?</title>', ' ', raw, flags=re.S)
-    raw = re.sub(r'<main>\s*<h1>.*?</p>', '<main>', raw, flags=re.S)
+    raw = re.sub(r'<p class="sub">.*?</p>', ' ', raw, flags=re.S)
     raw = re.sub(r'<div class="pager">.*?</div>', ' ', raw, flags=re.S)
-    a = words(md_text(open(md_path).read(), drop_head=True, drop_h2=os.path.isdir(html_path)))
+    a = words(md_text(open(md_path).read(), drop_head=True))
     b = words(visible_text(raw))
     sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
     lost, added = [], []
@@ -397,10 +431,13 @@ def check(md_path, html_path, minrun=3):
     print('скрипт страницы:', js_ok(parts[0]))
     print('страниц:', len(parts))
     if len(parts) > 1:
-        heads = [v for k, v in parse(open(md_path).read()) if k == 'h2']
-        pages = '\n'.join(open(f).read() for f in parts)
-        lost_t = [h for h in heads if norm(h) not in norm(visible_text(pages))]
-        print('заголовки глав на страницах: %d из %d' % (len(heads) - len(lost_t), len(heads)))
+        blocks = parse(open(md_path).read())
+        while blocks and blocks[0][0] in ('h1', 'h2', 'h3'):
+            blocks.pop(0)
+        heads = [v for k, v in blocks if k in ('h1', 'h2', 'h3', 'h4')]
+        pages = norm(visible_text('\n'.join(open(f).read() for f in parts)))
+        lost_t = [h for h in heads if norm(h) not in pages]
+        print('заголовки в тексте страниц: %d из %d' % (len(heads) - len(lost_t), len(heads)))
         for h in lost_t:
             print('  ✗ заголовок', h)
     print(f'потеряно фрагментов (≥{minrun} слов): {len(lost)}')
@@ -420,7 +457,10 @@ if __name__ == '__main__':
     import os
     src, dst = sys.argv[1], sys.argv[2]
     vis = json.load(open(sys.argv[3])) if len(sys.argv) > 3 else {}
+    import glob as _glob
     os.makedirs(dst, exist_ok=True)
+    for stale in _glob.glob(os.path.join(dst, '*.html')):
+        os.remove(stale)          # имена страниц зависят от нумерации глав
     pages = build_pages(open(src).read(), vis)
     for name, content in pages.items():
         open(os.path.join(dst, name), 'w').write(content)

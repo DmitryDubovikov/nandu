@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глава 4. Работа с конца 2.0: доли в развороте</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 8 из 16</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Провинциальный приём «с конца» ты знаешь: историю разворачивают от конца к началу, каждый шаг — наоборот, «отдал половину и ещё 2» назад — это «+2,…</span></button>
+<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Каждый час в этой истории смотрит только на то, что сейчас в баке: «пятая часть воды» — это пятая часть того, что стоит в баке в этот момент, а не от…</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">(3/4) · x = К
+
+x — сколько ягод Маша нарвала (шт.), это и есть ответ;
+К — сколько ягод осталось сразу после утреннего шага (шт.).
+
+Осталось найти: К…</span></button>
+</aside>
+<main>
+  
+  <h1>Глава 4. Работа с конца 2.0: доли в развороте</h1>
+  <p class="sub">Арифметика 2.0 — Учебник</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Провинциальный приём «с конца» ты знаешь: историю разворачивают от конца к началу, каждый шаг — наоборот, «отдал половину и ещё 2» назад — это «+2, потом ×2». Национал удлиняет историю до 3–4 раундов и, главное, пускает в ход <b>любые доли</b>. Разворот доли устроен так:</p></div></div>
+<div class="note st"><p class="st">Изъяли <code>1/k</code> — значит, <b>осталось</b> <code>(k−1)/k</code>. Назад: умножь на <code>k/(k−1)</code>.</p></div>
+<div class="st"><div class="tw"><table>
+<tr><th>Прямо</th><th>Осталось</th><th>Назад</th></tr>
+<tr><td>изъяли половину</td><td>1/2</td><td>× 2</td></tr>
+<tr><td>изъяли треть</td><td>2/3</td><td>× 3/2</td></tr>
+<tr><td>изъяли четверть</td><td>3/4</td><td>× 4/3</td></tr>
+<tr><td>изъяли пятую часть</td><td>4/5</td><td>× 5/4</td></tr>
+</table></div></div>
+<p class="st">На числах: изъяли треть из 90 → осталось 60. Назад: <code>60 · 3/2 = 90</code> ✓. Заметь: назад мы умножаем <b>не на 3</b>, а на 3/2 — разворачиваем «осталось две трети», а не «изъяли треть».</p>
+<p class="exam st"><b>Пример А (три раунда, доли разные).</b> «В баке была вода. В первый час вылили пятую часть воды и ещё 30 л. Во второй час — треть остатка и ещё 10 л. В третий час — половину остатка и ещё 5 л. В баке осталось 40 л. Сколько было?»</p>
+<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Каждый час в этой истории смотрит только на то, что <b>сейчас</b> в баке: «пятая часть воды» — это пятая часть того, что стоит в баке в этот момент, а не от первоначального количества. Поэтому шаг можно пройти назад, ничего не зная о начале: раз в конце 40 л, то перед третьим часом было <code>(40 + 5) · 2 = 90</code> л, а дальше то же самое этажом выше. На этом разворот и держится: доля от текущего остатка отматывается назад, доля от чего-то другого — нет.</p></div></div>
+<p class="st">Каждый шаг истории — «доля, потом добавка». Назад — в обратном порядке: <b>сначала +добавка, потом ×</b>. Таблицу веди снизу вверх:</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Час (идём с конца)</th><th>После</th><th>Разворот</th><th>Перед</th></tr>
+<tr><td>третий (½ и ещё 5)</td><td>40</td><td><code>(40 + 5) · 2</code></td><td><b>90</b></td></tr>
+<tr><td>второй (⅓ и ещё 10)</td><td>90</td><td><code>(90 + 10) · 3/2</code></td><td><b>150</b></td></tr>
+<tr><td>первый (⅕ и ещё 30)</td><td>150</td><td><code>(150 + 30) · 5/4</code></td><td><b>225</b></td></tr>
+</table></div></div>
+<p class="st">Ритуал 2 — прямой прогон: <code>225 − 45 − 30 = 150</code> → <code>150 − 50 − 10 = 90</code> → <code>90 − 45 − 5 = 40</code> ✓.</p>
+<figure class='st'><div style='display:flex;flex-wrap:wrap;align-items:center;gap:8px'><div style='text-align:center'><div class='flab'>начало</div><div style='background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>225</div></div><div style='text-align:center;min-width:96px'><div style='font:13px var(--sans);color:var(--gold)'>← +30, ×5/4</div><div style='color:var(--dim);font:15px var(--mono);margin:2px 0'>———</div><div style='font:13px var(--sans);color:var(--muted)'>−45, −30 →</div></div><div style='text-align:center'><div class='flab'>после 1-го часа</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>150</div></div><div style='text-align:center;min-width:96px'><div style='font:13px var(--sans);color:var(--gold)'>← +10, ×3/2</div><div style='color:var(--dim);font:15px var(--mono);margin:2px 0'>———</div><div style='font:13px var(--sans);color:var(--muted)'>−50, −10 →</div></div><div style='text-align:center'><div class='flab'>после 2-го часа</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>90</div></div><div style='text-align:center;min-width:96px'><div style='font:13px var(--sans);color:var(--gold)'>← +5, ×2</div><div style='color:var(--dim);font:15px var(--mono);margin:2px 0'>———</div><div style='font:13px var(--sans);color:var(--muted)'>−45, −5 →</div></div><div style='text-align:center'><div class='flab'>конец — дан</div><div style='background:#12281c;border:1px solid #2b5c3d;color:var(--green);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>40</div></div></div><div class='flab' style='margin-top:14px'><span style='color:var(--gold)'>назад</span>: сначала +добавка, потом × &nbsp;|&nbsp; <span style='color:var(--muted)'>вперёд</span>: сначала доля, потом добавка</div><figcaption>Каждая стрелка смотрит только на соседний узел: доля берётся от того, что в баке сейчас, — поэтому цепочку можно пройти в любую сторону.</figcaption></figure>
+<p class="st"><b>Ответ:</b> 225 л.</p>
+<p class="exam st"><b>Пример Б (раунды одинаковые, вопросов два).</b> «Хомяк утащил в нору орехи. Четыре вечера подряд он съедал половину запаса и ещё один орех. После четвёртого вечера остался 1 орех. Сколько орехов он утащил? Сколько съел в первый вечер?»</p>
+<p class="st">Разворот шага: <code>перед = (после + 1) · 2</code>. Снизу вверх: <code>1 → 4 → 10 → 22 → 46</code>.</p>
+<p class="st">Прогон вперёд: <code>46 → съел 23+1=24, осталось 22 → 12, осталось 10 → 6, осталось 4 → 3, остался 1</code> ✓.</p>
+<p class="st"><b>Ответ:</b> утащил 46; в первый вечер съел 24 (это уже посчитано в прогоне — не считай отдельно).</p>
+<p class="st"><b>Когда разворот ЗАПРЕЩЁН.</b> Теперь понятно и когда он ломается: разворот работает, пока каждая доля берётся <b>от текущего остатка</b>. Если посреди истории написано «треть <b>всех</b> испечённых» или «четверть <b>первоначального</b> запаса» — этот шаг от остатка не зависит, и разворот через него не проходит.</p>
+<p class="st">Но задача от этого не пропала. Работает склейка двух приёмов: <b>с конца иди, пока идётся</b>, а на запретном шаге переключайся на букву.</p>
+<p class="st"><b>Пример.</b> «Маша нарвала вишен. Утром она отдала четверть всех нарванных ягод, днём съела 12 ягод, вечером отдала половину того, что оставалось. Осталось 21 ягода. Сколько ягод она нарвала?»</p>
+<p class="step st"><b>Шаг 1 — план.</b> Нужно начало, а известен конец — иду с конца. Но до самого начала так не дойти: утренний шаг взят от <b>всех</b> нарванных, а не от остатка, и разворот через него не проходит. Значит, конец истории отматываю разворотом до того места, где стоит запретный шаг, а дальше переключаюсь на букву.</p>
+<p class="st">Утром ушла четверть всех, значит, после утра осталось три четверти всех, — и это ровно то число, до которого доберётся разворот с конца:</p>
+<div class="frm st">(3/4) · x = К</div>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">(3/4) · x = К</div>
+<p class="st"><code>x</code> — сколько ягод Маша нарвала (шт.), это и есть ответ; <code>К</code> — сколько ягод осталось сразу после утреннего шага (шт.).</p>
+<p class="st">Осталось найти: <code>К</code> — разворотом с конца.</p></div></div>
+<p class="step st"><b>Шаг 2 — мотаю с конца, пока идётся: считаю <code>К</code>.</b> Нужно число, до которого разворот честно доходит:</p>
+<ul class="st"><li>последний шаг — «половину остатка», он от остатка, разворачиваю → перед вечером было <code>21 · 2 = 42</code>;</li><li>предыдущий шаг — «12 ягод», это просто добавка, тоже разворачиваю → перед дневными 12 было <code>42 + 12 = 54</code>;</li><li>следующий шаг с конца — «четверть <b>всех</b> нарванных». Сигнал СТОП: он не от остатка, дальше с конца не идём.</li></ul>
+<p class="st">→ <b>К = 54</b></p>
+<p class="step st"><b>Шаг 3 — сборка.</b> Подставляю <code>К</code> в формулу плана и разворачиваю долю умножением:</p>
+<div class="frm st">(3/4) · x = 54</div>
+<div class="frm st">x = 54 · 4/3 = 72</div>
+<p class="st">Прямой прогон (ритуал 2): <code>72 − 18 = 54</code> → <code>54 − 12 = 42</code> → <code>42 − 21 = 21</code> ✓.</p>
+<p class="st"><b>Ответ:</b> 72 ягоды.</p>
+<p class="st">Заметь, как поделилась работа: концом истории занимался разворот, началом — буква, а встретились они на числе 54. В решебнике такая задача есть — не пропусти сигнал.</p>
+<p class="st"><b>Типичные ошибки:</b></p>
+<ol class="st num"><li><span class="lin">1.</span> <b>Развернуть долю вместо остатка.</b> «Изъяли треть» назад — это ×3/2, а не ×3. Проверяй на маленьких числах: изъяли треть из 90 — осталось 60, и <code>60·3/2 = 90</code>.</li><li><span class="lin">2.</span> <b>Перепутать порядок внутри шага.</b> Прямо: «сначала доля, потом добавка». Назад: «сначала +добавка, потом ×». Проговаривай вслух.</li><li><span class="lin">3.</span> <b>Не прогнать вперёд.</b> Обратный ход быстрый, и ошибка в нём не видна: числа выглядят прилично. Ритуал 2 обязателен.</li><li><span class="lin">4.</span> <b>Ответить не на тот вопрос</b> — «сколько было» и «сколько съел в первый вечер» — разные числа (ритуал 1).</li></ol>
+<hr>
+<div class="pager"><a href="07-chast-ii-processy-dlinnee.html">← ЧАСТЬ II. ПРОЦЕССЫ ДЛИННЕЕ</a><a href="09-glava-5-invariant-vsego-stolko-zhe.html">Глава 5. Инвариант «всего столько же» →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

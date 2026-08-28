@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2. 2021 №5 — стрела с треугольником</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 2 из 13</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Треугольник приклеен к левой стороне фигуры целиком: его основание — вся эта сторона, оба этажа, 5k, и внутрь фигуры оно уходит, а оба его бока идут…</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">периметр фигуры<br>= 2(x + y) + (5k + 2x)</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">периметр T<br>= 5k + 2x</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">периметр фигуры − периметр T<br>= 2(x + y)</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Результат перевода
+
+5k + 2x = 166
+2(x + y) + 5k + 2x = 386
+(x + y) + 2k = 138
+
+x = горизонталь A (= бок T) · y = горизонталь B · k = половина высоты…</span></button>
+</aside>
+<main>
+  
+  <h1>2. 2021 №5 — стрела с треугольником</h1>
+  <p class="sub">Сетка равных деталей — Ключ к практикум-маршруту</p>
+<h3 class="st">Этап 1 — перевод</h3>
+<p class="st"><b>Фигура.</b> Справа — прямоугольная часть в два этажа: верхний ряд из A (слева) и B (справа), нижний ряд из пяти равных R подряд. Слева к её левой стороне <b>целиком</b> приклеен равнобедренный треугольник T остриём влево; основание T — вся левая сторона, оно внутри фигуры. Буквенных вершин нет вообще — все куски названы по именам деталей.</p>
+<figure class='st'><svg viewBox='0 0 420 242' width='100%' role='img' aria-label='Прямоугольная часть в два этажа и треугольник T, приклеенный к её левой стороне'><path d='M84 110 L150 40 L370 40 L370 180 L150 180 Z' fill='none' stroke='#f0a83c' stroke-width='2.5'/><line x1='150' y1='40' x2='150' y2='180' stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'/><g stroke='#cfdae6' stroke-width='1' stroke-dasharray='5 4'><line x1='150' y1='96' x2='370' y2='96'/><line x1='246' y1='40' x2='246' y2='96'/><line x1='194' y1='96' x2='194' y2='180'/><line x1='238' y1='96' x2='238' y2='180'/><line x1='282' y1='96' x2='282' y2='180'/><line x1='326' y1='96' x2='326' y2='180'/></g><g fill='#e8eef6' font-size='15' font-family='sans-serif' text-anchor='middle'><text x='114' y='116'>T</text><text x='198' y='74'>A</text><text x='308' y='74'>B</text></g><g fill='#93a1b1' font-size='12' font-family='sans-serif' text-anchor='middle'><text x='172' y='144'>R</text><text x='216' y='144'>R</text><text x='260' y='144'>R</text><text x='304' y='144'>R</text><text x='348' y='144'>R</text></g><g stroke='#f0a83c' stroke-width='1.5'><line x1='388' y1='40' x2='388' y2='180'/><line x1='383' y1='40' x2='393' y2='40'/><line x1='383' y1='180' x2='393' y2='180'/></g><text x='398' y='114' fill='#f0a83c' font-size='13.5' font-family='sans-serif'>5k</text><g stroke='#93a1b1' stroke-width='1'><line x1='150' y1='198' x2='370' y2='198'/><line x1='150' y1='193' x2='150' y2='203'/><line x1='370' y1='193' x2='370' y2='203'/></g><text x='260' y='215' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>x + y</text><text x='210' y='234' fill='#f2686c' font-size='13' font-family='sans-serif' text-anchor='middle'>основание T — вся левая стена, в контур фигуры оно не входит</text></svg><figcaption>Правая стена фигуры такой же высоты, что и основание T, а бока T идут прямо по контуру — поэтому разность контуров уносит всё неизвестное разом.</figcaption></figure>
+<p class="st"><b>Кирпичики.</b> <code>x</code> = горизонтальная сторона A (по условию она же — каждый из равных боков T), <code>y</code> = горизонтальная сторона B, <code>k</code> = <b>половина</b> высоты верхнего ряда (дробь «полторы» → мелкий кирпичик): высота A и B = 2k, высота R = 3k. Обрати внимание: условие «высота R — полторы высоты верхнего ряда» переведено не в уравнение, а прямо в буквы — потому дроби в системе и нет. Если ребёнок вместо этого завёл две высоты и отдельное уравнение между ними, перевод тоже верен, просто система у него на строку длиннее.</p>
+<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Треугольник приклеен к левой стороне фигуры целиком: его основание — вся эта сторона, оба этажа, 5k, и внутрь фигуры оно уходит, а оба его бока идут прямо по контуру фигуры. Правая стена фигуры — та же высота, тоже 5k. Значит периметр T сидит в периметре фигуры целиком, кусок в кусок: 5k находит себе пару в правой стене, бока — сами в себе. Одной строкой:</p></div></div>
+<div id="a1" data-art="1"><div class="frm st">периметр фигуры = 2(x + y) + (5k + 2x)</div></div>
+<div id="a2" data-art="2"><div class="frm st">периметр T = 5k + 2x</div></div>
+<div id="a3" data-art="3"><div class="frm st">периметр фигуры − периметр T = 2(x + y)</div></div>
+<p class="st">Разность убирает разом и высоту, и обе стороны x, о которых пока ничего не известно. Ребёнку это видно уже на этапе перевода — до всякой алгебры.</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Что дано</th><th>Что записываем</th></tr>
+<tr><td>периметр T = 166: основание — вся левая сторона (2k + 3k), бока по x</td><td>5k + 2x = 166</td></tr>
+<tr><td>периметр фигуры = 386: верх (x + y), правая стена (5k), низ (x + y), два бока T</td><td>2(x + y) + 5k + 2x = 386</td></tr>
+<tr><td>периметр прямоугольника из A и B = 276</td><td>(x + y) + 2k = 138</td></tr>
+</table></div></div>
+<div id="a4" data-art="4"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<pre class="ascii st">5k + 2x = 166
+2(x + y) + 5k + 2x = 386
+(x + y) + 2k = 138</pre>
+<p class="st"><code>x</code> = горизонталь A (= бок T) · <code>y</code> = горизонталь B · <code>k</code> = половина высоты верхнего ряда</p>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+<p class="st"><b>Лайфхаки.</b> Л3 (главный ход: фигура − T), Л2 (прямоугольник «из A и B»), Л4 («полторы» → k), Л5 (пять равных R в ряд → ширина R = (x + y)/5).</p>
+<p class="st"><b>Ловушка перевода.</b> Основание T — внутренний стык: в периметр фигуры не входит, в периметр T входит. И оно равно <b>всей</b> левой стороне (оба этажа, 5k), а не высоте одного ряда.</p>
+<h3 class="st">Этап 2 — решение (второй проход)</h3>
+<p class="step st"><b>Шаг 1 — нужны x, y и k: вычитаю контуры.</b> Вычитаю (1) из (2) — общий хвост 5k + 2x уходит:</p>
+<div class="frm st">2(x + y) = 220</div>
+<div class="frm st">x + y = 110</div>
+<p class="st">Подставляю x + y = 110 в (3):</p>
+<p class="st">110 + 2k = 138 → <b>k = 14</b></p>
+<p class="st">Возвращаюсь в (1), где 5k = 70:</p>
+<p class="st">2x = 166 − 70 → <b>x = 48</b></p>
+<p class="st">Отсюда y = 110 − 48 → <b>y = 62</b>.</p>
+<p class="step st"><b>Шаг 2 — нужны размеры самих деталей: перевожу буквы в стороны.</b></p>
+<ul class="st"><li>высота ряда A/B = 2k = <b>28</b></li><li>высота ряда R = 3k = <b>42</b></li><li>ширина R = 110 : 5 = <b>22</b></li></ul>
+<p class="step st"><b>Шаг 3 — сборка: считаю спрошенные периметры.</b></p>
+<ul class="st"><li><b>A</b> = 2(48 + 28) = <b>152</b></li><li><b>B</b> = 2(62 + 28) = <b>180</b></li><li><b>R</b> = 2(22 + 42) = <b>128</b></li></ul>
+<hr>
+<div class="pager"><a href="01-1-2023-5-ramka-iz-pyati-pryamougolnikov-razminka.html">← 1. 2023 №5 — рамка из пяти прямоугольников *(разминка)*</a><a href="03-3-2015-2-obelisk-2c-stareyshina.html">3. 2015 №2 — обелиск *(2c-старейшина)* →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

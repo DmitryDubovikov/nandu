@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. 2024 №2 — пара флагов</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 5 из 13</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Этаж над плитой поделён на две части: квадрат GHIJ шириной s и прямоугольник DEJI шириной c − s, — вместе они дают всю ширину плиты c.</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">полупериметр DEJI<br>= (c − s) + s<br>= c</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Результат перевода
+
+c = 50
+c + v = 64
+v + s = c − s
+
+плюс переносы: AB = (3/2)·CE, BC = AH
+c = AC · v = высота плиты · s = сторона квадрата
+
+На…</span></button>
+</aside>
+<main>
+  
+  <h1>5. 2024 №2 — пара флагов</h1>
+  <p class="sub">Сетка равных деталей — Ключ к практикум-маршруту</p>
+<h3 class="st">Этап 1 — перевод</h3>
+<p class="st"><b>Фигура.</b> Посередине лежит плита ACDH (A — левый низ, C — правый низ, D — правый верх, H — левый верх). Над ней этаж от H до D: слева квадрат GHIJ, справа прямоугольник DEJI (E — над D). Снизу к плите подвешен треугольник ABC (B — под плитой), сверху на линию G–J–E поставлен <b>равный ему</b> треугольник EFG (F — над этажом). Правая стена C→D→E — сквозная.</p>
+<p class="st"><b>Кирпичики.</b> <code>c</code> = AC, <code>v</code> = высота плиты (AH), <code>s</code> = сторона квадрата GHIJ.</p>
+<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Этаж над плитой поделён на две части: квадрат GHIJ шириной s и прямоугольник DEJI шириной c − s, — вместе они дают всю ширину плиты c. Высоту этажа задаёт тот же квадрат, она тоже s. Поэтому в полупериметре DEJI буква s вычитается и тут же прибавляется:</p></div></div>
+<figure class='st'><svg viewBox='0 0 400 276' width='100%' role='img' aria-label='Плита ACDH и этаж над ней: квадрат GHIJ слева, прямоугольник DEJI справа'><rect x='60' y='144' width='200' height='56' fill='none' stroke='#cfdae6' stroke-width='2'/><rect x='60' y='72' width='200' height='72' fill='none' stroke='#cfdae6' stroke-width='2'/><line x1='132' y1='72' x2='132' y2='144' stroke='#cfdae6' stroke-width='1' stroke-dasharray='5 4'/><rect x='132' y='72' width='128' height='72' fill='#f0a83c' fill-opacity='.12' stroke='#f0a83c' stroke-width='2'/><g fill='#e8eef6' font-size='13.5' font-family='sans-serif' text-anchor='middle'><text x='50' y='66'>G</text><text x='126' y='64'>J</text><text x='268' y='66'>E</text><text x='48' y='152'>H</text><text x='140' y='160'>I</text><text x='270' y='152'>D</text><text x='48' y='212'>A</text><text x='270' y='212'>C</text></g><g fill='#f0a83c' font-size='13.5' font-family='sans-serif' text-anchor='middle'><text x='96' y='113'>s</text><text x='196' y='113'>c − s</text></g><g stroke='#93a1b1' stroke-width='1'><line x1='286' y1='72' x2='286' y2='144'/><line x1='281' y1='72' x2='291' y2='72'/><line x1='281' y1='144' x2='291' y2='144'/><line x1='60' y1='222' x2='260' y2='222'/><line x1='60' y1='217' x2='60' y2='227'/><line x1='260' y1='217' x2='260' y2='227'/></g><text x='300' y='113' fill='#93a1b1' font-size='13.5' font-family='sans-serif'>s</text><text x='160' y='240' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>c = AC</text><text x='200' y='266' fill='#5fd38d' font-size='14' font-family='sans-serif' text-anchor='middle'>полупериметр DEJI = (c − s) + s = c</text></svg><figcaption>Квадрат стоит на том же этаже, поэтому его сторона задаёт и высоту соседа: в полупериметре она вычитается и тут же прибавляется.</figcaption></figure>
+<div id="a1" data-art="1"><div class="frm st">полупериметр DEJI = (c − s) + s = c</div></div>
+<p class="st">Он сообщает ширину плиты и ничего не говорит про s. Один данный периметр 100 — и c = 50 сразу, без системы. Работает это только потому, что квадрат стоит на том же этаже: будь высота другой, s не ушла бы.</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Что дано</th><th>Что записываем</th></tr>
+<tr><td>периметр DEJI = 100: ширина c − s, высота s</td><td>(c − s) + s = 50</td></tr>
+<tr><td>в этом полупериметре s вычитается и тут же прибавляется — она уходит сама</td><td>c = 50</td></tr>
+<tr><td>периметр ACDH = 128</td><td>c + v = 64</td></tr>
+<tr><td>CE = EJ: CE — сквозная стена (v + s), EJ — верх правого прямоугольника (c − s)</td><td>v + s = c − s</td></tr>
+<tr><td>AB = 3/2·CE</td><td>AB = (3/2)·(v + s)</td></tr>
+<tr><td>AH = BC</td><td>BC = v</td></tr>
+</table></div></div>
+<div id="a2" data-art="2"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<pre class="ascii st">c = 50
+c + v = 64
+v + s = c − s</pre>
+<p class="st">плюс переносы: AB = (3/2)·CE, BC = AH <code>c</code> = AC · <code>v</code> = высота плиты · <code>s</code> = сторона квадрата</p>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+<p class="st"><b>Лайфхаки.</b> Л4 (AB = 3/2·CE), Л7 (стена CE = v + s — сквозь этаж), Л3-родня (полупериметр DEJI: (c − s) + s — подарок, s исчезает сама), переносы с равных треугольников.</p>
+<p class="st"><b>Ловушка перевода.</b> У равных треугольников ABC и EFG буквы не согласованы — какая сторона чему равна, смотри по рисунку. Но для периметра DEFGH это неважно: в контур входят <b>обе</b> боковые стороны, их сумма от порядка не зависит.</p>
+<h3 class="st">Этап 2 — решение (второй проход)</h3>
+<p class="step st"><b>Шаг 1 — нужны c, v, s: иду по строкам системы.</b> Первая строка уже даёт c = 50. Из второй:</p>
+<p class="st">v = 64 − 50 = <b>14</b></p>
+<p class="st">Третья строка v + s = c − s: переношу s влево, а v вправо —</p>
+<p class="st">2s = c − v = 50 − 14 = 36 → <b>s = 18</b></p>
+<p class="step st"><b>Шаг 2 — нужны стороны треугольника: работают переносы.</b> Сквозная стена CE = v + s = 32, а дальше по двум пометкам условия:</p>
+<ul class="st"><li>AB = (3/2)·CE = (3/2)·32 = <b>48</b></li><li>BC = AH = v = <b>14</b></li><li>AC = c = <b>50</b></li></ul>
+<p class="step st"><b>Шаг 3 — сборка: считаю спрошенные периметры.</b></p>
+<ul class="st"><li><b>DEGH</b> = 2(c + s) = 2(50 + 18) = <b>136</b></li><li><b>стороны ABC</b>: AB = <b>48</b>, BC = <b>14</b>, AC = <b>50</b></li><li><b>ABCDH</b> = 48 + 14 + 14 + 50 + 14 = <b>140</b></li><li><b>DEFGH</b> = 18 + (48 + 14) + 18 + 50 = <b>148</b></li></ul>
+<p class="st">Проверка для родителя: 14-48-50 — прямоугольный (в B прямой угол) ✓.</p>
+<hr>
+<div class="pager"><a href="04-4-2022-5-domik-s-tremya-r.html">← 4. 2022 №5 — домик с тремя R</a><a href="06-6-2020-5-dva-kvadrata-opechatka-v-sbornike.html">6. 2020 №5 — два квадрата ⚠ опечатка в сборнике →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

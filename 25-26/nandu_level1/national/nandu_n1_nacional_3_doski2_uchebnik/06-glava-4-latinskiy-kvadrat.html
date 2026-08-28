@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глава 4. Латинский квадрат</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 6 из 12</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Новое условие: «в каждой строке и в каждом столбце каждое число появляется ровно по одному разу».</span></button>
+<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">В верхней строке стоят все три числа сразу — по одному над каждым столбцом.</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = В₂ + В₃, где В₂ — достройки с двойкой в левой клетке средней строки, В₃ — с тройкой.</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ = сумма достроек по каждой уцелевшей второй строке — какие строки уцелели, выясняет шаг 2.</span></button>
+<button class="art" data-art="4"><span class="lbl">Заметь главное</span><span class="val">Каждое из чисел 1, 2, 3, 4 стоит в квадрате ровно четыре раза — по разу в каждом столбце.</span></button>
+</aside>
+<main>
+  
+  <h1>Глава 4. Латинский квадрат</h1>
+  <p class="sub">Доски 2 — Учебник</p>
+<div class="note st"><p class="st">⏭ <b>В 2026 году эту главу пропускаем, если не хватает времени.</b> Условие «в каждой строке и в каждом столбце каждое число ровно по разу» — сигнал пройти мимо: такую задачу на туре не берём. Глава остаётся на следующий год.</p></div>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Новое условие: <b>«в каждой строке и в каждом столбце каждое число появляется ровно по одному разу»</b>. Таблицу с таким условием называют <b>латинским квадратом</b>. Вот латинский квадрат 3×3 из чисел 1, 2, 3:</p></div></div>
+<pre class="ascii st">   1 2 3
+   2 3 1    в каждой строке — 1, 2, 3 по разу,
+   3 1 2    в каждом столбце — тоже</pre>
+<p class="st">Ход всегда один: найди клетку, у которой в строке и столбце уже много заполненных соседей, и выпиши её <b>кандидатов вычёркиванием</b> — все числа минус те, что уже стоят в её строке, минус те, что в её столбце. Кандидат один — вписывай и ищи следующую зажатую клетку. Кандидатов несколько — это <b>ветвление</b>: разбирай ветки по порядку и складывай, сколько заполнений даёт каждая.</p>
+<p class="st">И держи наготове второе правило латинского квадрата, про которое легко забыть, пока смотришь на столбцы: <b>в строке каждое число тоже ровно по разу</b>. Столбец говорит, что в клетку <b>можно</b>; строка говорит, что число уже <b>истрачено</b> соседями слева. Работают оба сразу, и в трудных местах последнее слово чаще за строкой.</p>
+<p class="exam st"><b>Пример А (3×3).</b> Верхняя строка латинского квадрата 3×3 заполнена: 1, 2, 3. Сколькими способами его можно достроить?</p>
+<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>В верхней строке стоят все три числа сразу — по одному над каждым столбцом. Поставь в среднюю строку слева двойку: на две оставшиеся клетки останутся 1 и 3, а сверху над ними стоят 2 и 3. Тройка уже занята в своём столбце, значит она обязана уйти в другую клетку, а единица — в оставшуюся: выбора нет. В нижней строке его тем более нет — там в каждом столбце остаётся ровно одно неиспользованное число. Поэтому квадрат 3×3 и правда висит на одной клетке: выбор бывает только в ней.</p></div></div>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Достраивать надо шесть клеток — нужно, чтобы выбор был всего в одном месте, а остальное досчиталось само. Ищу самую зажатую клетку: левая в средней строке, вычёркиваю её столбец — не 1 → кандидаты <b>2 и 3</b>. Вот и всё ветвление, дальше каждая ветка живёт отдельно.</p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = В₂ + В₃, где В₂ — достройки с двойкой в левой клетке средней строки, В₃ — с тройкой.</p></div></div>
+<p class="step st"><b>Шаг 2 — считаем В₂.</b> Нужны все достройки ветки «2»: средняя строка 2 _ _, в ней остались 1 и 3; смотрю столбцы — во 2-м столбце наверху 2, в 3-м — 3. Третий столбец тройку не пустит, значит туда идёт 1, а 3 достаётся 2-му столбцу. Средняя строка достраивается без всякого выбора: 2, 3, 1. Нижняя строка тоже: в каждом столбце осталось ровно одно число — 3, 1, 2 ✓ → <b>В₂ = 1</b>.</p>
+<p class="step st"><b>Шаг 3 — считаем В₃.</b> То же в ветке «3»: средняя строка 3 _ _, остались 1 и 2; во 2-м столбце наверху уже стоит 2, значит во 2-й столбец идёт 1, а 2 — в 3-й: средняя строка 3, 1, 2. Дальше в каждом столбце остаётся ровно одно неиспользованное число — нижняя строка 2, 3, 1 ✓ → <b>В₃ = 1</b>.</p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Ответ = В₂ + В₃ = 1 + 1 = <b>2 способа</b>.</p>
+<p class="st">Других нет, потому что у зажатой клетки кандидатов ровно два (вычёркивание!), а внутри каждой ветки все клетки достроились без выбора.</p>
+<p class="exam st"><b>Пример Б (4×4, ветки не поровну).</b> В латинском квадрате 4×4 из чисел 1–4 заполнены верхняя строка 1, 2, 3, 4 и левая клетка второй строки — 2. Сколькими способами его можно достроить?</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Свободных клеток двенадцать, держать их все в голове незачем: самая зажатая линия — вторая строка, у неё три клетки и всего три свободных числа. Переберу её целиком, а каждую уцелевшую вторую строку доведу до конца отдельно.</p>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = сумма достроек по каждой уцелевшей второй строке — какие строки уцелели, выясняет шаг 2.</p></div></div>
+<p class="step st"><b>Шаг 2 — какие вторые строки живут.</b> Достраиваю вторую строку: в ней остались 1, 3, 4; вычёркивание по столбцам: в 3-й столбец нельзя 3, в 4-й нельзя 4. Три числа по трём клеткам — это все их <b>перестановки</b>, то есть все способы разложить их по местам: на первое место годится любое из трёх чисел, на второе — любое из двух оставшихся, на третье — то единственное, что осталось, и всего 3 · 2 · 1 = 6 расстановок. Выписываю все шесть по порядку второй клетки и каждую проверяю столбцами: 2-1-3-4 ✗ (тройка попала в 3-й столбец) · 2-1-4-3 ✓ · 2-3-1-4 ✗ (четвёрка в 4-м столбце) · 2-3-4-1 ✓ · 2-4-1-3 ✓ · 2-4-3-1 ✗ (тройка в 3-м столбце). Выжили три — <b>3 ветки</b>.</p>
+<div id="a4" data-art="4"><div class="card key st"><span class="tag">Заметь главное</span><p>Каждое из чисел 1, 2, 3, 4 стоит в квадрате ровно четыре раза — по разу в каждом столбце. Две верхние строки уже забрали у каждого числа по одному разу, третья заберёт ещё по одному — значит четвёртой достанется каждое число ровно по разу, и все четыре в ней окажутся разными сами собой. Поэтому в каждой ветке перебирается только третья строка: в четвёртой в каждом столбце останется одно неиспользованное число, оно туда и встанет.</p></div></div>
+<p class="step st"><b>Шаг 3 — считаем ветку 2-1-4-3.</b> Нужны все её достройки. В столбцах остались {3,4}, {3,4}, {1,2}, {1,2} — пары <b>не зацеплены</b>: числа 3 и 4 живут только в первых двух столбцах, 1 и 2 — только в последних двух, и выбор слева ничего не меняет справа, поэтому можно перемножать. Собираю <b>третью</b> строку: первые два столбца делят между собой 3 и 4 (2 порядка) И последние два делят 1 и 2 (2 порядка) → 4 третьих строки. Четвёртую перебирать не нужно: после третьей строки в каждом столбце остаётся ровно одно неиспользованное число, оно туда и встаёт. → достроек в этой ветке <b>4</b>.</p>
+<p class="step st"><b>Шаг 4 — считаем ветку 2-3-4-1.</b> В столбцах остались {3,4}, {1,4}, {1,2}, {2,3} — пары <b>зацеплены</b>: четвёрка стоит сразу в двух парах, единица тоже, двойка тоже, тройка тоже. Значит, взяв число в одном столбце, я меняю выбор в соседнем, и перемножать нельзя — иду цепочкой от первого столбца и собираю третью строку. Взял в 1-м столбце 3 — теперь тройка истрачена <b>этой строкой</b>. Иду туда, где она была в меню: 4-й столбец предлагал {2, 3}, тройка отпала, остаётся 2. Двойка истрачена — иду в 3-й столбец, он предлагал {1, 2}, остаётся 1. Единица истрачена — иду во 2-й, он предлагал {1, 4}, остаётся 4. Третья строка: 3-4-1-2 ✓. Заметь маршрут: каждый раз я шёл в тот столбец, в чьё меню попало только что поставленное число. Вторая попытка: взял 4 → 4 была в меню 2-го столбца {1, 4}, там остаётся 1 → 1 была в меню 3-го {1, 2}, там остаётся 2 → 2 была в меню 4-го {2, 3}, там остаётся 3: строка 4-1-2-3 ✓. Четвёртая строка в обоих случаях достраивается остатками. → <b>2</b>.</p>
+<p class="step st"><b>Шаг 5 — считаем ветку 2-4-1-3.</b> Столбцы {3,4}, {1,3}, {2,4}, {1,2} — тоже зацеплены, та же цепочка. Взял 3 → тройка была в меню 2-го столбца {1, 3}, там остаётся 1 → единица была в меню 4-го {1, 2}, там остаётся 2 → двойка была в меню 3-го {2, 4}, там остаётся 4: строка 3-1-4-2 ✓. Взял 4 → четвёрка была в меню 3-го {2, 4}, там остаётся 2 → двойка была в меню 4-го {1, 2}, там остаётся 1 → единица была в меню 2-го {1, 3}, там остаётся 3: строка 4-3-2-1 ✓. Маршрут здесь другой (1 → 2 → 4 → 3, а не 1 → 4 → 3 → 2) — он всегда определяется тем, куда попало поставленное число. → <b>2</b>.</p>
+<p class="step st"><b>Шаг 6 — сборка.</b> Складываю ветки: 4 + 2 + 2 = <b>8 способов</b>.</p>
+<p class="st">Замечание про третью строку. Собирая её, следи сразу за двумя вещами: число берётся из «остатка» своего столбца И в самой строке все четыре числа должны быть разными. Взглядом строку всё-таки проверь: это бесплатно.</p>
+<p class="st">Заметь: ветки дали 4, 2 и 2 — <b>ветки не обязаны быть равными</b>, каждую считай честно.</p>
+<p class="st"><b>Других нет, потому что</b> вторая строка перебрана по всем шести мыслимым расстановкам — живых оказалось три, и каждая разобрана отдельно. Внутри веток третья строка собиралась вычёркиванием: в незацепленной ветке перемножением, в зацепленных — цепочкой до упора, и других вариантов цепочка не оставила. Четвёртая строка выбора не имела. Значит 4 + 2 + 2 = 8 — это ровно все достройки.</p>
+<p class="st"><b>Типичные ошибки:</b></p>
+<ol class="st num"><li><span class="lin">1.</span> <b>Проверить строку, забыть столбец.</b> Вычёркивание всегда по обоим направлениям сразу — иначе кандидаты лишние.</li><li><span class="lin">2.</span> <b>Посчитать одну ветку и умножить «на количество веток».</b> Пример Б: 4 + 2 + 2, а не 3 × 4. Складывай, что насчитала каждая ветка.</li><li><span class="lin">3.</span> <b>Потерять расстановку строки.</b> Кандидатов строки перебирай по порядку с вычёркиванием — у нас выжили 3 из 6 мыслимых, и это надо показать, а не угадать.</li><li><span class="lin">4.</span> <b>Испугаться мёртвой ветки.</b> Иногда достройка упирается в клетку без кандидатов — ветка даёт 0. Это нормальный исход, запиши его и иди дальше.</li></ol>
+<div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2022 №1 — латинский квадрат 6×6 с заполненной рамкой, «дай все возможности» (их 16): вычёркивание сужает внутренние клетки, ветвление считается по строкам.</p></div>
+<hr>
+<div class="pager"><a href="05-glava-3-poryadok-navyazan-schitay-mnozhestva.html">← Глава 3. Порядок навязан — считай множества</a><a href="07-glava-5-period-na-doske.html">Глава 5. Период на доске →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

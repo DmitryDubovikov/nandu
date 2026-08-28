@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глава 8. Вилка неравенств и переломный момент</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 13 из 16</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Два родственных хода для задач, где ответ зажимается с двух сторон.</span></button>
+<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Печенья съедаются подряд и поровну каждый день, поэтому у каждого печенья есть свой номер, и «начали пачку 10 в 3-й день» — это на самом деле про…</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ 1 = все целые s, при которых верны все четыре неравенства:</span></button>
+<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Каждое нажатие меняет разность на одну и ту же величину — на 14 вниз: 460, 446, 432, ….</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Ответ а) = тот из двух соседей у перелома, у кого модуль Разность(n) меньше</span></button>
+</aside>
+<main>
+  
+  <h1>Глава 8. Вилка неравенств и переломный момент</h1>
+  <p class="sub">Арифметика 2.0 — Учебник</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Два родственных хода для задач, где ответ зажимается с двух сторон.</p></div></div>
+<h3 class="st">Ход 1 — вилка из сюжетного факта</h3>
+<p class="st">Факт вроде «пачку 10 <b>начали</b> в 3-й день» кажется расплывчатым, а на деле это <b>двусторонняя вилка</b> неравенств. Расшифровка через «какое по счёту печенье»:</p>
+<p class="exam st"><b>Пример А.</b> «Семья ест печенье из пачек по 4 штуки, каждый день одинаковое число печений. Пачку 10 начали в 3-й день. Пачку 25 закончили в 6-й день. Сколько печений в день ест семья? Дай все возможности. В запасе 40 пачек — в какой день съедят последнее печенье?»</p>
+<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Печенья съедаются подряд и поровну каждый день, поэтому у каждого печенья есть свой номер, и «начали пачку 10 в 3-й день» — это на самом деле про <b>одно определённое печенье</b>: пачки 1–9 дают <code>9·4 = 36</code> штук, значит, речь про печенье номер 37. А слова «начали в 3-й день» запрещают сразу две вещи: к концу дня 2 печенье 37 ещё не съедено (иначе пачку начали бы раньше), к концу дня 3 — уже съедено (иначе позже). Два запрета — два неравенства, поэтому вилка получается двусторонней сама собой.</p></div></div>
+<p class="step st"><b>Шаг 1 — план.</b> Просят <b>все</b> возможности — значит, ответом будет не одно число, а список. Сюжетных фактов два, и каждый, как сказано выше, запрещает сразу две вещи, — стало быть, каждый даёт по паре неравенств, а вместе они зажимают <code>s</code> в короткий список.</p>
+<p class="st">Первый факт про печенье с номером <code>П1</code>: за 2 дня до него не добрались, за 3 дня добрались.</p>
+<div class="frm st">2 · s ≤ П1 − 1</div>
+<div class="frm st">3 · s ≥ П1</div>
+<p class="st">Второй факт устроен так же, только про печенье <code>П2</code> и дни 5 и 6.</p>
+<div class="frm st">5 · s ≤ П2 − 1</div>
+<div class="frm st">6 · s ≥ П2</div>
+<p class="st">А день последнего печенья считается потом — для каждой уцелевшей возможности свой.</p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<p class="st"><code>Ответ 1 = все целые s, при которых верны все четыре неравенства:</code></p>
+<div class="frm st">2 · s ≤ П1 − 1</div>
+<div class="frm st">3 · s ≥ П1</div>
+<div class="frm st">5 · s ≤ П2 − 1</div>
+<div class="frm st">6 · s ≥ П2</div>
+<div class="frm st">Ответ 2 = для каждого такого s — день, в который съедено печенье номер 160</div>
+<p class="st"><code>s</code> — сколько печений семья съедает за день (шт.); <code>П1</code> — номер первого печенья пачки 10; <code>П2</code> — номер последнего печенья пачки 25; 160 — всего печений в 40 пачках: <code>40 · 4 = 160</code>.</p>
+<p class="st">Осталось найти: <code>П1</code> и <code>П2</code>.</p></div></div>
+<p class="step st"><b>Шаг 2 — считаю <code>П1</code> и вилку из первого факта.</b> До пачки 10 съедено 9 полных пачек:</p>
+<div class="frm st">9 · 4 = 36</div>
+<p class="st">Значит, первое печенье пачки 10 идёт следующим:</p>
+<div class="frm st">П1 = 37</div>
+<p class="st">Подставляю в первую пару неравенств плана:</p>
+<p class="st"><code>2s ≤ 36</code> → <code>s ≤ 18</code></p>
+<p class="st"><code>3s ≥ 37</code> → <code>s ≥ 13</code></p>
+<p class="st">Во втором неравенстве <code>37 : 3 = 12</code> и 1 сверху, а <code>s</code> целое, поэтому 12 не годится и граница поднимается до 13. → <b>вилка <code>13…18</code></b></p>
+<p class="step st"><b>Шаг 3 — считаю <code>П2</code> и вилку из второго факта.</b> Пачка 25 кончается последним печеньем двадцати пяти полных пачек:</p>
+<div class="frm st">П2 = 25 · 4 = 100</div>
+<p class="st">Подставляю во вторую пару неравенств плана:</p>
+<p class="st"><code>5s ≤ 99</code> → <code>s ≤ 19</code></p>
+<p class="st"><code>6s ≥ 100</code> → <code>s ≥ 17</code></p>
+<p class="st">→ <b>вилка <code>17…19</code></b></p>
+<p class="step st"><b>Шаг 4 — пересечение вилок.</b> Годится только то <code>s</code>, что попало в обе: из <code>13…18</code> и <code>17…19</code> остаётся <code>s = 17</code> или <code>s = 18</code> — <b>обе возможности в ответ</b>.</p>
+<p class="step st"><b>Шаг 5 — сборка: день последнего печенья.</b> Каждую возможность считаю отдельно, деля 160 печений на дневную порцию. При <code>s = 17</code>:</p>
+<div class="frm st">160 = 9 · 17 + 7</div>
+<p class="st">Девять дней съедены полностью, и остаётся ещё 7 печений — их доедают на следующий, <b>десятый</b> день. При <code>s = 18</code>:</p>
+<div class="frm st">160 = 8 · 18 + 16</div>
+<p class="st">Восемь полных дней и остаток 16 — последнее печенье съедено в <b>девятый</b> день.</p>
+<p class="st"><b>Ответ:</b> 17 или 18 печений в день; последнее — в 10-й день (при 17) или в 9-й (при 18).</p>
+<h3 class="st">Ход 2 — переломный момент: проверь обоих соседей</h3>
+<p class="exam st"><b>Пример Б.</b> «На табло два числа: красное 48 и зелёное 508. За одно нажатие красное растёт на 6, зелёное падает на 8. а) После скольких нажатий разность чисел будет наименьшей? б) Сколько ещё нажатий после этого — и сумма чисел станет 460?»</p>
+<p class="st"><b>Новое слово: модуль числа.</b> «Разность наименьшая» — значит, числа стоят ближе всего друг к другу. Но разность может уйти в минус: если зелёное упало ниже красного, разность выйдет, скажем, <code>−2</code>. Расстояние от этого −2 до нуля всё равно 2 — и вот это расстояние до нуля, без учёта знака, называется <b>модулем числа</b>: модуль числа −2 равен 2, модуль числа 12 равен 12. Сравнивать «кто ближе к нулю» надо именно модулями: <code>−2</code> ближе к нулю, чем <code>12</code>, хотя как число оно меньше их обоих. (Не путай с «остатком по модулю 3» из книжки про цифры: там «модуль» — это число, которым меряют, то есть на которое делят. Слово в обоих случаях одно и то же, и не случайно: латинское <em>modulus</em> значит «мерка», а меряют тут в обоих случаях — только разное. В «остатке по модулю 3» тройка это мерка, которой меряют число. А модуль числа — сам размер числа, насколько оно велико, если не смотреть на знак. Так что смотри по фразе, о чём речь: «по модулю 3» — меряем тройкой, «модуль числа −2» — размер этого −2.)</p>
+<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное</span><p>Каждое нажатие меняет разность на одну и ту же величину — на 14 вниз: <code>460, 446, 432, …</code>. Раз шаг всегда один и тот же, разность идёт только вниз, без возвратов, и ноль пересекает ровно один раз. Значит, ближе всего к нулю она может оказаться лишь в двух местах: на последнем нажатии перед пересечением и на первом после него — все остальные дальше, и проверять их незачем. Отсюда и весь ход: найти это место делением <code>460 : 14</code> и сравнить двух соседей.</p></div></div>
+<p class="step st"><b>Шаг 1 — план.</b> Вопроса два, и второй считается от ответа первого. Обозначу <code>n</code> — сколько сделано нажатий. Разность обоих табло падает равномерно, значит, её видно формулой при любом <code>n</code>, и то же верно про сумму:</p>
+<div class="frm st">Разность(n) = (508 − 8n) − (48 + 6n)</div>
+<div class="frm st">Сумма(n) = (48 + 6n) + (508 − 8n)</div>
+<p class="st">Вопрос а) — про перелом: где разность проскакивает ноль. Побороться за близость к нулю могут только два нажатия, соседних с этим местом, и выигрывает то, у кого модуль разности меньше. Вопрос б) — про сумму, и спрашивают не номер нажатия, а сколько их ещё после ответа а).</p>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">Разность(n) = (508 − 8n) − (48 + 6n)</div>
+<div class="frm st">Сумма(n) = (48 + 6n) + (508 − 8n)</div>
+<p class="st"><code>Ответ а) = тот из двух соседей у перелома, у кого модуль Разность(n) меньше</code></p>
+<div class="frm st">Ответ б) = N − Ответ а)</div>
+<p class="st"><code>n</code> — сколько сделано нажатий; <code>N</code> — номер нажатия, после которого <code>Сумма(n) = 460</code>.</p>
+<p class="st">Осталось найти: обе формулы упростить, найти двух соседей у перелома и найти <code>N</code>.</p></div></div>
+<p class="step st"><b>Шаг 2 — упрощаю формулу разности.</b> Раскрываю скобки и собираю отдельно числа и отдельно нажатия:</p>
+<div class="frm st">Разность(n) = 460 − 14n</div>
+<p class="st">Читается так: старт 460, и каждое нажатие съедает 14.</p>
+<p class="step st"><b>Шаг 3 — нахожу двух соседей у перелома.</b> Разность обнулилась бы на том нажатии, где 14 уместилось в 460 целиком, — делю с остатком:</p>
+<div class="frm st">460 = 14 · 32 + 12</div>
+<p class="st">Деление не нацело: после 32 нажатий съедено <code>14 · 32 = 448</code>, и до нуля не хватило 12; ещё одно нажатие съедает целую четырнадцатку и проскакивает ноль. Значит, перелом стоит между нажатиями 32 и 33 — это и есть два кандидата.</p>
+<p class="step st"><b>Шаг 4 — проверяю обоих соседей.</b> Считаю разность у каждого и сравниваю модули:</p>
+<div class="frm st">Разность(32) = 460 − 448 = 12</div>
+<div class="frm st">Разность(33) = 460 − 462 = −2</div>
+<figure class='st'><div class='flab' style='margin-bottom:8px'>красная черта — ноль: там, где числа сравнялись бы</div><div style='display:grid;grid-template-columns:80px 1fr 2px 1fr 170px;align-items:center;gap:8px;margin:6px 0'><div class='flab' style='text-align:right'>n = 31</div><div style='display:flex;justify-content:flex-end'><div style='background:#243040;width:156px;height:26px;border-radius:6px 0 0 6px'></div></div><div style='background:var(--red);height:44px'></div><div></div><div class='flab'>Разность = 26</div></div><div style='display:grid;grid-template-columns:80px 1fr 2px 1fr 170px;align-items:center;gap:8px;margin:6px 0'><div class='flab' style='text-align:right'>n = 32</div><div style='display:flex;justify-content:flex-end'><div style='background:var(--gold);width:72px;height:26px;border-radius:6px 0 0 6px'></div></div><div style='background:var(--red);height:44px'></div><div></div><div class='flab'>Разность = 12 — ближний сосед</div></div><div style='display:grid;grid-template-columns:80px 1fr 2px 1fr 170px;align-items:center;gap:8px;margin:6px 0'><div class='flab' style='text-align:right'>n = 33</div><div></div><div style='background:var(--red);height:44px'></div><div><div style='background:var(--green);width:12px;height:26px;border-radius:0 6px 6px 0'></div></div><div class='flab'>Разность = −2, модуль 2 — победил</div></div><div class='frm' style='margin-top:14px'>460 = 14 · 32 + 12</div><div class='flab' style='margin-top:10px'>каждое нажатие съедает 14, поэтому ноль пересекается ровно один раз — и ближе всего к нему могут оказаться только два соседа</div><figcaption>Слева от черты разность ещё положительна, справа уже отрицательна; выигрывает не тот, кто не перескочил, а тот, у кого модуль меньше.</figcaption></figure>
+<p class="st">Модуль 2 меньше модуля 12 → победил дальний сосед: <b>33 нажатия</b>; на табло тогда <code>48 + 198 = 246</code> и <code>508 − 264 = 244</code>.</p>
+<p class="step st"><b>Шаг 5 — нахожу <code>N</code>.</b> Упрощаю формулу суммы: за нажатие красное растёт на 6, а зелёное падает на 8, вместе это <code>−2</code> за нажатие, а старт <code>48 + 508 = 556</code>:</p>
+<div class="frm st">Сумма(n) = 556 − 2n</div>
+<div class="frm st">556 − 2n = 460</div>
+<div class="frm st">2n = 96</div>
+<p class="st">→ <b>N = 48</b></p>
+<p class="step st"><b>Шаг 6 — сборка.</b> Спрашивают «сколько ещё», то есть считать надо от ответа а) — подставляю в формулу плана:</p>
+<div class="frm st">Ответ б) = 48 − 33 = 15</div>
+<p class="st"><b>Ответ:</b> а) 33 нажатия, числа 246 и 244; б) ещё 15.</p>
+<p class="st">Побеждать может любой из соседей — поэтому ритуал: <b>посчитай обоих и сравни модули</b>.</p>
+<p class="st"><b>Типичные ошибки:</b></p>
+<ol class="st num"><li><span class="lin">1.</span> <b>Односторонняя вилка.</b> Из «начали в день 3» взять только <code>3s ≥ 37</code> и потерять <code>2s ≤ 36</code> — половина возможностей лишняя.</li><li><span class="lin">2.</span> <b>Округлить и не проверить соседа.</b> Перелом — не floor и не осторожное «возьму поменьше»: только оба кандидата и сравнение.</li><li><span class="lin">3.</span> <b>Забыть модуль.</b> Разность «−2» — это расстояние 2: числа поменялись местами, но стоят близко.</li><li><span class="lin">4.</span> <b>Строгость неравенств.</b> «К концу дня 2 не съедено» — это <code>2s ≤ 36</code>, нестрого: ровно 36 значит «пачка 9 закончена, пачка 10 не начата» — и она честно начнётся в день 3.</li></ol>
+<hr>
+<div class="pager"><a href="12-glava-7-dve-upakovki-tochnoe-chislo.html">← Глава 7. Две упаковки, точное число</a><a href="14-dopolnenie-a-ravnye-raznosti-lesenka-s-shagom.html">Дополнение А. Равные разности — лесенка с шагом →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

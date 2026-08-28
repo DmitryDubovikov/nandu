@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сетка равных деталей — Ключ к практикум-маршруту</title>
+<style>
+ :root{--bg:#0d1117;--ink:#e8eef6;--muted:#93a1b1;--dim:#5d6b7c;--blue:#5ba8f5;--gold:#f0a83c;--line:#243040;
+   --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif}
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--bg);color:var(--ink);padding:50px 26px 90px;
+   font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+ .col{max-width:760px;margin:0 auto}
+ h1{font-size:clamp(26px,3.4vw,36px);margin:0 0 6px}
+ .sub{font-family:var(--sans);font-size:14.5px;color:var(--dim);margin:0 0 40px}
+ .navpart{font-family:var(--sans);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+   color:var(--gold);margin:34px 0 12px}
+ a.ix{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;
+   padding:16px 20px;margin:0 0 10px;background:#111823;transition:border-color .2s}
+ a.ix:hover{border-color:var(--blue)}
+ a.ix b{display:block;font-size:18.5px;color:var(--ink);font-weight:600;margin-bottom:5px}
+ a.ix span{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.5}
+.pre{margin:0 0 34px}
+ .pre p,.pre .note p{font-size:16px;line-height:1.6;color:var(--muted);margin:12px 0 0}
+ .pre .note{border-left:2px solid var(--line);padding-left:18px}
+ .pre b{color:var(--ink)} .pre code{font-size:13.5px;color:var(--blue)}
+ @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><div class="col">
+<h1>Сетка равных деталей — Ключ к практикум-маршруту</h1><p class="sub">Olimpíada Ñandú · Nivel 1 · национальный этап · Все 12 задач маршрута (№2 и №5 2015–2025 + 2019 №3): результат перевода — файл для родителя</p>
+<div class="pre"><div class="note st"><p class="st"><b>Зачем этот файл.</b> В мини-учебнике <code>nandu_n1_nacional_2_figury2_uchebnik.md</code> практикум-маршрут устроен так: первый проход — только <b>перевод</b> (подписать детали, выписать уравнения, остановиться), второй проход — решение. Решебника-двойника у темы нет — проверять перевод можно только этим ключом.</p>
+<p class="st"><b>Главное в этом файле — этап 1.</b> Задача на первом проходе считается <b>сделанной в тот момент, когда система записана</b>. В каждом разборе система выделена рамкой — это и есть ответ первого прохода. Этап 2 (решение и числа) дописан ниже для второго прохода; на первом его можно не читать.</p>
+<p class="st"><b>Ребёнку не показывать до его собственной попытки.</b> Файл родительский, печатается отдельно от учебника.</p>
+<p class="st"><b>⚠ Буквы могут не совпасть.</b> Ребёнок вправе назвать размеры деталей иначе — его система будет выглядеть по-другому и всё равно быть верной. <b>Сверяем смысл, а не буквы</b> — как именно, написано в конце файла («Как проверять этап 1»).</p>
+<p class="st"><b>Надёжность.</b> Все 12 задач прорешаны; 11 сверены с официальными ответами (<code>korpus/historico/Nacionales_N1.md</code>) — совпало полностью. В 12-й (2020 №5) в сборнике <b>опечатка</b>: обоснование в разборе 6, там же верные ответы.</p>
+<p class="st">Порядок — как в маршруте учебника (от разминки к боссу). Лайфхаки: <b>Л1</b> деталь-кирпичик · <b>Л2</b> блок по имени · <b>Л3</b> вычти контуры · <b>Л4</b> пропорция вместо линейки · <b>Л5</b> разрезка на N равных · <b>Л6</b> середины · <b>Л7</b> сквозные линии и этажи; «наклонная из контура» — региональная привычка, называю словами.</p></div>
+<p class="st"><b>Сводка этапа 1</b> — сверить размер системы, не заглядывая в разбор:</p>
+<div class="st"><div class="tw"><table>
+<tr><th># маршрута</th><th>Задача</th><th>Кирпичиков (неизвестных)</th><th>Уравнений</th></tr>
+<tr><td>1</td><td>2023 №5</td><td>4</td><td>4</td></tr>
+<tr><td>2</td><td>2021 №5</td><td>3</td><td>3</td></tr>
+<tr><td>3</td><td>2015 №2</td><td>4</td><td>4 (одно — из устройства колонны)</td></tr>
+<tr><td>4</td><td>2022 №5</td><td>4</td><td>4</td></tr>
+<tr><td>5</td><td>2024 №2</td><td>3</td><td>3 (+ два переноса на стороны треугольника)</td></tr>
+<tr><td>6</td><td>2020 №5</td><td>6</td><td>6 (первое: t = v из квадрата C)</td></tr>
+<tr><td>7</td><td>2025 №2</td><td>5</td><td>5</td></tr>
+<tr><td>8</td><td>2023 №2</td><td>2 + 3</td><td>2 + 3 (сначала квадрат и прямоугольник, потом тройка косых)</td></tr>
+<tr><td>9</td><td>2022 №2</td><td>4</td><td>4</td></tr>
+<tr><td>10</td><td>2025 №5</td><td>2</td><td>2 (плюс r из BR = ½·AR)</td></tr>
+<tr><td>11</td><td>2017 №5</td><td>6</td><td>6</td></tr>
+<tr><td>12</td><td>2019 №3</td><td>—</td><td>формула P(n) вместо системы</td></tr>
+</table></div></div>
+<p class="st"><b>Сводка этапа 2</b> (ответы; все длины в см):</p>
+<div class="st"><div class="tw"><table>
+<tr><th>#</th><th>Задача</th><th>Ответы</th></tr>
+<tr><td>1</td><td>2023 №5</td><td>ADEH <b>184</b>; BDEG <b>160</b>; MPFG <b>124</b>; BCFG <b>136</b></td></tr>
+<tr><td>2</td><td>2021 №5</td><td>A <b>152</b>; B <b>180</b>; R <b>128</b></td></tr>
+<tr><td>3</td><td>2015 №2</td><td>ADEH <b>74</b>; BCFG <b>150</b>; HEFG <b>152</b>; BDEFG <b>162</b></td></tr>
+<tr><td>4</td><td>2022 №5</td><td>FGHIJ <b>102</b>; CDEF <b>124</b>; ADEH <b>200</b> (стороны AD 58, DE 48, HE 44, HA 50)</td></tr>
+<tr><td>5</td><td>2024 №2</td><td>DEGH <b>136</b>; ABC: AB <b>48</b>, BC <b>14</b>, AC <b>50</b>; ABCDH <b>140</b>; DEFGH <b>148</b></td></tr>
+<tr><td>6</td><td>2020 №5</td><td>B <b>132</b>; D <b>180</b>; MPRU <b>384</b> ⚠ в сборнике D 198 и MPRU 414 — опечатка, см. разбор</td></tr>
+<tr><td>7</td><td>2025 №2</td><td>ADEH <b>196</b>; ABGH <b>144</b>; BDEFG <b>168</b>; ADEFGH <b>216</b></td></tr>
+<tr><td>8</td><td>2023 №2</td><td>BCDE <b>160</b>; ABIFG <b>116</b>; ACDFG <b>180</b>; ACDEG <b>200</b></td></tr>
+<tr><td>9</td><td>2022 №2</td><td>A <b>102</b>; D <b>126</b>; блок A,B,C,D,A,B <b>288</b>; фигура C,D,C,D,T <b>366</b></td></tr>
+<tr><td>10</td><td>2025 №5</td><td>ACDF <b>306</b>; MRSF <b>162</b>; MRCDS <b>270</b></td></tr>
+<tr><td>11</td><td>2017 №5</td><td>A <b>76</b>; B <b>102</b>; C <b>114</b>; D <b>180</b>; MQSU <b>348</b></td></tr>
+<tr><td>12</td><td>2019 №3</td><td>a) <b>54</b>; b) <b>234</b>; c) да, <b>758</b> звеньев; d) <b>невозможно</b></td></tr>
+</table></div></div>
+<p class="st">Рисунки — <code>korpus/omn_nacional/nacional_&lt;год&gt;.pdf</code> (№2 — первый день, №5 — второй).</p>
+<hr></div>
+<a class="ix" href="01-1-2023-5-ramka-iz-pyati-pryamougolnikov-razminka.html"><b>1. 2023 №5 — рамка из пяти прямоугольников *(разминка)*</b><span></span></a>
+<a class="ix" href="02-2-2021-5-strela-s-treugolnikom.html"><b>2. 2021 №5 — стрела с треугольником</b><span></span></a>
+<a class="ix" href="03-3-2015-2-obelisk-2c-stareyshina.html"><b>3. 2015 №2 — обелиск *(2c-старейшина)*</b><span></span></a>
+<a class="ix" href="04-4-2022-5-domik-s-tremya-r.html"><b>4. 2022 №5 — домик с тремя R</b><span></span></a>
+<a class="ix" href="05-5-2024-2-para-flagov.html"><b>5. 2024 №2 — пара флагов</b><span></span></a>
+<a class="ix" href="06-6-2020-5-dva-kvadrata-opechatka-v-sbornike.html"><b>6. 2020 №5 — два квадрата ⚠ опечатка в сборнике</b><span></span></a>
+<a class="ix" href="07-7-2025-2-trapeciya-s-dvumya-skatami.html"><b>7. 2025 №2 — трапеция с двумя скатами</b><span></span></a>
+<a class="ix" href="08-8-2023-2-domik-s-tremya-kosymi.html"><b>8. 2023 №2 — домик с тремя косыми</b><span></span></a>
+<a class="ix" href="09-9-2022-2-shokoladka-s-dvumya-treugolnikami.html"><b>9. 2022 №2 — шоколадка с двумя треугольниками</b><span></span></a>
+<a class="ix" href="10-10-2025-5-dva-kvadrata-i-klyuv.html"><b>10. 2025 №5 — два квадрата и клюв</b><span></span></a>
+<a class="ix" href="11-11-2017-5-boss-6-a-4-b-2-c-2-d.html"><b>11. 2017 №5 — босс: 6 A + 4 B + 2 C + 2 D</b><span></span></a>
+<a class="ix" href="12-12-2019-3-girlyanda-shestiugolnikov-t2-drugoy-zh.html"><b>12. 2019 №3 — гирлянда шестиугольников *(Т2″, другой жанр)*</b><span></span></a>
+<a class="ix" href="13-kak-proveryat-etap-1.html"><b>Как проверять этап 1</b><span></span></a>
+</div></body></html>
