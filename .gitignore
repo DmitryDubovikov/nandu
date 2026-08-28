@@ -1,4 +1,3 @@
-*.pdf
-venv/
+tools/venv/
 *.zip
 .DS_Store

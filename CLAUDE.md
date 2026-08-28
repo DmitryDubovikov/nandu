@@ -4,15 +4,23 @@
 
 Not a software project. It is a set of **Russian-language study materials** preparing a child (10–11 y.o.)
 for the Argentine math olympiad **Olimpíada Matemática Ñandú, Primer Nivel**. The "source code" is markdown
-documents; the "data" is the corpus of original problem statements in `nandu_problemas/`.
+documents; the "data" is the corpus of original problem statements in `korpus/`.
+
+**Layout.** Top level is the season (`25-26/`, `26-27/`, `27-28/`) — a season runs **late October to late
+October**, by the Ñandú calendar: the national tour closes one and opens the next. Inside a season the unit is
+the **whole course**, not the stage: `<season>/<course>/<stage>/files`. Outside the seasons: `korpus/` (raw
+statements), `arhiv/` (superseded material), `tools/` (corpus download/extraction scripts, venv).
+The repo map is `README.md`.
+
+**Every path written in a document is relative to the repo root**, never to the containing file.
 
 ## Current focus — the national stage (Nacional, Primer Nivel)
 
 Regional and provincial tours are **behind us** (20 and 27 Aug 2026). The live work is the **national branch**
-in `national_level1/`, aimed at the **national tour, 20–23 Oct 2026** (a two-day tour inside that window;
+in `25-26/nandu_level1/national/`, aimed at the **national tour, 20–23 Oct 2026** (a two-day tour inside that window;
 holiday 26 Sep – 3 Oct, no sessions).
 
-**Before writing or editing anything in `national_level1/`, read `national_level1/README.md`** — it is the
+**Before writing or editing anything in `25-26/nandu_level1/national/`, read that folder's `README.md`** — it is the
 branch registry: what exists, the cross-branch rituals Ч1–Ч5, terms already introduced (later pairs use them
 without re-introducing), each pair's debts, the corpus-key errors and the pace decisions. Start any new
 national topic from `nandu_n1_nacional_brief.md` (the reconnaissance brief: corpus classification 2013–2025,
@@ -32,32 +40,35 @@ order derived from the window data), the practice trio `nandu_n1_nacional_prakti
 (21 generated problems over 12 types, rebalanced by real frequency), and `resheniya/` — per-year battle keys
 (2025 written).
 
-⚠ **Corpus key `nandu_problemas/historico/Nacionales_N1.md` has three confirmed errors** — 2020 №5, 2021 №6
+⚠ **Corpus key `korpus/historico/Nacionales_N1.md` has three confirmed errors** — 2020 №5, 2021 №6
 (that row also drops №3) and 2025 №6. Never quote the key without checking these: the corrected values, their
-verification and the PDF figure corrections are in `national_level1/README.md`.
+verification and the PDF figure corrections are in `25-26/nandu_level1/national/README.md`.
 
 ⚠ **There is no day-by-day plan for the national branch.** `nandu_n1_nacional_plan{,_short,_szhatyy}.md` were
 written and then **deleted by the user (28 July 2026)** — dating the branch was judged premature. Do not
 re-create them unasked. Branch debts: `resheniya/nandu_n1_nacional_resheniya_{2017,2024}.md` and a national
-памятка (analogue of `nandu_n1_provincial_pamyatka.md`, which must carry the branch's own phrase-book — see rule 11).
+памятка (analogue of `25-26/nandu_level1/provincial/nandu_n1_provincial_pamyatka.md`, which must carry the branch's own phrase-book — see rule 11).
 
 ## Where everything else lives
 
-- **Repo root** — the finished regional and provincial Nivel-1 materials (linsys, perevod, figury, the счёт suite 1–5,
-  the provincial doski pair, типологии, тренировка, per-year keys, памятка, `!!!_*.md` cheat sheets).
-  Detailed map: **`README.md`**. They are the foundation the national pairs build on and reference —
-  read there before touching them.
-- `nandu_problemas/` — original statements. ⚠ Two different olympiads live here: **Ñandú = `omn_*`** (this course)
+- `25-26/nandu_level1/` — the whole Primer Nivel course of this season. `regional/` and `provincial/` hold the
+  finished materials (linsys, perevod, figury, the счёт suite 1–5, the provincial doski pair, типологии,
+  тренировка, per-year keys, памятка, `!!!_*.md` cheat sheets); `national/` is the branch above;
+  `zonal/`, `obshchee/` (plans, observation sheet), `animacii/` (html visualisations).
+  Detailed map: **`25-26/nandu_level1/README.md`**. The regional and provincial materials are the foundation
+  the national pairs build on and reference — read there before touching them.
+- `korpus/` — original statements. ⚠ Two different olympiads live here: **Ñandú = `omn_*`** (this course)
   and **OMA = `oma/`** (a separate, harder secundaria olympiad, no course material targets it).
-  `nandu_problemas/2025/` is OMA, not Ñandú. Details in `README.md`.
-- `national_level1/` — the national branch (above).
-- `26-27/{school5,school6,nandu_level2,tinkov}`, `27-28/{tinkov,school7,nandu_level3}` — season folders for everything
-  that is **not** the current Ñandú N1 push, so a season's work never requires hopping between directories.
+  `korpus/2025/` is OMA, not Ñandú. Details in `README.md`.
+- `26-27/{school5,school6,nandu_level2,tinkov}`, `27-28/{tinkov,school7,nandu_level3}` — later seasons, so a
+  season's work never requires hopping between directories.
   Each has its own `README.md` — read it before writing there. Two standing prohibitions:
   the `tinkov/` folders are a **карман, not a schedule** (no dates, no ☐-days in any tracker), and
   **no briefs or roadmaps in `27-28/`** — either write the concrete pair or drop the idea.
+- `arhiv/schet_v1/` — the superseded first счёт version; only its `session_prompt` is still live (hard rule 7).
 
-**Printing:** the `/pdf` slash command (details in `README.md`). Never build PDFs for the whole repo unasked.
+**No PDF builds.** `build_pdf.py` and the `/pdf` slash command were removed (Aug 2026); material is read and
+printed from markdown as is. Do not re-create them unasked, and do not add print-build instructions to documents.
 
 ## Domain model
 
@@ -66,7 +77,8 @@ Problem types are stable across stages and largely fixed by position:
 **Т3** — systematic counting, **Т4** — the national branch's own harder mixed genre.
 At the regional stage each paper is exactly 3 problems with the type fixed by position (№1 = Т1, №2 = Т2, №3 = Т3);
 the national paper has 6 over two days. Per-stage типологии hold the full breakdown:
-`national_level1/nandu_n1_nacional_tipologia.md` and `nandu_n1_provincial_tipologia.md`.
+`25-26/nandu_level1/national/nandu_n1_nacional_tipologia.md` and
+`25-26/nandu_level1/provincial/nandu_n1_provincial_tipologia.md`.
 
 ## Hard rules when authoring or editing materials
 
@@ -90,7 +102,7 @@ These conventions are load-bearing across all existing pairs — keep them.
 6. Each textbook opens with «ритуалы» (standing habits) and each chapter includes typical mistakes; worked examples
    follow the step format of rule 8. Match the tone and structure of the existing pairs.
 7. When adding a new topic pair, follow the staged workflow from
-   `combinatorics_v1/nandu_n1_regional_schet_session_prompt.md`: research corpus → derive techniques from the corpus
+   `arhiv/schet_v1/nandu_n1_regional_schet_session_prompt.md`: research corpus → derive techniques from the corpus
    (not from textbooks) → propose chapter ladder + coverage map → **stop for approval** → write the pair;
    then update the plan/tracker files.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
@@ -113,7 +125,8 @@ These conventions are load-bearing across all existing pairs — keep them.
 10. **Формулы не стоят внутри абзаца** (авг 2026). A formula inside a text line wraps across the line break and has to
     be read in pieces from two rows — unreadable in print. Put on **its own paragraph**: any expression containing letters,
     and any chain longer than a single operation. Only a one-operation numeric fact (`3 + 5 = 8`) and a value assignment
-    (`О = 9`) may stay inline. One formula per line. Applies to all text; checked on the PDF, not on screen.
+    (`О = 9`) may stay inline. One formula per line. Applies to all text; a formula that only looks fine because
+    the screen is wide is still a defect — check it at printed-page width.
 11. **У боевой записи есть фраза-объяснение** (авг 2026). The child solves fast enough to write the maths but not prose,
     and a bare calculation loses the explanation point — Ñandú pays for «Explica cómo las contaste».
     So **every non-trivial problem whose material carries a «что пишешь / что достаточно написать на туре»-style record
@@ -127,7 +140,7 @@ These conventions are load-bearing across all existing pairs — keep them.
     - **Perimeters (Т2) get none — deliberate user decision.** There the record speaks for itself.
     - **The phrases are instances of one closed phrase-book, not per-problem texts.** Thirty separate texts are thirty
       memorised strings; a dozen constructions transfer to an unseen problem. The provincial book lives in
-      `nandu_n1_provincial_pamyatka.md`, section «💬 Что писать словами». New material reuses those wordings verbatim
+      `25-26/nandu_level1/provincial/nandu_n1_provincial_pamyatka.md`, section «💬 Что писать словами». New material reuses those wordings verbatim
       where the приём matches, and only extends the book when the приём is genuinely new — extending it is a book edit,
       not a local one. **The national branch has no phrases yet**: it gets its own phrase-book section in the national
       памятка, seeded from the provincial one, before phrases are added to national material.
