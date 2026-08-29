@@ -5,7 +5,7 @@
 Визуальный слой навешивается отдельно — словарём VISUALS в файле-надстройке.
 Проверка переноса: python3 tools/md2html.py --check src.md out.html
 """
-import re, sys, html, json, unicodedata
+import re, sys, os, html, json, unicodedata
 
 # ——————————————————————————— разбор markdown ———————————————————————————
 
@@ -248,6 +248,15 @@ def split_chapters(md):
     return title, sub, [c for c in chapters if c['blocks']], pre
 
 
+def xlink_html(x):
+    if not x:
+        return ''
+    lbl, href, title = x
+    arrow = '←' if lbl.startswith('Теория') else '→'
+    return (f'<p class="xlink"><a href="{href}">{arrow} {html.escape(lbl)}: '
+            f'<b>{html.escape(title)}</b></a></p>')
+
+
 def val_html(lbl, val):
     """Формулы в сухом остатке переносятся по знаку равенства."""
     h = inline(val)
@@ -256,11 +265,89 @@ def val_html(lbl, val):
     return h
 
 
-def build_pages(md, visuals=None):
+def page_names(chapters):
+    return ['%02d-%s.html' % (n + 1, slug(c['title'])) for n, c in enumerate(chapters)]
+
+
+def counterpart(src_path):
+    """Учебник ↔ решебник: файл-напарник рядом, если он есть."""
+    if not src_path:
+        return None
+    for a, b in (('_uchebnik.md', '_reshebnik.md'), ('_reshebnik.md', '_uchebnik.md')):
+        if src_path.endswith(a):
+            cand = src_path[:-len(a)] + b
+            if os.path.exists(cand):
+                return cand
+    return None
+
+
+def crosslinks(src_path, chapters, names):
+    """Связка «глава ↔ её блок задач» по явной пометке «(глава N)» в решебнике.
+
+    Номер берётся из самого заголовка, а не из порядка глав: переставят главы —
+    ссылка либо останется верной, либо не построится, но не соврёт.
+    """
+    other = counterpart(src_path)
+    if not other:
+        return {}
+    _, _, ochaps, _ = split_chapters(open(other).read())
+    onames = page_names(ochaps)
+    odir = os.path.basename(other)[:-3]
+    by_chapter, by_block = {}, {}
+    for oc, on in zip(ochaps, onames):
+        m = re.match(r'^Глава (\d+)', oc['title'])
+        if m:
+            by_chapter[m.group(1)] = (on, oc['title'])
+        m = re.search(r'\(глава (\d+)\)', oc['title'])
+        if m:
+            by_block[m.group(1)] = (on, oc['title'])
+    out = {}
+    for n, c in enumerate(chapters):
+        m = re.match(r'^Глава (\d+)', c['title'])
+        if m and m.group(1) in by_block:
+            f, t = by_block[m.group(1)]
+            out.setdefault(n, []).append(
+                ('Задачи к этой главе', f'../{odir}/{f}', re.sub(r'\s*\(глава \d+\)', '', t)))
+            continue
+        m = re.search(r'\(глава (\d+)\)', c['title'])
+        if m and m.group(1) in by_chapter:
+            f, t = by_chapter[m.group(1)]
+            out.setdefault(n, []).append(('Теория к этому блоку', f'../{odir}/{f}', t))
+    return out
+
+
+def razbor_links(src_path, chapters):
+    """Решебник → отдельный файл разборов: блок N ведёт к первому разбору N.x."""
+    if not src_path or not src_path.endswith('_reshebnik.md'):
+        return {}
+    other = src_path[:-len('_reshebnik.md')] + '_resheniya.md'
+    if not os.path.exists(other):
+        return {}
+    _, _, ochaps, _ = split_chapters(open(other).read())
+    onames = page_names(ochaps)
+    odir = os.path.basename(other)[:-3]
+    first = {}
+    for oc, on in zip(ochaps, onames):
+        m = re.match(r'^(\d+)\.\d+', oc['title'])
+        if m:
+            first.setdefault(m.group(1), (on, oc['title']))
+    out = {}
+    for n, c in enumerate(chapters):
+        m = re.match(r'^Блок (\d+)', c['title'])
+        if m and m.group(1) in first:
+            f, t = first[m.group(1)]
+            out[n] = ('Разборы по шагам', f'../{odir}/{f}', t)
+    return out
+
+
+def build_pages(md, visuals=None, src_path=None):
     visuals = visuals or {}
     title, sub, chapters, pre = split_chapters(md)
     files, used, shown_part = {}, set(), None
-    names = ['%02d-%s.html' % (n + 1, slug(c['title'])) for n, c in enumerate(chapters)]
+    names = page_names(chapters)
+    xmap = crosslinks(src_path, chapters, names)
+    for n, lk in razbor_links(src_path, chapters).items():
+        xmap.setdefault(n, []).append(lk)
 
     for n, c in enumerate(chapters):
         # 1) какие блоки главы дают сухой остаток
@@ -285,7 +372,7 @@ def build_pages(md, visuals=None):
             if idx in at:
                 h = f'<div id="a{at[idx]}" data-art="{at[idx]}">{h}</div>'
             body.append(h)
-            key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v))[:60].strip()
+            key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v)).strip()
             for anchor, figure in visuals.items():
                 if anchor in key and anchor not in used:
                     used.add(anchor)
@@ -316,7 +403,8 @@ def build_pages(md, visuals=None):
             .replace('{{CHAPNAV}}', chapnav)
             .replace('{{NAV}}', nav)
             .replace('{{BODY}}', '\n'.join(body))
-            .replace('{{FOOT}}', f'<div class="pager">{prev}{nxt}</div>'))
+            .replace('{{FOOT}}', ''.join(xlink_html(x) for x in xmap.get(n, [])) +
+                     f'<div class="pager">{prev}{nxt}</div>'))
 
     rows = []
     lastpart = None
@@ -418,6 +506,8 @@ def check(md_path, html_path, minrun=3):
     raw = re.sub(r'<figure.*?</figure>|<title>.*?</title>', ' ', raw, flags=re.S)
     raw = re.sub(r'<p class="sub">.*?</p>', ' ', raw, flags=re.S)
     raw = re.sub(r'<div class="pager">.*?</div>', ' ', raw, flags=re.S)
+    nx = len(re.findall(r'<p class="xlink">', raw))
+    raw = re.sub(r'<p class="xlink">.*?</p>', ' ', raw, flags=re.S)
     a = words(md_text(open(md_path).read(), drop_head=True))
     b = words(visible_text(raw))
     sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
@@ -427,7 +517,8 @@ def check(md_path, html_path, minrun=3):
             lost.append(' '.join(a[i1:i2]))
         if tag in ('insert', 'replace') and j2 - j1 >= minrun:
             added.append(' '.join(b[j1:j2]))
-    print(f'слов в MD: {len(a)} · слов в HTML: {len(b)} · иллюстраций: {nfig}')
+    print(f'слов в MD: {len(a)} · слов в HTML: {len(b)} · иллюстраций: {nfig}'
+          f' · перекрёстных ссылок: {nx}')
     print('скрипт страницы:', js_ok(parts[0]))
     print('страниц:', len(parts))
     if len(parts) > 1:
@@ -461,7 +552,7 @@ if __name__ == '__main__':
     os.makedirs(dst, exist_ok=True)
     for stale in _glob.glob(os.path.join(dst, '*.html')):
         os.remove(stale)          # имена страниц зависят от нумерации глав
-    pages = build_pages(open(src).read(), vis)
+    pages = build_pages(open(src).read(), vis, src_path=src)
     for name, content in pages.items():
         open(os.path.join(dst, name), 'w').write(content)
     print('→ %s: %d страниц' % (dst, len(pages) - 1))

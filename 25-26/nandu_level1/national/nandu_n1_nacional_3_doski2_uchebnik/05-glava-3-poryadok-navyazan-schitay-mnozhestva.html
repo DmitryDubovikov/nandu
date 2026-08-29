@@ -25,7 +25,13 @@
   .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
   .chapnav a{color:var(--blue);text-decoration:none}
   .chapnav a:hover{text-decoration:underline}
-  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
     border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
   .pager a{color:var(--blue);text-decoration:none;max-width:45%}
   .pager a:hover{text-decoration:underline}
@@ -227,7 +233,7 @@
 <ol class="st num"><li><span class="lin">1.</span> <b>Умножить на порядки, когда порядок навязан.</b> «Внутри столбика из трёх цифры можно записать шестью способами»? Нет — по возрастанию их запишет условие, способ один. Ответ, раздутый в 6 раз, — главная ошибка главы; ловится swap-тестом.</li><li><span class="lin">2.</span> <b>Искать суммы перебором.</b> Сумма столбика не выбирается — её выдаёт якорь набора: 15 : 3 = 5. Сначала якорь, потом перебор.</li><li><span class="lin">3.</span> <b>Начать с длинного столбика.</b> У тройки цифр свободы больше всего; короткий столбик — самый зажатый, он первый.</li><li><span class="lin">4.</span> <b>Не проверить остаток.</b> Последний столбик получает «что осталось», но его сумму всё равно проверь: не сошлась — ошибка выше, и лучше узнать об этом сразу.</li></ol>
 <div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2025 №3 — ступенчатая доска из трёх столбцов (высоты 2, 4, 4), все цифры 0–9, равные суммы столбцов, в столбцах по возрастанию: якорь 45 → по 15, зажат короткий столбец ({6, 9} или {7, 8}), дальше разбиения.</p></div>
 <hr>
-<div class="pager"><a href="04-glava-2-vse-cherez-odnu-kletku.html">← Глава 2. Всё через одну клетку</a><a href="06-glava-4-latinskiy-kvadrat.html">Глава 4. Латинский квадрат →</a></div>
+<p class="xlink"><a href="../nandu_n1_nacional_3_doski2_reshebnik/03-blok-3-poryadok-navyazan-schitay-mnozhestva-glav.html">→ Задачи к этой главе: <b>Блок 3 — Порядок навязан — считай множества</b></a></p><div class="pager"><a href="04-glava-2-vse-cherez-odnu-kletku.html">← Глава 2. Всё через одну клетку</a><a href="06-glava-4-latinskiy-kvadrat.html">Глава 4. Латинский квадрат →</a></div>
 </main>
 </div>
 <script>

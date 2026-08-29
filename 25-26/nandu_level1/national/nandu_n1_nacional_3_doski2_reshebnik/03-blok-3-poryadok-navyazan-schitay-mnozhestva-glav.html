@@ -25,7 +25,13 @@
   .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
   .chapnav a{color:var(--blue);text-decoration:none}
   .chapnav a:hover{text-decoration:underline}
-  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
     border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
   .pager a{color:var(--blue);text-decoration:none;max-width:45%}
   .pager a:hover{text-decoration:underline}
@@ -203,9 +209,10 @@
 <p class="st"><b>3.1</b> В полоску из четырёх клеток вписывают четыре разные цифры от 1 до 6 по возрастанию слева направо. Сколькими способами?</p>
 <p class="st"><b>3.2</b> Цифры от 1 до 8 расставляют в два столбика по четыре клетки: в каждом — по возрастанию сверху вниз, суммы столбиков равны. Сколькими способами?</p>
 <p class="st"><b>3.3</b> ⭐ Доска-ступенька из трёх столбиков высотой 2, 3 и 4 клетки. В неё вписывают все цифры от 0 до 8, по одной в клетку: суммы столбиков равны, в каждом столбике цифры по возрастанию сверху вниз. Сколькими способами?</p>
+<figure class="st"><div style="display:flex;gap:3px;align-items:flex-end"><div style="display:flex;flex-direction:column;gap:3px;align-items:center"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="font:12px var(--sans);color:var(--muted);margin-top:6px">2 клетки</span></div><div style="display:flex;flex-direction:column;gap:3px;align-items:center"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="font:12px var(--sans);color:var(--muted);margin-top:6px">3 клетки</span></div><div style="display:flex;flex-direction:column;gap:3px;align-items:center"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="font:12px var(--sans);color:var(--muted);margin-top:6px">4 клетки</span></div></div><div class="flab" style="margin-top:12px">девять клеток — и ровно девять цифр 0–8, каждая по разу</div><div class="flab" style="margin-top:12px"><span style="color:var(--gold)">суммы столбиков равны</span> &nbsp;·&nbsp; внутри столбика цифры идут <span style="color:var(--blue)">по возрастанию сверху вниз</span></div><figcaption>Столбики разной высоты, но сумма у всех одна — значит длинному достаются мелкие цифры, а короткому крупные; с короткого и начинай.</figcaption></figure>
 <p class="st"><b>3.4</b> ⭐⭐ Цифры от 0 до 5 расставляют в два столбика по три клетки, в каждом по возрастанию. а) Сколькими способами так, чтобы суммы столбиков были равны? <em>(Сначала привратник!)</em> б) А чтобы суммы отличались ровно на 1?</p>
 <hr>
-<div class="pager"><a href="02-blok-2-vse-cherez-odnu-kletku-glava-2.html">← Блок 2 — Всё через одну клетку (глава 2)</a><a href="04-blok-4-latinskiy-kvadrat-glava-4.html">Блок 4 — Латинский квадрат (глава 4) →</a></div>
+<p class="xlink"><a href="../nandu_n1_nacional_3_doski2_uchebnik/05-glava-3-poryadok-navyazan-schitay-mnozhestva.html">← Теория к этому блоку: <b>Глава 3. Порядок навязан — считай множества</b></a></p><div class="pager"><a href="02-blok-2-vse-cherez-odnu-kletku-glava-2.html">← Блок 2 — Всё через одну клетку (глава 2)</a><a href="04-blok-4-latinskiy-kvadrat-glava-4.html">Блок 4 — Латинский квадрат (глава 4) →</a></div>
 </main>
 </div>
 <script>

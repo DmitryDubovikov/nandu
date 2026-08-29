@@ -25,7 +25,13 @@
   .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
   .chapnav a{color:var(--blue);text-decoration:none}
   .chapnav a:hover{text-decoration:underline}
-  .pager{display:flex;justify-content:space-between;gap:20px;margin:60px 0 0;
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
     border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
   .pager a{color:var(--blue);text-decoration:none;max-width:45%}
   .pager a:hover{text-decoration:underline}
@@ -282,7 +288,7 @@
 <p class="st"><b>Типичные ошибки:</b></p>
 <ol class="st num"><li><span class="lin">1.</span> <b>Односторонняя вилка.</b> Из «начали в день 3» взять только <code>3s ≥ 37</code> и потерять <code>2s ≤ 36</code> — половина возможностей лишняя.</li><li><span class="lin">2.</span> <b>Округлить и не проверить соседа.</b> Перелом — не floor и не осторожное «возьму поменьше»: только оба кандидата и сравнение.</li><li><span class="lin">3.</span> <b>Забыть модуль.</b> Разность «−2» — это расстояние 2: числа поменялись местами, но стоят близко.</li><li><span class="lin">4.</span> <b>Строгость неравенств.</b> «К концу дня 2 не съедено» — это <code>2s ≤ 36</code>, нестрого: ровно 36 значит «пачка 9 закончена, пачка 10 не начата» — и она честно начнётся в день 3.</li></ol>
 <hr>
-<div class="pager"><a href="12-glava-7-dve-upakovki-tochnoe-chislo.html">← Глава 7. Две упаковки, точное число</a><a href="14-dopolnenie-a-ravnye-raznosti-lesenka-s-shagom.html">Дополнение А. Равные разности — лесенка с шагом →</a></div>
+<p class="xlink"><a href="../nandu_n1_nacional_4_arifmetika2_reshebnik/08-blok-8-vilka-neravenstv-i-perelomnyy-moment-glav.html">→ Задачи к этой главе: <b>Блок 8 — Вилка неравенств и переломный момент</b></a></p><div class="pager"><a href="12-glava-7-dve-upakovki-tochnoe-chislo.html">← Глава 7. Две упаковки, точное число</a><a href="14-dopolnenie-a-ravnye-raznosti-lesenka-s-shagom.html">Дополнение А. Равные разности — лесенка с шагом →</a></div>
 </main>
 </div>
 <script>
