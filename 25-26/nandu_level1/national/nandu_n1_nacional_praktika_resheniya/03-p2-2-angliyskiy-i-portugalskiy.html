@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,25 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 3 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ(б) = n</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Los que están en los dos grupos los conté dos veces, así que los resto una vez.<br><em>Тех, кто попал в обе группы, я посчитал дважды — поэтому вычитаю их один раз.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>n</code> — сколько человек в зоне «ни одного»</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>N(…)</code> — сколько человек в названной зоне</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">Ответ(б) = n</span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f"><code>N(английский) = 840 · 3/4 = 630</code></span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>N(португальский) = 840 · 2/5 = 336</code></span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>N(только португальский) = 2n</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>N(оба) = 336 − 2n</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>N(только английский) = 630 − (336 − 2n) = 294 + 2n</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>(294 + 2n) + (336 − 2n) + 2n + n = 840</code> → <code>3n = 210</code> → <code>n = 70</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>N(оба) = 336 − 140 = 196</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>N(только английский) = 630 − 196 = 434</code></span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>434 + 140 = 574</code></span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>434 + 196 + 140 + 70 = 840</code> ✓</span></button>
+<button class="art cont" data-art="14"><span class="val f"><code>840 − 70 − 196 = 574</code> ✓</span></button>
 </aside>
 <main>
   
@@ -238,22 +266,39 @@
 <path d="M20 200 L20 212 L440 212 L440 200" fill="none" stroke="var(--muted)"/>
 <text x="230" y="230" text-anchor="middle" fill="var(--muted)">вся школа — 840</text>
 </svg><figcaption>Зоны не налезают друг на друга и не оставляют дырок: каждый ученик стоит ровно в одной. Поэтому их можно складывать, а «оба» не посчитается дважды.</figcaption></figure>
+<p class="st"><em>💬 «Кто учит оба языка, попал бы в оба счёта — значит, его считают дважды» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="st">Обозначим <code>n</code> — сколько человек в зоне «ни одного». Тогда в зоне «только португальский» их вдвое больше, то есть <code>2n</code>. Две оставшиеся зоны теперь тоже выражаются через <code>n</code> — значит, всё держится на одной неизвестной.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
-<p class="st">Ответ(б) = <code>n</code></p>
-<p class="st">Ответ(в) = зона «оба» при найденном <code>n</code></p>
-<div class="frm st">Ответ(г) = (только английский) + (только португальский)</div>
+<p class="st">Число людей в зоне буду писать значком <code>N(…)</code>: в скобках — название зоны, а всё вместе читается «сколько человек в этой зоне». Например, <code>N(ни одного) = n</code>, а <code>N(только португальский) = 2n</code>.</p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<p class="st">Ответ(б) = <code>N(ни одного) = n</code></p>
+<p class="st">Ответ(в) = <code>N(оба)</code> при найденном <code>n</code></p>
+<p class="st">Ответ(г) = <code>N(только английский) + N(только португальский)</code></p>
 <p class="st">Буквы: <code>n</code> — сколько человек в зоне «ни одного»; тогда «только португальский» — это <code>2n</code>, а две оставшиеся зоны я выражу через <code>n</code> на следующем шаге.</p>
-<p class="st">Осталось найти: <code>n</code> — из равенства «четыре зоны дают 840».</p></div></div>
+<p class="st">Осталось найти: <code>n</code> — из равенства «четыре зоны дают 840».</p></div>
 <p class="step st"><b>Шаг 3 — считаю <code>n</code> (вопрос б).</b> Нужна зона «ни одного» — для этого выражаю через <code>n</code> все четыре зоны и складываю их:</p>
-<ul class="st"><li>португальский = «только португальский» + «оба» → оба <code>= 336 − 2n</code>;</li><li>английский = «только английский» + «оба» → только английский <code>= 630 − (336 − 2n) = 294 + 2n</code>;</li><li>все четыре зоны дают школу → <code>(294 + 2n) + (336 − 2n) + 2n + n = 840</code>;</li><li>привожу подобные → <code>630 + 3n = 840</code> → <code>3n = 210</code>;</li><li>делю → <code>n = 70</code>.</li></ul>
+<ul class="st"><li>португальский = «только португальский» + «оба» → <code>N(оба) = 336 − 2n</code>;</li><li>английский = «только английский» + «оба» → <code>N(только английский) = 630 − (336 − 2n) = 294 + 2n</code>;</li><li>все четыре зоны дают школу → <code>(294 + 2n) + (336 − 2n) + 2n + n = 840</code>;</li><li>привожу подобные → <code>630 + 3n = 840</code> → <code>3n = 210</code>;</li><li>делю → <code>n = 70</code>.</li></ul>
 <p class="st">→ <b>Ни одного языка не изучают 70 учеников.</b></p>
 <p class="step st"><b>Шаг 4 — считаю остальные зоны (вопрос в).</b> Нужна зона «оба», а заодно понадобятся и две крайние — подставляю <code>n = 70</code>:</p>
-<ul class="st"><li>оба → <code>336 − 2 · 70 = 196</code>;</li><li>только португальский → <code>2 · 70 = 140</code>;</li><li>только английский → <code>630 − 196 = 434</code>.</li></ul>
+<ul class="st"><li><code>N(оба) = 336 − 2 · 70 = 196</code>;</li><li><code>N(только португальский) = 2 · 70 = 140</code>;</li><li><code>N(только английский) = 630 − 196 = 434</code>.</li></ul>
 <p class="st">→ <b>Оба языка изучают 196 учеников.</b></p>
 <p class="step st"><b>Шаг 5 — сборка (вопрос г).</b> «Ровно один» — это две зоны полоски: только английский и только португальский. Тех, кто в середине, брать нельзя.</p>
 <p class="st"><code>434 + 140 = 574</code>. <b>Ровно один язык изучают 574 ученика.</b></p>
 <p class="st"><b>Ответ.</b> а) Английский — 630, португальский — 336. б) 70. в) 196. г) 574.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Los que están en los dos grupos los conté dos veces, así que los resto una vez.</b></p></div>
+<p class="st"><em>Тех, кто попал в обе группы, я посчитал дважды — поэтому вычитаю их один раз.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a2" data-art="2"><ul class="st"><li><code>n</code> — сколько человек в зоне «ни одного»</li><li><code>N(…)</code> — сколько человек в названной зоне</li></ul></div>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(б) = n</div>
+<div class="frm st">Ответ(в) = N(оба)</div>
+<div class="frm st">Ответ(г) = N(только английский) + N(только португальский)</div></div></div>
+<div id="a11" data-art="11"><ul class="st"><li><code>N(английский) = 840 · 3/4 = 630</code></li><li><code>N(португальский) = 840 · 2/5 = 336</code></li><li><code>N(только португальский) = 2n</code></li><li><code>N(оба) = 336 − 2n</code></li><li><code>N(только английский) = 630 − (336 − 2n) = 294 + 2n</code></li><li><code>(294 + 2n) + (336 − 2n) + 2n + n = 840</code> → <code>3n = 210</code> → <code>n = 70</code></li><li><code>N(оба) = 336 − 140 = 196</code></li><li><code>N(только английский) = 630 − 196 = 434</code></li></ul></div>
+<div id="a12" data-art="12"><div class="frm st"><code>434 + 140 = 574</code></div></div>
+<p class="st">Проверка:</p>
+<div id="a14" data-art="14"><ul class="st"><li><code>434 + 196 + 140 + 70 = 840</code> ✓</li><li><code>840 − 70 − 196 = 574</code> ✓</li></ul></div>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Считал я через уравнение с одной буквой. Проверяю <b>прямым заполнением полоски и вторым, независимым подсчётом «ровно одного»</b>:</p>
 <div class="st"><div class="tw"><table>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,12 +207,29 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 5 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">6l + 11ya<br>= 205</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ(а) = делится ли 205 на 11 нацело</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Los que dejan el mismo resto al dividir por 6 van de 6 en 6, por eso los cuento saltando de 6 en 6.<br><em>Числа с одинаковым остатком при делении на 6 идут через 6, поэтому считаю их шагами по 6.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>l</code> — лотков по 6 саженцев</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>ya</code> — ящиков по 11</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>res(a : b)</code> — остаток от деления a на b</span></button>
+<button class="art cont" data-art="4"><span class="val f"><code>min(…)</code> — наименьшее значение</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">Ответ(б) = все пары (l, ya) целых неотрицательных чисел</span></button>
+<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f">а) <code>205 = 18 · 11 + 7</code> → нацело не делится → одними ящиками нельзя</span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>205 = 34 · 6 + 1</code> → <code>res(205 : 6) = 1</code>, значит нужен <code>res(11ya : 6) = 1</code></span></button>
+<button class="art cont" data-art="8"><span class="val f">первый такой <code>ya = 5</code>, дальше шагом 6; граница <code>11ya ≤ 205</code> → <code>ya ≤ 18</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>ya = 5</code> → <code>l = (205 − 55) : 6 = 25</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>ya = 11</code> → <code>l = (205 − 121) : 6 = 14</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>ya = 17</code> → <code>l = (205 − 187) : 6 = 3</code></span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>25 · 480 + 5 · 830 = 16150</code></span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>14 · 480 + 11 · 830 = 15850</code></span></button>
+<button class="art cont" data-art="14"><span class="val f"><code>3 · 480 + 17 · 830 = 15550</code></span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>150 + 55 = 205</code> ✓</span></button>
+<button class="art cont" data-art="16"><span class="val f"><code>84 + 121 = 205</code> ✓</span></button>
+<button class="art cont" data-art="17"><span class="val f"><code>18 + 187 = 205</code> ✓</span></button>
+<button class="art" data-art="18"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los cajones posibles y los demás no cumplen que lo que sobra entre en bandejas de 6, por eso no hay más que estos.<br><em>Проверил все возможные числа ящиков, остальные не подходят под «остаток делится на 6», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -210,18 +241,23 @@
 <p class="st">б) Сколько лотков и сколько ящиков можно купить? Дай все возможности.</p>
 <p class="st">в) Какая из возможностей самая дешёвая и сколько денег на неё уйдёт? Объясни, почему дешевле не получится.</p>
 <p class="st">Обозначим: <code>l</code> — число лотков, <code>ya</code> — число ящиков (штуки, целые, от нуля).</p>
-<div id="a0" data-art="0"><div class="frm st">6l + 11ya = 205</div></div>
+<div class="frm st">6l + 11ya = 205</div>
 <p class="step st"><b>Шаг 1 — план: три вопроса вокруг одного уравнения.</b> Покупка — это пара целых неотрицательных чисел <code>l</code> и <code>ya</code> с <code>6l + 11ya = 205</code>, и все три вопроса спрашивают про эту пару разное: первый — бывает ли она с <code>l = 0</code>, второй — все ли пары выписаны, третий — какая из них дешевле. Значит, главная работа одна: добыть полный список пар, а два крайних вопроса на нём и решатся.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b></p>
 <div class="frm st">Ответ(а) = делится ли 205 на 11 нацело</div>
 <p class="st">Ответ(б) = все пары (<code>l</code>, <code>ya</code>), в которых <code>205 − 11ya</code> делится на 6</p>
-<div class="frm st">Ответ(в) = самая дешёвая пара из списка б)</div>
-<p class="st">Буквы: <code>l</code> — число лотков по 6 саженцев · <code>ya</code> — число ящиков по 11 саженцев.</p>
-<p class="st">Осталось найти: полный список пар — на нём решатся и первый вопрос, и третий.</p></div></div>
+<p class="st">Ответ(в) = <code>min(цена)</code> — наименьшая из цен списка б); значок <code>min(…)</code> называет наименьшее возможное значение того, что в скобках</p>
+<p class="st">Буквы: <code>l</code> — число лотков по 6 саженцев; <code>ya</code> — число ящиков по 11 саженцев.</p>
+<p class="st">Осталось найти: полный список пар — на нём решатся и первый вопрос, и третий.</p></div>
 <p class="step st"><b>Шаг 2 — можно ли одними ящиками (вопрос а).</b> Нужно проверить единственную покупку без лотков — для этого подставляю <code>l = 0</code>. Одни ящики — это <code>l = 0</code>, то есть <code>11ya = 205</code>. Но <code>11 · 18 = 198</code>, а <code>11 · 19 = 209</code>; между ними числа 205 нет, значит 205 на 11 нацело не делится. <b>Одними ящиками не обойтись.</b></p>
-<p class="step st"><b>Шаг 3 — список всех покупок (вопрос б).</b> Нужны все пары, а перебирать обе буквы сразу долго — поэтому смотрю на уравнение через остатки при делении на 6. Слагаемое <code>6l</code> делится на 6 без остатка, поэтому остаток <code>11ya</code> при делении на 6 обязан совпасть с остатком 205. <code>205 = 34 · 6 + 1</code> — остаток 1.</p>
+<p class="step st"><b>Шаг 3 — список всех покупок (вопрос б).</b> Нужны все пары, а перебирать обе буквы сразу долго — поэтому смотрю на уравнение через остатки при делении на 6.</p>
+<p class="st">Остаток буду писать значком <code>res(a : b)</code> — остаток от деления a на b; читается «остаток от 205 на 6». Считается он по-прежнему полной строкой деления (ритуал Ч2), а значок только называет уже добытое число:</p>
+<div class="frm st">205 = 34 · 6 + 1</div>
+<div class="frm st">res(205 : 6) = 1</div>
+<p class="st">Слагаемое <code>6l</code> делится на 6 без остатка, поэтому остаток <code>11ya</code> при делении на 6 обязан совпасть с остатком 205:</p>
+<div class="frm st">res(11ya : 6) = 1</div>
 <div class="st"><div class="tw"><table>
-<tr><th><code>ya</code></th><th><code>11ya</code></th><th>остаток при делении на 6</th></tr>
+<tr><th><code>ya</code></th><th><code>11ya</code></th><th><code>res(11ya : 6)</code></th></tr>
 <tr><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>1</td><td>11</td><td>5</td></tr>
 <tr><td>2</td><td>22</td><td>4</td></tr>
@@ -232,6 +268,7 @@
 </table></div></div>
 <p class="st">Шесть первых строк дали шесть разных остатков: 0, 5, 4, 3, 2, 1 — это все остатки, какие вообще бывают при делении на 6. Значит, нужный остаток 1 встречается в этом куске ровно один раз: <code>ya = 5</code>.</p>
 <p class="st">Дальше остатки идут по кругу, и вот почему: если увеличить <code>ya</code> на 6, то <code>11ya</code> вырастет на <code>11 · 6 = 66</code>, а 66 делится на 6 нацело — от такой прибавки остаток не меняется. Поэтому остаток 1 бывает ровно при <code>ya = 5, 11, 17, 23, …</code> и больше ни при каких.</p>
+<p class="st"><em>💬 «Ящики с нужным остатком идут через 6» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="st">Граница: ящиков не может быть больше, чем помещается в 205 саженцев, то есть <code>11ya ≤ 205</code>, откуда <code>ya ≤ 18</code> (<code>11 · 18 = 198</code>, а <code>11 · 19 = 209</code> — уже перебор). Число 23 больше 18 — отпадает. Остаются три кандидата: 5, 11 и 17.</p>
 <div class="st"><div class="tw"><table>
 <tr><th><code>ya</code> (ящики)</th><th><code>l = (205 − 11ya) : 6</code></th><th>проверка</th></tr>
@@ -239,7 +276,9 @@
 <tr><td>11</td><td><code>(205 − 121) : 6 = 14</code></td><td><code>84 + 121 = 205</code> ✓</td></tr>
 <tr><td>17</td><td><code>(205 − 187) : 6 = 3</code></td><td><code>18 + 187 = 205</code> ✓</td></tr>
 </table></div></div>
-<p class="st"><b>Три возможности: (25 лотков, 5 ящиков), (14, 11), (3, 17).</b> Шаг между соседними строками: <code>+6</code> ящиков и <code>−11</code> лотков — и то и другое ровно 66 саженцев, так что список согласован сам с собой.</p>
+<p class="st"><b>Три возможности: (25 лотков, 5 ящиков), (14, 11), (3, 17).</b></p>
+<p class="st">Шаг между соседними строками: <code>+6</code> ящиков и <code>−11</code> лотков — и то и другое ровно 66 саженцев, так что список согласован сам с собой.</p>
+<p class="st"><em>💬 «Проверил все возможные числа ящиков, остальные не дают целого числа лотков» — это и есть мысль для фразы-полноты.</em></p>
 <p class="step st"><b>Шаг 4 — сборка: самая дешёвая покупка (вопрос в).</b> Нужна самая дешёвая из трёх — для этого считаю цену каждой строки, всю, а не только «выгодную на глаз»:</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Покупка</th><th>Цена</th></tr>
@@ -247,10 +286,30 @@
 <tr><td>14 лотков + 11 ящиков</td><td><code>14 · 480 + 11 · 830 = 6720 + 9130 = 15850</code></td></tr>
 <tr><td>3 лотка + 17 ящиков</td><td><code>3 · 480 + 17 · 830 = 1440 + 14110 = <b>15550</b></code></td></tr>
 </table></div></div>
+<p class="st">Наименьшая из этих цен и есть ответ:</p>
+<div class="frm st">min(цена) = 15550</div>
 <p class="st"><b>Дешевле всего — 3 лотка и 17 ящиков, 15 550 песо.</b></p>
 <p class="st">Так это и пишется в ответе: набрать ровно 205 саженцев можно <b>только тремя</b> способами — в пункте б) показано, почему других нет и почему ни один не потерян. Цены всех трёх посчитаны: 16 150, 15 850 и 15 550 песо. Меньше 15 550 среди них нет, а четвёртой покупки не существует — значит, дешевле не получится.</p>
 <p class="st">Прикидка «за штуку» это подтверждает: в лотке саженец стоит <code>480 : 6 = 80</code> песо, в ящике <code>830 : 11</code> — меньше 80 (<code>80 · 11 = 880 &gt; 830</code>). Значит, чем больше ящиков, тем дешевле. Но одними ящиками 205 не набирается (вопрос а) — поэтому ответ и берётся из списка, а не из жадности.</p>
 <p class="st"><b>Ответ.</b> а) Нельзя: 205 не делится на 11 нацело. б) Три возможности: 25 лотков и 5 ящиков; 14 лотков и 11 ящиков; 3 лотка и 17 ящиков. в) 3 лотка и 17 ящиков — 15 550 песо.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Los que dejan el mismo resto al dividir por 6 van de 6 en 6, por eso los cuento saltando de 6 en 6.</b></p></div>
+<p class="st"><em>Числа с одинаковым остатком при делении на 6 идут через 6, поэтому считаю их шагами по 6.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a4" data-art="4"><ul class="st"><li><code>l</code> — лотков по 6 саженцев</li><li><code>ya</code> — ящиков по 11</li><li><code>res(a : b)</code> — остаток от деления a на b</li><li><code>min(…)</code> — наименьшее значение</li></ul></div>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st"><code>6l + 11ya = 205</code></div>
+<p class="st"><b>Ответ(б) = все пары (l, ya) целых неотрицательных чисел</b></p>
+<div class="frm st">Ответ(в) = min(цена)</div></div></div>
+<div id="a14" data-art="14"><ul class="st"><li>а) <code>205 = 18 · 11 + 7</code> → нацело не делится → одними ящиками нельзя</li><li><code>205 = 34 · 6 + 1</code> → <code>res(205 : 6) = 1</code>, значит нужен <code>res(11ya : 6) = 1</code></li><li>первый такой <code>ya = 5</code>, дальше шагом 6; граница <code>11ya ≤ 205</code> → <code>ya ≤ 18</code></li><li><code>ya = 5</code> → <code>l = (205 − 55) : 6 = 25</code></li><li><code>ya = 11</code> → <code>l = (205 − 121) : 6 = 14</code></li><li><code>ya = 17</code> → <code>l = (205 − 187) : 6 = 3</code></li><li><code>25 · 480 + 5 · 830 = 16150</code></li><li><code>14 · 480 + 11 · 830 = 15850</code></li><li><code>3 · 480 + 17 · 830 = 15550</code></li></ul></div>
+<p class="st"><b><code>min(цена) = 15550</code></b> — 3 лотка и 17 ящиков</p>
+<p class="st">Проверка:</p>
+<div id="a17" data-art="17"><ul class="st"><li><code>150 + 55 = 205</code> ✓</li><li><code>84 + 121 = 205</code> ✓</li><li><code>18 + 187 = 205</code> ✓</li></ul></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a18" data-art="18"><p class="st"><b>Probé todos los cajones posibles y los demás no cumplen que lo que sobra entre en bandejas de 6, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные числа ящиков, остальные не подходят под «остаток делится на 6», — поэтому других нет.</em></p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Список получен через остатки. Проверяю его <b>сплошным перебором по числу ящиков</b>: для каждого <code>ya</code> от 0 до 18 смотрю, делится ли <code>205 − 11ya</code> на 6.</p>
 <div class="st"><div class="tw"><table>

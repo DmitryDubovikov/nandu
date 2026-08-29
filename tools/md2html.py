@@ -194,6 +194,172 @@ def slug(t):
     return re.sub(r'-+', '-', out).strip('-')[:48]
 
 
+BATTLE_H = re.compile(r'^\s*✍')
+# Чем ✍-блок кончается. Заголовка у следующего разбора нет — он набран жирными
+# абзацами, и без этого списка «боевой записью» становился весь разбор следующей
+# задачи: 88 из 300 пунктов колонки решебника, включая её ответ.
+BATTLE_END = re.compile(r'^\*\*(Шаг |Разобранный пример|Пример |Разбор|Ход |\d+\.\d+ — )')
+BATTLE_H4 = re.compile(r'^\s*(Запись|💬)')
+
+
+def doc_kind(src_path):
+    """Учебник или документ с решениями. От вида зависит вся левая колонка.
+
+    У учебника в колонке сухой остаток главы — то, что из неё уносят: идея,
+    формула, ритуал, наблюдение. У документа с решениями уносить нечего:
+    там нет ни идей, ни ритуалов, есть разборы, и остаток вырождается.
+    Полезна там боевая запись — план и то, что ребёнок пишет на туре.
+    """
+    name = os.path.basename(src_path or '')
+    if '_uchebnik' in name:
+        return 'uchebnik'
+    if re.search(r'_(resheniya|reshebnik|klyuch|podskazki)', name):
+        return 'resheniya'
+    return 'uchebnik'   # родительские документы идут учебниковой веткой: у неё свой фолбэк
+
+
+def battle_artifact(k, v, want_phrase):
+    """Что из ✍-блока попадает в колонку: план, фраза, строки записи.
+
+    Дословно и в порядке появления. Проза ✍-блока (курсивная шапка, легенда,
+    словесная проверка) не идёт — в колонке нужна запись, а не текст о ней.
+    Точка в конце строки здесь формуле не мешает: боевая запись кончается
+    предложением-итогом («Ответ = 13 + 21 + 21 + 13 = 68.»), и терять его нельзя.
+    """
+    if k == 'quote' and '✅' in v:
+        clean = re.sub(r'[*`>#]', '', v)
+        m = re.search(r'Ответ[^=\n]{0,24}=\s*[^\n]+', clean)
+        if m:
+            return ('План', m.group(0).strip())
+        # план без строки «Ответ = …»: у периметров он и есть набор формул
+        out = [('План', f) for f in
+               (is_formula(ln.strip()) for ln in clean.split('\n')) if f]
+        return out or None
+    if k == 'list':
+        out = []
+        for ln in v.split('\n'):
+            ln = re.sub(r'^\s*(?:[-*]|\d+\.)\s+', '', ln).strip()
+            if ln:
+                out.append(('На туре', ln))
+        return out
+    if k != 'p':
+        return None
+    if want_phrase:
+        m = re.fullmatch(r'\*\*(.+)\*\*', v.strip())
+        if m:
+            return (want_phrase, m.group(1).strip())
+    f = is_formula(v) or is_formula(re.sub(r'\.(\*{0,2})$', r'\1', v.strip()))
+    if f:
+        return ('На туре', f)
+    # Итог записи бывает без знака отношения: «а) 97 цифр», «Нельзя.»,
+    # «{1, 2, 7, 8} и {3, 4, 5, 6}». Внутри ✍-блока жирная строка — это запись
+    # по определению, и терять из-за is_formula именно ответ нельзя.
+    m = re.fullmatch(r'\*\*(.+?)\*\*\.?', v.strip())
+    if m and len(m.group(1)) <= 90:
+        return ('На туре', m.group(1).strip())
+    # легенда обозначений открывает запись, но записью не является
+    if re.match(r'^(Кирпичики|Обозначения)\s*:', v.strip()):
+        return ('Кирпичики', first_sentence(v))
+    return None
+
+
+def battle_spec(blocks):
+    """Боевая запись главы: содержимое её ✍-блоков, в порядке появления.
+
+    Фраза-объяснение идёт в колонку **обеими строками** — испанской и русским
+    переводом под ней: на бумагу выносится испанская, но читать колонку ребёнок
+    должен без перевода в уме. Пара склеивается в один пункт, а не в два.
+    """
+    spec, seen = [], set()
+    in_battle, want_phrase, pending = False, '', None
+
+    def add(idx, art):
+        # дедуп только против соседа: одна и та же фраза законно стоит
+        # у двух задач одного блока, и выбрасывать второй показ нельзя
+        if art and (not spec or spec[-1][1][1] != art[1]):
+            spec.append((idx, art))
+
+    def flush():
+        nonlocal pending
+        if pending:
+            add(pending[0], (pending[1], pending[2]))
+            pending = None
+
+    for idx, (k, v) in enumerate(blocks):
+        if k in ('h1', 'h2', 'h3'):
+            flush()
+            in_battle, want_phrase = bool(BATTLE_H.match(v)), ''
+            continue
+        if k == 'h4':
+            flush()
+            want_phrase = ''
+            if in_battle and not BATTLE_H4.match(v):
+                in_battle = False      # чужой подзаголовок — ✍-блок кончился
+            elif in_battle and '💬' in v:
+                want_phrase = '💬 Полнота' if 'конц' in v.lower() else '💬 Фраза'
+            continue
+        if in_battle and k == 'p' and BATTLE_END.match(v.strip()):
+            flush()
+            in_battle, want_phrase = False, ''
+            continue
+        if not in_battle:
+            continue
+        if want_phrase and k == 'p':
+            s = v.strip()
+            m = re.fullmatch(r'\*\*(.+)\*\*', s)
+            if m and pending is None:
+                pending = (idx, want_phrase, m.group(1).strip())
+                continue
+            m = re.fullmatch(r'\*(.+)\*', s)
+            if pending and m:
+                add(pending[0], (pending[1], pending[2] + '\n*' + m.group(1).strip() + '*'))
+                pending, want_phrase = None, ''
+                continue
+            flush()
+            want_phrase = ''
+        got = battle_artifact(k, v, '')
+        for a in (got if isinstance(got, list) else [got]):
+            add(idx, a)
+    flush()
+    return spec
+
+
+def dry_spec(blocks):
+    """Сухой остаток главы — то, что из неё уносят. Ветка учебника."""
+    spec, seen, in_ex, in_battle = [], set(), False, False
+    for idx, (k, v) in enumerate(blocks):
+        if k in ('h1', 'h2', 'h3'):
+            in_battle = bool(BATTLE_H.match(v))
+            continue
+        if in_battle:
+            continue          # ✍-блок разобранного примера в сухой остаток не идёт
+        if k == 'p' and re.match(r'^\*\*(Разобранный пример|Пример|Разбор|Шаг \d)', v):
+            in_ex = True
+        a = artifact(k, v, in_ex)
+        if a and a[1] not in seen:
+            seen.add(a[1])
+            spec.append((idx, a))
+    return spec
+
+
+def chapter_artifacts(blocks, kind):
+    """Левая колонка главы — список (индекс блока, (ярлык, текст)).
+
+    У учебника это всегда сухой остаток: ✍-блоки разобранных примеров в него
+    не попадают, колонка остаётся ровно той же, что была до их появления.
+    У документа с решениями колонка — боевая запись; если в главе ✍-блоков нет
+    (вводные разделы «Условия — коротко», «Порядок решения на туре»),
+    работает тот же сухой остаток.
+
+    Второй элемент — сработала ли боевая ветка. От него зависит шапка колонки:
+    обещать «Что пишешь на туре» над списком разделов нельзя.
+    """
+    if kind == 'uchebnik':
+        return dry_spec(blocks), False
+    b = battle_spec(blocks)
+    return (b, True) if b else (dry_spec(blocks), False)
+
+
 def artifact(k, v, in_example=False):
     """Что из блока попадает в сухой остаток. Только дословный текст MD.
 
@@ -216,6 +382,9 @@ def artifact(k, v, in_example=False):
         return ('Идея', first_sentence(v))
     if v.startswith('**Заметь главное'):
         return ('Заметь главное', first_sentence(v))
+    m = re.match(r'^\*\*(Подсказка \d+)', v)
+    if m:
+        return (m.group(1), first_sentence(v))
     m = re.match(r'^\*\*(Ритуал [^*—-]+)', v)
     if m:
         return (m.group(1).strip(' .—-'), first_sentence(v))
@@ -259,9 +428,11 @@ def xlink_html(x):
 
 def val_html(lbl, val):
     """Формулы в сухом остатке переносятся по знаку равенства."""
-    h = inline(val)
-    if lbl == 'Формула' and ',' not in val:
-        h = re.sub(r'\s+=\s+', '<br>= ', h)
+    h = inline(val).replace('\n', '<br>')
+    # перенос по «=» — только когда строка длиннее строки колонки, и один раз:
+    # иначе «KL = 27» занимало две строки и колонка выглядела столбиком сирот
+    if lbl == 'Формула' and ',' not in val and len(val) > 46:
+        h = re.sub(r'\s+=\s+', '<br>= ', h, count=1)
     return h
 
 
@@ -342,6 +513,7 @@ def razbor_links(src_path, chapters):
 
 def build_pages(md, visuals=None, src_path=None):
     visuals = visuals or {}
+    kind = doc_kind(src_path)
     title, sub, chapters, pre = split_chapters(md)
     files, used, shown_part = {}, set(), None
     names = page_names(chapters)
@@ -350,18 +522,16 @@ def build_pages(md, visuals=None, src_path=None):
         xmap.setdefault(n, []).append(lk)
 
     for n, c in enumerate(chapters):
-        # 1) какие блоки главы дают сухой остаток
-        spec, in_ex, seen = [], False, set()
-        for idx, (k, v) in enumerate(c['blocks']):
-            if k == 'p' and re.match(r'^\*\*(Разобранный пример|Пример|Разбор|Шаг \d)', v):
-                in_ex = True
-            a = artifact(k, v, in_ex)
-            if a and a[1] not in seen:
-                seen.add(a[1])
-                spec.append((idx, a))
+        # 1) какие блоки главы дают левую колонку
+        spec, is_battle = chapter_artifacts(c['blocks'], kind)
         if not spec:      # родительские документы: остаток из подзаголовков
+            # ✍-блок и его подзаголовки сюда не попадают: в учебниковой колонке
+            # боевой записи не место, а глава без остатка иначе показывала бы
+            # ярлык «Раздел ✍ Что достаточно написать на туре»
             spec = [(idx, ('Раздел', re.sub(r'\*\*|\*|`', '', v)))
-                    for idx, (k, v) in enumerate(c['blocks']) if k in ('h3', 'h4')]
+                    for idx, (k, v) in enumerate(c['blocks'])
+                    if k in ('h3', 'h4') and not BATTLE_H.match(v)
+                    and '💬' not in v and 'Запись' != v.strip()]
         at = {idx: n for n, (idx, _) in enumerate(spec)}
         arts = [a for _, a in spec]
 
@@ -378,11 +548,23 @@ def build_pages(md, visuals=None, src_path=None):
                     used.add(anchor)
                     body.append(figure)
 
-        nav = '\n'.join(
-            f'<button class="art" data-art="{i}"><span class="lbl">{html.escape(lbl)}</span>'
-            f'<span class="val{" f" if lbl == "Формула" else ""}">{val_html(lbl, val)}</span>'
-            f'</button>'
-            for i, (lbl, val) in enumerate(arts)) or \
+        # ярлык печатается только когда он сменился: подряд идущие строки боевой
+        # записи — одна группа, и семь раз «На туре» ничего не сообщают
+        btns, prev = [], None
+        for i, (lbl, val) in enumerate(arts):
+            # схлопывание ярлыка — только в боевой колонке; учебниковый
+            # сухой остаток остаётся ровно таким, каким был
+            cont = (is_battle and lbl == prev
+                    and (lbl == 'На туре' or lbl.startswith('💬')))
+            head = '' if cont else f'<span class="lbl">{html.escape(lbl)}</span>'
+            mono = ' f' if (lbl in ('Формула', 'На туре')
+                            or (is_battle and lbl == 'План')) else ''
+            if lbl.startswith('💬'):
+                mono = ' ph'          # испанская фраза с переводом — свой кегль
+            btns.append(f'<button class="art{" cont" if cont else ""}" data-art="{i}">'
+                        f'{head}<span class="val{mono}">{val_html(lbl, val)}</span></button>')
+            prev = lbl
+        nav = '\n'.join(btns) or \
             '<p class="flab">В этом разделе выносить в остаток нечего.</p>'
 
         prev = f'<a href="{names[n-1]}">← {html.escape(chapters[n-1]["title"])}</a>' if n else ''
@@ -401,6 +583,12 @@ def build_pages(md, visuals=None, src_path=None):
             .replace('{{PARTLAB}}', partlab)
             .replace('{{SUB}}', '')
             .replace('{{CHAPNAV}}', chapnav)
+            .replace('{{RTITLE_TAG}}', '' if not spec else
+                     '<p class="rtitle">%s</p>' %
+                     ('Что пишешь на туре' if is_battle else 'Сухой остаток главы'))
+            # ширину задаёт факт боевой записи, а не имя файла: у вводных
+            # разделов документа-решения колонка обычная, и растягивать её незачем
+            .replace('{{WRAPCLASS}}', ' battle' if is_battle else '')
             .replace('{{NAV}}', nav)
             .replace('{{BODY}}', '\n'.join(body))
             .replace('{{FOOT}}', ''.join(xlink_html(x) for x in xmap.get(n, [])) +
@@ -418,6 +606,7 @@ def build_pages(md, visuals=None, src_path=None):
                     f'<span>{html.escape(idea)}</span></a>')
     files['index.html'] = (INDEX
         .replace('{{TITLE}}', html.escape(title))
+        .replace('{{RTITLE_TAG}}', '').replace('{{WRAPCLASS}}', '')
         .replace('{{SUB}}', html.escape(sub))
         .replace('{{PRE}}', '\n'.join(render_block(b) for b in pre))
         .replace('{{ROWS}}', '\n'.join(rows)))

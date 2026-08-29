@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -198,11 +212,13 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 6 из 16</p>
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">«У 1450 жителей есть оба типа авто» — это задача про множества: два набора, которые могут перекрываться.</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">хотя бы что-то одно<br>= все − ни того ни другого</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">оба<br>= велосипедных + самокатных − хотя бы что-то одно</span></button>
-<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Обе доли условия навешаны на одну и ту же величину — на всех жителей: куры у трети жителей, а «каждый четвёртый из них» — это четверть от той самой…</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Ответ 2 = x − (Кур + Ут − 60)</span></button>
-<button class="art" data-art="5"><span class="lbl">Типичная ошибка №1</span><span class="val">сложить два набора и не вычесть «оба» — пересечение посчитано дважды.</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">N(хотя бы одно)<br>= N(велосипед) + N(самокат) − N(оба)</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">N(все)<br>= N(хотя бы одно) + N(ни того ни другого)</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">N(хотя бы одно)<br>= N(все) − N(ни того ни другого)</span></button>
+<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">N(оба)<br>= N(велосипед) + N(самокат) − N(хотя бы одно)</span></button>
+<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">N(хотя бы одно) = N(все)</span></button>
+<button class="art" data-art="6"><span class="lbl">Заметь главное</span><span class="val">Обе доли условия навешаны на одну и ту же величину — на всех жителей: куры у трети жителей, а «каждый четвёртый из них» — это четверть от той самой…</span></button>
+<button class="art" data-art="7"><span class="lbl">План</span><span class="val">Ответ 2 = x − (N(куры) + N(утки) − 60)</span></button>
 </aside>
 <main>
   
@@ -213,40 +229,60 @@
  │  только    ┌───────┼─── есть самокат ──┐
  │  велосипед │  ОБА  │  только самокат   │   ни того ни другого
  └────────────┴───────┴───────────────────┘   (за рамкой)</pre>
+<p class="st">Зоны удобно называть коротко. Обозначение <code>N(…)</code> читается «сколько тех, про кого сказано в скобках»: например, <code>N(велосипед) = 19</code> — девятнадцать детей с велосипедом.</p>
 <p class="st">Главный закон картинки: если сложить «есть велосипед» и «есть самокат», те, у кого <b>оба</b>, посчитаются <b>дважды</b>. Поэтому:</p>
-<p class="st"><code>хотя бы что-то одно = велосипедных + самокатных − оба</code> <code>все = хотя бы что-то одно + ни того ни другого</code></p>
-<p class="st">Обе строчки — равенства, и читать их можно в любую сторону, смотря что известно. Например, дано, у скольких <b>нет ни того ни другого</b>. Тогда из второй строчки получаешь «хотя бы что-то одно»:</p>
-<div id="a1" data-art="1"><div class="frm st">хотя бы что-то одно = все − ни того ни другого</div></div>
+<div id="a1" data-art="1"><div class="frm st">N(хотя бы одно) = N(велосипед) + N(самокат) − N(оба)</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(все) = N(хотя бы одно) + N(ни того ни другого)</div></div>
+<p class="st">Обе строчки — равенства, и читать их можно в любую сторону, смотря что известно. Например, дано, у скольких <b>нет ни того ни другого</b>. Тогда из второй строчки получаешь «хотя бы одно»:</p>
+<div id="a3" data-art="3"><div class="frm st">N(хотя бы одно) = N(все) − N(ни того ни другого)</div></div>
 <p class="st">а первую строчку переставляешь так, чтобы слева стояло пересечение:</p>
-<div id="a2" data-art="2"><div class="frm st">оба = велосипедных + самокатных − хотя бы что-то одно</div></div>
-<p class="st">А фраза «у каждого есть хотя бы что-то одно» означает, что за рамкой пусто: «хотя бы что-то одно» равно всем.</p>
+<div id="a4" data-art="4"><div class="frm st">N(оба) = N(велосипед) + N(самокат) − N(хотя бы одно)</div></div>
+<p class="st">А фраза «у каждого есть хотя бы что-то одно» означает, что за рамкой пусто:</p>
+<div id="a5" data-art="5"><div class="frm st">N(хотя бы одно) = N(все)</div></div>
 <p class="exam st"><b>Пример А (все числа известны).</b> «В классе 32 ребёнка: у 19 есть велосипед, у 14 — самокат, у 6 — и то и другое. У скольких нет ни того ни другого?»</p>
-<p class="st">Спрашивают последнюю зону полоски — тех, кто за рамкой. Чтобы до них добраться, нужно сначала узнать «хотя бы что-то одно»: складываю оба набора и вычитаю пересечение, потому что шестёрка «и то и другое» посчиталась дважды — <code>19 + 14 − 6</code> = <code>27</code>. Теперь за рамкой остаётся всё, что в эти 27 не попало: <code>32 − 27</code> = <b>5</b>.</p>
+<p class="st">Спрашивают последнюю зону полоски — тех, кто за рамкой. Чтобы до них добраться, нужно сначала узнать «хотя бы одно»: складываю оба набора и вычитаю пересечение, потому что шестёрка «и то и другое» посчиталась дважды.</p>
+<div class="frm st">N(хотя бы одно) = 19 + 14 − 6 = 27</div>
+<p class="st">Теперь за рамкой остаётся всё, что в эти 27 не попало.</p>
+<div class="frm st">N(ни того ни другого) = 32 − 27 = 5</div>
+<p class="st">→ <b>5</b></p>
 <p class="exam st"><b>Пример Б (доли от неизвестного — национальный уровень).</b> «В деревне у трети жителей есть куры. Из них каждый четвёртый держит ещё и уток. 60 жителей держат и кур, и уток — это шестая часть всех, кто держит уток. Сколько жителей в деревне? У скольких нет ни кур, ни уток?»</p>
-<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное</span><p>Обе доли условия навешаны на одну и ту же величину — на всех жителей: куры у трети жителей, а «каждый четвёртый <b>из них</b>» — это четверть от той самой трети, то есть <code>x/12</code> от всех. Поэтому буква нужна ровно одна — число жителей, всё остальное выражается через неё. А 60 — единственное число в задаче, сказанное про людей, а не про долю: оно и превращает <code>x/12</code> в уравнение. Утководы в эту цепочку не входят — их достаём потом, отдельным действием.</p></div></div>
+<div id="a6" data-art="6"><div class="card key st"><span class="tag">Заметь главное</span><p>Обе доли условия навешаны на одну и ту же величину — на всех жителей: куры у трети жителей, а «каждый четвёртый <b>из них</b>» — это четверть от той самой трети, то есть <code>x/12</code> от всех. Поэтому буква нужна ровно одна — число жителей, всё остальное выражается через неё. А 60 — единственное число в задаче, сказанное про людей, а не про долю: оно и превращает <code>x/12</code> в уравнение. Утководы в эту цепочку не входят — их достаём потом, отдельным действием.</p></div></div>
 <p class="step st"><b>Шаг 1 — план.</b> Спрашивают двоих: сколько жителей и у скольких нет ни кур, ни уток. Число жителей достаётся из фразы «оба = 60»: «оба» выражается через <code>x</code> двумя долями подряд, и получается уравнение с одной буквой:</p>
 <div class="frm st">x / 12 = 60</div>
 <p class="st">А «ни кур ни уток» — последняя зона полоски, то есть все минус «хотя бы что-то одно», а «хотя бы что-то одно» собирается из двух наборов без дважды посчитанного пересечения:</p>
-<div class="frm st">Ответ 2 = x − (Кур + Ут − 60)</div>
-<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">Ответ 2 = x − (N(куры) + N(утки) − 60)</div>
+<div id="a7" data-art="7"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">x / 12 = 60</div>
-<div class="frm st">Ответ 2 = x − (Кур + Ут − 60)</div>
-<p class="st"><code>x</code> — сколько жителей в деревне (чел.), это и есть первый ответ; <code>Кур</code> — сколько жителей держат кур (чел.); <code>Ут</code> — сколько жителей держат уток (чел.).</p>
-<p class="st">Осталось найти: <code>x</code>, потом <code>Кур</code> и <code>Ут</code>.</p></div></div>
+<div class="frm st">Ответ 2 = x − (N(куры) + N(утки) − 60)</div>
+<p class="st"><code>x</code> — сколько жителей в деревне (чел.), это и есть первый ответ; <code>N(куры)</code> — сколько жителей держат кур (чел.); <code>N(утки)</code> — сколько жителей держат уток (чел.).</p>
+<p class="st">Осталось найти: <code>x</code>, потом <code>N(куры)</code> и <code>N(утки)</code>.</p></div></div>
 <p class="step st"><b>Шаг 2 — нахожу <code>x</code>.</b> Решаю первую строчку плана:</p>
 <div class="frm st">x = 60 · 12 = 720</div>
 <p class="st">→ <b>жителей 720</b></p>
-<p class="step st"><b>Шаг 3 — считаю <code>Ут</code>.</b> Для полоски нужен второй набор целиком, а про уток сказано: 60 — его шестая часть, значит, сам он вшестеро больше:</p>
-<div class="frm st">Ут = 6 · 60 = 360</div>
-<p class="step st"><b>Шаг 4 — считаю <code>Кур</code> и «хотя бы что-то одно».</b> Куры у трети жителей:</p>
-<div class="frm st">Кур = 720 : 3 = 240</div>
-<div class="frm st">хотя бы что-то одно = 240 + 360 − 60 = 540</div>
+<p class="step st"><b>Шаг 3 — считаю <code>N(утки)</code>.</b> Для полоски нужен второй набор целиком, а про уток сказано: 60 — его шестая часть, значит, сам он вшестеро больше:</p>
+<div class="frm st">N(утки) = 6 · 60 = 360</div>
+<p class="step st"><b>Шаг 4 — считаю <code>N(куры)</code> и «хотя бы одно».</b> Куры у трети жителей:</p>
+<div class="frm st">N(куры) = 720 : 3 = 240</div>
+<div class="frm st">N(хотя бы одно) = 240 + 360 − 60 = 540</div>
 <p class="step st"><b>Шаг 5 — сборка.</b> Подставляю в формулу плана:</p>
 <div class="frm st">Ответ 2 = 720 − 540 = 180</div>
 <p class="st">Проверка картинкой: только куры 180 + оба 60 + только утки 300 + никто 180 = 720 ✓.</p>
 <figure class='st'><div style='display:flex;gap:4px;align-items:stretch'><div style='flex:180;background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:13px var(--sans);text-align:center;border-radius:8px;padding:10px 8px'>только куры<br><b>180</b></div><div style='flex:60;background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:13px var(--sans);text-align:center;border-radius:8px;padding:10px 8px'>оба<br><b>60</b></div><div style='flex:300;background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:13px var(--sans);text-align:center;border-radius:8px;padding:10px 8px'>только утки<br><b>300</b></div><div style='flex:180;background:#151d29;border:1px dashed #2c394c;color:var(--muted);font:13px var(--sans);text-align:center;border-radius:8px;padding:10px 8px'>ни кур, ни уток<br><b>180</b></div></div><div class='flab' style='margin-top:12px'><span style='color:var(--blue)'>Кур = 240</span> — это первые две зоны &nbsp;|&nbsp; <span style='color:var(--blue)'>Ут = 360</span> — это вторая и третья: <span style='color:var(--gold)'>золотая зона входит в обе</span></div><div class='frm' style='margin-top:12px'>240 + 360 − 60 = 540</div><div class='frm' style='border-color:var(--green)'>720 − 540 = 180</div><figcaption>Золотая зона лежит и в курином наборе, и в утином, поэтому в сумме 240 + 360 она стоит дважды — вычитаем её один раз.</figcaption></figure>
 <p class="st"><b>Ответ:</b> 720 жителей; у 180 нет ни кур, ни уток.</p>
-<div id="a5" data-art="5"><div class="card wrong st"><span class="tag">Типичная ошибка №1</span><p>сложить два набора и не вычесть «оба» — пересечение посчитано дважды. Лекарство — рисуй полоску, подписывай все четыре зоны. <b>Типичная ошибка №2:</b> «из них четверть» прочитать как «четверть всех». Слово «из них» всегда показывает, от кого доля, — найди, на кого оно указывает.</p></div></div>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>Los que están en los dos grupos los conté dos veces, así que los resto una vez.</b></p>
+<p class="st"><em>Тех, кто попал в обе группы, я посчитал дважды — поэтому вычитаю их один раз.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st"><code>x</code> — жителей; <code>N(куры)</code> и <code>N(утки)</code> — сколько держат кур и уток.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ 2 = x − (N(куры) + N(утки) − 60)</div></div>
+<ul class="st"><li><code>x / 12 = 60</code> → <code>x = 720</code></li><li><code>N(утки) = 6 · 60 = 360</code></li><li><code>N(куры) = 720 : 3 = 240</code></li><li><code>N(хотя бы одно) = 240 + 360 − 60 = 540</code></li></ul>
+<div class="frm st">Ответ 2 = 720 − 540 = 180</div>
+<p class="st">Проверка по зонам: <code>180 + 60 + 300 + 180 = 720</code> ✓</p>
+<hr>
+<div class="card wrong st"><span class="tag">Типичная ошибка №1</span><p>сложить два набора и не вычесть «оба» — пересечение посчитано дважды. Лекарство — рисуй полоску, подписывай все четыре зоны. <b>Типичная ошибка №2:</b> «из них четверть» прочитать как «четверть всех». Слово «из них» всегда показывает, от кого доля, — найди, на кого оно указывает.</p></div>
 <hr>
 <p class="xlink"><a href="../nandu_n1_nacional_4_arifmetika2_reshebnik/03-blok-3-dva-kruga-peresechenie-mnozhestv-glava-3.html">→ Задачи к этой главе: <b>Блок 3 — Два круга: пересечение множеств</b></a></p><div class="pager"><a href="05-glava-2-dolya-ot-ostalnyh.html">← Глава 2. «Доля от остальных»</a><a href="07-chast-ii-processy-dlinnee.html">ЧАСТЬ II. ПРОЦЕССЫ ДЛИННЕЕ →</a></div>
 </main>

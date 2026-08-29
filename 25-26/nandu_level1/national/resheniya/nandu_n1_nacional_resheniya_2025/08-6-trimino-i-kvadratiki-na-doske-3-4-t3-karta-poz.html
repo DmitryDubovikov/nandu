@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,12 +207,17 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 8 из 9</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Два тримино всегда съедают ровно 6 клеток, значит свободных всегда ровно 6, при любой их раскладке.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ = Т × В, где Т = число раскладок двух тримино (с учётом цвета), В = число способов выбрать 2 клетки из 6 свободных под одинаковые квадратики.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo dónde van las rectangulares y después las verdes; cualquier opción del primero se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю, куда лягут прямоугольные, и потом зелёные; любой вариант первого сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = N(раскладок двух тримино) · N(пар свободных клеток)</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">гор. + гор.: только в разных строках → 3 · 2 · 2 = 12</span></button>
+<button class="art cont" data-art="3"><span class="val f">верт. + верт.: два разных столбца → 6</span></button>
+<button class="art cont" data-art="4"><span class="val f">гор. + верт.: на каждое горизонтальное ровно один свободный столбец → 6</span></button>
+<button class="art cont" data-art="5"><span class="val f">48 · 15 = 720</span></button>
+<button class="art" data-art="6"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
 <main>
   
@@ -206,9 +225,11 @@
   <p class="sub">Национальный этап 2025 — решения</p>
 <div class="note st"><p class="st">⚠ <b>Внимание, ошибка в источниках.</b> В расшифровке условия доска записана как 4×4, а официальный ключ даёт ответ 6480. Ни то, ни другое не сходится: в оригинальном PDF доска <b>3×4</b>, и правильный ответ <b>720</b>. (Для 4×4 полный перебор даёт 6840 — то есть ключевые «6480» не отвечают даже на неправильную доску: там переставлены цифры.) Решаем на доске 3×4. Подробности — в <code>25-26/nandu_level1/national/README.md</code>, секция пары 3.</p></div>
 <p class="st"><b>🔍 С чего начать.</b> <b>Что здесь один способ?</b> Расположение всех четырёх фишек сразу. <b>Различимы ли фишки?</b> Тримино — да (красное и синее), квадратики — <b>нет</b> (оба зелёные). Это две разные арифметики в одной задаче. <b>Как разрезать выбор?</b> Сначала кладём два тримино (они мешают друг другу), потом квадратики — им достаточно любых двух свободных клеток.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Два тримино всегда съедают ровно 6 клеток, значит свободных <b>всегда ровно 6</b>, при любой их раскладке. Поэтому второй множитель — один и тот же для всех вариантов, и «И»-разрез работает честно: раскладку тримино и выбор клеток под квадратики можно считать независимо.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Два тримино всегда съедают ровно 6 клеток, значит свободных <b>всегда ровно 6</b>, при любой их раскладке. Поэтому второй множитель — один и тот же для всех вариантов, и «И»-разрез работает честно: раскладку тримино и выбор клеток под квадратики можно считать независимо.</p></div>
+<p class="st"><em>💬 «Любой вариант раскладки тримино сочетается с любым выбором клеток, и результат ни разу не повторяется» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="step st"><b>Шаг 1 — план.</b></p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = Т × В, где Т = число раскладок двух тримино (с учётом цвета), В = число способов выбрать 2 клетки из 6 свободных под одинаковые квадратики.</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = N(раскладок двух тримино) · N(пар свободных клеток)</p>
+<ul class="st"><li>N(раскладок двух тримино) — сколькими способами лягут красное и синее тримино</li><li>N(пар свободных клеток) — сколькими способами выбрать 2 клетки из 6 свободных под одинаковые зелёные квадратики</li></ul></div>
 <p class="step st"><b>Шаг 2 — нужна карта позиций одного тримино.</b> Доска 3 строки × 4 столбца.</p>
 <ul class="st"><li><b>горизонтально:</b> в строке из 4 клеток тримино встаёт на клетки 1–3 или 2–4 → 2 позиции в строке, строк 3 → <b>6</b></li><li><b>вертикально:</b> тримино занимает столбец целиком (высота доски ровно 3) → по одной позиции в каждом из 4 столбцов → <b>4</b></li></ul>
 <p class="st">Всего <b>10 позиций</b>.</p>
@@ -217,21 +238,32 @@
 <ul class="st"><li><b>два горизонтальных.</b> В одной строке они всегда налезают друг на друга (обе позиции делят клетки 2 и 3) → только разные строки, а в разных строках они не мешают никогда. Выбор двух строк: 3 пары; в каждой строке 2 позиции → 3 · 2 · 2 = <b>12 пар</b></li><li><b>два вертикальных.</b> Каждое занимает свой столбец целиком → достаточно взять два разных столбца: 4 · 3 : 2 = <b>6 пар</b></li><li><b>горизонтальное и вертикальное.</b> Горизонтальное на клетках 1–3 занимает столбцы 1, 2, 3 → вертикальному остаётся только столбец 4; на клетках 2–4 — только столбец 1. То есть на каждое горизонтальное ровно 1 вертикальное; горизонтальных 6 → <b>6 пар</b></li></ul>
 <p class="st">Итого <b>12 + 6 + 6 = 24 пары мест</b>.</p>
 <figure class="st"><svg viewBox="0 0 460 158" width="100%"  xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="40" y="20" width="28" height="84" fill="var(--red)" fill-opacity=".10"/><rect x="68" y="20" width="28" height="84" fill="var(--red)" fill-opacity=".10"/><rect x="96" y="20" width="28" height="84" fill="var(--red)" fill-opacity=".10"/><rect x="40" y="20" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="68" y="20" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="96" y="20" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="124" y="20" width="28" height="28" fill="#3a2f18" stroke="var(--gold)"/><rect x="40" y="48" width="28" height="28" fill="#16263a" stroke="var(--blue)"/><rect x="68" y="48" width="28" height="28" fill="#16263a" stroke="var(--blue)"/><rect x="96" y="48" width="28" height="28" fill="#16263a" stroke="var(--blue)"/><rect x="124" y="48" width="28" height="28" fill="#3a2f18" stroke="var(--gold)"/><rect x="40" y="76" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="68" y="76" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="96" y="76" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="124" y="76" width="28" height="28" fill="#3a2f18" stroke="var(--gold)"/><rect x="278" y="20" width="28" height="84" fill="var(--red)" fill-opacity=".10"/><rect x="306" y="20" width="28" height="84" fill="var(--red)" fill-opacity=".10"/><rect x="334" y="20" width="28" height="84" fill="var(--red)" fill-opacity=".10"/><rect x="250" y="20" width="28" height="28" fill="#3a2f18" stroke="var(--gold)"/><rect x="278" y="20" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="306" y="20" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="334" y="20" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="250" y="48" width="28" height="28" fill="#3a2f18" stroke="var(--gold)"/><rect x="278" y="48" width="28" height="28" fill="#16263a" stroke="var(--blue)"/><rect x="306" y="48" width="28" height="28" fill="#16263a" stroke="var(--blue)"/><rect x="334" y="48" width="28" height="28" fill="#16263a" stroke="var(--blue)"/><rect x="250" y="76" width="28" height="28" fill="#3a2f18" stroke="var(--gold)"/><rect x="278" y="76" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="306" y="76" width="28" height="28" fill="#161d29" stroke="#2c394c"/><rect x="334" y="76" width="28" height="28" fill="#161d29" stroke="#2c394c"/><text x="96" y="124" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">занято столбцов 1, 2, 3</text><text x="96" y="142" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="400">свободен только столбец 4</text><text x="306" y="124" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">занято столбцов 2, 3, 4</text><text x="306" y="142" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="400">свободен только столбец 1</text></svg><figcaption>Горизонтальное тримино задевает три столбца из четырёх, а вертикальному нужен свободный столбец целиком — поэтому на каждое горизонтальное приходится ровно одно вертикальное.</figcaption></figure>
+<p class="st"><em>💬 «Три сорта пар не повторяют друг друга и не оставляют ничего в стороне» — это мысль для фразы про полноту.</em></p>
 <p class="step st"><b>Шаг 4 — нужен цвет: тримино различимы.</b> Каждую пару мест можно раскрасить двумя способами (красное сюда, синее туда — или наоборот):</p>
-<p class="st">Т = 24 · 2 = <b>48</b></p>
+<p class="st">N(раскладок двух тримино) = 24 · 2 = <b>48</b></p>
 <p class="step st"><b>Шаг 5 — нужны квадратики.</b> Свободных клеток 12 − 6 = 6, квадратики одинаковые → выбираем <b>пару клеток</b>, порядок не важен:</p>
-<p class="st">В = 6 · 5 : 2 = <b>15</b></p>
+<p class="st">N(пар свободных клеток) = 6 · 5 : 2 = <b>15</b></p>
 <p class="step st"><b>Шаг 6 — сборка.</b></p>
 <p class="st">48 · 15 = <b>720</b></p>
 <p class="st"><b>Ответ: 720 способов.</b> <em>(ключ даёт 6480 — ошибка; 720 подтверждён полным компьютерным перебором по доске 3×4)</em></p>
 <p class="st"><b>⚠ Ловушки.</b> (1) Забыть, что тримино <b>разного цвета</b> — потеря множителя 2. (2) Наоборот, посчитать одинаковые зелёные квадратики как различимые — лишний множитель 2 (получится 1440). (3) Пропустить, что вертикальное тримино на доске высотой 3 занимает столбец целиком, — тогда карта позиций окажется неверной.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение и фраза про полноту входят в образец наравне с числами.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Elijo dónde van las rectangulares y después las verdes; cualquier opción del primero se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p></div>
+<p class="st"><em>Выбираю, куда лягут прямоугольные, и потом зелёные; любой вариант первого сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ = N(раскладок двух тримино) · N(пар свободных клеток)</div></div></div>
 <p class="st">Позиции одного тримино: горизонтальных 3 · 2 = 6, вертикальных 4 (высота доски ровно 3) → <b>10</b>.</p>
 <p class="st">Пары непересекающихся мест:</p>
-<ul class="st"><li>гор. + гор.: только в разных строках → 3 · 2 · 2 = 12</li><li>верт. + верт.: два разных столбца → 6</li><li>гор. + верт.: на каждое горизонтальное ровно один свободный столбец → 6</li></ul>
-<p class="st">Всего 24 пары мест. Тримино разного цвета → <b>Т = 24 · 2 = 48</b>.</p>
-<p class="st">Свободных клеток 12 − 6 = 6, квадратики одинаковые → <b>В = 6 · 5 : 2 = 15</b>.</p>
-<div class="frm st">48 · 15 = 720</div>
+<div id="a4" data-art="4"><ul class="st"><li>гор. + гор.: только в разных строках → 3 · 2 · 2 = 12</li><li>верт. + верт.: два разных столбца → 6</li><li>гор. + верт.: на каждое горизонтальное ровно один свободный столбец → 6</li></ul></div>
+<p class="st">Всего 24 пары мест. Тримино разного цвета → <b>N(раскладок двух тримино) = 24 · 2 = 48</b>.</p>
+<p class="st">Свободных клеток 12 − 6 = 6, квадратики одинаковые → <b>N(пар свободных клеток) = 6 · 5 : 2 = 15</b>.</p>
+<div id="a5" data-art="5"><div class="frm st">48 · 15 = 720</div></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a6" data-art="6"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <hr>
 <div class="pager"><a href="07-4-pakety-i-korobki-alfahorov-t1-celye-resheniya-.html">← №4 — пакеты и коробки альфахоров *(Т1‴: целые решения + минимум)*</a><a href="09-svodka-otvetov.html">Сводка ответов →</a></div>
 </main>

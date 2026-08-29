@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -200,8 +214,8 @@
   <button class="art" data-art="0"><span class="lbl">Ритуал 1</span><span class="val">Каждый данный периметр выписывай, ведя карандашом по границе и называя буквы по пути.</span></button>
 <button class="art" data-art="1"><span class="lbl">Ритуал 2</span><span class="val">Увидел «разрезана на N равных» — сразу заведи паре размеров имена (ширина и высота дольки) и подпиши все отрезки рисунка через них.</span></button>
 <button class="art" data-art="2"><span class="lbl">Ритуал 3</span><span class="val">Прежде чем писать периметр «прямоугольника из A, B и A», выпиши его устройство: сколько деталей в ряду и сколько рядов.</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">ширина блока<br>= ширина A + ширина B</span></button>
-<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">высота блока<br>= высота A + высота C</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">ширина блока = ширина A + ширина B</span></button>
+<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">высота блока = высота A + высота C</span></button>
 <button class="art" data-art="5"><span class="lbl">Ритуал 4</span><span class="val">Пропорция, середина, «точки на одной прямой», «фигуры образуют квадрат», «можно разрезать на N равных» — всё это уравнения.</span></button>
 </aside>
 <main>

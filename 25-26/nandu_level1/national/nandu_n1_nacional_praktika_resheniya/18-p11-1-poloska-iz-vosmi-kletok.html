@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,18 +207,23 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 18 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Соседние тройки перекрываются двумя клетками, поэтому крайние числа у них обязаны совпасть — и вся полоска оказывается не восемью независимыми…</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Одно заполнение полоски = один выбор числа a, потому что всё остальное считается:
-
-b = 11 − a
-
-полоска = (a, b, 7), повторённое до конца
-
-Осталось…</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.<br><em>Узор повторяется через 3 клетки, поэтому смотрю только остаток от деления на 3.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>a</code> — число в клетке 1</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>b</code> — в клетке 2; в клетке 3 стоит 7</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">b = 11 − a</span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">две соседние тройки дают «клетка 4 = клетка 1» → период 3</span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>a + b + 7 = 18</code> → <code>a + b = 11</code></span></button>
+<button class="art cont" data-art="6"><span class="val f">перебираю <code>a</code> подряд: <code>a = 1…10</code>, <code>a = 11</code> даёт <code>b = 0</code> — стоп</span></button>
+<button class="art cont" data-art="7"><span class="val f">а) 10 заполнений</span></button>
+<button class="art cont" data-art="8"><span class="val f">сумма <code>= 3a + 3b + 2 · 7 = 3 · 11 + 14 = 47</code>, от заполнения не зависит</span></button>
+<button class="art cont" data-art="9"><span class="val f">б) 47</span></button>
+<button class="art cont" data-art="10"><span class="val f">лишние семёрки только при <code>a = 7</code> и при <code>b = 7</code> — две строки списка</span></button>
+<button class="art cont" data-art="11"><span class="val f">в) <code>10 − 2 = 8</code></span></button>
+<button class="art" data-art="12"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 </aside>
 <main>
   
@@ -220,7 +239,7 @@ b = 11 − a
 <p class="st">в) В скольких заполнениях число 7 стоит ровно в двух клетках?</p>
 <p class="st">г) Объясни, почему ты нашёл все заполнения и почему больше их нет.</p>
 <p class="step st"><b>Шаг 0 — жанр.</b> «Выпиши все заполнения» — список. Значит, перебор должен идти строго по порядку, чтобы никого не потерять и не повторить.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Соседние тройки перекрываются двумя клетками, поэтому крайние числа у них обязаны совпасть — и вся полоска оказывается не восемью независимыми числами, а тремя повторяющимися. Клетки 1, 4, 7 — это одно и то же число, клетки 2, 5, 8 — другое, клетки 3 и 6 — третье. Значит, данная семёрка задаёт не одну клетку, а сразу всю свою полочку, а свободным остаётся одно-единственное число: выбрал его — полоска дописалась сама. По той же причине сумма всех восьми клеток обязана быть одной и той же во всех заполнениях: в неё входит только сумма a + b, а она равна 11 по условию.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Соседние тройки перекрываются двумя клетками, поэтому крайние числа у них обязаны совпасть — и вся полоска оказывается не восемью независимыми числами, а тремя повторяющимися. Клетки 1, 4, 7 — это одно и то же число, клетки 2, 5, 8 — другое, клетки 3 и 6 — третье. Значит, данная семёрка задаёт не одну клетку, а сразу всю свою полочку, а свободным остаётся одно-единственное число: выбрал его — полоска дописалась сама. По той же причине сумма всех восьми клеток обязана быть одной и той же во всех заполнениях: в неё входит только сумма a + b, а она равна 11 по условию.</p></div>
 <figure class="st"><svg viewBox="0 0 700 200" width="100%" style="max-width:700px;display:block;margin:0 auto" font-family="var(--sans)" font-size="13">
 <rect x="30" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="58" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="58" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">1</text><rect x="86" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="114" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="114" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">2</text><rect x="142" y="90" width="56" height="56" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="170" y="128" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">7</text><text x="170" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">3</text><rect x="198" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="226" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="226" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">4</text><rect x="254" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="282" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="282" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">5</text><rect x="310" y="90" width="56" height="56" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="338" y="128" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">7</text><text x="338" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">6</text><rect x="366" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="394" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="394" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">7</text><rect x="422" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="450" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="450" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">8</text>
 <rect x="30" y="90" width="168" height="56" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5 4"/>
@@ -230,12 +249,13 @@ b = 11 − a
 <text x="86" y="180" text-anchor="middle" fill="var(--muted)">общие две клетки</text>
 <text x="310" y="180" fill="var(--muted)">значит клетка 4 = клетке 1 — и дальше через три</text>
 </svg><figcaption>Соседние тройки делят две клетки, а сумма у них одна — поэтому крайние числа обязаны совпасть. Восемь клеток оказываются тремя повторяющимися, и свободного выбора остаётся один.</figcaption></figure>
+<p class="st"><em>💬 «Узор полоски повторяется через три клетки» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="step st"><b>Шаг 1 — период: свожу восемь клеток к двум.</b> Неизвестных восемь, перебирать их деревом нельзя — нужно, чтобы свободных клеток осталось как можно меньше; для этого сравниваю две соседние тройки:</p>
-<ul class="st"><li>беру две соседние тройки: клетки 1-2-3 и 2-3-4, обе дают 18, клетки 2 и 3 у них общие → клетка 1 = 18 − (клетка 2 + клетка 3), и клетка 4 = 18 − (клетка 2 + клетка 3);</li><li>справа у обеих стоит одно и то же число → клетка 4 = клетке 1;</li><li>то же в любом месте полоски → числа повторяются через три клетки — <b>период 3</b>;</li><li>раскладываю позиции по полочкам остатка при делении на 3 → остаток 1: клетки 1, 4, 7 · остаток 2: клетки 2, 5, 8 · остаток 0: клетки 3, 6;</li><li>дана клетка 3 — это полочка «остаток 0» → вся эта полочка равна 7;</li><li>называю клетку 1 буквой a, клетку 2 — буквой b; тогда узор полоски — это (a, b, 7), и он повторяется до конца → из тройки 1-2-3: a + b + 7 = 18, то есть a + b = 11 — одно равенство на две неизвестные клетки.</li></ul>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов.</b> Одно заполнение полоски = один выбор числа a, потому что всё остальное считается:</p>
+<ul class="st"><li>беру две соседние тройки: клетки 1-2-3 и 2-3-4, обе дают 18, клетки 2 и 3 у них общие → клетка 1 = 18 − (клетка 2 + клетка 3), и клетка 4 = 18 − (клетка 2 + клетка 3);</li><li>справа у обеих стоит одно и то же число → клетка 4 = клетке 1;</li><li>то же в любом месте полоски → числа повторяются через три клетки — <b>период 3</b>;</li><li>раскладываю позиции по полочкам остатка при делении на 3:</li><li>остаток 1: клетки 1, 4, 7</li><li>остаток 2: клетки 2, 5, 8</li><li>остаток 0: клетки 3, 6;</li><li>дана клетка 3 — это полочка «остаток 0» → вся эта полочка равна 7;</li><li>называю клетку 1 буквой a, клетку 2 — буквой b; тогда узор полоски — это (a, b, 7), и он повторяется до конца → из тройки 1-2-3: a + b + 7 = 18, то есть a + b = 11 — одно равенство на две неизвестные клетки.</li></ul>
+<div class="plan st"><p class="st">✅ <b>План готов.</b> Одно заполнение полоски = один выбор числа a, потому что всё остальное считается:</p>
 <div class="frm st">b = 11 − a</div>
 <p class="st">полоска = (a, b, 7), повторённое до конца</p>
-<p class="st">Осталось найти: все годные a — перебираю их по порядку, пока b остаётся положительным.</p></div></div>
+<p class="st">Осталось найти: все годные a — перебираю их по порядку, пока b остаётся положительным.</p></div>
 <p class="step st"><b>Шаг 2 — перебор (ответ а).</b> Нужен список всех заполнений — для этого перебираю a подряд, пока b остаётся положительным. a = 1 → b = 10; a = 2 → 9; a = 3 → 8; a = 4 → 7; a = 5 → 6; a = 6 → 5; a = 7 → 4; a = 8 → 3; a = 9 → 2; a = 10 → 1; a = 11 → b = 0 — стоп, ноль не положителен. Итого <b>10 заполнений</b>:</p>
 <div class="st"><div class="tw"><table>
 <tr><th>a</th><th>b</th><th>Полоска целиком</th></tr>
@@ -253,10 +273,31 @@ b = 11 − a
 <p class="step st"><b>Шаг 3 — сумма (ответ б).</b> На полочке «остаток 1» три клетки, на полочке «остаток 2» тоже три, на «остаток 0» — две. Сумма = 3a + 3b + 2 · 7 = 3 · (a + b) + 14 = 3 · 11 + 14 = <b>47</b>. От заполнения не зависит: в формулу входит только сумма a + b, а она задана условием.</p>
 <p class="step st"><b>Шаг 4 — где семёрок больше двух (ответ в).</b> Семёрка стоит в клетках 3 и 6 всегда — это две штуки. Лишние семёрки появляются, только если a = 7 (тогда семёрка ещё в клетках 1, 4, 7) или b = 7 (тогда в клетках 2, 5, 8). В моём списке это ровно две строки: (7, 4) и (4, 7). Значит, ровно две семёрки в 10 − 2 = <b>8 заполнениях</b>.</p>
 <p class="st"><b>Полнота (г).</b> Ни одно заполнение не потеряно: период доказан (две соседние тройки с общими клетками), поэтому вся полоска однозначно определяется парой (a, b), а пара — одним числом a, которое я перебрал подряд от наименьшего возможного до первого недопустимого. Ни одно не лишнее: разным a отвечают разные полоски (a стоит в первой клетке), значит, повторов в списке нет; каждое из десяти заполнений я проверил на условие «любые три подряд дают 18».</p>
+<p class="st"><em>💬 «Возможности пройдены по порядку, одна за другой» — это и есть мысль для фразы-полноты.</em></p>
 <p class="st"><b>Пересчёт вторым способом.</b> Сумма всей полоски по тройкам: клетки 1–3 дают 18, клетки 4–6 дают 18, остаются клетки 7 и 8, то есть a + b = 11. Всего 18 + 18 + 11 = 47 ✓ — сошлось, и это объясняет, почему сумма не зависит от заполнения.</p>
 <p class="st"><b>Ответ.</b> а) <b>10 заполнений</b> (в клетках 1 и 2 стоят числа, дающие в сумме 11: 1 и 10, 2 и 9, 3 и 8, 4 и 7, 5 и 6, 6 и 5, 7 и 4, 8 и 3, 9 и 2, 10 и 1; в клетке 3 стоит семёрка, и дальше эта тройка чисел повторяется до конца полоски).</p>
 <p class="st">б) Сумма всегда <b>47</b>, от заполнения она не зависит.</p>
 <p class="st">в) <b>8</b> заполнений.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.</b></p></div>
+<p class="st"><em>Узор повторяется через 3 клетки, поэтому смотрю только остаток от деления на 3.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a2" data-art="2"><ul class="st"><li><code>a</code> — число в клетке 1</li><li><code>b</code> — в клетке 2; в клетке 3 стоит 7</li></ul></div>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st"><code>b = 11 − a</code></div>
+<p class="st"><b>полоска = (a, b, 7), повторённое до конца</b></p></div></div>
+<div id="a6" data-art="6"><ul class="st"><li>две соседние тройки дают «клетка 4 = клетка 1» → период 3</li><li><code>a + b + 7 = 18</code> → <code>a + b = 11</code></li><li>перебираю <code>a</code> подряд: <code>a = 1…10</code>, <code>a = 11</code> даёт <code>b = 0</code> — стоп</li></ul></div>
+<div id="a7" data-art="7"><p class="st"><b>а) 10 заполнений</b></p></div>
+<div id="a8" data-art="8"><ul class="st"><li>сумма <code>= 3a + 3b + 2 · 7 = 3 · 11 + 14 = 47</code>, от заполнения не зависит</li></ul></div>
+<div id="a9" data-art="9"><p class="st"><b>б) 47</b></p></div>
+<div id="a10" data-art="10"><ul class="st"><li>лишние семёрки только при <code>a = 7</code> и при <code>b = 7</code> — две строки списка</li></ul></div>
+<div id="a11" data-art="11"><div class="frm st">в) <code>10 − 2 = 8</code></div></div>
+<p class="st">Проверка суммы по тройкам: <code>18 + 18 + 11 = 47</code> ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a12" data-art="12"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Перебор всех троек-узоров с положительными числами даёт ровно <b>10</b> полосок, у всех сумма <b>47</b>, ровно две семёрки — в <b>8</b> из них. Список совпал с таблицей разбора построчно.</p>
 <hr>

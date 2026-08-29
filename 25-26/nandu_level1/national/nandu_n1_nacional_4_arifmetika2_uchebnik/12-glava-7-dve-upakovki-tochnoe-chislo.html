@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -198,8 +212,8 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 12 из 16</p>
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">«Сок продают упаковками по 4 бутылки (90 песо за упаковку) и ящиками по 15 бутылок (300 песо за ящик).</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">4u + 15y<br>= 217</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = та пара из списка, у которой цена наименьшая</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">4u + 15y = 217</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = та пара из списка, у которой pre = min(pre)</span></button>
 <button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Остатки 15y ходят по кругу длиной 4, и вот почему.</span></button>
 </aside>
 <main>
@@ -211,12 +225,13 @@
 <div id="a1" data-art="1"><div class="frm st">4u + 15y = 217</div></div>
 <p class="st">Одно уравнение, <b>две</b> буквы. Ритуал перевода говорил: уравнений меньше, чем букв, — жди перебора целых чисел. Вот он. Но перебирать надо не в лоб, а <b>по остаткам</b>:</p>
 <p class="step st"><b>Шаг 1 — план.</b> Букв две, а уравнение одно — значит, попаданий в 217 может быть несколько, и, чтобы выбрать самое дешёвое, нужен их полный список (ритуал 4), а не первое подвернувшееся. Цена любой покупки считается по списку одинаково:</p>
-<div class="frm st">Цена = 90 · u + 300 · y</div>
+<div class="frm st">pre = 90 · u + 300 · y</div>
+<p class="st">Наименьшая цена по всему списку пишется <code>min(pre)</code> — «самое маленькое значение, какое <code>pre</code> может принять»; например, если бы в списке стояли цены 4770 и 4620, то <code>min(pre) = 4620</code>.</p>
 <p class="st">Собирать список буду не в лоб: остатки отсеют почти все <code>y</code>, а граница обрубит хвост.</p>
 <div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<p class="st"><code>Ответ = та пара из списка, у которой цена наименьшая</code></p>
-<div class="frm st">Цена = 90 · u + 300 · y</div>
-<p class="st"><code>u</code> — сколько упаковок по 4 бутылки (шт.); <code>y</code> — сколько ящиков по 15 бутылок (шт.); <code>список</code> — все пары целых <code>u ≥ 0</code>, <code>y ≥ 0</code>, для которых <code>4u + 15y = 217</code>.</p>
+<div class="frm st">Ответ = та пара из списка, у которой pre = min(pre)</div>
+<div class="frm st">pre = 90 · u + 300 · y</div>
+<p class="st"><code>u</code> — сколько упаковок по 4 бутылки (шт.); <code>y</code> — сколько ящиков по 15 бутылок (шт.); список — все пары целых <code>u ≥ 0</code>, <code>y ≥ 0</code>, для которых <code>4u + 15y = 217</code>.</p>
 <p class="st">Осталось найти: сам список, а потом цену каждой его пары.</p></div></div>
 <p class="step st"><b>Шаг 2 — перебор по остаткам: собираю кандидатов на <code>y</code>.</b> Кандидатов нужно немного — для этого смотрю на уравнение через остатки при делении на 4 (это коэффициент первой буквы). Слева стоит сумма двух слагаемых. Первое, <code>4u</code>, делится на 4 нацело и в остаток не приносит ничего. Значит, весь остаток левой части приносит второе слагаемое, <code>15y</code>, — а остаток левой части равен остатку правой, ведь это одно и то же число. Записываю деление правой части полной строкой:</p>
 <div class="frm st">217 = 54 · 4 + 1</div>
@@ -252,7 +267,23 @@
 <tr><td>28 уп. + 7 ящ.</td><td><code>2520 + 2100 = 4620</code></td></tr>
 <tr><td>13 уп. + 11 ящ.</td><td><code>1170 + 3300 = <b>4470</b></code> ✓ дешевле всего</td></tr>
 </table></div></div>
+<div class="frm st">min(pre) = 4470</div>
 <p class="st"><b>Ответ:</b> купить 13 упаковок и 11 ящиков — 4470 песо.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>Los que dejan el mismo resto al dividir por 4 van de 4 en 4, por eso los cuento saltando de 4 en 4.</b></p>
+<p class="st"><em>Числа с одинаковым остатком при делении на 4 идут через 4, поэтому считаю их шагами по 4.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st"><code>u</code> — упаковок по 4 бутылки; <code>y</code> — ящиков по 15; <code>pre</code> — цена покупки (песо).</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ = пара из списка, у которой pre = min(pre)</div></div>
+<ul class="st"><li><code>4u + 15y = 217</code>; <code>217 = 54 · 4 + 1</code>, то есть <code>res(217 : 4) = 1</code></li><li>такой же остаток у <code>15y</code> даёт <code>y = 3</code>, дальше через 4</li><li>граница <code>15y ≤ 217</code> → <code>y ≤ 14</code></li><li>список: <code>(43; 3)</code>, <code>(28; 7)</code>, <code>(13; 11)</code></li><li><code>pre = 90u + 300y</code> → <code>4770</code>, <code>4620</code>, <code>4470</code></li></ul>
+<p class="st"><b>min(pre) = 4470</b> при <code>u = 13</code>, <code>y = 11</code></p>
+<p class="st">Проверка: <code>52 + 165 = 217</code> ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p>
+<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <p class="st"><b>Типичные ошибки:</b></p>
 <ol class="st num"><li><span class="lin">1.</span> <b>Перебор в лоб по большой букве.</b> У <code>u</code> пятьдесят с лишним кандидатов, у остатков <code>y</code> — четыре, а дальше круг. Всегда смотри уравнение по модулю одного из коэффициентов.</li><li><span class="lin">2.</span> <b>Жадность без проверки.</b> «Ящик дешевле за бутылку — беру одни ящики»: но <code>217</code> ящиками не набирается (<code>217/15</code> не целое). Точное попадание обеспечивает только список из шага 3.</li><li><span class="lin">3.</span> <b>Потерять границу.</b> Кандидаты <code>y = 3, 7, 11, 15, …</code> обрываются на <code>15y ≤ 217</code>; забудешь — получишь отрицательные упаковки.</li></ol>
 <hr>

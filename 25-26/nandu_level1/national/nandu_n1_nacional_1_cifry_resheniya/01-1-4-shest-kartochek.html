@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,25 +207,32 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Три взятые и три оставшиеся вместе дают всю сумму.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ = все тройки, сумма которых равна половине общей суммы.</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">1 + 4 + 6 + 7 + 10 + 12<br>= 40</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Las dos partes son iguales y juntas dan el total, así que cada una es exactamente la mitad.<br><em>Две части равны, а вместе дают всё целое, — значит каждая ровно половина.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = все тройки с суммой S(тройки).</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">S(всех) = 1 + 4 + 6 + 7 + 10 + 12 = 40</span></button>
+<button class="art cont" data-art="3"><span class="val f"><b>S(тройки) = 40 : 2 = 20</b> — половина целая, привратник пропускает (ответ на «а»)</span></button>
+<button class="art cont" data-art="4"><span class="val f">12 → добрать 8 = 1 + 7 → <b>{1, 7, 12}</b></span></button>
+<button class="art cont" data-art="5"><span class="val f">10 → добрать 10 = 4 + 6 → <b>{4, 6, 10}</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">7 → вся тройка не больше 4 + 6 + 7 = 17 &lt; 20</span></button>
+<button class="art cont" data-art="7"><span class="val f">6 и меньше → не больше 1 + 4 + 6 = 11</span></button>
+<button class="art cont" data-art="8"><span class="val f">2 выбора: {1, 7, 12} и {4, 6, 10}</span></button>
+<button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 </aside>
 <main>
   <p class="partlab">Блок 1 — Чёт и нечёт</p>
   <h1>1.4 ⭐ Шесть карточек</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Шесть карточек: 1, 4, 6, 7, 10, 12. Ури хочет взять три карточки так, чтобы их сумма равнялась сумме оставшихся. а) Проверь привратником, возможно ли это вообще. б) Найди все способы. Сколько выборов у Ури?</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Три взятые и три оставшиеся вместе дают <b>всю</b> сумму. Если их суммы равны, каждая — ровно половина всей. Значит, искать надо не «две равные кучки», а тройку с заранее известной суммой: расплывчатое требование превратилось в конечный перебор.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Три взятые и три оставшиеся вместе дают <b>всю</b> сумму. Если их суммы равны, каждая — ровно половина всей. Значит, искать надо не «две равные кучки», а тройку с заранее известной суммой: расплывчатое требование превратилось в конечный перебор.</p></div>
 <figure class="st"><div class="fgrid" style="gap:20px;align-items:center"><div class="cbox"><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span><span class="clab">три взятые</span></div><span class="eq">+</span><div class="cbox"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="clab">три оставшиеся</span></div><span class="eq">=</span><div class="fcol" style="align-items:center"><span class="flab">все шесть карточек</span><span class="num"><span class="d gr">4</span><span class="d gr">0</span></span></div></div><div class="flab" style="margin-top:14px">кучки равны &nbsp;→&nbsp; каждая ровно половина: <span style="color:var(--gold)">20</span> и <span style="color:var(--blue)">20</span></div><figcaption>Расплывчатое «две равные кучки» превращается в конечный поиск: сумма тройки известна заранее, ещё до всякого перебора.</figcaption></figure>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все тройки, сумма которых равна половине общей суммы.</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все тройки, сумма которых равна половине общей суммы.</p></div>
 <p class="st"><b>Ход.</b></p>
 <p class="st">Сумма всех шести:</p>
-<div id="a2" data-art="2"><div class="frm st">1 + 4 + 6 + 7 + 10 + 12 = 40</div></div>
+<div class="frm st">1 + 4 + 6 + 7 + 10 + 12 = 40</div>
 <p class="st">Половина 40 : 2 = 20 — целая, <b>привратник пропускает</b> (это ответ на «а»).</p>
 <p class="st">Теперь нужны все тройки с суммой 20, и ни одна не должна потеряться или повториться. Различаю тройки по самой большой карточке: у каждой она ровно одна, поэтому ветки не налезают друг на друга и вместе покрывают всё. Иду по веткам сверху вниз, а внутри ветки ищу пару по меньшей карточке подряд:</p>
 <div class="st"><div class="tw"><table>
@@ -222,6 +243,24 @@
 <tr><td>6 и меньше</td><td>—</td><td>—</td><td>вся тройка не больше 1 + 4 + 6 = 11</td><td>нет</td></tr>
 </table></div></div>
 <p class="st"><b>Ответ:</b> а) возможно; б) <b>2 выбора</b> — {1, 7, 12} и {4, 6, 10}. Заметь: это одна и та же разрезка колоды пополам, просто Ури может взять любую из двух половин.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Las dos partes son iguales y juntas dan el total, así que cada una es exactamente la mitad.</b></p></div>
+<p class="st"><em>Две части равны, а вместе дают всё целое, — значит каждая ровно половина.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">S(всех) — сумма всех шести карточек; S(тройки) — сумма выбранной тройки. Значок <code>S(…)</code> — «сумма того, что названо в скобках».</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">S(тройки) = S(всех) : 2</div>
+<p class="st">Ответ = все тройки с суммой S(тройки).</p></div></div>
+<div id="a3" data-art="3"><ul class="st"><li>S(всех) = 1 + 4 + 6 + 7 + 10 + 12 = 40</li><li><b>S(тройки) = 40 : 2 = 20</b> — половина целая, привратник пропускает (ответ на «а»)</li></ul></div>
+<p class="st">Ветки по самой большой карточке тройки:</p>
+<div id="a7" data-art="7"><ul class="st"><li>12 → добрать 8 = 1 + 7 → <b>{1, 7, 12}</b></li><li>10 → добрать 10 = 4 + 6 → <b>{4, 6, 10}</b></li><li>7 → вся тройка не больше 4 + 6 + 7 = 17 &lt; 20</li><li>6 и меньше → не больше 1 + 4 + 6 = 11</li></ul></div>
+<div id="a8" data-art="8"><div class="frm st">2 выбора: {1, 7, 12} и {4, 6, 10}</div></div>
+<p class="st">Проверка: 1 + 7 + 12 = 20 и 4 + 6 + 10 = 20 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a9" data-art="9"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <hr>
 <div class="pager"><a href="02-1-5-plyusy-i-minusy-do-25.html">1.5 ⭐⭐ Плюсы и минусы до 25 →</a></div>
 </main>

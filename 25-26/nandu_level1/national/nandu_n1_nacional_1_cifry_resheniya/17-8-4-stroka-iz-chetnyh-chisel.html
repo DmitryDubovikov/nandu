@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,22 +207,20 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 17 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Блоки в этом списке не те же самые, что в строке всех чисел подряд: однозначных чётных всего четыре, а не девять, двузначных сорок пять, а не…</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ (а) = сумма длин блоков; (б) = цифра по адресу, который даст деление с остатком внутри нужного блока.</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">50 − 4<br>= 46<br>= 2 · 23 + 0</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">10 + 2 · 22<br>= 54</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">а) 97 цифр</span></button>
+<button class="art cont" data-art="1"><span class="val f">б) позиция 50 в блоке двузначных: 50 − 4 = 46 = 2 · 23 + 0</span></button>
 </aside>
 <main>
   <p class="partlab">Блок 8 — Позиции в длинных списках</p>
   <h1>8.4 ⭐ Строка из чётных чисел</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Выписали подряд все чётные числа от 2 до 100: 24681012…100. а) Сколько цифр в строке? б) Какая цифра стоит на 50-м месте?</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Блоки в этом списке <b>не те же самые</b>, что в строке всех чисел подряд: однозначных чётных всего четыре, а не девять, двузначных сорок пять, а не девяносто. Готовые числа из прошлой задачи сюда не переносятся — таблицу блоков надо строить заново под этот список.</p></div></div>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ (а) = сумма длин блоков; (б) = цифра по адресу, который даст деление с остатком внутри нужного блока.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Блоки в этом списке <b>не те же самые</b>, что в строке всех чисел подряд: однозначных чётных всего четыре, а не девять, двузначных сорок пять, а не девяносто. Готовые числа из прошлой задачи сюда не переносятся — таблицу блоков надо строить заново под этот список.</p></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ (а) = сумма длин блоков; (б) = цифра по адресу, который даст деление с остатком внутри нужного блока.</p></div>
 <p class="st"><b>Ход.</b></p>
 <p class="st">Строю таблицу блоков <b>этого</b> списка с накопленным итогом:</p>
 <div class="st"><div class="tw"><table>
@@ -219,11 +231,25 @@
 </table></div></div>
 <p class="st">→ <b>97 цифр</b> (ответ на а)</p>
 <p class="st">Позиция 50: по накопленному итогу первые 4 места — однозначные, а до конца двузначных идёт 94-е, значит 50-е место сидит в блоке двузначных. Считаю от начала блока:</p>
-<div id="a2" data-art="2"><div class="frm st">50 − 4 = 46 = 2 · 23 + 0</div></div>
-<p class="st">Остаток 0 значит «последняя цифра текущего числа», то есть вторая цифра 23-го двузначного чётного. Само 23-е число цепочки 10, 12, …:</p>
-<div id="a3" data-art="3"><div class="frm st">10 + 2 · 22 = 54</div></div>
+<div class="frm st">50 − 4 = 46 = 2 · 23 + 0</div>
+<p class="st">Остаток нулевой, res(46 : 2) = 0, а это значит «последняя цифра текущего числа», то есть вторая цифра 23-го двузначного чётного. Само 23-е число цепочки 10, 12, …:</p>
+<div class="frm st">10 + 2 · 22 = 54</div>
 <p class="st">Его вторая цифра — <b>4</b>.</p>
 <p class="st"><b>Ответ:</b> а) <b>97 цифр</b>; б) <b>4</b> (вторая цифра числа 54).</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Блоки <b>этого</b> списка (только чётные):</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Блок</th><th>Чисел</th><th>Цифр</th><th>Итог</th></tr>
+<tr><td>2, 4, 6, 8</td><td>4</td><td>4</td><td>4</td></tr>
+<tr><td>10, 12, …, 98</td><td>(98 − 10) : 2 + 1 = 45</td><td>90</td><td>94</td></tr>
+<tr><td>100</td><td>1</td><td>3</td><td><b>97</b></td></tr>
+</table></div></div>
+<div id="a0" data-art="0"><p class="st"><b>а) 97 цифр</b></p></div>
+<div id="a1" data-art="1"><div class="frm st">б) позиция 50 в блоке двузначных: 50 − 4 = 46 = 2 · 23 + 0</div></div>
+<p class="st">res(46 : 2) = 0 → последняя цифра 23-го двузначного чётного</p>
+<p class="st">23-е в цепочке: 10 + 2 · 22 = 54 → <b>цифра 4</b></p>
 <hr>
 <div class="pager"><a href="16-7-4-udar-udar-draka.html">← 7.4 ⭐ УДАР + УДАР = ДРАКА</a><a href="18-8-5-dvuznachnye-po-dva-raza.html">8.5 ⭐⭐ Двузначные по два раза →</a></div>
 </main>

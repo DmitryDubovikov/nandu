@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,27 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ(а) = 800sh — то, что останется от разности двух денежных сценариев</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Las dos situaciones se diferencian solo en las carpas de 6 lugares, por eso las resto.<br><em>Две ситуации различаются только шестиместными палатками, поэтому вычитаю одну из другой.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>d</code> — палаток на 2 места</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>ch</code> — на 4</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>sh</code> — на 6</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">Ответ(а) = 800sh</span></button>
+<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f"><code>d + ch + sh = 60</code></span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>300d + 500ch + 800sh = 35500</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>300d + 500ch = 13900</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>800sh = 35500 − 13900 = 21600</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>sh = 21600 : 800 = 27</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>d + ch = 60 − 27 = 33</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>3d + 5ch = 139</code></span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>3 · (33 − ch) + 5ch = 139</code> → <code>ch = 20</code> → <code>d = 13</code></span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>4 · 20 + 6 · 27 = 242</code></span></button>
+<button class="art cont" data-art="14"><span class="val f"><code>13 + 20 + 27 = 60</code> ✓</span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>3900 + 10000 + 21600 = 35500</code> ✓</span></button>
+<button class="art cont" data-art="16"><span class="val f"><code>3900 + 10000 = 13900</code> ✓</span></button>
 </aside>
 <main>
   
@@ -218,12 +248,13 @@
 <tr><td>«среда: без шестиместных» — снова песо</td><td><code>300d + 500ch = 13900</code></td></tr>
 </table></div></div>
 <p class="st">Два денежных сценария отличаются ровно шестиместными палатками — значит, вопрос а) решается их разностью, и он же даёт число <code>sh</code> для вопроса б). А вопрос в) считает уже не деньги, а места в занятых палатках четверга.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<p class="st"><em>💬 «Две ситуации различаются только шестиместными палатками» — это и есть мысль для фразы-объяснения.</em></p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b></p>
 <p class="st">Ответ(а) = <code>800sh</code> — то, что останется от разности двух денежных сценариев</p>
 <p class="st">Ответ(б) = тройка <code>d</code>, <code>ch</code>, <code>sh</code></p>
 <p class="st">Ответ(в) = <code>4·ch + 6·sh</code></p>
-<p class="st">Буквы: <code>d</code> — двухместных палаток · <code>ch</code> — четырёхместных · <code>sh</code> — шестиместных.</p>
-<p class="st">Осталось найти: <code>sh</code> (из разности сценариев), затем <code>d</code> и <code>ch</code> (из пары «всего 60» и «среда»).</p></div></div>
+<p class="st">Буквы: <code>d</code> — двухместных палаток; <code>ch</code> — четырёхместных; <code>sh</code> — шестиместных.</p>
+<p class="st">Осталось найти: <code>sh</code> (из разности сценариев), затем <code>d</code> и <code>ch</code> (из пары «всего 60» и «среда»).</p></div>
 <p class="step st"><b>Шаг 2 — считаю деньги за шестиместные (вопрос а).</b> Нужны песо, которые приносят одни шестиместные, — для этого вычитаю второй денежный сценарий из первого:</p>
 <p class="st"><code>(300d + 500ch + 800sh) − (300d + 500ch)</code> → <code>800sh = 35500 − 13900 = 21600</code>.</p>
 <p class="st">→ одни шестиместные палатки дали бы <b>21 600 песо</b>.</p>
@@ -234,6 +265,21 @@
 <ul class="st"><li>места в четырёхместных → <code>20 · 4 = 80</code>;</li><li>места в шестиместных → <code>27 · 6 = 162</code>;</li><li>всего человек в четверг → <code>80 + 162 = 242</code>.</li></ul>
 <p class="st">→ <b>242 человека.</b></p>
 <p class="st"><b>Ответ.</b> а) 21 600 песо. б) 13 двухместных, 20 четырёхместных, 27 шестиместных. в) 242 человека.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Las dos situaciones se diferencian solo en las carpas de 6 lugares, por eso las resto.</b></p></div>
+<p class="st"><em>Две ситуации различаются только шестиместными палатками, поэтому вычитаю одну из другой.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a3" data-art="3"><ul class="st"><li><code>d</code> — палаток на 2 места</li><li><code>ch</code> — на 4</li><li><code>sh</code> — на 6</li></ul></div>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(а) = 800sh</div>
+<div class="frm st">Ответ(б) = d, ch, sh</div>
+<div class="frm st">Ответ(в) = 4ch + 6sh</div></div></div>
+<div id="a12" data-art="12"><ul class="st"><li><code>d + ch + sh = 60</code></li><li><code>300d + 500ch + 800sh = 35500</code></li><li><code>300d + 500ch = 13900</code></li><li><code>800sh = 35500 − 13900 = 21600</code></li><li><code>sh = 21600 : 800 = 27</code></li><li><code>d + ch = 60 − 27 = 33</code></li><li><code>3d + 5ch = 139</code></li><li><code>3 · (33 − ch) + 5ch = 139</code> → <code>ch = 20</code> → <code>d = 13</code></li></ul></div>
+<div id="a13" data-art="13"><div class="frm st"><code>4 · 20 + 6 · 27 = 242</code></div></div>
+<p class="st">Проверка:</p>
+<div id="a16" data-art="16"><ul class="st"><li><code>13 + 20 + 27 = 60</code> ✓</li><li><code>3900 + 10000 + 21600 = 35500</code> ✓</li><li><code>3900 + 10000 = 13900</code> ✓</li></ul></div>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Первый способ — вычитание сценариев и подстановка. Второй — <b>перебор по числу четырёхместных палаток</b> в уравнении среды, независимо от того, как я решал систему. Ищу целые <code>d ≥ 0</code>, <code>ch ≥ 0</code> с <code>d + ch = 33</code> и <code>3d + 5ch = 139</code>. Подставляю <code>d = 33 − ch</code>: <code>99 + 2ch = 139</code>, то есть <code>2ch = 40</code> — единственное целое решение <code>ch = 20</code>. Ни одно другое значение <code>ch</code> от 0 до 33 не даёт 139: при <code>ch = 19</code> выходит 137, при <code>ch = 21</code> — 141. Решение единственное.</p>
 <p class="st">Подстановка в исходные данные: палаток <code>13 + 20 + 27 = 60</code> ✓; выручка со всех палаток <code>3900 + 10000 + 21600 = 35500</code> ✓; выручка в среду <code>3900 + 10000 = 13900</code> ✓. Сошлось.</p>

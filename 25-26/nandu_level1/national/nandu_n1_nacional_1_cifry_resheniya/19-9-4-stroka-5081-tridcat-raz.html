@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,28 +207,49 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 19 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Считать надо не то, что остаётся, а то, что уносят вычеркнутые: про оставшиеся известна только их сумма, а про вычеркнутые сразу всё — они обязаны…</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ = наименьшее число цифр, уносящих ровно У, где У = вся сумма строки минус 300. Плюс два шага полноты (Ч5): «меньше нельзя» и «ровно собрано».</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Para que lo que queda sea lo menor posible saco primero los más grandes, y cualquier otro orden saca menos.<br><em>Чтобы остаток был как можно меньше, убираю сначала самые большие, — любой другой порядок уносит меньше.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">S(унести) = (сумма всей строки) − 300</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">сумма строки = (5 + 0 + 8 + 1) · 30 = 14 · 30 = 420 → <b>S(унести) = 120</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">жадно восьмёрками: 120 : 8 = 15, а восьмёрок в строке 30 — хватает</span></button>
+<button class="art cont" data-art="4"><span class="val f">меньше нельзя: самая большая цифра 8 → 14 цифр унесут ≤ 14 · 8 = 112 &lt; 120</span></button>
+<button class="art cont" data-art="5"><span class="val f">ровно собрано: 8 · 15 = 120 ✓</span></button>
+<button class="art cont" data-art="6"><span class="val f">нули не трогаем: они не уносят ничего</span></button>
+<button class="art cont" data-art="7"><span class="val f">15 цифр — пятнадцать восьмёрок</span></button>
+<button class="art" data-art="8"><span class="lbl">💬 Полнота</span><span class="val ph">Menos de 15 cifras no se puede, porque catorce ochos sacan 112 y hacen falta 120; y con 15 ochos se logra, así que el mínimo es 15 cifras.<br><em>Меньше 15 цифр быть не может, потому что четырнадцать восьмёрок уносят 112, а надо 120; а 15 восьмёрок достигается вот так, — значит минимум равен 15 цифр.</em></span></button>
 </aside>
 <main>
   <p class="partlab">Блок 9 — Сумма цифр списка и жадный выбор</p>
   <h1>9.4 ⭐ Строка «5081» тридцать раз</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Порцию «5081» повторили 30 раз (120 цифр). Вычеркни как можно меньше цифр, чтобы сумма оставшихся стала 300. Сколько цифр вычеркнуть и каких? Оба шага полноты — письменно.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Считать надо не то, что остаётся, а то, что <b>уносят</b> вычеркнутые: про оставшиеся известна только их сумма, а про вычеркнутые сразу всё — они обязаны унести ровно лишнее. И раз цифр надо как можно меньше, каждая должна работать на полную, то есть быть самой большой из доступных.</p></div></div>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = наименьшее число цифр, уносящих ровно У, где У = вся сумма строки минус 300. Плюс два шага полноты (Ч5): «меньше нельзя» и «ровно собрано».</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Считать надо не то, что остаётся, а то, что <b>уносят</b> вычеркнутые: про оставшиеся известна только их сумма, а про вычеркнутые сразу всё — они обязаны унести ровно лишнее. И раз цифр надо как можно меньше, каждая должна работать на полную, то есть быть самой большой из доступных.</p></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = наименьшее число цифр, уносящих ровно S(унести), где S(унести) = вся сумма строки минус 300. Плюс два шага полноты (Ч5): «меньше нельзя» и «ровно собрано».</p></div>
 <p class="st"><b>Ход.</b></p>
 <p class="st">Сумма всей строки: (5 + 0 + 8 + 1) · 30 = 14 · 30 = 420.</p>
-<p class="st">Унести надо У = 420 − 300 = <b>120</b>.</p>
+<p class="st">Унести надо S(унести) = 420 − 300 = <b>120</b>.</p>
 <p class="st">Жадно беру самые большие цифры — восьмёрки: 120 : 8 = 15, а восьмёрок в строке ровно 30 — хватает.</p>
 <p class="st">Полнота, шаг «меньше нельзя»: самая большая цифра строки — 8, значит 14 цифр унесут максимум 14 · 8 = 112 &lt; 120. Мало.</p>
 <p class="st">Полнота, шаг «ровно собрано»: 15 восьмёрок дают ровно 8 · 15 = 120 ✓ — без перелёта.</p>
 <p class="st">Нули вычёркивать бессмысленно: они не уносят ничего, а в счёт цифр идут.</p>
 <p class="st"><b>Ответ:</b> вычеркнуть <b>15 цифр — пятнадцать восьмёрок</b>.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Para que lo que queda sea lo menor posible saco primero los más grandes, y cualquier otro orden saca menos.</b></p></div>
+<p class="st"><em>Чтобы остаток был как можно меньше, убираю сначала самые большие, — любой другой порядок уносит меньше.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">S(унести) — сколько суммы надо унести.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">S(унести) = (сумма всей строки) − 300</div></div></div>
+<div id="a6" data-art="6"><ul class="st"><li>сумма строки = (5 + 0 + 8 + 1) · 30 = 14 · 30 = 420 → <b>S(унести) = 120</b></li><li>жадно восьмёрками: 120 : 8 = 15, а восьмёрок в строке 30 — хватает</li><li>меньше нельзя: самая большая цифра 8 → 14 цифр унесут ≤ 14 · 8 = 112 &lt; 120</li><li>ровно собрано: 8 · 15 = 120 ✓</li><li>нули не трогаем: они не уносят ничего</li></ul></div>
+<div id="a7" data-art="7"><p class="st"><b>15 цифр — пятнадцать восьмёрок</b></p></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a8" data-art="8"><p class="st"><b>Menos de 15 cifras no se puede, porque catorce ochos sacan 112 y hacen falta 120; y con 15 ochos se logra, así que el mínimo es 15 cifras.</b></p></div>
+<p class="st"><em>Меньше 15 цифр быть не может, потому что четырнадцать восьмёрок уносят 112, а надо 120; а 15 восьмёрок достигается вот так, — значит минимум равен 15 цифр.</em></p>
 <hr>
 <div class="pager"><a href="18-8-5-dvuznachnye-po-dva-raza.html">← 8.5 ⭐⭐ Двузначные по два раза</a><a href="20-9-5-stroka-195-vosemnadcat-raz.html">9.5 ⭐⭐ Строка «195» восемнадцать раз →</a></div>
 </main>

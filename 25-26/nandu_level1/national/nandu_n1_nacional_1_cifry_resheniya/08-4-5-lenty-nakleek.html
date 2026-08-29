@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,20 +207,21 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 8 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Обе ленты кратны трём — и по 3, и по 9.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ по каждому числу = сначала привратник «делится ли на 3» (по признаку из главы), и если он пропустил — предъявленный набор лент.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Un número es múltiplo de 3 exactamente cuando la suma de sus cifras lo es, por eso trabajo con la suma.<br><em>Число делится на 3 ровно тогда, когда на 3 делится сумма его цифр, — поэтому работаю с суммой.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">2026 → 2 + 0 + 2 + 6 = 10, на 3 не делится → <b>нельзя</b></span></button>
+<button class="art cont" data-art="2"><span class="val f">2025 → 2 + 0 + 2 + 5 = 9, делится и на 3, и на 9 → запрета нет</span></button>
 </aside>
 <main>
   
   <h1>4.5 ⭐⭐ Ленты наклеек</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Наклейки продают только лентами: по 3 штуки и по 9 штук. Может ли Бруно купить ровно 2026 наклеек? А ровно 2025? Объясни оба ответа.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Обе ленты кратны трём — и по 3, и по 9. Значит, сколько бы лент Бруно ни взял и в каком угодно сочетании, вся покупка складывается из кусков, кратных 3, и потому сама кратна 3. Это <b>привратник</b>: проверять надо не «какие бывают наборы лент», а одно-единственное свойство итогового числа. И помни правило привратника: закрытая дверь — готовый ответ «нельзя», а открытая — ещё не «можно», за ней надо предъявить настоящую покупку.</p></div></div>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ по каждому числу = сначала привратник «делится ли на 3» (по признаку из главы), и если он пропустил — предъявленный набор лент.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Обе ленты кратны трём — и по 3, и по 9. Значит, сколько бы лент Бруно ни взял и в каком угодно сочетании, вся покупка складывается из кусков, кратных 3, и потому сама кратна 3. Это <b>привратник</b>: проверять надо не «какие бывают наборы лент», а одно-единственное свойство итогового числа. И помни правило привратника: закрытая дверь — готовый ответ «нельзя», а открытая — ещё не «можно», за ней надо предъявить настоящую покупку.</p></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ по каждому числу = сначала привратник «делится ли на 3» (по признаку из главы), и если он пропустил — предъявленный набор лент.</p></div>
 <p class="step st"><b>Шаг 1 — проверяю 2026 привратником.</b> Признак смотрит на сумму цифр:</p>
 <div class="frm st">2 + 0 + 2 + 6 = 10</div>
 <p class="st">10 на 3 не делится → и 2026 на 3 не делится.</p>
@@ -219,6 +234,16 @@
 <div class="frm st">2025 : 9 = 225</div>
 <p class="st">→ <b>225 лент по 9</b> дают ровно 2025 ✓ (годится и 675 лент по 3)</p>
 <p class="step st"><b>Шаг 4 — сборка.</b> 2026 — <b>нельзя</b>, и причина в делимости на 3. 2025 — <b>можно</b>, например 225 лент по 9.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Un número es múltiplo de 3 exactamente cuando la suma de sus cifras lo es, por eso trabajo con la suma.</b></p></div>
+<p class="st"><em>Число делится на 3 ровно тогда, когда на 3 делится сумма его цифр, — поэтому работаю с суммой.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Обе ленты кратны 3 → любая покупка кратна 3.</p>
+<div id="a2" data-art="2"><ul class="st"><li>2026 → 2 + 0 + 2 + 6 = 10, на 3 не делится → <b>нельзя</b></li><li>2025 → 2 + 0 + 2 + 5 = 9, делится и на 3, и на 9 → запрета нет</li></ul></div>
+<p class="st">Предъявляю покупку: 2025 : 9 = 225 → <b>225 лент по 9</b></p>
+<p class="st">Проверка: 225 · 9 = 2025 ✓</p>
 <hr>
 <div class="pager"><a href="07-4-4-chisla-memy.html">← 4.4 ⭐ Числа Мемы</a><a href="09-5-4-kopilki-bruno-i-loly.html">5.4 ⭐ Копилки Бруно и Лолы →</a></div>
 </main>

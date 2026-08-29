@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,21 +207,36 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 8 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Результат перевода
-
-2p + w + v = 134
-w + m = 66
-p + v = 74
-w + 2t = 96
-m = (3/5)·v
-
-p = AB = CD · w = BC = PQ · m = BP = CQ · v = AH = DE · t =…</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ = три периметра, собранные из кирпичиков p, w, m, v, t, а все кирпичики — из одной неизвестной w.</span></button>
-<button class="art" data-art="2"><span class="lbl">Заметь главное</span><span class="val">Ножки арки одинаковой ширины — это сказано в условии первой же строкой, и из-за этого ширина всего прямоугольника ADEH складывается как «ножка +…</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики:</span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>p</code> = AB = CD</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>w</code> = BC = PQ = MN</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>m</code> = BP = CQ</span></button>
+<button class="art cont" data-art="4"><span class="val f"><code>v</code> = AH = DE</span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>t</code> = PT = TQ</span></button>
+<button class="art" data-art="6"><span class="lbl">План</span><span class="val f">Ответ(а) = P(MPQN) = 2 · (w + (v − m))</span></button>
+<button class="art" data-art="7"><span class="lbl">На туре</span><span class="val f"><code>P(ADEH) = 268</code> → <code>2p + w + v = 134</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>P(BCQP) = 132</code> → <code>w + m = 66</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>P(ABMH) = 148</code> → <code>p + v = 74</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>P(PTQ) = 96</code> → <code>w + 2t = 96</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>PB = 3/5 · AH</code> → <code>m = 3/5 · v</code></span></button>
+<button class="art cont" data-art="12"><span class="val f">удваиваю третье и вычитаю первое → <code>v − w = 14</code></span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>66 − w = 3/5 · (w + 14)</code> → <code>8w = 288</code> → <code>w = 36</code></span></button>
+<button class="art cont" data-art="14"><span class="val f"><code>v = 50</code></span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>m = 30</code></span></button>
+<button class="art cont" data-art="16"><span class="val f"><code>p = 24</code></span></button>
+<button class="art cont" data-art="17"><span class="val f"><code>t = 30</code></span></button>
+<button class="art cont" data-art="18"><span class="val f"><code>MP = v − m = 50 − 30 = 20</code></span></button>
+<button class="art cont" data-art="19"><span class="val f"><code>P(MPQN) = 2 · (36 + 20) = 112</code></span></button>
+<button class="art cont" data-art="20"><span class="val f"><code>P(BCNM) = 2 · (36 + 50) = 172</code></span></button>
+<button class="art cont" data-art="21"><span class="val f"><code>P(ABPTQCDEH) = 24 + 30 + 30 + 30 + 30 + 24 + 50 + 84 + 50 = 352</code></span></button>
+<button class="art cont" data-art="22"><span class="val f"><code>2 · (84 + 50) = 268</code> ✓</span></button>
+<button class="art cont" data-art="23"><span class="val f"><code>2 · (36 + 30) = 132</code> ✓</span></button>
+<button class="art cont" data-art="24"><span class="val f"><code>2 · (24 + 50) = 148</code> ✓</span></button>
+<button class="art cont" data-art="25"><span class="val f"><code>36 + 30 + 30 = 96</code> ✓</span></button>
 </aside>
 <main>
   
@@ -227,23 +256,23 @@ p = AB = CD · w = BC = PQ · m = BP = CQ · v = AH = DE · t =…</span></butto
 <p class="st">Кирпичики: <code>p</code> = AB = CD (ширина ножки), <code>w</code> = BC = PQ = MN (ширина выреза), <code>m</code> = BP = CQ (высота выреза), <code>v</code> = AH = DE (высота фигуры), <code>t</code> = PT = TQ (боковая сторона зубца).</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td>периметр ADEH = 268: ширина AD = p + w + p</td><td>2p + w + v = 134</td></tr>
-<tr><td>периметр BCQP = 132</td><td>w + m = 66</td></tr>
-<tr><td>периметр ABMH = 148</td><td>p + v = 74</td></tr>
-<tr><td>периметр PTQ = 96: основание PQ (w) и две боковые</td><td>w + 2t = 96</td></tr>
+<tr><td><code>P(ADEH) = 268</code>: ширина AD = p + w + p</td><td>2p + w + v = 134</td></tr>
+<tr><td><code>P(BCQP) = 132</code></td><td>w + m = 66</td></tr>
+<tr><td><code>P(ABMH) = 148</code></td><td>p + v = 74</td></tr>
+<tr><td><code>P(PTQ) = 96</code>: основание PQ (w) и две боковые</td><td>w + 2t = 96</td></tr>
 <tr><td>PB = 3/5 · AH</td><td>m = (3/5)·v</td></tr>
 </table></div></div>
-<div id="a0" data-art="0"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">2p + w + v = 134
 w + m = 66
 p + v = 74
 w + 2t = 96
 m = (3/5)·v</pre>
-<p class="st"><code>p</code> = AB = CD · <code>w</code> = BC = PQ · <code>m</code> = BP = CQ · <code>v</code> = AH = DE · <code>t</code> = боковая сторона зубца</p></div></div>
+<p class="st"><code>p</code> = AB = CD; <code>w</code> = BC = PQ; <code>m</code> = BP = CQ; <code>v</code> = AH = DE; <code>t</code> = боковая сторона зубца.</p></div>
 <p class="st"><b>Этап 2 — решение.</b></p>
 <p class="step st"><b>Шаг 1 — план: свести систему к одной неизвестной.</b> Все три вопроса — периметры, собранные из кирпичиков, значит, добываю <code>p</code>, <code>w</code>, <code>m</code>, <code>v</code> и <code>t</code>. Третье уравнение связывает <code>p</code> и <code>v</code>, второе — <code>w</code> и <code>m</code>, пропорция — <code>m</code> и <code>v</code>, а четвёртое отдаёт <code>t</code>, как только известно <code>w</code>. Значит, достаточно добыть одну неизвестную — ширину выреза <code>w</code>.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = три периметра, собранные из кирпичиков <code>p</code>, <code>w</code>, <code>m</code>, <code>v</code>, <code>t</code>, а все кирпичики — из одной неизвестной <code>w</code>.</p></div></div>
-<div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное</span><p>Ножки арки одинаковой ширины — это сказано в условии первой же строкой, и из-за этого ширина всего прямоугольника ADEH складывается как «ножка + вырез + ножка»: буква <code>p</code> стоит в нём с двойкой (<code>2p + w + v = 134</code>), а в периметре одной ножки — с единицей (<code>p + v = 74</code>). Вычесть одну ножку бесполезно: <code>p</code> останется. Значит, брать надо сразу две ножки — удвоить их уравнение, и тогда <code>p</code> уходит начисто, а остаётся чистая связь высоты и выреза.</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = три периметра, собранные из кирпичиков <code>p</code>, <code>w</code>, <code>m</code>, <code>v</code>, <code>t</code>, а все кирпичики — из одной неизвестной <code>w</code>.</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Ножки арки одинаковой ширины — это сказано в условии первой же строкой, и из-за этого ширина всего прямоугольника ADEH складывается как «ножка + вырез + ножка»: буква <code>p</code> стоит в нём с двойкой (<code>2p + w + v = 134</code>), а в периметре одной ножки — с единицей (<code>p + v = 74</code>). Вычесть одну ножку бесполезно: <code>p</code> останется. Значит, брать надо сразу две ножки — удвоить их уравнение, и тогда <code>p</code> уходит начисто, а остаётся чистая связь высоты и выреза.</p></div>
 <p class="step st"><b>Шаг 2 — считаю <code>w</code>.</b> Нужна та единственная неизвестная, с которой пойдёт цепочка, — для этого вычитаю контуры: удвой третье уравнение (2p + 2v = 148) и вычти из него первое:</p>
 <p class="st">(2p + 2v) − (2p + w + v) = 148 − 134 → <b>v − w = 14</b>, то есть v = w + 14.</p>
 <p class="st">Теперь второе уравнение и пропорция: m = 66 − w и m = (3/5)·v = (3/5)(w + 14). Приравниваю:</p>
@@ -253,13 +282,28 @@ m = (3/5)·v</pre>
 <p class="st">Понадобится ещё высота перемычки — это то, что осталось от высоты фигуры выше выреза:</p>
 <p class="st">MP = v − m = 50 − 30 = 20.</p>
 <p class="step st"><b>Шаг 4 — сборка: три периметра.</b> Кирпичики на руках — остаётся обойти карандашом каждую фигуру из вопросов.</p>
-<p class="st">а) MPQN = 2·(36 + 20) = <b>112 см</b>.</p>
-<p class="st">б) BCNM = 2·(36 + 50) = <b>172 см</b>.</p>
-<p class="st">в) Вся фигура: AB (24) + BP (30) + PT (30) + TQ (30) + QC (30) + CD (24) + DE (50) + EH (84) + HA (50) = <b>352 см</b>.</p>
+<p class="st">а) <code>P(MPQN) = 2·(36 + 20)</code> = <b>112 см</b>.</p>
+<p class="st">б) <code>P(BCNM) = 2·(36 + 50)</code> = <b>172 см</b>.</p>
+<p class="st">в) Вся фигура: AB (24) + BP (30) + PT (30) + TQ (30) + QC (30) + CD (24) + DE (50) + EH (84) + HA (50) → <code>P(ABPTQCDEH)</code> = <b>352 см</b>.</p>
 <p class="st"><b>Ответ.</b> а) 112 см б) 172 см в) 352 см</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a0" data-art="0"><p class="st">Кирпичики:</p></div>
+<div id="a5" data-art="5"><ul class="st"><li><code>p</code> = AB = CD</li><li><code>w</code> = BC = PQ = MN</li><li><code>m</code> = BP = CQ</li><li><code>v</code> = AH = DE</li><li><code>t</code> = PT = TQ</li></ul></div>
+<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(а) = P(MPQN) = 2 · (w + (v − m))</div>
+<div class="frm st">Ответ(б) = P(BCNM) = 2 · (w + v)</div>
+<div class="frm st">Ответ(в) = P(ABPTQCDEH) = 2p + 2m + 2t + v + (2p + w) + v</div></div></div>
+<div id="a18" data-art="18"><ul class="st"><li><code>P(ADEH) = 268</code> → <code>2p + w + v = 134</code></li><li><code>P(BCQP) = 132</code> → <code>w + m = 66</code></li><li><code>P(ABMH) = 148</code> → <code>p + v = 74</code></li><li><code>P(PTQ) = 96</code> → <code>w + 2t = 96</code></li><li><code>PB = 3/5 · AH</code> → <code>m = 3/5 · v</code></li><li>удваиваю третье и вычитаю первое → <code>v − w = 14</code></li><li><code>66 − w = 3/5 · (w + 14)</code> → <code>8w = 288</code> → <code>w = 36</code></li><li><code>v = 50</code></li><li><code>m = 30</code></li><li><code>p = 24</code></li><li><code>t = 30</code></li><li><code>MP = v − m = 50 − 30 = 20</code></li></ul></div>
+<div id="a19" data-art="19"><div class="frm st"><code>P(MPQN) = 2 · (36 + 20) = 112</code></div></div>
+<div id="a20" data-art="20"><div class="frm st"><code>P(BCNM) = 2 · (36 + 50) = 172</code></div></div>
+<div id="a21" data-art="21"><div class="frm st"><code>P(ABPTQCDEH) = 24 + 30 + 30 + 30 + 30 + 24 + 50 + 84 + 50 = 352</code></div></div>
+<p class="st">Проверка сложением:</p>
+<div id="a25" data-art="25"><ul class="st"><li><code>2 · (84 + 50) = 268</code> ✓</li><li><code>2 · (36 + 30) = 132</code> ✓</li><li><code>2 · (24 + 50) = 148</code> ✓</li><li><code>36 + 30 + 30 = 96</code> ✓</li></ul></div>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Подставляю найденные размеры во все данные:</p>
-<ul class="st"><li>ADEH: 2·((24 + 36 + 24) + 50) = 2·134 = 268 ✓</li><li>BCQP: 2·(36 + 30) = 132 ✓</li><li>ABMH: 2·(24 + 50) = 148 ✓</li><li>PTQ: 36 + 30 + 30 = 96 ✓</li><li>PB = 3/5 · AH: 3/5 · 50 = 30 ✓</li></ul>
+<ul class="st"><li><code>P(ADEH) = 2·((24 + 36 + 24) + 50) = 2·134 = 268</code> ✓</li><li><code>P(BCQP) = 2·(36 + 30) = 132</code> ✓</li><li><code>P(ABMH) = 2·(24 + 50) = 148</code> ✓</li><li><code>P(PTQ) = 36 + 30 + 30 = 96</code> ✓</li><li>PB = 3/5 · AH: 3/5 · 50 = 30 ✓</li></ul>
 <p class="st">Второй путь к ответу (в): начни с целого прямоугольника ADEH — 268. Теперь вырежь из низа прямоугольник BCQP и посмотри, как от этого меняется контур. С нижней стороны уходит кусок BC — это минус 36. Зато вместо него карандаш едет вверх по BP (30), вправо по PQ (36) и вниз по QC (30) — это плюс 96. Итого контур вырос на 96 − 36 = 60: 268 + 60 = 328. Остался последний шаг: PQ (36) заменяется двумя сторонами зубца (30 + 30 = 60), то есть ещё плюс 24. 328 + 24 = <b>352</b> ✓ — совпало с прямым обходом.</p>
 <p class="st">Проверка, что такой зубец рисуется: основание PQ = 36, половина основания — 18, а боковая сторона 30. Боковая длиннее половины основания, значит обе боковые встречаются под серединой PQ и зубец сходится в вершину T. А то, что T не достаёт до линии AD, сказано в самом условии — вычислять здесь нечего, но по своему рисунку сверься: зубец должен висеть в вырезе, не касаясь низа.</p>
 <hr>

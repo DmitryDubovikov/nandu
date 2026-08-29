@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -199,12 +213,6 @@
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Провинциальный приём «с конца» ты знаешь: историю разворачивают от конца к началу, каждый шаг — наоборот, «отдал половину и ещё 2» назад — это «+2,…</span></button>
 <button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Каждый час в этой истории смотрит только на то, что сейчас в баке: «пятая часть воды» — это пятая часть того, что стоит в баке в этот момент, а не от…</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">(3/4) · x = К
-
-x — сколько ягод Маша нарвала (шт.), это и есть ответ;
-К — сколько ягод осталось сразу после утреннего шага (шт.).
-
-Осталось найти: К…</span></button>
 </aside>
 <main>
   
@@ -232,28 +240,63 @@ x — сколько ягод Маша нарвала (шт.), это и ест�
 <p class="st">Ритуал 2 — прямой прогон: <code>225 − 45 − 30 = 150</code> → <code>150 − 50 − 10 = 90</code> → <code>90 − 45 − 5 = 40</code> ✓.</p>
 <figure class='st'><div style='display:flex;flex-wrap:wrap;align-items:center;gap:8px'><div style='text-align:center'><div class='flab'>начало</div><div style='background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>225</div></div><div style='text-align:center;min-width:96px'><div style='font:13px var(--sans);color:var(--gold)'>← +30, ×5/4</div><div style='color:var(--dim);font:15px var(--mono);margin:2px 0'>———</div><div style='font:13px var(--sans);color:var(--muted)'>−45, −30 →</div></div><div style='text-align:center'><div class='flab'>после 1-го часа</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>150</div></div><div style='text-align:center;min-width:96px'><div style='font:13px var(--sans);color:var(--gold)'>← +10, ×3/2</div><div style='color:var(--dim);font:15px var(--mono);margin:2px 0'>———</div><div style='font:13px var(--sans);color:var(--muted)'>−50, −10 →</div></div><div style='text-align:center'><div class='flab'>после 2-го часа</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>90</div></div><div style='text-align:center;min-width:96px'><div style='font:13px var(--sans);color:var(--gold)'>← +5, ×2</div><div style='color:var(--dim);font:15px var(--mono);margin:2px 0'>———</div><div style='font:13px var(--sans);color:var(--muted)'>−45, −5 →</div></div><div style='text-align:center'><div class='flab'>конец — дан</div><div style='background:#12281c;border:1px solid #2b5c3d;color:var(--green);font:18px var(--mono);border-radius:8px;padding:9px 14px;margin-top:4px'>40</div></div></div><div class='flab' style='margin-top:14px'><span style='color:var(--gold)'>назад</span>: сначала +добавка, потом × &nbsp;|&nbsp; <span style='color:var(--muted)'>вперёд</span>: сначала доля, потом добавка</div><figcaption>Каждая стрелка смотрит только на соседний узел: доля берётся от того, что в баке сейчас, — поэтому цепочку можно пройти в любую сторону.</figcaption></figure>
 <p class="st"><b>Ответ:</b> 225 л.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>El final se conoce, así que voy hacia atrás deshaciendo cada paso.</b></p>
+<p class="st"><em>Конец известен точно, поэтому иду назад, отменяя каждый шаг.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Шаг назад: сначала + добавка, потом умножение.</p>
+<ul class="st"><li><code>(40 + 5) · 2 = 90</code></li><li><code>(90 + 10) · 3/2 = 150</code></li><li><code>(150 + 30) · 5/4 = 225</code></li></ul>
+<p class="st"><b>Было 225 л</b></p>
+<p class="st">Прогон вперёд: <code>225 − 45 − 30 = 150</code> → <code>150 − 50 − 10 = 90</code> → <code>90 − 45 − 5 = 40</code> ✓</p>
+<hr>
 <p class="exam st"><b>Пример Б (раунды одинаковые, вопросов два).</b> «Хомяк утащил в нору орехи. Четыре вечера подряд он съедал половину запаса и ещё один орех. После четвёртого вечера остался 1 орех. Сколько орехов он утащил? Сколько съел в первый вечер?»</p>
 <p class="st">Разворот шага: <code>перед = (после + 1) · 2</code>. Снизу вверх: <code>1 → 4 → 10 → 22 → 46</code>.</p>
 <p class="st">Прогон вперёд: <code>46 → съел 23+1=24, осталось 22 → 12, осталось 10 → 6, осталось 4 → 3, остался 1</code> ✓.</p>
 <p class="st"><b>Ответ:</b> утащил 46; в первый вечер съел 24 (это уже посчитано в прогоне — не считай отдельно).</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>El final se conoce, así que voy hacia atrás deshaciendo cada paso.</b></p>
+<p class="st"><em>Конец известен точно, поэтому иду назад, отменяя каждый шаг.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Шаг назад: <code>перед = (после + 1) · 2</code>.</p>
+<ul class="st"><li><code>1 → 4 → 10 → 22 → 46</code></li></ul>
+<p class="st"><b>Утащил 46 орехов</b></p>
+<p class="st">Прогон вперёд: <code>46 → съел 24, ост. 22 → съел 12, ост. 10 → съел 6, ост. 4 → съел 3, ост. 1</code> ✓</p>
+<p class="st"><b>В первый вечер съел 24</b></p>
+<hr>
 <p class="st"><b>Когда разворот ЗАПРЕЩЁН.</b> Теперь понятно и когда он ломается: разворот работает, пока каждая доля берётся <b>от текущего остатка</b>. Если посреди истории написано «треть <b>всех</b> испечённых» или «четверть <b>первоначального</b> запаса» — этот шаг от остатка не зависит, и разворот через него не проходит.</p>
 <p class="st">Но задача от этого не пропала. Работает склейка двух приёмов: <b>с конца иди, пока идётся</b>, а на запретном шаге переключайся на букву.</p>
 <p class="st"><b>Пример.</b> «Маша нарвала вишен. Утром она отдала четверть всех нарванных ягод, днём съела 12 ягод, вечером отдала половину того, что оставалось. Осталось 21 ягода. Сколько ягод она нарвала?»</p>
 <p class="step st"><b>Шаг 1 — план.</b> Нужно начало, а известен конец — иду с конца. Но до самого начала так не дойти: утренний шаг взят от <b>всех</b> нарванных, а не от остатка, и разворот через него не проходит. Значит, конец истории отматываю разворотом до того места, где стоит запретный шаг, а дальше переключаюсь на букву.</p>
 <p class="st">Утром ушла четверть всех, значит, после утра осталось три четверти всех, — и это ровно то число, до которого доберётся разворот с конца:</p>
-<div class="frm st">(3/4) · x = К</div>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">(3/4) · x = К</div>
-<p class="st"><code>x</code> — сколько ягод Маша нарвала (шт.), это и есть ответ; <code>К</code> — сколько ягод осталось сразу после утреннего шага (шт.).</p>
-<p class="st">Осталось найти: <code>К</code> — разворотом с конца.</p></div></div>
-<p class="step st"><b>Шаг 2 — мотаю с конца, пока идётся: считаю <code>К</code>.</b> Нужно число, до которого разворот честно доходит:</p>
+<div class="frm st">(3/4) · x = N(ягод после утра)</div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">(3/4) · x = N(ягод после утра)</div>
+<p class="st"><code>x</code> — сколько ягод Маша нарвала (шт.), это и есть ответ; <code>N(ягод после утра)</code> — сколько ягод осталось сразу после утреннего шага (шт.).</p>
+<p class="st">Осталось найти: <code>N(ягод после утра)</code> — разворотом с конца.</p></div>
+<p class="step st"><b>Шаг 2 — мотаю с конца, пока идётся: считаю <code>N(ягод после утра)</code>.</b> Нужно число, до которого разворот честно доходит:</p>
 <ul class="st"><li>последний шаг — «половину остатка», он от остатка, разворачиваю → перед вечером было <code>21 · 2 = 42</code>;</li><li>предыдущий шаг — «12 ягод», это просто добавка, тоже разворачиваю → перед дневными 12 было <code>42 + 12 = 54</code>;</li><li>следующий шаг с конца — «четверть <b>всех</b> нарванных». Сигнал СТОП: он не от остатка, дальше с конца не идём.</li></ul>
-<p class="st">→ <b>К = 54</b></p>
-<p class="step st"><b>Шаг 3 — сборка.</b> Подставляю <code>К</code> в формулу плана и разворачиваю долю умножением:</p>
+<p class="st">→ <b>N(ягод после утра) = 54</b></p>
+<p class="step st"><b>Шаг 3 — сборка.</b> Подставляю <code>N(ягод после утра)</code> в формулу плана и разворачиваю долю умножением:</p>
 <div class="frm st">(3/4) · x = 54</div>
 <div class="frm st">x = 54 · 4/3 = 72</div>
 <p class="st">Прямой прогон (ритуал 2): <code>72 − 18 = 54</code> → <code>54 − 12 = 42</code> → <code>42 − 21 = 21</code> ✓.</p>
 <p class="st"><b>Ответ:</b> 72 ягоды.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>El final se conoce, así que voy hacia atrás deshaciendo cada paso.</b></p>
+<p class="st"><em>Конец известен точно, поэтому иду назад, отменяя каждый шаг.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st"><code>x</code> — сколько ягод нарвала; <code>N(ягод после утра)</code> — сколько осталось после утреннего шага.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">(3/4) · x = N(ягод после утра)</div></div>
+<ul class="st"><li><code>21 · 2 = 42</code></li><li><code>42 + 12 = 54</code> → <code>N(ягод после утра) = 54</code></li><li>СТОП: «четверть <b>всех</b>» берётся не от остатка</li><li><code>(3/4) · x = 54</code> → <code>x = 54 · 4/3 = 72</code></li></ul>
+<p class="st"><b>Нарвала 72 ягоды</b></p>
+<p class="st">Прогон вперёд: <code>72 − 18 = 54</code> → <code>54 − 12 = 42</code> → <code>42 − 21 = 21</code> ✓</p>
 <p class="st">Заметь, как поделилась работа: концом истории занимался разворот, началом — буква, а встретились они на числе 54. В решебнике такая задача есть — не пропусти сигнал.</p>
 <p class="st"><b>Типичные ошибки:</b></p>
 <ol class="st num"><li><span class="lin">1.</span> <b>Развернуть долю вместо остатка.</b> «Изъяли треть» назад — это ×3/2, а не ×3. Проверяй на маленьких числах: изъяли треть из 90 — осталось 60, и <code>60·3/2 = 90</code>.</li><li><span class="lin">2.</span> <b>Перепутать порядок внутри шага.</b> Прямо: «сначала доля, потом добавка». Назад: «сначала +добавка, потом ×». Проговаривай вслух.</li><li><span class="lin">3.</span> <b>Не прогнать вперёд.</b> Обратный ход быстрый, и ошибка в нём не видна: числа выглядят прилично. Ритуал 2 обязателен.</li><li><span class="lin">4.</span> <b>Ответить не на тот вопрос</b> — «сколько было» и «сколько съел в первый вечер» — разные числа (ритуал 1).</li></ol>

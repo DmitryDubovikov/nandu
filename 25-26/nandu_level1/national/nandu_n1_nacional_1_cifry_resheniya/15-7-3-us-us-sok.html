@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,12 +207,17 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 15 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = все значения У, которые проходят проверку при уже вычисленных С и К; каждое такое У даёт своё О и своё решение.</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Буква С стоит здесь в двух местах сразу: в единицах слагаемого УС и в сотнях ответа СОК.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.<br><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">два двузначных дают меньше 198 → <b>С = 1</b></span></button>
+<button class="art cont" data-art="2"><span class="val f">единицы: С + С = 2 &lt; 10 → <b>К = 2</b>, переноса нет</span></button>
+<button class="art cont" data-art="3"><span class="val f">десятки: 2У выплёскивается в сотни → <b>2У = 10 + О</b>, откуда У ≥ 5 и О = 2У − 10</span></button>
+<button class="art cont" data-art="4"><span class="val f">У = 5 → О = 0 ✓; У = 6 → О = 2 занято ✗; У = 7 → О = 4 ✓; У = 8 → О = 6 ✓; У = 9 → О = 8 ✓</span></button>
+<button class="art cont" data-art="5"><span class="val f">4 решения: 51 + 51 = 102, 71 + 71 = 142, 81 + 81 = 162, 91 + 91 = 182</span></button>
+<button class="art" data-art="6"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores de У posibles y los demás no cumplen que las cifras sean distintas, por eso no hay más que estos.<br><em>Проверил все возможные значения У, остальные не подходят под «разные буквы — разные цифры», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -206,8 +225,8 @@
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> УС + УС = СОК. Найди все решения.</p>
 <p class="step st"><b>Шаг 1 — план: с краёв, чтобы свободной осталась одна буква.</b> Букв четыре, и перебирать их все сразу незачем: крайние колонки (Ч4) вычислят С и К вообще без перебора, а О окажется привязана к У. Тогда перебирать придётся только У.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все значения У, которые проходят проверку при уже вычисленных С и К; каждое такое У даёт своё О и своё решение.</p></div></div>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Буква С стоит здесь в двух местах сразу: в единицах слагаемого УС и в сотнях ответа СОК. Сотни ответа — не отдельная неизвестная: два двузначных вместе меньше 200, значит там может быть только 1, а с ней сразу получается и С = 1. И тогда правая колонка становится известна целиком — С + С = 2, — хотя мы её вовсе не перебирали. Ищи в криптарифме именно такие буквы-повторы: они переносят найденное с одного конца примера на другой.</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все значения У, которые проходят проверку при уже вычисленных С и К; каждое такое У даёт своё О и своё решение.</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Буква С стоит здесь в двух местах сразу: в единицах слагаемого УС и в сотнях ответа СОК. Сотни ответа — не отдельная неизвестная: два двузначных вместе меньше 200, значит там может быть только 1, а с ней сразу получается и С = 1. И тогда правая колонка становится известна целиком — С + С = 2, — хотя мы её вовсе не перебирали. Ищи в криптарифме именно такие буквы-повторы: они переносят найденное с одного конца примера на другой.</p></div>
 <p class="step st"><b>Шаг 2 — считаем С (левый край).</b> Два двузначных дают трёхзначное → <b>С = 1</b></p>
 <p class="step st"><b>Шаг 3 — считаем К (единицы).</b> Правая колонка теперь известна целиком: С + С = 2 &lt; 10 → <b>К = 2</b>, переноса нет.</p>
 <p class="step st"><b>Шаг 4 — связываю О с У (десятки).</b> Осталась колонка десятков: У + У должно выплеснуться в сотни (та самая единица слева) → 2У = 10 + О, откуда <b>У ≥ 5 и О = 2У − 10</b>.</p>
@@ -221,6 +240,20 @@
 <tr><td>9</td><td>8</td><td>✓</td></tr>
 </table></div></div>
 <p class="step st"><b>Шаг 6 — сборка.</b> Выжили четыре значения У → <b>4 решения</b>: 51 + 51 = 102, 71 + 71 = 142, 81 + 81 = 162, 91 + 91 = 182.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.</b></p></div>
+<p class="st"><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">У, С, О, К — цифры криптарифма.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st"><b>С и К считаются с краёв, О привязано к У; перебирается только У.</b></p></div>
+<div id="a4" data-art="4"><ul class="st"><li>два двузначных дают меньше 198 → <b>С = 1</b></li><li>единицы: С + С = 2 &lt; 10 → <b>К = 2</b>, переноса нет</li><li>десятки: 2У выплёскивается в сотни → <b>2У = 10 + О</b>, откуда У ≥ 5 и О = 2У − 10</li><li>У = 5 → О = 0 ✓; У = 6 → О = 2 занято ✗; У = 7 → О = 4 ✓; У = 8 → О = 6 ✓; У = 9 → О = 8 ✓</li></ul></div>
+<div id="a5" data-art="5"><div class="frm st">4 решения: 51 + 51 = 102, 71 + 71 = 142, 81 + 81 = 162, 91 + 91 = 182</div></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a6" data-art="6"><p class="st"><b>Probé todos los valores de У posibles y los demás no cumplen que las cifras sean distintas, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения У, остальные не подходят под «разные буквы — разные цифры», — поэтому других нет.</em></p>
 <hr>
 <div class="pager"><a href="14-blok-7-stolbik-i-perenosy-kriptarifmy.html">← Блок 7 — Столбик и переносы, криптарифмы</a><a href="16-7-4-udar-udar-draka.html">7.4 ⭐ УДАР + УДАР = ДРАКА →</a></div>
 </main>

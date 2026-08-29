@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 5 — ответы и боевые записи</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap battle">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 14 из 17</p>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elegido t₁, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de t₁.<br><em>Как только выбрано t₁, все остальные клетки определены, — поэтому перебираю только возможные t₁.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = длина диапазона x</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">min(угол) = наименьшее значение x</span></button>
+<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">по строкам период 3; данные на полочки: res(3 : 3) = 0, res(5 : 3) = 2, res(7 : 3) = 1</span></button>
+<button class="art cont" data-art="4"><span class="val f">t₂ = 23 − x; m₁ = 22 − x; m₃ = x − 1; b₂ = x − 2; b₃ = 24 − x</span></button>
+<button class="art cont" data-art="5"><span class="val f">все клетки ≥ 1: жадная граница b₂ → x ≥ 3, и m₁ → x ≤ 21</span></button>
+<button class="art cont" data-art="6"><span class="val f">N(заполнений) = 19</span></button>
+<button class="art cont" data-art="7"><span class="val f">💬 Фраза ко второму вопросу:</span></button>
+<button class="art cont" data-art="8"><span class="val f">min(угол) = 3</span></button>
+<button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de t₁ y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.<br><em>Проверил все возможные значения t₁, остальные не подходят под условие «все клетки положительные», — поэтому других нет.</em></span></button>
+<button class="art" data-art="10"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.<br><em>Узор повторяется через 3 клетки, поэтому смотрю только остаток от деления на 3.</em></span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">S(доски) = 5 · N(пятёрок) + 2 · N(двоек) + 8 · N(восьмёрок)</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">в строке: 50 = 3 · 16 + 2, res(50 : 3) = 2 → первые два числа узора по 17, третье 16</span></button>
+<button class="art cont" data-art="13"><span class="val f">строк: 50 = 3 · 16 + 2 → «с 5» — 17, «с 2» — 17, «с 8» — 16</span></button>
+<button class="art cont" data-art="14"><span class="val f">N(пятёрок) = 17·17 + 17·16 + 16·17 = 833</span></button>
+<button class="art cont" data-art="15"><span class="val f">N(двоек) = 17·17 + 17·17 + 16·16 = 834</span></button>
+<button class="art cont" data-art="16"><span class="val f">N(восьмёрок) = 2500 − 833 − 834 = 833</span></button>
+<button class="art cont" data-art="17"><span class="val f">S(доски) = 5·833 + 2·834 + 8·833 = 12497</span></button>
+<button class="art" data-art="18"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
+</aside>
+<main>
+  
+  <h1>Блок 5 — ответы и боевые записи</h1>
+  <p class="sub">Доски 2 — Решебник</p>
+<div class="st"><div class="tw"><table>
+<tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
+<tr><td>5.1</td><td>клетка 12: <b>7</b>; сумма <b>54</b>; заполнение единственно</td><td>сумма двух соседей 9 → чередование двух чисел; клетка 5 нечётная → все нечётные позиции 2, все чётные 9 − 2 = 7; клетка 12 чётная → 7; сумма = 6·2 + 6·7 = 54; единственность: каждый сосед вычисляется вычитанием, выбора нет нигде</td></tr>
+<tr><td>5.2</td><td>клетка 17: <b>10</b>; клетка 20: <b>10</b>; сумма <b>162</b></td><td>период 3; полочки: клетка 2 → остаток 2 = 10, клетка 6 → остаток 0 = 6, третье число 24 − 16 = 8 (остаток 1); 17 = 3·5 + 2 → 10; 20 = 3·6 + 2 → 10; полочки в 20 клетках: остаток 1 — 7, остаток 2 — 7, остаток 0 — 6 → 7·8 + 7·10 + 6·6 = 56 + 70 + 36 = 162</td></tr>
+</table></div></div>
+<div class="frm st">5.3 — ответ: 19 способов; наименьший угол 3</div>
+<p class="step st"><b>Шаг 1 — план счёта.</b> По горизонтали период 3: строки (t₁, t₂, 7), (m₁, 9, m₃), (8, b₂, b₃) — данные легли на полочки по остатку номера столбца при делении на 3. Остаток я записываю значком <code>res(…)</code>: <code>res(3 : 3) = 0</code>, потому что 3 = 3 · 1 + 0; так же <code>res(5 : 3) = 2</code> и <code>res(7 : 3) = 1</code>. Само деление по-прежнему пишу полной строкой (ритуал Ч2), а <code>res(…)</code> только называет уже добытый остаток коротко. Столбцы — тройки с суммой 30.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> всё через x = t₁:</p>
+<div class="frm st">N(заполнений) = длина диапазона x</div>
+<div class="frm st">min(угол) = наименьшее значение x</div></div>
+<p class="step st"><b>Шаг 2 — выражаю всё через x.</b> Нужен диапазон одной клетки — для этого зову t₁ = x и выражаю через x каждую остальную. Сначала строки, в каждой тройка подряд даёт 30:</p>
+<p class="st"><b>t₁ + t₂ = 23</b>, значит <b>t₂ = 23 − x</b></p>
+<div class="frm st">m₁ + m₃ = 21</div>
+<div class="frm st">b₂ + b₃ = 22</div>
+<p class="st">Теперь столбцы — из-за периода разных столбцов всего три, по одному на полочку:</p>
+<p class="st"><b>t₁ + m₁ + 8 = 30</b>, значит <b>m₁ = 22 − x</b></p>
+<p class="st"><b>t₂ + 9 + b₂ = 30</b>, значит <b>b₂ = 21 − t₂ = 21 − (23 − x)</b></p>
+<p class="st">Минус перед скобкой перевернул знаки внутри неё:</p>
+<div class="frm st">b₂ = 21 − 23 + x = x − 2</div>
+<p class="st">Осталось добрать среднюю и нижнюю клетки правой полочки:</p>
+<div class="frm st">m₃ = 21 − m₁ = 21 − (22 − x) = x − 1</div>
+<p class="st"><b>7 + m₃ + b₃ = 30</b>, значит <b>b₃ = 23 − m₃ = 23 − (x − 1) = 24 − x</b></p>
+<p class="st">Проверка: нижнюю строку я ещё ни разу не тратил — она требует b₂ + b₃ = 22:</p>
+<p class="st"><b>(x − 2) + (24 − x) = 22</b> ✓</p>
+<p class="st">Система честная.</p>
+<p class="step st"><b>Шаг 3 — диапазон.</b> Границы дают сами клетки: каждая обязана остаться положительной.</p>
+<ul class="st"><li>b₂ = x − 2 ≥ 1, значит x ≥ 3</li><li>m₁ = 22 − x ≥ 1, значит x ≤ 21</li><li>остальные мягче</li></ul>
+<p class="st">x = 3, …, 21:</p>
+<div class="frm st">N(заполнений) = 19 способов</div>
+<p class="st">Угол — это сама клетка t₁ = x, поэтому</p>
+<div class="frm st">min(угол) = 3</div>
+<h3 class="st">✍ 5.3 — что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Elegido t₁, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de t₁.</b></p></div>
+<p class="st"><em>Как только выбрано t₁, все остальные клетки определены, — поэтому перебираю только возможные t₁.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Строки по месту в порции из трёх: верх (t₁, t₂, t₃), середина (m₁, m₂, m₃), низ (b₁, b₂, b₃). Зову x = t₁.</p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">N(заполнений) = длина диапазона x</div>
+<div class="frm st">min(угол) = наименьшее значение x</div></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>по строкам период 3; данные на полочки: res(3 : 3) = 0, res(5 : 3) = 2, res(7 : 3) = 1</li><li>t₂ = 23 − x; m₁ = 22 − x; m₃ = x − 1; b₂ = x − 2; b₃ = 24 − x</li><li>все клетки ≥ 1: жадная граница b₂ → x ≥ 3, и m₁ → x ≤ 21</li></ul></div>
+<div id="a6" data-art="6"><div class="frm st">N(заполнений) = 19</div></div>
+<div id="a7" data-art="7"><p class="st"><b>💬 Фраза ко второму вопросу:</b></p></div>
+<p class="st"><b>Menos de 3 no se puede, porque b₂ = x − 2 tiene que ser positiva; y con x = 3 se logra, así que el mínimo es 3.</b></p>
+<p class="st"><em>Меньше 3 быть не может, потому что клетка b₂ = x − 2 обязана быть положительной; а при x = 3 это достигается, — значит минимум равен 3.</em></p>
+<div id="a8" data-art="8"><div class="frm st">min(угол) = 3</div></div>
+<p class="st">Проверка нижней строкой: (x − 2) + (24 − x) = 22 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a9" data-art="9"><p class="st"><b>Probé todos los valores posibles de t₁ y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения t₁, остальные не подходят под условие «все клетки положительные», — поэтому других нет.</em></p>
+<p class="st"><b>5.4 — ответ: чаще всех 2 — 834 раза; сумма 12497</b></p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Одна строка: 50 = 3 · 16 + 2, то есть <code>res(50 : 3) = 2</code> → первые два числа узора строки по 17 раз, третье 16. Типы строк идут циклом «с 5», «с 2», «с 8»; строк 50 = 3 · 16 + 2 → «с 5» — 17 строк, «с 2» — 17, «с 8» — 16.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<p class="st"><b>N(клеток с данным числом) = сложенные по трём типам строк произведения (сколько строк такого типа × сколько раз число стоит в такой строке)</b></p>
+<div class="frm st">S(доски) = 5 · N(пятёрок) + 2 · N(двоек) + 8 · N(восьмёрок)</div>
+<p class="st">тип строки — с какого числа узора она начинается: «с 5», «с 2» или «с 8»</p>
+<p class="st">Осталось найти: сколько строк каждого типа и сколько раз каждое число стоит в строке каждого типа.</p></div>
+<p class="step st"><b>Шаг 2 — считаю пятёрки.</b> Сначала — сколько пятёрок в <b>одной</b> строке каждого типа: в строке «с 5» пятёрка первая в узоре → 17; в строке «с 2» она третья → 16; в строке «с 8» она вторая → 17. Теперь умножаю каждое на <b>число строк</b> такого типа (их 17, 17 и 16) и складываю: 17 строк · 17 + 17 строк · 16 + 16 строк · 17 = 289 + 272 + 272:</p>
+<div class="frm st">N(пятёрок) = 833</div>
+<p class="step st"><b>Шаг 3 — двойки и восьмёрки.</b> Двоек в одной строке: «с 5» — 17 (двойка там вторая), «с 2» — 17 (первая), «с 8» — 16 (третья). Умножаю на число строк каждого типа: 17 строк · 17 + 17 строк · 17 + 16 строк · 16 = 289 + 289 + 256:</p>
+<div class="frm st">N(двоек) = 834</div>
+<p class="st">Восьмёрки добираю остатком:</p>
+<div class="frm st">N(восьмёрок) = 2500 − 833 − 834 = 833</div>
+<p class="st">Чаще всех — <b>2, 834 раза</b>.</p>
+<p class="step st"><b>Шаг 4 — сумма.</b> Складываю доску по числам:</p>
+<p class="st"><b>S(доски) = 5·833 + 2·834 + 8·833 = 4165 + 1668 + 6664 = 12497</b> Второй способ (Д5), по строкам: строка «с 5» даёт 5·17 + 2·17 + 8·16 = 247; «с 2»: 2·17 + 8·17 + 5·16 = 250; «с 8»: 8·17 + 5·17 + 2·16 = 253; итого 17·247 + 17·250 + 16·253 = 4199 + 4250 + 4048 = 12497 ✓.</p>
+<h3 class="st">✍ 5.4 — что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a10" data-art="10"><p class="st"><b>El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.</b></p></div>
+<p class="st"><em>Узор повторяется через 3 клетки, поэтому смотрю только остаток от деления на 3.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Тип строки — с какого числа узора она начинается: «с 5», «с 2» или «с 8».</p>
+<div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st"><b>N(клеток с данным числом) = сумма по трём типам строк (сколько строк такого типа × сколько раз число стоит в такой строке)</b></p>
+<div class="frm st">S(доски) = 5 · N(пятёрок) + 2 · N(двоек) + 8 · N(восьмёрок)</div></div></div>
+<div id="a13" data-art="13"><ul class="st"><li>в строке: 50 = 3 · 16 + 2, res(50 : 3) = 2 → первые два числа узора по 17, третье 16</li><li>строк: 50 = 3 · 16 + 2 → «с 5» — 17, «с 2» — 17, «с 8» — 16</li></ul></div>
+<div id="a14" data-art="14"><div class="frm st">N(пятёрок) = 17·17 + 17·16 + 16·17 = 833</div></div>
+<div id="a15" data-art="15"><div class="frm st">N(двоек) = 17·17 + 17·17 + 16·16 = 834</div></div>
+<div id="a16" data-art="16"><div class="frm st">N(восьмёрок) = 2500 − 833 − 834 = 833</div></div>
+<div id="a17" data-art="17"><div class="frm st">S(доски) = 5·833 + 2·834 + 8·833 = 12497</div></div>
+<p class="st">Проверка по строкам: 17·247 + 17·250 + 16·253 = 12497 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a18" data-art="18"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
+<div class="pager"><a href="13-blok-4-otvety-i-boevye-zapisi.html">← Блок 4 — ответы и боевые записи</a><a href="15-blok-6-otvety-i-boevye-zapisi.html">Блок 6 — ответы и боевые записи →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -198,36 +212,40 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 10 из 16</p>
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">«С 13-го дня всё повторяется» — это цикл: правило ходит по кругу с постоянным периодом (длиной круга).</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">«С 16-го дня всё повторяется сначала» значит, что день 16 устроен ровно как день 1, день 17 — как день 2, и так без конца.</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ а) = К · В + (что накапало за Х дней хвоста)</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">res(200 : 12) = 8</span></button>
+<button class="art" data-art="2"><span class="lbl">Заметь главное</span><span class="val">«С 16-го дня всё повторяется сначала» значит, что день 16 устроен ровно как день 1, день 17 — как день 2, и так без конца.</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ а) = N(кругов до 300) · S(круга) + (что накапало за res(300 : per) дней хвоста)</span></button>
 </aside>
 <main>
   
   <h1>Глава 6. Циклы: длинный горизонт = целые циклы + хвост</h1>
   <p class="sub">Арифметика 2.0 — Учебник</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>«С 13-го дня всё повторяется» — это <b>цикл</b>: правило ходит по кругу с постоянным <b>периодом</b> (длиной круга). А спрашивают про день 200 или 365. Считать по дням — самоубийство; считаем блоками:</p></div></div>
-<ol class="st num"><li><span class="lin">1.</span> <b>Вклад одного цикла</b>: сколько даёт полный круг.</li><li><span class="lin">2.</span> <b>Горизонт = целые циклы + хвост.</b> Дели горизонт на период <b>с остатком</b>: <code>200 = 16 · 12 + 8</code> — 16 полных циклов и 8 дней хвоста. (Деление с остатком — из пары «Цифры»: <code>200 : 12 = 16</code> и остаток <code>8</code>, потому что <code>16·12 = 192</code>, а <code>200 − 192 = 8</code>.) Остаток — это ещё и <b>номер дня внутри круга</b>: остаток 2 значит «второй день круга», остаток 8 — «восьмой». Поэтому по остатку сразу видно, каким был темп в этот день. Остаток 0 — особый случай, про него ошибка 1.</li><li><span class="lin">3.</span> <b>Хвост считай по дням честно</b> — внутри цикла темп неравномерный, усреднять нельзя.</li></ol>
+<ol class="st num"><li><span class="lin">1.</span> <b>Вклад одного цикла</b>: сколько даёт полный круг.</li><li><span class="lin">2.</span> <b>Горизонт = целые циклы + хвост.</b> Дели горизонт на период <b>с остатком</b>: <code>200 = 16 · 12 + 8</code> — 16 полных циклов и 8 дней хвоста. (Деление с остатком — из пары «Цифры»: <code>200 : 12 = 16</code> и остаток <code>8</code>, потому что <code>16·12 = 192</code>, а <code>200 − 192 = 8</code>.) Сам остаток, когда о нём надо сказать коротко, пишется <code>res(a : b)</code> — «остаток от деления a на b»; здесь</li></ol>
+<div id="a1" data-art="1"><div class="frm st">res(200 : 12) = 8</div></div>
+<p class="st">и полная строка деления рядом с ним никуда не девается — она и есть вычисление. Остаток — это ещё и <b>номер дня внутри круга</b>: остаток 2 значит «второй день круга», остаток 8 — «восьмой». Поэтому по остатку сразу видно, каким был темп в этот день. Остаток 0 — особый случай, про него ошибка 1.</p>
+<ol class="st num"><li><span class="lin">1.</span> <b>Хвост считай по дням честно</b> — внутри цикла темп неравномерный, усреднять нельзя.</li></ol>
 <p class="st"><b>Пример.</b> «Копилка: с 1-го по 5-й день Тере кладёт по 5 песо в день, с 6-го по 10-й — по 10, с 11-го по 15-й — по 20. С 16-го дня всё повторяется сначала. а) Сколько будет в копилке к концу дня 300? б) Сколько песо она положит в день 227? в) В какой день в копилке впервые станет больше 1000 песо?»</p>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>«С 16-го дня всё повторяется сначала» значит, что день 16 устроен ровно как день 1, день 17 — как день 2, и так без конца. Отсюда сразу две вещи. Первая: любой полный круг даёт одно и то же — <code>5·5 + 5·10 + 5·20 = 175</code> песо, какой бы он ни был по счёту. Вторая: сколько кладут в конкретный день, зависит <b>только</b> от того, какой он по счёту внутри круга, то есть от остатка при делении на 15. Поэтому 300 дней считаются не по дням, а кругами: <code>300 = 20·15</code> — двадцать одинаковых кусков по 175.</p></div></div>
+<div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное</span><p>«С 16-го дня всё повторяется сначала» значит, что день 16 устроен ровно как день 1, день 17 — как день 2, и так без конца. Отсюда сразу две вещи. Первая: любой полный круг даёт одно и то же — <code>5·5 + 5·10 + 5·20 = 175</code> песо, какой бы он ни был по счёту. Вторая: сколько кладут в конкретный день, зависит <b>только</b> от того, какой он по счёту внутри круга, то есть от остатка при делении на 15. Поэтому 300 дней считаются не по дням, а кругами: <code>300 = 20·15</code> — двадцать одинаковых кусков по 175.</p></div></div>
 <figure class='st'><div class='flab'>один круг — 15 дней, дальше всё то же самое</div><div style='display:grid;grid-template-columns:repeat(15,1fr);gap:3px;max-width:640px;margin-top:6px'><div class='flab' style='text-align:center'>1</div><div class='flab' style='text-align:center'>2</div><div class='flab' style='text-align:center'>3</div><div class='flab' style='text-align:center'>4</div><div class='flab' style='text-align:center'>5</div><div class='flab' style='text-align:center'>6</div><div class='flab' style='text-align:center'>7</div><div class='flab' style='text-align:center'>8</div><div class='flab' style='text-align:center'>9</div><div class='flab' style='text-align:center'>10</div><div class='flab' style='text-align:center'>11</div><div class='flab' style='text-align:center'>12</div><div class='flab' style='text-align:center'>13</div><div class='flab' style='text-align:center'>14</div><div class='flab' style='text-align:center'>15</div></div><div style='display:grid;grid-template-columns:repeat(15,1fr);gap:3px;max-width:640px;margin-top:3px'><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>5</div><div style='background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>5</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>5</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>5</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>5</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>10</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>10</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>10</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>10</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>10</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>20</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>20</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>20</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>20</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:6px;padding:7px 0'>20</div></div><div class='frm' style='margin-top:16px'>В = 5·5 + 5·10 + 5·20 = 25 + 50 + 100 = 175</div><div class='frm'>300 = 20 · 15 + 0</div><div class='frm'>227 = 15 · 15 + 2</div><div class='flab' style='margin-top:10px'><span style='color:var(--gold)'>остаток 2</span> — день 227 стоит в круге вторым, а второй день круга даёт 5 песо</div><figcaption>Номер дня сам по себе ничего не значит — значит только его место в круге, и это место называет остаток от деления на 15.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план.</b> Вопроса три, и все про далёкие дни — по дням их не считают. Зато все три разбираются одним и тем же разложением «целые циклы + хвост», а для него нужны две вещи: период <code>П</code> — длина круга, и вклад <code>В</code> — сколько песо даёт один полный круг.</p>
-<p class="st">Триста дней раскладываются делением с остатком, и каждый целый круг приносит по <code>В</code>:</p>
-<div class="frm st">300 = К · П + Х</div>
-<div class="frm st">Ответ а) = К · В + (что накапало за Х дней хвоста)</div>
+<p class="step st"><b>Шаг 1 — план.</b> Вопроса три, и все про далёкие дни — по дням их не считают. Зато все три разбираются одним и тем же разложением «целые циклы + хвост», а для него нужны две вещи: период <code>per</code> — длина круга, и вклад <code>S(круга)</code> — сколько песо даёт один полный круг.</p>
+<p class="st">Триста дней раскладываются делением с остатком, и каждый целый круг приносит по <code>S(круга)</code>:</p>
+<div class="frm st">300 = N(кругов до 300) · per + res(300 : per)</div>
+<div class="frm st">Ответ а) = N(кругов до 300) · S(круга) + (что накапало за res(300 : per) дней хвоста)</div>
 <p class="st">День 227 — тот же приём, только нужен не итог, а место дня внутри круга, и его говорит остаток:</p>
-<div class="frm st">227 = Ц · П + r</div>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">300 = К · П + Х</div>
-<div class="frm st">Ответ а) = К · В + (что накапало за Х дней хвоста)</div>
-<div class="frm st">227 = Ц · П + r</div>
-<div class="frm st">Ответ б) = сколько кладут в день номер r внутри круга</div>
+<div class="frm st">227 = N(кругов до 227) · per + res(227 : per)</div>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">300 = N(кругов до 300) · per + res(300 : per)</div>
+<div class="frm st">Ответ а) = N(кругов до 300) · S(круга) + (что накапало за res(300 : per) дней хвоста)</div>
+<div class="frm st">227 = N(кругов до 227) · per + res(227 : per)</div>
+<div class="frm st">Ответ б) = сколько кладут в день номер res(227 : per) внутри круга</div>
 <div class="frm st">Ответ в) = первый день, в который накопленное перевалит 1000</div>
-<p class="st"><code>П</code> — период, длина круга (дней); <code>В</code> — вклад одного полного круга (песо); <code>К</code> и <code>Х</code> — сколько целых кругов и сколько дней хвоста в трёхстах днях; <code>Ц</code> и <code>r</code> — то же самое для 227 дней.</p>
-<p class="st">Осталось найти: <code>П</code> и <code>В</code>, а по ним — <code>К</code>, <code>Х</code>, <code>r</code>.</p></div></div>
-<p class="step st"><b>Шаг 2 — считаю <code>П</code> и <code>В</code>.</b> Круг длится с 1-го по 15-й день, потом всё сначала:</p>
-<div class="frm st">П = 15</div>
+<p class="st"><code>per</code> — период, длина круга (дней); <code>S(круга)</code> — вклад одного полного круга (песо); <code>N(кругов до 300)</code> и <code>res(300 : per)</code> — сколько целых кругов и сколько дней хвоста в трёхстах днях; <code>N(кругов до 227)</code> и <code>res(227 : per)</code> — то же самое для 227 дней.</p>
+<p class="st">Осталось найти: <code>per</code> и <code>S(круга)</code>, а по ним — <code>N(кругов до 300)</code>, <code>res(300 : per)</code>, <code>res(227 : per)</code>.</p></div></div>
+<p class="step st"><b>Шаг 2 — считаю <code>per</code> и <code>S(круга)</code>.</b> Круг длится с 1-го по 15-й день, потом всё сначала:</p>
+<div class="frm st">per = 15</div>
 <p class="st">Складываю, сколько даёт круг целиком:</p>
-<div class="frm st">В = 5·5 + 5·10 + 5·20 = 25 + 50 + 100 = 175</div>
+<div class="frm st">S(круга) = 5·5 + 5·10 + 5·20 = 25 + 50 + 100 = 175</div>
 <p class="step st"><b>Шаг 3 — а) сколько в копилке к концу дня 300.</b> Раскладываю горизонт по первой строчке плана:</p>
 <div class="frm st">300 = 20 · 15 + 0</div>
 <p class="st">Двадцать полных кругов, хвоста нет:</p>
@@ -238,6 +256,15 @@
 <p class="step st"><b>Шаг 5 — в) когда впервые больше 1000.</b> Сначала грубо, целыми циклами до порога: 5 циклов = 875 (день 75); 6 циклов = 1050 — перелёт, стоп на 5. Теперь тонко, хвост по дням: дни 76–80 (по 5): 880…900; дни 81–85 (по 10): 910…950; дни 86, 87, 88 (по 20): 970, 990, <b>1010</b> → первый день с суммой &gt; 1000 — <b>день 88</b>.</p>
 <p class="st">Проверка б) по кругу: дни 2, 17, 32, … — все дают 5 песо, и 227 в этом ряду: <code>227 − 2 = 225 = 15·15</code> ✓.</p>
 <p class="st"><b>Ответ:</b> а) 3500 песо; б) 5 песо; в) день 88.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>El dibujo se repite cada 15 días, así que solo miro el resto de dividir por 15.</b></p>
+<p class="st"><em>Узор повторяется через 15 дней, поэтому смотрю только остаток от деления на 15.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st"><code>per</code> — период круга (дней); <code>S(круга)</code> — вклад одного круга (песо).</p>
+<ul class="st"><li><code>per = 15</code></li><li><code>S(круга) = 5·5 + 5·10 + 5·20 = 175</code></li><li>а) <code>300 = 20 · 15 + 0</code> → <code>20 · 175 = 3500</code></li><li>б) <code>227 = 15 · 15 + 2</code>, то есть <code>res(227 : 15) = 2</code> → второй день круга → <b>5 песо</b></li><li>в) <code>5 · 175 = 875</code> (день 75), дальше по дням: <code>900</code>, <code>950</code>, <code>970</code>, <code>990</code>, <code>1010</code> → <b>день 88</b></li></ul>
+<p class="st">Проверка б): <code>227 − 2 = 225 = 15 · 15</code> ✓</p>
 <p class="st"><b>Типичные ошибки:</b></p>
 <ol class="st num"><li><span class="lin">1.</span> <b>Остаток 0.</b> <code>300 = 20·15 + 0</code> значит «день 300 — последний день 20-го цикла», а не «хвост нулевого дня» и не «начало нового». Проверь себя: день 15 — конец первого круга.</li><li><span class="lin">2.</span> <b>Хвост средней скоростью.</b> «В среднем 175/15 ≈ 11,7 в день» — с этим числом задача в) решается неверно: внутри цикла темп 5 → 10 → 20. Хвост — только по дням.</li><li><span class="lin">3.</span> <b>«Больше 1000» ≠ «ровно 1000».</b> Вопрос про первый день, когда сумма <b>превысила</b> порог; сравнивай строго.</li></ol>
 <hr>

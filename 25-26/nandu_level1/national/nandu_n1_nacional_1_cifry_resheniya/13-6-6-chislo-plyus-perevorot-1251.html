@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,19 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 13 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = все числа без нулей, у которых сумма крайних цифр равна К, а средняя равна Б; К и Б добываются из формулы суммы.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">101 · S(крайних) + 20 · b = 1251</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">20 · b кончается на 0 → последнюю единицу даёт 101 · S(крайних), а у 101 · S(крайних) последняя цифра та же, что у S(крайних) → <b>S(крайних) кончается на 1</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">S(крайних) = 21 не бывает: сумма двух цифр ≤ 18 ✗</span></button>
+<button class="art cont" data-art="4"><span class="val f">S(крайних) = 1 не дотягивается: 101 + 20 · 9 = 281 &lt; 1251 ✗</span></button>
+<button class="art cont" data-art="5"><span class="val f"><b>S(крайних) = 11</b> → 20 · b = 1251 − 1111 = 140 → <b>b = 7</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">пары с суммой 11 без нулей: (2,9), (3,8), (4,7), (5,6) и зеркала</span></button>
+<button class="art cont" data-art="7"><span class="val f">8 чисел: 279, 378, 477, 576, 675, 774, 873, 972</span></button>
+<button class="art" data-art="8"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de la suma de las cifras de los extremos y los demás no llegan a 1251, por eso no hay más que estos.<br><em>Проверил все возможные значения суммы крайних цифр, остальные до 1251 не дотягивают, — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -205,23 +227,38 @@
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Пепа задумала трёхзначное число без нулей в записи, прибавила к нему его переворот и получила 1251. Сколько разных чисел могла задумать Пепа? Перечисли все.</p>
 <p class="step st"><b>Шаг 1 — план: свести три цифры к двум числам.</b> Сумма числа с переворотом зависит только от суммы крайних цифр и от средней — значит, сначала добываю эти два числа, а потом раскладываю сумму крайних на пары цифр.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все числа без нулей, у которых сумма крайних цифр равна К, а средняя равна Б; К и Б добываются из формулы суммы.</p></div></div>
-<p class="step st"><b>Шаг 2 — нахожу К по последней цифре.</b> Неизвестных в формуле две, К и Б, а уравнение одно — значит, надо чем-то доплатить. Плачу последней цифрой: она про Б ничего не знает.</p>
-<div class="frm st">101 · К + 20 · Б = 1251</div>
-<p class="st">Слагаемое 20 · Б всегда кончается на 0 — на последнюю цифру суммы оно не влияет вовсе. Значит, последнюю цифру 1 даёт первое слагаемое:</p>
-<div class="frm st">101 · К = 100 · К + К</div>
-<p class="st">Кусок 100 · К кончается на два нуля, поэтому последняя цифра у 101 · К — та же, что у самого К.</p>
-<p class="st">→ <b>К кончается на 1</b></p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все числа без нулей, у которых сумма крайних цифр равна S(крайних), а средняя равна b; S(крайних) и b добываются из формулы суммы.</p></div>
+<p class="step st"><b>Шаг 2 — нахожу S(крайних) по последней цифре.</b> Неизвестных в формуле две, S(крайних) и b, а уравнение одно — значит, надо чем-то доплатить. Плачу последней цифрой: она про b ничего не знает.</p>
+<div class="frm st">101 · S(крайних) + 20 · b = 1251</div>
+<p class="st">Слагаемое 20 · b всегда кончается на 0 — на последнюю цифру суммы оно не влияет вовсе. Значит, последнюю цифру 1 даёт первое слагаемое:</p>
+<div class="frm st">101 · S(крайних) = 100 · S(крайних) + S(крайних)</div>
+<p class="st">Кусок 100 · S(крайних) кончается на два нуля, поэтому последняя цифра у 101 · S(крайних) — та же, что у самого S(крайних).</p>
+<p class="st">→ <b>S(крайних) кончается на 1</b></p>
 <p class="st">Кандидатов, кончающихся на 1, всего три, и каждого закрываю по своей причине:</p>
-<pre class="ascii st">К кончается на 1
- ├─ 21 ✗ такого К не бывает: это сумма двух цифр,
+<pre class="ascii st">S(крайних) кончается на 1
+ ├─ 21 ✗ такого S(крайних) не бывает: это сумма двух цифр,
  │       а выше 9 + 9 = 18 она не поднимается
  ├─ 11 ✓
- └─  1 ✗ не дотягивается: даже при Б = 9 вся сумма
+ └─  1 ✗ не дотягивается: даже при b = 9 вся сумма
          101 + 20 · 9 = 281, а нужно 1251</pre>
-<p class="st">→ <b>К = 11</b></p>
-<p class="step st"><b>Шаг 3 — считаем Б.</b> Осталось вычесть уже известную часть: 20b = 1251 − 1111 = 140. → <b>Б = 7</b></p>
+<p class="st">→ <b>S(крайних) = 11</b></p>
+<p class="step st"><b>Шаг 3 — считаем b.</b> Осталось вычесть уже известную часть: 20 · b = 1251 − 1111 = 140. → <b>b = 7</b></p>
 <p class="step st"><b>Шаг 4 — сборка.</b> Пары крайних цифр с суммой 11 без нулей: (2,9), (3,8), (4,7), (5,6) и зеркала — <b>восемь чисел</b>: 279, 378, 477, 576, 675, 774, 873, 972. Контроль: 279 + 972 = 1251 ✓</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
+<p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">S(крайних) — сумма крайних цифр, b — средняя цифра.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">101 · S(крайних) + 20 · b = 1251</div></div></div>
+<div id="a6" data-art="6"><ul class="st"><li>20 · b кончается на 0 → последнюю единицу даёт 101 · S(крайних), а у 101 · S(крайних) последняя цифра та же, что у S(крайних) → <b>S(крайних) кончается на 1</b></li><li>S(крайних) = 21 не бывает: сумма двух цифр ≤ 18 ✗</li><li>S(крайних) = 1 не дотягивается: 101 + 20 · 9 = 281 &lt; 1251 ✗</li><li><b>S(крайних) = 11</b> → 20 · b = 1251 − 1111 = 140 → <b>b = 7</b></li><li>пары с суммой 11 без нулей: (2,9), (3,8), (4,7), (5,6) и зеркала</li></ul></div>
+<div id="a7" data-art="7"><div class="frm st">8 чисел: 279, 378, 477, 576, 675, 774, 873, 972</div></div>
+<p class="st">Проверка: 279 + 972 = 1251 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a8" data-art="8"><p class="st"><b>Probé todos los valores posibles de la suma de las cifras de los extremos y los demás no llegan a 1251, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения суммы крайних цифр, остальные до 1251 не дотягивают, — поэтому других нет.</em></p>
 <hr>
 <div class="pager"><a href="12-6-5-chislo-plyus-perevorot-444.html">← 6.5 ⭐⭐ Число плюс переворот = 444</a><a href="14-blok-7-stolbik-i-perenosy-kriptarifmy.html">Блок 7 — Столбик и переносы, криптарифмы →</a></div>
 </main>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,16 +207,19 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 12 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Каждый новый домик приклеивается только к предыдущему, и стык всегда один и тот же: прячутся ровно две стороны по 6 см.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Результат перевода
-
-P(n) = 18n + 12
-
-проверено на n = 1 (30) и n = 2 (48)</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 18 cm, así que solo miro el resto de dividir por 18.<br><em>Узор повторяется через 18 см, поэтому смотрю только остаток от деления на 18.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>P(n)</code> — периметр забора из n домиков</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>res(a : b)</code> — остаток от деления a на b</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(n) = 30 + 18 · (n − 1) = 18n + 12</span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">одно звено: <code>P(1) = 5 · 6 = 30</code></span></button>
+<button class="art cont" data-art="5"><span class="val f">склейка прячет две стороны → прибавка <code>= 30 − 2 · 6 = 18</code></span></button>
+<button class="art cont" data-art="6"><span class="val f">проверка на двух звеньях: <code>12 + 12 + 24 = 48</code> и <code>P(2) = 18 · 2 + 12 = 48</code> ✓</span></button>
+<button class="art cont" data-art="7"><span class="val f">а) <code>P(6) = 18 · 6 + 12 = 120</code></span></button>
+<button class="art cont" data-art="8"><span class="val f">б) <code>P(25) = 18 · 25 + 12 = 462</code></span></button>
 </aside>
 <main>
   
@@ -213,23 +230,43 @@ P(n) = 18n + 12
 <p class="st">Периметр забора — длина его внешней границы. В границу не входят ни склеенные боковые стороны соседних квадратов, ни верхние стороны квадратов, закрытые треугольниками.</p>
 <p class="st">Вопросы:</p>
 <p class="st">а) Чему равен периметр забора из 6 домиков? б) Чему равен периметр забора из 25 домиков? в) Может ли периметр забора равняться 1650 см? Если да — сколько в нём домиков? г) Может ли периметр забора равняться 2022 см? Объясни, почему такого забора не может быть <b>ни при каком</b> числе домиков (проверить несколько чисел — не объяснение).</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Каждый новый домик приклеивается только к предыдущему, и стык всегда один и тот же: прячутся ровно две стороны по 6 см. Поэтому прибавка не зависит от того, какой домик по счёту, — она всегда 18, и длина забора растёт ровным шагом: 30, 48, 66, 84, … Стартовое число 30 при делении на 18 даёт остаток 12 (30 = 18 + 12), а шаг 18 остатка не меняет. Значит, все возможные периметры — это числа, дающие при делении на 18 остаток 12, и вопрос «бывает ли забор с периметром N» — это вопрос о делении, а не поиск забора: подставлять n и подбирать не нужно.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Каждый новый домик приклеивается только к предыдущему, и стык всегда один и тот же: прячутся ровно две стороны по 6 см. Поэтому прибавка не зависит от того, какой домик по счёту, — она всегда 18, и длина забора растёт ровным шагом: 30, 48, 66, 84, … Стартовое число 30 при делении на 18 даёт остаток 12 (30 = 18 + 12), а шаг 18 остатка не меняет. Значит, все возможные периметры — это числа, дающие при делении на 18 остаток 12, и вопрос «бывает ли забор с периметром N» — это вопрос о делении, а не поиск забора: подставлять n и подбирать не нужно.</p></div>
+<p class="st"><em>💬 «Прибавка всегда одна и та же, поэтому остаток от деления на 18 не меняется» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="st"><b>Этап 1 — перевод (узор → формула).</b></p>
 <p class="st">Одно звено. Контур домика: низ квадрата (6), правый бок (6), правый скат крыши (6), левый скат (6), левый бок (6). Верхняя сторона квадрата спрятана под треугольником — в контур не входит.</p>
 <p class="st">P(1) = 5 · 6 = 30.</p>
 <p class="st">Новое звено. Оно приносит свои 5 наружных сторон, но склейка прячет <b>две</b>: правый бок старого домика и левый бок нового. Значит прибавка = 30 − 2 · 6 = 18.</p>
 <p class="st">Теперь нужна формула — для этого собираю её из старта и шага и сразу проверяю на втором звене:</p>
 <ul class="st"><li>одно звено → P(1) = 30;</li><li>каждое следующее → + 18;</li><li>формула → P(n) = 30 + 18·(n − 1) = 18n + 12;</li><li>проверка на n = 2 (пересчёт руками): низ 12, два бока по 6, четыре ската по 6 → 12 + 12 + 24 = 48; по формуле 18·2 + 12 = 48 ✓.</li></ul>
-<div id="a1" data-art="1"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">P(n) = 18n + 12</pre>
-<div class="frm st">проверено на n = 1 (30) и n = 2 (48)</div></div></div>
+<div class="frm st">проверено на n = 1 (30) и n = 2 (48)</div></div>
 <p class="st"><b>Этап 2 — решение.</b></p>
 <p class="st">а) P(6) = 18 · 6 + 12 = 108 + 12 = <b>120 см</b>.</p>
 <p class="st">б) P(25) = 18 · 25 + 12 = 450 + 12 = <b>462 см</b>.</p>
 <p class="st">в) 18n + 12 = 1650 → 18n = 1638 → n = 1638 : 18 = <b>91</b>. Число целое, значит такой забор существует: <b>91 домик</b>.</p>
 <p class="st">г) 18n + 12 = 2022 → 18n = 2010. Но 2010 : 18 не делится нацело: 18 · 111 = 1998, остаток 12. Целого числа звеньев нет, значит периметр 2022 см <b>невозможен</b>.</p>
-<p class="st">Это ровно то, о чём говорил остаток: 2022 = 18 · 112 + 6, остаток 6, а у периметров он всегда 12.</p>
+<p class="st">Это ровно то, о чём говорил остаток:</p>
+<div class="frm st">2022 = 18 · 112 + 6</div>
+<div class="frm st">res(2022 : 18) = 6</div>
+<p class="st">а у любого периметра забора</p>
+<div class="frm st">res(P(n) : 18) = 12</div>
 <p class="st"><b>Ответ.</b> а) 120 см б) 462 см в) да, 91 домик г) нет</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>El dibujo se repite cada 18 cm, así que solo miro el resto de dividir por 18.</b></p></div>
+<p class="st"><em>Узор повторяется через 18 см, поэтому смотрю только остаток от деления на 18.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a2" data-art="2"><ul class="st"><li><code>P(n)</code> — периметр забора из n домиков</li><li><code>res(a : b)</code> — остаток от деления a на b</li></ul></div>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st"><code>P(n) = 30 + 18 · (n − 1) = 18n + 12</code></div></div></div>
+<div id="a6" data-art="6"><ul class="st"><li>одно звено: <code>P(1) = 5 · 6 = 30</code></li><li>склейка прячет две стороны → прибавка <code>= 30 − 2 · 6 = 18</code></li><li>проверка на двух звеньях: <code>12 + 12 + 24 = 48</code> и <code>P(2) = 18 · 2 + 12 = 48</code> ✓</li></ul></div>
+<div id="a7" data-art="7"><div class="frm st">а) <code>P(6) = 18 · 6 + 12 = 120</code></div></div>
+<div id="a8" data-art="8"><div class="frm st">б) <code>P(25) = 18 · 25 + 12 = 462</code></div></div>
+<p class="st"><b>в) <code>18n + 12 = 1650</code> → <code>18n = 1638</code> → <code>n = 91</code></b> — забор есть</p>
+<p class="st"><b>г) <code>18n + 12 = 2022</code> → <code>18n = 2010</code>, а <code>2010 = 18 · 111 + 12</code></b> — целого n нет</p>
+<p class="st"><code>2022 = 18 · 112 + 6</code>, то есть <code>res(2022 : 18) = 6</code>, а у любого забора <code>res(P(n) : 18) = 12</code>.</p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Формулу проверяю независимым подсчётом сторон. У забора из n домиков видны: n низов (n сторон), 2n скатов крыш, и ровно 2 боковых стороны — крайняя левая и крайняя правая (все внутренние боковые склеены попарно и спрятаны). Итого сторон: n + 2n + 2 = 3n + 2, каждая по 6 см:</p>
 <p class="st">P(n) = 6 · (3n + 2) = 18n + 12 ✓ — та же формула, выведенная не через прибавку, а прямым пересчётом сторон.</p>

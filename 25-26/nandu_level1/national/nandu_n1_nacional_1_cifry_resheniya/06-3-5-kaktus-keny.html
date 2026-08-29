@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,20 +207,23 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 6 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Дни поливов — цепочка с постоянным шагом: 1, 7, 13, 19, … Шаг здесь 6, а не 7, хотя в условии стоит «каждый 6-й день»: от 1 января до 7 января…</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ на (а) = число членов цепочки от 1 с шагом 6, не выходящих за 31, плюс само последнее из них; ответ на (б) = сотый член той же цепочки.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Los que dejan el mismo resto al dividir por 6 van de 6 en 6, por eso los cuento saltando de 6 en 6.<br><em>Числа с одинаковым остатком при делении на 6 идут через 6, поэтому считаю их шагами по 6.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">последний в январе: 1, 7, 13, 19, 25, 31; следующий 37 — уже февраль → <b>31 января</b></span></button>
+<button class="art cont" data-art="2"><span class="val f">сколько их: (31 − 1) : 6 + 1 = <b>6 поливов</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">сотый: до него 99 шагов → 1 + 6 · 99 = <b>день 595</b></span></button>
+<button class="art" data-art="4"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 </aside>
 <main>
   
   <h1>3.5 ⭐⭐ Кактус Кены</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Кена поливает кактус каждый 6-й день: 1 января, 7 января, 13 января, … а) Сколько поливов выйдет в январе (31 день) и какого числа последний? б) Каким днём от начала года окажется 100-й полив?</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Дни поливов — цепочка с постоянным шагом: 1, 7, 13, 19, … Шаг здесь <b>6</b>, а не 7, хотя в условии стоит «каждый 6-й день»: от 1 января до 7 января проходит именно 6 дней. Такую цепочку задают три приметы — первое число, шаг и последнее, — и обе половины задачи решаются ими: «сколько их» считается по всем трём, «какой по счёту» — по первым двум. Ритуал Ч1 тоже на месте: спрашивают про <b>номера дней</b>, а не про количество дней между поливами.</p></div></div>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ на (а) = число членов цепочки от 1 с шагом 6, не выходящих за 31, плюс само последнее из них; ответ на (б) = сотый член той же цепочки.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Дни поливов — цепочка с постоянным шагом: 1, 7, 13, 19, … Шаг здесь <b>6</b>, а не 7, хотя в условии стоит «каждый 6-й день»: от 1 января до 7 января проходит именно 6 дней. Такую цепочку задают три приметы — первое число, шаг и последнее, — и обе половины задачи решаются ими: «сколько их» считается по всем трём, «какой по счёту» — по первым двум. Ритуал Ч1 тоже на месте: спрашивают про <b>номера дней</b>, а не про количество дней между поливами.</p></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ на (а) = число членов цепочки от 1 с шагом 6, не выходящих за 31, плюс само последнее из них; ответ на (б) = сотый член той же цепочки.</p></div>
 <p class="step st"><b>Шаг 1 — нужно последнее число цепочки внутри января, поэтому дохожу до границы.</b> Выписываю дни поливов: 1, 7, 13, 19, 25, 31 — а следующий был бы 37, это уже февраль.</p>
 <p class="st">→ <b>последний полив января — 31 января</b></p>
 <p class="step st"><b>Шаг 2 — нужно их количество, поэтому считаю формулой цепочки и проверяю на маленьком (Ч3).</b> У цепочки первое 1, шаг 6, последнее 31:</p>
@@ -218,6 +235,18 @@
 <p class="st">Проверка на маленьком (Ч3): по этой же формуле третий полив = 1 + 6 · 2 = 13 — совпало со списком из шага 1 ✓</p>
 <p class="st">→ <b>день 595 от начала года</b></p>
 <p class="step st"><b>Шаг 4 — сборка.</b> а) <b>6 поливов</b>, последний <b>31 января</b>; б) 100-й полив — <b>595-й день года</b>.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Los que dejan el mismo resto al dividir por 6 van de 6 en 6, por eso los cuento saltando de 6 en 6.</b></p></div>
+<p class="st"><em>Числа с одинаковым остатком при делении на 6 идут через 6, поэтому считаю их шагами по 6.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Дни поливов — цепочка: первое 1, шаг 6.</p>
+<div id="a3" data-art="3"><ul class="st"><li>последний в январе: 1, 7, 13, 19, 25, 31; следующий 37 — уже февраль → <b>31 января</b></li><li>сколько их: (31 − 1) : 6 + 1 = <b>6 поливов</b></li><li>сотый: до него 99 шагов → 1 + 6 · 99 = <b>день 595</b></li></ul></div>
+<p class="st">Проверка на маленьком (Ч3): третий полив = 1 + 6 · 2 = 13 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a4" data-art="4"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <hr>
 <div class="pager"><a href="05-3-4-dvuznachnye-s-summoy-cifr-kratnoy-5.html">← 3.4 ⭐ Двузначные с суммой цифр, кратной 5</a><a href="07-4-4-chisla-memy.html">4.4 ⭐ Числа Мемы →</a></div>
 </main>

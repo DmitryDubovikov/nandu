@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -196,7 +210,7 @@
 <div class="wrap">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 8 из 13</p>
-  <p class="rtitle">Сухой остаток главы</p>
+  
   <p class="flab">В этом разделе выносить в остаток нечего.</p>
 </aside>
 <main>
@@ -214,6 +228,15 @@
 <div class="frm st">MK = 3 доли</div>
 <div class="frm st">KT = 1 доля</div>
 <p class="st">Вместе они и есть весь MT, то есть 4 доли, а в нём 24. Одна доля — это 24 : 4 = 6, отсюда MK = 18 и KT = 6.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Вот что из этого попадает на бумагу: буквы, равенства, проверка. Объяснения выше на бумагу не выносятся.</em></p>
+<p class="st">Кирпичики: k = высота нижнего этажа; горизонталь прошла через середины боковых сторон, значит вся высота — 2k, ширина дана: 15.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(этажа) = 2·(15 + k)</div>
+<p class="st">Осталось найти k, высота прямоугольника — 2k.</p></div>
+<ul class="st"><li>P(этажа) = 42 → 15 + k = 21 → <b>k = 6</b></li><li>высота = 2k = 2 · 6</li></ul>
+<div class="frm st">Высота прямоугольника = 12</div>
+<p class="st">Проверка сложением: P(этажа) = 2·(15 + 6) = 42 ✓</p>
 <p class="st"><b>Где это в корпусе:</b> 2025 №2 (I и J — середины боковых сторон), 2025 №5 (M — середина AF), 2023 №2 (H — середина BI).</p>
 <p class="st"><b>Ловушка:</b> середина <b>чего</b>? «I — середина BG» делит пополам вертикаль BG, а не фигуру и не соседнюю сторону. Отметь обе половины на рисунке сразу, как только прочитал.</p>
 <hr>

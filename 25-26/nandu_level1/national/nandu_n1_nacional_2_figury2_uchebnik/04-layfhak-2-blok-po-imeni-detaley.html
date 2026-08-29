@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -197,44 +211,53 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 4 из 13</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">ширина блока<br>= p + q + p</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Детали P и Q стоят в один ряд, и высота у них общая — 10.</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = пара (p, q) из двух строк: строка блока «P, Q, P» (64) и строка блока «Q, P, Q» (72).</span></button>
+  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">ширина блока = m + n + m</span></button>
+<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Детали M и N стоят в один ряд, и высота у них общая — 10.</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = пара (m, n) из двух строк: строка блока «M, N, M» (64) и строка блока «N, M, N» (72).</span></button>
 </aside>
 <main>
   
   <h1>Лайфхак 2. Блок по имени деталей</h1>
   <p class="sub">Сетка равных деталей — Мини-учебник</p>
-<p class="st">«Прямоугольник, который образуют P, Q и P» — это не вершины, а <b>состав</b>. Разбери его: три детали в ряд, высота у них общая, а ширины складываются. Назови ширину детали P буквой p, ширину детали Q — буквой q, и тогда</p>
-<div id="a0" data-art="0"><div class="frm st">ширина блока = p + q + p</div></div>
-<p class="st"><b>Разобранный пример.</b> Детали P и Q стоят в ряд, высота у всех 10. Периметр блока «P, Q, P» равен 64, блока «Q, P, Q» — 72. Найди p и q (ширины).</p>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Детали P и Q стоят в один ряд, и высота у них общая — 10. Значит блок «P, Q, P» — это снова обыкновенный прямоугольник: ширина p + q + p, высота 10. Стыки между деталями оказались внутри, снаружи их не видно, и в контур они не входят — поэтому про блок достаточно знать его <b>состав</b>, а дальше он считается как одна фигура. Если бы детали были разной высоты, блок перестал бы быть прямоугольником и такой ход не прошёл бы.</p></div></div>
-<figure class='st'><svg viewBox='0 0 420 210' width='100%' role='img' aria-label='Блок из деталей P, Q, P в один ряд'><rect x='90' y='40' width='220' height='100' fill='none' stroke='#f0a83c' stroke-width='2.5'/><g stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'><line x1='150' y1='40' x2='150' y2='140'/><line x1='250' y1='40' x2='250' y2='140'/></g><g fill='#e8eef6' font-size='17' font-family='sans-serif' text-anchor='middle'><text x='120' y='96'>P</text><text x='200' y='96'>Q</text><text x='280' y='96'>P</text></g><text x='72' y='96' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>10</text><g stroke='#93a1b1' stroke-width='1'><line x1='90' y1='152' x2='150' y2='152'/><line x1='90' y1='148' x2='90' y2='156'/><line x1='150' y1='148' x2='150' y2='156'/><line x1='150' y1='152' x2='250' y2='152'/><line x1='250' y1='148' x2='250' y2='156'/><line x1='250' y1='152' x2='310' y2='152'/><line x1='310' y1='148' x2='310' y2='156'/></g><g fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'><text x='120' y='169'>p</text><text x='200' y='169'>q</text><text x='280' y='169'>p</text></g><text x='200' y='194' fill='#f2686c' font-size='13' font-family='sans-serif' text-anchor='middle'>два стыка ушли внутрь — снаружи их не видно</text></svg><figcaption>Высота у деталей общая, поэтому блок — обыкновенный прямоугольник: знать про него достаточно состав, а стыки в контур не входят.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план: перевести оба блока в строки про ширины.</b> Спрашивают p и q, а даны два периметра блоков. Перевожу каждый блок в строку по его составу.</p>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = пара (p, q) из двух строк: строка блока «P, Q, P» (64) и строка блока «Q, P, Q» (72).</p></div></div>
-<p class="step st"><b>Шаг 2 — нужна первая строка: перевожу блок P-Q-P.</b> Ширина 2p + q, высота 10, полупериметр — половина от 64:</p>
-<div class="frm st">(2p + q) + 10 = 32</div>
-<div class="frm st">2p + q = 22</div>
-<p class="step st"><b>Шаг 3 — нужна вторая строка: перевожу блок Q-P-Q.</b> Ширина p + 2q, высота та же, полупериметр — половина от 72:</p>
-<div class="frm st">(p + 2q) + 10 = 36</div>
-<div class="frm st">p + 2q = 26</div>
+<p class="st">«Прямоугольник, который образуют M, N и M» — это не вершины, а <b>состав</b>. Разбери его: три детали в ряд, высота у них общая, а ширины складываются. Назови ширину детали M буквой m, ширину детали N — буквой n, и тогда</p>
+<div id="a0" data-art="0"><div class="frm st">ширина блока = m + n + m</div></div>
+<p class="st"><b>Разобранный пример.</b> Детали M и N стоят в ряд, высота у всех 10. Периметр блока «M, N, M» равен 64, блока «N, M, N» — 72. Найди m и n (ширины).</p>
+<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Детали M и N стоят в один ряд, и высота у них общая — 10. Значит блок «M, N, M» — это снова обыкновенный прямоугольник: ширина m + n + m, высота 10. Стыки между деталями оказались внутри, снаружи их не видно, и в контур они не входят — поэтому про блок достаточно знать его <b>состав</b>, а дальше он считается как одна фигура. Если бы детали были разной высоты, блок перестал бы быть прямоугольником и такой ход не прошёл бы.</p></div></div>
+<p class="step st"><b>Шаг 1 — план: перевести оба блока в строки про ширины.</b> Спрашивают m и n, а даны два периметра блоков. Перевожу каждый блок в строку по его составу.</p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = пара (m, n) из двух строк: строка блока «M, N, M» (64) и строка блока «N, M, N» (72).</p></div></div>
+<p class="step st"><b>Шаг 2 — нужна первая строка: перевожу блок M-N-M.</b> Ширина 2m + n, высота 10, полупериметр — половина от 64:</p>
+<div class="frm st">(2m + n) + 10 = 32</div>
+<div class="frm st">2m + n = 22</div>
+<p class="step st"><b>Шаг 3 — нужна вторая строка: перевожу блок N-M-N.</b> Ширина m + 2n, высота та же, полупериметр — половина от 72:</p>
+<div class="frm st">(m + 2n) + 10 = 36</div>
+<div class="frm st">m + 2n = 26</div>
 <p class="step st"><b>Шаг 4 — сборка: две строки — почти близнецы.</b> Сначала складываю их:</p>
-<div class="frm st">(2p + q) + (p + 2q) = 22 + 26</div>
-<div class="frm st">3p + 3q = 48</div>
-<div class="frm st">p + q = 16</div>
+<div class="frm st">(2m + n) + (m + 2n) = 22 + 26</div>
+<div class="frm st">3m + 3n = 48</div>
+<div class="frm st">m + n = 16</div>
 <p class="st">Теперь вычитаю одну из другой:</p>
-<div class="frm st">(p + 2q) − (2p + q) = 26 − 22</div>
-<div class="frm st">q − p = 4</div>
+<div class="frm st">(m + 2n) − (2m + n) = 26 − 22</div>
+<div class="frm st">n − m = 4</div>
 <p class="st">Сумма двух ширин 16, разность 4 — этого хватает. Меньшая ширина — половина от 16 − 4:</p>
-<div class="frm st">p = (16 − 4) : 2 = 6</div>
-<div class="frm st">q = 16 − 6 = 10</div>
-<p class="st">Итого <b>p = 6, q = 10</b>.</p>
-<p class="st">А вот «сложить периметры трёх деталей» — ход в никуда. Складываю периметры P, Q и P:</p>
+<div class="frm st">m = (16 − 4) : 2 = 6</div>
+<div class="frm st">n = 16 − 6 = 10</div>
+<p class="st">Итого <b>m = 6, n = 10</b>.</p>
+<p class="st">А вот «сложить периметры трёх деталей» — ход в никуда. Складываю периметры M, N и M:</p>
 <div class="frm st">2·(6 + 10) + 2·(10 + 10) + 2·(6 + 10) = 104</div>
 <p class="st">А периметр блока — 64. Разница 40 считается точно: внутри блока два стыка, каждый высотой 10, и каждый попал в сумму дважды — по разу от левой детали и по разу от правой. Значит лишних высот четыре:</p>
 <div class="frm st">сумма периметров деталей = периметр блока + 4 · 10</div>
 <div class="frm st">104 = 64 + 40</div>
 <p class="st">Снаружи этих стыков не видно, а в сумме периметров они сидят.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Вот что из этого попадает на бумагу: буквы, равенства, проверка. Объяснения выше на бумагу не выносятся.</em></p>
+<p class="st">Кирпичики: m = ширина M, n = ширина N; высота у всех деталей 10.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(MNM) = 2·((2m + n) + 10)</div>
+<div class="frm st">P(NMN) = 2·((m + 2n) + 10)</div>
+<p class="st">Осталось найти m и n из двух данных периметров.</p></div>
+<ul class="st"><li>P(MNM) = 64 → 2m + n = 22</li><li>P(NMN) = 72 → m + 2n = 26</li><li>сложение: 3m + 3n = 48 → m + n = 16</li><li>вычитание: n − m = 4</li><li>m = (16 − 4) : 2 → <b>m = 6</b>, n = 16 − 6 → <b>n = 10</b></li></ul>
+<div class="frm st">m = 6, n = 10</div>
+<p class="st">Проверка сложением: P(MNM) = 2·(22 + 10) = 64 ✓; P(NMN) = 2·(26 + 10) = 72 ✓</p>
 <p class="st"><b>Где это в корпусе:</b> 2022 №2 (все четыре вопроса — про блоки), 2021 №5 («прямоугольник, который образуют A и B»), 2020 №5.</p>
 <p class="st"><b>Ловушка:</b> периметр блока ≠ сумма периметров деталей. Общие стороны исчезают внутри — считай блок как один прямоугольник по его составу.</p>
 <hr>

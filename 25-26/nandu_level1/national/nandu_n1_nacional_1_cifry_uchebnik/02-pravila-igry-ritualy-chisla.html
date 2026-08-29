@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -199,10 +213,11 @@
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Ритуал Ч1</span><span class="val">Увидел в условии слово «цифра» — остановись и скажи вслух, что именно считаешь: знаки в строке или сами числа.</span></button>
 <button class="art" data-art="1"><span class="lbl">Ритуал Ч2</span><span class="val">Не «750 разделить на 32 будет примерно 23», а</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">750<br>= 32 · 23 + 14</span></button>
-<button class="art" data-art="3"><span class="lbl">Ритуал Ч3</span><span class="val">Придумал формулу для позиции 2024 — сначала прогони её на позиции 14, где список можно выписать руками целиком.</span></button>
-<button class="art" data-art="4"><span class="lbl">Ритуал Ч4</span><span class="val">В примере, записанном столбиком, самые разговорчивые колонки — крайние: единицы (правая) и старший разряд (левая).</span></button>
-<button class="art" data-art="5"><span class="lbl">Ритуал Ч5</span><span class="val">В условиях национального тура почти всегда стоит просьба «Explica cómo las contaste» — «объясни, как ты их посчитал».</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">750 = 32 · 23 + 14</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">res(750 : 32) = 14</span></button>
+<button class="art" data-art="4"><span class="lbl">Ритуал Ч3</span><span class="val">Придумал формулу для позиции 2024 — сначала прогони её на позиции 14, где список можно выписать руками целиком.</span></button>
+<button class="art" data-art="5"><span class="lbl">Ритуал Ч4</span><span class="val">В примере, записанном столбиком, самые разговорчивые колонки — крайние: единицы (правая) и старший разряд (левая).</span></button>
+<button class="art" data-art="6"><span class="lbl">Ритуал Ч5</span><span class="val">В условиях национального тура почти всегда стоит просьба «Explica cómo las contaste» — «объясни, как ты их посчитал».</span></button>
 </aside>
 <main>
   
@@ -220,9 +235,12 @@
 <div id="a1" data-art="1"><p class="ritual st"><b>Ритуал Ч2 — деление с остатком записывай полной строкой.</b> Не «750 разделить на 32 будет примерно 23», а</p></div>
 <div id="a2" data-art="2"><div class="frm st">750 = 32 · 23 + 14</div></div>
 <p class="st">В этой строке стоят сразу оба ответа: неполное частное 23 — сколько получилось полных групп, остаток 14 — сколько осталось сверху. Почти в каждой задаче нужны оба.</p>
-<div id="a3" data-art="3"><p class="ritual st"><b>Ритуал Ч3 — проверь на маленьком списке.</b> Придумал формулу для позиции 2024 — сначала прогони её на позиции 14, где список можно выписать руками целиком. Формула, не проверенная на маленьком, — не формула, а надежда.</p></div>
-<div id="a4" data-art="4"><p class="ritual st"><b>Ритуал Ч4 — столбик читаем с краёв.</b> В примере, записанном столбиком, самые разговорчивые колонки — крайние: единицы (правая) и старший разряд (левая). Начинай с них.</p></div>
-<div id="a5" data-art="5"><p class="ritual st"><b>Ритуал Ч5 — полнота письменно.</b> В условиях национального тура почти всегда стоит просьба «Explica cómo las contaste» — «объясни, как ты их посчитал». Значит, одного числа в ответе мало: рядом должны стоять два предложения — почему ни один вариант не потерян и почему ни один лишний не попал. Эти два предложения стоят ровно столько же, сколько сам ответ. Привыкай писать их всегда, даже дома.</p></div>
+<p class="st"><b>Оговорка к Ч2.</b> Про уже добытый остаток бывает нужно сказать коротко — в формуле, в заголовке шага, в условии перебора. Для этого есть короткое имя <code>res(a : b)</code> — «остаток от деления a на b»:</p>
+<div id="a3" data-art="3"><div class="frm st">res(750 : 32) = 14</div></div>
+<p class="st">Читается «остаток от 750 на 32», и внутри скобок стоит ровно то, что произносишь вслух. Но считать остаток короткая запись не умеет: она только <b>называет</b> число, которое ты уже вытащил из полной строки. Поэтому делишь по-прежнему строкой 750 = 32 · 23 + 14, а <code>res(750 : 32)</code> пишешь там, где надо сослаться на её последнее число. Вместе, а не вместо.</p>
+<div id="a4" data-art="4"><p class="ritual st"><b>Ритуал Ч3 — проверь на маленьком списке.</b> Придумал формулу для позиции 2024 — сначала прогони её на позиции 14, где список можно выписать руками целиком. Формула, не проверенная на маленьком, — не формула, а надежда.</p></div>
+<div id="a5" data-art="5"><p class="ritual st"><b>Ритуал Ч4 — столбик читаем с краёв.</b> В примере, записанном столбиком, самые разговорчивые колонки — крайние: единицы (правая) и старший разряд (левая). Начинай с них.</p></div>
+<div id="a6" data-art="6"><p class="ritual st"><b>Ритуал Ч5 — полнота письменно.</b> В условиях национального тура почти всегда стоит просьба «Explica cómo las contaste» — «объясни, как ты их посчитал». Значит, одного числа в ответе мало: рядом должны стоять два предложения — почему ни один вариант не потерян и почему ни один лишний не попал. Эти два предложения стоят ровно столько же, сколько сам ответ. Привыкай писать их всегда, даже дома.</p></div>
 <hr>
 <div class="pager"><a href="01-chto-takoe-cifra-chislo-i-ostatok-chitat-pervym.html">← Что такое цифра, число и остаток (читать первым!)</a><a href="03-chast-a-ostatki-i-delimost.html">Часть A — Остатки и делимость →</a></div>
 </main>

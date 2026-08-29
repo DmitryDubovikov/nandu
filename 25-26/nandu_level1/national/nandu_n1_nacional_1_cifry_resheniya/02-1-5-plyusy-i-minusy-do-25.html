@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,20 +207,24 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 2 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Расстановок знаков — гора, перебрать их нельзя.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ = сравнить чётность стартовой суммы с чётностью нуля. Осталось: посчитать старт и проверить, сохраняет ли переворот знака чётность.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso la paridad del resultado no cambia, así que vale lo mismo al principio y al final: nunca se llega a 0.<br><em>На каждом шаге чётность результата не меняется, значит в начале и в конце оно одно и то же — до нуля не дойти никогда.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = «нельзя», если чётность старта не такая, как у нуля, а переворот знака чётность не меняет.</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">старт = 25 · 26 : 2 = 325; нечётных слагаемых 13 → <b>старт нечётен</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">смена «+ a» на «− a» меняет результат на 2a — чётное → <b>чётность не меняется</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">0 чётен, а результат всегда нечётен</span></button>
+<button class="art cont" data-art="5"><span class="val f">Нет, ноль получить нельзя.</span></button>
 </aside>
 <main>
   
   <h1>1.5 ⭐⭐ Плюсы и минусы до 25</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Пипа выписала в ряд числа от 1 до 25 и расставляет между ними знаки «+» и «−» (как захочет). Может ли результат оказаться равным 0? Объясни.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Расстановок знаков — гора, перебрать их нельзя. Но все они получаются из одной-единственной, «все плюсы», переворотом знаков по одному. Поэтому смотреть надо не на сам результат, а на то, <b>что делает с ним один переворот</b>. Если какое-то свойство результата переворот не меняет — оно одинаково у всех расстановок сразу, и его достаточно посчитать один раз, на стартовой.</p></div></div>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = сравнить чётность стартовой суммы с чётностью нуля. Осталось: посчитать старт и проверить, сохраняет ли переворот знака чётность.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Расстановок знаков — гора, перебрать их нельзя. Но все они получаются из одной-единственной, «все плюсы», переворотом знаков по одному. Поэтому смотреть надо не на сам результат, а на то, <b>что делает с ним один переворот</b>. Если какое-то свойство результата переворот не меняет — оно одинаково у всех расстановок сразу, и его достаточно посчитать один раз, на стартовой.</p></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = сравнить чётность стартовой суммы с чётностью нуля. Осталось: посчитать старт и проверить, сохраняет ли переворот знака чётность.</p></div>
 <p class="step st"><b>Шаг 1 — нужна стартовая точка, поэтому считаю сумму со всеми плюсами.</b></p>
 <div class="frm st">1 + 2 + … + 25 = 25 · 26 : 2 = 325</div>
 <p class="st">Чётность проверю отдельно, не полагаясь на само число: нечётных чисел от 1 до 25 ровно тринадцать (1, 3, 5, …, 25), а сумма нечётного количества нечётных — нечётна; чётные слагаемые чётность не портят.</p>
@@ -219,6 +237,17 @@
 <p class="st">→ <b>результат всегда нечётный</b></p>
 <p class="step st"><b>Шаг 4 — сборка.</b> Ноль чётен, а результат Пипы всегда нечётен.</p>
 <p class="st"><b>Ответ:</b> <b>нет, ноль получить нельзя</b> ни при какой расстановке знаков.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>En cada paso la paridad del resultado no cambia, así que vale lo mismo al principio y al final: nunca se llega a 0.</b></p></div>
+<p class="st"><em>На каждом шаге чётность результата не меняется, значит в начале и в конце оно одно и то же — до нуля не дойти никогда.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">старт = 1 + 2 + … + 25</div>
+<p class="st">Ответ = «нельзя», если чётность старта не такая, как у нуля, а переворот знака чётность не меняет.</p></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>старт = 25 · 26 : 2 = 325; нечётных слагаемых 13 → <b>старт нечётен</b></li><li>смена «+ a» на «− a» меняет результат на 2a — чётное → <b>чётность не меняется</b></li><li>0 чётен, а результат всегда нечётен</li></ul></div>
+<div id="a5" data-art="5"><p class="st"><b>Нет, ноль получить нельзя.</b></p></div>
 <hr>
 <div class="pager"><a href="01-1-4-shest-kartochek.html">← 1.4 ⭐ Шесть карточек</a><a href="03-2-4-albom-s-nakleykami.html">2.4 ⭐ Альбом с наклейками →</a></div>
 </main>

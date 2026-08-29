@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,20 +207,27 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 11 из 13</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Результат перевода
-
-p + H = 144
-p + v = 120
-n + v = 78
-n = p/2
-W − p = (3/5)·d
-(W − n) + d + (p − n) + H = 264
-
-p = MP · n = MN · v = MV · H = высота…</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">Кирпичики: p = MP · n = MN · v = MV · h = высота фигуры · w = MQ · d = косая SQ</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(A) = 2·(p : 6 + (h − v))</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(B) = 2·(n + v : 4)</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(C) = 2·((p − n) : 2 + v)</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">P(D) = (w − p) + h + d</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">P(MQSU) = w + d + p + h</span></button>
+<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f">P(MPZV) = 240 → p + v = 120; P(MNXV) = 156 → n + v = 78; разность: p − n = 42</span></button>
+<button class="art cont" data-art="7"><span class="val f">сквозная T–X–N → n = p : 2, значит p − n = p : 2 → <b>p = 84</b>, <b>n = 42</b></span></button>
+<button class="art cont" data-art="8"><span class="val f"><b>v = 36</b>; P(MPSU) = 288 → p + h = 144 → <b>h = 60</b></span></button>
+<button class="art cont" data-art="9"><span class="val f">P(NQST) = 264 → (w − n) + d + (p − n) + h = 264 → w + d = 204</span></button>
+<button class="art cont" data-art="10"><span class="val f">PQ = (3/5)·SQ → w = 84 + (3/5)·d → (8/5)·d = 120 → <b>d = 75</b>, <b>w = 129</b>, PQ = <b>45</b></span></button>
+<button class="art cont" data-art="11"><span class="val f">A = 14 × 24, B = 42 × 9, C = 21 × 36</span></button>
+<button class="art cont" data-art="12"><span class="val f">P(A) = 2·(14 + 24) = 76</span></button>
+<button class="art cont" data-art="13"><span class="val f">P(B) = 2·(42 + 9) = 102</span></button>
+<button class="art cont" data-art="14"><span class="val f">P(C) = 2·(21 + 36) = 114</span></button>
+<button class="art cont" data-art="15"><span class="val f">P(D) = 45 + 60 + 75 = 180</span></button>
+<button class="art cont" data-art="16"><span class="val f">P(MQSU) = 129 + 75 + 84 + 60 = 348</span></button>
 </aside>
 <main>
   
@@ -214,25 +235,25 @@ p = MP · n = MN · v = MV · H = высота…</span></button>
   <p class="sub">Сетка равных деталей — Ключ к практикум-маршруту</p>
 <h3 class="st">Этап 1 — перевод</h3>
 <p class="st"><b>Фигура.</b> Прямоугольник MQRU (M — левый низ, Q — правый низ, R — правый верх, U — левый верх). Вертикаль P→S отрезает правую часть PQRS, косая S→Q режет её на два равных треугольника D. В левой части MPSU горизонталь V→Z отрезает верхнюю полосу из <b>шести</b> деталей A в ряд; под полосой вертикаль N→X делит низ на стопку из четырёх лежачих B (слева) и пару стоячих C (справа). Буква T на верхней стороне стоит ровно над X и N: граница деталей A₃|A₄, стык блоков B|C и точка N лежат на одной <b>сквозной</b> вертикали.</p>
-<p class="st"><b>Кирпичики.</b> <code>p</code> = MP, <code>n</code> = MN, <code>v</code> = высота нижней части (MV), <code>H</code> = высота фигуры, <code>W</code> = MQ, <code>d</code> = косая SQ.</p>
+<p class="st"><b>Кирпичики.</b> <code>p</code> = MP, <code>n</code> = MN, <code>v</code> = высота нижней части (MV), <code>h</code> = высота фигуры, <code>w</code> = MQ, <code>d</code> = косая SQ.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td>периметр MPSU = 288</td><td>p + H = 144</td></tr>
-<tr><td>периметр MPZV = 240</td><td>p + v = 120</td></tr>
-<tr><td>периметр MNXV = 156</td><td>n + v = 78</td></tr>
+<tr><td>P(MPSU) = 288</td><td>p + h = 144</td></tr>
+<tr><td>P(MPZV) = 240</td><td>p + v = 120</td></tr>
+<tr><td>P(MNXV) = 156</td><td>n + v = 78</td></tr>
 <tr><td>сквозная вертикаль T–X–N делит ряд из 6 равных A ровно посередине</td><td>n = p/2</td></tr>
-<tr><td>PQ = 3/5·SQ (SQ — косая!)</td><td>W − p = (3/5)·d</td></tr>
-<tr><td>периметр NQST = 264: N→Q (W − n), Q→S (d), S→T (p − n), T→N (H)</td><td>(W − n) + d + (p − n) + H = 264</td></tr>
+<tr><td>PQ = 3/5·SQ (SQ — косая!)</td><td>w − p = (3/5)·d</td></tr>
+<tr><td>P(NQST) = 264: N→Q (w − n), Q→S (d), S→T (p − n), T→N (h)</td><td>(w − n) + d + (p − n) + h = 264</td></tr>
 </table></div></div>
-<div id="a0" data-art="0"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
-<pre class="ascii st">p + H = 144
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<pre class="ascii st">p + h = 144
 p + v = 120
 n + v = 78
 n = p/2
-W − p = (3/5)·d
-(W − n) + d + (p − n) + H = 264</pre>
-<p class="st"><code>p</code> = MP · <code>n</code> = MN · <code>v</code> = MV · <code>H</code> = высота · <code>W</code> = MQ · <code>d</code> = косая SQ</p>
-<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+w − p = (3/5)·d
+(w − n) + d + (p − n) + h = 264</pre>
+<p class="st"><code>p</code> = MP · <code>n</code> = MN · <code>v</code> = MV · <code>h</code> = высота · <code>w</code> = MQ · <code>d</code> = косая SQ</p>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Все семь по очереди: Л1 (сетка 6-4-2), Л3 ((2) − (3): p − n = 42 одной строкой), Л7 (сквозная T–X–N — <b>недостающее уравнение</b>: без неё неизвестных больше, чем уравнений), Л4 (3/5 — и SQ это косая), Л2, наклонная из контура NQST.</p>
 <p class="st"><b>Ловушка перевода.</b> Не заметить сквозную вертикаль — тогда система «не решается», и это не ошибка в алгебре: буква T на верхней стороне стоит не для красоты. Вторая: PQ = 3/5·<b>SQ</b>, где SQ — косая, а не сторона.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
@@ -240,21 +261,39 @@ W − p = (3/5)·d
 <div class="frm st">p − n = 120 − 78 = 42</div>
 <p class="st">По сквозной линии n = p/2, то есть p − n — это тоже половина p:</p>
 <p class="st">p/2 = 42 → <b>p = 84, n = 42</b></p>
-<p class="st">Обратно в (2) и (1): <b>v = 36, H = 60</b>.</p>
+<p class="st">Обратно в (2) и (1): <b>v = 36, h = 60</b>.</p>
 <p class="step st"><b>Шаг 2 — нужны размеры деталей: собираю их из найденных букв.</b></p>
-<ul class="st"><li>A = 14 × 24 (шесть A в ряд по ширине p = 84, высота H − v = 24)</li><li>B = 42 × 9 (ширина n = 42, четыре B по высоте v = 36)</li><li>C = 21 × 36 (две C по ширине p − n = 42, высота v = 36)</li></ul>
-<p class="step st"><b>Шаг 3 — нужны косая d и ширина W: две строки на две неизвестные.</b> Подставляю известные в (6):</p>
-<div class="frm st">(W − 42) + d + 42 + 60 = 264</div>
-<div class="frm st">W + d = 204</div>
-<p class="st">Из (5) выражаю W через d:</p>
-<div class="frm st">W = 84 + (3/5)·d</div>
+<ul class="st"><li>A = 14 × 24 (шесть A в ряд по ширине p = 84, высота h − v = 24)</li><li>B = 42 × 9 (ширина n = 42, четыре B по высоте v = 36)</li><li>C = 21 × 36 (две C по ширине p − n = 42, высота v = 36)</li></ul>
+<p class="step st"><b>Шаг 3 — нужны косая d и ширина w: две строки на две неизвестные.</b> Подставляю известные в (6):</p>
+<div class="frm st">(w − 42) + d + 42 + 60 = 264</div>
+<div class="frm st">w + d = 204</div>
+<p class="st">Из (5) выражаю w через d:</p>
+<div class="frm st">w = 84 + (3/5)·d</div>
 <p class="st">Подставляю в предыдущую строку:</p>
 <div class="frm st">84 + (3/5)·d + d = 204</div>
 <p class="st">(8/5)·d = 120 → <b>d = 75</b></p>
-<p class="st">Отсюда <b>W = 129</b>, а PQ = W − p = 45.</p>
+<p class="st">Отсюда <b>w = 129</b>, а последняя сторона:</p>
+<div class="frm st">PQ = w − p = 45</div>
 <p class="step st"><b>Шаг 4 — сборка: считаю спрошенные периметры.</b></p>
-<ul class="st"><li><b>A</b> = 2(14 + 24) = <b>76</b></li><li><b>B</b> = 2(42 + 9) = <b>102</b></li><li><b>C</b> = 2(21 + 36) = <b>114</b></li><li><b>D</b> = 45 + 60 + 75 = <b>180</b></li><li><b>MQSU</b> = W + d + p + H = 129 + 75 + 84 + 60 = <b>348</b></li></ul>
+<ul class="st"><li><b>P(A)</b> = 2(14 + 24) = <b>76</b></li><li><b>P(B)</b> = 2(42 + 9) = <b>102</b></li><li><b>P(C)</b> = 2(21 + 36) = <b>114</b></li><li><b>P(D)</b> = 45 + 60 + 75 = <b>180</b></li><li><b>P(MQSU)</b> = w + d + p + h = 129 + 75 + 84 + 60 = <b>348</b></li></ul>
 <p class="st">Красивая сверка вторым способом: NQST отличается от треугольника D двумя кусками по (p − n) → D = 264 − 2·42 = 180 ✓. И тройка 45-60-75 = 15·(3-4-5) ✓.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<div id="a0" data-art="0"><p class="st">Кирпичики: p = MP · n = MN · v = MV · h = высота фигуры · w = MQ · d = косая SQ.</p></div>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(A) = 2·(p : 6 + (h − v))</div>
+<div class="frm st">P(B) = 2·(n + v : 4)</div>
+<div class="frm st">P(C) = 2·((p − n) : 2 + v)</div>
+<div class="frm st">P(D) = (w − p) + h + d</div>
+<div class="frm st">P(MQSU) = w + d + p + h</div>
+<p class="st">Осталось найти p, n, v, h, w, d.</p></div></div>
+<div id="a11" data-art="11"><ul class="st"><li>P(MPZV) = 240 → p + v = 120; P(MNXV) = 156 → n + v = 78; разность: p − n = 42</li><li>сквозная T–X–N → n = p : 2, значит p − n = p : 2 → <b>p = 84</b>, <b>n = 42</b></li><li><b>v = 36</b>; P(MPSU) = 288 → p + h = 144 → <b>h = 60</b></li><li>P(NQST) = 264 → (w − n) + d + (p − n) + h = 264 → w + d = 204</li><li>PQ = (3/5)·SQ → w = 84 + (3/5)·d → (8/5)·d = 120 → <b>d = 75</b>, <b>w = 129</b>, PQ = <b>45</b></li><li>A = 14 × 24, B = 42 × 9, C = 21 × 36</li></ul></div>
+<div id="a12" data-art="12"><div class="frm st">P(A) = 2·(14 + 24) = 76</div></div>
+<div id="a13" data-art="13"><div class="frm st">P(B) = 2·(42 + 9) = 102</div></div>
+<div id="a14" data-art="14"><div class="frm st">P(C) = 2·(21 + 36) = 114</div></div>
+<div id="a15" data-art="15"><div class="frm st">P(D) = 45 + 60 + 75 = 180</div></div>
+<div id="a16" data-art="16"><div class="frm st">P(MQSU) = 129 + 75 + 84 + 60 = 348</div></div>
+<p class="st">Проверка сложением: P(MPSU) = 2·(84 + 60) = 288 ✓; P(MPZV) = 2·(84 + 36) = 240 ✓; P(MNXV) = 2·(42 + 36) = 156 ✓; P(NQST) = 87 + 75 + 42 + 60 = 264 ✓</p>
 <hr>
 <div class="pager"><a href="10-10-2025-5-dva-kvadrata-i-klyuv.html">← 10. 2025 №5 — два квадрата и клюв</a><a href="12-12-2019-3-girlyanda-shestiugolnikov-t2-drugoy-zh.html">12. 2019 №3 — гирлянда шестиугольников *(Т2″, другой жанр)* →</a></div>
 </main>

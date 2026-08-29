@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,23 +207,28 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 5 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Умножать «первая × вторая» можно только тогда, когда вторых цифр к каждой первой поровну — иначе каждую первую пришлось бы считать отдельно.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ = П × В, где П — сколько бывает первых цифр, В — сколько вторых цифр годится к каждой первой.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo la primera cifra y después la segunda; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю первую цифру и потом вторую; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = N(первых цифр) · N(вторых цифр к каждой первой)</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">первая цифра любая из 1–9 → <b>N(первых цифр) = 9</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">вторая обязана дополнить сумму до кратного 5; в десятке 0–9 нужный остаток встречается ровно дважды → <b>N(вторых цифр к каждой первой) = 2</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">Ответ = 9 · 2 = 18 чисел</span></button>
+<button class="art" data-art="5"><span class="lbl">💬 Полнота</span><span class="val ph">No hace falta escribir la lista: cada par de cifras da exactamente un número, y pares distintos dan números distintos, por eso el conteo es exacto.<br><em>Список выписывать не нужно: каждая пара цифр даёт ровно одно число, а разные пары дают разные числа, — поэтому счёт точен.</em></span></button>
 </aside>
 <main>
   <p class="partlab">Блок 3 — Перебор по остаткам</p>
   <h1>3.4 ⭐ Двузначные с суммой цифр, кратной 5</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Сколько существует двузначных чисел, у которых <b>сумма цифр</b> делится на 5?</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Умножать «первая × вторая» можно только тогда, когда вторых цифр к каждой первой <b>поровну</b> — иначе каждую первую пришлось бы считать отдельно. Это и есть старый закон «И» из счёта: если сначала выбираем одно, потом другое, и второй выбор всегда одинаково широк, — числа вариантов перемножаются. Здесь так и выйдет: первая цифра меняет, какие именно вторые подходят, но не их количество. Сетку, из которой это видно, построю в шаге 3.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Умножать «первая × вторая» можно только тогда, когда вторых цифр к каждой первой <b>поровну</b> — иначе каждую первую пришлось бы считать отдельно. Это и есть старый закон «И» из счёта: если сначала выбираем одно, потом другое, и второй выбор всегда одинаково широк, — числа вариантов перемножаются. Здесь так и выйдет: первая цифра меняет, какие именно вторые подходят, но не их количество. Сетку, из которой это видно, построю в шаге 3.</p></div>
 <p class="step st"><b>Шаг 1 — план: строить число по цифрам, а не перебирать все девяносто.</b> Двузначное число — это первая цифра и вторая, и требование лежит на их сумме. Первая цифра свободна, а вторая после её выбора уже зажата: она обязана дополнить сумму до кратного пяти. Значит, число собирается в два хода — и считается законом «И».</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = П × В, где П — сколько бывает первых цифр, В — сколько вторых цифр годится к каждой первой.</p></div></div>
-<p class="step st"><b>Шаг 2 — считаем П.</b> Первая цифра двузначного числа — любая из 1–9. → <b>П = 9</b></p>
-<p class="step st"><b>Шаг 3 — считаем В.</b> При выбранной первой цифре вторая обязана дополнить её до ближайшего кратного пяти. Прогоняю проверку по нескольким первым цифрам и смотрю на последнюю колонку:</p>
+<p class="st">Счётные величины здесь пишу обозначением <code>N(…)</code> — «сколько объектов подходит под то, что написано в скобках»: например, <code>N(первых цифр) = 9</code>, потому что первой цифрой двузначного числа бывает любая из девяти.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = N(первых цифр) · N(вторых цифр к каждой первой).</p></div>
+<p class="step st"><b>Шаг 2 — считаем N(первых цифр).</b> Первая цифра двузначного числа — любая из 1–9. → <b>N(первых цифр) = 9</b></p>
+<p class="step st"><b>Шаг 3 — считаем N(вторых цифр к каждой первой).</b> При выбранной первой цифре вторая обязана дополнить её до ближайшего кратного пяти. Прогоняю проверку по нескольким первым цифрам и смотрю на последнюю колонку:</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Первая цифра</th><th>До каких сумм добирать</th><th>Годные вторые</th><th>Сколько их</th></tr>
 <tr><td>3</td><td>5 и 10</td><td>2 и 7</td><td>2</td></tr>
@@ -217,9 +236,23 @@
 <tr><td>6</td><td>10 и 15</td><td>4 и 9</td><td>2</td></tr>
 <tr><td>9</td><td>10 и 15</td><td>1 и 6</td><td>2</td></tr>
 </table></div></div>
-<p class="st">Последняя колонка не меняется, и это не совпадение: вторая цифра пробегает весь десяток 0–9, а в десятке подряд идущих цифр каждый нужный остаток встречается ровно дважды. → <b>В = 2</b></p>
-<p class="step st"><b>Шаг 4 — сборка.</b> Ответ = П × В = 9 · 2 = <b>18 чисел</b>.</p>
+<p class="st">Последняя колонка не меняется, и это не совпадение: вторая цифра пробегает весь десяток 0–9, а в десятке подряд идущих цифр каждый нужный остаток встречается ровно дважды. → <b>N(вторых цифр к каждой первой) = 2</b></p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Ответ = 9 · 2 = <b>18 чисел</b>.</p>
 <p class="st">Не путай с «число делится на 5»: 19 в наш список входит (1 + 9 = 10 делится на 5), хотя само на 5 не делится; а 10 на 5 делится, но в наш список не попадает — сумма его цифр равна 1.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Elijo la primera cifra y después la segunda; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p></div>
+<p class="st"><em>Выбираю первую цифру и потом вторую; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ = N(первых цифр) · N(вторых цифр к каждой первой)</div></div></div>
+<div id="a3" data-art="3"><ul class="st"><li>первая цифра любая из 1–9 → <b>N(первых цифр) = 9</b></li><li>вторая обязана дополнить сумму до кратного 5; в десятке 0–9 нужный остаток встречается ровно дважды → <b>N(вторых цифр к каждой первой) = 2</b></li></ul></div>
+<div id="a4" data-art="4"><div class="frm st">Ответ = 9 · 2 = 18 чисел</div></div>
+<p class="st">Проверка на маленьком: первая 3 → вторые 2 и 7; первая 9 → вторые 1 и 6 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a5" data-art="5"><p class="st"><b>No hace falta escribir la lista: cada par de cifras da exactamente un número, y pares distintos dan números distintos, por eso el conteo es exacto.</b></p></div>
+<p class="st"><em>Список выписывать не нужно: каждая пара цифр даёт ровно одно число, а разные пары дают разные числа, — поэтому счёт точен.</em></p>
 <hr>
 <div class="pager"><a href="04-2-5-svechi-v-korobkah.html">← 2.5 ⭐⭐ Свечи в коробках</a><a href="06-3-5-kaktus-keny.html">3.5 ⭐⭐ Кактус Кены →</a></div>
 </main>

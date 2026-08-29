@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,12 +207,34 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 16 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ каждого пункта = все пары (a, m), которые удовлетворяют строке</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">В строке плана хвост не выбирается, а считается — стоит выбрать первую цифру, и он определён:</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>a</code> — первая цифра (1…9)</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>m</code> — двузначный хвост (10…99)</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>k</code> — во сколько раз число уменьшилось</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">100a + m = k · m</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">100a = (k − 1) · m</span></button>
+<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f"><code>k = 7</code> → <code>100a = 6m</code> → <code>50a = 3m</code> → годятся <code>a = 3, 6, 9</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>a = 3</code> → <code>m = 50</code> ✓</span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>a = 6</code> → <code>m = 100</code> ✗</span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>a = 9</code> → <code>m = 150</code> ✗</span></button>
+<button class="art cont" data-art="10"><span class="val f">а) 350</span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>k = 9</code> → <code>100a = 8m</code> → <code>25a = 2m</code> → <code>a</code> чётно</span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>a = 2</code> → <code>m = 25</code> ✓</span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>a = 4</code> → <code>m = 50</code> ✓</span></button>
+<button class="art cont" data-art="14"><span class="val f"><code>a = 6</code> → <code>m = 75</code> ✓</span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>a = 8</code> → <code>m = 100</code> ✗</span></button>
+<button class="art cont" data-art="16"><span class="val f">б) 225, 450, 675</span></button>
+<button class="art cont" data-art="17"><span class="val f"><code>k = 4</code> → <code>100a = 3m</code> → годятся <code>a = 3, 6, 9</code> → <code>m = 100, 200, 300</code> — все трёхзначные</span></button>
+<button class="art cont" data-art="18"><span class="val f">в) таких чисел нет</span></button>
+<button class="art cont" data-art="19"><span class="val f"><code>350 : 50 = 7</code> ✓</span></button>
+<button class="art cont" data-art="20"><span class="val f"><code>225 : 25 = 9</code> ✓</span></button>
+<button class="art cont" data-art="21"><span class="val f"><code>450 : 50 = 9</code> ✓</span></button>
+<button class="art cont" data-art="22"><span class="val f"><code>675 : 75 = 9</code> ✓</span></button>
+<button class="art" data-art="23"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores de a posibles y los demás no cumplen que m tenga dos cifras, por eso no hay más que estos.<br><em>Проверил все возможные значения a, остальные не подходят под «хвост двузначный», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -214,12 +250,13 @@
 <p class="st">Условие «после стирания первой цифры число уменьшилось ровно в k раз» значит: N = k · m.</p>
 <ul class="st"><li>подставляем разрядную запись в условие → 100a + m = k · m;</li><li>переносим m вправо → <b>100a = (k − 1) · m</b>.</li></ul>
 <p class="st">Вот и вся задача: одна строка, в которой слева круглое число, а справа множитель на хвост. Дальше в каждом пункте меняется только k.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b> Ответ каждого пункта = все пары (a, m), которые удовлетворяют строке</p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b> Ответ каждого пункта = все пары (a, m), которые удовлетворяют строке</p>
 <div class="frm st">100a = (k − 1) · m</div>
 <p class="st">и при этом a — цифра от 1 до 9, а хвост m — двузначное число, от 10 до 99.</p>
-<p class="st">Буквы: a — первая цифра числа · m — двузначный хвост, оставшийся после стирания · k — во сколько раз число уменьшилось (в пункте а он 7, в б — 9, в в — 4).</p>
-<p class="st">Осталось найти: для каждого k — все годные a.</p></div></div>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>В строке плана хвост не выбирается, а считается — стоит выбрать первую цифру, и он определён:</p></div></div>
+<p class="st">Буквы: a — первая цифра числа; m — двузначный хвост, оставшийся после стирания; k — во сколько раз число уменьшилось (в пункте а он 7, в б — 9, в в — 4).</p>
+<p class="st">Осталось найти: для каждого k — все годные a.</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>В строке плана хвост не выбирается, а считается — стоит выбрать первую цифру, и он определён:</p></div>
+<p class="st"><em>💬 «Число раскладывается на первую цифру и хвост, и условие становится равенством между буквами» — это и есть мысль для фразы-объяснения.</em></p>
 <div class="frm st">m = 100a : (k − 1)</div>
 <p class="st">Значит, перебирать надо только первую цифру — её всего девять значений, и на этом задача конечна. И сразу видно, откуда берётся запрет в пункте (в): чем меньше k, тем меньше делитель <code>k − 1</code> и тем длиннее хвост. При k = 4 делитель равен 3, сотня на 3 не делится, поэтому годятся только a = 3, 6, 9 — а хвост при них 100, 200, 300, и в два разряда он уже не влезает ни при какой цифре.</p>
 <p class="step st"><b>Шаг 1 — ищу числа при k = 7 (пункт a).</b> Нужны все пары (a, m) при семёрке — для этого подставляю её в строку плана и перебираю первую цифру подряд:</p>
@@ -229,11 +266,33 @@
 <ul class="st"><li>подставляем k = 9 → 100a = 8m;</li><li>делим обе части на 4 → 25a = 2m;</li><li>25a обязано быть чётным, а 25 нечётно → значит, чётным обязано быть <b>a</b>: годятся a = 2, 4, 6, 8;</li><li>a = 2 → 50 = 2m → m = 25 ✓ → число <b>225</b>;</li><li>a = 4 → 100 = 2m → m = 50 ✓ → число <b>450</b>;</li><li>a = 6 → 150 = 2m → m = 75 ✓ → число <b>675</b>;</li><li>a = 8 → 200 = 2m → m = 100 ✗ не двузначное;</li><li>проверка → 225 : 25 = 9 ✓, 450 : 50 = 9 ✓, 675 : 75 = 9 ✓.</li></ul>
 <p class="st"><b>Ответ b: 225, 450, 675.</b></p>
 <p class="st"><b>Полнота письменно.</b> Любое подходящее число задаётся парой (a, m) и обязано удовлетворять строке 25a = 2m. Первая цифра a бывает только от 1 до 9, и из этих девяти значений нечётные отпадают сразу: при нечётном a левая часть нечётна, а правая чётна всегда. Остаются ровно четыре кандидата — 2, 4, 6, 8, — и каждый из них проверен: три дали двузначный хвост, четвёртый дал 100 и не годится. Значит, потерять я ничего не мог, а лишнего не взял, потому что каждое из трёх найденных чисел проверено делением.</p>
+<p class="st"><em>💬 «Проверил все возможные первые цифры, остальные не дают двузначного хвоста» — это и есть мысль для фразы-полноты.</em></p>
 <p class="step st"><b>Шаг 3 — проверяю k = 4 (пункт c).</b> Нужно узнать, бывает ли хоть одна пара при четвёрке, — та же строка плана, снова перебор первой цифры подряд:</p>
 <ul class="st"><li>подставляем k = 4 → 100a = 3m;</li><li>хвост обязан быть целым, значит 100a должно делиться на 3 — снова прохожу все девять цифр → 100, 200, 300, 400, 500, 600, 700, 800, 900; на 3 делятся только 300, 600 и 900, то есть годятся ровно a = 3, 6, 9;</li><li>a = 3 → 300 = 3m → m = 100 ✗;</li><li>a = 6 → 600 = 3m → m = 200 ✗;</li><li>a = 9 → 900 = 3m → m = 300 ✗.</li></ul>
 <p class="st">Хвост обязан быть двузначным, то есть не больше 99, а самый маленький кандидат — уже 100.</p>
 <p class="st"><b>Ответ c: нет, таких чисел не существует.</b> Все три возможных значения a перебраны, других быть не может: девять цифр я прошёл подряд, и у шести остальных число 100a на 3 не делится — целого хвоста при них вообще не выходит.</p>
 <p class="st"><b>Ответ.</b> а) <b>350</b> — единственное. б) <b>225, 450, 675</b> — ровно три числа. в) <b>Нет</b>, таких чисел не существует.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
+<p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a3" data-art="3"><ul class="st"><li><code>a</code> — первая цифра (1…9)</li><li><code>m</code> — двузначный хвост (10…99)</li><li><code>k</code> — во сколько раз число уменьшилось</li></ul></div>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st"><code>100a + m = k · m</code></div>
+<div class="frm st"><code>100a = (k − 1) · m</code></div></div></div>
+<div id="a9" data-art="9"><ul class="st"><li><code>k = 7</code> → <code>100a = 6m</code> → <code>50a = 3m</code> → годятся <code>a = 3, 6, 9</code></li><li><code>a = 3</code> → <code>m = 50</code> ✓</li><li><code>a = 6</code> → <code>m = 100</code> ✗</li><li><code>a = 9</code> → <code>m = 150</code> ✗</li></ul></div>
+<div id="a10" data-art="10"><p class="st"><b>а) 350</b></p></div>
+<div id="a15" data-art="15"><ul class="st"><li><code>k = 9</code> → <code>100a = 8m</code> → <code>25a = 2m</code> → <code>a</code> чётно</li><li><code>a = 2</code> → <code>m = 25</code> ✓</li><li><code>a = 4</code> → <code>m = 50</code> ✓</li><li><code>a = 6</code> → <code>m = 75</code> ✓</li><li><code>a = 8</code> → <code>m = 100</code> ✗</li></ul></div>
+<div id="a16" data-art="16"><p class="st"><b>б) 225, 450, 675</b></p></div>
+<div id="a17" data-art="17"><ul class="st"><li><code>k = 4</code> → <code>100a = 3m</code> → годятся <code>a = 3, 6, 9</code> → <code>m = 100, 200, 300</code> — все трёхзначные</li></ul></div>
+<div id="a18" data-art="18"><p class="st"><b>в) таких чисел нет</b></p></div>
+<p class="st">Проверка:</p>
+<div id="a22" data-art="22"><ul class="st"><li><code>350 : 50 = 7</code> ✓</li><li><code>225 : 25 = 9</code> ✓</li><li><code>450 : 50 = 9</code> ✓</li><li><code>675 : 75 = 9</code> ✓</li></ul></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a23" data-art="23"><p class="st"><b>Probé todos los valores de a posibles y los demás no cumplen que m tenga dos cifras, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения a, остальные не подходят под «хвост двузначный», — поэтому других нет.</em></p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Полный перебор подтверждает:</p>
 <ul class="st"><li>k = 7 → <b>[350]</b> — совпало с ручным ответом;</li><li>k = 9 → <b>[225, 450, 675]</b> — совпало, ровно три числа и те же самые;</li><li>k = 4 → <b>[]</b> — пусто, совпало с доказательством «хвост не помещается в два разряда».</li></ul>

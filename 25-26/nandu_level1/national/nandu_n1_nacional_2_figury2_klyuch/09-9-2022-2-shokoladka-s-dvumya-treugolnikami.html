@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,18 +207,23 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 9 из 13</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Результат перевода
-
-2a + b + p = 96
-a + 2b + p = 99
-a + 2b = 69
-p + q = 69
-
-a = ширина A и C · b = ширина B и D · p = высота A-строк · q = высота…</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики: a = ширина A и C · b = ширина B и D · p = высота A-строк · q = высота C-строк; бок T = колонна «A, C, A» = 2p + q.</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(A) = 2·(a + p)</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(D) = 2·(b + q)</span></button>
+<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">P(блока «A, B, A») = 192 → 2a + b + p = 96</span></button>
+<button class="art cont" data-art="4"><span class="val f">P(блока «B, A, B») = 198 → a + 2b + p = 99</span></button>
+<button class="art cont" data-art="5"><span class="val f">P(E) = 207, E равносторонний → сторона 69 = полоса «B, A, B» → a + 2b = 69, значит <b>p = 30</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">разность строк: b − a = 3; из первой 2a + b = 66 → <b>a = 21</b>, <b>b = 24</b></span></button>
+<button class="art cont" data-art="7"><span class="val f">квадрат «B, A, B, D, C, D» → p + q = 69 → <b>q = 39</b></span></button>
+<button class="art cont" data-art="8"><span class="val f">бок T = 2p + q = 60 + 39 = <b>99</b></span></button>
+<button class="art cont" data-art="9"><span class="val f">P(A) = 2·(21 + 30) = 102</span></button>
+<button class="art cont" data-art="10"><span class="val f">P(D) = 2·(24 + 39) = 126</span></button>
+<button class="art cont" data-art="11"><span class="val f">P(блока «A, B, C, D, A, B») = 2·(45 + 99) = 288</span></button>
+<button class="art cont" data-art="12"><span class="val f">P(фигуры «C, D, C, D, T») = 90 + 39 + 39 + 99 + 99 = 366</span></button>
 </aside>
 <main>
   
@@ -215,18 +234,18 @@ a = ширина A и C · b = ширина B и D · p = высота A-стр�
 <p class="st"><b>Кирпичики.</b> <code>a</code> = ширина A (= ширина C), <code>b</code> = ширина B (= D), <code>p</code> = высота A-строки, <code>q</code> = высота C-строки.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td>периметр блока «A, B и A» = 192: ширина 2a + b, высота p</td><td>(2a + b) + p = 96</td></tr>
-<tr><td>периметр блока «B, A и B» = 198</td><td>(a + 2b) + p = 99</td></tr>
-<tr><td>E равносторонний, периметр 207 → сторона 69; его основание — полоса «B, A, B»</td><td>a + 2b = 69</td></tr>
+<tr><td>P(блока «A, B и A») = 192: ширина 2a + b, высота p</td><td>(2a + b) + p = 96</td></tr>
+<tr><td>P(блока «B, A и B») = 198</td><td>(a + 2b) + p = 99</td></tr>
+<tr><td>E равносторонний, P(E) = 207 → сторона 69; его основание — полоса «B, A, B»</td><td>a + 2b = 69</td></tr>
 <tr><td>«B, A, B, D, C и D образуют квадрат»: ширина a + 2b, высота p + q</td><td>p + q = 69</td></tr>
 </table></div></div>
-<div id="a0" data-art="0"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">2a + b + p = 96
 a + 2b + p = 99
 a + 2b = 69
 p + q = 69</pre>
 <p class="st"><code>a</code> = ширина A и C · <code>b</code> = ширина B и D · <code>p</code> = высота A-строк · <code>q</code> = высота C-строк</p>
-<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Л2 (вся задача — блоки по именам), Л3 ((2) − (1): b − a = 3), Л1, ритуал 4 (квадрат из блоков: ширина = высота).</p>
 <p class="st"><b>Ловушка перевода.</b> Рисунок схематичен: основание E нарисовано во всю ширину фигуры (90), но равносторонний треугольник сам сообщает свою ширину периметром — 207/3 = 69, это полоса «B, A, B». Верь числу, а не толщине линий. И основание T в контур «C, D, C, D, T» не входит.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
@@ -242,7 +261,22 @@ p + q = 69</pre>
 <p class="step st"><b>Шаг 3 — нужны бока T: складываю три этажа колонны.</b> Бок T — это колонна «A, C, A», то есть две A-строки и одна C-строка:</p>
 <p class="st">бок T = 2p + q = 60 + 39 = <b>99</b></p>
 <p class="step st"><b>Шаг 4 — сборка: считаю спрошенные периметры.</b></p>
-<ul class="st"><li><b>A</b> = 2(21 + 30) = <b>102</b></li><li><b>D</b> = 2(24 + 39) = <b>126</b></li><li><b>блок «A, B, C, D, A, B»</b> (две колонки × три строки) = 2((a + b) + (2p + q)) = 2(45 + 99) = <b>288</b></li><li><b>фигура «C, D, C, D, T»</b> = верх 90 + бока 39 + 39 + скаты 99 + 99 = <b>366</b></li></ul>
+<ul class="st"><li><b>P(A)</b> = 2(21 + 30) = <b>102</b></li><li><b>P(D)</b> = 2(24 + 39) = <b>126</b></li><li><b>P(блока «A, B, C, D, A, B»)</b> (две колонки × три строки) = 2((a + b) + (2p + q)) = 2(45 + 99) = <b>288</b></li><li><b>P(фигуры «C, D, C, D, T»)</b> = верх 90 + бока 39 + 39 + скаты 99 + 99 = <b>366</b></li></ul>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<div id="a0" data-art="0"><p class="st">Кирпичики: a = ширина A и C · b = ширина B и D · p = высота A-строк · q = высота C-строк; бок T = колонна «A, C, A» = 2p + q.</p></div>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(A) = 2·(a + p)</div>
+<div class="frm st">P(D) = 2·(b + q)</div>
+<p class="st"><b>P(блока «A, B, C, D, A, B») = 2·((a + b) + (2p + q))</b></p>
+<p class="st"><b>P(фигуры «C, D, C, D, T») = (2a + 2b) + 2q + 2·(2p + q)</b></p>
+<p class="st">Осталось найти a, b, p, q.</p></div></div>
+<div id="a8" data-art="8"><ul class="st"><li>P(блока «A, B, A») = 192 → 2a + b + p = 96</li><li>P(блока «B, A, B») = 198 → a + 2b + p = 99</li><li>P(E) = 207, E равносторонний → сторона 69 = полоса «B, A, B» → a + 2b = 69, значит <b>p = 30</b></li><li>разность строк: b − a = 3; из первой 2a + b = 66 → <b>a = 21</b>, <b>b = 24</b></li><li>квадрат «B, A, B, D, C, D» → p + q = 69 → <b>q = 39</b></li><li>бок T = 2p + q = 60 + 39 = <b>99</b></li></ul></div>
+<div id="a9" data-art="9"><div class="frm st">P(A) = 2·(21 + 30) = 102</div></div>
+<div id="a10" data-art="10"><div class="frm st">P(D) = 2·(24 + 39) = 126</div></div>
+<div id="a11" data-art="11"><p class="st"><b>P(блока «A, B, C, D, A, B») = 2·(45 + 99) = 288</b></p></div>
+<div id="a12" data-art="12"><p class="st"><b>P(фигуры «C, D, C, D, T») = 90 + 39 + 39 + 99 + 99 = 366</b></p></div>
+<p class="st">Проверка сложением: P(блока «A, B, A») = 2·(66 + 30) = 192 ✓; P(блока «B, A, B») = 2·(69 + 30) = 198 ✓; a + 2b = 69 ✓; p + q = 69 ✓</p>
 <hr>
 <div class="pager"><a href="08-8-2023-2-domik-s-tremya-kosymi.html">← 8. 2023 №2 — домик с тремя косыми</a><a href="10-10-2025-5-dva-kvadrata-i-klyuv.html">10. 2025 №5 — два квадрата и клюв →</a></div>
 </main>

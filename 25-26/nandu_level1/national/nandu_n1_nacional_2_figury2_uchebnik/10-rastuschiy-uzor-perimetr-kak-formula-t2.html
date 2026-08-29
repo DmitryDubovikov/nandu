@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -223,6 +237,16 @@
 <div class="frm st">4n = 2020</div>
 <div class="frm st">n = 505</div>
 <p class="st">Число целое и не меньше 1, звенья такие бывают — <b>да</b>. Ответ «да» всегда доводи до самого n и смотри на него: годится, только если n вышло целым и не меньше 1. Остатка достаточно, чтобы сказать «нет»; чтобы сказать «да», нужно предъявить число звеньев.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Вот что из этого попадает на бумагу: формула, подстановки, проверка. Объяснения выше на бумагу не выносятся.</em></p>
+<p class="st"><code>P(n)</code> — периметр гирлянды из n звеньев. Звено — треугольник со стороной 4.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(n) = старт + шаг · (n − 1)</div>
+<p class="st">Осталось найти старт (одно звено) и шаг (прибавка на стык).</p></div>
+<ul class="st"><li>старт: три стороны по 4 → P(1) = 12</li><li>шаг: новое звено даёт 3 стороны, стык прячет 2 → наружу +1 сторона = +4</li></ul>
+<div class="frm st">P(n) = 12 + 4·(n − 1) = 4n + 8</div>
+<ul class="st"><li><b>P(50) = 4·50 + 8 = 208</b></li><li>2030: P(n) всегда кратен 4, а 2030 = 4·507 + 2 → <b>нет</b></li><li>2028: 4n = 2020 → <b>n = 505</b>, целое → <b>да</b></li></ul>
+<p class="st">Проверка: P(1) = 12 ✓ (три стороны по 4); P(2) = 16 ✓ (ромб, четыре стороны по 4)</p>
 <p class="st"><b>Где это в корпусе:</b> 2019 №3 — гирлянда шестиугольников; вопросы c–d — ровно это деление с остатком.</p>
 <p class="st"><b>Ловушка:</b> посчитать по одной спрятанной стороне на стык. Прячутся <b>две</b> — у левого звена и у правого. Формулу всегда проверяй на n = 1 и n = 2, где можно пересчитать пальцем.</p>
 <hr>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,27 +207,36 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 4 из 9</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = (Б, С, С) из системы Б + 2С = 117, 250Б + 150С = 13500; граммы красного = 250·(Б/3) + 100·С + 50·(С/5).</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Llamo g y m a lo que no sé y escribo cada dato como una igualdad.<br><em>Называю буквами g и m то, чего не знаю, и каждое данное записываю равенством.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = (g, m, m) из системы</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">250 · g + 150 · m = 13500 → 5 · g + 3 · m = 270</span></button>
+<button class="art cont" data-art="3"><span class="val f">5 · (117 − 2 · m) + 3 · m = 270 → 7 · m = 315 → <b>m = 45</b>, <b>g = 27</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">2250 + 4500 + 450 = 7200 г</span></button>
 </aside>
 <main>
   
   <h1>№1 — чайная лавка *(Т1′: система из двух строк + доли)*</h1>
   <p class="sub">Национальный этап 2025 — решения</p>
 <p class="st"><b>🔍 С чего начать.</b> <b>Сколько неизвестных на самом деле?</b> Три размера пакетов, но «средних столько же, сколько маленьких» склеивает два в один — остаётся две буквы. <b>Два вопроса — две разные задачи:</b> сначала система про количества пакетов, потом отдельный подсчёт граммов красного чая по долям.</p>
-<p class="st">Кирпичики: <code>Б</code> = число больших пакетов, <code>С</code> = число средних = число маленьких.</p>
-<p class="step st"><b>Шаг 1 — план.</b> Всего пакетов 117, всего граммов 13 500 — это две строки системы про <code>Б</code> и <code>С</code>. Красный чай — «всё, что осталось» после чёрного и зелёного, то есть треть больших, все средние и пятая часть маленьких.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = (Б, С, С) из системы <code>Б + 2С = 117</code>, <code>250Б + 150С = 13500</code>; граммы красного = 250·(Б/3) + 100·С + 50·(С/5).</p></div></div>
+<p class="st">Кирпичики: <code>g</code> = число больших пакетов <em>(grandes)</em>, <code>m</code> = число средних, оно же число маленьких <em>(medianas = chicas)</em>.</p>
+<p class="st"><em>💬 «Называю буквами то, чего не знаю, и каждое данное записываю равенством» — это и есть мысль для фразы-объяснения.</em></p>
+<p class="step st"><b>Шаг 1 — план.</b> Всего пакетов 117, всего граммов 13 500 — это две строки системы про <code>g</code> и <code>m</code>. Красный чай — «всё, что осталось» после чёрного и зелёного, то есть треть больших, все средние и пятая часть маленьких.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = (g, m, m) из системы</p>
+<div class="frm st">g + 2 · m = 117</div>
+<div class="frm st">250 · g + 150 · m = 13500</div>
+<p class="st">и отдельный подсчёт:</p>
+<div class="frm st">граммы красного = 250 · (g : 3) + 100 · m + 50 · (m : 5)</div></div>
 <p class="step st"><b>Шаг 2 — нужны количества: решаю систему исключением неизвестной.</b> Вторую строку делю на 50:</p>
-<div class="frm st">5Б + 3С = 270</div>
-<p class="st">Из первой Б = 117 − 2С, подставляю:</p>
-<div class="frm st">5·(117 − 2С) + 3С = 270</div>
-<div class="frm st">585 − 10С + 3С = 270</div>
-<p class="st">7С = 315 → <b>С = 45</b></p>
-<p class="st">Тогда Б = 117 − 90 = <b>27</b>.</p>
+<div class="frm st">5 · g + 3 · m = 270</div>
+<p class="st">Из первой g = 117 − 2 · m, подставляю:</p>
+<div class="frm st">5 · (117 − 2 · m) + 3 · m = 270</div>
+<div class="frm st">585 − 10 · m + 3 · m = 270</div>
+<p class="st">7 · m = 315 → <b>m = 45</b></p>
+<p class="st">Тогда g = 117 − 90 = <b>27</b>.</p>
 <p class="st">Проверка: 27·250 + 45·100 + 45·50 = 6750 + 4500 + 2250 = 13 500 ✓, пакетов 27 + 45 + 45 = 117 ✓.</p>
 <p class="step st"><b>Шаг 3 — нужны граммы красного чая: считаю по остаткам долей.</b></p>
 <ul class="st"><li>Большие: чёрных 2/3 от 27 = 18, значит красных 27 − 18 = 9 → 9 · 250 = <b>2250 г</b></li><li>Средние: про них никаких долей не сказано, значит <b>все 45 красные</b> → 45 · 100 = <b>4500 г</b></li><li>Маленькие: зелёных 4/5 от 45 = 36, красных 45 − 36 = 9 → 9 · 50 = <b>450 г</b></li></ul>
@@ -222,11 +245,22 @@
 <p class="st"><b>Ответ: 27 больших, 45 средних, 45 маленьких; красного чая 7200 г.</b> <em>(официальный ключ ✓)</em></p>
 <p class="st"><b>⚠ Ловушка.</b> «Все остальные пакеты — красный чай» относится и к средним тоже: про них долей не дано вовсе, и это не значит «их не считаем», это значит «они все красные». Кто про средние забудет, получит 2700 вместо 7200.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
-<p class="st">Б = больших, С = средних = маленьких.</p>
-<ul class="st"><li>Б + 2С = 117</li><li>250Б + 150С = 13500 → 5Б + 3С = 270</li><li>5·(117 − 2С) + 3С = 270 → 7С = 315 → <b>С = 45</b>, <b>Б = 27</b></li></ul>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Llamo g y m a lo que no sé y escribo cada dato como una igualdad.</b></p></div>
+<p class="st"><em>Называю буквами g и m то, чего не знаю, и каждое данное записываю равенством.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">g = больших, m = средних = маленьких.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st">Ответ = (g, m, m) из системы</p>
+<div class="frm st">g + 2 · m = 117</div>
+<div class="frm st">250 · g + 150 · m = 13500</div>
+<p class="st">и отдельный подсчёт:</p>
+<div class="frm st">граммы красного = 250 · (g : 3) + 100 · m + 50 · (m : 5)</div></div></div>
+<div id="a3" data-art="3"><ul class="st"><li>250 · g + 150 · m = 13500 → 5 · g + 3 · m = 270</li><li>5 · (117 − 2 · m) + 3 · m = 270 → 7 · m = 315 → <b>m = 45</b>, <b>g = 27</b></li></ul></div>
 <p class="st">Проверка: 6750 + 4500 + 2250 = 13500 ✓</p>
 <p class="st">Красный чай: большие 27 − 18 = 9 → 2250; средние все 45 → 4500; маленькие 45 − 36 = 9 → 450.</p>
-<div class="frm st">2250 + 4500 + 450 = 7200 г</div>
+<div id="a4" data-art="4"><div class="frm st">2250 + 4500 + 450 = 7200 г</div></div>
 <hr>
 <div class="pager"><a href="03-2-trapeciya-s-dvumya-skatami-t2-perimetry-skaty-.html">← №2 — трапеция с двумя скатами *(Т2: периметры, скаты отдельными буквами)*</a><a href="05-3-stupenchataya-doska-cifry-0-9-t4-yakor-summa-r.html">№3 — ступенчатая доска, цифры 0–9 *(Т4′: якорь-сумма + разбиения)* →</a></div>
 </main>

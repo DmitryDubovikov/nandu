@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -198,10 +212,8 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 5 из 16</p>
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Особый оборот национала: «Ана заплатила половину того, что заплатили остальные».</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">a<br>= (720 − a) / 2</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">a = (720 − a) / 2</span></button>
 <button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = a, l, m. Осталось найти: все три, каждое своей строчкой сверху вниз.</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ = k, l, n, t. Осталось найти: все четыре, и строчки решаются сверху вниз — в третьей нужны k и l из первых двух, а в четвёртой нужна третья.</span></button>
-<button class="art" data-art="4"><span class="lbl">Типичная ошибка №1</span><span class="val">прочитать «половину того, что остальные» как «половину всех»: a = 720/2 = 360.</span></button>
 </aside>
 <main>
   
@@ -230,17 +242,29 @@
 <div class="frm st">m = 720 − 240 − 120 = 360</div>
 <p class="st">Проверка по фразам: остальные для Аны — <code>120 + 360 = 480</code>, половина от этого 240 ✓; остальные для Лусии — <code>240 + 360 = 600</code>, пятая часть 120 ✓.</p>
 <p class="st"><b>Ответ:</b> Ана 240, Лусия 120, Марта 360 песо.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>Esta fracción se toma de lo que quedó, no del total, por eso la calculo sobre el resto.</b></p>
+<p class="st"><em>Эта доля берётся от того, что осталось, а не от целого, поэтому считаю её от остатка.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st"><code>a</code> — Ана, <code>l</code> — Лусия, <code>m</code> — Марта (песо).</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ = a, l, m</div></div>
+<ul class="st"><li><code>a = (720 − a) / 2</code> → <code>3a = 720</code> → <code>a = 240</code></li><li><code>l = (720 − l) / 5</code> → <code>6l = 720</code> → <code>l = 120</code></li><li><code>m = 720 − 240 − 120 = 360</code></li></ul>
+<p class="st">Проверка: <code>120 + 360 = 480</code>, половина <code>240</code> ✓; <code>240 + 360 = 600</code>, пятая часть <code>120</code> ✓</p>
+<hr>
 <p class="st"><b>А если доля не от всех остальных?</b> Бывает уточнение: «Тео заплатил треть того, что заплатили <b>Коко и Нико вместе</b>» — доля взята не от всех остальных, а от двух названных. Сразу такую фразу не решить: в ней сидят сразу двое неизвестных. Порядок работы такой:</p>
 <ol class="st num"><li><span class="lin">1.</span> сначала найди всех, про кого сказано «доля от <b>остальных</b>» — каждый такой находится сам по себе, одним уравнением;</li><li><span class="lin">2.</span> найди того, про кого в задаче <b>не сказано никакой фразы</b>, — он всегда остаток: все деньги минус уже найденные минус оставшаяся буква;</li><li><span class="lin">3.</span> подставь этот остаток в уточнённую фразу — букв в ней останется одна.</li></ol>
 <p class="st"><b>Пример.</b> Заплатили четверо: Коко, Лола, Тео и Нико, всего 3600 песо. Коко — половину остальных, Лола — пятую часть остальных, Тео — треть того, что заплатили Коко и Нико вместе. Сколько заплатил каждый?</p>
 <p class="step st"><b>Шаг 1 — план.</b> Фразу про Тео сразу не решить — в ней двое неизвестных, он сам и Нико. Значит, иду по порядку работы: сначала те, у кого доля от <b>остальных</b>, — они находятся сами; потом тот, про кого фразы нет, — он остаток; и только после этого в уточнённой фразе Тео букв останется одна.</p>
-<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">k = (3600 − k) / 2</div>
 <div class="frm st">l = (3600 − l) / 5</div>
 <div class="frm st">n = 3600 − k − l − t</div>
 <div class="frm st">t = (k + n) / 3</div>
 <p class="st"><code>k</code> — сколько заплатил Коко (песо); <code>l</code> — сколько заплатила Лола (песо); <code>n</code> — сколько заплатил Нико (песо); <code>t</code> — сколько заплатил Тео (песо).</p>
-<p class="st">Ответ = <code>k</code>, <code>l</code>, <code>n</code>, <code>t</code>. Осталось найти: все четыре, и строчки решаются сверху вниз — в третьей нужны <code>k</code> и <code>l</code> из первых двух, а в четвёртой нужна третья.</p></div></div>
+<p class="st">Ответ = <code>k</code>, <code>l</code>, <code>n</code>, <code>t</code>. Осталось найти: все четыре, и строчки решаются сверху вниз — в третьей нужны <code>k</code> и <code>l</code> из первых двух, а в четвёртой нужна третья.</p></div>
 <p class="step st"><b>Шаг 2 — считаю <code>k</code>.</b> Первая строчка плана, умножаю обе части на 2:</p>
 <div class="frm st">2k = 3600 − k</div>
 <div class="frm st">3k = 3600</div>
@@ -260,7 +284,19 @@
 <p class="step st"><b>Шаг 6 — сборка.</b> Возвращаюсь к третьей строчке плана:</p>
 <div class="frm st">n = 1800 − 750 = 1050</div>
 <p class="st">Проверка по фразам: всего <code>1200 + 600 + 750 + 1050 = 3600</code> ✓; Коко и Нико вместе дали 2250, треть от этого 750 ✓.</p>
-<div id="a4" data-art="4"><div class="card wrong st"><span class="tag">Типичная ошибка №1</span><p>прочитать «половину того, что остальные» как «половину всех»: <code>a = 720/2 = 360</code>. Неверно: сам плательщик в «остальных» не участвует. Сверься с проверкой в примере — там «остальные» пересчитаны честно. <b>Типичная ошибка №2:</b> завести три буквы и решать 3×3. Не ошибка по смыслу, но втрое дороже: каждый оборот «доля от остальных» уже даёт готовое уравнение с одной буквой.</p></div></div>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>Esta fracción se toma de lo que quedó, no del total, por eso la calculo sobre el resto.</b></p>
+<p class="st"><em>Эта доля берётся от того, что осталось, а не от целого, поэтому считаю её от остатка.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st"><code>k</code> — Коко, <code>l</code> — Лола, <code>n</code> — Нико, <code>t</code> — Тео (песо).</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ = k, l, n, t</div></div>
+<ul class="st"><li><code>3k = 3600</code> → <code>k = 1200</code></li><li><code>6l = 3600</code> → <code>l = 600</code></li><li><code>n = 3600 − 1200 − 600 − t</code> → <code>n = 1800 − t</code></li><li><code>3t = 1200 + 1800 − t</code> → <code>4t = 3000</code> → <code>t = 750</code></li><li><code>n = 1800 − 750 = 1050</code></li></ul>
+<p class="st">Проверка: <code>1200 + 600 + 750 + 1050 = 3600</code> ✓; <code>(1200 + 1050) : 3 = 750</code> ✓</p>
+<hr>
+<div class="card wrong st"><span class="tag">Типичная ошибка №1</span><p>прочитать «половину того, что остальные» как «половину всех»: <code>a = 720/2 = 360</code>. Неверно: сам плательщик в «остальных» не участвует. Сверься с проверкой в примере — там «остальные» пересчитаны честно. <b>Типичная ошибка №2:</b> завести три буквы и решать 3×3. Не ошибка по смыслу, но втрое дороже: каждый оборот «доля от остальных» уже даёт готовое уравнение с одной буквой.</p></div>
 <hr>
 <p class="xlink"><a href="../nandu_n1_nacional_4_arifmetika2_reshebnik/02-blok-2-dolya-ot-ostalnyh-glava-2.html">→ Задачи к этой главе: <b>Блок 2 — «Доля от остальных»</b></a></p><div class="pager"><a href="04-glava-1-dolya-ot-neizvestnogo-kolichestva.html">← Глава 1. Доля от неизвестного количества</a><a href="06-glava-3-dva-kruga-peresechenie-mnozhestv.html">Глава 3. Два круга: пересечение множеств →</a></div>
 </main>

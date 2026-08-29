@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,12 +207,20 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 20 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = наименьшее число цифр, которым можно унести ровно У, где У — вся сумма строки минус нужная сумма. Осталось: посчитать У, предъявить набор и закрыть варианты поменьше.</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">В строке живут только цифры 1, 5 и 9, а все три дают при делении на 4 остаток 1: 1 = 4 · 0 + 1, 5 = 4 · 1 + 1, 9 = 4 · 2 + 1.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Para que lo que queda sea lo menor posible saco primero los más grandes, y cualquier otro orden saca menos.<br><em>Чтобы остаток был как можно меньше, убираю сначала самые большие, — любой другой порядок уносит меньше.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">S(унести) = (сумма всей строки) − 200</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">сумма строки = (1 + 9 + 5) · 18 = 270 → <b>S(унести) = 70</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">в строке только цифры 1, 5, 9, и у всех трёх res(цифра : 4) = 1 → сумма n вычеркнутых даёт по 4 тот же остаток, что и само n</span></button>
+<button class="art cont" data-art="4"><span class="val f">70 = 4 · 17 + 2 → res(70 : 4) = 2</span></button>
+<button class="art cont" data-art="5"><span class="val f">7 цифр и меньше — мало по величине: 7 · 9 = 63 &lt; 70</span></button>
+<button class="art cont" data-art="6"><span class="val f">8 цифр → остаток 0 ✗; 9 цифр → остаток 1 ✗; 10 цифр → остаток 2 ✓</span></button>
+<button class="art cont" data-art="7"><span class="val f">предъявляю: 7 · 9 + 5 + 1 + 1 = 63 + 5 + 2 = 70 ✓</span></button>
+<button class="art cont" data-art="8"><span class="val f">10 цифр</span></button>
+<button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los casos posibles y los demás no cumplen que el resto al dividir por 4 sea 2, por eso no hay más que estos.<br><em>Проверил все возможные случаи, остальные не подходят под «остаток по 4 равен 2», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -206,9 +228,9 @@
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Порцию «195» повторили 18 раз (54 цифры). Вычеркни как можно меньше цифр, чтобы сумма оставшихся стала 200. Сколько цифр вычеркнуть? Докажи, что меньше нельзя.</p>
 <p class="step st"><b>Шаг 1 — план: считать унесённое, а минимальность доказывать отдельно.</b> Сначала, как всегда, считаю, сколько надо унести, и предъявляю набор цифр, который уносит это ровно. А потом отдельно доказываю, что меньшим числом цифр столько не унести: прикидка «нужное : 9» здесь недостижима, поэтому придётся разобрать восемь цифр и девять цифр по отдельности.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = наименьшее число цифр, которым можно унести ровно У, где У — вся сумма строки минус нужная сумма. Осталось: посчитать У, предъявить набор и закрыть варианты поменьше.</p></div></div>
-<p class="step st"><b>Шаг 2 — считаем У.</b> Сумма строки (1 + 9 + 5) · 18 = 270, нужная сумма 200. → <b>У = 70</b>, а в строке только цифры 9, 5 и 1</p>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>В строке живут только цифры 1, 5 и 9, а все три дают при делении на 4 остаток 1: 1 = 4 · 0 + 1, 5 = 4 · 1 + 1, 9 = 4 · 2 + 1. Поэтому сумма вычеркнутых цифр зависит от их количества сильнее, чем кажется: восемь таких цифр дают ту же сумму по остатку, что и восемь единиц, — остаток числа 8, то есть 0; девять — как у 9, остаток 1; десять — как у 10, остаток 2. А унести надо 70 = 4 · 17 + 2, остаток 2. Семи цифр не хватит и по величине (7 · 9 = 63 &lt; 70), восемь и девять запрещены остатком — значит, первый кандидат сразу десять, и его остаётся только предъявить.</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = наименьшее число цифр, которым можно унести ровно S(унести), где S(унести) — вся сумма строки минус нужная сумма. Осталось: посчитать S(унести), предъявить набор и закрыть варианты поменьше.</p></div>
+<p class="step st"><b>Шаг 2 — считаем S(унести).</b> Сумма строки (1 + 9 + 5) · 18 = 270, нужная сумма 200. → <b>S(унести) = 70</b>, а в строке только цифры 9, 5 и 1</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>В строке живут только цифры 1, 5 и 9, а все три дают при делении на 4 остаток 1: 1 = 4 · 0 + 1, 5 = 4 · 1 + 1, 9 = 4 · 2 + 1, то есть res(1 : 4) = res(5 : 4) = res(9 : 4) = 1. Поэтому сумма вычеркнутых цифр зависит от их количества сильнее, чем кажется: восемь таких цифр дают ту же сумму по остатку, что и восемь единиц, — остаток числа 8, то есть 0; девять — как у 9, остаток 1; десять — как у 10, остаток 2. А унести надо 70 = 4 · 17 + 2, остаток 2. Семи цифр не хватит и по величине (7 · 9 = 63 &lt; 70), восемь и девять запрещены остатком — значит, первый кандидат сразу десять, и его остаётся только предъявить.</p></div>
 <p class="step st"><b>Шаг 3 — закрываю все числа цифр меньше десяти.</b> Нужно доказать, что девятью и меньше ровно 70 не унести. Задаю каждому числу цифр два одинаковых вопроса — «хватает ли по величине?» и «сходится ли остаток?»:</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Сколько цифр вычеркнуть</th><th>Больше них не унести</th><th>Остаток их суммы по 4</th><th>Вердикт</th></tr>
@@ -219,6 +241,20 @@
 </table></div></div>
 <p class="st">→ <b>ни одним числом цифр меньше десяти ровно 70 не унести</b></p>
 <p class="step st"><b>Шаг 4 — сборка.</b> Ни восемью, ни девятью цифрами ровно 70 не унести, а десятью — предъявлено: 7 девяток + 1 пятёрка + 2 единицы = 63 + 5 + 2 = 70 ✓ → вычеркнуть <b>10 цифр</b>.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Para que lo que queda sea lo menor posible saco primero los más grandes, y cualquier otro orden saca menos.</b></p></div>
+<p class="st"><em>Чтобы остаток был как можно меньше, убираю сначала самые большие, — любой другой порядок уносит меньше.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">S(унести) — сколько суммы надо унести.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">S(унести) = (сумма всей строки) − 200</div></div></div>
+<div id="a7" data-art="7"><ul class="st"><li>сумма строки = (1 + 9 + 5) · 18 = 270 → <b>S(унести) = 70</b></li><li>в строке только цифры 1, 5, 9, и у всех трёх res(цифра : 4) = 1 → сумма n вычеркнутых даёт по 4 тот же остаток, что и само n</li><li>70 = 4 · 17 + 2 → res(70 : 4) = 2</li><li>7 цифр и меньше — мало по величине: 7 · 9 = 63 &lt; 70</li><li>8 цифр → остаток 0 ✗; 9 цифр → остаток 1 ✗; 10 цифр → остаток 2 ✓</li><li>предъявляю: 7 · 9 + 5 + 1 + 1 = 63 + 5 + 2 = 70 ✓</li></ul></div>
+<div id="a8" data-art="8"><p class="st"><b>10 цифр</b></p></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a9" data-art="9"><p class="st"><b>Probé todos los casos posibles y los demás no cumplen que el resto al dividir por 4 sea 2, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные случаи, остальные не подходят под «остаток по 4 равен 2», — поэтому других нет.</em></p>
 <hr>
 <div class="pager"><a href="19-9-4-stroka-5081-tridcat-raz.html">← 9.4 ⭐ Строка «5081» тридцать раз</a><a href="21-korotkie-otvety-dlya-bystroy-sverki.html">Короткие ответы — для быстрой сверки →</a></div>
 </main>

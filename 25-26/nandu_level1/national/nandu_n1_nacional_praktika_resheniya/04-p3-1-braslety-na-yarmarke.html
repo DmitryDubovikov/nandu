@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,21 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 4 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ(а) = «было перед третьим днём»</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El final se conoce, así que voy hacia atrás deshaciendo cada paso.<br><em>Конец известен точно, поэтому иду назад, отменяя каждый шаг.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ(а) = было перед третьим днём</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">третий день: <code>(20 + 7) · 2 = 54</code></span></button>
+<button class="art cont" data-art="3"><span class="val f">второй день: <code>(54 + 9) · 4/3 = 84</code></span></button>
+<button class="art cont" data-art="4"><span class="val f">первый день: <code>(84 + 12) · 5/4 = 120</code></span></button>
+<button class="art cont" data-art="5"><span class="val f">а) 54</span></button>
+<button class="art cont" data-art="6"><span class="val f">б) 120</span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>120 : 5 + 12 = 36</code>, осталось 84</span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>84 : 4 + 9 = 30</code>, осталось 54</span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>54 : 2 + 7 = 34</code>, осталось 20 ✓</span></button>
+<button class="art cont" data-art="10"><span class="val f">в) первый день, 36</span></button>
 </aside>
 <main>
   
@@ -209,11 +233,12 @@
 <p class="st">б) Сколько браслетов Марта привезла на ярмарку?</p>
 <p class="st">в) В какой из трёх дней она продала больше всего браслетов и сколько именно?</p>
 <p class="step st"><b>Шаг 1 — план: с какого конца входить в задачу.</b> Известно только то, что осталось <b>в самом конце</b>, — значит, прямо вперёд считать не с чего, и надо проверить, разрешает ли условие идти с конца. Все три дня доля берётся от того, что у Марты есть <b>на утро этого дня</b>: «пятая часть всех своих браслетов» в первый день — это и есть весь её запас на тот момент, дальше «четверть того, что осталось» и «половину того, что осталось». Это и разрешает идти с конца: чтобы развернуть день, мне нужно знать только число, с которого он начался, а это как раз то, что даст предыдущий шаг разворота. Будь сказано «четверть от всех привезённых», доля второго дня зависела бы от неизвестного начала — и обратный ход через этот день не прошёл бы.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<p class="st"><em>💬 «Конец известен точно, а доля каждый день берётся от того, что есть на утро» — это и есть мысль для фразы-объяснения.</em></p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b></p>
 <p class="st">Ответ(а) = «было перед третьим днём»</p>
 <p class="st">Ответ(б) = «было перед первым днём»</p>
 <div class="frm st">Ответ(в) = наибольшая из трёх дневных продаж</div>
-<p class="st">Осталось найти: три числа «было перед днём» — их даст разворот с конца; и три дневные продажи — их даст прямой прогон от найденного начала.</p></div></div>
+<p class="st">Осталось найти: три числа «было перед днём» — их даст разворот с конца; и три дневные продажи — их даст прямой прогон от найденного начала.</p></div>
 <p class="step st"><b>Шаг 2 — разворачиваю дни с конца (ответы а и б).</b> Нужны числа, с которых начинался каждый день, — для этого иду от последнего дня к первому, распутывая каждый день по отдельности.</p>
 <p class="st">Напоминание про развороты — умножать назад надо не на знаменатель доли, а на дробь, разворачивающую <b>остаток</b>:</p>
 <ul class="st"><li>изъяли пятую часть → осталось <code>4/5</code> → назад <code>× 5/4</code>;</li><li>изъяли четверть → осталось <code>3/4</code> → назад <code>× 4/3</code>;</li><li>изъяли половину → осталось <code>1/2</code> → назад <code>× 2</code>.</li></ul>
@@ -235,6 +260,23 @@
 </table></div></div>
 <p class="st">Сравниваю: 36, 30, 34. <b>Больше всего — в первый день, 36 браслетов.</b></p>
 <p class="st"><b>Ответ.</b> а) 54 браслета. б) 120 браслетов. в) В первый день, 36 браслетов.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>El final se conoce, así que voy hacia atrás deshaciendo cada paso.</b></p></div>
+<p class="st"><em>Конец известен точно, поэтому иду назад, отменяя каждый шаг.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Разворот дня: сначала вернуть штуки, потом умножить.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(а) = было перед третьим днём</div>
+<div class="frm st">Ответ(б) = было перед первым днём</div>
+<div class="frm st">Ответ(в) = наибольшая из трёх дневных продаж</div></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>третий день: <code>(20 + 7) · 2 = 54</code></li><li>второй день: <code>(54 + 9) · 4/3 = 84</code></li><li>первый день: <code>(84 + 12) · 5/4 = 120</code></li></ul></div>
+<div id="a5" data-art="5"><p class="st"><b>а) 54</b></p></div>
+<div id="a6" data-art="6"><p class="st"><b>б) 120</b></p></div>
+<p class="st">Прогон вперёд:</p>
+<div id="a9" data-art="9"><ul class="st"><li><code>120 : 5 + 12 = 36</code>, осталось 84</li><li><code>84 : 4 + 9 = 30</code>, осталось 54</li><li><code>54 : 2 + 7 = 34</code>, осталось 20 ✓</li></ul></div>
+<div id="a10" data-art="10"><p class="st"><b>в) первый день, 36</b></p></div>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Ответ найден <b>обратным ходом</b>, а проверен <b>прямым прогоном</b> от числа 120: конец истории сошёлся с условием (осталось ровно 20). Обратный ход и прямой прогон — два независимых пути: ошибка в развороте дроби прямым прогоном ловится сразу.</p>
 <p class="st">Дополнительная сверка по сумме: продано за три дня <code>36 + 30 + 34 = 100</code>, осталось 20, вместе <code>100 + 20 = 120</code> — ровно столько, сколько привезли ✓.</p>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,38 +207,52 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 10 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Ходов два, и они разные — но вопрос спрашивает только про общее число ракушек, а на него оба хода действуют совершенно одинаково: одна уходит, четыре…</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ по каждому числу = сначала инвариант «остаток по модулю 3» (запрещает или нет), и если не запрещает — предъявленная цепочка обменов.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso el resto de la cantidad total al dividir por 3 no cambia, así que vale lo mismo al principio y al final: nunca se llega a 2025 caracoles.<br><em>На каждом шаге остаток общего числа при делении на 3 не меняется, значит в начале и в конце оно одно и то же — до 2025 ракушек не дойти никогда.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">любой обмен: −1 + 4 = +3</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">старт 1 = 3 · 0 + 1 → <b>inv = 1</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">2025 = 3 · 675 + 0 → res(2025 : 3) = 0 ≠ 1 → <b>2025 — нельзя</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">2026 = 3 · 675 + 1 → res(2026 : 3) = 1 ✓ → предъявляю: 1 + 3 · 675 = 2026 → <b>2026 — да, за 675 обменов</b></span></button>
 </aside>
 <main>
   
   <h1>5.5 ⭐⭐ Ракушки Томи</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> У Томи одна большая ракушка. За один ход он может обменять 1 большую ракушку на 4 маленькие — или 1 маленькую на 4 больших. Может ли у Томи в какой-то момент оказаться ровно 2025 ракушек? А ровно 2026? Объясни оба ответа.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Ходов два, и они разные — но вопрос спрашивает только про <b>общее</b> число ракушек, а на него оба хода действуют совершенно одинаково: одна уходит, четыре приходят, всего становится на 3 больше. Значит, различать «большие» и «маленькие» для этого вопроса не нужно вовсе, и вместо двух ходов остаётся один-единственный: «+3». Это и есть инвариант — остаток общего числа при делении на 3 не меняется никогда.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Ходов два, и они разные — но вопрос спрашивает только про <b>общее</b> число ракушек, а на него оба хода действуют совершенно одинаково: одна уходит, четыре приходят, всего становится на 3 больше. Значит, различать «большие» и «маленькие» для этого вопроса не нужно вовсе, и вместо двух ходов остаётся один-единственный: «+3». Это и есть инвариант — остаток общего числа при делении на 3 не меняется никогда.</p></div>
 <figure class="st"><div class="fgrid" style="gap:26px"><div class="fcol"><span class="flab">обмен 1: большая → четыре маленькие</span><div style="display:flex;gap:10px;align-items:center"><span class="dot gold" style="width:19px;height:19px"></span><span class="eq">→</span><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span></div></div><div class="fcol"><span class="flab">обмен 2: маленькая → четыре большие</span><div style="display:flex;gap:10px;align-items:center"><span class="dot"></span><span class="eq">→</span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span></div></div></div><div class="flab" style="margin-top:14px">в обоих случаях: одна ушла, четыре пришли &nbsp;→&nbsp; всего стало на <span style="color:var(--green)">3</span> больше</div><figcaption>Для вопроса «сколько всего» размер ракушки не важен — и два разных хода становятся одним и тем же ходом «+3».</figcaption></figure>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ по каждому числу = сначала инвариант «остаток по модулю 3» (запрещает или нет), и если не запрещает — предъявленная цепочка обменов.</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ по каждому числу = сначала инвариант «остаток по модулю 3» (запрещает или нет), и если не запрещает — предъявленная цепочка обменов.</p></div>
 <p class="step st"><b>Шаг 1 — нужен инвариант, поэтому смотрю, что делает с общим числом один обмен.</b> Любой из двух обменов: −1 ракушка и +4 ракушки, итого</p>
 <div class="frm st">−1 + 4 = +3</div>
 <p class="st">Прибавление тройки остаток при делении на 3 не меняет.</p>
 <p class="st">→ <b>остаток общего числа по модулю 3 постоянен</b></p>
 <p class="step st"><b>Шаг 2 — нужно значение инварианта, поэтому считаю его на старте.</b> В начале у Томи 1 ракушка:</p>
 <div class="frm st">1 = 3 · 0 + 1</div>
-<p class="st">→ <b>остаток всегда 1</b>, сколько бы обменов Томи ни сделал</p>
+<p class="st">→ <b>res(ракушки : 3) = 1 всегда</b>, сколько бы обменов Томи ни сделал</p>
 <p class="step st"><b>Шаг 3 — прикладываю инвариант к 2025.</b></p>
 <div class="frm st">2025 = 3 · 675 + 0</div>
-<p class="st">Остаток 0, а должен быть 1.</p>
+<p class="st">Остаток 0, а должен быть 1: res(2025 : 3) = 0.</p>
 <p class="st">→ <b>2025 — никогда</b></p>
 <p class="step st"><b>Шаг 4 — прикладываю инвариант к 2026.</b></p>
 <div class="frm st">2026 = 3 · 675 + 1</div>
-<p class="st">Остаток 1 — совпал. Но инвариант только <b>разрешает</b>; чтобы сказать «можно», нужны сами ходы.</p>
+<p class="st">Остаток 1 — совпал: res(2026 : 3) = 1. Но инвариант только <b>разрешает</b>; чтобы сказать «можно», нужны сами ходы.</p>
 <p class="st">→ <b>запрета нет, иду предъявлять цепочку</b></p>
 <p class="step st"><b>Шаг 5 — предъявляю обмены.</b> Каждый обмен даёт +3, значит от 1 до 2026 нужно ровно 675 обменов: 1 + 3 · 675 = 2026 ✓. Осталось убедиться, что ход всегда найдётся. Первым обменом меняю большую на 4 маленькие — стало 4 ракушки, все маленькие. Дальше каждый раз беру любую маленькую и меняю её на 4 больших; маленькие не кончаются мгновенно — за один обмен уходит только одна из них, а если маленьких вдруг не осталось, всегда есть большая, и я меняю её. Ход есть в любой момент, и каждый прибавляет 3.</p>
 <p class="step st"><b>Шаг 6 — сборка.</b> <b>2025 — нельзя</b> (запрещает инвариант); <b>2026 — можно</b>, за 675 обменов.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>En cada paso el resto de la cantidad total al dividir por 3 no cambia, así que vale lo mismo al principio y al final: nunca se llega a 2025 caracoles.</b></p></div>
+<p class="st"><em>На каждом шаге остаток общего числа при делении на 3 не меняется, значит в начале и в конце оно одно и то же — до 2025 ракушек не дойти никогда.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">inv — остаток общего числа ракушек при делении на 3.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">любой обмен: −1 + 4 = +3</div>
+<p class="st">Число достижимо, только если у него тот же остаток; «достижимо» доказывается обменами.</p></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>старт 1 = 3 · 0 + 1 → <b>inv = 1</b></li><li>2025 = 3 · 675 + 0 → res(2025 : 3) = 0 ≠ 1 → <b>2025 — нельзя</b></li><li>2026 = 3 · 675 + 1 → res(2026 : 3) = 1 ✓ → предъявляю: 1 + 3 · 675 = 2026 → <b>2026 — да, за 675 обменов</b></li></ul></div>
 <hr>
 <div class="pager"><a href="09-5-4-kopilki-bruno-i-loly.html">← 5.4 ⭐ Копилки Бруно и Лолы</a><a href="11-6-4-trehznachnoe-s-nulem-v-seredine.html">6.4 ⭐ Трёхзначное с нулём в середине →</a></div>
 </main>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,18 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 12 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = все числа, у которых сумма крайних цифр равна К, а средняя цифра равна Б; К и Б — то единственное, что выживает в формуле суммы. Осталось: найти К и Б и перебрать пары крайних цифр.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">101 · S(крайних) + 20 · b = 444</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">20 · b ≥ 0 → 101 · S(крайних) ≤ 444; 101 · 4 = 404 ≤ 444, 101 · 5 = 505 &gt; 444 → <b>S(крайних) ≤ 4</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">S(крайних) = 4 → 444 − 404 = 40 = 20 · 2 → <b>b = 2</b> ✓</span></button>
+<button class="art cont" data-art="4"><span class="val f">S(крайних) = 3 → 141, S(крайних) = 2 → 242, S(крайних) = 1 → 343 — на 20 не делятся ✗</span></button>
+<button class="art cont" data-art="5"><span class="val f">пары крайних с суммой 4 без нулей: (1,3), (2,2), (3,1)</span></button>
+<button class="art cont" data-art="6"><span class="val f">3 числа: 123, 222, 321</span></button>
+<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de la suma de las cifras de los extremos y los demás no cumplen que la diferencia sea múltiplo de 20, por eso no hay más que estos.<br><em>Проверил все возможные значения суммы крайних цифр, остальные не подходят под «остаток делится на 20», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -206,15 +227,30 @@
 <p class="st"><b>Условие.</b> Трёхзначное число без нулей в записи сложили с его переворотом и получили 444. Сколько таких чисел могло быть? Перечисли все.</p>
 <p class="step st"><b>Шаг 1 — план: свести три неизвестные цифры к двум числам.</b> Сумма числа с переворотом чувствует не все три цифры по отдельности, а только сумму крайних и среднюю — это формула главы. Значит, сначала нахожу эти два числа, а потом раскладываю сумму крайних на конкретные пары цифр.</p>
 <figure class="st"><div class="stolb"><div class="srow" style="grid-template-columns:repeat(4,32px)"><span></span><span>a</span><span>b</span><span>c</span></div><div class="srow" style="grid-template-columns:repeat(4,32px)"><span>+</span><span>c</span><span>b</span><span>a</span></div></div><div class="flab" style="margin-top:14px">сотни: a + c &nbsp;·&nbsp; вес 100<br>десятки: b + b &nbsp;·&nbsp; вес 10<br>единицы: c + a &nbsp;·&nbsp; вес 1</div><div class="frm" style="margin-top:16px;border-color:var(--green)">101 · К + 20 · Б</div><div class="flab" style="margin-top:10px"><span style="color:var(--gold)">К = a + c</span> — сумма крайних &nbsp;|&nbsp; <span style="color:var(--blue)">Б = b</span> — средняя цифра</div><figcaption>Крайние цифры входят в сумму только вместе — по разу в сотни и по разу в единицы. Поэтому три неизвестные цифры сжимаются до двух чисел.</figcaption></figure>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все числа, у которых сумма крайних цифр равна К, а средняя цифра равна Б; К и Б — то единственное, что выживает в формуле суммы. Осталось: найти К и Б и перебрать пары крайних цифр.</p></div></div>
-<p class="step st"><b>Шаг 2 — зажимаю К.</b> Нужно сузить перебор: сумма крайних цифр бывает от 0 до 18, и проверять девятнадцать вариантов долго. Беру формулу главы и смотрю, до какого К она вообще дотягивается.</p>
-<div class="frm st">101 · К + 20 · Б = 444</div>
-<p class="st">Слагаемое 20 · Б никогда не бывает отрицательным, значит первое слагаемое одно уже не может перевалить за 444:</p>
-<div class="frm st">101 · К ≤ 444</div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все числа, у которых сумма крайних цифр равна S(крайних), а средняя цифра равна b; S(крайних) и b — то единственное, что выживает в формуле суммы. Осталось: найти S(крайних) и b и перебрать пары крайних цифр.</p></div>
+<p class="step st"><b>Шаг 2 — зажимаю S(крайних).</b> Нужно сузить перебор: сумма крайних цифр бывает от 0 до 18, и проверять девятнадцать вариантов долго. Беру формулу главы и смотрю, до какого S(крайних) она вообще дотягивается.</p>
+<div class="frm st">101 · S(крайних) + 20 · b = 444</div>
+<p class="st">Слагаемое 20 · b никогда не бывает отрицательным, значит первое слагаемое одно уже не может перевалить за 444:</p>
+<div class="frm st">101 · S(крайних) ≤ 444</div>
 <p class="st">101 · 4 = 404 ≤ 444, а 101 · 5 = 505 &gt; 444</p>
-<p class="st">→ <b>К ≤ 4</b> — проверять надо всего четыре варианта, а не девятнадцать</p>
-<p class="step st"><b>Шаг 3 — перебираю К и получаю Б.</b> Иду по порядку сверху вниз: a + c = 4 → остаётся 444 − 404 = 40 = 20 · 2 → <b>b = 2</b> ✓; a + c = 3 → остаётся 141, на 20 не делится ✗; a + c = 2 → 242 ✗; a + c = 1 → 343 ✗. → <b>К = 4, Б = 2</b></p>
+<p class="st">→ <b>S(крайних) ≤ 4</b> — проверять надо всего четыре варианта, а не девятнадцать</p>
+<p class="step st"><b>Шаг 3 — перебираю S(крайних) и получаю b.</b> Иду по порядку сверху вниз: a + c = 4 → остаётся 444 − 404 = 40 = 20 · 2 → <b>b = 2</b> ✓; a + c = 3 → остаётся 141, на 20 не делится ✗; a + c = 2 → 242 ✗; a + c = 1 → 343 ✗. → <b>S(крайних) = 4, b = 2</b></p>
 <p class="step st"><b>Шаг 4 — сборка.</b> Пары крайних цифр с суммой 4 без нулей: (1,3), (2,2), (3,1) → <b>три числа</b>: 123, 222, 321. Контроль: 123 + 321 = 444 ✓</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
+<p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">S(крайних) — сумма крайних цифр, b — средняя цифра.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">101 · S(крайних) + 20 · b = 444</div></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>20 · b ≥ 0 → 101 · S(крайних) ≤ 444; 101 · 4 = 404 ≤ 444, 101 · 5 = 505 &gt; 444 → <b>S(крайних) ≤ 4</b></li><li>S(крайних) = 4 → 444 − 404 = 40 = 20 · 2 → <b>b = 2</b> ✓</li><li>S(крайних) = 3 → 141, S(крайних) = 2 → 242, S(крайних) = 1 → 343 — на 20 не делятся ✗</li><li>пары крайних с суммой 4 без нулей: (1,3), (2,2), (3,1)</li></ul></div>
+<div id="a6" data-art="6"><div class="frm st">3 числа: 123, 222, 321</div></div>
+<p class="st">Проверка: 123 + 321 = 444 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a7" data-art="7"><p class="st"><b>Probé todos los valores posibles de la suma de las cifras de los extremos y los demás no cumplen que la diferencia sea múltiplo de 20, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения суммы крайних цифр, остальные не подходят под «остаток делится на 20», — поэтому других нет.</em></p>
 <hr>
 <div class="pager"><a href="11-6-4-trehznachnoe-s-nulem-v-seredine.html">← 6.4 ⭐ Трёхзначное с нулём в середине</a><a href="13-6-6-chislo-plyus-perevorot-1251.html">6.6 ⭐⭐ Число плюс переворот = 1251 →</a></div>
 </main>

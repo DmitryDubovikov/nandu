@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,29 +207,42 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 7 из 9</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = та пара (П, К) с 6П + 25К = 380, у которой стоимость 150П + 600К наименьшая. Сначала выясняю направление выгоды, потом беру ближайшее целое решение с этой стороны.</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Направление выгоды видно из цены за один альфахор:</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">La cantidad de bolsas tiene que ser un número entero, así que pruebo de mayor a menor hasta que lo que sobra se reparte justo.<br><em>Число пакетов обязано быть целым, поэтому пробую сверху вниз, пока остаток не разделится нацело.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">Кирпичики</span><span class="val">Кирпичики: N(пакетов) — пакетов по 6, N(коробок) — коробок по 25.</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">Ответ = та пара «сколько пакетов и сколько коробок», у которой</span></button>
+<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">N(коробок) = 15 → остаётся 5, на 6 не делится</span></button>
+<button class="art cont" data-art="4"><span class="val f">N(коробок) = 14 → остаётся 30 = 6 · 5 ✓</span></button>
+<button class="art cont" data-art="5"><span class="val f">max(коробок) = 14, N(пакетов) = 5</span></button>
+<button class="art cont" data-art="6"><span class="val f">14 · 600 + 5 · 150 = 8400 + 750 = 9150</span></button>
 </aside>
 <main>
   
   <h1>№4 — пакеты и коробки альфахоров *(Т1‴: целые решения + минимум)*</h1>
   <p class="sub">Национальный этап 2025 — решения</p>
 <p class="st"><b>🔍 С чего начать.</b> <b>Два условия разной природы:</b> «ровно 380, без остатка» — это целые решения, «потратить меньше всего» — это минимум. Сначала понять, в какую сторону выгодно двигаться, потом искать ближайшее целое решение в эту сторону.</p>
-<p class="st">Кирпичики: <code>П</code> = пакетов по 6, <code>К</code> = коробок по 25.</p>
+<p class="st">Кирпичики: <code>N(пакетов)</code> — сколько куплено пакетов по 6 альфахоров, <code>N(коробок)</code> — сколько куплено коробок по 25.</p>
 <p class="step st"><b>Шаг 1 — план.</b></p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = та пара (П, К) с 6П + 25К = 380, у которой стоимость 150П + 600К наименьшая. Сначала выясняю направление выгоды, потом беру ближайшее целое решение с этой стороны.</p></div></div>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Направление выгоды видно из цены <b>за один альфахор</b>:</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = та пара «сколько пакетов и сколько коробок», у которой</p>
+<div class="frm st">6 · N(пакетов) + 25 · N(коробок) = 380</div>
+<p class="st">и стоимость 150 · N(пакетов) + 600 · N(коробок) наименьшая.</p>
+<p class="st">Сначала выясняю направление выгоды, потом беру ближайшее целое решение с этой стороны.</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Направление выгоды видно из цены <b>за один альфахор</b>:</p></div>
 <div class="frm st">пакет: 150 : 6 = 25 песо за штуку</div>
 <div class="frm st">коробка: 600 : 25 = 24 песо за штуку</div>
-<p class="st">Коробки дешевле поштучно, и число альфахоров в любом случае ровно 380 — значит <b>чем больше коробок, тем дешевле</b>, безо всякого перебора цен. (Проверка той же мысли алгеброй: 150П + 600К = 25·(6П) + 600К = 25·(380 − 25К) + 600К = 9500 − 25К — каждая лишняя коробка снимает ровно 25 песо.)</p>
+<p class="st">Коробки дешевле поштучно, и число альфахоров в любом случае ровно 380 — значит <b>чем больше коробок, тем дешевле</b>, безо всякого перебора цен. Проверка той же мысли алгеброй:</p>
+<div class="frm st">150 · N(пакетов) + 600 · N(коробок) = 25 · (6 · N(пакетов)) + 600 · N(коробок)</div>
+<p class="st">6 · N(пакетов) = 380 − 25 · N(коробок), подставляю:</p>
+<div class="frm st">25 · (380 − 25 · N(коробок)) + 600 · N(коробок) = 9500 − 25 · N(коробок)</div>
+<p class="st">Каждая лишняя коробка снимает ровно 25 песо.</p>
+<p class="st"><em>💬 «Число пакетов обязано быть целым, поэтому пробую сверху вниз» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="step st"><b>Шаг 2 — нужно наибольшее возможное число коробок.</b> Иду сверху вниз и проверяю, делится ли остаток на 6:</p>
-<ul class="st"><li>К = 15 → 375, остаток 5 — на 6 не делится</li><li>К = 14 → 350, остаток 30 = 6 · 5 ✓</li></ul>
-<p class="st"><b>К = 14, П = 5</b> — стоп, дальше искать нечего: коробок больше уже не бывает.</p>
-<figure class="st"><svg viewBox="0 0 600 236" width="100%"  xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="20" y="22" fill="#cfdae6" font-size="13" text-anchor="start" font-weight="400">пакет — 6 штук за 150 песо</text><rect x="20" y="30" width="12" height="12" fill="#16263a" stroke="var(--blue)"/><rect x="35" y="30" width="12" height="12" fill="#16263a" stroke="var(--blue)"/><rect x="50" y="30" width="12" height="12" fill="#16263a" stroke="var(--blue)"/><rect x="65" y="30" width="12" height="12" fill="#16263a" stroke="var(--blue)"/><rect x="80" y="30" width="12" height="12" fill="#16263a" stroke="var(--blue)"/><rect x="95" y="30" width="12" height="12" fill="#16263a" stroke="var(--blue)"/><text x="126" y="41" fill="#cfdae6" font-size="14" text-anchor="start" font-weight="400">150 : 6 = 25 песо за штуку</text><text x="20" y="74" fill="#cfdae6" font-size="13" text-anchor="start" font-weight="400">коробка — 25 штук за 600 песо</text><rect x="20" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="34" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="48" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="62" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="76" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="90" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="104" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="118" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="132" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="146" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="160" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="174" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="188" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="202" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="216" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="230" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="244" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="258" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="272" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="286" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="300" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="314" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="328" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="342" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><rect x="356" y="82" width="12" height="12" fill="#12281c" stroke="var(--green)"/><text x="20" y="116" fill="var(--green)" font-size="14" text-anchor="start" font-weight="400">600 : 25 = 24 песо за штуку — дешевле</text><text x="20" y="152" fill="var(--muted)" font-size="13" text-anchor="start" font-weight="400">нужно ровно 380 → коробок берём столько, сколько влезет</text><text x="66" y="176" fill="#cfdae6" font-size="13" text-anchor="end" font-weight="400">К = 15</text><rect x="76" y="160" width="296" height="20" fill="var(--blue)" fill-opacity=".45" stroke="var(--blue)"/><text x="224" y="175" fill="#dceaff" font-size="12" text-anchor="middle" font-weight="400">25 · 15 = 375</text><rect x="372" y="160" width="4" height="20" fill="var(--red)"/><text x="390" y="175" fill="var(--red)" font-size="13" text-anchor="start" font-weight="400">остаток 5 — на 6 не делится</text><text x="66" y="216" fill="#cfdae6" font-size="13" text-anchor="end" font-weight="400">К = 14</text><rect x="76" y="200" width="276" height="20" fill="var(--blue)" fill-opacity=".45" stroke="var(--blue)"/><text x="214" y="215" fill="#dceaff" font-size="12" text-anchor="middle" font-weight="400">25 · 14 = 350</text><rect x="352" y="200" width="24" height="20" fill="var(--green)" fill-opacity=".55" stroke="var(--green)"/><text x="390" y="215" fill="var(--green)" font-size="13" text-anchor="start" font-weight="400">остаток 30 = 6 · 5 — пять пакетов</text></svg><figcaption>Штук всё равно ровно 380, поэтому дороже или дешевле выходит только то, по какой цене куплена каждая штука: первое же К, у которого остаток делится на 6, и есть ответ.</figcaption></figure>
+<ul class="st"><li>N(коробок) = 15 → 375, остаётся 5 — на 6 не делится</li><li>N(коробок) = 14 → 350, остаётся 30 = 6 · 5 ✓</li></ul>
+<p class="st"><code>max(…)</code> — наибольшее возможное значение:</p>
+<p class="st"><b>max(коробок) = 14</b>, значит <b>N(пакетов) = 5</b> — стоп, дальше искать нечего: коробок больше уже не бывает.</p>
 <p class="step st"><b>Шаг 3 — сборка: считаю деньги.</b></p>
 <div class="frm st">14 · 600 = 8400</div>
 <div class="frm st">5 · 150 = 750</div>
@@ -224,11 +251,21 @@
 <p class="st"><b>Ответ: 14 коробок и 5 пакетов, потратит 9150 песо.</b> <em>(официальный ключ ✓)</em></p>
 <p class="st"><b>⚠ Ловушка.</b> Соблазн сравнивать цены «пакет 150 против коробки 600» — это сравнение разных количеств. Сравнивать надо <b>цену за один альфахор</b>.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>La cantidad de bolsas tiene que ser un número entero, así que pruebo de mayor a menor hasta que lo que sobra se reparte justo.</b></p></div>
+<p class="st"><em>Число пакетов обязано быть целым, поэтому пробую сверху вниз, пока остаток не разделится нацело.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a1" data-art="1"><p class="st">Кирпичики: N(пакетов) — пакетов по 6, N(коробок) — коробок по 25.</p></div>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st">Ответ = та пара «сколько пакетов и сколько коробок», у которой</p>
+<div class="frm st">6 · N(пакетов) + 25 · N(коробок) = 380</div>
+<p class="st">и стоимость <b>150 · N(пакетов) + 600 · N(коробок)</b> наименьшая.</p></div></div>
 <p class="st">Цена за штуку: пакет 150 : 6 = 25; коробка 600 : 25 = 24 → <b>коробки выгоднее, берём их максимум</b>.</p>
-<p class="st">6П + 25К = 380:</p>
-<ul class="st"><li>К = 15 → остаток 5, на 6 не делится</li><li>К = 14 → остаток 30 = 6 · 5 ✓</li></ul>
-<div class="frm st">К = 14, П = 5</div>
-<div class="frm st">14 · 600 + 5 · 150 = 8400 + 750 = 9150</div>
+<p class="st">6 · N(пакетов) + 25 · N(коробок) = 380:</p>
+<div id="a4" data-art="4"><ul class="st"><li>N(коробок) = 15 → остаётся 5, на 6 не делится</li><li>N(коробок) = 14 → остаётся 30 = 6 · 5 ✓</li></ul></div>
+<div id="a5" data-art="5"><div class="frm st">max(коробок) = 14, N(пакетов) = 5</div></div>
+<div id="a6" data-art="6"><div class="frm st">14 · 600 + 5 · 150 = 8400 + 750 = 9150</div></div>
 <p class="st">Проверка: 350 + 30 = 380 ✓</p>
 <hr>
 <div class="pager"><a href="06-5-dva-kvadrata-i-klyuv-t2-razrezka-na-ravnye-det.html">← №5 — два квадрата и клюв *(Т2′: разрезка на равные детали + доли)*</a><a href="08-6-trimino-i-kvadratiki-na-doske-3-4-t3-karta-poz.html">№6 — тримино и квадратики на доске 3×4 *(Т3′: карта позиций + «И»)* →</a></div>

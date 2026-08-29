@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,24 +207,23 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 6 из 13</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Оба квадрата в этой фигуре работают не как фигуры, а как уравнения.</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">x − t<br>= x − v</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">t<br>= v</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">t + (x − v)<br>= v + (x − v)<br>= x</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Результат перевода
-
-t = v
-2x = 144
-x + v = 114
-W − x = 2g
-3x + g + d = 324
-W + g + d = 240
-
-x = квадрат MNSU · v = высота низа (= t) · g = SR · d =…</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики: x = сторона квадрата MNSU · v = высота нижнего ряда (= t) · g = SR · d = косая NR = RP · w = MP.</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(B) = 2·(x : 3 + v)</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(D) = g + x + d</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(MPRU) = w + d + (g + x) + x</span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">P(TUVX) = 144, полупериметр t + (x − v), а t = v → 2x = 144 → <b>x = 72</b></span></button>
+<button class="art cont" data-art="5"><span class="val f">P(MNZV) = 228 → x + v = 114 → <b>v = 42</b>, значит и <b>t = 42</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">P(MNRU) = 324 → 3x + g + d = 324 → g + d = 108</span></button>
+<button class="art cont" data-art="7"><span class="val f">P(NPQR) = 240 → w + g + d = 240 → <b>w = 132</b></span></button>
+<button class="art cont" data-art="8"><span class="val f">четыре равных D → w − x = 2g → <b>g = 30</b>, отсюда <b>d = 78</b></span></button>
+<button class="art cont" data-art="9"><span class="val f">B = 24 × 42 (ширина x : 3 = 24, высота v = 42)</span></button>
+<button class="art cont" data-art="10"><span class="val f">P(B) = 2·(24 + 42) = 132</span></button>
+<button class="art cont" data-art="11"><span class="val f">P(D) = 30 + 72 + 78 = 180</span></button>
+<button class="art cont" data-art="12"><span class="val f">P(MPRU) = 132 + 78 + 102 + 72 = 384</span></button>
 </aside>
 <main>
   
@@ -218,52 +231,65 @@ x = квадрат MNSU · v = высота низа (= t) · g = SR · d =…</
   <p class="sub">Сетка равных деталей — Ключ к практикум-маршруту</p>
 <h3 class="st">Этап 1 — перевод</h3>
 <p class="st"><b>Фигура.</b> Прямоугольник MPQU (M — левый низ, P — правый низ, Q — правый верх, U — левый верх). Вертикаль N→S отрезает левый <b>квадрат MNSU</b>. Внутри квадрата горизонталь V→Z отделяет нижний ряд из трёх равных стоячих B; над ней слева — две равные лежачие A стопкой (до вертикали T→X), справа — <b>квадрат C</b>. В правой части NPQS: R на верхней стороне, вертикаль от R до низа и косые R→N, R→P режут её на четыре равных треугольника D.</p>
-<p class="st"><b>Кирпичики.</b> <code>x</code> = сторона квадрата MNSU, <code>v</code> = высота нижнего ряда (MV), <code>t</code> = ширина A-блока (UT), <code>g</code> = SR, <code>d</code> = косая (NR = RP), <code>W</code> = MP.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Оба квадрата в этой фигуре работают не как фигуры, а как уравнения. Квадрат C зажат между рядом B снизу и блоком A слева: ширина у него x − t, высота x − v, а у квадрата они равны:</p></div></div>
-<div id="a1" data-art="1"><div class="frm st">x − t = x − v</div></div>
-<div id="a2" data-art="2"><div class="frm st">t = v</div></div>
+<p class="st"><b>Кирпичики.</b> <code>x</code> = сторона квадрата MNSU, <code>v</code> = высота нижнего ряда (MV), <code>t</code> = ширина A-блока (UT), <code>g</code> = SR, <code>d</code> = косая (NR = RP), <code>w</code> = MP.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Оба квадрата в этой фигуре работают не как фигуры, а как уравнения. Квадрат C зажат между рядом B снизу и блоком A слева: ширина у него x − t, высота x − v, а у квадрата они равны:</p></div>
+<div class="frm st">x − t = x − v</div>
+<div class="frm st">t = v</div>
 <p class="st">И как только это известно, полупериметр TUVX сворачивается:</p>
-<div id="a3" data-art="3"><div class="frm st">t + (x − v) = v + (x − v) = x</div></div>
+<div class="frm st">t + (x − v) = v + (x − v) = x</div>
 <p class="st">Прямоугольник TUVX сообщает сторону большого квадрата, хотя ни t, ни v ещё не найдены, — на этом и держится вся задача, дальше система разматывается сама.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
 <tr><td>квадрат C: ширина x − t, высота x − v, а у квадрата они равны</td><td>x − t = x − v</td></tr>
 <tr><td>одно и то же x вычитается слева и справа — остаётся равенство самих кусков</td><td>t = v</td></tr>
-<tr><td>периметр TUVX = 144: полупериметр t + (x − v), а t = v, значит это просто x</td><td>2x = 144</td></tr>
-<tr><td>периметр MNZV = 228</td><td>x + v = 114</td></tr>
-<tr><td>4 равных D: верхние катеты SR и RQ равны</td><td>W − x = 2g</td></tr>
-<tr><td>периметр MNRU = 324: M→N (x), N→R (d), R→U (g + x, через S!), U→M (x)</td><td>3x + g + d = 324</td></tr>
-<tr><td>периметр NPQR = 240: N→P (W − x), P→Q (x), Q→R (g), R→N (d)</td><td>W + g + d = 240</td></tr>
+<tr><td>P(TUVX) = 144: полупериметр t + (x − v), а t = v, значит это просто x</td><td>2x = 144</td></tr>
+<tr><td>P(MNZV) = 228</td><td>x + v = 114</td></tr>
+<tr><td>4 равных D: верхние катеты SR и RQ равны</td><td>w − x = 2g</td></tr>
+<tr><td>P(MNRU) = 324: M→N (x), N→R (d), R→U (g + x, через S!), U→M (x)</td><td>3x + g + d = 324</td></tr>
+<tr><td>P(NPQR) = 240: N→P (w − x), P→Q (x), Q→R (g), R→N (d)</td><td>w + g + d = 240</td></tr>
 </table></div></div>
-<div id="a4" data-art="4"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">t = v
 2x = 144
 x + v = 114
-W − x = 2g
+w − x = 2g
 3x + g + d = 324
-W + g + d = 240</pre>
-<p class="st"><code>x</code> = квадрат MNSU · <code>v</code> = высота низа (= t) · <code>g</code> = SR · <code>d</code> = косая NR = RP · <code>W</code> = MP</p>
-<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+w + g + d = 240</pre>
+<p class="st"><code>x</code> = квадрат MNSU · <code>v</code> = высота низа (= t) · <code>g</code> = SR · <code>d</code> = косая NR = RP · <code>w</code> = MP</p>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Л1 (равные A, B, D), Л7 (вертикаль от R до низа), наклонные из контуров (d — из MNRU и NPQR).</p>
 <p class="st"><b>Ловушка перевода.</b> В контуре MNRU сторона R→U проходит <b>через S</b>: она равна g + x, а не x. И косые не мерить — обе выходят из системы.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
 <p class="step st"><b>Шаг 1 — нужны x и v: беру их из коротких строк.</b> Из (2): <b>x = 72</b>. Из (3):</p>
 <p class="st">v = 114 − 72 = <b>42</b></p>
 <p class="st">А по первой строке t = v, значит и <b>t = 42</b>.</p>
-<p class="step st"><b>Шаг 2 — нужны W, g и косая d: пользуюсь общим хвостом g + d в двух контурах.</b> В (5) всё, кроме хвоста g + d, уже известно (3x = 216):</p>
+<p class="step st"><b>Шаг 2 — нужны w, g и косая d: пользуюсь общим хвостом g + d в двух контурах.</b> В (5) всё, кроме хвоста g + d, уже известно (3x = 216):</p>
 <div class="frm st">g + d = 324 − 216 = 108</div>
-<p class="st">Тот же хвост стоит в (6), поэтому оттуда сразу выходит W:</p>
-<p class="st">W = 240 − 108 = <b>132</b></p>
+<p class="st">Тот же хвост стоит в (6), поэтому оттуда сразу выходит w:</p>
+<p class="st">w = 240 − 108 = <b>132</b></p>
 <p class="st">Теперь (4) даёт g:</p>
-<p class="st">2g = W − x = 132 − 72 = 60 → <b>g = 30</b></p>
+<p class="st">2g = w − x = 132 − 72 = 60 → <b>g = 30</b></p>
 <p class="st">И обратно в хвост: d = 108 − 30 → <b>d = 78</b>.</p>
 <p class="step st"><b>Шаг 3 — нужны размеры деталей: собираю их из найденных букв.</b></p>
 <ul class="st"><li>A = 42 × 15 (ширина t = 42, высота — половина от x − v = 30)</li><li>B = 24 × 42 (ширина — треть от x = 72, высота v = 42)</li><li>C = 30 × 30 (сторона x − v = 30)</li><li>D — катеты 30 и 72, косая 78</li></ul>
 <p class="step st"><b>Шаг 4 — сборка: считаю спрошенные периметры.</b></p>
-<ul class="st"><li><b>B</b> = 2(24 + 42) = <b>132</b></li><li><b>D</b> = 30 + 72 + 78 = <b>180</b></li><li><b>MPRU</b> = W + d + (g + x) + x = 132 + 78 + 102 + 72 = <b>384</b></li></ul>
+<ul class="st"><li><b>P(B)</b> = 2(24 + 42) = <b>132</b></li><li><b>P(D)</b> = 30 + 72 + 78 = <b>180</b></li><li><b>P(MPRU)</b> = w + d + (g + x) + x = 132 + 78 + 102 + 72 = <b>384</b></li></ul>
 <p class="st"><b>⚠ Про опечатку.</b> Сборник ответов даёт «D 198, MPRU 414». Это несовместимо с условием: наши размеры — единственные, при которых сходятся <b>все четыре</b> данных периметра. Подстановка:</p>
 <ul class="st"><li>TUVX: 2·72 = 144 ✓</li><li>MNZV: 2·114 = 228 ✓</li><li>MNRU: 216 + 30 + 78 = 324 ✓</li><li>NPQR: 60 + 72 + 30 + 78 = 240 ✓</li></ul>
 <p class="st">Пропорции оригинального рисунка им соответствуют, а треугольник 30-72-78 = 6·(5-12-13) — честный прямоугольный. Ответ B в сборнике совпадает с нашим. Принимаем <b>D 180, MPRU 384</b>.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<div id="a0" data-art="0"><p class="st">Кирпичики: x = сторона квадрата MNSU · v = высота нижнего ряда (= t) · g = SR · d = косая NR = RP · w = MP.</p></div>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(B) = 2·(x : 3 + v)</div>
+<div class="frm st">P(D) = g + x + d</div>
+<div class="frm st">P(MPRU) = w + d + (g + x) + x</div>
+<p class="st">Осталось найти x, v, w, g, d.</p></div></div>
+<div id="a9" data-art="9"><ul class="st"><li>P(TUVX) = 144, полупериметр t + (x − v), а t = v → 2x = 144 → <b>x = 72</b></li><li>P(MNZV) = 228 → x + v = 114 → <b>v = 42</b>, значит и <b>t = 42</b></li><li>P(MNRU) = 324 → 3x + g + d = 324 → g + d = 108</li><li>P(NPQR) = 240 → w + g + d = 240 → <b>w = 132</b></li><li>четыре равных D → w − x = 2g → <b>g = 30</b>, отсюда <b>d = 78</b></li><li>B = 24 × 42 (ширина x : 3 = 24, высота v = 42)</li></ul></div>
+<div id="a10" data-art="10"><div class="frm st">P(B) = 2·(24 + 42) = 132</div></div>
+<div id="a11" data-art="11"><div class="frm st">P(D) = 30 + 72 + 78 = 180</div></div>
+<div id="a12" data-art="12"><div class="frm st">P(MPRU) = 132 + 78 + 102 + 72 = 384</div></div>
+<p class="st">Проверка сложением: P(TUVX) = 2·72 = 144 ✓; P(MNZV) = 2·114 = 228 ✓; P(MNRU) = 216 + 30 + 78 = 324 ✓; P(NPQR) = 60 + 72 + 30 + 78 = 240 ✓</p>
 <hr>
 <div class="pager"><a href="05-5-2024-2-para-flagov.html">← 5. 2024 №2 — пара флагов</a><a href="07-7-2025-2-trapeciya-s-dvumya-skatami.html">7. 2025 №2 — трапеция с двумя скатами →</a></div>
 </main>

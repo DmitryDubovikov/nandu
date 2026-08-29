@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,24 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 6 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ(а) = проверка s = 20 на афише номер 106</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Con 24 por día todavía no alcanza y con 27 ya se pasa, así que lo que busco queda encajado entre esos dos números.<br><em>При 24 в день ещё не хватает, а при 27 уже перебор, — значит искомое зажато между этими двумя числами.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ(а) = проверка s = 20 на афише 106</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">пачка 8 начинается с афиши <code>7 · 15 + 1 = 106</code></span></button>
+<button class="art cont" data-art="3"><span class="val f">пачка 20 кончается афишей <code>20 · 15 = 300</code></span></button>
+<button class="art cont" data-art="4"><span class="val f">а) <code>5 · 20 = 100 &lt; 106</code> → афиша 106 попала бы в 6-й день → нельзя</span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>4s ≤ 105</code> → <code>s ≤ 26</code></span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>5s ≥ 106</code> → <code>s ≥ 22</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>11s ≤ 299</code> → <code>s ≤ 27</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>12s ≥ 300</code> → <code>s ≥ 25</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>s = 25</code> или <code>s = 26</code></span></button>
+<button class="art cont" data-art="10"><span class="val f">заказ: <code>32 · 15 = 480</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>480 = 19 · 25 + 5</code> → <b>день 20</b></span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>480 = 18 · 26 + 12</code> → <b>день 19</b></span></button>
+<button class="art" data-art="13"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores de s posibles y los demás no cumplen las dos condiciones de los días, por eso no hay más que estos.<br><em>Проверил все возможные значения s, остальные не подходят под оба условия про дни, — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -216,12 +243,12 @@
 <tr><td>значит, пачка 8 начинается с афиши</td><td>номер <code>106</code></td></tr>
 <tr><td>пачки 1–20 — это все афиши до</td><td><code>20 · 15 = 300</code>, последняя афиша пачки 20 — номер <code>300</code></td></tr>
 </table></div></div>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b></p>
 <p class="st">Ответ(а) = проверка <code>s = 20</code> на афише номер 106</p>
 <p class="st">Ответ(б) = все целые <code>s</code>, проходящие обе вилки — «афишу 106 напечатали в 5-й день» и «афишу 300 напечатали в 12-й день»</p>
 <p class="st">Ответ(в) = для каждого такого <code>s</code> — день, в который печатается афиша номер <code>32 · 15</code></p>
 <p class="st">Буква: <code>s</code> — сколько афиш типография печатает в день.</p>
-<p class="st">Осталось найти: обе вилки на <code>s</code> и их пересечение.</p></div></div>
+<p class="st">Осталось найти: обе вилки на <code>s</code> и их пересечение.</p></div>
 <p class="step st"><b>Шаг 2 — может ли быть 20 афиш в день (вопрос а).</b> Нужно проверить одну-единственную скорость — для этого смотрю, куда при ней попадает афиша 106. Пусть <code>s = 20</code>. За 5 дней напечатали бы <code>100</code> афиш — афиши 106 среди них нет; она попала бы только в 6-й день. Условие говорит «пачку 8 начали в 5-й день», значит <b>по 20 афиш в день быть не может.</b></p>
 <p class="step st"><b>Шаг 3 — вилки: какие скорости выживают (вопрос б).</b> Нужен полный список скоростей — для этого перевожу каждую фразу условия в пару запретов «уже напечатана» и «ещё не напечатана» и пересекаю их. Теперь честные вилки. Афиши печатают подряд, поэтому к концу дня <code>k</code> напечатаны номера от 1 до <code>k · s</code> — и никакие другие. Значит, «афиша номер N уже напечатана к концу дня <code>k</code>» — это просто <code>k · s ≥ N</code>, а «ещё не напечатана» — это <code>k · s ≤ N − 1</code>.</p>
 <p class="st">Фраза «пачку 8 начали заполнять в 5-й день» — это и есть «афишу 106 напечатали в 5-й день», а в ней спрятаны два запрета сразу:</p>
@@ -237,7 +264,9 @@
 <tr><td>за 12 дней — уже напечатана</td><td><code>12s ≥ 300</code> → <code>s ≥ 25</code></td></tr>
 </table></div></div>
 <p class="st">Пересекаю промежутки <code>22…26</code> и <code>25…27</code>: остаётся <code>25, 26</code>. Обрати внимание: работают обе фразы. Первая срезала сверху (27 отпало), вторая — снизу (22, 23, 24 отпали).</p>
+<p class="st"><em>💬 «При 24 ещё не хватает, при 27 уже перебор — искомое зажато между ними» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="st"><b>Возможностей две: 25 или 26 афиш в день.</b></p>
+<p class="st"><em>💬 «Проверил все возможные скорости, остальные не проходят обе вилки» — это и есть мысль для фразы-полноты.</em></p>
 <p class="step st"><b>Шаг 4 — сборка: день последней афиши заказа (вопрос в).</b> Нужен день для каждой из двух скоростей — для этого перевожу заказ в число афиш и делю его с остатком. Заказ — 32 пачки, то есть <code>32 · 15 = 480</code> афиш. Для каждой скорости делю с остатком:</p>
 <div class="st"><div class="tw"><table>
 <tr><th><code>s</code></th><th>Деление</th><th>В какой день последняя афиша</th></tr>
@@ -245,6 +274,23 @@
 <tr><td>26</td><td><code>480 = 18 · 26 + 12</code> (за 18 дней 468 — мало)</td><td><b>день 19</b></td></tr>
 </table></div></div>
 <p class="st"><b>Ответ.</b> а) Не может: при 20 афишах в день пачку 8 начали бы в 6-й день, а не в 5-й. б) Две возможности: 25 или 26 афиш в день. в) При 25 — в 20-й день, при 26 — в 19-й.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Con 24 por día todavía no alcanza y con 27 ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p></div>
+<p class="st"><em>При 24 в день ещё не хватает, а при 27 уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st"><code>s</code> — афиш в день</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(а) = проверка <code>s = 20</code> на афише 106</div>
+<p class="st"><b>Ответ(б) = все <code>s</code>, проходящие обе вилки</b></p>
+<div class="frm st">Ответ(в) = день, в который печатается афиша 480</div></div></div>
+<div id="a8" data-art="8"><ul class="st"><li>пачка 8 начинается с афиши <code>7 · 15 + 1 = 106</code></li><li>пачка 20 кончается афишей <code>20 · 15 = 300</code></li><li>а) <code>5 · 20 = 100 &lt; 106</code> → афиша 106 попала бы в 6-й день → нельзя</li><li><code>4s ≤ 105</code> → <code>s ≤ 26</code></li><li><code>5s ≥ 106</code> → <code>s ≥ 22</code></li><li><code>11s ≤ 299</code> → <code>s ≤ 27</code></li><li><code>12s ≥ 300</code> → <code>s ≥ 25</code></li></ul></div>
+<div id="a9" data-art="9"><div class="frm st"><code>s = 25</code> или <code>s = 26</code></div></div>
+<div id="a12" data-art="12"><ul class="st"><li>заказ: <code>32 · 15 = 480</code></li><li><code>480 = 19 · 25 + 5</code> → <b>день 20</b></li><li><code>480 = 18 · 26 + 12</code> → <b>день 19</b></li></ul></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a13" data-art="13"><p class="st"><b>Probé todos los valores de s posibles y los demás no cumplen las dos condiciones de los días, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения s, остальные не подходят под оба условия про дни, — поэтому других нет.</em></p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Возможности найдены неравенствами. Проверяю их <b>прямой симуляцией по дням</b> — считаю, сколько афиш напечатано к концу каждого дня, и смотрю, когда появляются афиши 106 и 300.</p>
 <div class="st"><div class="tw"><table>

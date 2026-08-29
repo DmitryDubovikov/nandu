@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -199,12 +213,10 @@
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">«Сколько квадратов в сетке?» — это не про клетки: квадраты бывают 1×1, 2×2, 3×3 … Считаем только те, что сложены из целых клеток и стоят по линиям…</span></button>
 <button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">У каждого окна k×k есть ровно одна левая верхняя клетка; и наоборот — назови клетку и размер, и окно уже нарисовано, второго такого нет.</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">n − (k − 1)<br>= n − k + 1</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">положений окна k×k<br>= (n − k + 1) · (n − k + 1)</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">n − (k − 1) = n − k + 1</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">положений окна k×k = (n − k + 1) · (n − k + 1)</span></button>
 <button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">строка окна: от r − k + 1 до r</span></button>
-<button class="art" data-art="5"><span class="lbl">План</span><span class="val">все четыре ответа — суммы по размерам из одной таблицы диапазонов:
-
-а) Содержат К = сумма по размерам от (годные строки × годные столбцы вокруг…</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val">все четыре ответа — суммы по размерам из одной таблицы диапазонов:<br><br>N(содержат R) = сумма по размерам (годные строки × годные столбцы вокруг…</span></button>
 </aside>
 <main>
   
@@ -227,7 +239,7 @@
 <p class="st">Пример: сетка 4×4, помеченная клетка стоит во 2-й строке и во 2-м столбце — короче её адрес я буду писать так: <b>(2, 2)</b>, сначала строка, потом столбец.</p>
 <figure class="st"><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start"><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">помеченная клетка (2, 2)</div><div style="display:inline-grid;grid-template-columns:repeat(4,32px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">•</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">левые верхние клетки окон 2×2, накрывающих её</div><div style="display:inline-grid;grid-template-columns:repeat(4,32px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">▪</span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span><span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)"></span></div><div class="flab" style="margin-top:8px">строки 1–2 <span style="opacity:.6">×</span> столбцы 1–2 → 4 окна</div></div></div><figcaption>Окно названо своей левой верхней клеткой — второго окна с тем же углом и размером не бывает, поэтому считать окна можно, считая клетки-углы.</figcaption></figure>
 <ul class="st"><li>окно 2×2: строки от 2 − 2 + 1 = 1 до 2. Край позволяет — верхняя граница n − k + 1 = 3, обрезать нечего, остаются строки 1 и 2, две штуки. Столбцы точно так же две. Окон 2 × 2 = <b>4</b>;</li><li>окно 3×3: строки от 2 − 3 + 1 = 0 до 2. Строки 0 не бывает, обрезаю снизу единицей; сверху граница n − k + 1 = 2, она ничего не отрезает. Остаются строки 1 и 2, две штуки. Столбцы так же две. Окон 2 × 2 = <b>4</b> — а всего окон 3×3 на сетке 4×4 тоже четыре, значит их помеченная клетка ловит все.</li></ul>
-<p class="st">Дальше знакомая арифметика: «не содержит» = все окна минус содержащие; «содержит обе» = оба требования сразу (диапазоны пересекаются). Всё считается <b>по размерам, таблицей</b> — и в каждом размере, прежде чем вычитать, делай проверку минуса: спроси, не может ли одно и то же окно оказаться плохим сразу по двум причинам. Может — значит, вычитая обе причины подряд, ты вычтешь его дважды, и плохих надо собирать мирами: отдельно те, что плохи только по первой причине, отдельно только по второй, отдельно те, что плохи сразу по обеим.</p>
+<p class="st">Дальше знакомая арифметика: «не содержит» = все окна минус содержащие; «содержит обе» = оба требования сразу (диапазоны пересекаются). Всего окон данного размера — это <b>N(всего)</b>, а плохих — задевших хотя бы одну помеченную клетку — <b>N(плохих)</b>; тогда «ни одной» на этом размере — это N(всего) − N(плохих). Всё считается <b>по размерам, таблицей</b> — и в каждом размере, прежде чем вычитать, делай проверку минуса: спроси, не может ли одно и то же окно оказаться плохим сразу по двум причинам. Может — значит, вычитая обе причины подряд, ты вычтешь его дважды, и плохих надо собирать мирами: отдельно те, что плохи только по первой причине, отдельно только по второй, отдельно те, что плохи сразу по обеим.</p>
 <p class="exam st"><b>Пример А.</b> Сетка 4×4. а) Сколько в ней всего квадратов? б) Помечена клетка во 2-й строке, 2-м столбце — её адрес (2, 2): как договорились, сначала строка, потом столбец. Сколько квадратов её содержат? в) Сколько не содержат?</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Размер окна</th><th>Всего позиций</th><th>Содержат клетку (2, 2)</th></tr>
@@ -238,28 +250,55 @@
 <tr><td><b>итого</b></td><td><b>30</b></td><td><b>10</b></td></tr>
 </table></div></div>
 <p class="st">в) Не содержат: 30 − 10 = <b>20</b>. Проверка строки «2×2» (Д5): нарисуй сетку и обведи все окна 2×2, накрывающие клетку (2, 2), — их ровно 4 ✓.</p>
-<p class="exam st"><b>Пример Б (две клетки и «ни одной»).</b> Сетка 5×5. Помечены: К — в 3-й строке, 3-м столбце (центр) и З — в 1-й строке, 5-м столбце (угол). а) Сколько квадратов содержат К? б) Сколько содержат З? в) Сколько содержат обе? г) Сколько не содержат ни одной?</p>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Всё по размерам, таблицей. Чтобы окно накрыло сразу обе клетки, оно обязано захватить все строки от 1-й (там З) до 3-й (там К) — это три строки подряд; такую «ширину захвата» буду звать <b>размахом</b>: размах по строкам 3. И все столбцы от 3-го (К) до 5-го (З) — размах по столбцам тоже 3. Окно со стороной меньше 3 столько строк подряд просто не накроет, поэтому 1×1 и 2×2 отпадают, не считая. Для «ни одной» — всё минус плохие внутри каждого размера; проверка минуса: окно с обеими клетками плохое дважды, поэтому плохих собираю мирами: (только К) + (только З) + (обе).</p>
+<p class="exam st"><b>Пример Б (две клетки и «ни одной»).</b> Сетка 5×5. Помечены: R — в 3-й строке, 3-м столбце (центр) и V — в 1-й строке, 5-м столбце (угол). а) Сколько квадратов содержат R? б) Сколько содержат V? в) Сколько содержат обе? г) Сколько не содержат ни одной?</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Всё по размерам, таблицей. Чтобы окно накрыло сразу обе клетки, оно обязано захватить все строки от 1-й (там V) до 3-й (там R) — это три строки подряд; такую «ширину захвата» буду звать <b>размахом</b>: размах по строкам 3. И все столбцы от 3-го (R) до 5-го (V) — размах по столбцам тоже 3. Окно со стороной меньше 3 столько строк подряд просто не накроет, поэтому 1×1 и 2×2 отпадают, не считая. Для «ни одной» — всё минус плохие внутри каждого размера; проверка минуса: окно с обеими клетками плохое дважды, поэтому плохих собираю мирами: (только R) + (только V) + (обе).</p>
 <div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План готов:</b> все четыре ответа — суммы по размерам из одной таблицы диапазонов:</p>
-<div class="frm st">а) Содержат К = сумма по размерам от (годные строки × годные столбцы вокруг К)</div>
-<div class="frm st">б) Содержат З = то же самое вокруг З</div>
-<p class="st">в) Содержат обе = сумма по размерам от окон, чьи диапазоны годятся сразу для обеих клеток</p>
-<p class="st">г) Ни одной = сумма по размерам от Всего − [(К − обе) + (З − обе) + обе]</p>
-<p class="st">Осталось найти: на каждом размере четыре числа — Всего, К, З и обе.</p></div></div>
+<div class="frm st">N(содержат R) = сумма по размерам (годные строки × годные столбцы вокруг R)</div>
+<div class="frm st">N(содержат V) = то же самое вокруг V</div>
+<p class="st"><b>N(содержат обе) = сумма по размерам от окон, чьи диапазоны годятся сразу для обеих клеток</b></p>
+<div class="frm st">N(ни одной) = сумма по размерам от N(всего) − N(плохих)</div>
+<p class="st">где на каждом размере</p>
+<ul class="st"><li><b>N(всего)</b> — сколько всего окон этого размера;</li><li><b>N(плохих)</b> — сколько окон задели хотя бы одну помеченную клетку: N(плохих) = (только R) + (только V) + (обе).</li></ul>
+<p class="st">Осталось найти: на каждом размере четыре числа — N(всего), R, V и обе.</p></div></div>
 <p class="step st"><b>Шаг 2 — таблица по размерам.</b></p>
 <div class="st"><div class="tw"><table>
-<tr><th>Размер</th><th>Всего</th><th>Содержат К</th><th>Содержат З</th><th>Обе</th><th>Ни одной</th></tr>
-<tr><td>1×1</td><td>25</td><td>1</td><td>1</td><td>0</td><td>плохих (1−0) + (1−0) + 0 = 2 → 25 − 2 = <b>23</b></td></tr>
-<tr><td>2×2</td><td>16</td><td>4</td><td>1</td><td>0</td><td>плохих (4−0) + (1−0) + 0 = 5 → 16 − 5 = <b>11</b></td></tr>
-<tr><td>3×3</td><td>9</td><td>9</td><td>1</td><td>1</td><td>плохих (9−1) + (1−1) + 1 = 9 → 9 − 9 = <b>0</b></td></tr>
-<tr><td>4×4</td><td>4</td><td>4</td><td>1</td><td>1</td><td>плохих (4−1) + (1−1) + 1 = 4 → 4 − 4 = <b>0</b></td></tr>
-<tr><td>5×5</td><td>1</td><td>1</td><td>1</td><td>1</td><td>плохих (1−1) + (1−1) + 1 = 1 → 1 − 1 = <b>0</b></td></tr>
+<tr><th>Размер</th><th>N(всего)</th><th>N(содержат R)</th><th>N(содержат V)</th><th>N(обе)</th><th>N(ни одной)</th></tr>
+<tr><td>1×1</td><td>25</td><td>1</td><td>1</td><td>0</td><td>N(плохих) = (1−0) + (1−0) + 0 = 2 → 25 − 2 = <b>23</b></td></tr>
+<tr><td>2×2</td><td>16</td><td>4</td><td>1</td><td>0</td><td>N(плохих) = (4−0) + (1−0) + 0 = 5 → 16 − 5 = <b>11</b></td></tr>
+<tr><td>3×3</td><td>9</td><td>9</td><td>1</td><td>1</td><td>N(плохих) = (9−1) + (1−1) + 1 = 9 → 9 − 9 = <b>0</b></td></tr>
+<tr><td>4×4</td><td>4</td><td>4</td><td>1</td><td>1</td><td>N(плохих) = (4−1) + (1−1) + 1 = 4 → 4 − 4 = <b>0</b></td></tr>
+<tr><td>5×5</td><td>1</td><td>1</td><td>1</td><td>1</td><td>N(плохих) = (1−1) + (1−1) + 1 = 1 → 1 − 1 = <b>0</b></td></tr>
 <tr><td><b>итого</b></td><td><b>55</b></td><td><b>19</b></td><td><b>5</b></td><td><b>3</b></td><td><b>34</b></td></tr>
 </table></div></div>
 <p class="step st"><b>Шаг 3 — ответы.</b> а) <b>19</b>; б) <b>5</b>; в) <b>3</b>; г) <b>34</b>.</p>
-<p class="st">Заметь строку 3×3: содержащих К — все девять! Большое окно почти не умеет избегать центра: с размера 3 все окна плохие, и «ни одной» набирается только мелочью. Сверка суммой (как у миров): только-К (19−3) + только-З (5−3) + обе (3) + ни одной (34) = 16 + 2 + 3 + 34 = 55 ✓.</p>
+<p class="st">Заметь строку 3×3: содержащих R — все девять! Большое окно почти не умеет избегать центра: с размера 3 все окна плохие, и «ни одной» набирается только мелочью. Сверка суммой (как у миров): только-R (19−3) + только-V (5−3) + обе (3) + ни одной (34) = 16 + 2 + 3 + 34 = 55 ✓.</p>
+<h3 class="st">✍ Пример Б — что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<p class="st"><b>Cada cuadrado queda determinado por su esquina de arriba a la izquierda, así que cuento esquinas posibles.</b></p>
+<p class="st"><em>Каждый квадрат определён своим левым верхним углом, — поэтому считаю возможные углы.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Окно k×k называю по его левой верхней клетке. R = (3, 3), V = (1, 5). N(всего) — всего окон размера; N(плохих) — окна, задевшие хотя бы одну помеченную клетку.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">N(содержат R) = сумма по размерам (годные строки × годные столбцы)</div>
+<div class="frm st">N(ни одной) = сумма по размерам от N(всего) − N(плохих)</div></div>
+<p class="st">Размах: строки 1–3, столбцы 3–5 → окна меньше 3×3 обе клетки не накроют.</p>
+<div class="st"><div class="tw"><table>
+<tr><th>Размер</th><th>N(всего)</th><th>R</th><th>V</th><th>обе</th><th>N(плохих)</th><th>ни одной</th></tr>
+<tr><td>1×1</td><td>25</td><td>1</td><td>1</td><td>0</td><td>2</td><td>23</td></tr>
+<tr><td>2×2</td><td>16</td><td>4</td><td>1</td><td>0</td><td>5</td><td>11</td></tr>
+<tr><td>3×3</td><td>9</td><td>9</td><td>1</td><td>1</td><td>9</td><td>0</td></tr>
+<tr><td>4×4</td><td>4</td><td>4</td><td>1</td><td>1</td><td>4</td><td>0</td></tr>
+<tr><td>5×5</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>итого</td><td>55</td><td>19</td><td>5</td><td>3</td><td></td><td>34</td></tr>
+</table></div></div>
+<p class="st">а) 19; б) 5; в) 3; г) 34</p>
+<p class="st">Проверка: только-R 16 + только-V 2 + обе 3 + ни одной 34 = 55 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p>
+<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <p class="st"><b>Типичные ошибки:</b></p>
-<ol class="st num"><li><span class="lin">1.</span> <b>Квадраты = клетки.</b> В сетке 4×4 квадратов 30, а не 16. Считай все размеры таблицей.</li><li><span class="lin">2.</span> <b>Сдвиг на единицу.</b> Окон k×k в строке n − k + 1, а не n − k. Проверь на крае: окно 4×4 в сетке 4×4 одно.</li><li><span class="lin">3.</span> <b>Вычесть К и З по отдельности, не спросив про «обе».</b> Окно с обеими клетками — плохое дважды; проверка минуса в каждом размере, мирами.</li><li><span class="lin">4.</span> <b>Большому окну поверить «на глаз».</b> Окна больших размеров почти всегда цепляют помеченные клетки — но «почти» проверяется диапазоном, а не интуицией.</li></ol>
+<ol class="st num"><li><span class="lin">1.</span> <b>Квадраты = клетки.</b> В сетке 4×4 квадратов 30, а не 16. Считай все размеры таблицей.</li><li><span class="lin">2.</span> <b>Сдвиг на единицу.</b> Окон k×k в строке n − k + 1, а не n − k. Проверь на крае: окно 4×4 в сетке 4×4 одно.</li><li><span class="lin">3.</span> <b>Вычесть R и V по отдельности, не спросив про «обе».</b> Окно с обеими клетками — плохое дважды; проверка минуса в каждом размере, мирами.</li><li><span class="lin">4.</span> <b>Большому окну поверить «на глаз».</b> Окна больших размеров почти всегда цепляют помеченные клетки — но «почти» проверяется диапазоном, а не интуицией.</li></ol>
 <div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2023 №3 — сетка 7×7 с тремя помеченными клетками, четыре вопроса «содержат/не содержат»: таблица по размерам, диапазоны, миры. 2020 №3 — красная и синяя фишки на 4×4 без касания даже углом: это не окна, а <b>карта соседей</b> — ставишь первую фишку в клетку, закрашиваешь все клетки, которых ей нельзя касаться (соседние по стороне И по углу), считаешь, сколько клеток уцелело для второй, и складываешь по всем положениям первой.</p></div>
 <hr>
 <p class="xlink"><a href="../nandu_n1_nacional_3_doski2_reshebnik/08-blok-8-okno-v-setke-glava-8.html">→ Задачи к этой главе: <b>Блок 8 — Окно в сетке</b></a></p><div class="pager"><a href="09-glava-7-ukladki-figurok.html">← Глава 7. Укладки фигурок</a><a href="11-karta-kakaya-glava-chto-zakryvaet.html">Карта: какая глава что закрывает →</a></div>

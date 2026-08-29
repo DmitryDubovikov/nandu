@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,23 +207,32 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 7 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Признак делимости на 3 и на 9 смотрит только на сумму цифр, а перестановка цифр сумму не меняет вовсе.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Ответ = что скажет признак про единственную сумму цифр — она одна и та же у всех 24 чисел.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Un número es múltiplo de 3 exactamente cuando la suma de sus cifras lo es, por eso trabajo con la suma.<br><em>Число делится на 3 ровно тогда, когда на 3 делится сумма его цифр, — поэтому работаю с суммой.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">цифры 1, 2, 3, 4: 1 + 2 + 3 + 4 = <b>10</b> — ни на 3, ни на 9 → <b>ни одного</b> (ответы на «а» и «б»)</span></button>
+<button class="art cont" data-art="2"><span class="val f">цифры 1, 2, 4, 5: 1 + 2 + 4 + 5 = <b>12</b> — на 3 да, на 9 нет → <b>на 3 все 24, на 9 ни одного</b></span></button>
 </aside>
 <main>
   <p class="partlab">Блок 4 — Признаки делимости на 3 и на 9</p>
   <h1>4.4 ⭐ Числа Мемы</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Мема составляет четырёхзначные числа из цифр 1, 2, 3, 4 — каждая ровно по одному разу. а) Найдётся ли среди них число, кратное 9? б) А кратное 3? в) Те же вопросы для цифр 1, 2, 4, 5.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Признак делимости на 3 и на 9 смотрит только на <b>сумму цифр</b>, а перестановка цифр сумму не меняет вовсе. Значит, все 24 числа Мемы для признака — одно и то же число. Отвечать надо не про каждое, а про всю компанию сразу: перебор здесь не нужен ни на секунду.</p></div></div>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = что скажет признак про единственную сумму цифр — она одна и та же у всех 24 чисел.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Признак делимости на 3 и на 9 смотрит только на <b>сумму цифр</b>, а перестановка цифр сумму не меняет вовсе. Значит, все 24 числа Мемы для признака — одно и то же число. Отвечать надо не про каждое, а про всю компанию сразу: перебор здесь не нужен ни на секунду.</p></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = что скажет признак про единственную сумму цифр — она одна и та же у всех 24 чисел.</p></div>
 <p class="st"><b>Ход.</b></p>
 <ul class="st"><li>Цифры 1, 2, 3, 4: сумма 1 + 2 + 3 + 4 = 10. На 3 не делится, на 9 тем более → <b>ни одно из 24 чисел</b> не кратно ни 3, ни 9.</li><li>Цифры 1, 2, 4, 5: сумма 1 + 2 + 4 + 5 = 12. На 3 делится, на 9 нет → на 3 делятся <b>все 24</b>, на 9 — <b>ни одно</b>.</li></ul>
 <p class="st"><b>Ответ:</b> а) нет; б) тоже нет; в) на 3 делятся все 24 числа, на 9 — ни одного.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Un número es múltiplo de 3 exactamente cuando la suma de sus cifras lo es, por eso trabajo con la suma.</b></p></div>
+<p class="st"><em>Число делится на 3 ровно тогда, когда на 3 делится сумма его цифр, — поэтому работаю с суммой.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Перестановка цифр сумму цифр не меняет → все 24 числа для признака одинаковы.</p>
+<div id="a2" data-art="2"><ul class="st"><li>цифры 1, 2, 3, 4: 1 + 2 + 3 + 4 = <b>10</b> — ни на 3, ни на 9 → <b>ни одного</b> (ответы на «а» и «б»)</li><li>цифры 1, 2, 4, 5: 1 + 2 + 4 + 5 = <b>12</b> — на 3 да, на 9 нет → <b>на 3 все 24, на 9 ни одного</b></li></ul></div>
 <hr>
 <div class="pager"><a href="06-3-5-kaktus-keny.html">← 3.5 ⭐⭐ Кактус Кены</a><a href="08-4-5-lenty-nakleek.html">4.5 ⭐⭐ Ленты наклеек →</a></div>
 </main>

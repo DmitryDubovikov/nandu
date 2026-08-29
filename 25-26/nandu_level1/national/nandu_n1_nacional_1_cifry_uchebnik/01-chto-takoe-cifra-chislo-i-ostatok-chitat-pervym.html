@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -197,7 +211,8 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 14</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">17<br>= 5 · 3 + 2</span></button>
+  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">17 = 5 · 3 + 2</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">res(17 : 5) = 2</span></button>
 </aside>
 <main>
   
@@ -213,6 +228,9 @@
 <div id="a0" data-art="0"><div class="frm st">17 = 5 · 3 + 2</div></div>
 <p class="st">Читается: семнадцать это «три раза по пять и ещё две». У каждого числа в этой строке своё имя, и все четыре имени настоящие — ими пользуются и в школе, и на олимпиаде:</p>
 <ul class="st"><li><b>17 — делимое</b>: то, что раздаём;</li><li><b>5 — делитель</b>: размер одной коробки;</li><li><b>3 — неполное частное</b>: сколько вышло полных коробок;</li><li><b>2 — остаток от деления</b>: сколько осталось сверху, когда раздали поровну всё, что можно.</li></ul>
+<p class="st">У остатка есть и короткая запись — дальше она понадобится на каждом шагу:</p>
+<div id="a1" data-art="1"><div class="frm st">res(17 : 5) = 2</div></div>
+<p class="st"><code>res(a : b)</code> читается «остаток от деления a на b»: внутри скобок стоит ровно то, что произносишь вслух. Строка 17 = 5 · 3 + 2 говорит всё сразу, а <code>res(17 : 5)</code> называет из неё одно число — остаток.</p>
 <p class="st">Частное называют <b>неполным</b> как раз потому, что деление не сошлось нацело: часть осталась сверху. А остаток всегда <b>меньше делителя</b>: если бы сверху лежало 5 конфет, это была бы ещё одна полная коробка.</p>
 <p class="st">Мини-задачи (устно, прямо сейчас):</p>
 <ul class="st"><li>23 карандаша по 4 в стакан: сколько полных стаканов и сколько сверху? (5 и 3: 23 = 4 · 5 + 3). Назови в этой строке делимое, делитель, неполное частное и остаток. (23, 4, 5, 3)</li><li>Сколько цифр в записи числа 2026? (четыре)</li><li>30 = 7 · 4 + 2 — верна ли запись? (да: 28 + 2 = 30, и 2 &lt; 7)</li></ul>

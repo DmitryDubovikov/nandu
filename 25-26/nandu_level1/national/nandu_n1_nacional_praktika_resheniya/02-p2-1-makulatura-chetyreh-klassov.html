@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,28 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 2 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ(а) = a</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Llamo a, b, v, g a lo que no sé y escribo cada dato como una igualdad.<br><em>Называю буквами a, b, v, g то, чего не знаю, и каждое данное записываю равенством.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>a</code> — кг у 5А</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>b</code> — у 5Б</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>v</code> — у 5В</span></button>
+<button class="art cont" data-art="4"><span class="val f"><code>g</code> — у 5Г</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">Ответ(а) = a</span></button>
+<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f"><code>a = (6300 − a) : 6</code> → <code>7a = 6300</code> → <code>a = 900</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>b = (6300 − b) : 5</code> → <code>6b = 6300</code> → <code>b = 1050</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>v + g = 6300 − 900 − 1050 = 4350</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>g = 4350 − v</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>v = (900 + g) : 2</code> → <code>2v = 5250</code> → <code>v = 1750</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>g = 4350 − 1750 = 2600</code></span></button>
+<button class="art cont" data-art="12"><span class="val f">порог <code>6300 : 4 = 1575</code> → больше него <code>v</code> и <code>g</code></span></button>
+<button class="art cont" data-art="13"><span class="val f">5В и 5Г</span></button>
+<button class="art cont" data-art="14"><span class="val f"><code>900 + 1050 + 1750 + 2600 = 6300</code> ✓</span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>5400 : 6 = 900</code> ✓</span></button>
+<button class="art cont" data-art="16"><span class="val f"><code>5250 : 5 = 1050</code> ✓</span></button>
+<button class="art cont" data-art="17"><span class="val f"><code>3500 : 2 = 1750</code> ✓</span></button>
 </aside>
 <main>
   
@@ -210,12 +241,13 @@
 <p class="st">в) Грамоту получает каждый класс, собравший больше четверти всей макулатуры. Какие классы получат грамоту?</p>
 <p class="st">Обозначим килограммы буквами <code>a</code> (5А), <code>b</code> (5Б), <code>v</code> (5В), <code>g</code> (5Г). Всего 6300.</p>
 <p class="step st"><b>Шаг 1 — план: какие фразы считаются в одиночку, а какие вместе.</b> Фразы про 5А и про 5Б устроены одинаково — доля от остальных, а «остальные» — это все минус сам класс; значит, каждая из этих двух букв достаётся из своей фразы отдельно, ничего больше знать не нужно. Фраза про 5В устроена иначе — доля не от остальных, а от 5А и 5Г вместе, — и 5Г по условию забирает весь остаток: эти двое считаются вместе, уже после 5А и 5Б. Последний вопрос — сравнение готовых чисел с четвертью всей макулатуры.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<p class="st"><em>💬 «„Остальные“ — это все минус сам класс, поэтому каждая фраза становится равенством с одной буквой» — это и есть мысль для фразы-объяснения.</em></p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b></p>
 <p class="st">Ответ(а) = <code>a</code></p>
 <p class="st">Ответ(б) = тройка <code>b</code>, <code>v</code>, <code>g</code></p>
 <p class="st">Ответ(в) = те из <code>a</code>, <code>b</code>, <code>v</code>, <code>g</code>, которые больше <code>6300 : 4</code></p>
-<p class="st">Буквы: <code>a</code> — килограммы 5А · <code>b</code> — 5Б · <code>v</code> — 5В · <code>g</code> — 5Г.</p>
-<p class="st">Осталось найти: <code>a</code> — из своей фразы, <code>b</code> — из своей, а <code>v</code> и <code>g</code> — вместе, из остатка «6300 без <code>a</code> и <code>b</code>» и фразы про 5В.</p></div></div>
+<p class="st">Буквы: <code>a</code> — килограммы 5А; <code>b</code> — 5Б; <code>v</code> — 5В; <code>g</code> — 5Г.</p>
+<p class="st">Осталось найти: <code>a</code> — из своей фразы, <code>b</code> — из своей, а <code>v</code> и <code>g</code> — вместе, из остатка «6300 без <code>a</code> и <code>b</code>» и фразы про 5В.</p></div>
 <p class="step st"><b>Шаг 2 — считаю 5А (вопрос а).</b> Нужно <code>a</code> — для этого записываю его фразу, помня, что «остальные для 5А» — это все минус сам 5А, то есть <code>6300 − a</code>.</p>
 <ul class="st"><li>фраза про 5А → <code>a = (6300 − a) / 6</code>;</li><li>умножаю на 6 → <code>6a = 6300 − a</code> → <code>7a = 6300</code>;</li><li>делю → <code>a = 900</code>.</li></ul>
 <p class="st">→ <b>5А собрал 900 кг.</b></p>
@@ -228,6 +260,21 @@
 <p class="step st"><b>Шаг 5 — сборка: кому грамота (вопрос в).</b> Нужен список классов — для этого считаю порог и сравниваю с ним все четыре числа. Четверть всей макулатуры: <code>6300 : 4 = 1575</code> кг. Сравниваю: 900 &lt; 1575, 1050 &lt; 1575, 1750 &gt; 1575, 2600 &gt; 1575.</p>
 <p class="st"><b>Грамоту получат 5В и 5Г.</b></p>
 <p class="st"><b>Ответ.</b> а) 900 кг. б) 5Б — 1050 кг, 5В — 1750 кг, 5Г — 2600 кг. в) 5В и 5Г.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Llamo a, b, v, g a lo que no sé y escribo cada dato como una igualdad.</b></p></div>
+<p class="st"><em>Называю буквами a, b, v, g то, чего не знаю, и каждое данное записываю равенством.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a4" data-art="4"><ul class="st"><li><code>a</code> — кг у 5А</li><li><code>b</code> — у 5Б</li><li><code>v</code> — у 5В</li><li><code>g</code> — у 5Г</li></ul></div>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(а) = a</div>
+<div class="frm st">Ответ(б) = b, v, g</div>
+<div class="frm st">Ответ(в) = те из a, b, v, g, что больше 6300 : 4</div></div></div>
+<div id="a12" data-art="12"><ul class="st"><li><code>a = (6300 − a) : 6</code> → <code>7a = 6300</code> → <code>a = 900</code></li><li><code>b = (6300 − b) : 5</code> → <code>6b = 6300</code> → <code>b = 1050</code></li><li><code>v + g = 6300 − 900 − 1050 = 4350</code></li><li><code>g = 4350 − v</code></li><li><code>v = (900 + g) : 2</code> → <code>2v = 5250</code> → <code>v = 1750</code></li><li><code>g = 4350 − 1750 = 2600</code></li><li>порог <code>6300 : 4 = 1575</code> → больше него <code>v</code> и <code>g</code></li></ul></div>
+<div id="a13" data-art="13"><p class="st"><b>5В и 5Г</b></p></div>
+<p class="st">Проверка:</p>
+<div id="a17" data-art="17"><ul class="st"><li><code>900 + 1050 + 1750 + 2600 = 6300</code> ✓</li><li><code>5400 : 6 = 900</code> ✓</li><li><code>5250 : 5 = 1050</code> ✓</li><li><code>3500 : 2 = 1750</code> ✓</li></ul></div>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Решение шло «от фразы к букве». Проверяю в обратную сторону — <b>подставляю найденные числа обратно в каждую фразу условия и пересчитываю «остальных» честно</b>:</p>
 <div class="st"><div class="tw"><table>

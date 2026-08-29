@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,22 +207,26 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 8 из 13</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Результат перевода
-
-s = 32
-b = 30
-r + p = 42
-p + q = 64
-q + r = 58
-
-Первые две строки — готовые числа, последние три — система про косые.
-s = квадрат…</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Три данных периметра — это треугольники EFI, DEI и DEF, и каждая косая входит ровно в два из них: p — в EFI и DEI, q — в DEI и DEF, r — в EFI и DEF.</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">(r + p) + (p + q) + (q + r)<br>= 2(p + q + r)</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики: s = сторона квадрата BCDI · b = AB · p = IE · q = ED · r = FI; EF = GH = b, FD = EG = r + s.</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(BCDE) = s + s + q + (p + s)</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(ABIFG) = b + s + r + FG + s : 2</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(ACDFG) = (b + s) + s + (r + s) + FG + s : 2</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">P(ACDEG) = (b + s) + s + q + EG + s : 2</span></button>
+<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f">P(BCDI) = 128 → <b>s = 32</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">P(ABHG) = 92, BH = s : 2 = 16 → b + 16 = 46 → <b>b = 30</b></span></button>
+<button class="art cont" data-art="7"><span class="val f">P(EFI) = 72 → r + p = 42</span></button>
+<button class="art cont" data-art="8"><span class="val f">P(DEI) = 96 → p + q = 64</span></button>
+<button class="art cont" data-art="9"><span class="val f">P(DEF) = 120 → q + r = 58</span></button>
+<button class="art cont" data-art="10"><span class="val f">сложение всех трёх: 2·(p + q + r) = 164 → p + q + r = 82 → <b>p = 24</b>, <b>q = 40</b>, <b>r = 18</b></span></button>
+<button class="art cont" data-art="11"><span class="val f">FD = EG = r + s = <b>50</b>; FG = EG − EF = <b>20</b>; EB = p + s = <b>56</b></span></button>
+<button class="art cont" data-art="12"><span class="val f">P(BCDE) = 32 + 32 + 40 + 56 = 160</span></button>
+<button class="art cont" data-art="13"><span class="val f">P(ABIFG) = 30 + 32 + 18 + 20 + 16 = 116</span></button>
+<button class="art cont" data-art="14"><span class="val f">P(ACDFG) = 62 + 32 + 50 + 20 + 16 = 180</span></button>
+<button class="art cont" data-art="15"><span class="val f">P(ACDEG) = 62 + 32 + 40 + 50 + 16 = 200</span></button>
 </aside>
 <main>
   
@@ -219,28 +237,28 @@ s = квадрат…</span></button>
 <p class="st"><b>Кирпичики.</b> Сначала два простых: <code>s</code> = сторона квадрата BCDI, <code>b</code> = AB. Потом тройка косых вокруг вершины E: <code>p</code> = IE, <code>q</code> = ED, <code>r</code> = FI. Переносы из условия: EF = GH (а GH — горизонталь длины b), FD = EG.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td>периметр BCDI = 128</td><td>s = 32</td></tr>
-<tr><td>периметр ABHG = 92; высота BH = половина BI (H — середина), то есть s/2 = 16</td><td>b + 16 = 46</td></tr>
+<tr><td>P(BCDI) = 128</td><td>s = 32</td></tr>
+<tr><td>P(ABHG) = 92; высота BH = половина BI (H — середина), то есть s/2 = 16</td><td>b + 16 = 46</td></tr>
 <tr><td>отсюда сама ширина</td><td>b = 30</td></tr>
 <tr><td>EF = GH = b</td><td>EF = 30</td></tr>
 <tr><td>F, I, D на одной прямой</td><td>FD = r + s</td></tr>
-<tr><td>периметр EFI = 72</td><td>30 + r + p = 72</td></tr>
-<tr><td>периметр DEI = 96</td><td>s + p + q = 96</td></tr>
-<tr><td>периметр DEF = 120</td><td>q + 30 + (r + s) = 120</td></tr>
+<tr><td>P(EFI) = 72</td><td>30 + r + p = 72</td></tr>
+<tr><td>P(DEI) = 96</td><td>s + p + q = 96</td></tr>
+<tr><td>P(DEF) = 120</td><td>q + 30 + (r + s) = 120</td></tr>
 </table></div></div>
-<div id="a0" data-art="0"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">s = 32
 b = 30
 r + p = 42
 p + q = 64
 q + r = 58</pre>
 <p class="st">Первые две строки — готовые числа, последние три — система про косые. <code>s</code> = квадрат BCDI · <code>b</code> = AB · <code>p</code> = IE · <code>q</code> = ED · <code>r</code> = FI</p>
-<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Л7 (три пометки «на одной прямой»: B–I–E, F–I–D, E–F–G — каждая складывает отрезки), Л6 (H — середина BI), наклонные из контуров (три треугольника — три уравнения о трёх неизвестных; косые не вычисляются поодиночке).</p>
 <p class="st"><b>Ловушка перевода.</b> EF = GH равняет <b>косую с горизонталью</b> — этим условие «выдаёт» длину косой, не проморгай. И не пытайся найти каждый отрезок по отдельности: треугольники DEF, DEI, EFI пересекаются, работает только система.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Три данных периметра — это треугольники EFI, DEI и DEF, и каждая косая входит ровно в два из них: p — в EFI и DEI, q — в DEI и DEF, r — в EFI и DEF. Поодиночке ни одна не выделяется ни из какой строки, зато сложение всех трёх даёт каждую ровно дважды:</p></div></div>
-<div id="a2" data-art="2"><div class="frm st">(r + p) + (p + q) + (q + r) = 2(p + q + r)</div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Три данных периметра — это треугольники EFI, DEI и DEF, и каждая косая входит ровно в два из них: p — в EFI и DEI, q — в DEI и DEF, r — в EFI и DEF. Поодиночке ни одна не выделяется ни из какой строки, зато сложение всех трёх даёт каждую ровно дважды:</p></div>
+<div class="frm st">(r + p) + (p + q) + (q + r) = 2(p + q + r)</div>
 <p class="st">Такой ход возможен именно из-за симметрии «каждая в двух»; проверить её стоит до сложения. Дальше любая косая — это сумма всех трёх минус та строка, в которую эта косая не входит.</p>
 <p class="step st"><b>Шаг 1 — нужны три косые: складываю все три строки разом.</b> Складываю тройку — каждая косая входит ровно в две строки, поэтому в сумме каждая встретится дважды:</p>
 <div class="frm st">2(p + q + r) = 42 + 64 + 58 = 164</div>
@@ -252,8 +270,23 @@ q + r = 58</pre>
 <p class="step st"><b>Шаг 2 — нужны отрезки самих контуров: достраиваю их из косых.</b></p>
 <ul class="st"><li>FD = r + s = 18 + 32 = <b>50</b>, и по условию FD = EG, значит EG = 50 ✓</li><li>FG = EG − EF = 50 − 30 = <b>20</b></li><li>EB = p + s = 24 + 32 = <b>56</b></li></ul>
 <p class="step st"><b>Шаг 3 — сборка: считаю спрошенные периметры.</b></p>
-<ul class="st"><li><b>BCDE</b> = 32 + 32 + 40 + 56 = <b>160</b></li><li><b>ABIFG</b> = 30 + 32 + 18 + 20 + 16 = <b>116</b></li><li><b>ACDFG</b> = 62 + 32 + 50 + 20 + 16 = <b>180</b></li><li><b>ACDEG</b> = 62 + 32 + 40 + 50 + 16 = <b>200</b></li></ul>
+<ul class="st"><li><b>P(BCDE)</b> = 32 + 32 + 40 + 56 = <b>160</b></li><li><b>P(ABIFG)</b> = 30 + 32 + 18 + 20 + 16 = <b>116</b></li><li><b>P(ACDFG)</b> = 62 + 32 + 50 + 20 + 16 = <b>180</b></li><li><b>P(ACDEG)</b> = 62 + 32 + 40 + 50 + 16 = <b>200</b></li></ul>
 <p class="st">Проверка для родителя: EF = 30 (18-24-30), ED = 40 (24-32-40), EG = 50 (30-40-50) — все 3-4-5 ✓.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<div id="a0" data-art="0"><p class="st">Кирпичики: s = сторона квадрата BCDI · b = AB · p = IE · q = ED · r = FI; EF = GH = b, FD = EG = r + s.</p></div>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(BCDE) = s + s + q + (p + s)</div>
+<div class="frm st">P(ABIFG) = b + s + r + FG + s : 2</div>
+<div class="frm st">P(ACDFG) = (b + s) + s + (r + s) + FG + s : 2</div>
+<div class="frm st">P(ACDEG) = (b + s) + s + q + EG + s : 2</div>
+<p class="st">Осталось найти s, b и три косые p, q, r.</p></div></div>
+<div id="a11" data-art="11"><ul class="st"><li>P(BCDI) = 128 → <b>s = 32</b></li><li>P(ABHG) = 92, BH = s : 2 = 16 → b + 16 = 46 → <b>b = 30</b></li><li>P(EFI) = 72 → r + p = 42</li><li>P(DEI) = 96 → p + q = 64</li><li>P(DEF) = 120 → q + r = 58</li><li>сложение всех трёх: 2·(p + q + r) = 164 → p + q + r = 82 → <b>p = 24</b>, <b>q = 40</b>, <b>r = 18</b></li><li>FD = EG = r + s = <b>50</b>; FG = EG − EF = <b>20</b>; EB = p + s = <b>56</b></li></ul></div>
+<div id="a12" data-art="12"><div class="frm st">P(BCDE) = 32 + 32 + 40 + 56 = 160</div></div>
+<div id="a13" data-art="13"><div class="frm st">P(ABIFG) = 30 + 32 + 18 + 20 + 16 = 116</div></div>
+<div id="a14" data-art="14"><div class="frm st">P(ACDFG) = 62 + 32 + 50 + 20 + 16 = 180</div></div>
+<div id="a15" data-art="15"><div class="frm st">P(ACDEG) = 62 + 32 + 40 + 50 + 16 = 200</div></div>
+<p class="st">Проверка сложением: P(EFI) = 30 + 18 + 24 = 72 ✓; P(DEI) = 32 + 24 + 40 = 96 ✓; P(DEF) = 40 + 30 + 50 = 120 ✓</p>
 <hr>
 <div class="pager"><a href="07-7-2025-2-trapeciya-s-dvumya-skatami.html">← 7. 2025 №2 — трапеция с двумя скатами</a><a href="09-9-2022-2-shokoladka-s-dvumya-treugolnikami.html">9. 2022 №2 — шоколадка с двумя треугольниками →</a></div>
 </main>

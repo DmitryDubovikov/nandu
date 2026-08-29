@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,22 +207,19 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 12 из 13</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">6 + 4(n − 1)<br>= 4n + 2</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Результат перевода
-
-P(n) = 3·(4n + 2) = 12n + 6
-
-Проверка на маленьких: n = 1 → 18 ✓; n = 2 → 30 ✓ (10 наружных сторон по 3).
-
-На первом проходе…</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">12n + 6<br>= 9102</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">12n<br>= 9096</span></button>
-<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">12n + 6<br>= 8328</span></button>
-<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">12n<br>= 8322</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">План</span><span class="val f">P(n) = 3 · (число наружных сторон)</span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">старт: одно звено — 6 сторон</span></button>
+<button class="art cont" data-art="2"><span class="val f">шаг: новое звено даёт 6 сторон, стык прячет 2 → наружу +4 стороны</span></button>
+<button class="art cont" data-art="3"><span class="val f">сторон снаружи: 6 + 4·(n − 1) = 4n + 2</span></button>
+<button class="art cont" data-art="4"><span class="val f">P(n) = 3·(4n + 2) = 12n + 6</span></button>
+<button class="art cont" data-art="5"><span class="val f">a) <b>P(4) = 12·4 + 6 = 54</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">b) <b>P(19) = 12·19 + 6 = 234</b></span></button>
+<button class="art cont" data-art="7"><span class="val f">c) 12n + 6 = 9102 → 12n = 9096 → <b>n = 758</b>, целое → такая гирлянда бывает</span></button>
+<button class="art cont" data-art="8"><span class="val f">d) 12n + 6 = 8328 → 12n = 8322, а 8322 = 12·693 + 6 → <b>невозможно</b></span></button>
 </aside>
 <main>
   
@@ -217,25 +228,35 @@ P(n) = 3·(4n + 2) = 12n + 6
 <h3 class="st">Этап 1 — перевод (узор → формула)</h3>
 <p class="st"><b>Фигура.</b> Цепочка правильных шестиугольников со стороной 3 см, каждый следующий приклеен к предыдущему целой стороной.</p>
 <p class="st">Перевод здесь — не система, а <b>формула от числа звеньев</b>. Старт: одно звено — 6 сторон. Шаг: каждое новое звено приносит 6 сторон, но стык прячет <b>две</b> (по одной у нового звена и у соседа), то есть наружу добавляется 4 стороны. Шаг повторяется n − 1 раз, значит сторон снаружи:</p>
-<div id="a0" data-art="0"><div class="frm st">6 + 4(n − 1) = 4n + 2</div></div>
-<div id="a1" data-art="1"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="frm st">6 + 4(n − 1) = 4n + 2</div>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">P(n) = 3·(4n + 2) = 12n + 6</pre>
 <p class="st">Проверка на маленьких: n = 1 → 18 ✓; n = 2 → 30 ✓ (10 наружных сторон по 3).</p>
-<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Жанр Т2″: формула вместо системы; проверка формулы на маленьких n обязательна.</p>
 <p class="st"><b>Ловушка перевода.</b> Посчитать по одной спрятанной стороне на стык — прячутся две.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
 <p class="st">a) n = 4: P(4) = 12·4 + 6 = <b>54</b>.</p>
 <p class="st">b) n = 19: P(19) = 12·19 + 6 = <b>234</b>.</p>
 <p class="st">c) Периметр 9102:</p>
-<div id="a2" data-art="2"><div class="frm st">12n + 6 = 9102</div></div>
-<div id="a3" data-art="3"><div class="frm st">12n = 9096</div></div>
+<div class="frm st">12n + 6 = 9102</div>
+<div class="frm st">12n = 9096</div>
 <p class="st">n = <b>758</b> — целое, значит такая гирлянда бывает.</p>
 <p class="st">d) Периметр 8328:</p>
-<div id="a4" data-art="4"><div class="frm st">12n + 6 = 8328</div></div>
-<div id="a5" data-art="5"><div class="frm st">12n = 8322</div></div>
+<div class="frm st">12n + 6 = 8328</div>
+<div class="frm st">12n = 8322</div>
 <p class="st">Но 8322 на 12 нацело не делится: 8322 = 12·693 + 6. Значит <b>невозможно</b>.</p>
 <p class="st">То же через остатки: P(n) при делении на 12 всегда даёт остаток 6, а 8328 = 12·694 — остаток 0.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<p class="st"><code>P(n)</code> — периметр гирлянды из n звеньев; звено — правильный шестиугольник со стороной 3.</p>
+<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(n) = 3 · (число наружных сторон)</div>
+<p class="st">Осталось найти старт (одно звено) и шаг (прибавка на стык).</p></div></div>
+<div id="a3" data-art="3"><ul class="st"><li>старт: одно звено — 6 сторон</li><li>шаг: новое звено даёт 6 сторон, стык прячет 2 → наружу +4 стороны</li><li>сторон снаружи: 6 + 4·(n − 1) = 4n + 2</li></ul></div>
+<div id="a4" data-art="4"><div class="frm st">P(n) = 3·(4n + 2) = 12n + 6</div></div>
+<div id="a8" data-art="8"><ul class="st"><li>a) <b>P(4) = 12·4 + 6 = 54</b></li><li>b) <b>P(19) = 12·19 + 6 = 234</b></li><li>c) 12n + 6 = 9102 → 12n = 9096 → <b>n = 758</b>, целое → такая гирлянда бывает</li><li>d) 12n + 6 = 8328 → 12n = 8322, а 8322 = 12·693 + 6 → <b>невозможно</b></li></ul></div>
+<p class="st">Проверка: P(1) = 18 ✓ (6 сторон по 3); P(2) = 30 ✓ (10 наружных сторон по 3)</p>
 <hr>
 <div class="pager"><a href="11-11-2017-5-boss-6-a-4-b-2-c-2-d.html">← 11. 2017 №5 — босс: 6 A + 4 B + 2 C + 2 D</a><a href="13-kak-proveryat-etap-1.html">Как проверять этап 1 →</a></div>
 </main>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,22 +207,31 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 11 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Заметь главное</span><span class="val">Отрезок RS идёт от нижней стороны до верхней насквозь — значит, левая и правая части кончаются на одном уровне и высота у них одна и та же.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">Результат перевода
-
-3·h = 4·c
-b + c = 54
-2·b = 3·h
-2a + b + 3h = 148
-KP + 2t = 96,  где KP = (3·h)/2
-
-a = ширина A · h = высота A = MV · b = ширина B…</span></button>
-<button class="art" data-art="2"><span class="lbl">Заметь главное</span><span class="val">Посмотри, что известно про высоту A, ширину B и высоту B: 2·b = 3·h и 3·h = 4·c — во сколько раз они друг друга больше, сказано, а сколько это в…</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ = три периметра, собранные из кирпичиков a, h, b, c, t, а все кирпичики — из одной дольки k.</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики:</span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>a</code> — ширина A</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>h</code> — высота A</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>b</code> — ширина B</span></button>
+<button class="art cont" data-art="4"><span class="val f"><code>c</code> — высота B</span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>t</code> = KT = TP</span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>k</code> — четверть высоты A</span></button>
+<button class="art" data-art="7"><span class="lbl">План</span><span class="val f">Ответ(а) = P(A) = 2 · (a + h)</span></button>
+<button class="art" data-art="8"><span class="lbl">На туре</span><span class="val f"><code>3h = 4c</code> — высота одна на обе части</span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>2b = 3h</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>P(B) = 108</code> → <code>b + c = 54</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>P(MNPQ) = 296</code> → <code>2a + b + 3h = 148</code></span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>P(KTP) = 96</code> → <code>3h/2 + 2t = 96</code></span></button>
+<button class="art cont" data-art="13"><span class="val f">долька <code>k = h : 4</code> → <code>b = 6k</code>, <code>c = 3k</code></span></button>
+<button class="art cont" data-art="14"><span class="val f"><code>6k + 3k = 54</code> → <code>k = 6</code></span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>h = 24</code> · <code>b = 36</code> · <code>c = 18</code> · высота <code>= 3 · 24 = 72</code></span></button>
+<button class="art cont" data-art="16"><span class="val f"><code>2a + 36 + 72 = 148</code> → <code>a = 20</code>, <code>MN = 2 · 20 + 36 = 76</code></span></button>
+<button class="art cont" data-art="17"><span class="val f"><code>36 + 2t = 96</code> → <code>t = 30</code></span></button>
+<button class="art cont" data-art="18"><span class="val f"><code>P(A) = 2 · (20 + 24) = 88</code></span></button>
+<button class="art cont" data-art="19"><span class="val f"><code>P(MRSQ) = 2 · (40 + 72) = 224</code></span></button>
+<button class="art cont" data-art="20"><span class="val f"><code>P(MNKTPQ) = 76 + 36 + 30 + 30 + 76 + 72 = 320</code></span></button>
 </aside>
 <main>
   
@@ -241,27 +264,28 @@ a = ширина A · h = высота A = MV · b = ширина B…</span></b
 <text x="382" y="330" fill="var(--gold)" font-family="var(--mono)">4c</text>
 </svg><figcaption>Разрез RS идёт от низа до верха насквозь — обе части кончаются на одном уровне. Три детали A в высоту и четыре B — это одна и та же высота: единственное место, где левая сетка встречается с правой стопкой.</figcaption></figure>
 <p class="st">Кирпичики: <code>a</code> = ширина A, <code>h</code> = высота A (это и есть MV), <code>b</code> = ширина B (это RN), <code>c</code> = высота B, <code>t</code> = боковая сторона клюва.</p>
-<div id="a0" data-art="0"><div class="card key st"><span class="tag">Заметь главное</span><p>Отрезок RS идёт от нижней стороны до верхней насквозь — значит, левая и правая части кончаются на одном уровне и высота у них одна и та же. Слева эту высоту набирают три строки деталей A, справа — четыре детали B: <code>3·h = 4·c</code>. Это единственное место, где левая сетка и правая стопка вообще встречаются: больше ни одно данное их не связывает. Не заметишь его — периметр детали B так и останется числом про правую часть и ничего не скажет про деталь A.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Отрезок RS идёт от нижней стороны до верхней насквозь — значит, левая и правая части кончаются на одном уровне и высота у них одна и та же. Слева эту высоту набирают три строки деталей A, справа — четыре детали B: <code>3·h = 4·c</code>. Это единственное место, где левая сетка и правая стопка вообще встречаются: больше ни одно данное их не связывает. Не заметишь его — периметр детали B так и останется числом про правую часть и ничего не скажет про деталь A.</p></div>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
 <tr><td>высота у левой и правой частей одна</td><td><code>3·h = 4·c</code></td></tr>
-<tr><td>периметр детали B = 108</td><td>b + c = 54</td></tr>
+<tr><td><code>P(B) = 108</code></td><td>b + c = 54</td></tr>
 <tr><td>2 · RN = 3 · MV</td><td>2·b = 3·h</td></tr>
-<tr><td>периметр MNPQ = 296: ширина 2a + b, высота 3h</td><td>(2a + b) + 3h = 148</td></tr>
-<tr><td>периметр KTP = 96: основание KP — половина правой стороны (K середина NP), плюс две боковые</td><td>KP + 2t = 96</td></tr>
+<tr><td><code>P(MNPQ) = 296</code>: ширина 2a + b, высота 3h</td><td>(2a + b) + 3h = 148</td></tr>
+<tr><td><code>P(KTP) = 96</code>: основание KP — половина правой стороны (K середина NP), плюс две боковые</td><td>KP + 2t = 96</td></tr>
 </table></div></div>
-<div id="a1" data-art="1"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">3·h = 4·c
 b + c = 54
 2·b = 3·h
 2a + b + 3h = 148
-KP + 2t = 96,  где KP = (3·h)/2</pre>
-<p class="st"><code>a</code> = ширина A · <code>h</code> = высота A = MV · <code>b</code> = ширина B = RN · <code>c</code> = высота B · <code>t</code> = боковая сторона клюва</p></div></div>
+KP + 2t = 96
+KP = (3·h)/2</pre>
+<p class="st"><code>a</code> = ширина A; <code>h</code> = высота A = MV; <code>b</code> = ширина B = RN; <code>c</code> = высота B; <code>t</code> = боковая сторона клюва.</p></div>
 <p class="st"><b>Этап 2 — решение.</b></p>
-<div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное</span><p>Посмотри, что известно про высоту A, ширину B и высоту B: <code>2·b = 3·h</code> и <code>3·h = 4·c</code> — во сколько раз они друг друга больше, сказано, а сколько это в сантиметрах — нет ни у одной. Такие три размера всегда меряются одной общей меркой: выбери её достаточно мелкой, и каждый из них станет целым числом мерок — дроби из строк исчезнут, а неизвестная останется одна, сама мерка. А сантиметры мерке даст единственное данное с настоящим числом — периметр детали B. Какую именно мерку брать — видно из самих строк, этим и займусь дальше.</p></div></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Посмотри, что известно про высоту A, ширину B и высоту B: <code>2·b = 3·h</code> и <code>3·h = 4·c</code> — во сколько раз они друг друга больше, сказано, а сколько это в сантиметрах — нет ни у одной. Такие три размера всегда меряются одной общей меркой: выбери её достаточно мелкой, и каждый из них станет целым числом мерок — дроби из строк исчезнут, а неизвестная останется одна, сама мерка. А сантиметры мерке даст единственное данное с настоящим числом — периметр детали B. Какую именно мерку брать — видно из самих строк, этим и займусь дальше.</p></div>
 <p class="step st"><b>Шаг 1 — план: раздроби кирпичик.</b> Три вопроса — три периметра из кирпичиков <code>a</code>, <code>h</code>, <code>b</code>, <code>c</code>, <code>t</code>. Сначала посмотри, какие дроби вылезут, если всё выражать через высоту детали A: из «2·b = 3·h» ширина B — это полторы высоты A, а из «3·h = 4·c» высота B — три четверти высоты A. Самая мелкая доля здесь четверть, её и беру: пусть <code>k</code> — четверть высоты детали A, то есть h = 4k. Тогда обе дроби превращаются в целые числа долек:</p>
 <ul class="st"><li>из «2·b = 3·h»: b = (3/2)·h = 6k;</li><li>из «3·h = 4·c»: c = (3/4)·h = 3k.</li></ul>
-<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = три периметра, собранные из кирпичиков <code>a</code>, <code>h</code>, <code>b</code>, <code>c</code>, <code>t</code>, а все кирпичики — из одной дольки <code>k</code>.</p></div></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = три периметра, собранные из кирпичиков <code>a</code>, <code>h</code>, <code>b</code>, <code>c</code>, <code>t</code>, а все кирпичики — из одной дольки <code>k</code>.</p></div>
 <p class="step st"><b>Шаг 2 — считаю дольку <code>k</code>.</b> Нужна та единственная мерка, через которую записаны все размеры высот и ширин правой части, — для этого подставляю дольки в периметр детали B: 6k + 3k = 54 → 9k = 54 → <b>k = 6</b>.</p>
 <p class="step st"><b>Шаг 3 — считаю остальные кирпичики.</b> Нужны настоящие размеры в сантиметрах, а долька уже известна — перевожу каждый размер по одному на строку:</p>
 <ul class="st"><li>h = 4k = <b>24</b></li><li>b = 6k = <b>36</b></li><li>c = 3k = <b>18</b></li><li>высота фигуры = 3 · 24 = <b>72</b> (проверка по правой части: 4 · 18 = 72 ✓)</li></ul>
@@ -272,14 +296,28 @@ KP + 2t = 96,  где KP = (3·h)/2</pre>
 <p class="st">Осталась боковая сторона клюва. Его основание KP — половина правой стороны, то есть 72 : 2 = 36:</p>
 <p class="st">36 + 2t = 96 → <b>t = 30</b>.</p>
 <p class="step st"><b>Шаг 4 — сборка: три периметра.</b> Кирпичики на руках — остаётся обойти карандашом каждую фигуру из вопросов.</p>
-<p class="st">а) Деталь A = 20 × 24: 2·(20 + 24) = <b>88 см</b>.</p>
-<p class="st">б) MRSQ: ширина 2 · 20 = 40, высота 72: 2·(40 + 72) = <b>224 см</b>.</p>
-<p class="st">в) Контур: MN (76) + NK (36) + KT (30) + TP (30) + PQ (76) + QM (72) = <b>320 см</b>.</p>
+<p class="st">а) Деталь A = 20 × 24 → <code>P(A) = 2·(20 + 24)</code> = <b>88 см</b>.</p>
+<p class="st">б) MRSQ: ширина 2 · 20 = 40, высота 72 → <code>P(MRSQ) = 2·(40 + 72)</code> = <b>224 см</b>.</p>
+<p class="st">в) Контур: MN (76) + NK (36) + KT (30) + TP (30) + PQ (76) + QM (72) → <code>P(MNKTPQ)</code> = <b>320 см</b>.</p>
 <p class="st"><b>Ответ.</b> а) 88 см б) 224 см в) 320 см</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a0" data-art="0"><p class="st">Кирпичики:</p></div>
+<div id="a6" data-art="6"><ul class="st"><li><code>a</code> — ширина A</li><li><code>h</code> — высота A</li><li><code>b</code> — ширина B</li><li><code>c</code> — высота B</li><li><code>t</code> = KT = TP</li><li><code>k</code> — четверть высоты A</li></ul></div>
+<div id="a7" data-art="7"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(а) = P(A) = 2 · (a + h)</div>
+<div class="frm st">Ответ(б) = P(MRSQ) = 2 · (2a + 3h)</div>
+<div class="frm st">Ответ(в) = P(MNKTPQ) = MN + 3h/2 + 2t + MN + 3h</div></div></div>
+<div id="a17" data-art="17"><ul class="st"><li><code>3h = 4c</code> — высота одна на обе части</li><li><code>2b = 3h</code></li><li><code>P(B) = 108</code> → <code>b + c = 54</code></li><li><code>P(MNPQ) = 296</code> → <code>2a + b + 3h = 148</code></li><li><code>P(KTP) = 96</code> → <code>3h/2 + 2t = 96</code></li><li>долька <code>k = h : 4</code> → <code>b = 6k</code>, <code>c = 3k</code></li><li><code>6k + 3k = 54</code> → <code>k = 6</code></li><li><code>h = 24</code> · <code>b = 36</code> · <code>c = 18</code> · высота <code>= 3 · 24 = 72</code></li><li><code>2a + 36 + 72 = 148</code> → <code>a = 20</code>, <code>MN = 2 · 20 + 36 = 76</code></li><li><code>36 + 2t = 96</code> → <code>t = 30</code></li></ul></div>
+<div id="a18" data-art="18"><div class="frm st"><code>P(A) = 2 · (20 + 24) = 88</code></div></div>
+<div id="a19" data-art="19"><div class="frm st"><code>P(MRSQ) = 2 · (40 + 72) = 224</code></div></div>
+<div id="a20" data-art="20"><div class="frm st"><code>P(MNKTPQ) = 76 + 36 + 30 + 30 + 76 + 72 = 320</code></div></div>
+<p class="st">Проверка сложением: <code>2 · (36 + 18) = 108</code> ✓ · <code>2 · 36 = 3 · 24</code> ✓ · <code>2 · (76 + 72) = 296</code> ✓ · <code>36 + 30 + 30 = 96</code> ✓</p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Подставляю размеры во все данные:</p>
-<ul class="st"><li>деталь B: 2·(36 + 18) = 108 ✓</li><li>2 · RN = 3 · MV: 2 · 36 = 72 и 3 · 24 = 72 ✓</li><li>MNPQ: 2·(76 + 72) = 296 ✓</li><li>KTP: 36 + 30 + 30 = 96 ✓</li><li>сборка: слева 2 · 20 = 40 и 3 · 24 = 72; справа 36 в ширину и 4 · 18 = 72 в высоту; 40 + 36 = 76 = MN ✓, высоты обеих частей совпали ✓</li></ul>
-<p class="st">Другой путь к ответу (в): возьми периметр MNPQ (296) и замени верхнюю половину правой стороны (KP = 36) двумя сторонами клюва (30 + 30 = 60): 296 − 36 + 60 = <b>320</b> ✓.</p>
+<ul class="st"><li><code>P(B) = 2·(36 + 18) = 108</code> ✓</li><li>2 · RN = 3 · MV: 2 · 36 = 72 и 3 · 24 = 72 ✓</li><li><code>P(MNPQ) = 2·(76 + 72) = 296</code> ✓</li><li><code>P(KTP) = 36 + 30 + 30 = 96</code> ✓</li><li>сборка: слева 2 · 20 = 40 и 3 · 24 = 72; справа 36 в ширину и 4 · 18 = 72 в высоту; 40 + 36 = 76 = MN ✓, высоты обеих частей совпали ✓</li></ul>
+<p class="st">Другой путь к ответу (в): возьми <code>P(MNPQ) = 296</code> и замени верхнюю половину правой стороны (KP = 36) двумя сторонами клюва (30 + 30 = 60): 296 − 36 + 60 = <b>320</b> ✓.</p>
 <p class="st">Ответ (б) проверяю ещё раз через детали: левая часть — шесть деталей 20 × 24, значит 40 в ширину и 72 в высоту, периметр 224 ✓ (а сумма шести периметров деталей — 6 · 88 = 528 — к делу отношения не имеет: внутренние стыки в контур не входят).</p>
 <p class="st">Проверка, что клюв рисуется: основание KP = 36, половина основания — 18, а боковая сторона 30. Боковая длиннее половины основания, значит обе боковые встречаются напротив середины KP и клюв сходится в вершину T.</p>
 <hr>

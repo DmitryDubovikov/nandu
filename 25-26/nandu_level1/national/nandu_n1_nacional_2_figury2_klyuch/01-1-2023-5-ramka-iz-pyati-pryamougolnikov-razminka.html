@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,20 +207,25 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 13</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Результат перевода
-
-w + m = 28
-a = 2m
-a + v = 58
-w + v − 2m = 56
-
-w = BC · m = высота перемычки · a = AB = CD · v = высота фигуры
-
-На первом проходе…</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">Кирпичики: w = BC · m = высота перемычки · a = AB = CD · v = высота фигуры (AH)</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(ADEH) = 2·((2a + w) + v)</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(BDEG) = 2·((w + a) + v)</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(MPFG) = 2·(w + (v − m))</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">P(BCFG) = 2·(w + v)</span></button>
+<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f">P(BCPM) = 56 → w + m = 28</span></button>
+<button class="art cont" data-art="6"><span class="val f">HG = 2·GS → a = 2m</span></button>
+<button class="art cont" data-art="7"><span class="val f">P(ABGH) = 116 → a + v = 58</span></button>
+<button class="art cont" data-art="8"><span class="val f">P(MPRS) = 112 → w + (v − 2m) = 56</span></button>
+<button class="art cont" data-art="9"><span class="val f">w = 28 − m, v = 28 + 3m → 2m + 28 + 3m = 58 → <b>m = 6</b></span></button>
+<button class="art cont" data-art="10"><span class="val f"><b>w = 22</b>, <b>v = 46</b>, <b>a = 12</b></span></button>
+<button class="art cont" data-art="11"><span class="val f">P(ADEH) = 2·(46 + 46) = 184</span></button>
+<button class="art cont" data-art="12"><span class="val f">P(BDEG) = 2·(34 + 46) = 160</span></button>
+<button class="art cont" data-art="13"><span class="val f">P(MPFG) = 2·(22 + 40) = 124</span></button>
+<button class="art cont" data-art="14"><span class="val f">P(BCFG) = 2·(22 + 46) = 136</span></button>
 </aside>
 <main>
   
@@ -218,18 +237,18 @@ w = BC · m = высота перемычки · a = AB = CD · v = высота
 <p class="st"><b>Кирпичики.</b> <code>w</code> = BC, <code>m</code> = высота перемычки (равные перемычки → у обеих m), <code>a</code> = AB = CD, <code>v</code> = высота фигуры (AH).</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td>периметр BCPM = 56</td><td>2(w + m) = 56</td></tr>
+<tr><td>P(BCPM) = 56</td><td>2(w + m) = 56</td></tr>
 <tr><td>HG = 2·GS: HG — кусок верхней стороны над колонной (= a), GS — вертикаль от G вниз до S (= m)</td><td>a = 2m</td></tr>
-<tr><td>периметр ABGH = 116</td><td>2(a + v) = 116</td></tr>
-<tr><td>периметр MPRS = 112; высота окна = v минус две перемычки</td><td>2(w + (v − 2m)) = 112</td></tr>
+<tr><td>P(ABGH) = 116</td><td>2(a + v) = 116</td></tr>
+<tr><td>P(MPRS) = 112; высота окна = v минус две перемычки</td><td>2(w + (v − 2m)) = 112</td></tr>
 </table></div></div>
-<div id="a0" data-art="0"><div class="plan st"><h3 class="st">✅ Результат перевода</h3>
+<div class="plan st"><h3 class="st">✅ Результат перевода</h3>
 <pre class="ascii st">w + m = 28
 a = 2m
 a + v = 58
 w + v − 2m = 56</pre>
 <p class="st"><code>w</code> = BC · <code>m</code> = высота перемычки · <code>a</code> = AB = CD · <code>v</code> = высота фигуры</p>
-<p class="st"><b>На первом проходе задача сделана.</b></p></div></div>
+<p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Л4 (HG = 2·GS), Л7 (высота окна v − 2m — сквозная вертикаль по этажам), ритуал 4 (пометка «BCPM и SRFG равны» → высоты перемычек равны — без неё система не собирается).</p>
 <p class="st"><b>Ловушка перевода.</b> HG — не вся верхняя сторона, а её кусок от H до G; GS — вертикаль. Прочитать пропорцию как «две горизонтали» — завал. Вторая мина: высота окна MPRS — это v − 2m, а не v − m.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
@@ -240,9 +259,26 @@ w + v − 2m = 56</pre>
 <p class="st">Теперь в (3) вместо a стоит 2m, вместо v — найденное выражение:</p>
 <div class="frm st">2m + 28 + 3m = 58</div>
 <div class="frm st">m = 6, w = 22, v = 46, a = 12</div>
-<p class="st">Ширина фигуры 2a + w = 46 — внешний прямоугольник оказался квадратом.</p>
+<p class="st">Ширина фигуры:</p>
+<div class="frm st">2a + w = 46</div>
+<p class="st">Внешний прямоугольник оказался квадратом.</p>
 <p class="step st"><b>Шаг 2 — сборка: считаю спрошенные периметры.</b></p>
-<ul class="st"><li><b>ADEH</b> = 2(46 + 46) = <b>184</b></li><li><b>BDEG</b> = 2((w + a) + v) = 2(34 + 46) = <b>160</b></li><li><b>MPFG</b> = 2(w + (v − m)) = 2(22 + 40) = <b>124</b></li><li><b>BCFG</b> = 2(w + v) = 2(22 + 46) = <b>136</b></li></ul>
+<ul class="st"><li><b>P(ADEH)</b> = 2(46 + 46) = <b>184</b></li><li><b>P(BDEG)</b> = 2((w + a) + v) = 2(34 + 46) = <b>160</b></li><li><b>P(MPFG)</b> = 2(w + (v − m)) = 2(22 + 40) = <b>124</b></li><li><b>P(BCFG)</b> = 2(w + v) = 2(22 + 46) = <b>136</b></li></ul>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<div id="a0" data-art="0"><p class="st">Кирпичики: w = BC · m = высота перемычки · a = AB = CD · v = высота фигуры (AH).</p></div>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(ADEH) = 2·((2a + w) + v)</div>
+<div class="frm st">P(BDEG) = 2·((w + a) + v)</div>
+<div class="frm st">P(MPFG) = 2·(w + (v − m))</div>
+<div class="frm st">P(BCFG) = 2·(w + v)</div>
+<p class="st">Осталось найти w, m, a, v.</p></div></div>
+<div id="a10" data-art="10"><ul class="st"><li>P(BCPM) = 56 → w + m = 28</li><li>HG = 2·GS → a = 2m</li><li>P(ABGH) = 116 → a + v = 58</li><li>P(MPRS) = 112 → w + (v − 2m) = 56</li><li>w = 28 − m, v = 28 + 3m → 2m + 28 + 3m = 58 → <b>m = 6</b></li><li><b>w = 22</b>, <b>v = 46</b>, <b>a = 12</b></li></ul></div>
+<div id="a11" data-art="11"><div class="frm st">P(ADEH) = 2·(46 + 46) = 184</div></div>
+<div id="a12" data-art="12"><div class="frm st">P(BDEG) = 2·(34 + 46) = 160</div></div>
+<div id="a13" data-art="13"><div class="frm st">P(MPFG) = 2·(22 + 40) = 124</div></div>
+<div id="a14" data-art="14"><div class="frm st">P(BCFG) = 2·(22 + 46) = 136</div></div>
+<p class="st">Проверка сложением: P(BCPM) = 2·(22 + 6) = 56 ✓; P(ABGH) = 2·(12 + 46) = 116 ✓; P(MPRS) = 2·(22 + 34) = 112 ✓</p>
 <hr>
 <div class="pager"><a href="02-2-2021-5-strela-s-treugolnikom.html">2. 2021 №5 — стрела с треугольником →</a></div>
 </main>

@@ -16,6 +16,8 @@
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased}
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -38,6 +40,18 @@
   .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
     border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
     transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
   .art.cur{border-left-color:var(--gold)}
   .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--dim);display:block;margin-bottom:4px}
@@ -193,11 +207,23 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap battle">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 14 из 21</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ(б) = Все пары − Плохие</span></button>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Contar directamente las que cumplen es difícil, así que cuento todas las parejas y resto las que no cumplen.<br><em>Считать подходящие напрямую трудно, поэтому считаю все пары и вычитаю неподходящие.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>N(всех пар)</code> — все пары положений домино</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>N(плохих пар)</code> — из них пары с общей клеткой</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">Ответ(а) = 9 + 8</span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>Ответ(а) = 9 + 8 = 17</code></span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></span></button>
+<button class="art cont" data-art="7"><span class="val f">углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>N(плохих пар) = 4 + 18 + 12 = 34</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>Ответ(б) = 136 − 34 = 102</code></span></button>
+<button class="art cont" data-art="10"><span class="val f">цвета дают множитель 2, свободных клеток под квадратик <code>12 − 4 = 8</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>Ответ(в) = 102 · 2 · 8 = 1632</code></span></button>
+<button class="art" data-art="12"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
 <main>
   
@@ -223,33 +249,27 @@
 <p class="st">→ <b>17 положений.</b></p>
 <p class="st">Других нет: домино либо лежит вдоль строки, либо вдоль столбца, и в каждом случае положения перебраны по краю подряд, до упора.</p>
 <p class="step st"><b>Шаг 2 — план для б).</b></p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов.</b></p>
-<div class="frm st">Ответ(б) = Все пары − Плохие</div>
-<p class="st">Буквы: Все пары — сколько вообще есть пар положений домино · Плохие — из них те, у которых есть общая клетка (два домино на одну клетку не лягут).</p>
-<p class="st">Осталось найти: Все пары и Плохие.</p></div></div>
-<p class="step st"><b>Шаг 3 — считаю все пары.</b> Нужен первый блок плана — сколько всего пар положений. Два домино одинаковы, значит важно только, <b>какие два положения заняты</b>, а не какое «первое». Это пара без порядка, и считается она <b>лесенкой</b>: первое положение даёт пару с каждым из 16 остальных, второе — с 15 ещё не учтёнными, третье — с 14, и так вниз до последней единственной пары. Складываю ступеньки:</p>
-<p class="st">16 + 15 + … + 1 = 17 · 16 : 2 = <b>136</b>.</p>
+<div class="plan st"><p class="st">✅ <b>План готов.</b></p>
+<p class="st">Ответ(б) = <code>N(всех пар) − N(плохих пар)</code></p>
+<p class="st">Буквы: <code>N(всех пар)</code> — сколько вообще есть пар положений домино; <code>N(плохих пар)</code> — из них те, у которых есть общая клетка (два домино на одну клетку не лягут).</p>
+<p class="st">Осталось найти: <code>N(всех пар)</code> и <code>N(плохих пар)</code>.</p></div>
+<p class="step st"><b>Шаг 3 — считаю <code>N(всех пар)</code>.</b> Нужен первый блок плана — сколько всего пар положений. Два домино одинаковы, значит важно только, <b>какие два положения заняты</b>, а не какое «первое». Это пара без порядка, и считается она <b>лесенкой</b>: первое положение даёт пару с каждым из 16 остальных, второе — с 15 ещё не учтёнными, третье — с 14, и так вниз до последней единственной пары. Складываю ступеньки:</p>
+<p class="st"><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2</code> = <b>136</b>.</p>
 <p class="step st"><b>Шаг 4 — проверка минуса.</b> Может ли пара быть плохой дважды, то есть иметь <b>две</b> общие клетки? Два домино — это две клетки у каждого; две общие клетки означали бы, что положения совпали, а мы берём разные. Значит, у плохой пары общая клетка ровно одна, и каждая плохая пара считается один раз — вычитать честно.</p>
-<p class="step st"><b>Шаг 5 — считаю плохих по клеткам.</b> Нужен второй блок плана — число пар с общей клеткой. Каждая плохая пара сидит на своей общей клетке, поэтому пройду по клеткам и для каждой посчитаю пары домино, проходящие через неё. Сколько домино накрывают клетку — столько у неё соседей по стороне: домино, накрывшее клетку, обязано накрыть ещё ровно одного её соседа, и наоборот, каждый сосед даёт своё домино. Проверю на угловой клетке (строка 1, столбец 1): соседей у неё два — (строка 1, столбец 2) и (строка 2, столбец 1), и через угол правда проходят ровно два домино. Дальше — лесенка от числа соседей: столько-то домино через клетку дают столько-то пар через неё.</p>
-<figure class="st"><svg viewBox="0 0 600 240" width="100%" style="max-width:620px;display:block;margin:0 auto" font-family="var(--sans)" font-size="13">
-<rect x="30" y="30" width="66" height="66" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="63" y="72" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">2</text><rect x="96" y="30" width="66" height="66" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="129" y="72" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">3</text><rect x="162" y="30" width="66" height="66" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="195" y="72" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">3</text><rect x="228" y="30" width="66" height="66" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="261" y="72" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">2</text><rect x="30" y="96" width="66" height="66" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="63" y="138" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">3</text><rect x="96" y="96" width="66" height="66" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="129" y="138" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">4</text><rect x="162" y="96" width="66" height="66" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="195" y="138" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">4</text><rect x="228" y="96" width="66" height="66" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="261" y="138" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">3</text><rect x="30" y="162" width="66" height="66" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="63" y="204" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">2</text><rect x="96" y="162" width="66" height="66" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="129" y="204" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">3</text><rect x="162" y="162" width="66" height="66" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="195" y="204" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">3</text><rect x="228" y="162" width="66" height="66" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="261" y="204" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">2</text>
-<rect x="332" y="34" width="14" height="14" fill="#1d1810" stroke="var(--gold)"/><text x="354" y="46" fill="var(--muted)">угловая — 4 клетки</text>
-<rect x="332" y="74" width="14" height="14" fill="#16263a" stroke="var(--blue)"/><text x="354" y="86" fill="var(--muted)">бортовая — 6 клеток</text>
-<rect x="332" y="114" width="14" height="14" fill="#12281c" stroke="var(--green)"/><text x="354" y="126" fill="var(--muted)">центральная — 2 клетки</text>
-<text x="354" y="176" fill="var(--muted)">в клетке — число её соседей</text>
-<text x="354" y="196" fill="var(--muted)">по стороне</text>
-</svg><figcaption>Домино, накрывшее клетку, обязано накрыть одного её соседа — и каждый сосед даёт своё домино. Поэтому клетка полностью описана числом соседей, и одинаковых клеток можно считать пачкой.</figcaption></figure>
+<p class="st"><em>💬 «У плохой пары общая клетка ровно одна, поэтому вычитание честное» — это и есть мысль для фразы-объяснения.</em></p>
+<p class="step st"><b>Шаг 5 — считаю <code>N(плохих пар)</code> по клеткам.</b> Нужен второй блок плана — число пар с общей клеткой. Каждая плохая пара сидит на своей общей клетке, поэтому пройду по клеткам и для каждой посчитаю пары домино, проходящие через неё. Сколько домино накрывают клетку — столько у неё соседей по стороне: домино, накрывшее клетку, обязано накрыть ещё ровно одного её соседа, и наоборот, каждый сосед даёт своё домино. Проверю на угловой клетке (строка 1, столбец 1): соседей у неё два — (строка 1, столбец 2) и (строка 2, столбец 1), и через угол правда проходят ровно два домино. Дальше — лесенка от числа соседей: столько-то домино через клетку дают столько-то пар через неё.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Сорт клетки</th><th>Сколько таких клеток</th><th>Соседей (домино через клетку)</th><th>Пар домино через клетку (лесенка)</th></tr>
 <tr><td>угловые</td><td>4</td><td>2</td><td>1 = 1</td></tr>
 <tr><td>бортовые (края, но не углы)</td><td>6</td><td>3</td><td>1 + 2 = 3</td></tr>
 <tr><td>центральные</td><td>2</td><td>4</td><td>1 + 2 + 3 = 6</td></tr>
 </table></div></div>
-<p class="st">Плохих пар: 4 · 1 + 6 · 3 + 2 · 6 = 4 + 18 + 12 = <b>34</b>.</p>
+<p class="st"><code>N(плохих пар) = 4 · 1 + 6 · 3 + 2 · 6 = 4 + 18 + 12</code> = <b>34</b>.</p>
 <p class="step st"><b>Шаг 6 — сборка б).</b> Оба блока плана посчитаны — подставляю:</p>
-<p class="st">Ответ(б) = Все пары − Плохие = 136 − 34 = <b>102</b></p>
+<p class="st">Ответ(б) = <code>N(всех пар) − N(плохих пар) = 136 − 34</code> = <b>102</b></p>
 <p class="step st"><b>Шаг 7 — цвета и квадратик (вопрос в).</b> Нужен ответ в), а места двух домино уже посчитаны — остаётся домножить на цвета и на место квадратика. Красное и синее домино различимы: на той же паре мест два раскраса → 102 × 2 = 204. Оба домино накрыли 4 клетки, свободных осталось 12 − 4 = 8 при <b>любой</b> укладке — значит, множитель один и тот же: 204 × 8 = <b>1632</b>.</p>
 <p class="st"><b>Полнота (г).</b> Ни один способ не потерян: любая укладка двух домино — это какая-то пара положений из моих 17, а все пары я взял лесенкой; выбросил только те, что накладываются. Ни один не лишний: плохие пары вычтены ровно по одному разу (у пары с наложением общая клетка единственная), а цвет и квадратик умножаются на уже посчитанное, каждый вариант появляется в цепочке «пара мест → цвета → клетка квадратика» ровно однажды.</p>
+<p class="st"><em>💬 «Это все случаи: они не повторяют друг друга и ни один не потерян» — это и есть мысль для фразы-полноты.</em></p>
 <p class="st"><b>Пересчёт вторым способом (по видам пар).</b></p>
 <div class="st"><div class="tw"><table>
 <tr><th>Пара</th><th>Всего</th><th>Накладываются</th><th>Годных</th></tr>
@@ -259,6 +279,27 @@
 </table></div></div>
 <p class="st">30 + 24 + 48 = 102 ✓ — сошлось.</p>
 <p class="st"><b>Ответ.</b> а) <b>17</b> положений. б) <b>102</b> способа. в) <b>1632</b> способа.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Contar directamente las que cumplen es difícil, así que cuento todas las parejas y resto las que no cumplen.</b></p></div>
+<p class="st"><em>Считать подходящие напрямую трудно, поэтому считаю все пары и вычитаю неподходящие.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a2" data-art="2"><ul class="st"><li><code>N(всех пар)</code> — все пары положений домино</li><li><code>N(плохих пар)</code> — из них пары с общей клеткой</li></ul></div>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ(а) = 9 + 8</div>
+<div class="frm st">Ответ(б) = N(всех пар) − N(плохих пар)</div>
+<div class="frm st">Ответ(в) = Ответ(б) · 2 · 8</div></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></li></ul></div>
+<div id="a5" data-art="5"><div class="frm st"><code>Ответ(а) = 9 + 8 = 17</code></div></div>
+<div id="a8" data-art="8"><ul class="st"><li><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></li><li>углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></li><li><code>N(плохих пар) = 4 + 18 + 12 = 34</code></li></ul></div>
+<div id="a9" data-art="9"><div class="frm st"><code>Ответ(б) = 136 − 34 = 102</code></div></div>
+<div id="a10" data-art="10"><ul class="st"><li>цвета дают множитель 2, свободных клеток под квадратик <code>12 − 4 = 8</code></li></ul></div>
+<div id="a11" data-art="11"><div class="frm st"><code>Ответ(в) = 102 · 2 · 8 = 1632</code></div></div>
+<p class="st">Проверка по видам пар: <code>30 + 24 + 48 = 102</code> ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a12" data-art="12"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Полный перебор всех положений даёт <b>17</b>, <b>102</b>, <b>1632</b> — совпало с ручным счётом (136 − 34 = 102 и 102 · 2 · 8 = 1632).</p>
 <hr>
