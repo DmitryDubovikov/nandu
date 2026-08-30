@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Как устроены обозначения</title>
+<title>1. Доля площади — «какая часть фигуры закрашена»</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -209,26 +209,38 @@
 <body>
 <div class="wrap">
 <aside>
-  <p class="chapnav"><a href="index.html">все главы</a> · 1 из 11</p>
+  <p class="chapnav"><a href="index.html">все главы</a> · 1 из 8</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Раздел</span><span class="val">Номер и штрих — два уровня нотации</span></button>
-<button class="art" data-art="1"><span class="lbl">Раздел</span><span class="val">Национальные добавки: Т1‴, Т2″, Т3″, Т4′</span></button>
-<button class="art" data-art="2"><span class="lbl">Раздел</span><span class="val">Что отличает национал от всех предыдущих этапов</span></button>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Раз спрашивают долю, размер фигуры не важен — назначь сторонам удобные числа сам, лишь бы выполнялось условие.</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">5 · 12 = 6 · 10</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">площадь ADM = 2 · 10 : 2 = 10</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">площадь ANB = 12 · 5 : 2 = 30</span></button>
+<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">площадь NBC = 10 · 5 : 2 = 25</span></button>
+<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">120 − 10 − 30 − 25 = 55</span></button>
+<button class="art" data-art="6"><span class="lbl">Формула</span><span class="val f">55 : 120 = 11/24</span></button>
 </aside>
 <main>
   
-  <h1>Как устроены обозначения</h1>
-  <p class="sub">Национальный этап — типология задач 2013–2025</p>
-<div id="a0" data-art="0"><h3 class="st">Номер и штрих — два уровня нотации</h3></div>
-<p class="st">Нотация та же, что в провинциальной типологии, — два уровня:</p>
-<ul class="st"><li><b>Номер (Т1, Т2, Т3, Т4)</b> = <em>что за задача по сути</em>: про что она и что от тебя хотят на выходе.</li><li><b>Штрих (Т1′, Т2′, Т3″)</b> = <em>тот же тип, другой инструмент</em>. Задача остаётся в семействе, но берётся не базовым приёмом.</li></ul>
-<p class="st"><b>Новый штрих — когда меняется приём. Новый номер — когда меняется предмет задачи.</b></p>
-<div id="a1" data-art="1"><h3 class="st">Национальные добавки: Т1‴, Т2″, Т3″, Т4′</h3></div>
-<p class="st">Национальные добавки к провинциальной нотации: <b>Т1‴</b> (целые решения и оптимизация), <b>Т2″</b> (растущий узор), <b>Т3″</b> (числа и цифры), <b>Т4′</b> («сколько способов» вместо «выпиши все»). Ниже они описаны полностью.</p>
-<div id="a2" data-art="2"><h3 class="st">Что отличает национал от всех предыдущих этапов</h3></div>
-<ol class="st num"><li><span class="lin">1.</span> <b>Два дня по 3 задачи</b>, дни не сообщаются между собой: недорешанное вчера сегодня не добрать.</li><li><span class="lin">2.</span> <b>В задаче обычно 2–4 вопроса</b>, а не один. Балл собирается по частям.</li><li><span class="lin">3.</span> <b>«Explica cómo las contaste» / «Da todas las posibilidades»</b> — письменное обоснование полноты требуется почти в каждой счётной задаче и оценивается. Это ритуал <b>Ч5</b> из пары 1, сквозной для всей ветки.</li><li><span class="lin">4.</span> <b>Площадей в окне 2013–2025 нет</b> — только периметры (как предмет площади начинаются с Segundo Nivel). Раньше они встречались: национальные 1997 №3 и 2003 №2 — доля площади фигуры; тип дан на узнавание в <code>nandu_n1_nacional_chego_ne_bylo.md</code>.</li></ol>
+  <h1>1. Доля площади — «какая часть фигуры закрашена»</h1>
+  <p class="sub">Чего не было в подготовке</p>
+<p class="st"><b>Откуда.</b> Национальный тур 1997, задача 3. Ещё раз — национальный 2003, задача 2.</p>
+<p class="st"><b>Задача.</b> ABCD — прямоугольник, причём пять его сторон AB равны шести сторонам BC. На стороне CD отмечена точка M так, что MC = BC, а N — середина отрезка MB. Какую часть прямоугольника ABCD составляет четырёхугольник AMCN?</p>
+<p class="st">Все наши задачи с буквами и фигурами были про <b>периметр</b> — про длину контура. Здесь спрашивают про <b>площадь</b>, и не в сантиметрах, а долей: «какая часть».</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Раз спрашивают долю, размер фигуры не важен — назначь сторонам удобные числа сам, лишь бы выполнялось условие. Годятся AB = 12 и BC = 10: пять раз по 12 и шесть раз по 10 дают поровну.</p></div></div>
+<div id="a1" data-art="1"><div class="frm st">5 · 12 = 6 · 10</div></div>
+<p class="st">Площадь прямоугольника тогда</p>
+<p class="st">12 · 10 = 120.</p>
+<p class="st">Дальше вырезаешь лишнее. Каждый лишний кусок — треугольник, а площадь треугольника — это половина основания, умноженная на высоту. Их три: ADM, ANB и NBC.</p>
+<div id="a2" data-art="2"><div class="frm st">площадь ADM = 2 · 10 : 2 = 10</div></div>
+<div id="a3" data-art="3"><div class="frm st">площадь ANB = 12 · 5 : 2 = 30</div></div>
+<div id="a4" data-art="4"><div class="frm st">площадь NBC = 10 · 5 : 2 = 25</div></div>
+<p class="st">Остаётся сам четырёхугольник:</p>
+<div id="a5" data-art="5"><div class="frm st">120 − 10 − 30 − 25 = 55</div></div>
+<p class="st">Ответ — доля:</p>
+<div id="a6" data-art="6"><div class="frm st">55 : 120 = 11/24</div></div>
+<p class="st"><b>Как узнать.</b> В вопросе стоит «какая часть» или «какую долю», а не «чему равен периметр».</p>
 <hr>
-<div class="pager"><a href="02-t1-chislovaya-tekstovaya-zadacha.html">Т1 — числовая текстовая задача →</a></div>
+<div class="pager"><a href="02-2-proizvedenie-cifr-raskladyvay-na-mnozhiteli.html">2. Произведение цифр — раскладывай на множители →</a></div>
 </main>
 </div>
 <script>
