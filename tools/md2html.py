@@ -16,6 +16,18 @@ def inline(s):
     s = re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)', r'<em>\1</em>', s)
     return s
 
+def plain(s):
+    """Текст заголовка без разметки — для <title>, ссылок и меток навигации.
+
+    Заголовки глав в ключах набраны с курсивом («№1 — чайная лавка *(Т1′: …)*»),
+    и пока они шли через html.escape, звёздочки печатались как есть.
+    """
+    s = re.sub(r'`([^`]+)`', r'\1', s)
+    s = re.sub(r'\*\*([^*]+)\*\*', r'\1', s)
+    s = re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)', r'\1', s)
+    return s
+
+
 FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−·×÷:=,.…\'’≠≤≥<>/√²³|]+$')
 
 def is_formula(line):
@@ -426,7 +438,7 @@ def xlink_html(x):
     lbl, href, title = x
     arrow = '←' if lbl.startswith('Теория') else '→'
     return (f'<p class="xlink"><a href="{href}">{arrow} {html.escape(lbl)}: '
-            f'<b>{html.escape(title)}</b></a></p>')
+            f'<b>{html.escape(plain(title))}</b></a></p>')
 
 
 def val_html(lbl, val):
@@ -570,8 +582,8 @@ def build_pages(md, visuals=None, src_path=None):
         nav = '\n'.join(btns) or \
             '<p class="flab">В этом разделе выносить в остаток нечего.</p>'
 
-        prev = f'<a href="{names[n-1]}">← {html.escape(chapters[n-1]["title"])}</a>' if n else ''
-        nxt = f'<a href="{names[n+1]}">{html.escape(chapters[n+1]["title"])} →</a>' if n < len(chapters) - 1 else ''
+        prev = f'<a href="{names[n-1]}">← {html.escape(plain(chapters[n-1]["title"]))}</a>' if n else ''
+        nxt = f'<a href="{names[n+1]}">{html.escape(plain(chapters[n+1]["title"]))} →</a>' if n < len(chapters) - 1 else ''
         chapnav = (f'<a href="index.html">все главы</a> · {n+1} из {len(chapters)}')
         partlab = ''
         if c.get('ispart'):
@@ -581,8 +593,9 @@ def build_pages(md, visuals=None, src_path=None):
             shown_part = c['part']
 
         files[names[n]] = (TEMPLATE
-            .replace('{{TITLE}}', html.escape(c['title']))
-            .replace('{{DOC}}', html.escape(title))
+            .replace('{{TITLE}}', inline(c['title']))
+            .replace('{{TITLE_TXT}}', html.escape(plain(c['title'])))
+            .replace('{{DOC}}', inline(title))
             .replace('{{PARTLAB}}', partlab)
             .replace('{{SUB}}', '')
             .replace('{{CHAPNAV}}', chapnav)
@@ -601,16 +614,17 @@ def build_pages(md, visuals=None, src_path=None):
     lastpart = None
     for n, c in enumerate(chapters):
         if c['part'] != lastpart and c['part']:
-            rows.append(f'<div class="navpart">{html.escape(c["part"])}</div>')
+            rows.append(f'<div class="navpart">{html.escape(plain(c["part"]))}</div>')
             lastpart = c['part']
         idea = next((artifact(k, v)[1] for k, v in c['blocks']
                      if artifact(k, v) and artifact(k, v)[0] == 'Идея'), '')
-        rows.append(f'<a class="ix" href="{names[n]}"><b>{html.escape(c["title"])}</b>'
+        rows.append(f'<a class="ix" href="{names[n]}"><b>{html.escape(plain(c["title"]))}</b>'
                     f'<span>{html.escape(idea)}</span></a>')
     files['index.html'] = (INDEX
-        .replace('{{TITLE}}', html.escape(title))
+        .replace('{{TITLE}}', inline(title))
+        .replace('{{TITLE_TXT}}', html.escape(plain(title)))
         .replace('{{RTITLE_TAG}}', '').replace('{{WRAPCLASS}}', '')
-        .replace('{{SUB}}', html.escape(sub))
+        .replace('{{SUB}}', inline(sub))
         .replace('{{PRE}}', '\n'.join(render_block(b) for b in pre))
         .replace('{{ROWS}}', '\n'.join(rows)))
 
