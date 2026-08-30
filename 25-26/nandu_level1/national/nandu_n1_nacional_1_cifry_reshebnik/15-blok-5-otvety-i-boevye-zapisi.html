@@ -212,18 +212,20 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 15 из 19</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso el resto al dividir por 7 no cambia, así que vale lo mismo al principio y al final: nunca se llega a 100.<br><em>На каждом шаге остаток при делении на 7 не меняется, значит в начале и в конце оно одно и то же — до ста не дойти никогда.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">inv = res(12 : 7)</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">12 = 7 · 1 + 5 → <b>inv = 5</b>, кнопка +7 остаток не трогает</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">res(X : 7) = res(tab : 7)</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">в начале tab = 12 = 7 · 1 + 5 → res(tab : 7) = <b>5</b></span></button>
 <button class="art cont" data-art="3"><span class="val f">100 = 7 · 14 + 2 → res(100 : 7) = 2 ≠ 5 → <b>100 — никогда</b></span></button>
-<button class="art cont" data-art="4"><span class="val f">96 = 7 · 13 + 5 → res(96 : 7) = 5 ✓ → предъявляю: 12 + 7 · 12 = 96 → <b>96 — да, через 12 нажатий</b></span></button>
-<button class="art cont" data-art="5"><span class="val f">ход меняет это число на 0 или ±2 → <b>inv не меняется</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">старт 6 — чётно, цель 0 — чётно → <b>запрета нет</b></span></button>
-<button class="art cont" data-art="7"><span class="val f">кружки 1–2, затем 3–4, затем 5–6</span></button>
-<button class="art cont" data-art="8"><span class="val f">Можно.</span></button>
-<button class="art" data-art="9"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso la paridad de la cantidad de cartas boca arriba no cambia, así que vale lo mismo al principio y al final: nunca se llega a tenerlas todas boca abajo.<br><em>На каждом шаге чётность числа карточек рубашкой вверх не меняется, значит в начале и в конце оно одно и то же — до «все рубашкой вниз» не дойти никогда.</em></span></button>
-<button class="art" data-art="10"><span class="lbl">На туре</span><span class="val f">ход меняет это число на 0 или ±2 → <b>inv не меняется</b></span></button>
-<button class="art cont" data-art="11"><span class="val f">старт 9 — нечётно; цель 0 — чётно</span></button>
-<button class="art cont" data-art="12"><span class="val f">Нельзя.</span></button>
+<button class="art cont" data-art="4"><span class="val f">96 = 7 · 13 + 5 → res(96 : 7) = 5 = res(tab : 7) → предъявляю: (96 − 12) : 7 = 12 нажатий, 12 + 7 · 12 = 96 ✓ → <b>96 — да</b></span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">res(0 : 2) = res(izq : 2)</span></button>
+<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f">в начале izq = 6 → res(izq : 2) = 0</span></button>
+<button class="art cont" data-art="7"><span class="val f">res(0 : 2) = 0 = res(izq : 2) → <b>запрета нет</b></span></button>
+<button class="art cont" data-art="8"><span class="val f">кружки 1–2, затем 3–4, затем 5–6</span></button>
+<button class="art cont" data-art="9"><span class="val f">Можно.</span></button>
+<button class="art" data-art="10"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso la paridad de la cantidad de cartas boca arriba no cambia, así que vale lo mismo al principio y al final: nunca se llega a tenerlas todas boca abajo.<br><em>На каждом шаге чётность числа карточек рубашкой вверх не меняется, значит в начале и в конце оно одно и то же — до «все рубашкой вниз» не дойти никогда.</em></span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">res(0 : 2) = res(arr : 2)</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">в начале arr = 9 → res(arr : 2) = 1</span></button>
+<button class="art cont" data-art="13"><span class="val f">res(0 : 2) = 0 ≠ 1 = res(arr : 2)</span></button>
+<button class="art cont" data-art="14"><span class="val f">Нельзя.</span></button>
 </aside>
 <main>
   
@@ -243,28 +245,37 @@
 <div id="a0" data-art="0"><p class="st"><b>En cada paso el resto al dividir por 7 no cambia, así que vale lo mismo al principio y al final: nunca se llega a 100.</b></p></div>
 <p class="st"><em>На каждом шаге остаток при делении на 7 не меняется, значит в начале и в конце оно одно и то же — до ста не дойти никогда.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">inv — остаток числа на табло при делении на 7.</p>
+<p class="st">tab — число на табло.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">inv = res(12 : 7)</div>
-<p class="st">Число появится, только если у него тот же остаток; «появится» доказывается нажатиями.</p></div></div>
-<div id="a4" data-art="4"><ul class="st"><li>12 = 7 · 1 + 5 → <b>inv = 5</b>, кнопка +7 остаток не трогает</li><li>100 = 7 · 14 + 2 → res(100 : 7) = 2 ≠ 5 → <b>100 — никогда</b></li><li>96 = 7 · 13 + 5 → res(96 : 7) = 5 ✓ → предъявляю: 12 + 7 · 12 = 96 → <b>96 — да, через 12 нажатий</b></li></ul></div>
+<p class="st">кнопка +7 → <b>res(tab : 7) не меняется</b></p>
+<p class="st">Число X появится, только если</p>
+<div class="frm st">res(X : 7) = res(tab : 7)</div></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>в начале tab = 12 = 7 · 1 + 5 → res(tab : 7) = <b>5</b></li><li>100 = 7 · 14 + 2 → res(100 : 7) = 2 ≠ 5 → <b>100 — никогда</b></li><li>96 = 7 · 13 + 5 → res(96 : 7) = 5 = res(tab : 7) → предъявляю: (96 − 12) : 7 = 12 нажатий, 12 + 7 · 12 = 96 ✓ → <b>96 — да</b></li></ul></div>
 <h3 class="st">✍ 5.2 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">inv — чётность числа кружек, повёрнутых влево.</p>
-<div id="a6" data-art="6"><ul class="st"><li>ход меняет это число на 0 или ±2 → <b>inv не меняется</b></li><li>старт 6 — чётно, цель 0 — чётно → <b>запрета нет</b></li></ul></div>
+<p class="st">izq — число кружек, повёрнутых влево.</p>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st">ход меняет izq на 0 или ±2 → <b>res(izq : 2) не меняется</b></p>
+<p class="st">Цель достижима, только если</p>
+<div class="frm st">res(0 : 2) = res(izq : 2)</div></div></div>
+<div id="a7" data-art="7"><ul class="st"><li>в начале izq = 6 → res(izq : 2) = 0</li><li>res(0 : 2) = 0 = res(izq : 2) → <b>запрета нет</b></li></ul></div>
 <p class="st">Инвариант только разрешает — предъявляю ходы:</p>
-<div id="a7" data-art="7"><p class="st"><b>кружки 1–2, затем 3–4, затем 5–6</b></p></div>
-<div id="a8" data-art="8"><p class="st"><b>Можно.</b></p></div>
+<div id="a8" data-art="8"><p class="st"><b>кружки 1–2, затем 3–4, затем 5–6</b></p></div>
+<div id="a9" data-art="9"><p class="st"><b>Можно.</b></p></div>
 <h3 class="st">✍ 5.3 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a9" data-art="9"><p class="st"><b>En cada paso la paridad de la cantidad de cartas boca arriba no cambia, así que vale lo mismo al principio y al final: nunca se llega a tenerlas todas boca abajo.</b></p></div>
+<div id="a10" data-art="10"><p class="st"><b>En cada paso la paridad de la cantidad de cartas boca arriba no cambia, así que vale lo mismo al principio y al final: nunca se llega a tenerlas todas boca abajo.</b></p></div>
 <p class="st"><em>На каждом шаге чётность числа карточек рубашкой вверх не меняется, значит в начале и в конце оно одно и то же — до «все рубашкой вниз» не дойти никогда.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">inv — чётность числа карточек, лежащих рубашкой вверх.</p>
-<div id="a11" data-art="11"><ul class="st"><li>ход меняет это число на 0 или ±2 → <b>inv не меняется</b></li><li>старт 9 — нечётно; цель 0 — чётно</li></ul></div>
-<div id="a12" data-art="12"><p class="st"><b>Нельзя.</b></p></div>
+<p class="st">arr — число карточек, лежащих рубашкой вверх.</p>
+<div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st">ход меняет arr на 0 или ±2 → <b>res(arr : 2) не меняется</b></p>
+<p class="st">Цель достижима, только если</p>
+<div class="frm st">res(0 : 2) = res(arr : 2)</div></div></div>
+<div id="a13" data-art="13"><ul class="st"><li>в начале arr = 9 → res(arr : 2) = 1</li><li>res(0 : 2) = 0 ≠ 1 = res(arr : 2)</li></ul></div>
+<div id="a14" data-art="14"><p class="st"><b>Нельзя.</b></p></div>
 <p class="st"><em>Боевая запись задач со звёздочками блока 5 — в <code>nandu_n1_nacional_1_cifry_resheniya.md</code>, рядом с их разборами.</em></p>
 <hr>
 <p class="xlink"><a href="../nandu_n1_nacional_1_cifry_resheniya/09-5-4-kopilki-bruno-i-loly.html">→ Разборы по шагам: <b>5.4 ⭐ Копилки Бруно и Лолы</b></a></p><div class="pager"><a href="14-blok-4-otvety-i-boevye-zapisi.html">← Блок 4 — ответы и боевые записи</a><a href="16-blok-6-otvety-i-boevye-zapisi.html">Блок 6 — ответы и боевые записи →</a></div>

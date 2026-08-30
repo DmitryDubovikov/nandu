@@ -212,49 +212,53 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 10 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso el resto de la cantidad total al dividir por 3 no cambia, así que vale lo mismo al principio y al final: nunca se llega a 2025 caracoles.<br><em>На каждом шаге остаток общего числа при делении на 3 не меняется, значит в начале и в конце оно одно и то же — до 2025 ракушек не дойти никогда.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">любой обмен: −1 + 4 = +3</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">старт 1 = 3 · 0 + 1 → <b>inv = 1</b></span></button>
-<button class="art cont" data-art="3"><span class="val f">2025 = 3 · 675 + 0 → res(2025 : 3) = 0 ≠ 1 → <b>2025 — нельзя</b></span></button>
-<button class="art cont" data-art="4"><span class="val f">2026 = 3 · 675 + 1 → res(2026 : 3) = 1 ✓ → предъявляю: 1 + 3 · 675 = 2026 → <b>2026 — да, за 675 обменов</b></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">res(X : 3) = res(car : 3)</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">в начале car = 1 = 3 · 0 + 1 → res(car : 3) = <b>1</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">2025 = 3 · 675 + 0 → res(2025 : 3) = 0 ≠ 1 → <b>2025 — никогда</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">2026 = 3 · 675 + 1 → res(2026 : 3) = 1 = res(car : 3) → предъявляю: 2025 : 3 = 675 обменов, 1 + 3 · 675 = 2026 ✓ → <b>2026 — да</b></span></button>
 </aside>
 <main>
   
   <h1>5.5 ⭐⭐ Ракушки Томи</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> У Томи одна большая ракушка. За один ход он может обменять 1 большую ракушку на 4 маленькие — или 1 маленькую на 4 больших. Может ли у Томи в какой-то момент оказаться ровно 2025 ракушек? А ровно 2026? Объясни оба ответа.</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Ходов два, и они разные — но вопрос спрашивает только про <b>общее</b> число ракушек, а на него оба хода действуют совершенно одинаково: одна уходит, четыре приходят, всего становится на 3 больше. Значит, различать «большие» и «маленькие» для этого вопроса не нужно вовсе, и вместо двух ходов остаётся один-единственный: «+3». Это и есть инвариант — остаток общего числа при делении на 3 не меняется никогда.</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Ходов два, и они разные — но вопрос спрашивает только про <b>общее</b> число ракушек, а на него оба хода действуют одинаково: одна уходит, четыре приходят, всего становится на 3 больше. Значит различать «большие» и «маленькие» для этого вопроса не нужно вовсе: вместо двух ходов остаётся один, «+3».</p></div>
 <figure class="st"><div class="fgrid" style="gap:26px"><div class="fcol"><span class="flab">обмен 1: большая → четыре маленькие</span><div style="display:flex;gap:10px;align-items:center"><span class="dot gold" style="width:19px;height:19px"></span><span class="eq">→</span><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span></div></div><div class="fcol"><span class="flab">обмен 2: маленькая → четыре большие</span><div style="display:flex;gap:10px;align-items:center"><span class="dot"></span><span class="eq">→</span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span></div></div></div><div class="flab" style="margin-top:14px">в обоих случаях: одна ушла, четыре пришли &nbsp;→&nbsp; всего стало на <span style="color:var(--green)">3</span> больше</div><figcaption>Для вопроса «сколько всего» размер ракушки не важен — и два разных хода становятся одним и тем же ходом «+3».</figcaption></figure>
-<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ по каждому числу = «да», если res(число : 3) = res(старт : 3) и находится цепочка обменов ровно до него.</p>
-<p class="st">где res(старт : 3) — остаток стартового числа ракушек при делении на 3</p>
-<p class="st">Осталось найти: res(старт : 3), остатки 2025 и 2026 и цепочку обменов.</p></div>
-<p class="step st"><b>Шаг 1 — нужен инвариант, поэтому смотрю, что делает с общим числом один обмен.</b> Любой из двух обменов: −1 ракушка и +4 ракушки, итого</p>
+<p class="step st"><b>Шаг 1 — план.</b> Оба вопроса про общее число ракушек: назову его car (<em>caracoles</em>), в начале car = 1. Прыжок</p>
 <div class="frm st">−1 + 4 = +3</div>
-<p class="st">Прибавление тройки остаток при делении на 3 не меняет.</p>
-<p class="st">→ <b>остаток общего числа по модулю 3 постоянен</b></p>
-<p class="step st"><b>Шаг 2 — нужно значение инварианта, поэтому считаю его на старте.</b> В начале у Томи 1 ракушка:</p>
-<div class="frm st">1 = 3 · 0 + 1</div>
-<p class="st">→ <b>res(ракушки : 3) = 1 всегда</b>, сколько бы обменов Томи ни сделал</p>
-<p class="step st"><b>Шаг 3 — прикладываю инвариант к 2025.</b></p>
+<p class="st">значит инвариант — res(car : 3).</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">Число X достижимо, только если res(X : 3) = res(car : 3)</div>
+<p class="st">Где остатки совпали, «достижимо» доказывается обменами.</p>
+<p class="st">Осталось найти: res(car : 3).</p></div>
+<p class="step st"><b>Шаг 2 — считаю res(car : 3).</b> В начале</p>
+<div class="frm st">car = 1 = 3 · 0 + 1</div>
+<div class="frm st">res(car : 3) = 1</div>
+<p class="st">Обмен этот остаток не меняет, поэтому он такой после любого числа обменов.</p>
+<p class="st">→ <b>res(car : 3) = 1 всегда</b></p>
+<p class="step st"><b>Шаг 3 — первый вопрос: бывает ли 2025 ракушек.</b></p>
 <div class="frm st">2025 = 3 · 675 + 0</div>
-<p class="st">Остаток 0, а должен быть 1: res(2025 : 3) = 0.</p>
-<p class="st">→ <b>2025 — никогда</b></p>
-<p class="step st"><b>Шаг 4 — прикладываю инвариант к 2026.</b></p>
+<div class="frm st">res(2025 : 3) = 0 ≠ 1 = res(car : 3)</div>
+<p class="st">→ <b>нет, 2025 не бывает</b></p>
+<p class="step st"><b>Шаг 4 — второй вопрос: бывает ли 2026 ракушек.</b></p>
 <div class="frm st">2026 = 3 · 675 + 1</div>
-<p class="st">Остаток 1 — совпал: res(2026 : 3) = 1. Но инвариант только <b>разрешает</b>; чтобы сказать «можно», нужны сами ходы.</p>
-<p class="st">→ <b>запрета нет, иду предъявлять цепочку</b></p>
-<p class="step st"><b>Шаг 5 — предъявляю обмены.</b> Каждый обмен даёт +3, значит от 1 до 2026 нужно ровно 675 обменов: 1 + 3 · 675 = 2026 ✓. Осталось убедиться, что ход всегда найдётся. Первым обменом меняю большую на 4 маленькие — стало 4 ракушки, все маленькие. Дальше каждый раз беру любую маленькую и меняю её на 4 больших; маленькие не кончаются мгновенно — за один обмен уходит только одна из них, а если маленьких вдруг не осталось, всегда есть большая, и я меняю её. Ход есть в любой момент, и каждый прибавляет 3.</p>
-<p class="step st"><b>Шаг 6 — сборка.</b> <b>2025 — нельзя</b> (запрещает инвариант); <b>2026 — можно</b>, за 675 обменов.</p>
+<div class="frm st">res(2026 : 3) = 1 = res(car : 3)</div>
+<p class="st">Совпало — значит не запрещено, но ещё не доказано. Предъявляю обмены: добрать надо 2026 − 1 = 2025 ракушек по 3 за обмен, значит обменов</p>
+<div class="frm st">2025 : 3 = 675</div>
+<p class="st">Проверяю, что ход найдётся всегда: первым обменом меняю большую на 4 маленькие — стало 4 ракушки. Дальше каждый раз беру любую маленькую и меняю её на 4 больших; за один обмен уходит только одна маленькая, а если маленькие кончились, есть большая — её и меняю. → <b>да, 2026 бывает</b></p>
+<p class="st"><b>Ответ.</b> 2025 — никогда, 2026 — после 675 обменов.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <div id="a0" data-art="0"><p class="st"><b>En cada paso el resto de la cantidad total al dividir por 3 no cambia, así que vale lo mismo al principio y al final: nunca se llega a 2025 caracoles.</b></p></div>
 <p class="st"><em>На каждом шаге остаток общего числа при делении на 3 не меняется, значит в начале и в конце оно одно и то же — до 2025 ракушек не дойти никогда.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">inv — остаток общего числа ракушек при делении на 3.</p>
+<p class="st">car — общее число ракушек.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">любой обмен: −1 + 4 = +3</div>
-<p class="st">Число достижимо, только если у него тот же остаток; «достижимо» доказывается обменами.</p></div></div>
-<div id="a4" data-art="4"><ul class="st"><li>старт 1 = 3 · 0 + 1 → <b>inv = 1</b></li><li>2025 = 3 · 675 + 0 → res(2025 : 3) = 0 ≠ 1 → <b>2025 — нельзя</b></li><li>2026 = 3 · 675 + 1 → res(2026 : 3) = 1 ✓ → предъявляю: 1 + 3 · 675 = 2026 → <b>2026 — да, за 675 обменов</b></li></ul></div>
+<p class="st">любой обмен: −1 + 4 = +3 → <b>res(car : 3) не меняется</b></p>
+<p class="st">Число X достижимо, только если</p>
+<div class="frm st">res(X : 3) = res(car : 3)</div></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>в начале car = 1 = 3 · 0 + 1 → res(car : 3) = <b>1</b></li><li>2025 = 3 · 675 + 0 → res(2025 : 3) = 0 ≠ 1 → <b>2025 — никогда</b></li><li>2026 = 3 · 675 + 1 → res(2026 : 3) = 1 = res(car : 3) → предъявляю: 2025 : 3 = 675 обменов, 1 + 3 · 675 = 2026 ✓ → <b>2026 — да</b></li></ul></div>
 <hr>
 <div class="pager"><a href="09-5-4-kopilki-bruno-i-loly.html">← 5.4 ⭐ Копилки Бруно и Лолы</a><a href="11-6-4-trehznachnoe-s-nulem-v-seredine.html">6.4 ⭐ Трёхзначное с нулём в середине →</a></div>
 </main>

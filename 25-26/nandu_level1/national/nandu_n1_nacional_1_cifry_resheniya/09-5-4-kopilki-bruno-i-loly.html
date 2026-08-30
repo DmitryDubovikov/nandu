@@ -211,13 +211,11 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 9 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val f">dif = 100 − 30</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">paso = 8 + 5</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">res(dif : paso) = 0</span></button>
-<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f"><b>dif = 70</b>, <b>paso = 13</b></span></button>
-<button class="art cont" data-art="4"><span class="val f">70 = 13 · 5 + 5 → res(70 : 13) = 5 ≠ 0 → <b>не сравняются никогда</b></span></button>
-<button class="art cont" data-art="5"><span class="val f">разрывы по дням: 70, 57, 44, 31, 18, <b>5</b>, потом Бруно впереди: 8, 21, …</span></button>
-<button class="art cont" data-art="6"><span class="val f"><b>наименьшая разница 5 песо, в день 5</b></span></button>
+  <button class="art" data-art="0"><span class="lbl">План</span><span class="val f">res(X : paso) = res(dif : paso)</span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">paso = 8 + 5 = <b>13</b></span></button>
+<button class="art cont" data-art="2"><span class="val f">dif = 100 − 30 = <b>70</b> = 13 · 5 + 5 → res(dif : paso) = <b>5</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">res(0 : 13) = 0 ≠ 5 = res(dif : paso) → <b>не сравняются никогда</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">разности по дням: 70, 57, 44, 31, 18, <b>5</b>, дальше Бруно впереди: 8, 21, … → <b>наименьшая 5 песо, в день 5</b></span></button>
 </aside>
 <main>
   <p class="partlab">Блок 5 — Инвариант</p>
@@ -225,11 +223,24 @@
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> У Бруно в копилке 30 песо, у Лолы — 100. Каждый день Бруно кладёт в свою копилку 8 песо, а Лола вынимает из своей 5. а) Сравняются ли когда-нибудь их копилки? б) Какой наименьшей может стать разница между копилками и в какой день?</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Следить сразу за двумя копилками незачем: вопрос — и про равенство, и про разницу — целиком про <b>одну</b> величину, «у Лолы минус у Бруно». Она стартует с 100 − 30 = 70 и каждый день падает ровно на 8 + 5 = 13 (Бруно догоняет своими восемью, Лола сдаёт назад своими пятью). Одно число вместо двух — и вся задача становится одной цепочкой.</p></div>
-<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = что происходит с цепочкой 70, 70 − 13, 70 − 26, … : попадает ли она в ноль и где к нему ближе всего подходит.</p></div>
-<p class="st"><b>Ход.</b></p>
-<p class="st">Веду по дням одну величину — «у Лолы минус у Бруно»; она стартует с 70 и каждый день падает на 13:</p>
+<p class="step st"><b>Шаг 1 — план.</b> Обе части про одну величину — «у Лолы минус у Бруно». Назову её dif (<em>diferencia</em>): в начале dif = 100 − 30 = 70. За день Бруно кладёт 8, Лола вынимает 5, значит dif падает на</p>
+<div class="frm st">paso = 8 + 5 = 13</div>
+<p class="st">Прыжок известен — значит инвариант res(dif : 13).</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">а) копилки сравняются, только если res(0 : 13) = res(dif : 13)</div>
+<p class="st">б) наименьшая разница между копилками — самое маленькое без учёта знака число цепочки dif, dif − paso, dif − 2 · paso, … (когда dif уйдёт в минус, это значит, что копилки поменялись местами, а разница между ними — то же число без минуса)</p>
+<p class="st">Осталось найти: res(dif : 13) и саму цепочку.</p></div>
+<p class="step st"><b>Шаг 2 — считаю res(dif : 13).</b></p>
+<div class="frm st">70 = 13 · 5 + 5</div>
+<div class="frm st">res(dif : 13) = 5</div>
+<p class="st">Дни этот остаток не меняют, поэтому он такой в любой день.</p>
+<p class="st">→ <b>res(dif : 13) = 5 всегда</b></p>
+<p class="step st"><b>Шаг 3 — вопрос а): бывает ли разность 0.</b></p>
+<div class="frm st">res(0 : 13) = 0 ≠ 5 = res(dif : 13)</div>
+<p class="st">→ <b>нет, копилки не сравняются никогда</b></p>
+<p class="step st"><b>Шаг 4 — вопрос б): где разность меньше всего.</b> Инвариант запретил ноль, но не сказал, куда цепочка подходит ближе всего, — это видно только из самой цепочки:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>День</th><th>У Бруно</th><th>У Лолы</th><th>Разница</th></tr>
+<tr><th>День</th><th>У Бруно</th><th>У Лолы</th><th>Разность</th></tr>
 <tr><td>0 (начало)</td><td>30</td><td>100</td><td>70</td></tr>
 <tr><td>1</td><td>38</td><td>95</td><td>57</td></tr>
 <tr><td>2</td><td>46</td><td>90</td><td>44</td></tr>
@@ -239,21 +250,18 @@
 <tr><td>6</td><td>78</td><td>70</td><td>8 — Бруно уже обогнал</td></tr>
 <tr><td>7</td><td>86</td><td>65</td><td>21</td></tr>
 </table></div></div>
-<p class="st">а) Ноль цепочка перепрыгивает: между днями 5 и 6 разница уходит с 5 сразу на 8, потому что 70 на 13 не делится:</p>
-<div class="frm st">70 = 13 · 5 + 5</div>
-<p class="st">то есть res(70 : 13) = 5. Запись <code>res(a : b)</code> читается «остаток от деления a на b» и <b>называет</b> уже добытый остаток — считать его по-прежнему нужно полной строкой деления (ритуал Ч2). → <b>не сравняются никогда</b>.</p>
-<p class="st">б) Разница знака не имеет, поэтому после дня 5 она снова растёт. Самое маленькое значение по всей цепочке — <b>5 песо в день 5</b>.</p>
-<p class="st"><b>Ответ:</b> а) никогда; б) наименьшая разница <b>5 песо, в день 5</b>.</p>
+<p class="st">Разность знака не имеет, поэтому после дня 5 она снова растёт — дальше смотреть незачем.</p>
+<p class="st">→ <b>наименьшая разность 5 песо, в день 5</b></p>
+<p class="st"><b>Ответ.</b> а) не сравняются никогда; б) наименьшая разность 5 песо, в день 5.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">dif — разрыв «у Лолы минус у Бруно» (<em>diferencia</em>); paso — на сколько он падает за день.</p>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">dif = 100 − 30</div>
-<div class="frm st">paso = 8 + 5</div>
-<p class="st">Копилки сравняются, только если</p>
-<div class="frm st">res(dif : paso) = 0</div></div></div>
-<div id="a6" data-art="6"><ul class="st"><li><b>dif = 70</b>, <b>paso = 13</b></li><li>70 = 13 · 5 + 5 → res(70 : 13) = 5 ≠ 0 → <b>не сравняются никогда</b></li><li>разрывы по дням: 70, 57, 44, 31, 18, <b>5</b>, потом Бруно впереди: 8, 21, …</li><li><b>наименьшая разница 5 песо, в день 5</b></li></ul></div>
+<p class="st">dif — разность «у Лолы минус у Бруно»; paso — на сколько она падает за день.</p>
+<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st"><b>res(dif : paso) не меняется</b></p>
+<p class="st">Разность X бывает, только если</p>
+<div class="frm st">res(X : paso) = res(dif : paso)</div></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>paso = 8 + 5 = <b>13</b></li><li>dif = 100 − 30 = <b>70</b> = 13 · 5 + 5 → res(dif : paso) = <b>5</b></li><li>res(0 : 13) = 0 ≠ 5 = res(dif : paso) → <b>не сравняются никогда</b></li><li>разности по дням: 70, 57, 44, 31, 18, <b>5</b>, дальше Бруно впереди: 8, 21, … → <b>наименьшая 5 песо, в день 5</b></li></ul></div>
 <p class="st">Проверка: в день 5 у Бруно 30 + 8 · 5 = 70, у Лолы 100 − 5 · 5 = 75, разница 5 ✓</p>
 <hr>
 <div class="pager"><a href="08-4-5-lenty-nakleek.html">← 4.5 ⭐⭐ Ленты наклеек</a><a href="10-5-5-rakushki-tomi.html">5.5 ⭐⭐ Ракушки Томи →</a></div>
