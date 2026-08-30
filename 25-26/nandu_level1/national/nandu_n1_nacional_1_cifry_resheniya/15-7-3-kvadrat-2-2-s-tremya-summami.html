@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>7.3 ⭐ УС + УС = СОК</title>
+<title>7.3 ⭐ Квадрат 2 × 2 с тремя суммами</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -211,51 +211,68 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 15 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.<br><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">два двузначных дают меньше 198 → <b>С = 1</b></span></button>
-<button class="art cont" data-art="2"><span class="val f">единицы: С + С = 2 &lt; 10 → <b>К = 2</b>, переноса нет</span></button>
-<button class="art cont" data-art="3"><span class="val f">десятки: 2У выплёскивается в сотни → <b>2У = 10 + О</b>, откуда У ≥ 5 и О = 2У − 10</span></button>
-<button class="art cont" data-art="4"><span class="val f">У = 5 → О = 0 ✓; У = 6 → О = 2 занято ✗; У = 7 → О = 4 ✓; У = 8 → О = 6 ✓; У = 9 → О = 8 ✓</span></button>
-<button class="art cont" data-art="5"><span class="val f">4 решения: 51 + 51 = 102, 71 + 71 = 142, 81 + 81 = 162, 91 + 91 = 182</span></button>
-<button class="art" data-art="6"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores de У posibles y los demás no cumplen que las cifras sean distintas, por eso no hay más que estos.<br><em>Проверил все возможные значения У, остальные не подходят под «разные буквы — разные цифры», — поэтому других нет.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elegido a, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de a.<br><em>Как только выбрано a, все остальные клетки определены, — поэтому перебираю только возможные a.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = все a, при которых четыре цифры разные и лежат от 1 до 9.</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">сумма нижней строки: 20 − 11 = 9</span></button>
+<button class="art cont" data-art="3"><span class="val f">правая верхняя = 11 − a; левая нижняя = 8 − a; правая нижняя = 9 − (8 − a) = <b>a + 1</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">границы: 11 − a ≤ 9 → a ≥ 2; 8 − a ≥ 1 → a ≤ 7</span></button>
+<button class="art cont" data-art="5"><span class="val f">a = 2 → 2, 9, 6, 3 ✓; a = 3 → 3, 8, 5, 4 ✓; a = 4 → 4 повторилась ✗; a = 5 → 6 повторилась ✗; a = 6 → 6, 5, 2, 7 ✓; a = 7 → 7, 4, 1, 8 ✓</span></button>
+<button class="art cont" data-art="6"><span class="val f">4 способа: (2 9 / 6 3), (3 8 / 5 4), (6 5 / 2 7), (7 4 / 1 8)</span></button>
+<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores de a posibles y los demás no cumplen que las cifras sean distintas, por eso no hay más que estos.<br><em>Проверил все возможные значения a, остальные не подходят под «цифры разные», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
-  <h1>7.3 ⭐ УС + УС = СОК</h1>
+  <h1>7.3 ⭐ Квадрат 2 × 2 с тремя суммами</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> УС + УС = СОК. Найди все решения.</p>
-<p class="step st"><b>Шаг 1 — план: с краёв, чтобы свободной осталась одна буква.</b> Букв четыре, и перебирать их все сразу незачем: крайние колонки (Ч4) вычислят С и К вообще без перебора, а О окажется привязана к У. Тогда перебирать придётся только У.</p>
-<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все значения У, у которых получившаяся О оказывается новой цифрой — не совпадает ни с С, ни с К; каждое такое У даёт своё О и своё решение.</p></div>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Буква С стоит здесь в двух местах сразу: в единицах слагаемого УС и в сотнях ответа СОК. Сотни ответа — не отдельная неизвестная: два двузначных вместе меньше 200, значит там может быть только 1, а с ней сразу получается и С = 1. И тогда правая колонка становится известна целиком — С + С = 2, — хотя мы её вовсе не перебирали. Ищи в криптарифме именно такие буквы-повторы: они переносят найденное с одного конца примера на другой.</p></div>
-<p class="step st"><b>Шаг 2 — считаем С (левый край).</b> Два двузначных дают трёхзначное → <b>С = 1</b></p>
-<p class="step st"><b>Шаг 3 — считаем К (единицы).</b> Правая колонка теперь известна целиком: С + С = 2 &lt; 10 → <b>К = 2</b>, переноса нет.</p>
-<p class="step st"><b>Шаг 4 — связываю О с У (десятки).</b> Осталась колонка десятков: У + У должно выплеснуться в сотни (та самая единица слева) → 2У = 10 + О, откуда <b>У ≥ 5 и О = 2У − 10</b>.</p>
-<p class="step st"><b>Шаг 5 — перебираю У.</b> Иду по порядку от 5 до 9, вычёркивая уже занятые цифры (1 у буквы С, 2 у буквы К):</p>
+<p class="st"><b>Условие.</b> В квадрат 2 × 2 ставят четыре <b>разные</b> цифры от 1 до 9 — по одной в клетку. Сумма двух верхних клеток равна 11, сумма двух левых клеток равна 8, сумма всех четырёх клеток равна 20. Сколькими способами это можно сделать? Дай все возможности.</p>
+<p class="step st"><b>Шаг 1 — план: свести четыре клетки к одной.</b> Четыре неизвестные клетки перебирать нельзя — это тысячи наборов. Но сумм тоже три, а не одна, и каждая из них связывает клетку с соседкой. Значит, назову одну клетку и попробую выразить через неё остальные три; если получится — перебирать останется одну цифру.</p>
+<p class="st">Левую верхнюю клетку назову a.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все значения a, при которых все четыре клетки оказываются цифрами от 1 до 9 и все четыре различны.</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>В квадрате 2 × 2 любые две клетки лежат в общей строке или в общем столбце — поэтому три данные суммы накрывают квадрат целиком, и ни одна клетка не остаётся сама по себе. Стоит выбрать левую верхнюю: правая верхняя обязана добрать строку до 11, левая нижняя — столбец до 8, а правая нижняя добирает до общей суммы 20. Свободного выбора в квадрате ровно один — первая клетка.</p></div>
+<p class="step st"><b>Шаг 2 — считаю сумму нижней строки.</b> Чтобы добраться до правой нижней клетки, нужна сумма всей нижней строки: это общая сумма без верхней строки.</p>
+<div class="frm st">20 − 11 = 9</div>
+<p class="st">→ <b>нижняя строка даёт 9</b></p>
+<p class="step st"><b>Шаг 3 — выражаю три клетки через a.</b> Теперь у каждой оставшейся клетки есть своя сумма-хозяйка, и каждая пишется вычитанием:</p>
+<div class="frm st">правая верхняя = 11 − a</div>
+<div class="frm st">левая нижняя = 8 − a</div>
+<div class="frm st">правая нижняя = 9 − (8 − a) = a + 1</div>
+<p class="st">→ <b>весь квадрат выражен через одну клетку</b></p>
+<p class="step st"><b>Шаг 4 — зажимаю a с двух сторон.</b> Перебирать a от 1 до 9 незачем: две клетки сами ставят границы. Правая верхняя не больше 9:</p>
+<div class="frm st">11 − a ≤ 9</div>
+<p class="st">значит a ≥ 2. Левая нижняя не меньше 1:</p>
+<div class="frm st">8 − a ≥ 1</div>
+<p class="st">значит a ≤ 7. → <b>2 ≤ a ≤ 7</b>, шесть значений на проверку</p>
+<p class="step st"><b>Шаг 5 — перебираю a.</b> Иду по порядку и каждый раз смотрю только одно: все ли четыре цифры разные.</p>
 <div class="st"><div class="tw"><table>
-<tr><th>У</th><th>О = 2У − 10</th><th>Годится?</th></tr>
-<tr><td>5</td><td>0</td><td>✓</td></tr>
-<tr><td>6</td><td>2</td><td>✗ двойка занята буквой К</td></tr>
-<tr><td>7</td><td>4</td><td>✓</td></tr>
-<tr><td>8</td><td>6</td><td>✓</td></tr>
-<tr><td>9</td><td>8</td><td>✓</td></tr>
+<tr><th>a</th><th>11 − a</th><th>8 − a</th><th>a + 1</th><th>Годится?</th></tr>
+<tr><td>2</td><td>9</td><td>6</td><td>3</td><td>✓</td></tr>
+<tr><td>3</td><td>8</td><td>5</td><td>4</td><td>✓</td></tr>
+<tr><td>4</td><td>7</td><td>4</td><td>5</td><td>✗ левая нижняя 4 совпала с a</td></tr>
+<tr><td>5</td><td>6</td><td>3</td><td>6</td><td>✗ правая верхняя и правая нижняя обе 6</td></tr>
+<tr><td>6</td><td>5</td><td>2</td><td>7</td><td>✓</td></tr>
+<tr><td>7</td><td>4</td><td>1</td><td>8</td><td>✓</td></tr>
 </table></div></div>
-<p class="step st"><b>Шаг 6 — сборка.</b> Выжили четыре значения У → <b>4 решения</b>: 51 + 51 = 102, 71 + 71 = 142, 81 + 81 = 162, 91 + 91 = 182.</p>
+<p class="step st"><b>Шаг 6 — сборка и полнота (Ч5).</b> Выжили четыре значения a, и других быть не может: за пределами 2…7 квадрат ломается уже на границах, а внутри проверены все шесть. → <b>4 способа</b>:</p>
+<ul class="st"><li>сверху 2 и 9, снизу 6 и 3</li><li>сверху 3 и 8, снизу 5 и 4</li><li>сверху 6 и 5, снизу 2 и 7</li><li>сверху 7 и 4, снизу 1 и 8</li></ul>
+<p class="st">Контроль первого: верх 2 + 9 = 11 ✓, левый столбец 2 + 6 = 8 ✓, всего 2 + 9 + 6 + 3 = 20 ✓</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.</b></p></div>
-<p class="st"><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Elegido a, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de a.</b></p></div>
+<p class="st"><em>Как только выбрано a, все остальные клетки определены, — поэтому перебираю только возможные a.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">У, С, О, К — цифры криптарифма.</p>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<p class="st"><b>С и К считаются с краёв, О привязано к У; перебирается только У.</b></p></div>
-<div id="a4" data-art="4"><ul class="st"><li>два двузначных дают меньше 198 → <b>С = 1</b></li><li>единицы: С + С = 2 &lt; 10 → <b>К = 2</b>, переноса нет</li><li>десятки: 2У выплёскивается в сотни → <b>2У = 10 + О</b>, откуда У ≥ 5 и О = 2У − 10</li><li>У = 5 → О = 0 ✓; У = 6 → О = 2 занято ✗; У = 7 → О = 4 ✓; У = 8 → О = 6 ✓; У = 9 → О = 8 ✓</li></ul></div>
-<div id="a5" data-art="5"><div class="frm st">4 решения: 51 + 51 = 102, 71 + 71 = 142, 81 + 81 = 162, 91 + 91 = 182</div></div>
+<p class="st">a — левая верхняя клетка.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">весь квадрат = a, 11 − a, 8 − a, a + 1</div>
+<p class="st">Ответ = все a, при которых четыре цифры разные и лежат от 1 до 9.</p></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>сумма нижней строки: 20 − 11 = 9</li><li>правая верхняя = 11 − a; левая нижняя = 8 − a; правая нижняя = 9 − (8 − a) = <b>a + 1</b></li><li>границы: 11 − a ≤ 9 → a ≥ 2; 8 − a ≥ 1 → a ≤ 7</li><li>a = 2 → 2, 9, 6, 3 ✓; a = 3 → 3, 8, 5, 4 ✓; a = 4 → 4 повторилась ✗; a = 5 → 6 повторилась ✗; a = 6 → 6, 5, 2, 7 ✓; a = 7 → 7, 4, 1, 8 ✓</li></ul></div>
+<div id="a6" data-art="6"><p class="st"><b>4 способа: (2 9 / 6 3), (3 8 / 5 4), (6 5 / 2 7), (7 4 / 1 8)</b></p></div>
+<p class="st">Проверка: 2 + 9 = 11 ✓; 2 + 6 = 8 ✓; 2 + 9 + 6 + 3 = 20 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a6" data-art="6"><p class="st"><b>Probé todos los valores de У posibles y los demás no cumplen que las cifras sean distintas, por eso no hay más que estos.</b></p></div>
-<p class="st"><em>Проверил все возможные значения У, остальные не подходят под «разные буквы — разные цифры», — поэтому других нет.</em></p>
+<div id="a7" data-art="7"><p class="st"><b>Probé todos los valores de a posibles y los demás no cumplen que las cifras sean distintas, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения a, остальные не подходят под «цифры разные», — поэтому других нет.</em></p>
 <hr>
-<div class="pager"><a href="14-blok-7-stolbik-i-perenosy-kriptarifmy.html">← Блок 7 — Столбик и переносы, криптарифмы</a><a href="16-7-4-udar-udar-draka.html">7.4 ⭐ УДАР + УДАР = ДРАКА →</a></div>
+<div class="pager"><a href="14-blok-7-stolbik-i-perenosy-stertye-cifry.html">← Блок 7 — Столбик и переносы, стёртые цифры</a><a href="16-7-4-chetyre-stertye-cifry.html">7.4 ⭐ Четыре стёртые цифры →</a></div>
 </main>
 </div>
 <script>

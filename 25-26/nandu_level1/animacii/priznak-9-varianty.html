@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Признак делимости на 9 — три картинки на выбор</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;-webkit-font-smoothing:antialiased}
+  header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:11px 22px;border-bottom:1px solid var(--line)}
+  header .ttl{font-size:15px;color:var(--muted)}
+  header .ttl b{color:var(--ink)}
+  #vtabs{display:flex;gap:8px;margin-left:auto;font-family:var(--sans);font-size:13px}
+  #vtabs button{font:inherit;color:var(--dim);background:transparent;border:1px solid var(--line);
+    border-radius:999px;padding:6px 15px;cursor:pointer}
+  #vtabs button.cur{color:var(--gold);border-color:var(--gold)}
+  main{flex:1;overflow-y:auto;padding:22px}
+  .col{max-width:1060px;margin:0 auto}
+  h2{font-size:clamp(21px,2.6vw,28px);margin:0 0 6px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:15px;line-height:1.55;color:var(--muted);margin:0 0 4px;max-width:64em}
+  .sub b{color:#cfdae6}
+  .ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 0;font-family:var(--sans);font-size:14px}
+  .ctl button{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line);
+    border-radius:9px;padding:7px 14px;cursor:pointer}
+  .ctl button:hover{border-color:#3d4c5e}
+  .ctl button.go{border-color:#3d5a82;color:var(--blue)}
+  .ctl button.cur{border-color:var(--gold);color:var(--gold)}
+  .ctl .lab{color:var(--dim);font-size:13px;margin:0 2px 0 12px}
+  .pane{display:none} .pane.on{display:block}
+  .zone{background:var(--bg2);border-radius:12px;padding:18px 20px;margin-top:16px}
+  .flex{display:flex;gap:34px;flex-wrap:wrap;align-items:flex-start}
+  .big{font:clamp(30px,4vw,44px)/1 var(--mono);color:var(--ink);letter-spacing:.02em}
+  .sum{font:clamp(17px,2vw,21px)/1.4 var(--mono);color:var(--gold);margin-top:10px}
+  .note{font-family:var(--sans);font-size:15px;line-height:1.5;color:var(--muted);margin-top:14px;max-width:34em;min-height:3em}
+  .note b{color:var(--gold)}
+  .hit{color:var(--green)!important}
+  .miss{color:var(--red)!important}
+  svg{display:block}
+  svg .mk{fill:#1a2230;stroke:#2c394c}
+  svg .ml{fill:var(--dim);font:12px var(--sans);text-anchor:middle;dominant-baseline:middle}
+  svg .rim{fill:none;stroke:var(--line)}
+  svg .gaparc{fill:none;stroke:var(--red);stroke-width:4;opacity:.85}
+  .legend{font-family:var(--sans);font-size:13.5px;color:var(--muted);line-height:1.9;margin-top:8px}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline}
+  .verdict{font-family:var(--sans);font-size:16px;margin-top:12px;min-height:1.6em}
+  /* одометр */
+  .odo{display:flex;gap:5px}
+  .dg{width:44px;height:60px;border:1px solid #2c394c;border-radius:7px;background:#1a2230;
+    display:flex;align-items:center;justify-content:center;font:28px var(--mono);color:var(--ink);
+    transition:background .25s,color .25s,border-color .25s}
+  .dg.roll{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .dg.up{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .pile{display:flex;flex-wrap:wrap;gap:5px;max-width:430px;align-content:flex-start;min-height:46px}
+  .nine{width:30px;height:38px;border:1px solid #3d5a82;border-radius:6px;background:#16263a;
+    display:flex;align-items:center;justify-content:center;font:15px var(--mono);color:var(--blue)}
+  .nine.new{animation:drop .45s cubic-bezier(.3,1.4,.5,1) both}
+  @keyframes drop{from{opacity:0;transform:translateY(-38px) scale(.7)}to{opacity:1;transform:none}}
+  .eq{font:clamp(16px,2vw,20px)/1.7 var(--mono);color:#cfdae6;margin-top:16px}
+  .eq b{color:var(--gold)} .eq i{color:var(--blue);font-style:normal}
+  /* плитки цифр */
+  .tiles{display:flex;gap:8px}
+  .tile{width:52px;height:66px;border:1px solid #6b5320;border-radius:9px;background:#3a2f18;
+    display:flex;align-items:center;justify-content:center;font:30px var(--mono);color:var(--gold)}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15px;margin-top:6px}
+  th,td{border:1px solid var(--line);padding:8px 14px;text-align:left;color:#cfdae6}
+  th{color:var(--dim);font-weight:500;font-size:13px;background:#101620}
+  td.m{font:15px var(--mono)}
+  .ok{color:var(--green)} .bad{color:var(--red)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ttl"><b>Признак делимости на 9</b> · три картинки на выбор — ни в одной остаток не вычисляется</div>
+  <div id="vtabs"></div>
+</header>
+
+<main><div class="col">
+
+<!-- ================= А · ТЕНЬ ================= -->
+<div class="pane" id="pA">
+  <h2>А · Тень, которая не отстаёт</h2>
+  <p class="sub">Считаем подряд: 1, 2, 3, … Синий маркер — <b>само число</b>, золотой — <b>сумма его цифр</b>. Оба идут по кругу из девяти меток. Смотреть надо не на числа, а на одно: <b>расходятся маркеры или нет</b>.</p>
+  <div class="zone">
+    <div class="flex">
+      <div>
+        <div id="Acl"></div>
+        <div class="legend">
+          <span class="sw" style="background:var(--blue)"></span>число<br>
+          <span class="sw" style="background:var(--gold)"></span>сумма цифр
+        </div>
+      </div>
+      <div style="flex:1;min-width:280px">
+        <div class="big" id="Anum">0</div>
+        <div class="sum" id="Asum">сумма цифр: 0</div>
+        <div class="note" id="Anote"></div>
+        <div class="verdict" id="Averd"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ctl">
+    <button id="Astep">+1</button>
+    <button class="go" id="Arun">гнать</button>
+    <button id="Ato">домчать до 254</button>
+    <button id="Ares">сброс</button>
+    <span class="lab">круг из</span><span id="Asel" style="display:flex;gap:6px"></span>
+  </div>
+</div>
+
+<!-- ================= Б · ЦЕНА ПЕРЕНОСА ================= -->
+<div class="pane" id="pB">
+  <h2>Б · Сколько стоит перенос</h2>
+  <p class="sub">Тот же счёт, но смотрим на <b>разрыв</b> между числом и суммой его цифр. Пока цифра просто растёт, оба растут вместе и разрыв не меняется. Он растёт только в момент переноса — и всегда одним и тем же куском. Смотреть надо на кучу справа: <b>бывает ли там неполный кусок</b>.</p>
+  <div class="zone">
+    <div class="flex">
+      <div>
+        <div class="odo" id="Bodo"></div>
+        <div class="sum" id="Bsum" style="margin-top:14px"></div>
+        <div class="note" id="Bnote"></div>
+      </div>
+      <div style="flex:1;min-width:300px">
+        <div class="legend" style="margin:0 0 8px">разрыв «число − сумма цифр», кусками:</div>
+        <div class="pile" id="Bpile"></div>
+        <div class="eq" id="Beq"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ctl">
+    <button id="Bstep">+1</button>
+    <button class="go" id="Brun">гнать</button>
+    <button id="Bto">домчать до 254</button>
+    <button id="Bres">сброс</button>
+  </div>
+</div>
+
+<!-- ================= В · ПЕРЕТАСОВКА ================= -->
+<div class="pane" id="pV">
+  <h2>В · Перетасуй цифры и смотри, что уцелело</h2>
+  <p class="sub">Переставляй цифры как хочешь. Число меняется целиком, остаток по 7 скачет как попало. Смотреть надо на одну строчку: <b>остаток по 9</b>.</p>
+  <div class="zone">
+    <div class="flex">
+      <div>
+        <div class="tiles" id="Vtiles"></div>
+        <div class="big" id="Vnum" style="margin-top:16px"></div>
+      </div>
+      <div style="flex:1;min-width:320px">
+        <div id="Vtab"></div>
+        <div class="note" id="Vnote"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ctl">
+    <button id="Vmix">перемешать</button>
+    <button id="Vswap">поменять две соседние</button>
+    <button id="Vres">вернуть 254</button>
+    <span class="lab">число</span><span id="Vsel" style="display:flex;gap:6px"></span>
+  </div>
+</div>
+
+</div></main>
+
+<script>
+const $=i=>document.getElementById(i);
+const mk=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const DS=n=>String(n).split('').reduce((a,c)=>a+(+c),0);
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let timer=null;
+const stopAll=()=>{if(timer){clearTimeout(timer);timer=null;}};
+
+/* ===================== А · ТЕНЬ ===================== */
+const A={n:0,d:9,angN:0,angS:0,misses:0,run:false};
+(function buildA(){
+  const NS='http://www.w3.org/2000/svg',SZ=300,C=SZ/2,R=C-34;
+  const svg=document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox','0 0 '+SZ+' '+SZ);svg.setAttribute('width',SZ);svg.setAttribute('height',SZ);
+  const rim=document.createElementNS(NS,'circle');
+  rim.setAttribute('class','rim');rim.setAttribute('cx',C);rim.setAttribute('cy',C);rim.setAttribute('r',R);
+  svg.appendChild(rim);
+  const marks=document.createElementNS(NS,'g');svg.appendChild(marks);
+  const arc=document.createElementNS(NS,'path');arc.setAttribute('class','gaparc');arc.style.opacity=0;
+  svg.appendChild(arc);
+  const gN=document.createElementNS(NS,'g'),gS=document.createElementNS(NS,'g');
+  const cN=document.createElementNS(NS,'circle');
+  cN.setAttribute('cx',C);cN.setAttribute('cy',C-R);cN.setAttribute('r',13);
+  cN.setAttribute('fill','none');cN.setAttribute('stroke','#5ba8f5');cN.setAttribute('stroke-width',3);
+  const cS=document.createElementNS(NS,'circle');
+  cS.setAttribute('cx',C);cS.setAttribute('cy',C-R);cS.setAttribute('r',6);
+  cS.setAttribute('fill','#f0a83c');
+  gN.appendChild(cN);gS.appendChild(cS);svg.appendChild(gN);svg.appendChild(gS);
+  [gN,gS].forEach(g=>{g.style.transformBox='view-box';g.style.transformOrigin=C+'px '+C+'px';});
+  $('Acl').appendChild(svg);
+  A.svg=svg;A.marks=marks;A.gN=gN;A.gS=gS;A.arc=arc;A.C=C;A.R=R;A.NS=NS;
+})();
+function Adraw(){
+  const {NS,C,R}=A;A.marks.innerHTML='';
+  for(let i=0;i<A.d;i++){
+    const a=(-90+i*360/A.d)*Math.PI/180;
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('class','mk');c.setAttribute('r',4);
+    c.setAttribute('cx',C+R*Math.cos(a));c.setAttribute('cy',C+R*Math.sin(a));A.marks.appendChild(c);
+    const t=document.createElementNS(NS,'text');t.setAttribute('class','ml');t.textContent=i;
+    t.setAttribute('x',C+(R+18)*Math.cos(a));t.setAttribute('y',C+(R+18)*Math.sin(a));A.marks.appendChild(t);
+  }
+}
+function Agap(){return (((A.n-DS(A.n))%A.d)+A.d)%A.d;}
+function Aarc(){
+  const g=Agap();
+  if(!g){A.arc.style.opacity=0;return;}
+  const {C,R}=A, a0=(-90+((A.n%A.d)+A.d)%A.d*360/A.d)*Math.PI/180,
+        a1=(-90+((DS(A.n)%A.d)+A.d)%A.d*360/A.d)*Math.PI/180;
+  const big=Math.abs(a1-a0)>Math.PI?1:0, sweep=a1>a0?1:0;
+  A.arc.setAttribute('d','M '+(C+R*Math.cos(a0))+' '+(C+R*Math.sin(a0))+
+    ' A '+R+' '+R+' 0 '+big+' '+sweep+' '+(C+R*Math.cos(a1))+' '+(C+R*Math.sin(a1)));
+  A.arc.style.opacity=1;
+}
+function Arender(dur,ev){
+  A.gN.style.transition=dur?'transform '+dur+'ms cubic-bezier(.35,0,.25,1)':'none';
+  A.gS.style.transition=dur?'transform '+dur+'ms cubic-bezier(.35,0,.25,1)':'none';
+  A.gN.style.transform='rotate('+A.angN+'deg)';
+  A.gS.style.transform='rotate('+A.angS+'deg)';
+  $('Anum').textContent=A.n;
+  $('Asum').textContent='сумма цифр: '+String(A.n).split('').join(' + ')+(String(A.n).length>1?' = '+DS(A.n):'');
+  setTimeout(Aarc,dur||0);
+  const g=Agap();
+  $('Averd').innerHTML=g? '<span class="miss">маркеры разошлись на '+g+' — тень отвалилась</span>'
+                        : '<span class="hit">маркеры совпадают · разошлись за весь счёт: '+A.misses+' раз</span>';
+  if(ev)$('Anote').innerHTML=ev;
+}
+function Astep(slow){
+  const o=A.n, dS=DS(o+1)-DS(o); A.n++;
+  A.angN+=360/A.d; A.angS+=dS*360/A.d;
+  let ev=null,dur=slow?230:150;
+  if(dS<0){
+    dur=slow?1100:260;
+    ev='<b>Перенос.</b> Число шагнуло вперёд на 1, а сумма цифр прыгнула назад на '+(-dS)+
+       '. Вперёд 1 и назад '+(-dS)+' — это '+(1-dS)+' меток врозь. На круге из '+A.d+
+       (( (1-dS)%A.d===0 )?' это целые круги, поэтому тень приземлилась ровно на число.'
+                          :' это <span class="miss">не целые круги — тень промахнулась</span>.');
+  }
+  Arender(RM?0:dur,ev);
+  if(Agap())A.misses++;
+  return dur;
+}
+function Areset(keep){
+  stopAll();A.run=false;$('Arun').textContent='гнать';
+  A.n=0;A.angN=0;A.angS=0;A.misses=0;
+  if(!keep)Adraw();
+  $('Anote').innerHTML='Пока цифры просто растут, оба маркера шагают вперёд на одну метку. Интересное начнётся на переносе — на числе 10.';
+  Arender(0);
+}
+function Aloop(limit,slow){
+  if(A.n>=limit){A.run=false;$('Arun').textContent='гнать';timer=null;return;}
+  const d=Astep(slow&&A.n<12);
+  timer=setTimeout(()=>Aloop(limit,slow),Math.max(70,d+40));
+}
+$('Astep').onclick=()=>{stopAll();A.run=false;$('Arun').textContent='гнать';Astep(true);};
+$('Arun').onclick=()=>{
+  if(A.run){stopAll();A.run=false;$('Arun').textContent='гнать';return;}
+  A.run=true;$('Arun').textContent='стоп';Aloop(400,true);
+};
+$('Ato').onclick=()=>{stopAll();A.run=false;$('Arun').textContent='гнать';
+  while(A.n<254){const o=A.n,dS=DS(o+1)-DS(o);A.n++;A.angN+=360/A.d;A.angS+=dS*360/A.d;if(Agap())A.misses++;}
+  Arender(700,'Домчали до 254 без остановок. Смотри на маркеры: они '+(Agap()?'разъехались':'так и не разъехались')+'.');
+};
+$('Ares').onclick=()=>Areset();
+[9,3,7,4].forEach(d=>{
+  const b=mk('button',d===9?'cur':null,String(d));
+  b.onclick=()=>{A.d=d;[...$('Asel').children].forEach(x=>x.classList.toggle('cur',x.textContent==String(d)));Areset();};
+  $('Asel').appendChild(b);
+});
+
+/* ===================== Б · ЦЕНА ПЕРЕНОСА ===================== */
+const B={n:0,carr:0,run:false};
+function Brender(ev,newTiles){
+  const s=String(B.n).padStart(3,' ');
+  $('Bodo').innerHTML='';
+  s.split('').forEach(ch=>$('Bodo').appendChild(mk('div','dg',ch.trim()||'&nbsp;')));
+  $('Bsum').textContent='сумма цифр: '+DS(B.n);
+  const need=B.carr, have=$('Bpile').children.length;
+  for(let i=have;i<need;i++){const t=mk('div','nine'+(newTiles?' new':''),'9');$('Bpile').appendChild(t);}
+  $('Beq').innerHTML='<i>'+B.n+'</i>  =  <b>'+DS(B.n)+'</b>  +  9 · '+B.carr;
+  if(ev)$('Bnote').innerHTML=ev;
+}
+function Bstep(){
+  const o=B.n; let k=0,x=o;
+  while(x%10===9){k++;x=Math.floor(x/10);}      /* сколько девяток перекатится */
+  B.n++; B.carr+=k;
+  const dg=$('Bodo').children;
+  Brender(k? '<b>Перенос.</b> Число выросло на 1, сумма цифр упала на '+(DS(o)-DS(B.n))+
+             '. Значит разрыв между ними вырос ровно на '+(9*k)+' — '+(k>1?k+' куска':'один кусок')+' по 9. Меньше куска не бывает.'
+           : 'Цифра просто выросла: и число, и сумма цифр прибавили по 1. Разрыв не изменился.',k>0);
+  return k?700:170;
+}
+function Breset(){
+  stopAll();B.run=false;$('Brun').textContent='гнать';
+  B.n=0;B.carr=0;$('Bpile').innerHTML='';
+  Brender('Куча пустая: у однозначного числа число и сумма цифр — одно и то же.');
+}
+function Bloop(limit){
+  if(B.n>=limit){B.run=false;$('Brun').textContent='гнать';timer=null;return;}
+  const d=Bstep(); timer=setTimeout(()=>Bloop(limit),Math.max(60,d*(B.n<30?1:.25)));
+}
+$('Bstep').onclick=()=>{stopAll();B.run=false;$('Brun').textContent='гнать';Bstep();};
+$('Brun').onclick=()=>{
+  if(B.run){stopAll();B.run=false;$('Brun').textContent='гнать';return;}
+  B.run=true;$('Brun').textContent='стоп';Bloop(254);
+};
+$('Bto').onclick=()=>{stopAll();B.run=false;$('Brun').textContent='гнать';
+  while(B.n<254){let x=B.n;while(x%10===9){B.carr++;x=Math.floor(x/10);}B.n++;}
+  Brender('Куча из '+B.carr+' одинаковых кусков по 9 — и ни одного обломка. Поэтому число и сумма его цифр при делении на 9 дают один и тот же остаток.',true);
+};
+$('Bres').onclick=Breset;
+
+/* ===================== В · ПЕРЕТАСОВКА ===================== */
+const V={base:'254',cur:'254'};
+function Vnum(){return parseInt(V.cur,10);}
+function Vrender(moved){
+  $('Vtiles').innerHTML='';
+  V.cur.split('').forEach(c=>$('Vtiles').appendChild(mk('div','tile',c)));
+  $('Vnum').textContent=V.cur;
+  const n=Vnum(), b=parseInt(V.base,10), diff=n-b;
+  const row=(t,v0,v1,ok)=>'<tr><th>'+t+'</th><td class="m">'+v0+'</td><td class="m '+(ok?'ok':'bad')+'">'+v1+'</td></tr>';
+  $('Vtab').innerHTML='<table><tr><th></th><th>было '+V.base+'</th><th>стало '+V.cur+'</th></tr>'+
+    row('сумма цифр',DS(b),DS(n),DS(b)===DS(n))+
+    row('остаток по 9',b%9,n%9,b%9===n%9)+
+    row('остаток по 7',b%7,n%7,b%7===n%7)+'</table>';
+  $('Vnote').innerHTML= moved===false ? 'Переставь цифры и посмотри, какая строчка не дрогнет.' :
+    (diff===0 ? 'Это то же самое число.' :
+     'Числа '+b+' и '+n+' отличаются на <b>'+Math.abs(diff)+' = 9 · '+Math.abs(diff/9)+'</b>. Как ни переставляй цифры, разница всегда делится на 9 нацело — потому что перенос цифры на разряд влево прибавляет ей ровно 9 таких же, как она. Раз все такие числа отличаются на кратное 9, остаток по 9 у них общий, и держится он на том единственном, что перестановка не тронула, — на <b>сумме цифр</b>.');
+}
+function Vshuffle(){
+  let a=V.cur.split('');
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  if(a[0]==='0'){const k=a.findIndex(c=>c!=='0');if(k>0)[a[0],a[k]]=[a[k],a[0]];}
+  V.cur=a.join('');Vrender(true);
+}
+$('Vmix').onclick=Vshuffle;
+$('Vswap').onclick=()=>{
+  let a=V.cur.split('');
+  const i=Math.max(1,Math.floor(Math.random()*(a.length-1)));
+  [a[i-1],a[i]]=[a[i],a[i-1]];
+  if(a[0]==='0'){const k=a.findIndex(c=>c!=='0');if(k>0)[a[0],a[k]]=[a[k],a[0]];}
+  V.cur=a.join('');Vrender(true);
+};
+$('Vres').onclick=()=>{V.cur=V.base;Vrender(false);};
+['254','7245','5274','1236'].forEach(x=>{
+  const b=mk('button',x==='254'?'cur':null,x);
+  b.onclick=()=>{V.base=x;V.cur=x;
+    [...$('Vsel').children].forEach(y=>y.classList.toggle('cur',y.textContent===x));
+    Vrender(false);};
+  $('Vsel').appendChild(b);
+});
+
+/* ===================== вкладки ===================== */
+const PANES=[['А · Тень','pA'],['Б · Цена переноса','pB'],['В · Перетасовка','pV']];
+PANES.forEach(([t,id],i)=>{
+  const b=mk('button',null,t);
+  b.onclick=()=>show(i);
+  $('vtabs').appendChild(b);
+});
+function show(i){
+  stopAll();A.run=B.run=false;$('Arun').textContent='гнать';$('Brun').textContent='гнать';
+  PANES.forEach(([t,id],k)=>{$(id).classList.toggle('on',k===i);
+    $('vtabs').children[k].classList.toggle('cur',k===i);});
+}
+Adraw();Areset(true);Breset();Vrender(false);show(0);
+</script>
+</body>
+</html>

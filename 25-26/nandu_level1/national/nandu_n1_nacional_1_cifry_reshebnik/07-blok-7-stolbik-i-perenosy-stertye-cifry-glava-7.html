@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Блок 7 — Столбик и переносы, криптарифмы (глава 7)</title>
+<title>Блок 7 — Столбик и переносы, стёртые цифры (глава 7)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -215,17 +215,32 @@
 </aside>
 <main>
   
-  <h1>Блок 7 — Столбик и переносы, криптарифмы (глава 7)</h1>
+  <h1>Блок 7 — Столбик и переносы, стёртые цифры (глава 7)</h1>
   <p class="sub">Числа и цифры — Решебник</p>
-<p class="st">Правила криптарифма во всех задачах блока: одинаковые буквы — одинаковые цифры, разные буквы — разные цифры, первая буква числа — не ноль.</p>
-<figure class="st"><div class="fgrid" style="gap:22px 30px"><div class="fcol"><span class="flab">одинаковые буквы — одинаковые цифры</span><div style="display:flex;gap:10px;align-items:center"><span class="num"><span class="d">У</span><span class="d">С</span><span class="d">У</span></span><span class="eq">→</span><span class="num"><span class="d sp">3</span><span class="d">8</span><span class="d sp">3</span></span></div></div><div class="fcol"><span class="flab">разные буквы — разные цифры</span><div style="display:flex;gap:10px;align-items:center"><span class="num"><span class="d">У</span><span class="d">С</span></span><span class="eq">→</span><span class="num"><span class="d gr">3</span><span class="d gr">8</span></span><span class="flab" style="color:var(--red)">но не 3 3</span></div></div><div class="fcol"><span class="flab">первая буква числа — не ноль</span><div style="display:flex;gap:10px;align-items:center"><span class="num"><span class="d zr">0</span><span class="d">8</span><span class="d">3</span></span><span class="flab" style="color:var(--red)">такого числа нет</span></div></div></div><figcaption>Буква — не «любая цифра», а один и тот же выбор во всех своих местах: колонка, где буква повторяется, сама себя ограничивает.</figcaption></figure>
+<p class="st">Звёздочкой ∗ в задачах блока закрыта одна стёртая цифра. Букв тут нет, поэтому правило «разные буквы — разные цифры» не работает: повторы запрещены только там, где это прямо сказано в условии. А запрет ведущего нуля в силе всюду — первая цифра числа не ноль.</p>
+<figure class="st"><div class="fgrid" style="gap:22px 30px"><div class="fcol"><span class="flab">∗ — одна стёртая цифра</span><div style="display:flex;gap:10px;align-items:center"><span class="num"><span class="d sp">∗</span></span><span class="eq">→</span><span class="flab">любая из 0…9, пока колонка не скажет какая</span></div></div><div class="fcol"><span class="flab">букв нет — повторы законны</span><div style="display:flex;gap:10px;align-items:center"><span class="num"><span class="d gr">4</span><span class="d gr">4</span></span><span class="flab">две одинаковые цифры — можно</span></div></div><div class="fcol"><span class="flab">первая цифра числа — не ноль</span><div style="display:flex;gap:10px;align-items:center"><span class="num"><span class="d zr">0</span><span class="d">8</span><span class="d">3</span></span><span class="flab" style="color:var(--red)">такого числа нет</span></div></div></div><figcaption>Звёздочка — не буква: она ничего не обещает про другие звёздочки, и запрет остаётся один — ведущий ноль.</figcaption></figure>
 <p class="st"><b>Боевые задачи этой главы:</b> 2017 №6 (JUNIO + JULIO), 2023 №6.</p>
-<p class="st"><b>7.1</b> АА + Б = 105. Какие цифры скрыты за буквами?</p>
-<p class="st"><b>7.2</b> АБ + Б = БА. Найди все числа АБ. Реши двумя дорогами: столбиком и разрядной записью — ответы обязаны совпасть.</p>
-<p class="st"><b>7.3</b> ⭐ УС + УС = СОК. Найди все решения. <em>(Обе открывашки — с краёв!)</em></p>
-<p class="st"><b>7.4</b> ⭐ УДАР + УДАР = ДРАКА. Найди все решения и объясни, почему других быть не может. С каких колонок ты начал и почему Д и У определяются сразу?</p>
+<p class="st"><b>7.1</b> Клякса закрыла по одной цифре в каждом слагаемом:</p>
+<pre class="ascii st">   5 ∗
+ + ∗ 6
+ ------
+   8 4</pre>
+<p class="st">Какие цифры стоят под кляксами?</p>
+<p class="st"><b>7.2</b> Второе слагаемое стёрлось целиком:</p>
+<pre class="ascii st">     4 7 6
+ +   ∗ ∗ ∗
+ ---------
+   1 0 3 2</pre>
+<p class="st">Восстанови его. И скажи отдельно: из каких колонок при этом сложении ушёл перенос влево?</p>
+<p class="st"><b>7.3</b> ⭐ В квадрат 2 × 2 ставят четыре <b>разные</b> цифры от 1 до 9 — по одной в клетку. Сумма двух верхних клеток равна 11, сумма двух левых клеток равна 8, сумма всех четырёх клеток равна 20. Сколькими способами это можно сделать? Дай все возможности.</p>
+<p class="st"><b>7.4</b> ⭐ Стёрлись четыре цифры сразу:</p>
+<pre class="ascii st">   ∗ 7 ∗ 4
+ + 2 ∗ 8 ∗
+ ---------
+   6 3 2 9</pre>
+<p class="st">Восстанови их все и объясни, почему других вариантов быть не может. С какой колонки ты начал и почему именно с неё?</p>
 <hr>
-<p class="xlink"><a href="../nandu_n1_nacional_1_cifry_uchebnik/11-glava-7-stolbik-i-perenosy-kriptarifmy.html">← Теория к этому блоку: <b>Глава 7. Столбик и переносы — криптарифмы</b></a></p><p class="xlink"><a href="../nandu_n1_nacional_1_cifry_resheniya/15-7-3-us-us-sok.html">→ Разборы по шагам: <b>7.3 ⭐ УС + УС = СОК</b></a></p><div class="pager"><a href="06-blok-6-razryadnaya-zapis-glava-6.html">← Блок 6 — Разрядная запись (глава 6)</a><a href="08-blok-8-pozicii-v-dlinnyh-spiskah-glava-8.html">Блок 8 — Позиции в длинных списках (глава 8) →</a></div>
+<p class="xlink"><a href="../nandu_n1_nacional_1_cifry_uchebnik/11-glava-7-stolbik-i-perenosy-stertye-cifry.html">← Теория к этому блоку: <b>Глава 7. Столбик и переносы — стёртые цифры</b></a></p><p class="xlink"><a href="../nandu_n1_nacional_1_cifry_resheniya/15-7-3-kvadrat-2-2-s-tremya-summami.html">→ Разборы по шагам: <b>7.3 ⭐ Квадрат 2 × 2 с тремя суммами</b></a></p><div class="pager"><a href="06-blok-6-razryadnaya-zapis-glava-6.html">← Блок 6 — Разрядная запись (глава 6)</a><a href="08-blok-8-pozicii-v-dlinnyh-spiskah-glava-8.html">Блок 8 — Позиции в длинных списках (глава 8) →</a></div>
 </main>
 </div>
 <script>

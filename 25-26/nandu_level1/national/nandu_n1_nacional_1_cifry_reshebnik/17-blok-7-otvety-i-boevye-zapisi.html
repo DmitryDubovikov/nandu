@@ -212,19 +212,16 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 17 из 19</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.<br><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">АА = 11 · А</span></button>
-<button class="art cont" data-art="2"><span class="val f">11 · 8 = 88, и даже с Б = 9 выходит 97 &lt; 105 → <b>А = 9</b></span></button>
-<button class="art cont" data-art="3"><span class="val f"><b>Б = 105 − 99 = 6</b></span></button>
-<button class="art cont" data-art="4"><span class="val f">99 + 6 = 105</span></button>
-<button class="art" data-art="5"><span class="lbl">💬 Фраза</span><span class="val ph">Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.<br><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></span></button>
-<button class="art" data-art="6"><span class="lbl">План</span><span class="val f">(10А + Б) + Б = 10Б + А</span></button>
-<button class="art" data-art="7"><span class="lbl">На туре</span><span class="val f">разрядной записью: 10А + 2Б = 10Б + А → <b>9 · А = 8 · Б</b></span></button>
-<button class="art cont" data-art="8"><span class="val f">перебираю А: 9 · А делится на 8 только при А = 8 (72 = 8 · 9) → <b>А = 8, Б = 9</b></span></button>
-<button class="art cont" data-art="9"><span class="val f">столбиком, десятки: А + перенос = Б; единицы: Б + Б кончается на А</span></button>
-<button class="art cont" data-art="10"><span class="val f">без переноса: А = Б и А = 2 · Б → Б = 0, но БА тогда не двузначное ✗</span></button>
-<button class="art cont" data-art="11"><span class="val f">с переносом: Б = А + 1 и А = 2 · Б − 10 → А = 2 · (А + 1) − 10 → <b>А = 8, Б = 9</b> ✓ — обе дороги сошлись</span></button>
-<button class="art cont" data-art="12"><span class="val f">Одно число: 89</span></button>
-<button class="art" data-art="13"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">единицы: ∗ + 6 кончается на 4 → ∗ + 6 = 14 → <b>∗ = 8</b>, перенос 1</span></button>
+<button class="art cont" data-art="2"><span class="val f">десятки: 5 + ∗ + 1 = 8 → <b>∗ = 2</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">58 + 26 = 84</span></button>
+<button class="art" data-art="4"><span class="lbl">💬 Фраза</span><span class="val ph">Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.<br><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">стёртое число = 1032 − 476</span></button>
+<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f">единицы: 6 + ∗ кончается на 2 → <b>∗ = 6</b>, перенос 1</span></button>
+<button class="art cont" data-art="7"><span class="val f">десятки: 7 + ∗ + 1 кончается на 3 → <b>∗ = 5</b>, перенос 1</span></button>
+<button class="art cont" data-art="8"><span class="val f">сотни: 4 + ∗ + 1 = 10 → <b>∗ = 5</b>, перенос 1 — он и есть старшая цифра 1</span></button>
+<button class="art cont" data-art="9"><span class="val f">вторая дорога: 1032 − 476 = <b>556</b> ✓</span></button>
+<button class="art cont" data-art="10"><span class="val f">Стёртое слагаемое 556; перенос ушёл из всех трёх колонок</span></button>
 </aside>
 <main>
   
@@ -232,10 +229,10 @@
   <p class="sub">Числа и цифры — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>7.1</td><td><b>А = 9, Б = 6</b> (99 + 6 = 105)</td><td>АА — это 11 · А; уже 11 · 8 = 88 даже с Б = 9 даёт максимум 97 &lt; 105 → А = 9; Б = 105 − 99 = 6</td></tr>
-<tr><td>7.2</td><td><b>одно число: 89</b> (89 + 9 = 98)</td><td>разрядной записью: (10А + Б) + Б = 10Б + А → 9 · А = 8 · Б. Перебираю А от 1 до 9 и смотрю, делится ли 9 · А на 8: подходит только 9 · 8 = 72 = 8 · 9 → А = 8, Б = 9. Столбиком: в десятках А + перенос = Б, в единицах Б + Б кончается на А. Без переноса вышло бы А = Б и одновременно А = 2 · Б, то есть Б = 0 — но тогда БА не двузначное ✗. Значит перенос есть: Б = А + 1 и А = 2 · Б − 10 → А = 2 · (А + 1) − 10 → А = 8, Б = 9 ✓</td></tr>
-<tr><td>7.3</td><td><b>4 решения:</b> 51 + 51 = 102, 71 + 71 = 142, 81 + 81 = 162, 91 + 91 = 182</td><td>с краёв (Ч4): два двузначных дают трёхзначное → С = 1, а раз С стоит и в единицах слагаемого, правая колонка сразу известна целиком: С + С = 2 → К = 2, переноса нет. Десятки: 2У должно выплеснуться в сотни → 2У = 10 + О, откуда У ≥ 5 и О = 2У − 10. Перебираю У, вычёркивая занятые 1 и 2: 5 → О = 0 ✓; 6 → О = 2 занято; 7 → 4 ✓; 8 → 6 ✓; 9 → 8 ✓</td></tr>
-<tr><td>7.4</td><td><b>8126 + 8126 = 16252</b> — решение единственное</td><td>перебора нет вовсе, всё выдают колонки. Сумма пятизначная, слагаемые четырёхзначные → Д = 1. Сотни: Д + Д + перенос = 2 + перенос &lt; 10 → А = 2 или 3, в тысячи перенос не уходит. Тысячи: 2У = 10 + Р → Р чётна, У ≥ 5. Единицы: Р + Р кончается на А, удвоенное чётно → А = 2; тогда 2Р кончается на 2 → Р = 1 или 6, единица занята Д → Р = 6, перенос 1. Десятки: 2 + 2 + 1 = 5 → К = 5. И У = 8 из 2У = 16. Единственность (Ч5): ни на одном шаге выбора не было</td></tr>
+<tr><td>7.1</td><td><b>58 + 26 = 84</b> (под кляксами 8 и 2)</td><td>начинаю с колонки, где закрыта только одна цифра, — с единиц: ∗ + 6 кончается на 4, значит ∗ + 6 = 14 (при ∗ + 6 = 4 звёздочка была бы отрицательной) → ∗ = 8, перенос 1 уходит влево. Десятки: 5 + ∗ + 1 = 8 → ∗ = 2, левее ничего нет ✓</td></tr>
+<tr><td>7.2</td><td><b>556</b>; перенос ушёл из всех трёх колонок — из единиц, из десятков и из сотен</td><td>единицы: 6 + ∗ кончается на 2 → ∗ = 6, перенос 1. Десятки: 7 + ∗ + 1 кончается на 3 → ∗ + 8 = 13 → ∗ = 5, перенос 1. Сотни: 4 + ∗ + 1 кончается на 0, и слева стоит ещё единица → 4 + ∗ + 1 = 10 → ∗ = 5, перенос 1 — он и стал старшей цифрой суммы. Вторая дорога, вычитанием: 1032 − 476 = 556 ✓ — обе дороги сошлись</td></tr>
+<tr><td>7.3</td><td><b>4 способа:</b> (2, 9 / 6, 3), (3, 8 / 5, 4), (6, 5 / 2, 7), (7, 4 / 1, 8) — записано «верхняя строка / нижняя строка»</td><td>назову левую верхнюю клетку a; тогда верхняя строка даёт b = 11 − a, левый столбец даёт c = 8 − a, а нижняя правая берётся из общей суммы: d = 20 − 11 − c = 9 − c = a + 1. Вся доска выражена через a, перебирать надо только его. Цифры от 1 до 9: b ≤ 9 → a ≥ 2; c ≥ 1 → a ≤ 7. Иду по a от 2 до 7: 2 → 2, 9, 6, 3 ✓; 3 → 3, 8, 5, 4 ✓; 4 → c = 4 совпало с a ✗; 5 → b = 6 и d = 6 совпали ✗; 6 → 6, 5, 2, 7 ✓; 7 → 7, 4, 1, 8 ✓</td></tr>
+<tr><td>7.4</td><td><b>3744 + 2585 = 6329</b> — вариант единственный</td><td>перебора нет вовсе, всё выдают колонки, и начинать надо с единиц: только там закрыта одна-единственная цифра, а вторая открыта. Единицы: 4 + ∗ кончается на 9 → ∗ = 5, перенос 0. Десятки: ∗ + 8 кончается на 2 → ∗ + 8 = 12 → ∗ = 4, перенос 1. Сотни: 7 + ∗ + 1 кончается на 3 → ∗ + 8 = 13 → ∗ = 5, перенос 1. Тысячи: ∗ + 2 + 1 = 6 → ∗ = 3. Единственность (Ч5): каждая колонка называла свою цифру ровно одним способом — выбора не было ни разу</td></tr>
 </table></div></div>
 <h3 class="st">✍ 7.1 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
@@ -243,28 +240,24 @@
 <div id="a0" data-art="0"><p class="st"><b>Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.</b></p></div>
 <p class="st"><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a1" data-art="1"><p class="st">АА = 11 · А.</p></div>
-<div id="a3" data-art="3"><ul class="st"><li>11 · 8 = 88, и даже с Б = 9 выходит 97 &lt; 105 → <b>А = 9</b></li><li><b>Б = 105 − 99 = 6</b></li></ul></div>
-<div id="a4" data-art="4"><div class="frm st">99 + 6 = 105</div></div>
-<p class="st">Проверка: А ≠ Б ✓</p>
+<div id="a2" data-art="2"><ul class="st"><li>единицы: ∗ + 6 кончается на 4 → ∗ + 6 = 14 → <b>∗ = 8</b>, перенос 1</li><li>десятки: 5 + ∗ + 1 = 8 → <b>∗ = 2</b></li></ul></div>
+<div id="a3" data-art="3"><div class="frm st">58 + 26 = 84</div></div>
+<p class="st">Проверка: 58 + 26 = 84 ✓</p>
 <h3 class="st">✍ 7.2 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a5" data-art="5"><p class="st"><b>Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.</b></p></div>
+<div id="a4" data-art="4"><p class="st"><b>Al sumar dos cifras el acarreo solo puede ser 0 o 1, así que quedan pocos casos para probar.</b></p></div>
 <p class="st"><em>При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">А, Б — цифры числа АБ.</p>
-<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">(10А + Б) + Б = 10Б + А</div></div></div>
-<div id="a11" data-art="11"><ul class="st"><li>разрядной записью: 10А + 2Б = 10Б + А → <b>9 · А = 8 · Б</b></li><li>перебираю А: 9 · А делится на 8 только при А = 8 (72 = 8 · 9) → <b>А = 8, Б = 9</b></li><li>столбиком, десятки: А + перенос = Б; единицы: Б + Б кончается на А</li><li>без переноса: А = Б и А = 2 · Б → Б = 0, но БА тогда не двузначное ✗</li><li>с переносом: Б = А + 1 и А = 2 · Б − 10 → А = 2 · (А + 1) − 10 → <b>А = 8, Б = 9</b> ✓ — обе дороги сошлись</li></ul></div>
-<div id="a12" data-art="12"><div class="frm st">Одно число: 89</div></div>
-<p class="st">Проверка: 89 + 9 = 98 ✓</p>
-<h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a13" data-art="13"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
-<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">стёртое число = 1032 − 476</div>
+<p class="st">Колонки нужны отдельно — они и показывают, где был перенос.</p></div></div>
+<div id="a9" data-art="9"><ul class="st"><li>единицы: 6 + ∗ кончается на 2 → <b>∗ = 6</b>, перенос 1</li><li>десятки: 7 + ∗ + 1 кончается на 3 → <b>∗ = 5</b>, перенос 1</li><li>сотни: 4 + ∗ + 1 = 10 → <b>∗ = 5</b>, перенос 1 — он и есть старшая цифра 1</li><li>вторая дорога: 1032 − 476 = <b>556</b> ✓</li></ul></div>
+<div id="a10" data-art="10"><p class="st"><b>Стёртое слагаемое 556; перенос ушёл из всех трёх колонок</b></p></div>
+<p class="st">Проверка: 476 + 556 = 1032 ✓</p>
 <p class="st"><em>Боевая запись задач со звёздочками блока 7 — в <code>nandu_n1_nacional_1_cifry_resheniya.md</code>, рядом с их разборами.</em></p>
 <hr>
-<p class="xlink"><a href="../nandu_n1_nacional_1_cifry_resheniya/15-7-3-us-us-sok.html">→ Разборы по шагам: <b>7.3 ⭐ УС + УС = СОК</b></a></p><div class="pager"><a href="16-blok-6-otvety-i-boevye-zapisi.html">← Блок 6 — ответы и боевые записи</a><a href="18-blok-8-otvety-i-boevye-zapisi.html">Блок 8 — ответы и боевые записи →</a></div>
+<p class="xlink"><a href="../nandu_n1_nacional_1_cifry_resheniya/15-7-3-kvadrat-2-2-s-tremya-summami.html">→ Разборы по шагам: <b>7.3 ⭐ Квадрат 2 × 2 с тремя суммами</b></a></p><div class="pager"><a href="16-blok-6-otvety-i-boevye-zapisi.html">← Блок 6 — ответы и боевые записи</a><a href="18-blok-8-otvety-i-boevye-zapisi.html">Блок 8 — ответы и боевые записи →</a></div>
 </main>
 </div>
 <script>
