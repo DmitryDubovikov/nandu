@@ -214,7 +214,7 @@
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Новое слово: инвариант — величина, которая не меняется, пока всё вокруг меняется.</span></button>
 <button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">N(всего фруктов) − N(изъяли) + N(досыпали)<br>= N(всего фруктов)</span></button>
 <button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">N(досыпали) = N(изъяли)</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ = N(яблок), g, s. Осталось найти: N(всего фруктов), N(яблок) и N(слив после утра) — прямым счётом; g и s — из двух уравнений.</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ = N(яблок), g, s</span></button>
 </aside>
 <main>
   
@@ -232,11 +232,13 @@
 <div class="frm st">N(яблок) + g + s = N(всего фруктов)</div>
 <p class="st">Второе даёт утренняя досыпка: слив доложили ровно столько, сколько всего изъяли утром — треть яблок и треть груш, — и получилось то количество слив, с которым ваза вошла в вечер.</p>
 <div class="frm st">s + N(яблок)/3 + g/3 = N(слив после утра)</div>
+<p class="st">Три числа в этих строчках — <code>N(всего фруктов)</code>, <code>N(яблок)</code> и <code>N(слив после утра)</code> — ты посчитаешь прямым счётом по условию, а <code>g</code> и <code>s</code> достанешь уже из самих уравнений.</p>
 <div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">N(яблок) + g + s = N(всего фруктов)</div>
 <div class="frm st">s + N(яблок)/3 + g/3 = N(слив после утра)</div>
 <p class="st"><code>N(яблок)</code> — сколько яблок было утром (шт.); <code>g</code> — сколько груш было утром (шт.); <code>s</code> — сколько слив было утром (шт.); <code>N(всего фруктов)</code> — инвариант, сколько всего фруктов в вазе (не меняется); <code>N(слив после утра)</code> — сколько слив стало сразу после утреннего раунда (шт.).</p>
-<p class="st">Ответ = <code>N(яблок)</code>, <code>g</code>, <code>s</code>. Осталось найти: <code>N(всего фруктов)</code>, <code>N(яблок)</code> и <code>N(слив после утра)</code> — прямым счётом; <code>g</code> и <code>s</code> — из двух уравнений.</p></div></div>
+<p class="st">Ответ = <code>N(яблок)</code>, <code>g</code>, <code>s</code></p>
+<p class="st">Осталось найти: <code>N(всего фруктов)</code>, <code>N(яблок)</code>, <code>N(слив после утра)</code>, <code>g</code> и <code>s</code>.</p></div></div>
 <p class="step st"><b>Шаг 2 — считаю <code>N(всего фруктов)</code>.</b> Инвариант можно посчитать с того конца, где известны все количества сразу, а здесь дан целиком конец:</p>
 <div class="frm st">N(всего фруктов) = 40 + 102 + 84 = 226</div>
 <p class="step st"><b>Шаг 3 — считаю <code>N(яблок)</code>.</b> Яблоки только изымали, оба раунда по трети, значит, назад через оба раунда идёт умножение:</p>

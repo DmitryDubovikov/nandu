@@ -213,10 +213,11 @@
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">План</span><span class="val f">dif = 100 − 30</span></button>
 <button class="art" data-art="1"><span class="lbl">План</span><span class="val f">paso = 8 + 5</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><b>dif = 70</b>, <b>paso = 13</b></span></button>
-<button class="art cont" data-art="3"><span class="val f">70 = 13 · 5 + 5 → res(70 : 13) = 5 ≠ 0 → <b>не сравняются никогда</b></span></button>
-<button class="art cont" data-art="4"><span class="val f">разрывы по дням: 70, 57, 44, 31, 18, <b>5</b>, потом Бруно впереди: 8, 21, …</span></button>
-<button class="art cont" data-art="5"><span class="val f"><b>наименьшая разница 5 песо, в день 5</b></span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">res(dif : paso) = 0</span></button>
+<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f"><b>dif = 70</b>, <b>paso = 13</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">70 = 13 · 5 + 5 → res(70 : 13) = 5 ≠ 0 → <b>не сравняются никогда</b></span></button>
+<button class="art cont" data-art="5"><span class="val f">разрывы по дням: 70, 57, 44, 31, 18, <b>5</b>, потом Бруно впереди: 8, 21, …</span></button>
+<button class="art cont" data-art="6"><span class="val f"><b>наименьшая разница 5 песо, в день 5</b></span></button>
 </aside>
 <main>
   <p class="partlab">Блок 5 — Инвариант</p>
@@ -247,11 +248,12 @@
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">dif — разрыв «у Лолы минус у Бруно» (<em>diferencia</em>); paso — на сколько он падает за день.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">dif = 100 − 30</div>
 <div class="frm st">paso = 8 + 5</div>
-<p class="st">Копилки сравняются, только если paso умещается в dif целое число раз.</p></div></div>
-<div id="a5" data-art="5"><ul class="st"><li><b>dif = 70</b>, <b>paso = 13</b></li><li>70 = 13 · 5 + 5 → res(70 : 13) = 5 ≠ 0 → <b>не сравняются никогда</b></li><li>разрывы по дням: 70, 57, 44, 31, 18, <b>5</b>, потом Бруно впереди: 8, 21, …</li><li><b>наименьшая разница 5 песо, в день 5</b></li></ul></div>
+<p class="st">Копилки сравняются, только если</p>
+<div class="frm st">res(dif : paso) = 0</div></div></div>
+<div id="a6" data-art="6"><ul class="st"><li><b>dif = 70</b>, <b>paso = 13</b></li><li>70 = 13 · 5 + 5 → res(70 : 13) = 5 ≠ 0 → <b>не сравняются никогда</b></li><li>разрывы по дням: 70, 57, 44, 31, 18, <b>5</b>, потом Бруно впереди: 8, 21, …</li><li><b>наименьшая разница 5 песо, в день 5</b></li></ul></div>
 <p class="st">Проверка: в день 5 у Бруно 30 + 8 · 5 = 70, у Лолы 100 − 5 · 5 = 75, разница 5 ✓</p>
 <hr>
 <div class="pager"><a href="08-4-5-lenty-nakleek.html">← 4.5 ⭐⭐ Ленты наклеек</a><a href="10-5-5-rakushki-tomi.html">5.5 ⭐⭐ Ракушки Томи →</a></div>
