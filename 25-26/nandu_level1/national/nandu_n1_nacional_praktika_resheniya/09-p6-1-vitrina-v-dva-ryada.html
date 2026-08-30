@@ -215,20 +215,23 @@
 <button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>w</code> — ширина витрины</span></button>
 <button class="art cont" data-art="2"><span class="val f"><code>a</code> — высота верхнего ряда</span></button>
 <button class="art cont" data-art="3"><span class="val f"><code>b</code> — высота нижнего ряда</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">Ответ(а) = 2 · (2 · w/3 + a)</span></button>
-<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f"><code>P(A) = 88</code> → <code>w/3 + a = 44</code></span></button>
-<button class="art cont" data-art="6"><span class="val f"><code>P(B) = 80</code> → <code>w/4 + b = 40</code></span></button>
-<button class="art cont" data-art="7"><span class="val f"><code>P(MNSR) = 170</code> → <code>w + b = 85</code></span></button>
-<button class="art cont" data-art="8"><span class="val f">третье минус второе → <code>3/4 · w = 45</code> → <code>w = 60</code></span></button>
-<button class="art cont" data-art="9"><span class="val f"><code>b = 85 − 60 = 25</code></span></button>
-<button class="art cont" data-art="10"><span class="val f"><code>a = 44 − 20 = 24</code></span></button>
-<button class="art cont" data-art="11"><span class="val f">высота витрины <code>= 25 + 24 = 49</code></span></button>
-<button class="art cont" data-art="12"><span class="val f"><code>2 · (40 + 24) = 128</code></span></button>
-<button class="art cont" data-art="13"><span class="val f"><code>P(MTUQ) = 2 · (30 + 49) = 158</code></span></button>
-<button class="art cont" data-art="14"><span class="val f"><code>P(MNPQ) = 2 · (60 + 49) = 218</code></span></button>
-<button class="art cont" data-art="15"><span class="val f"><code>2 · (20 + 24) = 88</code> ✓</span></button>
-<button class="art cont" data-art="16"><span class="val f"><code>2 · (15 + 25) = 80</code> ✓</span></button>
-<button class="art cont" data-art="17"><span class="val f"><code>2 · (60 + 25) = 170</code> ✓</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">Ответ(а) = P(блока «A, A») = 2 · (2 · w/3 + a)</span></button>
+<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f"><code>P(A) = 88</code> → <code>w/3 + a + w/3 + a = 88</code></span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>P(B) = 80</code> → <code>w/4 + b + w/4 + b = 80</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>P(MNSR) = 170</code> → <code>w + b + w + b = 170</code></span></button>
+<button class="art cont" data-art="8"><span class="val f">делю пополам первое → <code>w/3 + a = 44</code></span></button>
+<button class="art cont" data-art="9"><span class="val f">делю пополам второе → <code>w/4 + b = 40</code></span></button>
+<button class="art cont" data-art="10"><span class="val f">делю пополам третье → <code>w + b = 85</code></span></button>
+<button class="art cont" data-art="11"><span class="val f">третье минус второе → <code>3/4 · w = 45</code> → <code>w = 60</code></span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>b = 85 − 60 = 25</code></span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>a = 44 − 20 = 24</code></span></button>
+<button class="art cont" data-art="14"><span class="val f">высота витрины <code>= 25 + 24 = 49</code></span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>P(блока «A, A») = 2 · (40 + 24) = 128</code></span></button>
+<button class="art cont" data-art="16"><span class="val f"><code>P(MTUQ) = 2 · (30 + 49) = 158</code></span></button>
+<button class="art cont" data-art="17"><span class="val f"><code>P(MNPQ) = 2 · (60 + 49) = 218</code></span></button>
+<button class="art cont" data-art="18"><span class="val f"><code>2 · (20 + 24) = 88</code> ✓</span></button>
+<button class="art cont" data-art="19"><span class="val f"><code>2 · (15 + 25) = 80</code> ✓</span></button>
+<button class="art cont" data-art="20"><span class="val f"><code>2 · (60 + 25) = 170</code> ✓</span></button>
 </aside>
 <main>
   
@@ -246,17 +249,21 @@
 <p class="st">Кирпичики: <code>w</code> = MN = QP = RS (ширина витрины), <code>b</code> = высота нижнего ряда (MR), <code>a</code> = высота верхнего ряда (RQ). Тогда деталь B — это (w/4) × b, деталь A — это (w/3) × a.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Разрезы внутри рядов вертикальные и сквозные — такие линии режут только ширину, а высоту не трогают. Поэтому у детали B высота ровно та же, что у всего нижнего ряда, а ширина — четверть ширины витрины; у детали A — та же высота, что у верхнего ряда, и треть ширины. Значит, в периметре детали B и в периметре всего ряда сидит одна и та же высота — вычти одно из другого, и она уйдёт, останется чистая ширина.</p></div>
 <div class="st"><div class="tw"><table>
-<tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td><code>P(A) = 88</code></td><td>w/3 + a = 44</td></tr>
-<tr><td><code>P(B) = 80</code></td><td>w/4 + b = 40</td></tr>
-<tr><td><code>P(MNSR) = 170</code></td><td>w + b = 85</td></tr>
+<tr><th>Что дано</th><th>Что записываем (обход контура)</th></tr>
+<tr><td><code>P(A) = 88</code>: ширина w/3, высота a</td><td>w/3 + a + w/3 + a = 88</td></tr>
+<tr><td><code>P(B) = 80</code>: ширина w/4, высота b</td><td>w/4 + b + w/4 + b = 80</td></tr>
+<tr><td><code>P(MNSR) = 170</code>: ширина w, высота b</td><td>w + b + w + b = 170</td></tr>
 </table></div></div>
 <div class="plan st"><h3 class="st">✅ Результат перевода</h3>
-<pre class="ascii st">w/3 + a = 44
-w/4 + b = 40
-w + b = 85</pre>
+<pre class="ascii st">w/3 + a + w/3 + a = 88
+w/4 + b + w/4 + b = 80
+w + b + w + b = 170</pre>
 <p class="st"><code>w</code> = ширина витрины; <code>a</code> = высота верхнего ряда; <code>b</code> = высота нижнего ряда.</p></div>
 <p class="st"><b>Этап 2 — решение.</b></p>
+<p class="st">Сначала укорачиваю каждое уравнение. Все три фигуры — прямоугольники, а у прямоугольника обход состоит из двух одинаковых кусков «ширина + высота», поэтому каждое уравнение делю пополам:</p>
+<div class="frm st">w/3 + a = 44</div>
+<div class="frm st">w/4 + b = 40</div>
+<div class="frm st">w + b = 85</div>
 <p class="step st"><b>Шаг 1 — план: свести систему к одной неизвестной.</b> Три вопроса — три периметра, а собираются они из кирпичиков <code>w</code>, <code>a</code>, <code>b</code>. Второе и третье уравнения говорят об одной и той же паре «ширина и высота нижнего ряда», значит, из них можно выбить высоту и остаться с шириной; а как только ширина известна, оба уравнения с деталями отдают высоты рядов поодиночке.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = три периметра, собранные из кирпичиков <code>w</code>, <code>a</code>, <code>b</code>, а все кирпичики — из одной неизвестной <code>w</code>.</p></div>
 <p class="step st"><b>Шаг 2 — считаю <code>w</code>.</b> Нужна ширина витрины, с которой пойдёт цепочка, — для этого вычитаю контуры: третье минус второе, и высота b исчезает:</p>
@@ -266,7 +273,8 @@ w + b = 85</pre>
 <p class="st">Отсюда размеры деталей и высота всей витрины:</p>
 <ul class="st"><li>деталь B = 15 × 25</li><li>деталь A = 20 × 24</li><li>высота витрины = 25 + 24 = 49</li></ul>
 <p class="step st"><b>Шаг 4 — сборка: три периметра.</b> Кирпичики на руках — остаётся обойти карандашом каждую фигуру из вопросов.</p>
-<p class="st">а) Две соседние A — это прямоугольник шириной 2·20 = 40 и высотой 24: <code>2·(40 + 24)</code> = <b>128 см</b>.</p>
+<p class="st">а) Две соседние A — это прямоугольник шириной 2·20 = 40 и высотой 24:</p>
+<p class="st"><code>P(блока «A, A») = 2·(40 + 24)</code> = <b>128 см</b>.</p>
 <p class="st">б) MTUQ: ширина MT = 60 : 2 = 30, высота = 49 → <code>P(MTUQ) = 2·(30 + 49)</code> = <b>158 см</b>.</p>
 <p class="st">в) <code>P(MNPQ) = 2·(60 + 49)</code> = <b>218 см</b>.</p>
 <p class="st"><b>Ответ.</b> а) 128 см б) 158 см в) 218 см</p>
@@ -276,15 +284,15 @@ w + b = 85</pre>
 <div id="a0" data-art="0"><p class="st">Кирпичики:</p></div>
 <div id="a3" data-art="3"><ul class="st"><li><code>w</code> — ширина витрины</li><li><code>a</code> — высота верхнего ряда</li><li><code>b</code> — высота нижнего ряда</li></ul></div>
 <div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">Ответ(а) = 2 · (2 · w/3 + a)</div>
+<div class="frm st">Ответ(а) = P(блока «A, A») = 2 · (2 · w/3 + a)</div>
 <div class="frm st">Ответ(б) = P(MTUQ) = 2 · (w/2 + a + b)</div>
 <div class="frm st">Ответ(в) = P(MNPQ) = 2 · (w + a + b)</div></div></div>
-<div id="a11" data-art="11"><ul class="st"><li><code>P(A) = 88</code> → <code>w/3 + a = 44</code></li><li><code>P(B) = 80</code> → <code>w/4 + b = 40</code></li><li><code>P(MNSR) = 170</code> → <code>w + b = 85</code></li><li>третье минус второе → <code>3/4 · w = 45</code> → <code>w = 60</code></li><li><code>b = 85 − 60 = 25</code></li><li><code>a = 44 − 20 = 24</code></li><li>высота витрины <code>= 25 + 24 = 49</code></li></ul></div>
-<div id="a12" data-art="12"><div class="frm st"><code>2 · (40 + 24) = 128</code></div></div>
-<div id="a13" data-art="13"><div class="frm st"><code>P(MTUQ) = 2 · (30 + 49) = 158</code></div></div>
-<div id="a14" data-art="14"><div class="frm st"><code>P(MNPQ) = 2 · (60 + 49) = 218</code></div></div>
+<div id="a14" data-art="14"><ul class="st"><li><code>P(A) = 88</code> → <code>w/3 + a + w/3 + a = 88</code></li><li><code>P(B) = 80</code> → <code>w/4 + b + w/4 + b = 80</code></li><li><code>P(MNSR) = 170</code> → <code>w + b + w + b = 170</code></li><li>делю пополам первое → <code>w/3 + a = 44</code></li><li>делю пополам второе → <code>w/4 + b = 40</code></li><li>делю пополам третье → <code>w + b = 85</code></li><li>третье минус второе → <code>3/4 · w = 45</code> → <code>w = 60</code></li><li><code>b = 85 − 60 = 25</code></li><li><code>a = 44 − 20 = 24</code></li><li>высота витрины <code>= 25 + 24 = 49</code></li></ul></div>
+<div id="a15" data-art="15"><div class="frm st"><code>P(блока «A, A») = 2 · (40 + 24) = 128</code></div></div>
+<div id="a16" data-art="16"><div class="frm st"><code>P(MTUQ) = 2 · (30 + 49) = 158</code></div></div>
+<div id="a17" data-art="17"><div class="frm st"><code>P(MNPQ) = 2 · (60 + 49) = 218</code></div></div>
 <p class="st">Проверка сложением:</p>
-<div id="a17" data-art="17"><ul class="st"><li><code>2 · (20 + 24) = 88</code> ✓</li><li><code>2 · (15 + 25) = 80</code> ✓</li><li><code>2 · (60 + 25) = 170</code> ✓</li></ul></div>
+<div id="a20" data-art="20"><ul class="st"><li><code>2 · (20 + 24) = 88</code> ✓</li><li><code>2 · (15 + 25) = 80</code> ✓</li><li><code>2 · (60 + 25) = 170</code> ✓</li></ul></div>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Подставляю размеры во все данные:</p>
 <ul class="st"><li><code>P(A) = 2·(20 + 24) = 88</code> ✓</li><li><code>P(B) = 2·(15 + 25) = 80</code> ✓</li><li><code>P(MNSR) = 2·(60 + 25) = 170</code> ✓</li></ul>

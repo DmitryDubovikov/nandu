@@ -214,16 +214,15 @@
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo el reparto de las parejas y después las orientaciones; cualquier opción del primero se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю раскладку пар и потом ориентации; любой вариант первого сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
 <button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>S(…)</code> — сумма</span></button>
 <button class="art cont" data-art="2"><span class="val f"><code>N(раскладок)</code> — раскладки четырёх пар по столбцам</span></button>
-<button class="art cont" data-art="3"><span class="val f"><code>N(ориентаций)</code> — выборы ориентации</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">Ответ(б) = N(раскладок) · N(ориентаций)</span></button>
-<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f"><code>S(1…8) = 36</code> и <code>4 · S(столбца) = 36</code> → <b><code>S(столбца) = 9</code></b></span></button>
-<button class="art cont" data-art="6"><span class="val f">меню пар с суммой 9: {1, 8}, {2, 7}, {3, 6}, {4, 5} — четыре, вместе все восемь цифр</span></button>
-<button class="art cont" data-art="7"><span class="val f"><code>N(раскладок) = 4 · 3 · 2 · 1 = 24</code></span></button>
-<button class="art cont" data-art="8"><span class="val f"><code>N(ориентаций) = 2 · 2 · 2 · 2 = 16</code></span></button>
-<button class="art cont" data-art="9"><span class="val f"><code>Ответ(б) = 24 · 16 = 384</code></span></button>
-<button class="art cont" data-art="10"><span class="val f">верхняя строка по возрастанию → порядок столбцов навязан, <code>N(раскладок) = 1</code></span></button>
-<button class="art cont" data-art="11"><span class="val f"><code>Ответ(в) = 1 · 16 = 16</code></span></button>
-<button class="art" data-art="12"><span class="lbl">💬 Полнота</span><span class="val ph">No hace falta escribir la lista: cada tablero da exactamente un reparto, y repartos distintos dan tableros distintos, por eso el conteo es exacto.<br><em>Список выписывать не нужно: каждая доска даёт ровно одну раскладку, а разные раскладки дают разные доски, — поэтому счёт точен.</em></span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">Ответ(б) = N(раскладок) · N(ориентаций)</span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f"><code>S(1…8) = 36</code> и <code>4 · S(столбца) = 36</code> → <b><code>S(столбца) = 9</code></b></span></button>
+<button class="art cont" data-art="5"><span class="val f">меню пар с суммой 9: {1, 8}, {2, 7}, {3, 6}, {4, 5} — четыре, вместе все восемь цифр</span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>N(раскладок) = 4 · 3 · 2 · 1 = 24</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>N(ориентаций) = 2 · 2 · 2 · 2 = 16</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>Ответ(б) = 24 · 16 = 384</code></span></button>
+<button class="art cont" data-art="9"><span class="val f">верхняя строка по возрастанию → порядок столбцов навязан, <code>N(раскладок) = 1</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>Ответ(в) = 1 · 16 = 16</code></span></button>
+<button class="art" data-art="11"><span class="lbl">💬 Полнота</span><span class="val ph">No hace falta escribir la lista: cada tablero da exactamente un reparto, y repartos distintos dan tableros distintos, por eso el conteo es exacto.<br><em>Список выписывать не нужно: каждая доска даёт ровно одну раскладку, а разные раскладки дают разные доски, — поэтому счёт точен.</em></span></button>
 </aside>
 <main>
   
@@ -273,16 +272,16 @@
 <div id="a0" data-art="0"><p class="st"><b>Elijo el reparto de las parejas y después las orientaciones; cualquier opción del primero se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p></div>
 <p class="st"><em>Выбираю раскладку пар и потом ориентации; любой вариант первого сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a3" data-art="3"><ul class="st"><li><code>S(…)</code> — сумма</li><li><code>N(раскладок)</code> — раскладки четырёх пар по столбцам</li><li><code>N(ориентаций)</code> — выборы ориентации</li></ul></div>
-<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div id="a2" data-art="2"><ul class="st"><li><code>S(…)</code> — сумма</li><li><code>N(раскладок)</code> — раскладки четырёх пар по столбцам</li></ul></div>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">Ответ(б) = N(раскладок) · N(ориентаций)</div></div></div>
-<div id="a8" data-art="8"><ul class="st"><li><code>S(1…8) = 36</code> и <code>4 · S(столбца) = 36</code> → <b><code>S(столбца) = 9</code></b></li><li>меню пар с суммой 9: {1, 8}, {2, 7}, {3, 6}, {4, 5} — четыре, вместе все восемь цифр</li><li><code>N(раскладок) = 4 · 3 · 2 · 1 = 24</code></li><li><code>N(ориентаций) = 2 · 2 · 2 · 2 = 16</code></li></ul></div>
-<div id="a9" data-art="9"><div class="frm st"><code>Ответ(б) = 24 · 16 = 384</code></div></div>
-<div id="a10" data-art="10"><ul class="st"><li>верхняя строка по возрастанию → порядок столбцов навязан, <code>N(раскладок) = 1</code></li></ul></div>
-<div id="a11" data-art="11"><div class="frm st"><code>Ответ(в) = 1 · 16 = 16</code></div></div>
+<div id="a7" data-art="7"><ul class="st"><li><code>S(1…8) = 36</code> и <code>4 · S(столбца) = 36</code> → <b><code>S(столбца) = 9</code></b></li><li>меню пар с суммой 9: {1, 8}, {2, 7}, {3, 6}, {4, 5} — четыре, вместе все восемь цифр</li><li><code>N(раскладок) = 4 · 3 · 2 · 1 = 24</code></li><li><code>N(ориентаций) = 2 · 2 · 2 · 2 = 16</code></li></ul></div>
+<div id="a8" data-art="8"><div class="frm st"><code>Ответ(б) = 24 · 16 = 384</code></div></div>
+<div id="a9" data-art="9"><ul class="st"><li>верхняя строка по возрастанию → порядок столбцов навязан, <code>N(раскладок) = 1</code></li></ul></div>
+<div id="a10" data-art="10"><div class="frm st"><code>Ответ(в) = 1 · 16 = 16</code></div></div>
 <p class="st">Проверка по клеткам: <code>8 · 6 · 4 · 2 = 384</code> ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a12" data-art="12"><p class="st"><b>No hace falta escribir la lista: cada tablero da exactamente un reparto, y repartos distintos dan tableros distintos, por eso el conteo es exacto.</b></p></div>
+<div id="a11" data-art="11"><p class="st"><b>No hace falta escribir la lista: cada tablero da exactamente un reparto, y repartos distintos dan tableros distintos, por eso el conteo es exacto.</b></p></div>
 <p class="st"><em>Список выписывать не нужно: каждая доска даёт ровно одну раскладку, а разные раскладки дают разные доски, — поэтому счёт точен.</em></p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Полный перебор всех 40 320 расстановок цифр 1–8 по восьми клеткам даёт <b>384</b> заполнения с равными суммами столбцов (у всех сумма столбца 9) и <b>16</b> из них с возрастающей верхней строкой — совпало с ручным счётом 24 · 16 и 16 · 1.</p>

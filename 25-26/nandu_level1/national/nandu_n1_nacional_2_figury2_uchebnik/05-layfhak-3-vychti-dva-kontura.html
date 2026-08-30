@@ -211,34 +211,103 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 5 из 13</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = w из разности двух строк: P(фигуры) = 118 минус P(паруса) = 38.</span></button>
+  <button class="art" data-art="0"><span class="lbl">План</span><span class="val">Ответ = w из разности двух уравнений: P(фигуры) = 118 минус P(паруса) = 38.</span></button>
 </aside>
 <main>
   
   <h1>Лайфхак 3. Вычти два контура</h1>
   <p class="sub">Сетка равных деталей — Мини-учебник</p>
 <p class="st">Два контура, которые отличаются одним куском, — подарок: <b>вычти их</b>, и всё общее исчезнет.</p>
-<p class="st">Ход этот тебе знаком по системам: если две строки почти одинаковы, вычитаешь одну из другой — всё, что в них общего, уходит разом, и остаётся только то, чем строки отличались. Здесь ровно то же самое, только строки — это обведённые карандашом контуры.</p>
-<p class="st">В примере лайфхака 2 это уже сработало: 72 − 64 = 8 — это удвоенная разница ширин, n − m = 4, одной строкой.</p>
+<p class="st">Ход этот тебе знаком по системам: если два уравнения почти одинаковы, вычитаешь одно из другого — всё, что в них общего, уходит разом, и остаётся только то, чем уравнения отличались. Здесь ровно то же самое, только уравнения получились из обведённых карандашом контуров.</p>
+<p class="st">В примере лайфхака 2 это уже сработало: 72 − 64 = 8 — это удвоенная разница ширин, n − m = 4, одним вычитанием.</p>
 <p class="st"><b>Второй пример — фигура с парусом.</b> К правой стороне прямоугольника снаружи приклеен треугольник-парус: основание — вся правая сторона, а два бока паруса равны между собой. Периметр фигуры целиком 118, периметр паруса 38. Какова ширина прямоугольника?</p>
-<figure class='st'><svg viewBox='0 0 420 215' width='100%' role='img' aria-label='Прямоугольник с приклеенным справа треугольником-парусом'><path d='M60 40 L260 40 L340 100 L260 160 L60 160 Z' fill='none' stroke='#f0a83c' stroke-width='2.5'/><line x1='260' y1='40' x2='260' y2='160' stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'/><g fill='#f0a83c' font-size='15' font-family='sans-serif' text-anchor='middle'><text x='160' y='31'>W</text><text x='46' y='105'>h</text><text x='303' y='60'>b</text><text x='303' y='150'>b</text></g><text x='160' y='105' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>прямоугольник</text><text x='288' y='104' fill='#93a1b1' font-size='13' font-family='sans-serif' text-anchor='middle'>парус</text><text x='210' y='196' fill='#f2686c' font-size='13' font-family='sans-serif' text-anchor='middle'>красным — правая сторона: у фигуры её нет, у паруса это основание</text></svg><figcaption>Один и тот же отрезок в одной строке есть, а в другой его нет — только поэтому разность двух контуров и оставляет от фигуры одну ширину.</figcaption></figure>
-<p class="st">Сразу отметь: правая сторона прямоугольника в контур <b>фигуры</b> не входит — на неё наклеен парус, и она стала внутренним стыком; обходя фигуру, ты с верхнего правого угла сворачиваешь на бока паруса. А в контур <b>самого паруса</b> она входит: для него это основание. Один и тот же отрезок — в одной строке есть, в другой нет.</p>
+<p class="st">Сразу отметь: правая сторона прямоугольника в контур <b>фигуры</b> не входит — на неё наклеен парус, и она стала внутренним стыком; обходя фигуру, ты с верхнего правого угла сворачиваешь на бока паруса. А в контур <b>самого паруса</b> она входит: для него это основание. Один и тот же отрезок — в одном уравнении есть, в другом нет.</p>
 <p class="step st"><b>Шаг 1 — план: избавиться от того, чего я не знаю.</b> Сначала раздам буквы: <code>w</code> — ширина прямоугольника (её и спрашивают), <code>h</code> — его левая сторона, <code>b</code> — бок паруса (по условию бока равны, поэтому на оба идёт одна буква — равные отрезки не заводят двух разных неизвестных). Спрашивают только w, а в контуре фигуры сидят ещё h и два бока b — неизвестных больше, чем данных. Зато оба данных контура содержат одни и те же бока и одну и ту же h: значит, нужно, чтобы всё общее исчезло разом, — для этого выпишу оба контура и вычту один из другого.</p>
-<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = w из разности двух строк: P(фигуры) = 118 минус P(паруса) = 38.</p></div></div>
-<p class="step st"><b>Шаг 2 — нужна первая строка: обвожу контур фигуры.</b> Верх w, два бока паруса, низ w, левая сторона h:</p>
+<figure class='st'><svg viewBox='0 0 420 215' width='100%' role='img' aria-label='Прямоугольник с приклеенным справа треугольником-парусом'><path d='M60 40 L260 40 L340 100 L260 160 L60 160 Z' fill='none' stroke='#f0a83c' stroke-width='2.5'/><line x1='260' y1='40' x2='260' y2='160' stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'/><g fill='#f0a83c' font-size='15' font-family='sans-serif' text-anchor='middle'><text x='160' y='31'>w</text><text x='46' y='105'>h</text><text x='303' y='60'>b</text><text x='303' y='150'>b</text></g><text x='160' y='105' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>прямоугольник</text><text x='288' y='104' fill='#93a1b1' font-size='13' font-family='sans-serif' text-anchor='middle'>парус</text><text x='210' y='196' fill='#f2686c' font-size='13' font-family='sans-serif' text-anchor='middle'>красным — правая сторона: у фигуры её нет, у паруса это основание</text></svg><figcaption>Красная сторона — единственное, чем контуры различаются: у паруса она есть, у фигуры её нет. Потому вычитание и оставляет ровно две ширины w.</figcaption></figure>
+<div id="a0" data-art="0"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = w из разности двух уравнений: P(фигуры) = 118 минус P(паруса) = 38.</p></div></div>
+<p class="step st"><b>Шаг 2 — нужно первое уравнение: обвожу контур фигуры.</b> Верх w, два бока паруса, низ w, левая сторона h — что вижу по пути, то и пишу:</p>
+<div class="frm st">w + b + b + w + h = 118</div>
+<p class="step st"><b>Шаг 3 — нужно второе уравнение: обвожу контур паруса.</b> Основание h и те же два бока:</p>
+<div class="frm st">h + b + b = 38</div>
+<p class="st">Система записана — дальше только буквы.</p>
+<p class="step st"><b>Шаг 4 — сборка: вычитаю второе уравнение из первого.</b> Сначала привожу подобные в обоих:</p>
 <div class="frm st">2w + 2b + h = 118</div>
-<p class="step st"><b>Шаг 3 — нужна вторая строка: обвожу контур паруса.</b> Основание h и те же два бока:</p>
-<div class="frm st">h + 2b = 38</div>
-<p class="step st"><b>Шаг 4 — сборка: вычитаю вторую строку из первой.</b> Слагаемые 2b и h стоят в обеих строках, поэтому уходят разом:</p>
+<div class="frm st">2b + h = 38</div>
+<p class="st">Слагаемые 2b и h стоят в обоих уравнениях, поэтому уходят разом:</p>
+<figure class='st' id='F2'>
+<style>
+#F2 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px;font-family:var(--sans);font-size:12.5px}
+#F2 .tabs label{border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--dim);cursor:pointer;transition:color .2s,border-color .2s}
+#F2 .tabs label:hover{color:var(--ink)}
+#F2 input{position:absolute;opacity:0;pointer-events:none}
+#F2 .fr>div{display:none}
+#F2 #f2a:checked~.fr .p1,#F2 #f2b:checked~.fr .p2,#F2 #f2c:checked~.fr .p3,#F2 #f2d:checked~.fr .p4{display:block}
+#F2 #f2a:checked~.tabs label[for=f2a],#F2 #f2b:checked~.tabs label[for=f2b],#F2 #f2c:checked~.tabs label[for=f2c],#F2 #f2d:checked~.tabs label[for=f2d]{color:var(--gold);border-color:var(--gold)}
+#F2 .in{animation:f2in .55s ease backwards}
+#F2 .d1{animation-delay:.4s}#F2 .d2{animation-delay:.9s}#F2 .d3{animation-delay:1.4s}#F2 .d4{animation-delay:1.9s}
+#F2 .dr{stroke-dasharray:100;animation:f2dr 1.8s ease backwards}
+#F2 .hint{font-family:var(--sans);font-size:13px;fill:#93a1b1}
+#F2 .eq{font-family:ui-monospace,Menlo,monospace;font-size:17px}
+@keyframes f2in{from{opacity:0}to{opacity:1}}
+@keyframes f2dr{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+</style>
+<input type='radio' name='f2' id='f2a' checked><input type='radio' name='f2' id='f2b'><input type='radio' name='f2' id='f2c'><input type='radio' name='f2' id='f2d'>
+<div class='tabs'><label for='f2a'>1 · контур фигуры</label><label for='f2b'>2 · контур паруса</label><label for='f2c'>3 · что стоит в обоих уравнениях</label><label for='f2d'>4 · разность</label></div>
+<div class='fr'>
+
+<div class='p1'><svg viewBox='0 0 520 240' width='100%' role='img' aria-label='Обвожу контур всей фигуры: верх w, два бока паруса, низ w, левая сторона h'>
+<line x1='260' y1='40' x2='260' y2='160' stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'/>
+<path class='dr' d='M60 40 L260 40 L340 100 L260 160 L60 160 Z' pathLength='100' fill='none' stroke='#f0a83c' stroke-width='3'/>
+<g class='in d2' fill='#f0a83c' font-size='15' font-family='ui-sans-serif,sans-serif' text-anchor='middle'><text x='160' y='31'>w</text><text x='46' y='105'>h</text><text x='305' y='58'>b</text><text x='305' y='152'>b</text><text x='160' y='178'>w</text></g>
+<text class='hint in d1' x='400' y='105' text-anchor='middle' fill='#f2686c'>правая сторона стала стыком</text><text class='hint in d1' x='400' y='127' text-anchor='middle' fill='#f2686c'>в контуре фигуры её нет</text>
+<text class='eq in d3' x='160' y='218' text-anchor='middle' fill='#e8eef6'>2w + 2b + h = 118</text>
+</svg><figcaption>Карандаш идёт по внешней границе всей фигуры: с верхнего правого угла он сворачивает на бока паруса. Правая сторона прямоугольника в обход не попадает — она оказалась внутри, под парусом.</figcaption></div>
+
+<div class='p2'><svg viewBox='0 0 520 240' width='100%' role='img' aria-label='Обвожу контур паруса: основание h и те же два бока'>
+<path d='M60 40 L260 40 L260 160 L60 160 Z' fill='none' stroke='#243040' stroke-width='2'/>
+<path class='dr' d='M260 40 L340 100 L260 160 Z' pathLength='100' fill='none' stroke='#5ba8f5' stroke-width='3'/>
+<g class='in d2' font-size='15' font-family='ui-sans-serif,sans-serif' text-anchor='middle'><text x='305' y='58' fill='#5ba8f5'>b</text><text x='305' y='152' fill='#5ba8f5'>b</text><text x='276' y='105' fill='#5ba8f5'>h</text><text x='46' y='105' fill='#93a1b1'>h</text></g>
+<g class='in d3' stroke='#5fd38d' stroke-width='2' stroke-dasharray='4 4'><line x1='60' y1='40' x2='60' y2='160'/><line x1='260' y1='40' x2='260' y2='160'/></g>
+<text class='hint in d3' x='170' y='200' text-anchor='middle' fill='#5fd38d'>основание паруса равно левой стороне</text>
+<text class='eq in d2' x='400' y='200' text-anchor='middle' fill='#e8eef6'>h + 2b = 38</text>
+</svg><figcaption>У прямоугольника противоположные стороны равны, поэтому основание паруса — это та же h, что и левая сторона. Значит h и оба бока b стоят в обоих уравнениях, и уравнения различаются только двумя ширинами w.</figcaption></div>
+
+<div class='p3'><svg viewBox='0 0 520 240' width='100%' role='img' aria-label='В обеих уравнениех стоят одни и те же 2b и h'>
+<path d='M60 40 L260 40 L340 100 L260 160 L60 160 Z' fill='none' stroke='#243040' stroke-width='2'/>
+<g class='in'><line x1='60' y1='40' x2='260' y2='40' stroke='#f0a83c' stroke-width='4'/><line x1='60' y1='160' x2='260' y2='160' stroke='#f0a83c' stroke-width='4'/></g>
+<g class='in d1' stroke='#5ba8f5' stroke-width='4'><line x1='260' y1='40' x2='340' y2='100'/><line x1='340' y1='100' x2='260' y2='160'/><line x1='60' y1='40' x2='60' y2='160'/></g>
+<text class='eq in d2' x='420' y='60' text-anchor='middle' fill='#e8eef6'>2w + 2b + h = 118</text>
+<text class='eq in d2' x='420' y='92' text-anchor='middle' fill='#e8eef6'>·   ·   h + 2b = 38</text>
+<g class='in d3' stroke='#5ba8f5' stroke-width='2'><line x1='466' y1='54' x2='530' y2='54' opacity='0'/></g>
+<rect class='in d3' x='372' y='44' width='96' height='22' fill='#5ba8f5' fill-opacity='.16' stroke='#5ba8f5' stroke-width='1'/>
+<rect class='in d3' x='372' y='76' width='96' height='22' fill='#5ba8f5' fill-opacity='.16' stroke='#5ba8f5' stroke-width='1'/>
+<text class='hint in d4' x='420' y='128' text-anchor='middle' fill='#5ba8f5'>синее стоит в обоих уравнениях</text>
+<text class='hint in d4' x='420' y='146' text-anchor='middle' fill='#f0a83c'>золотое — только в первой</text>
+<text class='hint in d4' x='170' y='210' text-anchor='middle'>ни h, ни b мы так и не узнаем — они и не нужны</text>
+</svg><figcaption>Бока паруса и левая сторона входят в оба уравнения одним и тем же набором 2b + h. Поэтому находить их не нужно — при вычитании они уходят разом.</figcaption></div>
+
+<div class='p4'><svg viewBox='0 0 520 240' width='100%' role='img' aria-label='Разность уравнений оставляет только верхнюю и нижнюю ширины w'>
+<path d='M60 40 L260 40 L340 100 L260 160 L60 160 Z' fill='none' stroke='#243040' stroke-width='2'/>
+<g class='in d1'><line x1='60' y1='40' x2='260' y2='40' stroke='#5fd38d' stroke-width='5'/><line x1='60' y1='160' x2='260' y2='160' stroke='#5fd38d' stroke-width='5'/>
+<g fill='#5fd38d' font-size='15' font-family='ui-sans-serif,sans-serif' text-anchor='middle'><text x='160' y='31'>w</text><text x='160' y='180'>w</text></g></g>
+<text class='eq in' x='420' y='60' text-anchor='middle' fill='#5d6b7c'>2w + 2b + h = 118</text>
+<text class='eq in' x='420' y='88' text-anchor='middle' fill='#5d6b7c'>·   ·   h + 2b = 38</text>
+<line class='in d1' x1='330' y1='102' x2='510' y2='102' stroke='#243040' stroke-width='1.5'/>
+<text class='eq in d2' x='420' y='128' text-anchor='middle' fill='#5fd38d'>2w = 80</text>
+<text class='eq in d3' x='420' y='160' text-anchor='middle' fill='#5fd38d'>w = 40</text>
+<text class='hint in d4' x='170' y='210' text-anchor='middle'>от всей фигуры остались только две ширины</text>
+</svg><figcaption>После вычитания осталась одна неизвестная — как раз та, про которую спрашивали. Левую сторону и бока так и не нашли: приём на том и стоит, что знать их не нужно.</figcaption></div>
+
+</div></figure>
 <div class="frm st">2w = 118 − 38 = 80</div>
 <div class="frm st">w = 40</div>
 <p class="st">Ни высоту, ни бока паруса мы так и не узнали — и не надо: вопрос был про ширину.</p>
-<p class="st"><b>А если про бока как раз и спросят?</b> Тогда их выдаст та же строка. Пусть у того же паруса известна левая сторона прямоугольника: h = 10. Подставляю её в строку паруса:</p>
+<p class="st"><b>А если про бока как раз и спросят?</b> Тогда их выдаст то же уравнение. Пусть у того же паруса известна левая сторона прямоугольника: h = 10. Подставляю её в уравнение паруса:</p>
 <div class="frm st">10 + 2b = 38</div>
 <div class="frm st">2b = 28</div>
 <div class="frm st">b = 14</div>
 <p class="st">Вот и весь приём: наклонную не меряют — её достают из контура, в котором она стоит, когда все остальные куски этого контура уже известны.</p>
-<p class="st">Наклонных бывает и несколько. Тогда каждая получает свою букву, и правило то же, что с любыми неизвестными: сколько букв — столько нужно контуров, где они встречаются. Пусть косых три — <code>u</code>, <code>v</code>, <code>z</code>, — и даны периметры трёх треугольников, в каждом из которых стоят две из них. Получаются три строки вида</p>
+<p class="st">Наклонных бывает и несколько. Тогда каждая получает свою букву, и правило то же, что с любыми неизвестными: сколько букв — столько нужно контуров, где они встречаются. Пусть косых три — <code>u</code>, <code>v</code>, <code>z</code>, — и даны периметры трёх треугольников, в каждом из которых стоят две из них. Получаются три уравнения вида</p>
 <div class="frm st">u + v = 30</div>
 <div class="frm st">v + z = 34</div>
 <div class="frm st">u + z = 28</div>
@@ -250,11 +319,11 @@
 <div class="frm st">P(фигуры) = 2w + 2b + h</div>
 <div class="frm st">P(паруса) = h + 2b</div>
 <p class="st">Осталось получить w разностью: общие 2b и h уйдут разом.</p></div>
-<ul class="st"><li>P(фигуры) = 118 → 2w + 2b + h = 118</li><li>P(паруса) = 38 → h + 2b = 38</li><li>разность: 2w = 118 − 38 = 80</li></ul>
+<ul class="st"><li>P(фигуры) = 118 → w + b + b + w + h = 118</li><li>P(паруса) = 38 → h + b + b = 38</li><li>упрощаю первое: 2w + 2b + h = 118</li><li>упрощаю второе: 2b + h = 38</li><li>разность: 2w = 118 − 38 = 80</li></ul>
 <div class="frm st">w = 40</div>
 <p class="st">Проверка сложением: 2·40 + 38 = 118 ✓</p>
 <p class="st"><b>Где это в корпусе:</b> 2021 №5 (фигура минус T — ключевой ход), 2017 №5, 2022 №2, 2015 №2.</p>
-<p class="st"><b>Ловушка:</b> вычитать можно только выписанные контуры. Сначала обе строки карандашом по границе (ритуал 1), потом вычитание — иначе «сократишь» то, что на самом деле разное.</p>
+<p class="st"><b>Ловушка:</b> вычитать можно только выписанные контуры. Сначала оба контура карандашом по границе (ритуал 1), потом вычитание — иначе «сократишь» то, что на самом деле разное.</p>
 <hr>
 <div class="pager"><a href="04-layfhak-2-blok-po-imeni-detaley.html">← Лайфхак 2. Блок по имени деталей</a><a href="06-layfhak-4-proporciya-vmesto-lineyki.html">Лайфхак 4. Пропорция вместо линейки →</a></div>
 </main>

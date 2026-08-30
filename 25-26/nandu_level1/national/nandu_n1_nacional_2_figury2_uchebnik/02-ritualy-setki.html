@@ -230,6 +230,63 @@
 <div id="a3" data-art="3"><div class="frm st">ширина блока = ширина A + ширина B</div></div>
 <div id="a4" data-art="4"><div class="frm st">высота блока = высота A + высота C</div></div>
 <p class="st">Только потом периметр.</p>
+<figure class='st' id='F3'>
+<style>
+#F3 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px;font-family:var(--sans);font-size:12.5px}
+#F3 .tabs label{border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--dim);cursor:pointer;transition:color .2s,border-color .2s}
+#F3 .tabs label:hover{color:var(--ink)}
+#F3 input{position:absolute;opacity:0;pointer-events:none}
+#F3 .fr>div{display:none}
+#F3 #f3a:checked~.fr .p1,#F3 #f3b:checked~.fr .p2,#F3 #f3c:checked~.fr .p3{display:block}
+#F3 #f3a:checked~.tabs label[for=f3a],#F3 #f3b:checked~.tabs label[for=f3b],#F3 #f3c:checked~.tabs label[for=f3c]{color:var(--gold);border-color:var(--gold)}
+#F3 .in{animation:f3in .55s ease backwards}
+#F3 .d1{animation-delay:.4s}#F3 .d2{animation-delay:.9s}#F3 .d3{animation-delay:1.4s}#F3 .d4{animation-delay:1.9s}
+#F3 .snake{stroke-dasharray:16 84;animation:f3snake 5s linear infinite}
+#F3 .dr{stroke-dasharray:100;animation:f3dr 1.5s ease backwards}
+#F3 .hint{font-family:var(--sans);font-size:13px;fill:#93a1b1}
+@keyframes f3in{from{opacity:0}to{opacity:1}}
+@keyframes f3snake{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes f3dr{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+</style>
+<input type='radio' name='f3' id='f3a' checked><input type='radio' name='f3' id='f3b'><input type='radio' name='f3' id='f3c'>
+<div class='tabs'><label for='f3a'>Ритуал 1 · карандаш по контуру</label><label for='f3b'>Ритуал 2 · деталь = пара размеров</label><label for='f3c'>Ритуал 3 · сначала состав</label></div>
+<div class='fr'>
+
+<div class='p1'><svg viewBox='0 0 520 210' width='100%' role='img' aria-label='Карандаш бежит по внешней границе фигуры; внутренние стыки в контур не входят'>
+<g stroke='#243040' stroke-width='1.5' stroke-dasharray='5 4'><line x1='150' y1='50' x2='150' y2='160'/><line x1='250' y1='50' x2='250' y2='160'/><line x1='60' y1='105' x2='350' y2='105'/></g>
+<path d='M60 50 L350 50 L350 160 L60 160 Z' pathLength='100' fill='none' stroke='#f0a83c' stroke-width='2' opacity='.28'/>
+<path class='snake' d='M60 50 L350 50 L350 160 L60 160 Z' pathLength='100' fill='none' stroke='#f0a83c' stroke-width='4.5' stroke-linecap='round'/>
+<g class='in d1' stroke='#f2686c' stroke-width='2'><line x1='144' y1='99' x2='156' y2='111'/><line x1='156' y1='99' x2='144' y2='111'/><line x1='244' y1='99' x2='256' y2='111'/><line x1='256' y1='99' x2='244' y2='111'/></g>
+<text class='hint in d2' x='430' y='90' text-anchor='middle' fill='#f2686c'>стыки внутри фигуры</text><text class='hint in d2' x='430' y='112' text-anchor='middle' fill='#f2686c'>карандаш по ним не идёт</text>
+<text class='hint in d3' x='205' y='192' text-anchor='middle'>называй буквы по пути — и ни одного отрезка на глаз</text>
+</svg><figcaption>Периметр — это то, что обвёл карандаш, а не то, что кажется по картинке. Пока обход не дошёл до конца и каждый кусок пути не назван буквами, записывать периметр рано.</figcaption></div>
+
+<div class='p2'><svg viewBox='0 0 520 210' width='100%' role='img' aria-label='Все отрезки фигуры подписаны через ширину x и высоту y одной дольки'>
+<g stroke='#243040' stroke-width='1.5' stroke-dasharray='5 4'><line x1='140' y1='40' x2='140' y2='140'/><line x1='220' y1='40' x2='220' y2='140'/><line x1='60' y1='90' x2='300' y2='90'/></g>
+<rect x='60' y='40' width='240' height='100' fill='none' stroke='#243040' stroke-width='2'/>
+<rect class='in' x='60' y='40' width='80' height='50' fill='#f0a83c' fill-opacity='.14' stroke='#f0a83c' stroke-width='2'/>
+<g class='in d1' stroke='#f0a83c' stroke-width='1.5'><line x1='60' y1='158' x2='140' y2='158'/><line x1='60' y1='153' x2='60' y2='163'/><line x1='140' y1='153' x2='140' y2='163'/><line x1='42' y1='40' x2='42' y2='90'/><line x1='37' y1='40' x2='47' y2='40'/><line x1='37' y1='90' x2='47' y2='90'/></g>
+<g class='in d1' fill='#f0a83c' font-size='14' font-family='ui-sans-serif,sans-serif' text-anchor='middle'><text x='100' y='176'>x</text><text x='26' y='70'>y</text></g>
+<g class='in d3' fill='#5fd38d' font-size='15' font-family='ui-sans-serif,sans-serif' text-anchor='middle'><text x='180' y='30'>3x</text><text x='330' y='95'>2y</text><text x='180' y='176'>3x</text></g>
+<text class='hint in d2' x='415' y='52' text-anchor='middle'>дольки одинаковые</text><text class='hint in d2' x='415' y='74' text-anchor='middle'>все отрезки считаются через x и y</text>
+<text class='hint in d4' x='430' y='140' text-anchor='middle' fill='#5fd38d'>новых букв не заводим</text>
+</svg><figcaption>Две буквы на всю фигуру, а не по букве на отрезок. Каждая новая буква — это ещё одно уравнение, которое придётся откуда-то взять.</figcaption></div>
+
+<div class='p3'><svg viewBox='0 0 520 210' width='100%' role='img' aria-label='Устройство блока: в верхнем ряду A и B, под ними C и D; ширина по ряду, высоты рядов складываются'>
+<g stroke='#243040' stroke-width='1.5' stroke-dasharray='5 4'><line x1='180' y1='50' x2='180' y2='160'/><line x1='70' y1='105' x2='310' y2='105'/></g>
+<rect x='70' y='50' width='240' height='110' fill='none' stroke='#243040' stroke-width='2'/>
+<g class='in' font-size='15' font-family='ui-sans-serif,sans-serif' text-anchor='middle' fill='#93a1b1'><text x='125' y='84'>A</text><text x='245' y='84'>B</text><text x='125' y='138'>C</text><text x='245' y='138'>D</text></g>
+<g class='in d1' stroke='#f0a83c' stroke-width='1.5'><line x1='70' y1='36' x2='310' y2='36'/><line x1='70' y1='31' x2='70' y2='41'/><line x1='310' y1='31' x2='310' y2='41'/><line x1='180' y1='31' x2='180' y2='41'/></g>
+<text class='hint in d1' x='190' y='22' text-anchor='middle' fill='#f0a83c'>ширина A + ширина B</text>
+<g class='in d2' stroke='#5ba8f5' stroke-width='1.5'><line x1='52' y1='50' x2='52' y2='160'/><line x1='47' y1='50' x2='57' y2='50'/><line x1='47' y1='160' x2='57' y2='160'/><line x1='47' y1='105' x2='57' y2='105'/></g>
+<text class='hint in d2' x='430' y='60' text-anchor='middle' fill='#5ba8f5'>высота A + высота C</text>
+<path class='in d2' d='M330 66 L60 100' stroke='#5ba8f5' stroke-width='1' fill='none' opacity='.5'/>
+<rect class='dr d3' x='70' y='50' width='240' height='110' pathLength='100' fill='none' stroke='#5fd38d' stroke-width='3'/>
+<text class='hint in d4' x='430' y='140' text-anchor='middle' fill='#5fd38d'>и только теперь периметр</text>
+<text class='hint in d4' x='430' y='160' text-anchor='middle'>у всех рядов ширина одна</text><text class='hint in d4' x='430' y='182' text-anchor='middle'>а высоты рядов складываются</text>
+</svg><figcaption>Блок назван деталями, а не вершинами, поэтому сначала разбираешь его устройство: сколько деталей в ряду и сколько рядов. Только с готовым составом видно, какой контур обводить.</figcaption></div>
+
+</div></figure>
 <div id="a5" data-art="5"><p class="ritual st"><b>Ритуал 4 — каждая пометка условия = уравнение.</b> Пропорция, середина, «точки на одной прямой», «фигуры образуют квадрат», «можно разрезать на N равных» — всё это уравнения. Вот во что каждая переводится:</p></div>
 <ul class="st"><li>пропорция («5·AB = 4·GH») — уже готовое уравнение, переписывай как есть;</li><li>середина («M — середина BG») — две равные половины: BM = MG, и весь BG вдвое больше любой из них;</li><li>«точки B, I, E лежат на одной прямой» — куски складываются в один отрезок: BE = BI + IE;</li><li>«эти детали образуют квадрат» — у квадрата ширина равна высоте: посчитай по составу ширину блока, посчитай высоту и приравняй их;</li><li>«можно разрезать на N равных» — уравнение о сторонах; какое именно, показывает рисунок (лайфхак 5).</li></ul>
 <p class="st">Непереведённая пометка = система, которая «вдруг не решается».</p>

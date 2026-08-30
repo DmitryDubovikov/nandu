@@ -217,7 +217,7 @@
 <button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">P(блока «A, B, A») = 192 → 2a + b + p = 96</span></button>
 <button class="art cont" data-art="4"><span class="val f">P(блока «B, A, B») = 198 → a + 2b + p = 99</span></button>
 <button class="art cont" data-art="5"><span class="val f">P(E) = 207, E равносторонний → сторона 69 = полоса «B, A, B» → a + 2b = 69, значит <b>p = 30</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">разность строк: b − a = 3; из первой 2a + b = 66 → <b>a = 21</b>, <b>b = 24</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">разность уравнений: b − a = 3; из первого 2a + b = 66 → <b>a = 21</b>, <b>b = 24</b></span></button>
 <button class="art cont" data-art="7"><span class="val f">квадрат «B, A, B, D, C, D» → p + q = 69 → <b>q = 39</b></span></button>
 <button class="art cont" data-art="8"><span class="val f">бок T = 2p + q = 60 + 39 = <b>99</b></span></button>
 <button class="art cont" data-art="9"><span class="val f">P(A) = 2·(21 + 30) = 102</span></button>
@@ -234,24 +234,29 @@
 <p class="st"><b>Кирпичики.</b> <code>a</code> = ширина A (= ширина C), <code>b</code> = ширина B (= D), <code>p</code> = высота A-строки, <code>q</code> = высота C-строки.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td>P(блока «A, B и A») = 192: ширина 2a + b, высота p</td><td>(2a + b) + p = 96</td></tr>
-<tr><td>P(блока «B, A и B») = 198</td><td>(a + 2b) + p = 99</td></tr>
-<tr><td>E равносторонний, P(E) = 207 → сторона 69; его основание — полоса «B, A, B»</td><td>a + 2b = 69</td></tr>
-<tr><td>«B, A, B, D, C и D образуют квадрат»: ширина a + 2b, высота p + q</td><td>p + q = 69</td></tr>
+<tr><td>P(блока «A, B и A») = 192: ширина 2a + b, высота p</td><td>(2a + b) + p + (2a + b) + p = 192</td></tr>
+<tr><td>P(блока «B, A и B») = 198: ширина a + 2b, высота p</td><td>(a + 2b) + p + (a + 2b) + p = 198</td></tr>
+<tr><td>P(E) = 207: E равносторонний, а его основание — полоса «B, A, B», то есть a + 2b; значит все три стороны по a + 2b</td><td>(a + 2b) + (a + 2b) + (a + 2b) = 207</td></tr>
+<tr><td>«B, A, B, D, C и D образуют квадрат»: ширина a + 2b, высота p + q</td><td>a + 2b = p + q</td></tr>
 </table></div></div>
 <div class="plan st"><h3 class="st">✅ Результат перевода</h3>
-<pre class="ascii st">2a + b + p = 96
-a + 2b + p = 99
-a + 2b = 69
-p + q = 69</pre>
+<pre class="ascii st">(2a + b) + p + (2a + b) + p = 192
+(a + 2b) + p + (a + 2b) + p = 198
+(a + 2b) + (a + 2b) + (a + 2b) = 207
+a + 2b = p + q</pre>
 <p class="st"><code>a</code> = ширина A и C · <code>b</code> = ширина B и D · <code>p</code> = высота A-строк · <code>q</code> = высота C-строк</p>
 <p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Л2 (вся задача — блоки по именам), Л3 ((2) − (1): b − a = 3), Л1, ритуал 4 (квадрат из блоков: ширина = высота).</p>
 <p class="st"><b>Ловушка перевода.</b> Рисунок схематичен: основание E нарисовано во всю ширину фигуры (90), но равносторонний треугольник сам сообщает свою ширину периметром — 207/3 = 69, это полоса «B, A, B». Верь числу, а не толщине линий. И основание T в контур «C, D, C, D, T» не входит.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
-<p class="step st"><b>Шаг 1 — нужна высота A-строк: подставляю готовую ширину.</b> В строке (2) стоит кусок a + 2b, а строка (3) говорит, что он равен 69:</p>
+<p class="step st"><b>Шаг 1 — нужна высота A-строк: причёсываю систему и подставляю готовую ширину.</b> Первые два уравнения делю пополам, третье — на 3:</p>
+<div class="frm st">2a + b + p = 96</div>
+<div class="frm st">a + 2b + p = 99</div>
+<div class="frm st">a + 2b = 69</div>
+<div class="frm st">p + q = 69</div>
+<p class="st">Во втором уравнении стоит кусок a + 2b, а третье говорит, что он равен 69:</p>
 <p class="st">69 + p = 99 → <b>p = 30</b></p>
-<p class="step st"><b>Шаг 2 — нужны ширины и вторая высота: вычитаю две почти одинаковые строки.</b> Вычитаю (1) из (2) — буква p уходит:</p>
+<p class="step st"><b>Шаг 2 — нужны ширины и вторая высота: вычитаю два почти одинаковых уравнения.</b> Вычитаю (1) из (2) — буква p уходит:</p>
 <p class="st">(a + 2b) − (2a + b) = 99 − 96 → <b>b − a = 3</b></p>
 <p class="st">Из (1) при p = 30:</p>
 <div class="frm st">2a + b = 66</div>
@@ -271,7 +276,7 @@ p + q = 69</pre>
 <div class="frm st">P(блока «A, B, C, D, A, B») = 2·((a + b) + (2p + q))</div>
 <div class="frm st">P(фигуры «C, D, C, D, T») = (2a + 2b) + 2q + 2·(2p + q)</div>
 <p class="st">Осталось найти a, b, p, q.</p></div></div>
-<div id="a8" data-art="8"><ul class="st"><li>P(блока «A, B, A») = 192 → 2a + b + p = 96</li><li>P(блока «B, A, B») = 198 → a + 2b + p = 99</li><li>P(E) = 207, E равносторонний → сторона 69 = полоса «B, A, B» → a + 2b = 69, значит <b>p = 30</b></li><li>разность строк: b − a = 3; из первой 2a + b = 66 → <b>a = 21</b>, <b>b = 24</b></li><li>квадрат «B, A, B, D, C, D» → p + q = 69 → <b>q = 39</b></li><li>бок T = 2p + q = 60 + 39 = <b>99</b></li></ul></div>
+<div id="a8" data-art="8"><ul class="st"><li>P(блока «A, B, A») = 192 → 2a + b + p = 96</li><li>P(блока «B, A, B») = 198 → a + 2b + p = 99</li><li>P(E) = 207, E равносторонний → сторона 69 = полоса «B, A, B» → a + 2b = 69, значит <b>p = 30</b></li><li>разность уравнений: b − a = 3; из первого 2a + b = 66 → <b>a = 21</b>, <b>b = 24</b></li><li>квадрат «B, A, B, D, C, D» → p + q = 69 → <b>q = 39</b></li><li>бок T = 2p + q = 60 + 39 = <b>99</b></li></ul></div>
 <div id="a9" data-art="9"><div class="frm st">P(A) = 2·(21 + 30) = 102</div></div>
 <div id="a10" data-art="10"><div class="frm st">P(D) = 2·(24 + 39) = 126</div></div>
 <div id="a11" data-art="11"><div class="frm st">P(блока «A, B, C, D, A, B») = 2·(45 + 99) = 288</div></div>

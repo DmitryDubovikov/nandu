@@ -212,18 +212,17 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 14 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Contar directamente las que cumplen es difícil, así que cuento todas las parejas y resto las que no cumplen.<br><em>Считать подходящие напрямую трудно, поэтому считаю все пары и вычитаю неподходящие.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>N(всех пар)</code> — все пары положений домино</span></button>
-<button class="art cont" data-art="2"><span class="val f"><code>N(плохих пар)</code> — из них пары с общей клеткой</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">Ответ(а) = 9 + 8</span></button>
-<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></span></button>
-<button class="art cont" data-art="5"><span class="val f"><code>Ответ(а) = 9 + 8 = 17</code></span></button>
-<button class="art cont" data-art="6"><span class="val f"><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></span></button>
-<button class="art cont" data-art="7"><span class="val f">углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></span></button>
-<button class="art cont" data-art="8"><span class="val f"><code>N(плохих пар) = 4 + 18 + 12 = 34</code></span></button>
-<button class="art cont" data-art="9"><span class="val f"><code>Ответ(б) = 136 − 34 = 102</code></span></button>
-<button class="art cont" data-art="10"><span class="val f">цвета дают множитель 2, свободных клеток под квадратик <code>12 − 4 = 8</code></span></button>
-<button class="art cont" data-art="11"><span class="val f"><code>Ответ(в) = 102 · 2 · 8 = 1632</code></span></button>
-<button class="art" data-art="12"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>N(плохих пар)</code> — из них пары с общей клеткой</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">Ответ(а) = 9 + 8</span></button>
+<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></span></button>
+<button class="art cont" data-art="4"><span class="val f"><code>Ответ(а) = 9 + 8 = 17</code></span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></span></button>
+<button class="art cont" data-art="6"><span class="val f">углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>N(плохих пар) = 4 + 18 + 12 = 34</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>Ответ(б) = 136 − 34 = 102</code></span></button>
+<button class="art cont" data-art="9"><span class="val f">цвета дают множитель 2, свободных клеток под квадратик <code>12 − 4 = 8</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>Ответ(в) = 102 · 2 · 8 = 1632</code></span></button>
+<button class="art" data-art="11"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
 <main>
   
@@ -293,20 +292,20 @@
 <div id="a0" data-art="0"><p class="st"><b>Contar directamente las que cumplen es difícil, así que cuento todas las parejas y resto las que no cumplen.</b></p></div>
 <p class="st"><em>Считать подходящие напрямую трудно, поэтому считаю все пары и вычитаю неподходящие.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a2" data-art="2"><ul class="st"><li><code>N(всех пар)</code> — все пары положений домино</li><li><code>N(плохих пар)</code> — из них пары с общей клеткой</li></ul></div>
-<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div id="a1" data-art="1"><ul class="st"><li><code>N(плохих пар)</code> — из них пары с общей клеткой</li></ul></div>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">Ответ(а) = 9 + 8</div>
 <div class="frm st">Ответ(б) = N(всех пар) − N(плохих пар)</div>
 <div class="frm st">Ответ(в) = Ответ(б) · 2 · 8</div></div></div>
-<div id="a4" data-art="4"><ul class="st"><li>горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></li></ul></div>
-<div id="a5" data-art="5"><div class="frm st"><code>Ответ(а) = 9 + 8 = 17</code></div></div>
-<div id="a8" data-art="8"><ul class="st"><li><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></li><li>углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></li><li><code>N(плохих пар) = 4 + 18 + 12 = 34</code></li></ul></div>
-<div id="a9" data-art="9"><div class="frm st"><code>Ответ(б) = 136 − 34 = 102</code></div></div>
-<div id="a10" data-art="10"><ul class="st"><li>цвета дают множитель 2, свободных клеток под квадратик <code>12 − 4 = 8</code></li></ul></div>
-<div id="a11" data-art="11"><div class="frm st"><code>Ответ(в) = 102 · 2 · 8 = 1632</code></div></div>
+<div id="a3" data-art="3"><ul class="st"><li>горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></li></ul></div>
+<div id="a4" data-art="4"><div class="frm st"><code>Ответ(а) = 9 + 8 = 17</code></div></div>
+<div id="a7" data-art="7"><ul class="st"><li><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></li><li>углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></li><li><code>N(плохих пар) = 4 + 18 + 12 = 34</code></li></ul></div>
+<div id="a8" data-art="8"><div class="frm st"><code>Ответ(б) = 136 − 34 = 102</code></div></div>
+<div id="a9" data-art="9"><ul class="st"><li>цвета дают множитель 2, свободных клеток под квадратик <code>12 − 4 = 8</code></li></ul></div>
+<div id="a10" data-art="10"><div class="frm st"><code>Ответ(в) = 102 · 2 · 8 = 1632</code></div></div>
 <p class="st">Проверка по видам пар: <code>30 + 24 + 48 = 102</code> ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a12" data-art="12"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<div id="a11" data-art="11"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
 <p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Полный перебор всех положений даёт <b>17</b>, <b>102</b>, <b>1632</b> — совпало с ручным счётом (136 − 34 = 102 и 102 · 2 · 8 = 1632).</p>

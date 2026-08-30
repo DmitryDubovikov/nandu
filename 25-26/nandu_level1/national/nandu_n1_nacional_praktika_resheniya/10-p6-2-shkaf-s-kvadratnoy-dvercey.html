@@ -216,19 +216,22 @@
 <button class="art cont" data-art="2"><span class="val f"><code>s</code> — сторона квадрата C (= высота верхнего этажа)</span></button>
 <button class="art cont" data-art="3"><span class="val f"><code>v</code> — высота нижнего этажа</span></button>
 <button class="art" data-art="4"><span class="lbl">План</span><span class="val f">Ответ(а) = P(C) = 4s</span></button>
-<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f"><code>P(A) = 76</code> → <code>w/5 + v = 38</code></span></button>
-<button class="art cont" data-art="6"><span class="val f"><code>P(B) = 84</code> → <code>w − s/2 = 42</code></span></button>
-<button class="art cont" data-art="7"><span class="val f"><code>P(RSPQ) = 192</code> → <code>w + s = 96</code></span></button>
-<button class="art cont" data-art="8"><span class="val f">третье минус второе → <code>3/2 · s = 54</code> → <code>s = 36</code></span></button>
-<button class="art cont" data-art="9"><span class="val f"><code>w = 96 − 36 = 60</code></span></button>
-<button class="art cont" data-art="10"><span class="val f"><code>v = 38 − 12 = 26</code></span></button>
-<button class="art cont" data-art="11"><span class="val f">высота шкафа <code>= 26 + 36 = 62</code></span></button>
-<button class="art cont" data-art="12"><span class="val f"><code>P(C) = 4 · 36 = 144</code></span></button>
-<button class="art cont" data-art="13"><span class="val f"><code>2 · (24 + 44) = 136</code></span></button>
-<button class="art cont" data-art="14"><span class="val f"><code>P(MNPQ) = 2 · (60 + 62) = 244</code></span></button>
-<button class="art cont" data-art="15"><span class="val f"><code>2 · (12 + 26) = 76</code> ✓</span></button>
-<button class="art cont" data-art="16"><span class="val f"><code>2 · (24 + 18) = 84</code> ✓</span></button>
-<button class="art cont" data-art="17"><span class="val f"><code>2 · (60 + 36) = 192</code> ✓</span></button>
+<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f"><code>P(A) = 76</code> → <code>w/5 + v + w/5 + v = 76</code></span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>P(B) = 84</code> → <code>(w − s) + s/2 + (w − s) + s/2 = 84</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>P(RSPQ) = 192</code> → <code>w + s + w + s = 192</code></span></button>
+<button class="art cont" data-art="8"><span class="val f">делю пополам первое → <code>w/5 + v = 38</code></span></button>
+<button class="art cont" data-art="9"><span class="val f">делю пополам второе и складываю подобные → <code>w − s/2 = 42</code></span></button>
+<button class="art cont" data-art="10"><span class="val f">делю пополам третье → <code>w + s = 96</code></span></button>
+<button class="art cont" data-art="11"><span class="val f">третье минус второе → <code>3/2 · s = 54</code> → <code>s = 36</code></span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>w = 96 − 36 = 60</code></span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>v = 38 − 12 = 26</code></span></button>
+<button class="art cont" data-art="14"><span class="val f">высота шкафа <code>= 26 + 36 = 62</code></span></button>
+<button class="art cont" data-art="15"><span class="val f"><code>P(C) = 4 · 36 = 144</code></span></button>
+<button class="art cont" data-art="16"><span class="val f"><code>P(блока «A, A, B») = 2 · (24 + 44) = 136</code></span></button>
+<button class="art cont" data-art="17"><span class="val f"><code>P(MNPQ) = 2 · (60 + 62) = 244</code></span></button>
+<button class="art cont" data-art="18"><span class="val f"><code>2 · (12 + 26) = 76</code> ✓</span></button>
+<button class="art cont" data-art="19"><span class="val f"><code>2 · (24 + 18) = 84</code> ✓</span></button>
+<button class="art cont" data-art="20"><span class="val f"><code>2 · (60 + 36) = 192</code> ✓</span></button>
 </aside>
 <main>
   
@@ -247,17 +250,23 @@
 <div class="card key st"><span class="tag">Заметь главное</span><p>Квадрат C занимает всю высоту верхнего этажа — а у квадрата ширина и высота одно и то же число. Значит, одна буква <code>s</code> работает сразу за двоих: как высота этажа она стоит в его периметре (<code>w + s = 96</code>), а как ширина, отнятая у этажа, — в детали B, которой достаётся полоса шириной <code>w − s</code>. Оба эти данных говорят про одну и ту же пару <code>w</code> и <code>s</code>, поэтому их разность и выбивает сторону квадрата.</p></div>
 <p class="st">Тогда деталь A — это (w/5) × v, деталь B — это (w − s) × (s/2).</p>
 <div class="st"><div class="tw"><table>
-<tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td><code>P(A) = 76</code></td><td>w/5 + v = 38</td></tr>
-<tr><td><code>P(B) = 84</code></td><td>(w − s) + s/2 = 42, то есть w − s/2 = 42</td></tr>
-<tr><td><code>P(RSPQ) = 192</code>: ширина w, высота s</td><td>w + s = 96</td></tr>
+<tr><th>Что дано</th><th>Что записываем (обход контура)</th></tr>
+<tr><td><code>P(A) = 76</code>: ширина w/5, высота v</td><td>w/5 + v + w/5 + v = 76</td></tr>
+<tr><td><code>P(B) = 84</code>: ширина w − s, высота s/2</td><td>(w − s) + s/2 + (w − s) + s/2 = 84</td></tr>
+<tr><td><code>P(RSPQ) = 192</code>: ширина w, высота s</td><td>w + s + w + s = 192</td></tr>
 </table></div></div>
 <div class="plan st"><h3 class="st">✅ Результат перевода</h3>
-<pre class="ascii st">w/5 + v = 38
-w − s/2 = 42
-w + s = 96</pre>
+<pre class="ascii st">w/5 + v + w/5 + v = 76
+(w − s) + s/2 + (w − s) + s/2 = 84
+w + s + w + s = 192</pre>
 <p class="st"><code>w</code> = ширина шкафа; <code>s</code> = сторона квадрата C (= высота верхнего этажа); <code>v</code> = высота нижнего этажа.</p></div>
 <p class="st"><b>Этап 2 — решение.</b></p>
+<p class="st">Сначала укорачиваю каждое уравнение. Все три фигуры — прямоугольники, а у прямоугольника обход состоит из двух одинаковых кусков «ширина + высота», поэтому каждое уравнение делю пополам:</p>
+<div class="frm st">w/5 + v = 38</div>
+<div class="frm st">(w − s) + s/2 = 42</div>
+<div class="frm st">w + s = 96</div>
+<p class="st">Во втором уравнении осталось сложить то, что относится к стороне квадрата: целая сторона отнята, половина прибавлена, значит вместе они дают минус половину:</p>
+<div class="frm st">w − s/2 = 42</div>
 <p class="step st"><b>Шаг 1 — план: свести систему к одной неизвестной.</b> Три вопроса — три периметра из кирпичиков <code>w</code>, <code>s</code>, <code>v</code>. Второе и третье уравнения говорят об одних и тех же <code>w</code> и <code>s</code>, значит, из них добывается сторона квадрата; за ней сразу выходит ширина шкафа, а первое уравнение отдаёт высоту нижнего этажа.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = три периметра, собранные из кирпичиков <code>w</code>, <code>s</code>, <code>v</code>, а все кирпичики — из одной неизвестной <code>s</code>.</p></div>
 <p class="step st"><b>Шаг 2 — считаю <code>s</code>.</b> Нужна сторона квадрата, с которой пойдёт цепочка, — для этого вычитаю контуры: третье минус второе, и ширина <code>w</code> уходит:</p>
@@ -268,7 +277,8 @@ w + s = 96</pre>
 <ul class="st"><li>деталь A = 12 × 26</li><li>деталь B = (60 − 36) × 18 = 24 × 18</li><li>квадрат C = 36 × 36</li><li>высота шкафа = 26 + 36 = 62</li></ul>
 <p class="step st"><b>Шаг 4 — сборка: три периметра.</b> Кирпичики на руках — остаётся обойти карандашом каждую фигуру из вопросов.</p>
 <p class="st">а) <code>P(C) = 4 · 36</code> = <b>144 см</b>.</p>
-<p class="st">б) Две соседние A дают ширину 12 + 12 = 24 — это ровно ширина детали B, значит блок и правда прямоугольник: ширина 24, высота 26 + 18 = 44. Периметр = <code>2·(24 + 44)</code> = <b>136 см</b>.</p>
+<p class="st">б) Две соседние A дают ширину 12 + 12 = 24 — это ровно ширина детали B, значит блок и правда прямоугольник: ширина 24, высота 26 + 18 = 44. Тогда</p>
+<p class="st"><code>P(блока «A, A, B») = 2·(24 + 44)</code> = <b>136 см</b>.</p>
 <p class="st">в) <code>P(MNPQ) = 2·(60 + 62)</code> = <b>244 см</b>.</p>
 <p class="st"><b>Ответ.</b> а) 144 см б) 136 см в) 244 см</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
@@ -278,14 +288,14 @@ w + s = 96</pre>
 <div id="a3" data-art="3"><ul class="st"><li><code>w</code> — ширина шкафа</li><li><code>s</code> — сторона квадрата C (= высота верхнего этажа)</li><li><code>v</code> — высота нижнего этажа</li></ul></div>
 <div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">Ответ(а) = P(C) = 4s</div>
-<div class="frm st">Ответ(б) = 2 · (2 · w/5 + v + s/2)</div>
+<div class="frm st">Ответ(б) = P(блока «A, A, B») = 2 · (2 · w/5 + v + s/2)</div>
 <div class="frm st">Ответ(в) = P(MNPQ) = 2 · (w + v + s)</div></div></div>
-<div id="a11" data-art="11"><ul class="st"><li><code>P(A) = 76</code> → <code>w/5 + v = 38</code></li><li><code>P(B) = 84</code> → <code>w − s/2 = 42</code></li><li><code>P(RSPQ) = 192</code> → <code>w + s = 96</code></li><li>третье минус второе → <code>3/2 · s = 54</code> → <code>s = 36</code></li><li><code>w = 96 − 36 = 60</code></li><li><code>v = 38 − 12 = 26</code></li><li>высота шкафа <code>= 26 + 36 = 62</code></li></ul></div>
-<div id="a12" data-art="12"><div class="frm st"><code>P(C) = 4 · 36 = 144</code></div></div>
-<div id="a13" data-art="13"><div class="frm st"><code>2 · (24 + 44) = 136</code></div></div>
-<div id="a14" data-art="14"><div class="frm st"><code>P(MNPQ) = 2 · (60 + 62) = 244</code></div></div>
+<div id="a14" data-art="14"><ul class="st"><li><code>P(A) = 76</code> → <code>w/5 + v + w/5 + v = 76</code></li><li><code>P(B) = 84</code> → <code>(w − s) + s/2 + (w − s) + s/2 = 84</code></li><li><code>P(RSPQ) = 192</code> → <code>w + s + w + s = 192</code></li><li>делю пополам первое → <code>w/5 + v = 38</code></li><li>делю пополам второе и складываю подобные → <code>w − s/2 = 42</code></li><li>делю пополам третье → <code>w + s = 96</code></li><li>третье минус второе → <code>3/2 · s = 54</code> → <code>s = 36</code></li><li><code>w = 96 − 36 = 60</code></li><li><code>v = 38 − 12 = 26</code></li><li>высота шкафа <code>= 26 + 36 = 62</code></li></ul></div>
+<div id="a15" data-art="15"><div class="frm st"><code>P(C) = 4 · 36 = 144</code></div></div>
+<div id="a16" data-art="16"><div class="frm st"><code>P(блока «A, A, B») = 2 · (24 + 44) = 136</code></div></div>
+<div id="a17" data-art="17"><div class="frm st"><code>P(MNPQ) = 2 · (60 + 62) = 244</code></div></div>
 <p class="st">Проверка сложением:</p>
-<div id="a17" data-art="17"><ul class="st"><li><code>2 · (12 + 26) = 76</code> ✓</li><li><code>2 · (24 + 18) = 84</code> ✓</li><li><code>2 · (60 + 36) = 192</code> ✓</li></ul></div>
+<div id="a20" data-art="20"><ul class="st"><li><code>2 · (12 + 26) = 76</code> ✓</li><li><code>2 · (24 + 18) = 84</code> ✓</li><li><code>2 · (60 + 36) = 192</code> ✓</li></ul></div>
 <h3 class="st">Проверка вторым способом</h3>
 <p class="st">Подставляю размеры во все данные:</p>
 <ul class="st"><li><code>P(A) = 2·(12 + 26) = 76</code> ✓</li><li><code>P(B) = 2·(24 + 18) = 84</code> ✓</li><li><code>P(RSPQ) = 2·(60 + 36) = 192</code> ✓</li></ul>

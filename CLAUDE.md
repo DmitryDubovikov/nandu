@@ -67,8 +67,16 @@ re-create them unasked. Branch debts: `resheniya/nandu_n1_nacional_resheniya_{20
   **no briefs or roadmaps in `27-28/`** — either write the concrete pair or drop the idea.
 - `arhiv/schet_v1/` — the superseded first счёт version; only its `session_prompt` is still live (hard rule 7).
 
-**No PDF builds.** `build_pdf.py` and the `/pdf` slash command were removed (Aug 2026); material is read and
-printed from markdown as is. Do not re-create them unasked, and do not add print-build instructions to documents.
+**No PDF builds, and nothing is printed at all.** `build_pdf.py` and the `/pdf` slash command were removed
+(Aug 2026); since 29 Aug 2026 **all material is read from the screen** — paper is out of the workflow entirely.
+Do not re-create the builds unasked, do not add print-build instructions to documents, and never argue against
+a solution on print grounds (animation, colour, interactivity, GIF, page width are all fair game). The
+printed-page-width wording in rule 10 stands only as a proxy for a narrow reading column.
+
+## How to answer the user
+
+**Кратко и структурированно.** Short answers, structure over prose: заголовки, списки, таблицы; вывод и
+рекомендация впереди, обоснование одной строкой. Не разворачивать аргумент в абзацы, если хватает пункта.
 
 ## Domain model
 

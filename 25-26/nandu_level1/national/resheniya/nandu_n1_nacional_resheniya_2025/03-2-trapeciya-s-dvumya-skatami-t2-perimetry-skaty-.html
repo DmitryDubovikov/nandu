@@ -216,15 +216,16 @@
 <button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(ABGH) = b + 2m + g + m</span></button>
 <button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(BDEFG) = (m + e) + m + f + m + 2m</span></button>
 <button class="art" data-art="4"><span class="lbl">План</span><span class="val f">P(ADEFGH) = (b + m + e) + m + f + m + g + m</span></button>
-<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f">P(BCFG) = 6m = 144 → <b>m = 24</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">P(ACJH): b + 2m = 80 → <b>b = 32</b></span></button>
-<button class="art cont" data-art="7"><span class="val f">P(BDEI): e + 2m = 66 → <b>e = 18</b></span></button>
-<button class="art cont" data-art="8"><span class="val f">5·AB = 4·GH → <b>g = 40</b></span></button>
-<button class="art cont" data-art="9"><span class="val f">P(EFGH): f + 24 + 40 + 74 = 168 → <b>f = 30</b></span></button>
-<button class="art cont" data-art="10"><span class="val f">P(ADEH) = 2·(74 + 24) = 196</span></button>
-<button class="art cont" data-art="11"><span class="val f">P(ABGH) = 32 + 48 + 40 + 24 = 144</span></button>
-<button class="art cont" data-art="12"><span class="val f">P(BDEFG) = 42 + 24 + 30 + 24 + 48 = 168</span></button>
-<button class="art cont" data-art="13"><span class="val f">P(ADEFGH) = 74 + 24 + 30 + 24 + 40 + 24 = 216</span></button>
+<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f">P(BCFG) = 2·(m + 2m) = 144</span></button>
+<button class="art cont" data-art="6"><span class="val f">6m = 144 → <b>m = 24</b></span></button>
+<button class="art cont" data-art="7"><span class="val f">P(ACJH): b + 2m = 80 → <b>b = 32</b></span></button>
+<button class="art cont" data-art="8"><span class="val f">P(BDEI): e + 2m = 66 → <b>e = 18</b></span></button>
+<button class="art cont" data-art="9"><span class="val f">5·AB = 4·GH → <b>g = 40</b></span></button>
+<button class="art cont" data-art="10"><span class="val f">P(EFGH): f + 24 + 40 + 74 = 168 → <b>f = 30</b></span></button>
+<button class="art cont" data-art="11"><span class="val f">P(ADEH) = 2·(74 + 24) = 196</span></button>
+<button class="art cont" data-art="12"><span class="val f">P(ABGH) = 32 + 48 + 40 + 24 = 144</span></button>
+<button class="art cont" data-art="13"><span class="val f">P(BDEFG) = 42 + 24 + 30 + 24 + 48 = 168</span></button>
+<button class="art cont" data-art="14"><span class="val f">P(ADEFGH) = 74 + 24 + 30 + 24 + 40 + 24 = 216</span></button>
 </aside>
 <main>
   <p class="partlab">День первый</p>
@@ -239,7 +240,7 @@
     A━━━━━━━━━━━B━━━━━━━━━━━━C━━━━━━━━━━━D   ← земля
       b = AB        m = BC       e = CD</pre>
 <p class="st">Нижний этаж — три прямоугольника ABIH, BCJI, CDEJ, все высотой <code>m</code>. Сквозь него стоит BCFG и торчит выше: его середины I и J лежат ровно на средней линии, значит BG = 2m. Слева и справа — скаты H→G и E→F, каждый своей буквой (<code>g</code> и <code>f</code>).</p>
-<p class="st"><b>🔍 С чего начать.</b> <b>Какие кирпичики?</b> Высота нижнего этажа <code>m</code>, ширины <code>b</code> = AB и <code>e</code> = CD, и два <b>ската</b> — <code>g</code> = GH и <code>f</code> = FE. Скаты не выражаются через остальные буквы и не измеряются линейкой: каждый — своя буква, и каждый выходит из своего контура. <b>Почему всё сводится к m?</b> Обе середины (I на BG, J на CF) режут стоячий прямоугольник ровно по линии нижнего этажа — значит его высота BG = 2m, а верхняя половина JF = m. Строка «BC = JF» приравнивает ширину BC к этой самой m, и у стоячего прямоугольника не остаётся своей буквы вовсе.</p>
+<p class="st"><b>🔍 С чего начать.</b> <b>Какие кирпичики?</b> Высота нижнего этажа <code>m</code>, ширины <code>b</code> = AB и <code>e</code> = CD, и два <b>ската</b> — <code>g</code> = GH и <code>f</code> = FE. Скаты не выражаются через остальные буквы и не измеряются линейкой: каждый — своя буква, и каждый выходит из своего контура. <b>Почему всё сводится к m?</b> Обе середины (I на BG, J на CF) режут стоячий прямоугольник ровно по линии нижнего этажа — значит его высота BG = 2m, а верхняя половина JF = m. Условие «BC = JF» приравнивает ширину BC к этой самой m, и у стоячего прямоугольника не остаётся своей буквы вовсе.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Нижний этаж режет BCFG пополам — это и есть весь ключ к задаче: одна буква <code>m</code> работает сразу тремя величинами (высота этажа, ширина BC, верхняя половина JF), и <code>P(BCFG) = 144</code> превращается в <code>6m</code>, то есть даёт число немедленно.</p></div>
 <figure class="st"><svg viewBox="0 0 410 292" width="100%"  xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><polygon points="40,250 370,250 370,154 298,58 202,58 40,154" fill="#131923" stroke="var(--muted)" stroke-width="2"/><rect x="202" y="58" width="96" height="192" fill="#3a2f18" fill-opacity=".45" stroke="var(--gold)" stroke-width="2"/><line x1="40" y1="154" x2="370" y2="154" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="5 4"/><line x1="40" y1="250" x2="40" y2="154" stroke="#2c394c" stroke-width="1.5" /><line x1="370" y1="250" x2="370" y2="154" stroke="#2c394c" stroke-width="1.5" /><line x1="202" y1="250" x2="202" y2="58" stroke="var(--gold)" stroke-width="1.5" /><line x1="298" y1="250" x2="298" y2="58" stroke="var(--gold)" stroke-width="1.5" /><text x="29" y="266" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="202" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="298" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="381" y="266" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="27" y="148" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="191" y="148" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">I</text><text x="309" y="148" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">J</text><text x="383" y="148" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="190" y="50" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="310" y="50" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">F</text><circle cx="202" cy="154" r="4" fill="var(--gold)"/><circle cx="298" cy="154" r="4" fill="var(--gold)"/><text x="121" y="272" fill="#cfdae6" font-size="15" text-anchor="middle" font-weight="400">b</text><text x="250" y="272" fill="var(--gold)" font-size="15" text-anchor="middle" font-weight="400">m</text><text x="334" y="272" fill="#cfdae6" font-size="15" text-anchor="middle" font-weight="400">e</text><text x="24" y="206" fill="#cfdae6" font-size="15" text-anchor="middle" font-weight="400">m</text><text x="186" y="110" fill="var(--gold)" font-size="15" text-anchor="middle" font-weight="400">m</text><text x="186" y="206" fill="var(--gold)" font-size="15" text-anchor="middle" font-weight="400">m</text><text x="112" y="98" fill="#cfdae6" font-size="15" text-anchor="middle" font-weight="400">g</text><text x="342" y="98" fill="#cfdae6" font-size="15" text-anchor="middle" font-weight="400">f</text><text x="250" y="44" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="400">BG = 2m</text></svg><figcaption>Обе середины — I на BG, J на CF — сели ровно на среднюю линию. Значит нижний этаж делит стоячий прямоугольник на две равные части, и своей буквы у BCFG не остаётся вовсе.</figcaption></figure>
 <p class="step st"><b>Шаг 1 — план: свести четыре спрошенных периметра к пяти буквам.</b> <code>P(X)</code> — периметр контура X; например <code>P(BCFG) = 144</code> — данное условия.</p>
@@ -249,9 +250,11 @@
 <div class="frm st">P(BDEFG) = (m + e) + m + f + m + 2m</div>
 <div class="frm st">P(ADEFGH) = (b + m + e) + m + f + m + g + m</div>
 <div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все четыре периметра через <code>m</code>, <code>b</code>, <code>e</code>, <code>g</code>, <code>f</code>. Осталось найти эти пять чисел по цепочке: BCFG → ACJH и BDEI → пропорция → контур EFGH.</p></div>
-<p class="step st"><b>Шаг 2 — нужна высота этажа m, и она даётся даром.</b> У BCFG ширина <code>m</code>, высота <code>2m</code>:</p>
-<div class="frm st">P(BCFG) = 6m = 144</div>
-<p class="st"><b>m = 24</b>, значит 2m = 48.</p>
+<p class="step st"><b>Шаг 2 — нужна высота этажа m, и она даётся даром.</b> У BCFG ширина <code>m</code>, высота <code>2m</code> — обвожу его контур:</p>
+<div class="frm st">P(BCFG) = 2·(m + 2m) = 144</div>
+<div class="frm st">6m = 144</div>
+<div class="frm st">m = 24</div>
+<p class="st">Значит 2m = 48.</p>
 <p class="step st"><b>Шаг 3 — нужны обе ширины b и e: у каждой свой прямоугольник.</b> ACJH — прямоугольник шириной AC = b + m и высотой m:</p>
 <div class="frm st">P(ACJH) = 2·((b + m) + m) = 160</div>
 <p class="st">b + 2m = 80 → <b>b = 32</b></p>
@@ -276,13 +279,13 @@
 <div class="frm st">P(BDEFG) = (m + e) + m + f + m + 2m</div>
 <div class="frm st">P(ADEFGH) = (b + m + e) + m + f + m + g + m</div>
 <p class="st">Осталось найти m, b, e, g, f по цепочке: BCFG → ACJH и BDEI → пропорция → контур EFGH.</p></div></div>
-<div id="a9" data-art="9"><ul class="st"><li>P(BCFG) = 6m = 144 → <b>m = 24</b></li><li>P(ACJH): b + 2m = 80 → <b>b = 32</b></li><li>P(BDEI): e + 2m = 66 → <b>e = 18</b></li><li>5·AB = 4·GH → <b>g = 40</b></li><li>P(EFGH): f + 24 + 40 + 74 = 168 → <b>f = 30</b></li></ul></div>
-<div id="a10" data-art="10"><div class="frm st">P(ADEH) = 2·(74 + 24) = 196</div></div>
-<div id="a11" data-art="11"><div class="frm st">P(ABGH) = 32 + 48 + 40 + 24 = 144</div></div>
-<div id="a12" data-art="12"><div class="frm st">P(BDEFG) = 42 + 24 + 30 + 24 + 48 = 168</div></div>
-<div id="a13" data-art="13"><div class="frm st">P(ADEFGH) = 74 + 24 + 30 + 24 + 40 + 24 = 216</div></div>
+<div id="a10" data-art="10"><ul class="st"><li>P(BCFG) = 2·(m + 2m) = 144</li><li>6m = 144 → <b>m = 24</b></li><li>P(ACJH): b + 2m = 80 → <b>b = 32</b></li><li>P(BDEI): e + 2m = 66 → <b>e = 18</b></li><li>5·AB = 4·GH → <b>g = 40</b></li><li>P(EFGH): f + 24 + 40 + 74 = 168 → <b>f = 30</b></li></ul></div>
+<div id="a11" data-art="11"><div class="frm st">P(ADEH) = 2·(74 + 24) = 196</div></div>
+<div id="a12" data-art="12"><div class="frm st">P(ABGH) = 32 + 48 + 40 + 24 = 144</div></div>
+<div id="a13" data-art="13"><div class="frm st">P(BDEFG) = 42 + 24 + 30 + 24 + 48 = 168</div></div>
+<div id="a14" data-art="14"><div class="frm st">P(ADEFGH) = 74 + 24 + 30 + 24 + 40 + 24 = 216</div></div>
 <hr>
-<div class="pager"><a href="02-poryadok-resheniya-na-ture.html">← Порядок решения на туре</a><a href="04-1-chaynaya-lavka-t1-sistema-iz-dvuh-strok-doli.html">№1 — чайная лавка *(Т1′: система из двух строк + доли)* →</a></div>
+<div class="pager"><a href="02-poryadok-resheniya-na-ture.html">← Порядок решения на туре</a><a href="04-1-chaynaya-lavka-t1-sistema-iz-dvuh-uravneniy-do.html">№1 — чайная лавка *(Т1′: система из двух уравнений + доли)* →</a></div>
 </main>
 </div>
 <script>

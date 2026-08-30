@@ -241,28 +241,36 @@
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
 <tr><td>квадрат C: ширина x − t, высота x − v, а у квадрата они равны</td><td>x − t = x − v</td></tr>
-<tr><td>одно и то же x вычитается слева и справа — остаётся равенство самих кусков</td><td>t = v</td></tr>
-<tr><td>P(TUVX) = 144: полупериметр t + (x − v), а t = v, значит это просто x</td><td>2x = 144</td></tr>
-<tr><td>P(MNZV) = 228</td><td>x + v = 114</td></tr>
-<tr><td>4 равных D: верхние катеты SR и RQ равны</td><td>w − x = 2g</td></tr>
-<tr><td>P(MNRU) = 324: M→N (x), N→R (d), R→U (g + x, через S!), U→M (x)</td><td>3x + g + d = 324</td></tr>
-<tr><td>P(NPQR) = 240: N→P (w − x), P→Q (x), Q→R (g), R→N (d)</td><td>w + g + d = 240</td></tr>
+<tr><td>P(TUVX) = 144: ширина t, высота x − v</td><td>t + (x − v) + t + (x − v) = 144</td></tr>
+<tr><td>P(MNZV) = 228: ширина x, высота v</td><td>x + v + x + v = 228</td></tr>
+<tr><td>4 равных D: верхние катеты SR и RQ равны, значит RQ — это тоже g; вместе они дают весь верх правой части (w − x)</td><td>g + g = w − x</td></tr>
+<tr><td>P(MNRU) = 324: M→N (x), N→R (d), R→U (g + x, через S!), U→M (x)</td><td>x + d + (g + x) + x = 324</td></tr>
+<tr><td>P(NPQR) = 240: N→P (w − x), P→Q (x), Q→R (g), R→N (d)</td><td>(w − x) + x + g + d = 240</td></tr>
 </table></div></div>
 <div class="plan st"><h3 class="st">✅ Результат перевода</h3>
-<pre class="ascii st">t = v
-2x = 144
-x + v = 114
-w − x = 2g
-3x + g + d = 324
-w + g + d = 240</pre>
+<pre class="ascii st">x − t = x − v
+t + (x − v) + t + (x − v) = 144
+x + v + x + v = 228
+g + g = w − x
+x + d + (g + x) + x = 324
+(w − x) + x + g + d = 240</pre>
 <p class="st"><code>x</code> = квадрат MNSU · <code>v</code> = высота низа (= t) · <code>g</code> = SR · <code>d</code> = косая NR = RP · <code>w</code> = MP</p>
 <p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Л1 (равные A, B, D), Л7 (вертикаль от R до низа), наклонные из контуров (d — из MNRU и NPQR).</p>
 <p class="st"><b>Ловушка перевода.</b> В контуре MNRU сторона R→U проходит <b>через S</b>: она равна g + x, а не x. И косые не мерить — обе выходят из системы.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
-<p class="step st"><b>Шаг 1 — нужны x и v: беру их из коротких строк.</b> Из (2): <b>x = 72</b>. Из (3):</p>
+<p class="step st"><b>Шаг 1 — нужны x и v: причёсываю систему и беру их из коротких уравнений.</b> В (1) одно и то же x вычитается слева и справа — остаётся равенство самих кусков:</p>
+<div class="frm st">t = v</div>
+<p class="st">Подставляю это в (2), и высота с шириной складываются в целую сторону квадрата, как замечено выше:</p>
+<div class="frm st">2x = 144</div>
+<p class="st">Остальные уравнения — просто приведение подобных:</p>
+<div class="frm st">x + v = 114</div>
+<div class="frm st">2g = w − x</div>
+<div class="frm st">3x + g + d = 324</div>
+<div class="frm st">w + g + d = 240</div>
+<p class="st">Из (2): <b>x = 72</b>. Из (3):</p>
 <p class="st">v = 114 − 72 = <b>42</b></p>
-<p class="st">А по первой строке t = v, значит и <b>t = 42</b>.</p>
+<p class="st">А по первому уравнению t = v, значит и <b>t = 42</b>.</p>
 <p class="step st"><b>Шаг 2 — нужны w, g и косая d: пользуюсь общим хвостом g + d в двух контурах.</b> В (5) всё, кроме хвоста g + d, уже известно (3x = 216):</p>
 <div class="frm st">g + d = 324 − 216 = 108</div>
 <p class="st">Тот же хвост стоит в (6), поэтому оттуда сразу выходит w:</p>

@@ -237,22 +237,26 @@
 <p class="st"><b>Кирпичики.</b> <code>w</code> = BC, <code>m</code> = высота перемычки (равные перемычки → у обеих m), <code>a</code> = AB = CD, <code>v</code> = высота фигуры (AH).</p>
 <div class="st"><div class="tw"><table>
 <tr><th>Что дано</th><th>Что записываем</th></tr>
-<tr><td>P(BCPM) = 56</td><td>2(w + m) = 56</td></tr>
+<tr><td>P(BCPM) = 56: ширина w, высота m</td><td>w + m + w + m = 56</td></tr>
 <tr><td>HG = 2·GS: HG — кусок верхней стороны над колонной (= a), GS — вертикаль от G вниз до S (= m)</td><td>a = 2m</td></tr>
-<tr><td>P(ABGH) = 116</td><td>2(a + v) = 116</td></tr>
-<tr><td>P(MPRS) = 112; высота окна = v минус две перемычки</td><td>2(w + (v − 2m)) = 112</td></tr>
+<tr><td>P(ABGH) = 116: ширина a, высота v</td><td>a + v + a + v = 116</td></tr>
+<tr><td>P(MPRS) = 112: ширина w, высота окна — это v минус две перемычки</td><td>w + (v − 2m) + w + (v − 2m) = 112</td></tr>
 </table></div></div>
 <div class="plan st"><h3 class="st">✅ Результат перевода</h3>
-<pre class="ascii st">w + m = 28
+<pre class="ascii st">w + m + w + m = 56
 a = 2m
-a + v = 58
-w + v − 2m = 56</pre>
+a + v + a + v = 116
+w + (v − 2m) + w + (v − 2m) = 112</pre>
 <p class="st"><code>w</code> = BC · <code>m</code> = высота перемычки · <code>a</code> = AB = CD · <code>v</code> = высота фигуры</p>
 <p class="st"><b>На первом проходе задача сделана.</b></p></div>
 <p class="st"><b>Лайфхаки.</b> Л4 (HG = 2·GS), Л7 (высота окна v − 2m — сквозная вертикаль по этажам), ритуал 4 (пометка «BCPM и SRFG равны» → высоты перемычек равны — без неё система не собирается).</p>
 <p class="st"><b>Ловушка перевода.</b> HG — не вся верхняя сторона, а её кусок от H до G; GS — вертикаль. Прочитать пропорцию как «две горизонтали» — завал. Вторая мина: высота окна MPRS — это v − 2m, а не v − m.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
-<p class="step st"><b>Шаг 1 — нужны четыре размера: свожу систему к одной букве.</b> Из (1) выражаю w:</p>
+<p class="step st"><b>Шаг 1 — нужны четыре размера: причёсываю систему и свожу её к одной букве.</b> Сначала привожу подобные и делю каждое уравнение пополам:</p>
+<div class="frm st">w + m = 28</div>
+<div class="frm st">a + v = 58</div>
+<div class="frm st">w + v − 2m = 56</div>
+<p class="st">Из (1) выражаю w:</p>
 <div class="frm st">w = 28 − m</div>
 <p class="st">Подставляю это в (4) и получаю v тоже через m:</p>
 <div class="frm st">v = 28 + 3m</div>

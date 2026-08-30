@@ -213,7 +213,7 @@
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">ширина блока = m + n + m</span></button>
 <button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Детали M и N стоят в один ряд, и высота у них общая — 10.</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = пара (m, n) из двух строк: строка блока «M, N, M» (64) и строка блока «N, M, N» (72).</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = (m, n) — решение системы из двух уравнений: первое получу из периметра блока «M, N, M» (64), второе — из периметра блока «N, M, N» (72).</span></button>
 </aside>
 <main>
   
@@ -223,16 +223,22 @@
 <div id="a0" data-art="0"><div class="frm st">ширина блока = m + n + m</div></div>
 <p class="st"><b>Разобранный пример.</b> Детали M и N стоят в ряд, высота у всех 10. Периметр блока «M, N, M» равен 64, блока «N, M, N» — 72. Найди m и n (ширины).</p>
 <div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Детали M и N стоят в один ряд, и высота у них общая — 10. Значит блок «M, N, M» — это снова обыкновенный прямоугольник: ширина m + n + m, высота 10. Стыки между деталями оказались внутри, снаружи их не видно, и в контур они не входят — поэтому про блок достаточно знать его <b>состав</b>, а дальше он считается как одна фигура. Если бы детали были разной высоты, блок перестал бы быть прямоугольником и такой ход не прошёл бы.</p></div></div>
-<figure class='st'><svg viewBox='0 0 420 210' width='100%' role='img' aria-label='Блок из деталей P, Q, P в один ряд'><rect x='90' y='40' width='220' height='100' fill='none' stroke='#f0a83c' stroke-width='2.5'/><g stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'><line x1='150' y1='40' x2='150' y2='140'/><line x1='250' y1='40' x2='250' y2='140'/></g><g fill='#e8eef6' font-size='17' font-family='sans-serif' text-anchor='middle'><text x='120' y='96'>P</text><text x='200' y='96'>Q</text><text x='280' y='96'>P</text></g><text x='72' y='96' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>10</text><g stroke='#93a1b1' stroke-width='1'><line x1='90' y1='152' x2='150' y2='152'/><line x1='90' y1='148' x2='90' y2='156'/><line x1='150' y1='148' x2='150' y2='156'/><line x1='150' y1='152' x2='250' y2='152'/><line x1='250' y1='148' x2='250' y2='156'/><line x1='250' y1='152' x2='310' y2='152'/><line x1='310' y1='148' x2='310' y2='156'/></g><g fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'><text x='120' y='169'>p</text><text x='200' y='169'>q</text><text x='280' y='169'>p</text></g><text x='200' y='194' fill='#f2686c' font-size='13' font-family='sans-serif' text-anchor='middle'>два стыка ушли внутрь — снаружи их не видно</text></svg><figcaption>Высота у деталей общая, поэтому блок — обыкновенный прямоугольник: знать про него достаточно состав, а стыки в контур не входят.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план: перевести оба блока в строки про ширины.</b> Спрашивают m и n, а даны два периметра блоков. Перевожу каждый блок в строку по его составу.</p>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = пара (m, n) из двух строк: строка блока «M, N, M» (64) и строка блока «N, M, N» (72).</p></div></div>
-<p class="step st"><b>Шаг 2 — нужна первая строка: перевожу блок M-N-M.</b> Ширина 2m + n, высота 10, полупериметр — половина от 64:</p>
-<div class="frm st">(2m + n) + 10 = 32</div>
+<figure class='st'><svg viewBox='0 0 420 210' width='100%' role='img' aria-label='Блок из деталей M, N, M в один ряд'><rect x='90' y='40' width='220' height='100' fill='none' stroke='#f0a83c' stroke-width='2.5'/><g stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'><line x1='150' y1='40' x2='150' y2='140'/><line x1='250' y1='40' x2='250' y2='140'/></g><g fill='#e8eef6' font-size='17' font-family='sans-serif' text-anchor='middle'><text x='120' y='96'>M</text><text x='200' y='96'>N</text><text x='280' y='96'>M</text></g><text x='72' y='96' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>10</text><g stroke='#93a1b1' stroke-width='1'><line x1='90' y1='152' x2='150' y2='152'/><line x1='90' y1='148' x2='90' y2='156'/><line x1='150' y1='148' x2='150' y2='156'/><line x1='150' y1='152' x2='250' y2='152'/><line x1='250' y1='148' x2='250' y2='156'/><line x1='250' y1='152' x2='310' y2='152'/><line x1='310' y1='148' x2='310' y2='156'/></g><g fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'><text x='120' y='169'>m</text><text x='200' y='169'>n</text><text x='280' y='169'>m</text></g><text x='200' y='194' fill='#f2686c' font-size='13' font-family='sans-serif' text-anchor='middle'>два стыка ушли внутрь — снаружи их не видно</text></svg><figcaption>Высота у деталей общая, поэтому блок — обыкновенный прямоугольник: знать про него достаточно состав, а стыки в контур не входят.</figcaption></figure>
+<p class="step st"><b>Шаг 1 — план: перевести оба блока в уравнения про ширины.</b> Спрашивают m и n, а даны два периметра блоков. Перевожу каждый блок в уравнение по его составу.</p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = (m, n) — решение системы из двух уравнений: первое получу из периметра блока «M, N, M» (64), второе — из периметра блока «N, M, N» (72).</p></div></div>
+<p class="step st"><b>Шаг 2 — нужно первое уравнение: записываю периметр блока M-N-M.</b> Блок — прямоугольник шириной 2m + n и высотой 10. Обвожу его контур и называю стороны по пути:</p>
+<div class="frm st">(2m + n) + 10 + (2m + n) + 10 = 64</div>
+<p class="step st"><b>Шаг 3 — нужно второе уравнение: записываю периметр блока N-M-N.</b> Ширина m + 2n, высота та же. Тот же обход:</p>
+<div class="frm st">(m + 2n) + 10 + (m + 2n) + 10 = 72</div>
+<p class="st">Система записана — дальше только буквы.</p>
+<p class="step st"><b>Шаг 4 — сборка: решаю систему.</b> Сначала привожу подобные и убираю высоты. В первом уравнении раскрываю скобки:</p>
+<div class="frm st">4m + 2n + 20 = 64</div>
+<p class="st">Вычитаю 20 из обеих частей и делю на 2:</p>
 <div class="frm st">2m + n = 22</div>
-<p class="step st"><b>Шаг 3 — нужна вторая строка: перевожу блок N-M-N.</b> Ширина m + 2n, высота та же, полупериметр — половина от 72:</p>
-<div class="frm st">(m + 2n) + 10 = 36</div>
+<p class="st">То же со вторым уравнением:</p>
+<div class="frm st">2m + 4n + 20 = 72</div>
 <div class="frm st">m + 2n = 26</div>
-<p class="step st"><b>Шаг 4 — сборка: две строки — почти близнецы.</b> Сначала складываю их:</p>
+<p class="st">Два уравнения вышли почти близнецами. Сначала складываю их:</p>
 <div class="frm st">(2m + n) + (m + 2n) = 22 + 26</div>
 <div class="frm st">3m + 3n = 48</div>
 <div class="frm st">m + n = 16</div>
@@ -256,10 +262,10 @@
 <div class="frm st">P(MNM) = 2·((2m + n) + 10)</div>
 <div class="frm st">P(NMN) = 2·((m + 2n) + 10)</div>
 <p class="st">Осталось найти m и n из двух данных периметров.</p></div>
-<ul class="st"><li>P(MNM) = 64 → 2m + n = 22</li><li>P(NMN) = 72 → m + 2n = 26</li><li>сложение: 3m + 3n = 48 → m + n = 16</li><li>вычитание: n − m = 4</li><li>m = (16 − 4) : 2 → <b>m = 6</b>, n = 16 − 6 → <b>n = 10</b></li></ul>
+<ul class="st"><li>P(MNM) = 64 → (2m + n) + 10 + (2m + n) + 10 = 64</li><li>P(NMN) = 72 → (m + 2n) + 10 + (m + 2n) + 10 = 72</li><li>упрощаю первое: 2m + n = 22</li><li>упрощаю второе: m + 2n = 26</li><li>сложение: 3m + 3n = 48 → m + n = 16</li><li>вычитание: n − m = 4</li><li>m = (16 − 4) : 2 → <b>m = 6</b>, n = 16 − 6 → <b>n = 10</b></li></ul>
 <div class="frm st">m = 6, n = 10</div>
 <p class="st">Проверка сложением: P(MNM) = 2·(22 + 10) = 64 ✓; P(NMN) = 2·(26 + 10) = 72 ✓</p>
-<p class="st"><b>Где это в корпусе:</b> 2022 №2 (все четыре вопроса — про блоки), 2021 №5 («прямоугольник, который образуют A и B»), 2020 №5.</p>
+<p class="st"><b>Где это в корпусе:</b> 2022 №2 (два вопроса из четырёх — про блоки: «A, B, C, D, A и B» и «C, D, C, D и T»), 2021 №5 («прямоугольник, который образуют A и B»), 2020 №5.</p>
 <p class="st"><b>Ловушка:</b> периметр блока ≠ сумма периметров деталей. Общие стороны исчезают внутри — считай блок как один прямоугольник по его составу.</p>
 <hr>
 <div class="pager"><a href="03-layfhak-1-detal-kirpichik-dva-razmera-na-vseh.html">← Лайфхак 1. Деталь-кирпичик: два размера на всех</a><a href="05-layfhak-3-vychti-dva-kontura.html">Лайфхак 3. Вычти два контура →</a></div>
