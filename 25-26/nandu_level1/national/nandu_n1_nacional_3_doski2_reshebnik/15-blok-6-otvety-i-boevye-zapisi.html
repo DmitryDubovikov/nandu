@@ -211,22 +211,21 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 15 из 17</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Separé los casos según qué cifra del producto va arriba: no se superponen y cubren todo, por eso los sumo.<br><em>Разрезал на случаи по тому, какая цифра произведения стоит наверху: они не пересекаются и покрывают всё, поэтому складываю.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(таблиц) = N(с 2 наверху) + N(с 7 наверху)</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">меню произведения 14, делители по порядку: 1·14 (14 — не цифра), 2·7 → пара {2, 7}</span></button>
-<button class="art cont" data-art="3"><span class="val f">мир «наверху 2» (сверху 2, снизу 7): b₂ + b₃ = 13, b₃ нечётная → 8|5, 4|9 — 2 низа; t₃ нечётная 5 − 2 = 3; t₂ свободна 9 − 5 = 4</span></button>
-<button class="art cont" data-art="4"><span class="val f">N(с 2 наверху) = 2 × 3 × 4 = 24</span></button>
-<button class="art cont" data-art="5"><span class="val f">мир «наверху 7» (сверху 7, снизу 2): b₂ + b₃ = 18, b₃ нечётная — ни одного варианта</span></button>
-<button class="art cont" data-art="6"><span class="val f">N(с 7 наверху) = 0</span></button>
-<button class="art cont" data-art="7"><span class="val f">N(таблиц) = 24 + 0 = 24</span></button>
-<button class="art" data-art="8"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
-<button class="art" data-art="9"><span class="lbl">💬 Фраза</span><span class="val ph">El producto es impar, así que todos los factores tienen que ser impares: eso deja pocas opciones.<br><em>Произведение нечётно — значит все сомножители нечётные, и вариантов остаётся мало.</em></span></button>
-<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">N(таблиц) = перестановки единственного набора цифр</span></button>
-<button class="art" data-art="11"><span class="lbl">На туре</span><span class="val f">произведение нечётно → все четыре цифры нечётные, то есть из {1, 3, 5, 7, 9}</span></button>
-<button class="art cont" data-art="12"><span class="val f">S(нечётных цифр) = 25, а нужна сумма 24 → выброшенная = 25 − 24 = 1</span></button>
-<button class="art cont" data-art="13"><span class="val f">набор {3, 5, 7, 9}, клетки различимы</span></button>
-<button class="art cont" data-art="14"><span class="val f">N(таблиц) = 4 · 3 · 2 · 1 = 24</span></button>
-<button class="art" data-art="15"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todas las cifras posibles y las demás no cumplen que el producto sea impar, por eso no hay más que estas.<br><em>Проверил все возможные цифры, остальные не подходят под условие «произведение нечётно», — поэтому других нет.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El producto es impar, así que todos los factores tienen que ser impares: eso deja pocas opciones.<br><em>Произведение нечётно — значит все сомножители нечётные, и вариантов остаётся мало.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(таблиц) = N(наборов слева) × N(порядков слева) × N(годных правых столбцов)</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">меню произведения 45, наборы по младшей цифре: {1, 5, 9} — один, и все цифры нечётные ✓</span></button>
+<button class="art cont" data-art="3"><span class="val f">порядки левого столбца: 3 · 2 · 1 = 6</span></button>
+<button class="art cont" data-art="4"><span class="val f">правому остались 2, 3, 4, 6, 7, 8; наборы с суммой 16: {2, 6, 8}, {3, 6, 7}</span></button>
+<button class="art cont" data-art="5"><span class="val f">наверху правого столбца обязана быть нечётная: {2, 6, 8} — нечётных нет, мир мёртв; {3, 6, 7} → наверх 3 или 7 (2) × порядок двух нижних (2) = 4</span></button>
+<button class="art cont" data-art="6"><span class="val f">N(таблиц) = 1 × 6 × 4 = 24</span></button>
+<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todas las descomposiciones posibles del producto y las demás no cumplen que la fila de arriba sea impar, por eso no hay más que estas.<br><em>Проверил все возможные разложения произведения, остальные не подходят под условие «верхняя строка нечётна», — поэтому других нет.</em></span></button>
+<button class="art" data-art="8"><span class="lbl">💬 Фраза</span><span class="val ph">El producto es impar, así que todos los factores tienen que ser impares: eso deja pocas opciones.<br><em>Произведение нечётно — значит все сомножители нечётные, и вариантов остаётся мало.</em></span></button>
+<button class="art" data-art="9"><span class="lbl">План</span><span class="val f">N(таблиц) = перестановки единственного набора цифр</span></button>
+<button class="art" data-art="10"><span class="lbl">На туре</span><span class="val f">произведение нечётно → все четыре цифры нечётные, то есть из {1, 3, 5, 7, 9}</span></button>
+<button class="art cont" data-art="11"><span class="val f">S(нечётных цифр) = 25, а нужна сумма 24 → выброшенная = 25 − 24 = 1</span></button>
+<button class="art cont" data-art="12"><span class="val f">набор {3, 5, 7, 9}, клетки различимы</span></button>
+<button class="art cont" data-art="13"><span class="val f">N(таблиц) = 4 · 3 · 2 · 1 = 24</span></button>
+<button class="art" data-art="14"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todas las cifras posibles y las demás no cumplen que el producto sea impar, por eso no hay más que estas.<br><em>Проверил все возможные цифры, остальные не подходят под условие «произведение нечётно», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -238,38 +237,38 @@
 <tr><td>6.2</td><td>а) <b>12</b>; б) <b>2</b></td><td>наборы трёх разных цифр с произведением 36, перебираю по младшей цифре: с 1 — две остальные дают 36, это 4 · 9 ({6, 6} не годится, цифры разные) → {1, 4, 9}; с 2 — две остальные дают 18 и обе больше 2, это 3 · 6 → {2, 3, 6}; с 3 — две остальные дают 12 и обе больше 3, таких нет; с 4 и выше даже самая лёгкая тройка {4, 5, 6} даёт 120 — это больше 36, значит младшая цифра дальше 3 не идёт, перебор закончен. а) каждый набор раскладывается по трём клеткам всеми <b>перестановками</b> — на первое место любое из трёх чисел, на второе любое из двух оставшихся, на третье последнее: 3 · 2 · 1 = 6; наборов два, значит 2 × 6 = 12; б) порядок навязан условием → на каждый набор ровно одна запись: 2</td></tr>
 </table></div></div>
 <div class="frm st">6.3 — ответ: 24</div>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Самое зажатое — произведение 14: меню 1·14, 2·7 → единственная пара {2, 7}. Миры — кто сверху. Правый столбец: обе цифры нечётные (привратник-произведение). Сумма нижней строки — последней. Клеткам дам имена по столбцам слева направо: t₂ и t₃ — верхние в среднем и правом столбцах, b₂ и b₃ — нижние под ними (левый столбец уже занят парой {2, 7}).</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Произведение левого столбца нечётно, значит все три цифры левого столбца нечётные. А верхняя строка — это верхняя клетка левого столбца <b>и</b> верхняя клетка правого; её произведение тоже нечётно, поэтому верхняя правая клетка обязана быть нечётной. Больше ни на одну клетку правого столбца это условие не распространяется: нижние две могут быть какими угодно.</p></div>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Самое зажатое — произведение: у левого столбца короткое меню наборов, и меню это к тому же нечётное. Разбираю по шагам: сначала набор левого столбца, потом его порядок, потом набор правого столбца, потом его порядок с оглядкой на «наверху нечётная».</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(таблиц) = N(с 2 наверху) + N(с 7 наверху)</div>
-<p class="st">где N(с 2 наверху) и N(с 7 наверху) — миры «двойка наверху левого столбца» и «семёрка наверху».</p></div>
-<p class="step st"><b>Шаг 2 — мир «наверху 2»: в левом столбце сверху 2, снизу 7.</b> Нижняя строка даёт 20:</p>
-<div class="frm st">7 + b₂ + b₃ = 20</div>
-<div class="frm st">b₂ + b₃ = 13</div>
-<p class="st">причём b₃ обязана быть нечётной — она стоит в правом столбце. Перебираю b₃ по нечётным цифрам подряд: 1 → b₂ = 12, это не цифра ✗; 3 → b₂ = 10, тоже не цифра ✗; 5 → b₂ = 8 ✓; 7 — семёрка уже стоит внизу слева ✗; 9 → b₂ = 4 ✓. Нечётные кончились — стоп. <b>Два варианта низа</b>, и в обоих b₃ нечётная.</p>
-<p class="st">В каждом из них считаю две оставшиеся верхние клетки:</p>
-<ul class="st"><li><b>t₃</b> обязана быть нечётной (правый столбец), то есть её кандидаты — цифры 1, 3, 5, 7, 9. Две из этих пяти уже стоят на доске: семёрка внизу слева и сама b₃. Значит для t₃ остаётся 5 − 2 = <b>3 кандидата</b>;</li><li><b>t₂</b> свободна от условий: пять клеток из шести уже заполнены, свободных цифр 9 − 5 = <b>4</b>.</li></ul>
-<div class="frm st">N(с 2 наверху) = 2 × 3 × 4 = 24</div>
-<p class="step st"><b>Шаг 3 — мир «наверху 7»: в левом столбце сверху 7, снизу 2.</b> Нижняя строка:</p>
-<div class="frm st">2 + b₂ + b₃ = 20</div>
-<div class="frm st">b₂ + b₃ = 18</div>
-<p class="st">и b₃ снова нечётная. Перебираю по порядку: 1 → b₂ = 17 ✗ не цифра; 3 → 15 ✗; 5 → 13 ✗; 7 — семёрка уже стоит вверху слева ✗; 9 → b₂ = 9, но это повтор девятки ✗. <b>Мир мёртв: N(с 7 наверху) = 0</b> — и это законный исход, запиши его.</p>
-<p class="step st"><b>Шаг 4 — сборка.</b> Складываю миры:</p>
-<div class="frm st">N(таблиц) = N(с 2 наверху) + N(с 7 наверху) = 24 + 0 = 24</div>
+<div class="frm st">N(таблиц) = N(наборов слева) × N(порядков слева) × N(годных правых столбцов)</div>
+<p class="st">где</p>
+<ul class="st"><li><b>N(наборов слева)</b> — наборы трёх разных цифр с произведением 45;</li><li><b>N(порядков слева)</b> — их расстановки по трём клеткам;</li><li><b>N(годных правых столбцов)</b> — расстановки правого столбца, у которых сумма 16 и наверху нечётная цифра.</li></ul>
+<p class="st">Осталось найти все три числа.</p></div>
+<p class="step st"><b>Шаг 2 — считаем N(наборов слева).</b> Нужно меню произведения 45 из трёх разных цифр — перебираю по младшей цифре: 1 → две остальные дают 45, это 5 · 9 ✓ (45 = 1 · 45 и 3 · 15 цифрами не записать); 3 → две остальные дают 15 и обе больше тройки, это 5 · 3 — тройка повторилась бы ✗, других нет; 5 → две остальные дали бы 9 и обе больше пятёрки — таких нет, а дальше произведение только растёт — стоп. Набор один: <b>{1, 5, 9}</b> → <b>N(наборов слева) = 1</b>. Все три цифры нечётные ✓ — привратник доволен.</p>
+<p class="step st"><b>Шаг 3 — считаем N(порядков слева).</b> Три цифры по трём клеткам — это все их перестановки: на первое место любая из трёх, на второе любая из двух оставшихся, на третье последняя:</p>
+<div class="frm st">N(порядков слева) = 3 · 2 · 1 = 6</div>
+<p class="step st"><b>Шаг 4 — считаем N(годных правых столбцов).</b> Правому столбцу остались цифры 2, 3, 4, 6, 7, 8, и его три цифры должны дать 16. Перебираю наборы по младшей: 2 → две остальные дают 14 и обе больше двойки: 6 · 8 в сумме 14 ✓ → {2, 6, 8}; 7 · 7 — повтор ✗; 3 → две остальные дают 13: 6 + 7 ✓ → {3, 6, 7} (4 + 9 — девятка занята слева); 4 → две остальные дают 12 и обе больше четвёрки: 6 + 6 ✗ повтор, других нет; 6 → тройка из чисел больше шестёрки начиналась бы с 6 + 7 + 8 = 21 &gt; 16 — стоп. Наборов два.</p>
+<p class="st">Теперь привратник: наверху правого столбца обязана стоять нечётная цифра.</p>
+<ul class="st"><li><b>{2, 6, 8}</b> — нечётных в наборе нет вовсе, наверх поставить нечего. Мир мёртв, и это законный исход;</li><li><b>{3, 6, 7}</b> — нечётных две: 3 и 7. Наверх идёт любая из них (2 варианта), а две оставшиеся цифры встают по двум нижним клеткам двумя способами: 2 × 2 = 4.</li></ul>
+<p class="st">→ <b>N(годных правых столбцов) = 4</b></p>
+<p class="step st"><b>Шаг 5 — сборка.</b> «И», перемножаю:</p>
+<div class="frm st">N(таблиц) = 1 × 6 × 4 = 24</div>
+<p class="st">Других нет: меню обоих условий выписаны целиком (делители и наборы по младшей цифре, со стопом), а привратник отсёк мёртвый набор до всякого перебора.</p>
 <h3 class="st">✍ 6.3 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Separé los casos según qué cifra del producto va arriba: no se superponen y cubren todo, por eso los sumo.</b></p></div>
-<p class="st"><em>Разрезал на случаи по тому, какая цифра произведения стоит наверху: они не пересекаются и покрывают всё, поэтому складываю.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>El producto es impar, así que todos los factores tienen que ser impares: eso deja pocas opciones.</b></p></div>
+<p class="st"><em>Произведение нечётно — значит все сомножители нечётные, и вариантов остаётся мало.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">b₂, b₃ — нижние клетки среднего и правого столбцов; N(с 2 наверху) и N(с 7 наверху) — миры по цифре наверху левого столбца.</p>
+<p class="st">N(наборов слева) — наборы с произведением 45; N(годных правых столбцов) — правые столбцы с суммой 16 и нечётной цифрой наверху.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(таблиц) = N(с 2 наверху) + N(с 7 наверху)</div></div></div>
-<div id="a6" data-art="6"><ul class="st"><li>меню произведения 14, делители по порядку: 1·14 (14 — не цифра), 2·7 → пара {2, 7}</li><li>мир «наверху 2» (сверху 2, снизу 7): b₂ + b₃ = 13, b₃ нечётная → 8|5, 4|9 — 2 низа; t₃ нечётная 5 − 2 = 3; t₂ свободна 9 − 5 = 4</li><li>N(с 2 наверху) = 2 × 3 × 4 = 24</li><li>мир «наверху 7» (сверху 7, снизу 2): b₂ + b₃ = 18, b₃ нечётная — ни одного варианта</li><li>N(с 7 наверху) = 0</li></ul></div>
-<div id="a7" data-art="7"><div class="frm st">N(таблиц) = 24 + 0 = 24</div></div>
-<p class="st">Проверка: 2 · 7 = 14 ✓; правый столбец из двух нечётных ✓</p>
+<div class="frm st">N(таблиц) = N(наборов слева) × N(порядков слева) × N(годных правых столбцов)</div></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>меню произведения 45, наборы по младшей цифре: {1, 5, 9} — один, и все цифры нечётные ✓</li><li>порядки левого столбца: 3 · 2 · 1 = 6</li><li>правому остались 2, 3, 4, 6, 7, 8; наборы с суммой 16: {2, 6, 8}, {3, 6, 7}</li><li>наверху правого столбца обязана быть нечётная: {2, 6, 8} — нечётных нет, мир мёртв; {3, 6, 7} → наверх 3 или 7 (2) × порядок двух нижних (2) = 4</li></ul></div>
+<div id="a6" data-art="6"><div class="frm st">N(таблиц) = 1 × 6 × 4 = 24</div></div>
+<p class="st">Проверка: 1 · 5 · 9 = 45 ✓; 3 + 6 + 7 = 16 ✓; верхняя строка из двух нечётных — нечётно ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a8" data-art="8"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
-<p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
+<div id="a7" data-art="7"><p class="st"><b>Probé todas las descomposiciones posibles del producto y las demás no cumplen que la fila de arriba sea impar, por eso no hay más que estas.</b></p></div>
+<p class="st"><em>Проверил все возможные разложения произведения, остальные не подходят под условие «верхняя строка нечётна», — поэтому других нет.</em></p>
 <div class="frm st">6.4 — ответ: 24</div>
 <p class="st">Привратник-произведение: произведение четырёх цифр нечётно → <b>все четыре нечётные</b>, то есть из {1, 3, 5, 7, 9}. Их сумма известна заранее:</p>
 <div class="frm st">S(нечётных цифр) = 25</div>
@@ -281,16 +280,16 @@
 <h3 class="st">✍ 6.4 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a9" data-art="9"><p class="st"><b>El producto es impar, así que todos los factores tienen que ser impares: eso deja pocas opciones.</b></p></div>
+<div id="a8" data-art="8"><p class="st"><b>El producto es impar, así que todos los factores tienen que ser impares: eso deja pocas opciones.</b></p></div>
 <p class="st"><em>Произведение нечётно — значит все сомножители нечётные, и вариантов остаётся мало.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a10" data-art="10"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div id="a9" data-art="9"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">N(таблиц) = перестановки единственного набора цифр</div></div></div>
-<div id="a13" data-art="13"><ul class="st"><li>произведение нечётно → все четыре цифры нечётные, то есть из {1, 3, 5, 7, 9}</li><li>S(нечётных цифр) = 25, а нужна сумма 24 → выброшенная = 25 − 24 = 1</li><li>набор {3, 5, 7, 9}, клетки различимы</li></ul></div>
-<div id="a14" data-art="14"><div class="frm st">N(таблиц) = 4 · 3 · 2 · 1 = 24</div></div>
+<div id="a12" data-art="12"><ul class="st"><li>произведение нечётно → все четыре цифры нечётные, то есть из {1, 3, 5, 7, 9}</li><li>S(нечётных цифр) = 25, а нужна сумма 24 → выброшенная = 25 − 24 = 1</li><li>набор {3, 5, 7, 9}, клетки различимы</li></ul></div>
+<div id="a13" data-art="13"><div class="frm st">N(таблиц) = 4 · 3 · 2 · 1 = 24</div></div>
 <p class="st">Проверка: 3 + 5 + 7 + 9 = 24 ✓; произведение 3 · 5 · 7 · 9 = 945 — нечётное ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a15" data-art="15"><p class="st"><b>Probé todas las cifras posibles y las demás no cumplen que el producto sea impar, por eso no hay más que estas.</b></p></div>
+<div id="a14" data-art="14"><p class="st"><b>Probé todas las cifras posibles y las demás no cumplen que el producto sea impar, por eso no hay más que estas.</b></p></div>
 <p class="st"><em>Проверил все возможные цифры, остальные не подходят под условие «произведение нечётно», — поэтому других нет.</em></p>
 <div class="pager"><a href="14-blok-5-otvety-i-boevye-zapisi.html">← Блок 5 — ответы и боевые записи</a><a href="16-blok-7-otvety-i-boevye-zapisi.html">Блок 7 — ответы и боевые записи →</a></div>
 </main>

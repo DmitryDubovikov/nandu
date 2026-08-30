@@ -218,14 +218,13 @@
 <button class="art cont" data-art="4"><span class="val f">б) N(ни одной) = 34 + 20 + 6 = 60</span></button>
 <button class="art" data-art="5"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 <button class="art" data-art="6"><span class="lbl">💬 Фраза</span><span class="val ph">Cada cuadrado queda determinado por su esquina de arriba a la izquierda, así que cuento esquinas posibles.<br><em>Каждый квадрат определён своим левым верхним углом, — поэтому считаю возможные углы.</em></span></button>
-<button class="art" data-art="7"><span class="lbl">План</span><span class="val f">N(содержат R) = сумма по размерам (годные строки × годные столбцы)</span></button>
-<button class="art" data-art="8"><span class="lbl">План</span><span class="val f">N(не содержат V) = N(всего) − N(содержат V)</span></button>
+<button class="art" data-art="7"><span class="lbl">План</span><span class="val f">N(содержат обе) = сумма по размерам (общие строки × общие столбцы)</span></button>
+<button class="art" data-art="8"><span class="lbl">План</span><span class="val f">N(N без B) = N(содержат N) − N(содержат обе)</span></button>
 <button class="art" data-art="9"><span class="lbl">План</span><span class="val f">N(ни одной) = сумма по размерам от N(всего) − N(плохих)</span></button>
-<button class="art" data-art="10"><span class="lbl">На туре</span><span class="val f">а) N(содержат R) = 28</span></button>
-<button class="art cont" data-art="11"><span class="val f">б) N(не содержат V) = 91 − 10 = 81</span></button>
-<button class="art cont" data-art="12"><span class="val f">в) N(содержат и R, и V) = 5</span></button>
-<button class="art cont" data-art="13"><span class="val f">г) N(ни одной) = 33 + 18 + 4 = 55</span></button>
-<button class="art" data-art="14"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
+<button class="art" data-art="10"><span class="lbl">На туре</span><span class="val f">а) N(содержат обе) = 7</span></button>
+<button class="art cont" data-art="11"><span class="val f">б) N(N без B) = 18 − 7 = 11</span></button>
+<button class="art cont" data-art="12"><span class="val f">в) N(ни одной) = 34 + 17 + 8 + 3 = 62</span></button>
+<button class="art" data-art="13"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 </aside>
 <main>
   
@@ -287,59 +286,63 @@
 <h4 class="st">💬 Фраза в конце — полнота</h4>
 <div id="a5" data-art="5"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
 <p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
-<p class="st"><b>8.4 — ответ: а) 28; б) 81; в) 5; г) 55</b></p>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Всё по размерам. а) диапазоны вокруг R (4, 3); б) всего минус содержащие V; в) окно накрывает строки 2–4 и столбцы 3–6 → размер от 4; г) миры по размерам — и проверка минуса: до размера 3 никакие две помеченные клетки в одно окно не влезают (A и R требуют размах 4, R и V — 4, A и V — 6), значит там вычитание честное; с размера 4 плохие всё равно съедают всё.</p>
-<div class="plan st"><p class="st">✅ <b>План готов:</b> четыре ответа — четыре суммы по размерам, все из одной таблицы диапазонов:</p>
-<div class="frm st">N(содержат R) = сумма по размерам (годные строки × годные столбцы вокруг R)</div>
-<div class="frm st">N(не содержат V) = N(всего) − N(содержат V)</div>
-<p class="st"><b>N(содержат и R, и V) = сумма по размерам от окон, чьи диапазоны годятся сразу для обеих клеток</b></p>
+<div class="frm st">8.4 — ответ: а) 7; б) 11; в) 62</div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Обе помеченные клетки стоят во 2-й строке. Значит по строкам диапазон у них <b>один и тот же</b>: годные строки окна вокруг N и вокруг B — это одни и те же номера. Различаются клетки только столбцами, и вся работа сводится к тому, чтобы на каждом размере сравнить два столбцовых диапазона. Это и делает задачу короткой: строку считаешь один раз на размер.</p></div>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Всё по размерам, таблицей. Чтобы окно накрыло сразу обе клетки, оно обязано захватить все столбцы от 2-го (там N) до 5-го (там B) — четыре столбца подряд, размах по столбцам 4; по строкам размах 1, строка у них общая. Значит окна 1×1, 2×2 и 3×3 обе клетки накрыть не могут — на этих размерах столбец «обе» нулевой.</p>
+<p class="st">Дальше: «содержат N, но не B» — это содержащие N минус те из них, что заодно накрыли и B. А «ни одной» — всё минус плохие, и перед вычитанием проверка минуса: окно с обеими клетками плохое дважды, поэтому N(плохих) = (содержат N) + (содержат B) − (обе).</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> три ответа — три суммы по размерам из одной таблицы диапазонов:</p>
+<p class="st"><b>N(содержат обе) = сумма по размерам (общие годные строки × столбцы, годные сразу для N и для B)</b></p>
+<div class="frm st">N(N без B) = N(содержат N) − N(содержат обе)</div>
 <div class="frm st">N(ни одной) = сумма по размерам от N(всего) − N(плохих)</div>
-<p class="st">где</p>
-<ul class="st"><li><b>N(всего)</b> — сколько всего окон (на размере или во всей сетке);</li><li><b>N(плохих)</b> — окна, задевшие хотя бы одну из помеченных клеток A, R, V.</li></ul>
-<p class="st">Осталось найти: диапазоны каждой помеченной клетки на каждом размере.</p></div>
-<p class="step st"><b>Шаг 2 — считаем N(содержат R), R = (4, 3).</b> 1 + 4 + 9 + 9 + 4 + 1 = <b>28</b> (размер 2: строки 3–4 × столбцы 2–3; размер 3: строки 2–4 × столбцы 1–3; размер 4: строки 1–3 × столбцы 1–3; размер 5: строки 1–2 × столбцы 1–2).</p>
-<p class="step st"><b>Шаг 3 — считаем N(содержат V), V = (2, 6).</b> Клетка стоит у самого правого края, поэтому столбец окна зажат до единственного на каждом размере: для 2×2 это 5-й столбец, для 3×3 — 4-й, для 4×4 — 3-й, для 5×5 — 2-й, для 6×6 — 1-й. Строк же на размерах от 2 до 5 годится две — 1-я и 2-я. Размеры 1×1 и 6×6 считаю отдельно: там по одному окну. Итого 1 + 2 + 2 + 2 + 2 + 1 = 10, а всего окон N(всего) = 91:</p>
-<div class="frm st">б) N(не содержат V) = 91 − 10 = 81</div>
-<p class="step st"><b>Шаг 4 — обе R и V.</b> Размер 4: строки 1–2 (обе годятся) × столбец 3 → 2; размер 5: строки 1–2 × столбец 2 → 2; размер 6: 1:</p>
-<p class="st"><b>в) N(содержат и R, и V) = 2 + 2 + 1 = 5</b></p>
-<p class="step st"><b>Шаг 5 — ни одной.</b> Содержат A (угол): по одному окну на размер. Таблица:</p>
+<p class="st">где на каждом размере <b>N(плохих)</b> = N(содержат N) + N(содержат B) − N(обе).</p>
+<p class="st">Осталось найти: на каждом размере четыре числа — N(всего), N, B и обе.</p></div>
+<p class="step st"><b>Шаг 2 — строки.</b> Обе клетки в строке 2, поэтому годные строки окна одни и те же: от 2 − k + 1 до 2, обрезанные краями (не меньше 1 и не больше 6 − k + 1). Размер 1×1 → строка 2, одна; размеры от 2×2 до 5×5 → строки 1 и 2, две; размер 6×6 → одна.</p>
+<p class="step st"><b>Шаг 3 — столбцы.</b> Вокруг N (столбец 2): от 2 − k + 1 до 2 с той же обрезкой — на всех размерах от 2×2 до 5×5 это столбцы 1 и 2, две штуки. Вокруг B (столбец 5): от 5 − k + 1 до 5, обрезанные сверху числом 6 − k + 1, — тоже по две штуки на размерах 2×2 … 5×5, но стоят они правее: для 2×2 это столбцы 4 и 5, для 3×3 — 3 и 4, для 4×4 — 2 и 3, для 5×5 — 1 и 2.</p>
+<p class="st">Вот где диапазоны впервые встречаются: на размере 4×4 у N столбцы {1, 2}, у B — {2, 3}, общий один — 2-й. На 5×5 совпадают оба.</p>
+<p class="step st"><b>Шаг 4 — таблица по размерам.</b></p>
 <div class="st"><div class="tw"><table>
-<tr><th>Размер</th><th>N(всего)</th><th>A</th><th>R</th><th>V</th><th>N(плохих)</th><th>ни одной</th></tr>
-<tr><td>1×1</td><td>36</td><td>1</td><td>1</td><td>1</td><td>3</td><td>33</td></tr>
-<tr><td>2×2</td><td>25</td><td>1</td><td>4</td><td>2</td><td>7</td><td>18</td></tr>
-<tr><td>3×3</td><td>16</td><td>1</td><td>9</td><td>2</td><td>12</td><td>4</td></tr>
-<tr><td>4×4 и больше</td><td>9 + 4 + 1</td><td>—</td><td>—</td><td>—</td><td>все</td><td>0</td></tr>
+<tr><th>Размер</th><th>N(всего)</th><th>содержат N</th><th>содержат B</th><th>обе</th><th>N(плохих)</th><th>ни одной</th></tr>
+<tr><td>1×1</td><td>36</td><td>1</td><td>1</td><td>0</td><td>1 + 1 − 0 = 2</td><td>36 − 2 = <b>34</b></td></tr>
+<tr><td>2×2</td><td>25</td><td>4</td><td>4</td><td>0</td><td>4 + 4 − 0 = 8</td><td>25 − 8 = <b>17</b></td></tr>
+<tr><td>3×3</td><td>16</td><td>4</td><td>4</td><td>0</td><td>8</td><td>16 − 8 = <b>8</b></td></tr>
+<tr><td>4×4</td><td>9</td><td>4</td><td>4</td><td>2</td><td>4 + 4 − 2 = 6</td><td>9 − 6 = <b>3</b></td></tr>
+<tr><td>5×5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4 + 4 − 4 = 4</td><td>4 − 4 = <b>0</b></td></tr>
+<tr><td>6×6</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1 − 1 = <b>0</b></td></tr>
+<tr><td><b>итого</b></td><td><b>91</b></td><td><b>18</b></td><td><b>18</b></td><td><b>7</b></td><td></td><td><b>62</b></td></tr>
 </table></div></div>
-<p class="st">Проверка минуса для размеров 1–3: пересечений нет (размахи пар — 4, 4 и 6), вычитаю честно. Размер 4: содержащих R уже 9 из 9 → живых не остаётся. Размер 5: окон всего 4, и все четыре содержат R (строки 1–2 × столбцы 1–2 — это и есть все позиции). Размер 6: окно одно и накрывает всю сетку. Значит с размера 4 и выше «ни одной» не набирается вовсе:</p>
-<div class="frm st">г) N(ни одной) = 33 + 18 + 4 = 55</div>
+<p class="step st"><b>Шаг 5 — ответы.</b></p>
+<p class="st">а) <b>N(содержат обе) = 2 + 4 + 1 = 7</b></p>
+<p class="st">б) <b>N(N без B) = 18 − 7 = 11</b></p>
+<p class="st">в) <b>N(ни одной) = 34 + 17 + 8 + 3 = 62</b></p>
+<p class="st">Сверка суммой (как у миров): только-N (11) + только-B (11) + обе (7) + ни одной (62) = 91 ✓ — ровно всего квадратов сетки.</p>
 <h3 class="st">✍ 8.4 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <div id="a6" data-art="6"><p class="st"><b>Cada cuadrado queda determinado por su esquina de arriba a la izquierda, así que cuento esquinas posibles.</b></p></div>
 <p class="st"><em>Каждый квадрат определён своим левым верхним углом, — поэтому считаю возможные углы.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">Окно k×k называю по его левой верхней клетке. A = (1, 1), R = (4, 3), V = (2, 6); N(всего) — всего окон, N(плохих) — задевшие хотя бы одну помеченную клетку.</p>
+<p class="st">Окно k×k называю по его левой верхней клетке. N = (2, 2), B = (2, 5); N(всего) — всего окон, N(плохих) — задевшие хотя бы одну помеченную клетку.</p>
 <div id="a9" data-art="9"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(содержат R) = сумма по размерам (годные строки × годные столбцы)</div>
-<div class="frm st">N(не содержат V) = N(всего) − N(содержат V)</div>
+<div class="frm st">N(содержат обе) = сумма по размерам (общие строки × общие столбцы)</div>
+<div class="frm st">N(N без B) = N(содержат N) − N(содержат обе)</div>
 <div class="frm st">N(ни одной) = сумма по размерам от N(всего) − N(плохих)</div></div></div>
+<p class="st">Обе клетки в строке 2 → диапазон строк у них общий. Размах по столбцам 4 → окна меньше 4×4 обе клетки не накроют.</p>
 <div class="st"><div class="tw"><table>
-<tr><th>Размер</th><th>N(всего)</th><th>A</th><th>R</th><th>V</th><th>обе R и V</th><th>N(плохих)</th><th>ни одной</th></tr>
-<tr><td>1×1</td><td>36</td><td>1</td><td>1</td><td>1</td><td>0</td><td>3</td><td>33</td></tr>
-<tr><td>2×2</td><td>25</td><td>1</td><td>4</td><td>2</td><td>0</td><td>7</td><td>18</td></tr>
-<tr><td>3×3</td><td>16</td><td>1</td><td>9</td><td>2</td><td>0</td><td>12</td><td>4</td></tr>
-<tr><td>4×4</td><td>9</td><td>1</td><td>9</td><td>2</td><td>2</td><td>9</td><td>0</td></tr>
-<tr><td>5×5</td><td>4</td><td>1</td><td>4</td><td>2</td><td>2</td><td>4</td><td>0</td></tr>
-<tr><td>6×6</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
-<tr><td>итого</td><td>91</td><td>6</td><td>28</td><td>10</td><td>5</td><td></td><td>55</td></tr>
+<tr><th>Размер</th><th>N(всего)</th><th>N</th><th>B</th><th>обе</th><th>N(плохих)</th><th>ни одной</th></tr>
+<tr><td>1×1</td><td>36</td><td>1</td><td>1</td><td>0</td><td>2</td><td>34</td></tr>
+<tr><td>2×2</td><td>25</td><td>4</td><td>4</td><td>0</td><td>8</td><td>17</td></tr>
+<tr><td>3×3</td><td>16</td><td>4</td><td>4</td><td>0</td><td>8</td><td>8</td></tr>
+<tr><td>4×4</td><td>9</td><td>4</td><td>4</td><td>2</td><td>6</td><td>3</td></tr>
+<tr><td>5×5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr>
+<tr><td>6×6</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>итого</td><td>91</td><td>18</td><td>18</td><td>7</td><td></td><td>62</td></tr>
 </table></div></div>
-<div id="a10" data-art="10"><div class="frm st">а) N(содержат R) = 28</div></div>
-<div id="a11" data-art="11"><div class="frm st">б) N(не содержат V) = 91 − 10 = 81</div></div>
-<div id="a12" data-art="12"><p class="st"><b>в) N(содержат и R, и V) = 5</b></p></div>
-<div id="a13" data-art="13"><div class="frm st">г) N(ни одной) = 33 + 18 + 4 = 55</div></div>
-<p class="st">Проверка минуса: размахи пар помеченных клеток — 4, 4 и 6, поэтому до размера 3 ни одно окно не плохо дважды ✓</p>
+<div id="a10" data-art="10"><div class="frm st">а) N(содержат обе) = 7</div></div>
+<div id="a11" data-art="11"><div class="frm st">б) N(N без B) = 18 − 7 = 11</div></div>
+<div id="a12" data-art="12"><div class="frm st">в) N(ни одной) = 34 + 17 + 8 + 3 = 62</div></div>
+<p class="st">Сверка суммой: только-N 11 + только-B 11 + обе 7 + ни одной 62 = 91 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a14" data-art="14"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<div id="a13" data-art="13"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
 <p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <div class="pager"><a href="16-blok-7-otvety-i-boevye-zapisi.html">← Блок 7 — ответы и боевые записи</a></div>
 </main>

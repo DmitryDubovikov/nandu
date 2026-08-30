@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Почему сумма цифр знает остаток</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+
+  /* ——— шапка ——— */
+  header{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;
+    padding:11px 22px;border-bottom:1px solid var(--line)}
+  header .ttl{font-size:16px;color:var(--muted)}
+  header .ttl b{color:var(--ink);font-weight:600}
+  #tabs{display:flex;gap:8px;margin-left:auto;font-family:var(--sans);font-size:13px}
+  #tabs button{font:inherit;color:var(--dim);background:transparent;border:1px solid var(--line);
+    border-radius:999px;padding:5px 14px;cursor:pointer}
+  #tabs button.cur{color:var(--gold);border-color:var(--gold)}
+  #tabs button:hover{color:var(--ink)}
+
+  /* ——— середина ——— */
+  main{flex:1;overflow-y:auto;padding:20px 22px 30px}
+  .col{max-width:1020px;margin:0 auto}
+  h2{font-size:clamp(21px,2.6vw,27px);line-height:1.25;margin:0 0 8px;letter-spacing:-.01em}
+  p.lead{font-size:clamp(16px,1.9vw,18px);line-height:1.6;color:#cfdae6;margin:0;max-width:60em}
+  p.lead b{color:#fff}
+  p.lead code{font:15px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  .keybox{border-left:3px solid var(--gold);background:#1a1408;border-radius:0 12px 12px 0;
+    padding:13px 18px;margin:14px 0 0;max-width:60em}
+  .keybox .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gold);display:block;margin-bottom:6px}
+  .keybox p{margin:0;font-size:17px;line-height:1.55;color:#e8eef6}
+
+  /* ——— сцены ——— */
+  .stage{display:none;margin:18px 0 0}
+  .stage.on{display:block}
+  .zone{background:var(--bg2);border-radius:12px;padding:13px 16px 15px}
+  .zlab{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:10px}
+  .duo{display:grid;grid-template-columns:210px 1fr;gap:14px;margin-top:14px}
+  @media(max-width:760px){.duo{grid-template-columns:1fr}}
+  .cnt{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:10px}
+  .cnt b{color:var(--gold);font-weight:600}
+  .chk{font:13px var(--mono);color:var(--green);margin-top:8px}
+
+  /* фишки */
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);display:block;flex:none}
+  .dot.g{background:var(--gold)}
+  .dot.born{animation:pop .35s ease both}
+  @keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+  .stack{display:flex;flex-direction:column-reverse;gap:3px}
+  .cols{display:flex;gap:3px;align-items:flex-end;min-height:107px}
+  .grp{display:flex;flex-direction:column;gap:7px}
+  .gcap{font-family:var(--sans);font-size:12px;color:var(--dim);order:2}
+  .grp.done .gcap{color:var(--green)}
+  .work{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end;min-height:130px}
+  .tbl{display:flex;flex-wrap:wrap;gap:6px;min-height:26px;align-content:flex-start}
+  .boxes{display:flex;flex-wrap:wrap;gap:6px;min-height:38px}
+  .box{border:1px solid #3d5a82;border-radius:6px;background:#16263a;padding:3px}
+  .box.g3{border-color:#2b5c3d;background:#12281c}
+  .bin{display:grid;grid-template-columns:repeat(3,8px);gap:2px}
+  .box.g3 .bin{grid-template-columns:repeat(3,8px)}
+  .box.g3 .dot{background:var(--green)}
+
+  /* схема весов */
+  .wrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:12px 0 0}
+  .tok{font-family:var(--sans);font-size:12px;color:var(--blue);border:1px solid #3d5a82;
+    border-radius:6px;padding:4px 8px;background:#16263a}
+  .arw{color:var(--dim);font-size:18px}
+
+  /* круг */
+  .clocks{display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  .clockwrap{display:flex;flex-direction:column;gap:8px;align-items:center}
+  .clockcap{font-family:var(--sans);font-size:13px;color:var(--muted)}
+  .clockcap b{color:var(--gold)}
+  svg .mk{fill:#1a2230;stroke:#2c394c}
+  svg .mk.cur{fill:var(--gold);stroke:var(--gold)}
+  svg .ml{fill:var(--dim);font:12px var(--sans);text-anchor:middle;dominant-baseline:middle}
+  svg .ml.cur{fill:var(--gold)}
+  svg .hand{stroke:var(--gold);stroke-width:3;stroke-linecap:round}
+  svg .rim{fill:none;stroke:var(--line)}
+  .side{flex:1;min-width:260px}
+  .sel{display:flex;gap:7px;flex-wrap:wrap;font-family:var(--sans);font-size:14px;align-items:center}
+  .sel span{color:var(--dim);font-size:13px;margin-right:4px}
+  .sel button{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line);
+    border-radius:8px;padding:5px 12px;cursor:pointer}
+  .sel button.cur{border-color:var(--gold);color:var(--gold)}
+  .sel button.go{border-color:#3d5a82;color:var(--blue)}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15px;margin:14px 0 0}
+  th,td{border:1px solid var(--line);padding:7px 13px;text-align:left;color:#cfdae6}
+  th{color:var(--dim);font-weight:500;font-size:13px;background:#101620}
+  td.v{font:15px var(--mono);color:var(--gold)}
+  .verd{font-family:var(--sans);font-size:15px;line-height:1.55;color:#cfdae6;margin:12px 0 0;max-width:44em}
+  .read{font:14px var(--mono);color:var(--green);margin-top:10px;min-height:1.4em}
+
+  /* ——— низ ——— */
+  footer{display:flex;align-items:center;justify-content:center;gap:14px;
+    padding:11px 22px 14px;border-top:1px solid var(--line);flex-wrap:wrap;font-family:var(--sans)}
+  footer button{font:inherit;font-size:14.5px;color:var(--ink);background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer}
+  footer button:hover:not(:disabled){border-color:#3d4c5e}
+  footer button:disabled{opacity:.3;cursor:default}
+  #next{border-color:#3d5a82;color:var(--blue);min-width:150px}
+  #dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+  #dots button{width:26px;height:26px;padding:0;border-radius:50%;font-size:11.5px;color:var(--dim)}
+  #dots button.cur{border-color:var(--blue);color:var(--blue)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ttl"><b>Почему сумма цифр знает остаток</b> · признаки делимости на 3 и на 9</div>
+  <div id="tabs"></div>
+</header>
+
+<main>
+<div class="col">
+  <h2 id="h"></h2>
+  <p class="lead" id="p"></p>
+  <div class="keybox" id="key" style="display:none"><span class="tag">Заметь главное</span><p id="keyp"></p></div>
+
+  <!-- ——— сцена 1: разгрузка ——— -->
+  <div class="stage" id="s1">
+    <div class="zone">
+      <div class="zlab">разбираем 254 фишки</div>
+      <div class="work" id="s1work"></div>
+    </div>
+    <div class="duo">
+      <div class="zone">
+        <div class="zlab">стол — что осталось</div>
+        <div class="tbl" id="s1tbl"></div>
+        <div class="cnt">на столе: <b id="s1tc">0</b></div>
+      </div>
+      <div class="zone">
+        <div class="zlab">коробки по 9 — что уехало</div>
+        <div class="boxes" id="s1box"></div>
+        <div class="cnt">коробок: <b id="s1bc">0</b></div>
+        <div class="chk" id="s1chk"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ——— сцена 1б: любой разряд ——— -->
+  <div class="stage" id="s1b">
+    <div class="zone">
+      <div class="zlab">что оставляет каждый вес</div>
+      <div id="s1bbody"></div>
+    </div>
+  </div>
+
+  <!-- ——— сцена 2: круг ——— -->
+  <div class="stage" id="s2">
+    <div class="zone">
+      <div class="clocks">
+        <div class="clockwrap"><div id="s2clock"></div><div class="clockcap" id="s2cap"></div></div>
+        <div class="side">
+          <div class="sel" id="s2sel"></div>
+          <div id="s2tab"></div>
+          <p class="verd" id="s2verd"></p>
+          <div class="read" id="s2read"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ——— сцена 3: три и девять ——— -->
+  <div class="stage" id="s3">
+    <div class="zone">
+      <div class="zlab" id="s3lab"></div>
+      <div id="s3body"></div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <button id="prev">← назад</button>
+  <div id="dots"></div>
+  <button id="next">дальше →</button>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const mk=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const timers=[];
+const after=(ms,f)=>{timers.push(setTimeout(f,ms));};
+const clearTimers=()=>{while(timers.length)clearTimeout(timers.pop());};
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ——— FLIP: фишки не исчезают, они переезжают ——— */
+function snap(root){
+  const m=new Map();
+  root.querySelectorAll('.dot').forEach(d=>m.set(d,d.getBoundingClientRect()));
+  return m;
+}
+function play(root,m){
+  if(!m||RM)return;
+  root.querySelectorAll('.dot').forEach(d=>{
+    const f=m.get(d);
+    if(!f){d.classList.add('born');return;}
+    const l=d.getBoundingClientRect();
+    const dx=f.left-l.left, dy=f.top-l.top;
+    if(!dx&&!dy)return;
+    const del=+(d.dataset.del||0);
+    d.style.transition='none';
+    d.style.transform='translate('+dx+'px,'+dy+'px)';
+    requestAnimationFrame(()=>{
+      d.style.transition='transform .55s cubic-bezier(.4,0,.2,1) '+del+'s';
+      d.style.transform='';
+    });
+  });
+}
+const dot=g=>{const d=mk('i','dot'+(g?' g':''));return d;};
+const stack=n=>{const s=mk('div','stack');for(let i=0;i<n;i++)s.appendChild(dot());return s;};
+
+/* ================= СЦЕНА 1: разгрузка 254 ================= */
+const S1={boxes:0,table:0};
+function s1NewBox(cls){
+  const b=mk('div','box'+(cls?' '+cls:'')), bin=mk('div','bin');
+  b.appendChild(bin); $('s1box').appendChild(b); S1.boxes++;
+  return bin;
+}
+function s1Counts(){
+  $('s1bc').textContent=S1.boxes;
+  $('s1tc').textContent=S1.table;
+  $('s1chk').textContent=S1.boxes?S1.boxes+' · 9 = '+(S1.boxes*9)+',  '+(S1.boxes*9)+' + '+S1.table+' = '+(S1.boxes*9+S1.table)+' ✓':'';
+}
+/* разгрузить одну колонку из 10: девять в коробку, одна — куда скажут */
+function s1Unload(col,dest,del){
+  const ds=[...col.querySelectorAll('.dot')];
+  const bin=s1NewBox();
+  ds.slice(0,9).forEach((d,i)=>{d.dataset.del=(del+i*0.012).toFixed(3);bin.appendChild(d);});
+  const last=ds[9];
+  last.dataset.del=(del+0.14).toFixed(3);
+  last.classList.toggle('g',dest===$('s1tbl'));
+  dest.appendChild(last);
+  if(dest===$('s1tbl'))S1.table++;
+  col.remove();
+}
+function s1Group(g){return $('s1work').querySelector('[data-g="'+g+'"]');}
+function s1Cols(g){return [...s1Group(g).querySelectorAll('.stack')];}
+function s1Done(g){s1Group(g).classList.add('done');}
+
+function s1Reset(){
+  S1.boxes=0;S1.table=0;
+  $('s1work').innerHTML='';$('s1box').innerHTML='';$('s1tbl').innerHTML='';
+  const mkg=(g,cap,cols,per)=>{
+    const gr=mk('div','grp');gr.dataset.g=g;
+    const cc=mk('div','cols');
+    for(let i=0;i<cols;i++)cc.appendChild(stack(per));
+    gr.appendChild(cc);gr.appendChild(mk('div','gcap',cap));
+    $('s1work').appendChild(gr);
+  };
+  mkg('h1','сотня',10,10); mkg('h2','сотня',10,10);
+  mkg('t','5 десятков',5,10); mkg('u','4 единицы',1,4);
+  s1Counts();
+}
+/* мутации шагов 0..6 — каждая меняет только DOM, анимацию делает обёртка */
+const M1=[
+  ()=>{},                                                  /* 0: всё лежит на месте */
+  ()=>{ s1Unload(s1Cols('t')[0],$('s1tbl'),0); },           /* 1: один десяток */
+  ()=>{ s1Cols('t').forEach((c,i)=>s1Unload(c,$('s1tbl'),i*0.16)); s1Done('t'); },
+  ()=>{ s1Hundred('h1'); },
+  ()=>{ s1Hundred('h2'); },
+  ()=>{ const ds=[...s1Cols('u')[0].querySelectorAll('.dot')];
+        ds.forEach((d,i)=>{d.dataset.del=(i*0.08).toFixed(2);d.classList.add('g');$('s1tbl').appendChild(d);});
+        S1.table+=ds.length; s1Cols('u')[0].remove(); s1Done('u'); },
+  ()=>{ const ds=[...$('s1tbl').querySelectorAll('.dot')];
+        const bin=s1NewBox();
+        ds.slice(0,9).forEach((d,i)=>{d.dataset.del=(i*0.03).toFixed(2);d.classList.remove('g');bin.appendChild(d);});
+        S1.table-=9; }
+];
+/* сотня = 10 десятков: каждый оставил фишку, десять фишек снова десяток */
+function s1Hundred(g){
+  const tmp=mk('div','stack'); tmp.dataset.tmp='1';
+  s1Group(g).querySelector('.cols').appendChild(tmp);
+  s1Cols(g).filter(c=>!c.dataset.tmp).forEach((c,i)=>s1Unload(c,tmp,i*0.07));
+  s1Unload(tmp,$('s1tbl'),0.85);
+  s1Done(g);
+}
+function runS1(k,inst){
+  s1Reset();
+  for(let i=0;i<k;i++)M1[i]();
+  const m=inst?null:snap($('s1'));
+  M1[k]();
+  s1Counts();
+  play($('s1'),m);
+}
+
+/* ================= СЦЕНА 1б: любой вес оставляет одну ================= */
+function runS1b(inst){
+  const b=$('s1bbody'); b.innerHTML='';
+  const row=(cap,cnt,tok)=>{
+    const r=mk('div','wrow');
+    r.appendChild(mk('div','tok',cap));
+    r.appendChild(mk('div','arw','→'));
+    const s=mk('div','tbl');
+    for(let i=0;i<cnt;i++){const d=dot(true);d.dataset.del=(i*0.05).toFixed(2);s.appendChild(d);}
+    r.appendChild(s);
+    r.appendChild(mk('div','clockcap',tok));
+    b.appendChild(r);
+  };
+  row('десяток = 10 фишек',1,'девять уехали → осталась 1');
+  row('сотня = 10 десятков',1,'десять оставшихся — снова десяток → осталась 1');
+  row('тысяча = 10 сотен',1,'и опять: десять оставшихся → осталась 1');
+  const r=mk('div','wrow');
+  r.appendChild(mk('div','clockcap','поэтому у 254 на столе оказалось <b>2 + 5 + 4</b> — по фишке за каждую единицу каждого разряда'));
+  b.appendChild(r);
+}
+
+/* ================= СЦЕНА 2: круг из d делений ================= */
+function Clock(host,size){
+  const NS='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(NS,'svg');
+  const R=size/2-30, C=size/2;
+  svg.setAttribute('viewBox','0 0 '+size+' '+size);
+  svg.setAttribute('width',size); svg.setAttribute('height',size);
+  const rim=document.createElementNS(NS,'circle');
+  rim.setAttribute('class','rim');rim.setAttribute('cx',C);rim.setAttribute('cy',C);rim.setAttribute('r',R);
+  svg.appendChild(rim);
+  const marks=document.createElementNS(NS,'g'); svg.appendChild(marks);
+  const hand=document.createElementNS(NS,'g');
+  const line=document.createElementNS(NS,'line');
+  line.setAttribute('class','hand');
+  line.setAttribute('x1',C);line.setAttribute('y1',C);line.setAttribute('x2',C);line.setAttribute('y2',C-R+14);
+  hand.appendChild(line);
+  hand.style.transformBox='view-box';
+  const hub=document.createElementNS(NS,'circle');
+  hub.setAttribute('cx',C);hub.setAttribute('cy',C);hub.setAttribute('r',4);hub.setAttribute('fill','var(--gold)');
+  svg.appendChild(hand);svg.appendChild(hub);
+  hand.style.transformOrigin=C+'px '+C+'px';
+  host.innerHTML='';host.appendChild(svg);
+  const st={d:9,p:0,ang:0,mks:[],lbs:[]};
+  function draw(d){
+    st.d=d;st.p=0;st.ang=0;marks.innerHTML='';st.mks=[];st.lbs=[];
+    hand.style.transition='none';hand.style.transform='rotate(0deg)';
+    for(let i=0;i<d;i++){
+      const a=(-90+i*360/d)*Math.PI/180;
+      const c=document.createElementNS(NS,'circle');
+      c.setAttribute('class','mk');c.setAttribute('r',5);
+      c.setAttribute('cx',C+R*Math.cos(a));c.setAttribute('cy',C+R*Math.sin(a));
+      marks.appendChild(c);st.mks.push(c);
+      const t=document.createElementNS(NS,'text');
+      t.setAttribute('class','ml');t.textContent=i;
+      t.setAttribute('x',C+(R+18)*Math.cos(a));t.setAttribute('y',C+(R+18)*Math.sin(a));
+      marks.appendChild(t);st.lbs.push(t);
+    }
+    hl();
+  }
+  function hl(){st.mks.forEach((c,i)=>c.classList.toggle('cur',i===st.p));
+               st.lbs.forEach((t,i)=>t.classList.toggle('cur',i===st.p));}
+  function set(p){st.p=((p%st.d)+st.d)%st.d;st.ang=st.p*360/st.d;
+    hand.style.transition='none';hand.style.transform='rotate('+st.ang+'deg)';hl();}
+  function step(marksN,inst,dur){
+    st.p=((st.p+marksN)%st.d+st.d)%st.d; st.ang+=marksN*360/st.d;
+    if(inst||RM){hand.style.transition='none';hand.style.transform='rotate('+st.ang+'deg)';hl();return 0;}
+    const t=dur||Math.min(2100,Math.max(480,marksN*95));
+    void hand.getBoundingClientRect();
+    hand.style.transition='transform '+(t/1000)+'s cubic-bezier(.35,0,.25,1)';
+    hand.style.transform='rotate('+st.ang+'deg)';
+    after(t,hl);
+    return t;
+  }
+  return {draw,set,step,state:st};
+}
+let CL=null;
+const SHIFTS=d=>[1,10,100,1000].map(w=>w%d);
+function verdict(d){
+  const s=SHIFTS(d);
+  if(s.every(x=>x===1))
+    return 'Все веса двигают стрелку ровно на одну метку. Значит каждая цифра приходит на круг сама собой, и остаток числа равен остатку суммы цифр — это и есть признак делимости на '+d+'.';
+  if(s[1]===0&&s[2]===0&&s[3]===0)
+    return 'Десятки, сотни и тысячи не двигают стрелку вовсе — от них остаток не зависит. Поэтому здесь смотрят только последнюю цифру, а сумма цифр ни при чём.';
+  if(s[2]===0&&s[3]===0)
+    return 'Сотни и дальше не двигают стрелку, а десяток двигает на 2. Правило есть, но по двум последним цифрам, а не по сумме цифр.';
+  return 'Сдвиги у всех весов разные. Сложить цифры и получить остаток не выйдет: каждая цифра пришла бы со своим множителем — короткого правила из цифр здесь нет.';
+}
+function s2Table(d){
+  const s=SHIFTS(d);
+  $('s2tab').innerHTML='<table><tr><th>вес</th><th>1</th><th>10</th><th>100</th><th>1000</th></tr>'+
+    '<tr><th>двигает стрелку на</th>'+s.map(x=>'<td class="v">'+x+'</td>').join('')+'</tr></table>';
+  $('s2verd').textContent=verdict(d);
+}
+function s2Sel(d,active){
+  $('s2sel').innerHTML='';
+  if(!active){$('s2sel').style.display='none';return;}
+  $('s2sel').style.display='flex';
+  $('s2sel').appendChild(mk('span',null,'круг из'));
+  [2,3,4,5,7,9].forEach(x=>{
+    const b=mk('button',x===d?'cur':null,String(x));
+    b.onclick=()=>s2Demo(x);
+    $('s2sel').appendChild(b);
+  });
+  const g=mk('button','go','+10 ещё раз');
+  g.onclick=()=>s2Demo(CL.state.d);
+  $('s2sel').appendChild(g);
+}
+function s2Demo(d){
+  clearTimers();
+  CL.draw(d); s2Sel(d,true); s2Table(d);
+  $('s2cap').innerHTML='круг из <b>'+d+'</b> делений';
+  $('s2read').textContent='';
+  after(260,()=>{
+    CL.step(10,false);
+    after(Math.max(480,10*95)+60,()=>{
+      $('s2read').textContent='добавили 10 → стрелка на метке '+CL.state.p+'  (сдвиг на '+(10%d)+')';
+    });
+  });
+}
+function runS2(k,inst){
+  clearTimers();
+  if(!CL)CL=Clock($('s2clock'),260);
+  $('s2read').textContent='';
+  if(k<4){
+    s2Sel(9,false); s2Table(9);
+    $('s2cap').innerHTML='круг из <b>9</b> делений';
+    CL.draw(9);
+    const P=[[0,4,'считаем по одному: 1, 2, 3, 4 → стрелка на метке 4'],
+             [4,10,'добавили 10 → стрелка на метке 5: круг и ещё одна метка'],
+             [5,100,'добавили 100 → стрелка на метке 6: снова одна метка'],
+             [0,11,'2 сотни + 5 десятков + 4 единицы = 11 меток → круг и ещё 2 → метка 2']];
+    const [from,add,txt]=P[k];
+    CL.set(from);
+    if(inst){CL.step(add,true);$('s2read').textContent=txt;}
+    else after(220,()=>{const t=CL.step(add,false,k===0?1400:null);after(t+60,()=>{$('s2read').textContent=txt;});});
+  }else{
+    const d=k===4?2:7;
+    if(inst){CL.draw(d);s2Sel(d,true);s2Table(d);$('s2cap').innerHTML='круг из <b>'+d+'</b> делений';CL.step(10,true);
+             $('s2read').textContent='добавили 10 → стрелка на метке '+CL.state.p+'  (сдвиг на '+(10%d)+')';}
+    else s2Demo(d);
+  }
+}
+
+/* ================= СЦЕНА 3: три и девять ================= */
+function runS3(k,inst){
+  clearTimers();
+  const b=$('s3body');
+  if(k===0||k===1){
+    $('s3lab').textContent=k===0?'коробка на 9 — это три коробки по 3':'тот же стол, но коробки по 3';
+    b.innerHTML='';
+    const wrap=mk('div','wrow'); b.appendChild(wrap);
+    const n=k===0?9:11;
+    const src=mk('div','tbl');
+    for(let i=0;i<n;i++)src.appendChild(dot(k===1));
+    if(k===0){const box=mk('div','box');const bin=mk('div','bin');
+      [...src.children].forEach(d=>bin.appendChild(d));box.appendChild(bin);wrap.appendChild(box);}
+    else wrap.appendChild(src);
+    const m=inst?null:snap($('s3'));
+    /* делим на тройки */
+    const out=mk('div','wrow'); b.innerHTML=''; b.appendChild(out);
+    const ds=[...wrap.querySelectorAll('.dot')];
+    let i=0;
+    while(ds.length-i>=3){
+      const box=mk('div','box g3'), bin=mk('div','bin');
+      bin.style.gridTemplateColumns='repeat(3,8px)';
+      for(let j=0;j<3;j++){const d=ds[i++];d.dataset.del=(0.25+j*0.04).toFixed(2);d.classList.remove('g');bin.appendChild(d);}
+      box.appendChild(bin); out.appendChild(box);
+    }
+    if(i<ds.length){
+      const rest=mk('div','tbl');
+      rest.style.marginLeft='14px';
+      for(;i<ds.length;i++){const d=ds[i];d.dataset.del='0.45';d.classList.add('g');rest.appendChild(d);}
+      out.appendChild(rest);
+      out.appendChild(mk('div','clockcap','осталось '+(ds.length%3)+' — это остаток по 3'));
+    }else if(k===0){
+      out.appendChild(mk('div','clockcap','девятка разошлась на три тройки без остатка'));
+    }
+    play($('s3'),m);
+  }else{
+    $('s3lab').textContent='число 12: сумма цифр 3';
+    b.innerHTML='<div class="clocks"><div class="clockwrap"><div id="c3"></div><div class="clockcap" id="c3c"></div></div>'+
+                '<div class="clockwrap"><div id="c9"></div><div class="clockcap" id="c9c"></div></div></div>';
+    const a=Clock($('c3'),220), c=Clock($('c9'),220);
+    a.draw(3); c.draw(9);
+    const fin=()=>{
+      $('c3c').innerHTML='круг из <b>3</b>: стрелка в 0 → 12 делится на 3';
+      $('c9c').innerHTML='круг из <b>9</b>: стрелка на 3 → 12 на 9 <b>не</b> делится';
+    };
+    if(inst||k>2){a.step(12,true);c.step(12,true);fin();}
+    else after(220,()=>{const t=a.step(12,false,1500);c.step(12,false,1500);after(t+60,fin);});
+  }
+}
+
+/* ================= шаги ================= */
+const STEPS=[
+{tab:0,st:'s1',run:(i)=>runS1(0,i),
+ h:'254 фишки и коробки по девять',
+ p:'Хочу узнать остаток от деления <code>254 : 9</code>, но столбиком делить не буду. Разложу 254 фишки так, как записано число: <b>2 сотни, 5 десятков, 4 отдельные</b>. И буду увозить их коробками ровно по 9. Коробка увозит целую девятку — на остаток она не влияет совсем, сколько бы коробок ни уехало. Значит в конце на столе останется меньше девяти фишек, и это и будет остаток.'},
+{tab:0,st:'s1',run:(i)=>runS1(1,i),
+ h:'Десяток: девять уезжают, одна остаётся',
+ p:'Беру один десяток. Девять фишек как раз наполняют коробку — она уезжает. <b>Одна фишка остаётся на столе.</b> Больше в этой сцене ничего нового не будет: дальше этот ход просто повторяется.'},
+{tab:0,st:'s1',run:(i)=>runS1(2,i),
+ h:'Пять десятков — пять фишек',
+ p:'Остальные четыре десятка разгружаю тем же ходом. Каждый оставил ровно по одной фишке, значит пять десятков оставили <b>пять</b> фишек. Смотри: цифра 5 сама и назвала, сколько фишек останется от десятков.'},
+{tab:0,st:'s1',run:(i)=>runS1(3,i),
+ h:'Сотня тоже оставляет одну',
+ p:'Сотня — это десять десятков. Каждый из них оставляет по фишке, и на столе набирается десять фишек. Но десять фишек — это снова десяток: девять уезжают в коробку, одна остаётся. Итого <b>сотня оставляет ровно одну фишку</b>.'},
+{tab:0,st:'s1',run:(i)=>runS1(4,i),
+ h:'Вторая сотня — тем же ходом',
+ p:'Вторая сотня разгружается точно так же и оставляет ещё одну фишку. Две сотни — <b>две</b> фишки. Опять ровно цифра.'},
+{tab:0,st:'s1',run:(i)=>runS1(5,i),
+ h:'Единицы никуда не едут',
+ p:'Четырёх единиц на коробку не хватает, поэтому они просто остаются на столе.',
+ key:'На столе <b>2 + 5 + 4 = 11</b> фишек — это сумма цифр числа 254. Вот что такое сумма цифр: это всё, что осталось на столе, когда девятки уехали. Поэтому у суммы цифр тот же остаток, что и у самого числа.'},
+{tab:0,st:'s1',run:(i)=>runS1(6,i),
+ h:'Разгружаю остаток ещё раз',
+ p:'Одиннадцать — больше девяти, значит соберётся ещё одна коробка. Девять уезжают, <b>две</b> остаются. Меньше девяти — разгружать больше нечего: <code>res(254 : 9) = 2</code>. Проверка внизу справа: 28 коробок увезли 252 фишки, на столе 2, вместе ровно 254.'},
+{tab:0,st:'s1b',run:(i)=>runS1b(i),
+ h:'Почему это годится для любого числа',
+ p:'В ходе ни разу не участвовали сами цифры 2, 5 и 4 — работало только устройство разрядов. Тысяча — это десять сотен, каждая оставила по фишке, десять фишек снова свернулись в коробку и одну фишку. И так дальше, сколько бы разрядов ни было.',
+ key:'Каждый вес — 1, 10, 100, 1000, … — оставляет на столе ровно одну фишку. Поэтому каждая цифра приводит на стол столько фишек, чему она равна, и на столе оказывается сумма цифр. У числа любой длины.'},
+
+{tab:1,st:'s2',run:(i)=>runS2(0,i),
+ h:'Тот же счёт, но по кругу из девяти',
+ p:'Круг из девяти делений. Считаю по одному и каждый раз двигаю стрелку на метку вперёд. Когда круг кончается, счёт начинается заново с нуля — поэтому <b>метка, где стоит стрелка, и есть остаток по 9</b>.'},
+{tab:1,st:'s2',run:(i)=>runS2(1,i),
+ h:'Шаг +10 двигает всего на одну метку',
+ p:'Теперь добавляю сразу 10. Стрелка обходит весь круг — девять меток — и делает ещё один шаг. Круг ничего не изменил, остался только этот лишний шаг: <b>+10 сдвигает на 1</b>, ровно как +1. Это то же самое, что коробка в первой сцене: девятка уехала, одна фишка осталась.'},
+{tab:1,st:'s2',run:(i)=>runS2(2,i),
+ h:'И +100 — тоже на одну',
+ p:'Сотня — это одиннадцать полных кругов и ещё одна метка: <code>100 = 9 · 11 + 1</code>. Стрелка снова сдвинулась на одну. Так же будет и с тысячей. <b>Любой вес двигает стрелку на одну метку.</b>'},
+{tab:1,st:'s2',run:(i)=>runS2(3,i),
+ h:'254 по кругу — это 11 шагов',
+ p:'Значит, чтобы дойти до 254, не нужно делать 254 шага. Каждая сотня — один шаг, каждый десяток — один шаг, каждая единица — один шаг: <b>2 + 5 + 4 = 11 шагов</b>. Одиннадцать шагов — это круг и ещё две метки. Стрелка встала на 2 — тот же остаток, что остался на столе в первой сцене.'},
+{tab:1,st:'s2',run:(i)=>runS2(4,i),
+ h:'А если круг не из девяти?',
+ p:'Вот круг из двух делений, и снова шаг +10. Стрелка обошла его ровно пять раз и вернулась туда же: <b>сдвиг 0</b>. Десятки, сотни и тысячи не двигают стрелку вовсе, и от них остаток не зависит — поэтому у двойки правило про последнюю цифру, а не про сумму цифр. Переключай круг кнопками и смотри на строку сдвигов.'},
+{tab:1,st:'s2',run:(i)=>runS2(5,i),
+ h:'Семёрка: сдвиги все разные',
+ p:'На круге из семи шаг +10 сдвигает на 3, +100 — на 2, +1000 — на 6. Каждая цифра пришла бы со своим множителем, и просто сложить цифры нельзя. Вот почему признак «по сумме цифр» есть <b>только у 3 и у 9</b>: они единственные делители, для которых все веса сдвигают ровно на одну метку.'},
+
+{tab:2,st:'s3',run:(i)=>runS3(0,i),
+ h:'Коробка на девять — это три коробки по три',
+ p:'Девятка разбирается на три тройки без остатка. Значит всё, что уехало со стола коробками по 9, уехало бы и коробками по 3 — на остаток по 3 оно тоже не влияет.',
+ key:'Стол в первой сцене годится обоим: и для 9, и для 3. Поэтому признак у них один и тот же — сумма цифр.'},
+{tab:2,st:'s3',run:(i)=>runS3(1,i),
+ h:'Остаток по 3 берём с того же стола',
+ p:'На столе те же 11 фишек. Собираю из них тройки: их вышло три, и остались 2 фишки. <code>res(254 : 3) = 2</code> — и это правда: <code>254 = 3 · 84 + 2</code>. Считать заново ничего не пришлось, сумма цифр уже посчитана.'},
+{tab:2,st:'s3',run:(i)=>runS3(2,i),
+ h:'«Делится на 3» не значит «делится на 9»',
+ p:'Возьми 12: сумма цифр 3. На круге из трёх стрелка приходит в 0 — 12 делится на 3. На круге из девяти та же дюжина оставляет стрелку на метке 3 — на 9 не делится. Одна и та же сумма цифр, а ответы разные.'},
+{tab:2,st:'s3',run:(i)=>runS3(3,i),
+ h:'А в обратную сторону — верно',
+ p:'Если сумма цифр делится на 9, то она делится и на 3: девятка ведь всегда разбирается на три тройки. Поэтому стрелка «на 9 ⇒ на 3» работает всегда, а «на 3 ⇒ на 9» — нет.',
+ key:'Проверяя делимость на 9, ты заодно проверяешь делимость на 3. Наоборот — нет.'}
+];
+const TABS=['1 · Разгрузка','2 · Круг из девяти','3 · Три и девять'];
+
+let cur=-1;
+const dotsBox=$('dots'), tabsBox=$('tabs');
+TABS.forEach((t,i)=>{
+  const b=mk('button',null,t);
+  b.onclick=()=>go(STEPS.findIndex(s=>s.tab===i));
+  tabsBox.appendChild(b);
+});
+STEPS.forEach((s,i)=>{
+  const b=mk('button',null,String(i+1));
+  b.onclick=()=>go(i);
+  dotsBox.appendChild(b);
+});
+
+function go(i){
+  if(i<0||i>=STEPS.length)return;
+  clearTimers();
+  const inst=i!==cur+1;
+  const s=STEPS[i]; cur=i;
+  $('h').textContent=s.h;
+  $('p').innerHTML=s.p;
+  $('key').style.display=s.key?'block':'none';
+  if(s.key)$('keyp').innerHTML=s.key;
+  document.querySelectorAll('.stage').forEach(el=>el.classList.toggle('on',el.id===s.st));
+  s.run(inst);
+  [...dotsBox.children].forEach((b,k)=>b.classList.toggle('cur',k===i));
+  [...tabsBox.children].forEach((b,k)=>b.classList.toggle('cur',k===s.tab));
+  $('prev').disabled=i===0;
+  $('next').disabled=i===STEPS.length-1;
+  $('next').textContent=i===STEPS.length-1?'конец':'дальше →';
+}
+$('next').onclick=()=>go(cur+1);
+$('prev').onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')go(cur+1);
+  if(e.key==='ArrowLeft')go(cur-1);
+});
+go(0);
+</script>
+</body>
+</html>

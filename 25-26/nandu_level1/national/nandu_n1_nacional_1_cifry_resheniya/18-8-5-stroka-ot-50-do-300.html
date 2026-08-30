@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>6.5 ⭐⭐ Число плюс переворот = 444</title>
+<title>8.5 ⭐⭐ Строка от 50 до 300</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -209,57 +209,63 @@
 <body>
 <div class="wrap battle">
 <aside>
-  <p class="chapnav"><a href="index.html">все главы</a> · 12 из 21</p>
+  <p class="chapnav"><a href="index.html">все главы</a> · 18 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">101 · S(крайних) + 20 · b = 444</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">20 · b ≥ 0 → 101 · S(крайних) ≤ 444; 101 · 4 = 404 ≤ 444, 101 · 5 = 505 &gt; 444 → <b>S(крайних) ≤ 4</b></span></button>
-<button class="art cont" data-art="3"><span class="val f">S(крайних) = 4 → 444 − 404 = 40 = 20 · 2 → <b>b = 2</b> ✓</span></button>
-<button class="art cont" data-art="4"><span class="val f">S(крайних) = 3 → 141, S(крайних) = 2 → 242, S(крайних) = 1 → 343 — на 20 не делятся ✗</span></button>
-<button class="art cont" data-art="5"><span class="val f">пары крайних с суммой 4 без нулей: (1,3), (2,2), (3,1)</span></button>
-<button class="art cont" data-art="6"><span class="val f">3 числа: 123, 222, 321</span></button>
-<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de la suma de las cifras de los extremos y los demás no cumplen que la diferencia sea múltiplo de 20, por eso no hay más que estos.<br><em>Проверил все возможные значения суммы крайних цифр, остальные не подходят под «остаток делится на 20», — поэтому других нет.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Hasta ese lugar entran 50 bloques enteros y sobran 0 cifras, así que solo miro dentro del último bloque.<br><em>До этого места умещается 50 целых кусков и остаётся ещё 0 цифр, поэтому смотрю только внутри последнего.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">а) 703 цифры</span></button>
+<button class="art cont" data-art="2"><span class="val f">б) 250 − 100 = 150 = 3 · 50 + 0 → остаток 0 = последняя цифра 50-го трёхзначного</span></button>
+<button class="art cont" data-art="3"><span class="val f">50-е трёхзначное = 149 → цифра 9</span></button>
+<button class="art cont" data-art="4"><span class="val f">в) до 214 стоят 100 + 114 · 3 = 442 цифры → с 443-го места</span></button>
 </aside>
 <main>
   
-  <h1>6.5 ⭐⭐ Число плюс переворот = 444</h1>
+  <h1>8.5 ⭐⭐ Строка от 50 до 300</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> Трёхзначное число без нулей в записи сложили с его переворотом и получили 444. Сколько таких чисел могло быть? Перечисли все.</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Возьми любое трёхзначное число с цифрами a (первая), b (средняя), c (последняя) и сложи его с переворотом:</p></div>
-<div class="frm st">(100a + 10b + c) + (100c + 10b + a) = 101 · (a + c) + 20 · b</div>
-<p class="st">Первая и последняя цифры входят в правую часть только одной суммой a + c — по отдельности их там нет вовсе. Значит, сумма 444 знает про задуманное число не три цифры, а два числа: сумму крайних цифр и среднюю цифру. Их и надо добывать, а угадывать все три цифры сразу не придётся.</p>
-<p class="step st"><b>Шаг 1 — план: свести три неизвестные цифры к двум числам.</b> Сумму крайних цифр a + c назову S(крайних), среднюю цифру — b. Сначала нахожу из равенства эти два числа, а потом раскладываю S(крайних) на конкретные пары цифр a и c.</p>
-<figure class="st"><div class="stolb"><div class="srow" style="grid-template-columns:repeat(4,32px)"><span></span><span>a</span><span>b</span><span>c</span></div><div class="srow" style="grid-template-columns:repeat(4,32px)"><span>+</span><span>c</span><span>b</span><span>a</span></div></div><div class="flab" style="margin-top:14px">сотни: a + c &nbsp;·&nbsp; вес 100<br>десятки: b + b &nbsp;·&nbsp; вес 10<br>единицы: c + a &nbsp;·&nbsp; вес 1</div><div class="frm" style="margin-top:16px;border-color:var(--green)">101 · К + 20 · Б</div><div class="flab" style="margin-top:10px"><span style="color:var(--gold)">К = a + c</span> — сумма крайних &nbsp;|&nbsp; <span style="color:var(--blue)">Б = b</span> — средняя цифра</div><figcaption>Крайние цифры входят в сумму только вместе — по разу в сотни и по разу в единицы. Поэтому три неизвестные цифры сжимаются до двух чисел.</figcaption></figure>
+<p class="st"><b>Условие.</b> Выписали подряд, без пробелов, все числа от 50 до 300: 505152…299300. а) Сколько цифр в строке? б) Какая цифра стоит на 250-м месте? в) С какого места начинается число 214?</p>
+<p class="step st"><b>Шаг 1 — план: сначала таблица блоков — она ответит на все три вопроса.</b> Список начинается не с единицы, поэтому привычная таблица «однозначные, двузначные, трёхзначные» не годится: однозначных здесь нет вовсе, а двузначные начинаются с 50. Значит, блоки строю заново под <b>этот</b> список. Зато как только они построены, каждый вопрос — короткий ход по ним. Число цифр, стоящих в строке до числа 214, назову N(цифр до 214).</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">101 · S(крайних) + 20 · b = 444</div>
-<p class="st">S(крайних) — сумма первой и последней цифр; b — средняя цифра</p>
-<p class="st">Ответ = все числа без нулей, у которых сумма крайних цифр равна S(крайних), а средняя цифра равна b</p>
-<p class="st">Осталось найти: S(крайних) и b, а потом перебрать пары крайних цифр.</p></div>
-<p class="step st"><b>Шаг 2 — зажимаю S(крайних).</b> Нужно сузить перебор: сумма крайних цифр бывает от 0 до 18, и проверять девятнадцать вариантов долго. Беру равенство из плана и смотрю, до какого S(крайних) оно вообще дотягивается.</p>
-<div class="frm st">101 · S(крайних) + 20 · b = 444</div>
-<p class="st">Слагаемое 20 · b никогда не бывает отрицательным, значит первое слагаемое одно уже не может перевалить за 444:</p>
-<div class="frm st">101 · S(крайних) ≤ 444</div>
-<p class="st">101 · 4 = 404 ≤ 444, а 101 · 5 = 505 &gt; 444</p>
-<p class="st">→ <b>S(крайних) ≤ 4</b> — проверять надо всего четыре варианта, а не девятнадцать</p>
-<p class="step st"><b>Шаг 3 — перебираю S(крайних) и получаю b.</b> Иду по порядку сверху вниз: a + c = 4 → остаётся 444 − 404 = 40 = 20 · 2 → <b>b = 2</b> ✓; a + c = 3 → остаётся 141, на 20 не делится ✗; a + c = 2 → 242 ✗; a + c = 1 → 343 ✗. → <b>S(крайних) = 4, b = 2</b></p>
-<p class="step st"><b>Шаг 4 — сборка.</b> Пары крайних цифр с суммой 4 без нулей: (1,3), (2,2), (3,1) → <b>три числа</b>: 123, 222, 321. Контроль: 123 + 321 = 444 ✓</p>
+<div class="frm st">Ответ (а) = сумма длин блоков</div>
+<p class="st">Ответ (б) = цифра по адресу, который даст деление с остатком внутри блока</p>
+<div class="frm st">Ответ (в) = N(цифр до 214) + 1</div>
+<p class="st">Осталось найти: таблицу блоков, адрес 250-й цифры и N(цифр до 214).</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Блок здесь — это не «все двузначные», а «те двузначные, которые попали в список»: от 50 до 99. Чисел в блоке считаю всегда одинаково — последнее минус первое плюс один, — и именно поэтому начало списка не сбивает счёт: формула не знает, с какого числа список начался, ей хватает границ блока.</p></div>
+<figure class="st"><div class="fcol" style="align-items:flex-start;gap:6px"><span class="flab">однозначных в этом списке нет вовсе — блоки строим заново</span><div style="display:flex;gap:10px;align-items:baseline;color:inherit"><span style="min-width:150px">двузначные 50–99</span><span style="min-width:90px">50 чисел</span><span style="min-width:110px">50 · 2 = 100</span><span>итог 100</span></div><div style="display:flex;gap:10px;align-items:baseline;color:var(--gold)"><span style="min-width:150px">трёхзначные 100–300</span><span style="min-width:90px">201 число</span><span style="min-width:110px">201 · 3 = 603</span><span>итог 703</span></div></div><div class="flab" style="margin-top:14px">чисел в блоке = последнее − первое + 1 &nbsp;→&nbsp; 99 − 50 + 1 = 50 &nbsp;и&nbsp; 300 − 100 + 1 = 201</div><figcaption>Формула «последнее − первое + 1» не знает, с какого числа начался список, — ей хватает границ блока. Поэтому необычное начало счёт не сбивает.</figcaption></figure>
+<p class="step st"><b>Шаг 2 — строю таблицу блоков этого списка.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>Блок</th><th>Чисел</th><th>Цифр в блоке</th><th>Накопленный итог</th></tr>
+<tr><td>двузначные 50–99</td><td>99 − 50 + 1 = 50</td><td>50 · 2 = 100</td><td>100</td></tr>
+<tr><td>трёхзначные 100–300</td><td>300 − 100 + 1 = 201</td><td>201 · 3 = 603</td><td>100 + 603 = <b>703</b></td></tr>
+</table></div></div>
+<p class="st">→ <b>703 цифры</b> (ответ на а)</p>
+<p class="step st"><b>Шаг 3 — ищу цифру на 250-м месте.</b> Нужен адрес: какое число и какая его цифра. По таблице первые 100 мест заняты двузначными, а 250 глубже — значит, позиция сидит в блоке трёхзначных. Внутри блока считать удобно только от его начала, поэтому отбрасываю двузначные:</p>
+<div class="frm st">250 − 100 = 150</div>
+<p class="st">Трёхзначные идут порциями по 3 цифры, делю с остатком:</p>
+<div class="frm st">150 = 3 · 50 + 0</div>
+<p class="st">Остаток 0 — это ловушка главы: он значит <b>последнюю цифру пятидесятого</b> трёхзначного, а не первую цифру пятьдесят первого. Пятидесятое трёхзначное — это 100 + 50 − 1 = 149, его последняя цифра</p>
+<p class="st">→ <b>9</b></p>
+<p class="step st"><b>Шаг 4 — считаю N(цифр до 214).</b> Нужна длина всего, что напечатано раньше 214, — складываю её из двух кусков:</p>
+<ul class="st"><li>весь блок двузначных 50–99 → <b>100 цифр</b>;</li><li>трёхзначные от 100 до 213: их 213 − 100 + 1 = 114, цифр 114 · 3 → <b>342</b>.</li></ul>
+<p class="st">100 + 342 → <b>N(цифр до 214) = 442</b></p>
+<p class="step st"><b>Шаг 5 — сборка.</b> а) <b>703 цифры</b>; б) <b>9</b>; в) 442 + 1 → с <b>443-го</b> места.</p>
+<p class="st">Проверка на маленьком (Ч3): где начинается 52? До него стоят числа 50 и 51, это 4 цифры → старт на 5-м месте; в строке 505152 пятая цифра действительно «5» — первая цифра числа 52 ✓</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
-<p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Hasta ese lugar entran 50 bloques enteros y sobran 0 cifras, así que solo miro dentro del último bloque.</b></p></div>
+<p class="st"><em>До этого места умещается 50 целых кусков и остаётся ещё 0 цифр, поэтому смотрю только внутри последнего.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">b — средняя цифра.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">101 · S(крайних) + 20 · b = 444</div></div></div>
-<div id="a5" data-art="5"><ul class="st"><li>20 · b ≥ 0 → 101 · S(крайних) ≤ 444; 101 · 4 = 404 ≤ 444, 101 · 5 = 505 &gt; 444 → <b>S(крайних) ≤ 4</b></li><li>S(крайних) = 4 → 444 − 404 = 40 = 20 · 2 → <b>b = 2</b> ✓</li><li>S(крайних) = 3 → 141, S(крайних) = 2 → 242, S(крайних) = 1 → 343 — на 20 не делятся ✗</li><li>пары крайних с суммой 4 без нулей: (1,3), (2,2), (3,1)</li></ul></div>
-<div id="a6" data-art="6"><div class="frm st">3 числа: 123, 222, 321</div></div>
-<p class="st">Проверка: 123 + 321 = 444 ✓</p>
-<h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a7" data-art="7"><p class="st"><b>Probé todos los valores posibles de la suma de las cifras de los extremos y los demás no cumplen que la diferencia sea múltiplo de 20, por eso no hay más que estos.</b></p></div>
-<p class="st"><em>Проверил все возможные значения суммы крайних цифр, остальные не подходят под «остаток делится на 20», — поэтому других нет.</em></p>
+<div class="st"><div class="tw"><table>
+<tr><th>Блок</th><th>Чисел</th><th>Цифр</th><th>Итог</th></tr>
+<tr><td>50–99</td><td>50</td><td>100</td><td>100</td></tr>
+<tr><td>100–300</td><td>201</td><td>603</td><td><b>703</b></td></tr>
+</table></div></div>
+<div id="a1" data-art="1"><p class="st"><b>а) 703 цифры</b></p></div>
+<div id="a2" data-art="2"><div class="frm st">б) 250 − 100 = 150 = 3 · 50 + 0 → остаток 0 = последняя цифра 50-го трёхзначного</div></div>
+<div id="a3" data-art="3"><div class="frm st">50-е трёхзначное = 149 → цифра 9</div></div>
+<div id="a4" data-art="4"><div class="frm st">в) до 214 стоят 100 + 114 · 3 = 442 цифры → с 443-го места</div></div>
+<p class="st">Проверка на маленьком (Ч3): до 52 стоят 4 цифры → старт 5; в 505152 пятая цифра «5» ✓</p>
 <hr>
-<div class="pager"><a href="11-6-4-trehznachnoe-s-nulem-v-seredine.html">← 6.4 ⭐ Трёхзначное с нулём в середине</a><a href="13-6-6-chislo-plyus-perevorot-1251.html">6.6 ⭐⭐ Число плюс переворот = 1251 →</a></div>
+<div class="pager"><a href="17-8-4-stroka-iz-chetnyh-chisel.html">← 8.4 ⭐ Строка из чётных чисел</a><a href="19-9-4-stroka-ot-1-do-40.html">9.4 ⭐ Строка от 1 до 40 →</a></div>
 </main>
 </div>
 <script>

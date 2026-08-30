@@ -211,23 +211,24 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 16 из 17</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo los trominós y después los cuadraditos; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю тримино и потом квадратики; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(укладок) = N(пар тримино) × N(пар клеток)</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">карта позиций на 3×3: 3 горизонтальные + 3 вертикальные</span></button>
-<button class="art cont" data-art="3"><span class="val f">горизонтальное и вертикальное всегда делят клетку на пересечении → смешанные пары запрещены</span></button>
-<button class="art cont" data-art="4"><span class="val f">красное и синее различимы: гориз+гориз 3 · 2 = 6, верт+верт 6 → N(пар тримино) = 12</span></button>
-<button class="art cont" data-art="5"><span class="val f">свободных клеток 9 − 6 = 3; два одинаковых квадратика — лесенка 2 + 1 → N(пар клеток) = 3</span></button>
-<button class="art cont" data-art="6"><span class="val f">N(укладок) = 12 × 3 = 36</span></button>
-<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">No hace falta escribir la lista: cada colocación da exactamente una pareja de elecciones, y colocaciones distintas dan parejas distintas, por eso el conteo es exacto.<br><em>Список выписывать не нужно: каждая укладка даёт ровно одну пару выборов, а разные укладки дают разные пары, — поэтому счёт точен.</em></span></button>
-<button class="art" data-art="8"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo el cuadrado 2×2 y después la casilla vacía; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю квадрат 2×2 и потом пустую клетку; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
-<button class="art" data-art="9"><span class="lbl">План</span><span class="val f">N(положений уголка) = квадраты 2×2 × пустая клетка квадрата</span></button>
-<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">N(укладок) = N(положений уголка) × свободные клетки</span></button>
-<button class="art" data-art="11"><span class="lbl">На туре</span><span class="val f">квадратов 2×2 на доске 2×3: 2</span></button>
-<button class="art cont" data-art="12"><span class="val f">пустой может быть любая из 4 клеток квадрата — это и есть четыре поворота</span></button>
-<button class="art cont" data-art="13"><span class="val f">N(положений уголка) = 2 × 4 = 8</span></button>
-<button class="art cont" data-art="14"><span class="val f">свободных клеток 6 − 3 = 3</span></button>
-<button class="art cont" data-art="15"><span class="val f">N(укладок) = 8 × 3 = 24</span></button>
-<button class="art" data-art="16"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Recorro los casos en orden y dejo escrito por qué los que descarto son imposibles.<br><em>Иду по случаям по порядку и записываю, почему отброшенные невозможны.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">карта позиций на 2×5: горизонтальных 2 строки · 4 = 8, вертикальных 5 → всего 13</span></button>
+<button class="art cont" data-art="2"><span class="val f">горизонтальное у края строки (4 позиции): вычерков 4 → синему 9</span></button>
+<button class="art cont" data-art="3"><span class="val f">горизонтальное в середине строки (4 позиции): вычерков 5 → синему 8</span></button>
+<button class="art cont" data-art="4"><span class="val f">вертикальное на крайнем столбце (2 позиции): вычерков 3 → синему 10</span></button>
+<button class="art cont" data-art="5"><span class="val f">вертикальное на среднем столбце (3 позиции): вычерков 5 → синему 8</span></button>
+<button class="art cont" data-art="6"><span class="val f">сорта покрывают карту: 4 + 4 + 2 + 3 = 13 ✓</span></button>
+<button class="art cont" data-art="7"><span class="val f">N(укладок) = 4·9 + 4·8 + 2·10 + 3·8 = 112</span></button>
+<button class="art" data-art="8"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
+<button class="art" data-art="9"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo el cuadrado 2×2 y después la casilla vacía; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю квадрат 2×2 и потом пустую клетку; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
+<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">N(положений уголка) = квадраты 2×2 × пустая клетка квадрата</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">N(укладок) = N(положений уголка) × свободные клетки</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">квадратов 2×2 на доске 2×3: 2</span></button>
+<button class="art cont" data-art="13"><span class="val f">пустой может быть любая из 4 клеток квадрата — это и есть четыре поворота</span></button>
+<button class="art cont" data-art="14"><span class="val f">N(положений уголка) = 2 × 4 = 8</span></button>
+<button class="art cont" data-art="15"><span class="val f">свободных клеток 6 − 3 = 3</span></button>
+<button class="art cont" data-art="16"><span class="val f">N(укладок) = 8 × 3 = 24</span></button>
+<button class="art" data-art="17"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 </aside>
 <main>
   
@@ -238,31 +239,36 @@
 <tr><td>7.1</td><td>5 × 4 = <b>20</b></td><td>карта позиций тримино на 1×7: левый край 1–5 → 5; свободных клеток 4</td></tr>
 <tr><td>7.2</td><td>6 × 2 = <b>12</b></td><td>два одинаковых тримино — пара позиций без порядка, поэтому считаю только «левое–правое»: i — начало левого, правое начинается не раньше i + 3; тримино 1×3 на полоске 1×8 может начинаться в клетках 1–6, значит правому годятся начала от i + 3 до 6: i = 1 → 3 места, i = 2 → 2, i = 3 → 1, i = 4 → правому пришлось бы начаться с 7-й клетки, а туда тримино не влезает — стоп; лесенка 3 + 2 + 1 = 6 пар; квадратик на 8 − 6 = 2 свободные</td></tr>
 </table></div></div>
-<div class="frm st">7.3 — ответ: 36</div>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Сначала большие фигурки, мелочь в конце — значит первым делом нужна карта позиций тримино на 3×3: 3 горизонтальные (по строке целиком) + 3 вертикальные (по столбцу целиком) = 6. Совместимость: горизонтальное в строке i и вертикальное в столбце j всегда делят клетку на пересечении строки i и столбца j → смешанные пары запрещены все.</p>
+<div class="frm st">7.3 — ответ: 112; одинаковыми домино — 56</div>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Фигурки обе большие, и вторая мешает первой: сколько мест останется синему, зависит от того, куда встало красное, — перемножать нельзя. Значит перебираю позицию красного и в каждом случае считаю, сколько позиций уцелело у синего.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(укладок) = N(пар тримино) × N(пар клеток)</div>
-<p class="st">где</p>
-<ul class="st"><li><b>N(пар тримино)</b> — пары позиций красного и синего тримино, которые уживаются на доске; красное и синее различимы, поэтому пары считаю с порядком;</li><li><b>N(пар клеток)</b> — пары свободных клеток под два зелёных квадратика; квадратики одинаковые, поэтому порядка у пары нет.</li></ul></div>
-<p class="step st"><b>Шаг 2 — считаем N(пар тримино).</b> Смешанные запрещены → гориз+гориз ИЛИ верт+верт. Красное и синее различимы → с порядком: две горизонтальные из трёх строк — 3 · 2 = 6; две вертикальные — 6; вместе 6 + 6 → <b>N(пар тримино) = 12</b>.</p>
-<p class="step st"><b>Шаг 3 — считаем N(пар клеток): клетки под зелёные квадратики.</b> Свободных клеток 9 − 6 = 3; два одинаковых квадратика — лесенка: 2 + 1 → <b>N(пар клеток) = 3</b>.</p>
-<p class="step st"><b>Шаг 4 — сборка.</b> Перемножаю:</p>
-<div class="frm st">N(укладок) = N(пар тримино) × N(пар клеток) = 12 × 3 = 36</div>
+<p class="st"><b>N(укладок) = сумма по всем позициям красного домино: в каждой — сколько позиций остаётся синему</b></p>
+<div class="frm st">N(одинаковыми) = N(укладок) : 2</div></div>
+<p class="step st"><b>Шаг 2 — карта позиций домино на 2×5.</b> Горизонтальное домино называю по левой клетке: в строке из пяти клеток левый край может стоять в 1-й, 2-й, 3-й или 4-й клетке → 4 позиции в строке, строк две → 8. Вертикальное занимает столбец целиком, столбцов пять → 5. Всего <b>13 позиций</b>, и они одни и те же у красного и у синего.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Тринадцать позиций красного — это тринадцать случаев, и выписывать их по одному долго. Но позиции устроены одинаково внутри своих сортов: два горизонтальных домино у самого края строки ведут себя как зеркальные близнецы, два вертикальных на крайних столбцах — тоже. Поэтому считаю не позиции, а <b>сорта</b>: сколько позиций съедает каждый сорт и сколько таких позиций на доске.</p></div>
+<p class="step st"><b>Шаг 3 — отсечение по сортам.</b> Ставлю красное и вычёркиваю позиции синего, задевающие его клетки.</p>
+<ul class="st"><li><b>горизонтальное у края строки</b> (левый край в 1-й или 4-й клетке): вычёркиваются горизонтальные той же строки, налезающие на него, — их 2 (само это место и одно соседнее), и вертикальные обоих его столбцов — 2. Итого 4 вычерка, остаётся 13 − 4 = <b>9</b>. Таких позиций 4 (по две в каждой строке);</li><li><b>горизонтальное в середине строки</b> (левый край во 2-й или 3-й клетке): горизонтальных налезает 3 (само место и два соседних), вертикальных 2. Вычерков 5, остаётся <b>8</b>. Таких позиций тоже 4;</li><li><b>вертикальное на крайнем столбце</b> (1-й или 5-й): вычёркивается оно само (1) и горизонтальные, накрывающие этот столбец, — в каждой строке одно, значит 2. Вычерков 3, остаётся <b>10</b>. Таких позиций 2;</li><li><b>вертикальное на среднем столбце</b> (2-й, 3-й или 4-й): оно само (1) и по два горизонтальных в каждой строке — 4. Вычерков 5, остаётся <b>8</b>. Таких позиций 3.</li></ul>
+<p class="st">Проверяю, что сорта покрыли всю карту: 4 + 4 + 2 + 3 = 13 ✓ — ни одна позиция не потеряна и ни одна не сосчитана дважды.</p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Складываю по позициям красного, беря каждый сорт пачкой:</p>
+<div class="frm st">N(укладок) = 4·9 + 4·8 + 2·10 + 3·8 = 36 + 32 + 20 + 24 = 112</div>
+<p class="step st"><b>Шаг 5 — одинаковые домино.</b> Если оба домино одинаковые, «красное здесь, синее там» и «красное там, синее здесь» — одна и та же картинка. Делить на 2 честно потому, что двойня есть у <b>каждой</b> картинки без исключения: домино не накладываются, значит их позиции всегда разные, и перестановка всегда даёт вторую запись, не совпадающую с первой.</p>
+<div class="frm st">N(одинаковыми) = 112 : 2 = 56</div>
+<p class="st">Других нет: карта позиций выписана целиком (по левой клетке для горизонтальных, по столбцу для вертикальных), сорта в сумме дают все 13 позиций, а внутри сорта вычерки одинаковы — это проверено на самой картинке.</p>
 <h3 class="st">✍ 7.3 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Elijo los trominós y después los cuadraditos; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p></div>
-<p class="st"><em>Выбираю тримино и потом квадратики; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Recorro los casos en orden y dejo escrito por qué los que descarto son imposibles.</b></p></div>
+<p class="st"><em>Иду по случаям по порядку и записываю, почему отброшенные невозможны.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">N(пар клеток) — пары свободных клеток под два одинаковых квадратика.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(укладок) = N(пар тримино) × N(пар клеток)</div></div></div>
-<div id="a5" data-art="5"><ul class="st"><li>карта позиций на 3×3: 3 горизонтальные + 3 вертикальные</li><li>горизонтальное и вертикальное всегда делят клетку на пересечении → смешанные пары запрещены</li><li>красное и синее различимы: гориз+гориз 3 · 2 = 6, верт+верт 6 → N(пар тримино) = 12</li><li>свободных клеток 9 − 6 = 3; два одинаковых квадратика — лесенка 2 + 1 → N(пар клеток) = 3</li></ul></div>
-<div id="a6" data-art="6"><div class="frm st">N(укладок) = 12 × 3 = 36</div></div>
-<p class="st">Проверка: пары клеток с порядком 3 × 2 = 6, одинаковость делит на 2 → 3 ✓</p>
+<p class="st">Позицию домино называю по левой клетке (горизонтальное) или по столбцу (вертикальное).</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st"><b>N(укладок) = сумма по позициям красного домино (в каждой — сколько позиций остаётся синему)</b></p></div>
+<div id="a6" data-art="6"><ul class="st"><li>карта позиций на 2×5: горизонтальных 2 строки · 4 = 8, вертикальных 5 → всего 13</li><li>горизонтальное у края строки (4 позиции): вычерков 4 → синему 9</li><li>горизонтальное в середине строки (4 позиции): вычерков 5 → синему 8</li><li>вертикальное на крайнем столбце (2 позиции): вычерков 3 → синему 10</li><li>вертикальное на среднем столбце (3 позиции): вычерков 5 → синему 8</li><li>сорта покрывают карту: 4 + 4 + 2 + 3 = 13 ✓</li></ul></div>
+<div id="a7" data-art="7"><div class="frm st">N(укладок) = 4·9 + 4·8 + 2·10 + 3·8 = 112</div></div>
+<p class="st">Одинаковыми домино каждая картинка посчитана дважды: <b>112 : 2 = 56</b></p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a7" data-art="7"><p class="st"><b>No hace falta escribir la lista: cada colocación da exactamente una pareja de elecciones, y colocaciones distintas dan parejas distintas, por eso el conteo es exacto.</b></p></div>
-<p class="st"><em>Список выписывать не нужно: каждая укладка даёт ровно одну пару выборов, а разные укладки дают разные пары, — поэтому счёт точен.</em></p>
+<div id="a8" data-art="8"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <div class="frm st">7.4 — ответ: а) 8; б) 24</div>
 <p class="st">а) Уголок — это квадрат 2×2 без одной клетки, поэтому положение уголка складывается из двух выборов сразу: в каком квадрате 2×2 он сидит И какая клетка этого квадрата пустая. Квадратов 2×2 на доске 2×3 всего <b>2</b> (левый и правый), пустой может быть любая из <b>4</b> клеток квадрата — это и есть четыре поворота уголка. «И» → перемножаю:</p>
 <div class="frm st">N(положений уголка) = 2 × 4 = 8 положений</div>
@@ -272,19 +278,19 @@
 <h3 class="st">✍ 7.4 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a8" data-art="8"><p class="st"><b>Elijo el cuadrado 2×2 y después la casilla vacía; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p></div>
+<div id="a9" data-art="9"><p class="st"><b>Elijo el cuadrado 2×2 y después la casilla vacía; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p></div>
 <p class="st"><em>Выбираю квадрат 2×2 и потом пустую клетку; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a10" data-art="10"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">N(положений уголка) = квадраты 2×2 × пустая клетка квадрата</div>
 <div class="frm st">N(укладок) = N(положений уголка) × свободные клетки</div></div></div>
-<div id="a12" data-art="12"><ul class="st"><li>квадратов 2×2 на доске 2×3: 2</li><li>пустой может быть любая из 4 клеток квадрата — это и есть четыре поворота</li></ul></div>
-<div id="a13" data-art="13"><div class="frm st">N(положений уголка) = 2 × 4 = 8</div></div>
-<div id="a14" data-art="14"><ul class="st"><li>свободных клеток 6 − 3 = 3</li></ul></div>
-<div id="a15" data-art="15"><div class="frm st">N(укладок) = 8 × 3 = 24</div></div>
+<div id="a13" data-art="13"><ul class="st"><li>квадратов 2×2 на доске 2×3: 2</li><li>пустой может быть любая из 4 клеток квадрата — это и есть четыре поворота</li></ul></div>
+<div id="a14" data-art="14"><div class="frm st">N(положений уголка) = 2 × 4 = 8</div></div>
+<div id="a15" data-art="15"><ul class="st"><li>свободных клеток 6 − 3 = 3</li></ul></div>
+<div id="a16" data-art="16"><div class="frm st">N(укладок) = 8 × 3 = 24</div></div>
 <p class="st">Проверка: восемь фигурок разные, наложений нет ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a16" data-art="16"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<div id="a17" data-art="17"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
 <p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <div class="pager"><a href="15-blok-6-otvety-i-boevye-zapisi.html">← Блок 6 — ответы и боевые записи</a><a href="17-blok-8-otvety-i-boevye-zapisi.html">Блок 8 — ответы и боевые записи →</a></div>
 </main>

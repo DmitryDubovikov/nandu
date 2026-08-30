@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>8.5 ⭐⭐ Двузначные по два раза</title>
+<title>6.5 ⭐⭐ Первая цифра уехала в конец</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -209,57 +209,72 @@
 <body>
 <div class="wrap battle">
 <aside>
-  <p class="chapnav"><a href="index.html">все главы</a> · 18 из 21</p>
+  <p class="chapnav"><a href="index.html">все главы</a> · 12 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Hasta ese lugar entran 22 bloques enteros y sobran 3 cifras, así que solo miro dentro del último bloque.<br><em>До этого места умещается 22 целых куска и остаётся ещё 3 цифры, поэтому смотрю только внутри последнего.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">блоки: 9 + 204 = 213</span></button>
-<button class="art cont" data-art="2"><span class="val f">а) 213 цифр</span></button>
-<button class="art cont" data-art="3"><span class="val f">б) 100 − 9 = 91 = 4 · 22 + 3 → 23-е двузначное, это 32</span></button>
-<button class="art cont" data-art="4"><span class="val f">третья цифра куска 3232 → цифра 3</span></button>
-<button class="art cont" data-art="5"><span class="val f">в) до первой копии 25 стоят 9 + 4 · 15 = 69 цифр → с 70-го места</span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = все a, при которых T остаётся двузначным.</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">(10 · T + a) − (100 · a + T) = 9 · T − 99 · a = 108</span></button>
+<button class="art cont" data-art="3"><span class="val f">делю на 9 → <b>T = 11 · a + 12</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">a = 1 → 23; 2 → 34; 3 → 45; 4 → 56; 5 → 67; 6 → 78; 7 → 89 ✓</span></button>
+<button class="art cont" data-art="5"><span class="val f">a = 8 → 100 — уже не двузначный, дальше T только растёт ✗</span></button>
+<button class="art cont" data-art="6"><span class="val f">7 чисел: 123, 234, 345, 456, 567, 678, 789</span></button>
+<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de la primera cifra y los demás no cumplen la igualdad, por eso no hay más que estos.<br><em>Проверил все возможные значения первой цифры, остальные не подходят под равенство, — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
-  <h1>8.5 ⭐⭐ Двузначные по два раза</h1>
+  <h1>6.5 ⭐⭐ Первая цифра уехала в конец</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> Тео выписывает числа от 1 до 60: однозначные по одному разу, а двузначные — по два раза подряд: 1 2 … 9 10 10 11 11 12 12 … 60 60 (без пробелов). а) Сколько цифр он напишет? б) Какая цифра стоит на 100-м месте? в) С какого места начинается первая копия числа 25?</p>
-<p class="step st"><b>Шаг 1 — план: сначала таблица блоков — она ответит на все три вопроса.</b> Список необычный: двузначные идут по два раза подряд, поэтому привычные блоки не годятся и строить их надо заново. Зато как только блоки построены, каждый вопрос — короткий ход по ним. Число цифр, стоящих до первой копии числа 25, назову N(цифр до 25).</p>
-<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">Ответ (а) = сумма длин блоков</div>
-<p class="st">Ответ (б) = цифра по адресу, который даст деление с остатком внутри блока двузначных</p>
-<div class="frm st">Ответ (в) = N(цифр до 25) + 1</div>
-<p class="st">Осталось найти: таблицу блоков, адрес 100-й цифры и N(цифр до 25).</p></div>
-<p class="step st"><b>Шаг 2 — строю таблицу блоков этого списка.</b> Привычные блоки не годятся: двузначное занимает здесь не 2 цифры, а 4 — две копии по две. Считаю с накопленным итогом, иначе адрес внутри строки не найти.</p>
+<p class="st"><b>Условие.</b> Тано задумал трёхзначное число и переставил его первую цифру в конец: из числа с цифрами a, b, c получилось число с цифрами b, c, a — тоже трёхзначное. Новое число оказалось на 108 больше задуманного. Найди все числа, которые мог задумать Тано.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>При такой перестановке цифры b и c никогда не разлучаются: они стояли рядом в задуманном числе и остались рядом в новом, только переехали в начало. Значит, раскладывать число на <b>три</b> цифры незачем — хватит двух чисел: первой цифры a и двузначного хвоста bc. Назову хвост буквой T. Тогда</p></div>
+<figure class="st"><div class="fcol"><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="flab">задумано</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">a</span><span style="display:inline-flex;gap:0"></span><span style="display:inline-flex;gap:4px;padding:2px;border:1px dashed #41506a;border-radius:8px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">b</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">c</span></span><span class="eq">=</span><span class="flab">100 · a + T</span></div><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px"><span class="flab">получилось</span><span style="display:inline-flex;gap:4px;padding:2px;border:1px dashed #41506a;border-radius:8px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">b</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">c</span></span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">a</span><span class="eq">=</span><span class="flab">10 · T + a</span></div></div><div class="frm" style="margin-top:16px;border-color:var(--green)">T — двузначный хвост bc</div><figcaption>Цифры b и c стояли рядом и остались рядом — переехал только хвост целиком. Поэтому три неизвестные цифры сжимаются до двух чисел: первой цифры a и хвоста T.</figcaption></figure>
+<div class="frm st">задуманное = 100 · a + T</div>
+<div class="frm st">новое = 10 · T + a</div>
+<p class="st">Задуманное — это «a, а за ней хвост»; новое — «хвост, а за ним a». Дальше вся задача идёт про два числа, а не про три цифры.</p>
+<p class="step st"><b>Шаг 1 — план: превратить «на 108 больше» в связь между a и T.</b> Про сами цифры условие ничего не говорит, оно говорит про разность двух чисел, а оба числа уже записаны через a и T. Значит, выпишу разность буквами — и получу одно уравнение с двумя неизвестными, из которого T выражается через a. После этого останется перебрать одну букву.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все a, при которых хвост T остаётся двузначным</p>
+<p class="st">a — первая цифра задуманного числа; T — двузначный хвост bc.</p>
+<p class="st">Осталось найти: формулу T через a; потом перебрать a от 1 до 9.</p></div>
+<p class="step st"><b>Шаг 2 — считаю разность буквами.</b> Нужна связь между a и T — беру разность из условия и подставляю обе записи:</p>
+<div class="frm st">(10 · T + a) − (100 · a + T) = 9 · T − 99 · a</div>
+<p class="st">По условию эта разность равна 108, значит</p>
+<div class="frm st">9 · T − 99 · a = 108</div>
+<p class="st">Все три числа делятся на 9, поэтому делю на 9 всю строку:</p>
+<div class="frm st">T − 11 · a = 12</div>
+<p class="st">→ <b>T = 11 · a + 12</b></p>
+<p class="step st"><b>Шаг 3 — перебираю a.</b> Нужно понять, какие a доживают до конца. Ограничение ровно одно: T — двузначный хвост, значит T не больше 99 (и не меньше 10 — но при любом a это выполнено с запасом). Иду по a подряд:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>Блок</th><th>Чисел</th><th>Цифр в блоке</th><th>Накопленный итог</th></tr>
-<tr><td>однозначные 1–9, по разу</td><td>9</td><td>9 · 1 = 9</td><td>9</td></tr>
-<tr><td>двузначные 10–60, по два раза</td><td>60 − 10 + 1 = 51</td><td>51 · 4 = 204</td><td>9 + 204 = <b>213</b></td></tr>
+<tr><th>a</th><th>T = 11 · a + 12</th><th>двузначный?</th><th>задуманное число</th></tr>
+<tr><td>1</td><td>23</td><td>да</td><td><b>123</b></td></tr>
+<tr><td>2</td><td>34</td><td>да</td><td><b>234</b></td></tr>
+<tr><td>3</td><td>45</td><td>да</td><td><b>345</b></td></tr>
+<tr><td>4</td><td>56</td><td>да</td><td><b>456</b></td></tr>
+<tr><td>5</td><td>67</td><td>да</td><td><b>567</b></td></tr>
+<tr><td>6</td><td>78</td><td>да</td><td><b>678</b></td></tr>
+<tr><td>7</td><td>89</td><td>да</td><td><b>789</b></td></tr>
+<tr><td>8</td><td>100</td><td>нет — три знака</td><td>✗</td></tr>
+<tr><td>9</td><td>111</td><td>нет</td><td>✗</td></tr>
 </table></div></div>
-<p class="st">→ <b>213 цифр</b> (ответ на а)</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>В этом списке единица счёта — не число, а кусок из двух копий: «1010», «1111», «1212». Все такие куски одной длины, по 4 цифры, — поэтому деление с остатком по-прежнему находит адрес: частное скажет, сколько кусков прошло целиком, остаток — какая цифра внутри куска. Будь копий то две, то три, куски вышли бы разной длины, и никакое деление места бы не нашло — пришлось бы выписывать.</p></div>
-<figure class="st"><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="num"><span class="d">1</span><span class="d">0</span><span class="d">1</span><span class="d">0</span></span><span class="num"><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span></span><span class="num"><span class="d">1</span><span class="d">2</span><span class="d">1</span><span class="d">2</span></span><span class="flab" style="font-size:18px">…</span><span class="num"><span class="d">6</span><span class="d">0</span><span class="d">6</span><span class="d">0</span></span></div><div class="flab" style="margin-top:12px">кусок «10» &nbsp;·&nbsp; кусок «11» &nbsp;·&nbsp; кусок «12» &nbsp;·&nbsp; … &nbsp;·&nbsp; кусок «60» &nbsp;—&nbsp; <span style="color:var(--gold)">все по 4 цифры</span></div><figcaption>Куски одной длины — значит частное скажет, сколько их прошло целиком, а остаток укажет цифру внутри куска. Будь копий то две, то три, адрес пришлось бы искать выписыванием.</figcaption></figure>
-<p class="step st"><b>Шаг 3 — ищу цифру на 100-м месте.</b> Отбрасываю однозначные и делю с остатком внутри блока: 100 − 9 = 91 = 4 · 22 + 3 → 23-е двузначное (это 32), третья цифра куска «3232». → <b>3</b></p>
-<p class="step st"><b>Шаг 4 — считаю N(цифр до 25).</b> До первой копии числа 25 стоят однозначные и пятнадцать чисел 10–24 по 4 цифры: 9 + 4 · 15 = 69. → <b>N(цифр до 25) = 69</b></p>
-<p class="step st"><b>Шаг 5 — сборка.</b> а) <b>213 цифр</b>; б) <b>3</b>; в) 69 + 1 → с <b>70-го</b> места.</p>
+<p class="st">С a = 8 хвост перевалил за 99, а дальше T только растёт — значит, ниже проверять нечего.</p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Каждое уцелевшее a даёт своё число 100 · a + T → <b>семь чисел</b>: 123, 234, 345, 456, 567, 678, 789. Контроль: 231 − 123 = 108 ✓ и 897 − 789 = 108 ✓</p>
+<p class="st"><b>Ответ:</b> <b>7 чисел</b> — 123, 234, 345, 456, 567, 678, 789.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Hasta ese lugar entran 22 bloques enteros y sobran 3 cifras, así que solo miro dentro del último bloque.</b></p></div>
-<p class="st"><em>До этого места умещается 22 целых куска и остаётся ещё 3 цифры, поэтому смотрю только внутри последнего.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
+<p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">Единица счёта — кусок из двух копий двузначного числа, все куски по 4 цифры.</p>
-<div class="st"><div class="tw"><table>
-<tr><th>Блок</th><th>Чисел</th><th>Цифр</th><th>Итог</th></tr>
-<tr><td>1–9, по разу</td><td>9</td><td>9</td><td>9</td></tr>
-<tr><td>10–60, по два раза</td><td>51</td><td>204</td><td><b>213</b></td></tr>
-</table></div></div>
-<div id="a1" data-art="1"><div class="frm st">блоки: 9 + 204 = 213</div></div>
-<div id="a2" data-art="2"><p class="st"><b>а) 213 цифр</b></p></div>
-<div id="a3" data-art="3"><div class="frm st">б) 100 − 9 = 91 = 4 · 22 + 3 → 23-е двузначное, это 32</div></div>
-<div id="a4" data-art="4"><div class="frm st">третья цифра куска 3232 → цифра 3</div></div>
-<div id="a5" data-art="5"><div class="frm st">в) до первой копии 25 стоят 9 + 4 · 15 = 69 цифр → с 70-го места</div></div>
+<p class="st">a — первая цифра; T — двузначный хвост bc.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">задуманное = 100 · a + T, новое = 10 · T + a</div>
+<p class="st">Ответ = все a, при которых T остаётся двузначным.</p></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>(10 · T + a) − (100 · a + T) = 9 · T − 99 · a = 108</li><li>делю на 9 → <b>T = 11 · a + 12</b></li><li>a = 1 → 23; 2 → 34; 3 → 45; 4 → 56; 5 → 67; 6 → 78; 7 → 89 ✓</li><li>a = 8 → 100 — уже не двузначный, дальше T только растёт ✗</li></ul></div>
+<div id="a6" data-art="6"><div class="frm st">7 чисел: 123, 234, 345, 456, 567, 678, 789</div></div>
+<p class="st">Проверка: 231 − 123 = 108 ✓; 897 − 789 = 108 ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a7" data-art="7"><p class="st"><b>Probé todos los valores posibles de la primera cifra y los demás no cumplen la igualdad, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения первой цифры, остальные не подходят под равенство, — поэтому других нет.</em></p>
 <hr>
-<div class="pager"><a href="17-8-4-stroka-iz-chetnyh-chisel.html">← 8.4 ⭐ Строка из чётных чисел</a><a href="19-9-4-stroka-5081-tridcat-raz.html">9.4 ⭐ Строка «5081» тридцать раз →</a></div>
+<div class="pager"><a href="11-6-4-trehznachnoe-s-nulem-v-seredine.html">← 6.4 ⭐ Трёхзначное с нулём в середине</a><a href="13-6-6-sterli-pervuyu-cifru.html">6.6 ⭐⭐ Стёрли первую цифру →</a></div>
 </main>
 </div>
 <script>

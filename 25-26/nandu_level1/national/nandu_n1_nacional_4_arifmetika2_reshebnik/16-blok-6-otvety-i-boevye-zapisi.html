@@ -211,12 +211,12 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 16 из 19</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 12 días, así que solo miro el resto de dividir por 12.<br><em>Узор повторяется через 12 дней, поэтому смотрю только остаток от деления на 12.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 12 minutos, así que solo miro el resto de dividir por 12.<br><em>Узор повторяется через 12 минут, поэтому смотрю только остаток от деления на 12.</em></span></button>
 <button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>S(круга) = 4·3 + 4·8 + 4·15 = 104</code></span></button>
-<button class="art cont" data-art="2"><span class="val f">а) <code>3 · 104 = 312</code> (конец дня 36), <code>4 · 104 = 416</code> — перелёт</span></button>
-<button class="art cont" data-art="3"><span class="val f">дни 37–40 по 3: <code>312 + 12 = 324</code>; дни 41–44 по 8: <code>324 + 32 = 356</code></span></button>
-<button class="art cont" data-art="4"><span class="val f">дни 45, 46, 47 по 15: <code>371</code>, <code>386</code>, <code>401</code> → <b>день 47</b></span></button>
-<button class="art cont" data-art="5"><span class="val f">б) <code>200 = 16 · 12 + 8</code>, хвост — четыре дня по 3 и четыре по 8</span></button>
+<button class="art cont" data-art="2"><span class="val f">а) <code>3 · 104 = 312</code> (конец 36-й минуты), <code>4 · 104 = 416</code> — перелёт</span></button>
+<button class="art cont" data-art="3"><span class="val f">минуты 37–40 по 3: <code>312 + 12 = 324</code>; минуты 41–44 по 8: <code>324 + 32 = 356</code></span></button>
+<button class="art cont" data-art="4"><span class="val f">минуты 45, 46, 47 по 15: <code>371</code>, <code>386</code>, <code>401</code> → <b>минута 47</b></span></button>
+<button class="art cont" data-art="5"><span class="val f">б) <code>200 = 16 · 12 + 8</code>, хвост — четыре минуты по 3 и четыре по 8</span></button>
 <button class="art cont" data-art="6"><span class="val f">Ответ б) = 16 · 104 + 12 + 32 = 1708</span></button>
 </aside>
 <main>
@@ -230,39 +230,39 @@
 <tr><td>6.4</td><td><b>в 84-й день</b></td><td>цикл 5, вклад <code>120</code>; <code>16</code> циклов <code>= 1920</code> страниц (день 80); хвост: день 81 → <code>1940</code>, 82 → <code>1960</code>, 83 → <code>1990</code>, 84 → перевалит <code>2000</code> (нужно всего 10 из 40)</td></tr>
 </table></div></div>
 <p class="st"><em>6.3 — по шагам, ниже.</em></p>
-<div class="frm st">6.3 — ответ: а) день 47; б) 1708 песо</div>
-<p class="step st"><b>Шаг 1 — план.</b> Оба вопроса про далёкие дни — по дням не считаем. И оба разбираются одним разложением «целые циклы + хвост», а для него нужен вклад одного круга.</p>
+<div class="frm st">6.3 — ответ: а) минута 47; б) 1708 наклеек</div>
+<p class="step st"><b>Шаг 1 — план.</b> Оба вопроса про далёкие минуты — по одной их не считаем. И оба разбираются одним разложением «целые циклы + хвост», а для него нужен вклад одного круга.</p>
 <div class="frm st">200 = N(кругов) · 12 + res(200 : 12)</div>
-<div class="frm st">Ответ б) = N(кругов) · S(круга) + (что накапало за res(200 : 12) дней хвоста)</div>
+<div class="frm st">Ответ б) = N(кругов) · S(круга) + (что напечаталось за res(200 : 12) минут хвоста)</div>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">200 = N(кругов) · 12 + res(200 : 12)</div>
-<div class="frm st">Ответ б) = N(кругов) · S(круга) + (что накапало за res(200 : 12) дней хвоста)</div>
-<div class="frm st">Ответ а) = первый день, в который накопленное перевалит 400</div>
-<p class="st"><code>S(круга)</code> — вклад одного полного круга (песо); <code>N(кругов)</code> и <code>res(200 : 12)</code> — сколько целых кругов и сколько дней хвоста в двухстах днях.</p>
+<div class="frm st">Ответ б) = N(кругов) · S(круга) + (что напечаталось за res(200 : 12) минут хвоста)</div>
+<div class="frm st">Ответ а) = первая минута, на которой напечатанное перевалит 400</div>
+<p class="st"><code>S(круга)</code> — вклад одного полного круга (наклеек); <code>N(кругов)</code> и <code>res(200 : 12)</code> — сколько целых кругов и сколько минут хвоста в двухстах минутах.</p>
 <p class="st">Осталось найти: <code>S(круга)</code>, а по нему — <code>N(кругов)</code> и <code>res(200 : 12)</code>.</p></div>
-<p class="step st"><b>Шаг 2 — считаю <code>S(круга)</code>.</b> Круг длится 12 дней, складываю его целиком:</p>
+<p class="step st"><b>Шаг 2 — считаю <code>S(круга)</code>.</b> Круг длится 12 минут, складываю его целиком:</p>
 <div class="frm st">S(круга) = 4·3 + 4·8 + 4·15 = 12 + 32 + 60 = 104</div>
 <p class="step st"><b>Шаг 3 — а) грубо, целыми кругами.</b> Сначала подбираюсь к порогу 400 целыми кругами:</p>
-<p class="st"><code>3 · 104 = 312</code> — это конец дня 36</p>
+<p class="st"><code>3 · 104 = 312</code> — это конец 36-й минуты</p>
 <p class="st"><code>4 · 104 = 416</code> — перелёт</p>
 <p class="st">Значит, порог берётся внутри четвёртого круга.</p>
-<p class="step st"><b>Шаг 4 — а) хвост по дням.</b> Внутри круга темп неравномерный, поэтому иду по дням от 312. Дни 37–40 идут по 3 песо:</p>
+<p class="step st"><b>Шаг 4 — а) хвост по минутам.</b> Внутри круга темп неравномерный, поэтому иду по минутам от 312. Минуты 37–40 идут по 3 наклейки:</p>
 <div class="frm st">312 + 4 · 3 = 324</div>
-<p class="st">Дни 41–44 идут по 8 песо:</p>
+<p class="st">Минуты 41–44 идут по 8 наклеек:</p>
 <div class="frm st">324 + 4 · 8 = 356</div>
-<p class="st">Дни 45, 46, 47 идут по 15 песо, и здесь считаю каждый отдельно, чтобы поймать первый перелёт через 400: <code>371</code>, <code>386</code>, <code>401</code>. → <b>день 47</b></p>
-<p class="step st"><b>Шаг 5 — сборка: б) конец дня 200.</b> Раскладываю горизонт по первой строчке плана:</p>
+<p class="st">Минуты 45, 46, 47 идут по 15 наклеек, и здесь считаю каждую отдельно, чтобы поймать первый перелёт через 400: <code>371</code>, <code>386</code>, <code>401</code>. → <b>минута 47</b></p>
+<p class="step st"><b>Шаг 5 — сборка: б) конец 200-й минуты.</b> Раскладываю горизонт по первой строчке плана:</p>
 <div class="frm st">200 = 16 · 12 + 8</div>
-<p class="st">Шестнадцать полных кругов и хвост в 8 дней; эти 8 дней — первые 8 дней круга, то есть четыре дня по 3 песо и четыре по 8:</p>
+<p class="st">Шестнадцать полных кругов и хвост в 8 минут; эти 8 минут — первые 8 минут круга, то есть четыре минуты по 3 наклейки и четыре по 8:</p>
 <div class="frm st">Ответ б) = 16 · 104 + 12 + 32 = 1708</div>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>El dibujo se repite cada 12 días, así que solo miro el resto de dividir por 12.</b></p></div>
-<p class="st"><em>Узор повторяется через 12 дней, поэтому смотрю только остаток от деления на 12.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>El dibujo se repite cada 12 minutos, así que solo miro el resto de dividir por 12.</b></p></div>
+<p class="st"><em>Узор повторяется через 12 минут, поэтому смотрю только остаток от деления на 12.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>S(круга)</code> — вклад одного круга (песо).</p>
-<div id="a5" data-art="5"><ul class="st"><li><code>S(круга) = 4·3 + 4·8 + 4·15 = 104</code></li><li>а) <code>3 · 104 = 312</code> (конец дня 36), <code>4 · 104 = 416</code> — перелёт</li><li>дни 37–40 по 3: <code>312 + 12 = 324</code>; дни 41–44 по 8: <code>324 + 32 = 356</code></li><li>дни 45, 46, 47 по 15: <code>371</code>, <code>386</code>, <code>401</code> → <b>день 47</b></li><li>б) <code>200 = 16 · 12 + 8</code>, хвост — четыре дня по 3 и четыре по 8</li></ul></div>
+<p class="st"><code>S(круга)</code> — вклад одного круга (наклеек).</p>
+<div id="a5" data-art="5"><ul class="st"><li><code>S(круга) = 4·3 + 4·8 + 4·15 = 104</code></li><li>а) <code>3 · 104 = 312</code> (конец 36-й минуты), <code>4 · 104 = 416</code> — перелёт</li><li>минуты 37–40 по 3: <code>312 + 12 = 324</code>; минуты 41–44 по 8: <code>324 + 32 = 356</code></li><li>минуты 45, 46, 47 по 15: <code>371</code>, <code>386</code>, <code>401</code> → <b>минута 47</b></li><li>б) <code>200 = 16 · 12 + 8</code>, хвост — четыре минуты по 3 и четыре по 8</li></ul></div>
 <div id="a6" data-art="6"><div class="frm st">Ответ б) = 16 · 104 + 12 + 32 = 1708</div></div>
 <div class="pager"><a href="15-blok-5-otvety-i-boevye-zapisi.html">← Блок 5 — ответы и боевые записи</a><a href="17-blok-7-otvety-i-boevye-zapisi.html">Блок 7 — ответы и боевые записи →</a></div>
 </main>

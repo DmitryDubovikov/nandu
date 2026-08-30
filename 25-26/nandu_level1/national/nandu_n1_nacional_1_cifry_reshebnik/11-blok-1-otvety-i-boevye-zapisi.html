@@ -214,7 +214,7 @@
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">La suma total es impar y habría que partirla en dos partes iguales, así que no se puede.<br><em>Общая сумма нечётна, а её пришлось бы разделить на две равные части, — значит нельзя.</em></span></button>
 <button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">а) 1 + 2 + … + 8 = 36, половина 18</span></button>
 <button class="art cont" data-art="2"><span class="val f">Нельзя.</span></button>
-<button class="art" data-art="3"><span class="lbl">💬 Фраза</span><span class="val ph">Sumo 7 números impares: como la cantidad de impares es impar, la suma también resulta impar.<br><em>Складываю 7 нечётных чисел: раз количество нечётных нечётно, и сумма выходит нечётной.</em></span></button>
+<button class="art" data-art="3"><span class="lbl">💬 Фраза</span><span class="val ph">Sumo 5 números impares: como la cantidad de impares es impar, la suma también resulta impar.<br><em>Складываю 5 нечётных чисел: раз количество нечётных нечётно, и сумма выходит нечётной.</em></span></button>
 <button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">Не могло.</span></button>
 <button class="art" data-art="5"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
@@ -225,9 +225,9 @@
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
 <tr><td>1.1</td><td>а) да, например {1, 2, 7, 8} и {3, 4, 5, 6} (обе по 18); б) <b>нельзя</b></td><td>сумма 1..8 равна 36 — делится пополам; сумма 1..9 равна 45 — нечётна, половин не бывает</td></tr>
-<tr><td>1.2</td><td>не могло</td><td>семь нечётных слагаемых — нечётное количество → сумма нечётна, а 100 чётно</td></tr>
+<tr><td>1.2</td><td>а) <b>не могло</b>; б) <b>могло</b>, например 1 + 3 + 5 + 7 + 25 = 41</td><td>а) пять нечётных слагаемых — нечётное количество → сумма нечётна, а 40 чётно; б) сумма обязана быть нечётной, и 41 нечётно — запрета нет. Но «нет запрета» ещё не «получится»: чтобы ответить «да», надо предъявить пример</td></tr>
 <tr><td>1.3</td><td><b>4 или 12</b> — два варианта</td><td>сумма всех 68 чётна (нечётных четыре — чётное количество); чтобы остаток был чётным, вычеркнуть надо чётное; вычеркнешь нечётное — останется три нечётных, сумма станет нечётной</td></tr>
-<tr><td>1.4</td><td>а) возможно: сумма 40, половина 20 — чётно; б) <b>два выбора</b>: {1, 7, 12} и {4, 6, 10}</td><td>перебор по самой большой карточке тройки: с 12 нужно 8 = 1 + 7 ✓; с 10 (без 12) нужно 10 = 4 + 6 ✓; с 7 максимум 7 + 6 + 4 = 17 &lt; 20 — стоп. Разрез один, выборов два</td></tr>
+<tr><td>1.4</td><td>а) нечётных жетонов в тройке <b>ровно 0 или ровно 2</b>; б) <b>три тройки</b>: {2, 6, 8}, {3, 6, 7}, {2, 3, 11}</td><td>16 чётно → нечётных слагаемых чётное количество, а нечётных жетонов всего три (3, 7, 11) — значит их в тройке 0 или 2. Ноль нечётных: остаются только чётные 2, 6, 8, и они как раз дают 16 ✓. Две нечётных: пара нечётных плюс один чётный — 3 + 7 = 10 → добрать 6 ✓; 3 + 11 = 14 → добрать 2 ✓; 7 + 11 = 18 — уже перелёт</td></tr>
 <tr><td>1.5</td><td>нет, никогда</td><td>сумма всех чисел от 1 до 25 равна 325 — нечётна (нечётных слагаемых тринадцать, нечётное количество). Смена одного плюса на минус меняет результат на 2a: было + a, стало − a, разница 2a — а прибавление или вычитание чётного чётность не меняет. Сколько бы знаков Пипа ни поменяла, результат остаётся нечётным, а 0 чётен → <b>никогда</b></td></tr>
 </table></div></div>
 <h3 class="st">✍ 1.1 — что достаточно написать на туре</h3>
@@ -243,12 +243,14 @@
 <h3 class="st">✍ 1.2 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a3" data-art="3"><p class="st"><b>Sumo 7 números impares: como la cantidad de impares es impar, la suma también resulta impar.</b></p></div>
-<p class="st"><em>Складываю 7 нечётных чисел: раз количество нечётных нечётно, и сумма выходит нечётной.</em></p>
+<div id="a3" data-art="3"><p class="st"><b>Sumo 5 números impares: como la cantidad de impares es impar, la suma también resulta impar.</b></p></div>
+<p class="st"><em>Складываю 5 нечётных чисел: раз количество нечётных нечётно, и сумма выходит нечётной.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">Нечётных слагаемых 7 — нечётное количество → сумма нечётна.</p>
-<p class="st">100 чётно.</p>
+<p class="st">а) Нечётных слагаемых 5 — нечётное количество → сумма нечётна.</p>
+<p class="st">40 чётно.</p>
 <div id="a4" data-art="4"><p class="st"><b>Не могло.</b></p></div>
+<p class="st">б) Сумма обязана быть нечётной, и 41 нечётно — запрета нет.</p>
+<p class="st"><b>Могло:</b> 1 + 3 + 5 + 7 + 25 = 41 ✓</p>
 <h3 class="st">✍ 1.3 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">Запись</h4>
@@ -261,7 +263,7 @@
 <p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <p class="st"><em>Боевая запись задач со звёздочками блока 1 — в <code>nandu_n1_nacional_1_cifry_resheniya.md</code>, рядом с их разборами.</em></p>
 <hr>
-<p class="xlink"><a href="../nandu_n1_nacional_1_cifry_resheniya/01-1-4-shest-kartochek.html">→ Разборы по шагам: <b>1.4 ⭐ Шесть карточек</b></a></p><div class="pager"><a href="10-otvety.html">← Ответы</a><a href="12-blok-2-otvety-i-boevye-zapisi.html">Блок 2 — ответы и боевые записи →</a></div>
+<p class="xlink"><a href="../nandu_n1_nacional_1_cifry_resheniya/01-1-4-shest-zhetonov.html">→ Разборы по шагам: <b>1.4 ⭐ Шесть жетонов</b></a></p><div class="pager"><a href="10-otvety.html">← Ответы</a><a href="12-blok-2-otvety-i-boevye-zapisi.html">Блок 2 — ответы и боевые записи →</a></div>
 </main>
 </div>
 <script>

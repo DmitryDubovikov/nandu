@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>9.4 ⭐ Строка «5081» тридцать раз</title>
+<title>6.6 ⭐⭐ Стёрли первую цифру</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -209,48 +209,57 @@
 <body>
 <div class="wrap battle">
 <aside>
-  <p class="chapnav"><a href="index.html">все главы</a> · 19 из 21</p>
+  <p class="chapnav"><a href="index.html">все главы</a> · 13 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Para que lo que queda sea lo menor posible saco primero los más grandes, y cualquier otro orden saca menos.<br><em>Чтобы остаток был как можно меньше, убираю сначала самые большие, — любой другой порядок уносит меньше.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">S(унести) = (сумма всей строки) − 300</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">сумма строки = (5 + 0 + 8 + 1) · 30 = 14 · 30 = 420 → <b>S(унести) = 120</b></span></button>
-<button class="art cont" data-art="3"><span class="val f">жадно восьмёрками: 120 : 8 = 15, а восьмёрок в строке 30 — хватает</span></button>
-<button class="art cont" data-art="4"><span class="val f">меньше нельзя: самая большая цифра 8 → 14 цифр унесут ≤ 14 · 8 = 112 &lt; 120</span></button>
-<button class="art cont" data-art="5"><span class="val f">ровно собрано: 8 · 15 = 120 ✓</span></button>
-<button class="art cont" data-art="6"><span class="val f">нули не трогаем: они не уносят ничего</span></button>
-<button class="art cont" data-art="7"><span class="val f">15 цифр — пятнадцать восьмёрок</span></button>
-<button class="art" data-art="8"><span class="lbl">💬 Полнота</span><span class="val ph">Menos de 15 cifras no se puede, porque catorce ochos sacan 112 y hacen falta 120; y con 15 ochos se logra, así que el mínimo es 15 cifras.<br><em>Меньше 15 цифр быть не может, потому что четырнадцать восьмёрок уносят 112, а надо 120; а 15 восьмёрок достигается вот так, — значит минимум равен 15 цифр.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = все a, при которых T двузначный.</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">100 · a + T = 6 · T → 100 · a = 5 · T → <b>T = 20 · a</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">a = 1 → 20 ✓ <b>120</b>; a = 2 → 40 ✓ <b>240</b>; a = 3 → 60 ✓ <b>360</b>; a = 4 → 80 ✓ <b>480</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">a = 5 → 100 — хвост двузначным быть перестал, дальше только больше ✗</span></button>
+<button class="art cont" data-art="5"><span class="val f">4 числа: 120, 240, 360, 480</span></button>
+<button class="art" data-art="6"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de la primera cifra y los demás no cumplen que el número que queda tenga dos cifras, por eso no hay más que estos.<br><em>Проверил все возможные значения первой цифры, остальные не подходят под «оставшееся число двузначное», — поэтому других нет.</em></span></button>
 </aside>
 <main>
-  <p class="partlab">Блок 9 — Сумма цифр списка и жадный выбор</p>
-  <h1>9.4 ⭐ Строка «5081» тридцать раз</h1>
+  
+  <h1>6.6 ⭐⭐ Стёрли первую цифру</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> Порцию «5081» повторили 30 раз (120 цифр). Вычеркни как можно меньше цифр, чтобы сумма оставшихся стала 300. Сколько цифр вычеркнуть и каких? Оба шага полноты — письменно.</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Считать надо не то, что остаётся, а то, что <b>уносят</b> вычеркнутые: про оставшиеся известна только их сумма, а про вычеркнутые сразу всё — они обязаны унести ровно лишнее. И раз цифр надо как можно меньше, каждая должна работать на полную, то есть быть самой большой из доступных.</p></div>
-<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = наименьшее число цифр, уносящих ровно S(унести), где S(унести) = вся сумма строки минус 300. Плюс два шага полноты (Ч5): «меньше нельзя» и «ровно собрано».</p></div>
-<p class="st"><b>Ход.</b></p>
-<p class="st">Сумма всей строки: (5 + 0 + 8 + 1) · 30 = 14 · 30 = 420.</p>
-<p class="st">Унести надо S(унести) = 420 − 300 = <b>120</b>.</p>
-<p class="st">Жадно беру самые большие цифры — восьмёрки: 120 : 8 = 15, а восьмёрок в строке ровно 30 — хватает.</p>
-<p class="st">Полнота, шаг «меньше нельзя»: самая большая цифра строки — 8, значит 14 цифр унесут максимум 14 · 8 = 112 &lt; 120. Мало.</p>
-<p class="st">Полнота, шаг «ровно собрано»: 15 восьмёрок дают ровно 8 · 15 = 120 ✓ — без перелёта.</p>
-<p class="st">Нули вычёркивать бессмысленно: они не уносят ничего, а в счёт цифр идут.</p>
-<p class="st"><b>Ответ:</b> вычеркнуть <b>15 цифр — пятнадцать восьмёрок</b>.</p>
+<p class="st"><b>Условие.</b> Пепа задумала трёхзначное число и стёрла его первую цифру. Оставшееся двузначное число оказалось ровно в 6 раз меньше задуманного. Какие числа могла задумать Пепа? Перечисли все.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Стирание первой цифры ничего не переставляет: две последние цифры остаются на своих местах и вместе образуют двузначное число — тот самый хвост. Назову его T. Тогда задуманное число это</p></div>
+<p class="st">100 · a + T</p>
+<p class="st">и в условии сравниваются ровно эти два предмета — всё число и его хвост. Значит, задача не про три цифры, а про два числа: a и T.</p>
+<p class="step st"><b>Шаг 1 — план: превратить «в 6 раз меньше» в равенство между a и T.</b> Условие связывает задуманное число с его хвостом, а оба уже записаны через a и T. Выпишу это равенство буквами и выражу T через a; дальше останется перебрать одну букву.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все a, при которых хвост T получается двузначным</p>
+<p class="st">a — первая цифра задуманного числа; T — двузначный хвост.</p>
+<p class="st">Осталось найти: формулу T через a; потом перебрать a.</p></div>
+<p class="step st"><b>Шаг 2 — выписываю равенство и упрощаю.</b> Нужна связь между a и T. «Хвост в 6 раз меньше задуманного» значит, что задуманное равно шести хвостам:</p>
+<div class="frm st">100 · a + T = 6 · T</div>
+<p class="st">Слева и справа стоит T, поэтому убираю по одному хвосту с обеих сторон:</p>
+<div class="frm st">100 · a = 5 · T</div>
+<p class="st">Делю обе части на 5:</p>
+<div class="frm st">T = 20 · a</div>
+<p class="st">→ <b>T = 20 · a</b></p>
+<p class="step st"><b>Шаг 3 — перебираю a.</b> Ограничение одно: T обязан быть двузначным — ведь это то, что осталось после стирания. Иду по a подряд:</p>
+<ul class="st"><li>a = 1 → T = 20 ✓ → число <b>120</b>;</li><li>a = 2 → T = 40 ✓ → число <b>240</b>;</li><li>a = 3 → T = 60 ✓ → число <b>360</b>;</li><li>a = 4 → T = 80 ✓ → число <b>480</b>;</li><li>a = 5 → T = 100 — три знака, хвост столько вместить не может ✗, а дальше T только растёт.</li></ul>
+<p class="step st"><b>Шаг 4 — сборка.</b> Уцелели четыре значения a → <b>четыре числа</b>: 120, 240, 360, 480. Контроль: 480 : 6 = 80 ✓ и 120 : 6 = 20 ✓</p>
+<p class="st"><b>Ответ:</b> <b>4 числа</b> — 120, 240, 360, 480.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Para que lo que queda sea lo menor posible saco primero los más grandes, y cualquier otro orden saca menos.</b></p></div>
-<p class="st"><em>Чтобы остаток был как можно меньше, убираю сначала самые большие, — любой другой порядок уносит меньше.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
+<p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
 <h4 class="st">Запись</h4>
+<p class="st">a — первая цифра; T — двузначный хвост.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">S(унести) = (сумма всей строки) − 300</div></div></div>
-<div id="a6" data-art="6"><ul class="st"><li>сумма строки = (5 + 0 + 8 + 1) · 30 = 14 · 30 = 420 → <b>S(унести) = 120</b></li><li>жадно восьмёрками: 120 : 8 = 15, а восьмёрок в строке 30 — хватает</li><li>меньше нельзя: самая большая цифра 8 → 14 цифр унесут ≤ 14 · 8 = 112 &lt; 120</li><li>ровно собрано: 8 · 15 = 120 ✓</li><li>нули не трогаем: они не уносят ничего</li></ul></div>
-<div id="a7" data-art="7"><p class="st"><b>15 цифр — пятнадцать восьмёрок</b></p></div>
+<div class="frm st">100 · a + T = 6 · T</div>
+<p class="st">Ответ = все a, при которых T двузначный.</p></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>100 · a + T = 6 · T → 100 · a = 5 · T → <b>T = 20 · a</b></li><li>a = 1 → 20 ✓ <b>120</b>; a = 2 → 40 ✓ <b>240</b>; a = 3 → 60 ✓ <b>360</b>; a = 4 → 80 ✓ <b>480</b></li><li>a = 5 → 100 — хвост двузначным быть перестал, дальше только больше ✗</li></ul></div>
+<div id="a5" data-art="5"><div class="frm st">4 числа: 120, 240, 360, 480</div></div>
+<p class="st">Проверка: 120 : 6 = 20 ✓; 480 : 6 = 80 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a8" data-art="8"><p class="st"><b>Menos de 15 cifras no se puede, porque catorce ochos sacan 112 y hacen falta 120; y con 15 ochos se logra, así que el mínimo es 15 cifras.</b></p></div>
-<p class="st"><em>Меньше 15 цифр быть не может, потому что четырнадцать восьмёрок уносят 112, а надо 120; а 15 восьмёрок достигается вот так, — значит минимум равен 15 цифр.</em></p>
+<div id="a6" data-art="6"><p class="st"><b>Probé todos los valores posibles de la primera cifra y los demás no cumplen que el número que queda tenga dos cifras, por eso no hay más que estos.</b></p></div>
+<p class="st"><em>Проверил все возможные значения первой цифры, остальные не подходят под «оставшееся число двузначное», — поэтому других нет.</em></p>
 <hr>
-<div class="pager"><a href="18-8-5-dvuznachnye-po-dva-raza.html">← 8.5 ⭐⭐ Двузначные по два раза</a><a href="20-9-5-stroka-195-vosemnadcat-raz.html">9.5 ⭐⭐ Строка «195» восемнадцать раз →</a></div>
+<div class="pager"><a href="12-6-5-pervaya-cifra-uehala-v-konec.html">← 6.5 ⭐⭐ Первая цифра уехала в конец</a><a href="14-blok-7-stolbik-i-perenosy-kriptarifmy.html">Блок 7 — Столбик и переносы, криптарифмы →</a></div>
 </main>
 </div>
 <script>

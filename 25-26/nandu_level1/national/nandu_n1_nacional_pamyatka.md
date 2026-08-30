@@ -67,6 +67,7 @@
 | + | узор или остаток повторяются | **El dibujo se repite cada …, así que solo miro el resto de dividir por ….**<br>*Узор повторяется через …, поэтому смотрю только остаток от деления на ….* |
 | + | место в длинном списке | **Hasta ese lugar entran … bloques enteros y sobran …, así que solo miro dentro del último bloque.**<br>*До этого места умещается … целых кусков и остаётся ещё …, поэтому смотрю только внутри последнего.* |
 | + | нечётных слагаемых нечётное число | **Sumo … números impares: como la cantidad de impares es impar, la suma también resulta impar.**<br>*Складываю … нечётных чисел: раз количество нечётных нечётно, и сумма выходит нечётной.* |
+| + | сумма чётная — значит нечётных слагаемых чётное число | **Todos los números son impares y la suma es par, así que la cantidad de sumandos tiene que ser par.**<br>*Все числа нечётные, а сумма чётная, — значит слагаемых обязано быть чётное число.* |
 | + | две равные кучки — значит по половине | **Las dos partes son iguales y juntas dan el total, así que cada una es exactamente la mitad.**<br>*Две части равны, а вместе дают всё целое, — значит каждая ровно половина.* |
 | + | ищешь место числа в длинной строке цифр | **Antes de … hay … cifras escritas, así que … empieza en el lugar … + 1.**<br>*До … записано … цифр, поэтому … начинается на месте … + 1.* |
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2.5 ⭐⭐ Свечи в коробках</title>
+<title>1.4 ⭐ Шесть жетонов</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -209,67 +209,58 @@
 <body>
 <div class="wrap battle">
 <aside>
-  <p class="chapnav"><a href="index.html">все главы</a> · 4 из 21</p>
+  <p class="chapnav"><a href="index.html">все главы</a> · 1 из 21</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Con 3 días todavía no alcanza y con 4 días ya se pasa, así que lo que busco queda encajado entre esos dos números.<br><em>При трёх днях ещё не хватает, а при четырёх уже перебор, — значит искомое зажато между этими двумя числами.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ (а) = x, проходящие обе цепочки.</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">«закончили» → <b>vel7 = 5 · 7 = 35</b>; 3 · x ≤ 34 → x ≤ 11; 35 ≤ 4 · x, а 4 · 8 = 32 &lt; 35 → x ≥ 9 → <b>x от 9 до 11</b></span></button>
-<button class="art cont" data-art="3"><span class="val f">«начали» → <b>vel11 = 5 · 10 + 1 = 51</b>; 5 · x ≤ 50 → x ≤ 10; 51 ≤ 6 · x, а 6 · 8 = 48 &lt; 51 → x ≥ 9 → <b>x от 9 до 10</b></span></button>
-<button class="art cont" data-art="4"><span class="val f">пересечение → <b>x = 9 или 10</b></span></button>
-<button class="art cont" data-art="5"><span class="val f">x = 9: 11 · 9 = 99 &lt; 100, 12 · 9 = 108 ≥ 100 → <b>день 12</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">x = 10: 10 · 10 = 100 ≥ 100 → <b>день 10</b></span></button>
-<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Todos los números son impares y la suma es par, así que la cantidad de sumandos tiene que ser par.<br><em>Все числа нечётные, а сумма чётная, — значит слагаемых обязано быть чётное число.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = тройки случая «0 нечётных» плюс тройки случая «2 нечётных».</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">нечётные жетоны: 3, 7, 11 — их три → чётными бывают только <b>0 или 2</b> (ответ на «а»)</span></button>
+<button class="art cont" data-art="3"><span class="val f">0 нечётных: остаются только 2, 6, 8 → 2 + 6 + 8 = 16 ✓ <b>{2, 6, 8}</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">2 нечётных, пары по порядку: 3 + 7 = 10 → добрать 6 ✓ <b>{3, 6, 7}</b>; 3 + 11 = 14 → добрать 2 ✓ <b>{2, 3, 11}</b>; 7 + 11 = 18 — перелёт ✗</span></button>
+<button class="art cont" data-art="5"><span class="val f">3 тройки: {2, 6, 8}, {3, 6, 7}, {2, 3, 11}</span></button>
+<button class="art" data-art="6"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
 <main>
-  
-  <h1>2.5 ⭐⭐ Свечи в коробках</h1>
+  <p class="partlab">Блок 1 — Чёт и нечёт</p>
+  <h1>1.4 ⭐ Шесть жетонов</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> Свечи стоят в коробках по 5, жгут их строго по порядку, каждый день одинаковое число свечей. Коробку 7 закончили в 4-й день, коробку 11 начали в 6-й день. а) Сколько свечей в день жгут? Найди <b>все</b> возможности. б) Для каждой: в какой день сгорит 100-я свеча?</p>
-<p class="step st"><b>Шаг 1 — план: два условия — два списка возможных x.</b> Условий про дни здесь два, и каждое умеет только зажать x с двух сторон. Значит, каждое переводим в свою пару неравенств, получаем два списка возможных x — а годятся лишь те, что стоят в обоих.</p>
-<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<p class="st">Ответ (а) = все x, попавшие в оба списка</p>
-<p class="st">Ответ (б) = для каждого такого x — день, на который приходится 100-я свеча</p>
-<p class="st">Осталось найти: список из условия про коробку 7 и список из условия про коробку 11.</p></div>
-<p class="step st"><b>Шаг 2 — считаем список из условия про коробку 7.</b> «Коробку 7 закончили в день 4» — значит в день 4 сгорела <b>последняя</b> свеча коробки 7, а перед ней сгорели семь полных коробок целиком:</p>
-<div class="frm st">vel7 = 5 · 7 = 35</div>
-<p class="st">Теперь та же цепочка, что в задаче 2.4: за 3 дня до 35-й не дотянулись, за 4 дня дотянулись.</p>
-<div class="frm st">3 · x ≤ 34 &lt; 35 ≤ 4 · x</div>
-<p class="st">Левый конец: 34 : 3 не целое, но за день точно не больше одиннадцати (3 · 12 = 36 &gt; 34) → x ≤ 11.</p>
-<p class="st">Правый конец: 35 = 4 · 8 + 3 — по 8 свечей в день за четыре дня дают только 32, до 35-й не хватает, а свечи целые → x ≥ 9.</p>
-<p class="st">→ <b>из условия про коробку 7: x от 9 до 11</b></p>
-<p class="step st"><b>Шаг 3 — считаем список из условия про коробку 11.</b> «Коробку 11 начали в день 6» — значит в день 6 сгорела <b>первая</b> свеча коробки 11, а перед ней сгорели десять полных коробок:</p>
-<div class="frm st">vel11 = 5 · 10 + 1 = 51</div>
-<p class="st">Сравни с шагом 2: «закончили» дало 5 · 7 без единицы, «начали» — 5 · 10 <b>плюс единица</b>. Одно слово — другая формула.</p>
-<div class="frm st">5 · x ≤ 50 &lt; 51 ≤ 6 · x</div>
-<p class="st">Левый конец: за 5 дней не больше 50, значит за день не больше 50 : 5 → x ≤ 10.</p>
-<p class="st">Правый конец: 51 = 6 · 8 + 3 — по 8 в день за шесть дней дают только 48, до 51-й не хватает → x ≥ 9.</p>
-<p class="st">→ <b>из условия про коробку 11: x от 9 до 10</b></p>
-<p class="step st"><b>Шаг 4 — пересечение.</b> Годятся только те x, что стоят в обоих списках. → <b>x = 9 или 10</b></p>
-<p class="step st"><b>Шаг 5 — считаю день 100-й свечи для каждого x.</b> Ищу первый день, к концу которого сгорело не меньше ста свечей:</p>
+<p class="st"><b>Условие.</b> Шесть жетонов: 2, 3, 6, 7, 8, 11. Ури хочет взять три жетона на сумму ровно 16. а) Спроси привратника: сколько нечётных жетонов обязано оказаться в тройке? б) Найди все такие тройки. Сколько их?</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Чётность суммы держится только на нечётных слагаемых: чётные жетоны приносят одни двойки и на чётность не влияют вовсе. Нужная сумма 16 чётна — значит, нечётных жетонов в тройке <b>чётное количество</b>. А нечётных жетонов всего три: 3, 7 и 11. Вот и весь перебор: либо в тройке нет ни одного нечётного, либо ровно два. Три нечётных сразу отпадают — это нечётное количество.</p></div>
+<figure class="st"><div class="fcol"><span class="flab">чётные жетоны — сумму не портят</span><div style="display:flex;gap:6px;margin-bottom:12px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">2</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">6</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">8</span></div><span class="flab">нечётные жетоны — каждый приносит одну «лишнюю» единичку</span><div style="display:flex;gap:6px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">3</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">7</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">11</span></div></div><div class="flab" style="margin-top:14px">нужно 16 — число чётное &nbsp;→&nbsp; золотых жетонов в тройке <span style="color:var(--gold)">0 или 2</span>, третьего варианта нет</div><figcaption>Чётные жетоны на чётность суммы не влияют вовсе, поэтому весь вопрос — сколько взято нечётных. Их в мешке всего три, и чётными бывают только два количества: ноль и два.</figcaption></figure>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все тройки с суммой 16, разложенные на два непересекающихся случая</p>
+<p class="st">случай I: нечётных жетонов 0; случай II: нечётных жетонов 2.</p>
+<p class="st">Осталось найти: тройки в каждом случае.</p></div>
+<p class="st"><b>Ход.</b></p>
+<p class="step st"><b>Шаг 1 — отвечаю на «а».</b> Нужно назвать возможные количества нечётных. Сумма 16 чётна → нечётных слагаемых чётное число; их всего три штуки, поэтому чётными бывают только 0 и 2. → <b>0 или 2 нечётных жетона</b> (это ответ на «а»)</p>
+<p class="step st"><b>Шаг 2 — разбираю случай I (нечётных нет).</b> Нужно понять, какие тройки живут в этом случае. Если нечётных нет, тройка целиком собрана из чётных жетонов, а чётных ровно три — 2, 6 и 8. Значит, тройка одна-единственная, и её остаётся проверить:</p>
+<p class="st">2 + 6 + 8 = 16 ✓</p>
+<p class="st">→ <b>{2, 6, 8}</b></p>
+<p class="step st"><b>Шаг 3 — разбираю случай II (нечётных два).</b> Здесь тройка — это пара нечётных плюс один чётный. Чтобы ни одна не потерялась, перебираю пары нечётных по порядку и для каждой смотрю, какой чётный жетон её добирает до 16:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>x</th><th>за 10 дней</th><th>за 11 дней</th><th>за 12 дней</th><th>100-я свеча</th></tr>
-<tr><td>9</td><td>90 — мало</td><td>99 — мало на одну!</td><td>108 ≥ 100 ✓</td><td><b>день 12</b></td></tr>
-<tr><td>10</td><td>100 ≥ 100 ✓</td><td>—</td><td>—</td><td><b>день 10</b></td></tr>
+<tr><th>Пара нечётных</th><th>Её сумма</th><th>Надо добрать до 16</th><th>Есть ли такой чётный (2, 6, 8)</th><th>Тройка</th></tr>
+<tr><td>3 и 7</td><td>10</td><td>6</td><td>есть ✓</td><td><b>{3, 6, 7}</b></td></tr>
+<tr><td>3 и 11</td><td>14</td><td>2</td><td>есть ✓</td><td><b>{2, 3, 11}</b></td></tr>
+<tr><td>7 и 11</td><td>18</td><td>−2</td><td>уже перелёт</td><td>нет</td></tr>
 </table></div></div>
-<p class="st">Обрати внимание на разницу: при 10 свечах сотая — <b>последняя</b> свеча дня 10, а при 9 одиннадцатый день закрывается 99-й, и сотая открывает следующий.</p>
-<p class="st"><b>Ответ:</b> а) <b>9 или 10</b> свечей в день; б) 100-я свеча: при 9 — <b>день 12</b>, при 10 — <b>день 10</b>.</p>
+<p class="st">→ <b>{3, 6, 7} и {2, 3, 11}</b></p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Два случая не пересекаются (в одном нечётных ноль, в другом два) и вместе покрывают всё, поэтому тройки просто складываю: одна из случая I и две из случая II.</p>
+<p class="st"><b>Ответ:</b> а) нечётных жетонов в тройке ровно 0 или ровно 2; б) <b>три тройки</b> — {2, 6, 8}, {3, 6, 7}, {2, 3, 11}.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Con 3 días todavía no alcanza y con 4 días ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p></div>
-<p class="st"><em>При трёх днях ещё не хватает, а при четырёх уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Todos los números son impares y la suma es par, así que la cantidad de sumandos tiene que ser par.</b></p></div>
+<p class="st"><em>Все числа нечётные, а сумма чётная, — значит слагаемых обязано быть чётное число.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">x — сколько свечей в день; vel7 — последняя свеча коробки 7; vel11 — первая свеча коробки 11 (<em>velas</em>).</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">3 · x ≤ vel7 − 1 &lt; vel7 ≤ 4 · x</div>
-<div class="frm st">5 · x ≤ vel11 − 1 &lt; vel11 ≤ 6 · x</div>
-<p class="st">Ответ (а) = x, проходящие обе цепочки.</p></div></div>
-<div id="a6" data-art="6"><ul class="st"><li>«закончили» → <b>vel7 = 5 · 7 = 35</b>; 3 · x ≤ 34 → x ≤ 11; 35 ≤ 4 · x, а 4 · 8 = 32 &lt; 35 → x ≥ 9 → <b>x от 9 до 11</b></li><li>«начали» → <b>vel11 = 5 · 10 + 1 = 51</b>; 5 · x ≤ 50 → x ≤ 10; 51 ≤ 6 · x, а 6 · 8 = 48 &lt; 51 → x ≥ 9 → <b>x от 9 до 10</b></li><li>пересечение → <b>x = 9 или 10</b></li><li>x = 9: 11 · 9 = 99 &lt; 100, 12 · 9 = 108 ≥ 100 → <b>день 12</b></li><li>x = 10: 10 · 10 = 100 ≥ 100 → <b>день 10</b></li></ul></div>
+<div class="frm st">16 чётно → нечётных жетонов в тройке чётное число</div>
+<p class="st">Ответ = тройки случая «0 нечётных» плюс тройки случая «2 нечётных».</p></div></div>
+<div id="a4" data-art="4"><ul class="st"><li>нечётные жетоны: 3, 7, 11 — их три → чётными бывают только <b>0 или 2</b> (ответ на «а»)</li><li>0 нечётных: остаются только 2, 6, 8 → 2 + 6 + 8 = 16 ✓ <b>{2, 6, 8}</b></li><li>2 нечётных, пары по порядку: 3 + 7 = 10 → добрать 6 ✓ <b>{3, 6, 7}</b>; 3 + 11 = 14 → добрать 2 ✓ <b>{2, 3, 11}</b>; 7 + 11 = 18 — перелёт ✗</li></ul></div>
+<div id="a5" data-art="5"><p class="st"><b>3 тройки: {2, 6, 8}, {3, 6, 7}, {2, 3, 11}</b></p></div>
+<p class="st">Проверка: 2 + 6 + 8 = 16 ✓; 3 + 6 + 7 = 16 ✓; 2 + 3 + 11 = 16 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a7" data-art="7"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
-<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
+<div id="a6" data-art="6"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <hr>
-<div class="pager"><a href="03-2-4-albom-s-nakleykami.html">← 2.4 ⭐ Альбом с наклейками</a><a href="05-3-4-dvuznachnye-s-summoy-cifr-kratnoy-5.html">3.4 ⭐ Двузначные с суммой цифр, кратной 5 →</a></div>
+<div class="pager"><a href="02-1-5-plyusy-i-minusy-do-25.html">1.5 ⭐⭐ Плюсы и минусы до 25 →</a></div>
 </main>
 </div>
 <script>

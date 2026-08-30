@@ -211,18 +211,27 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 4 из 12</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Когда равенства связывают клетки цепочкой («сумма любых двух соседних равна 10», «в каждом треугольнике сумма 15»), не перебирай клетки деревом —…</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">N(заполнений) = сколько значений пробегает a<br><br>max(сумма полоски) = самое большое значение формулы суммы через a<br><br>где a — число в первой клетке;…</span></button>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Когда равенства связывают клетки цепочкой («сумма любых двух соседних равна 10», «каждая клетка равна сумме двух клеток под ней»), не перебирай…</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">клетка 1 + клетка 2 = 12</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">клетка 2 + клетка 3 = 12</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">клетка 3 = клетка 1</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">N(заполнений) = сколько значений пробегает a<br><br>max(сумма полоски) = самое большое значение формулы суммы через a<br><br>где a — число в первой клетке;…</span></button>
 </aside>
 <main>
   
   <h1>Глава 2. Всё через одну клетку</h1>
   <p class="sub">Доски 2 — Учебник</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Когда равенства связывают клетки цепочкой («сумма любых двух соседних равна 10», «в каждом треугольнике сумма 15»), не перебирай клетки деревом — <b>вырази все клетки через одну</b>. Дальше довод такой: выбрал значение этой клетки — и все остальные досчитались сами, значит у каждого заполнения ровно одно такое значение, а разные значения дают разные заполнения. Поэтому способов ровно столько, сколько значений эта клетка успевает пробежать, — и остаётся найти её <b>диапазон</b>: границы дают все выраженные через неё клетки сразу, каждая обязана остаться в рамках условия (например, положительной). А вопросы «какая наибольшая сумма?» после этого решаются формулой, без перебора.</p></div></div>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Когда равенства связывают клетки цепочкой («сумма любых двух соседних равна 10», «каждая клетка равна сумме двух клеток под ней»), не перебирай клетки деревом — <b>вырази все клетки через одну</b>. Дальше довод такой: выбрал значение этой клетки — и все остальные досчитались сами, значит у каждого заполнения ровно одно такое значение, а разные значения дают разные заполнения. Поэтому способов ровно столько, сколько значений эта клетка успевает пробежать, — и остаётся найти её <b>диапазон</b>: границы дают все выраженные через неё клетки сразу, каждая обязана остаться в рамках условия (например, положительной). А вопросы «какая наибольшая сумма?» после этого решаются формулой, без перебора.</p></div></div>
+<p class="st"><b>Второй ход главы — убрать общую часть.</b> Если два равенства говорят про клетки, которые почти совпадают, вычти одно из другого: всё общее сократится, и останется голое равенство между двумя клетками. Скажем, у клеток, стоящих по кругу, сумма любых двух соседних равна 12:</p>
+<div id="a1" data-art="1"><div class="frm st">клетка 1 + клетка 2 = 12</div></div>
+<div id="a2" data-art="2"><div class="frm st">клетка 2 + клетка 3 = 12</div></div>
+<p class="st">Слева в обеих строках сидит клетка 2, справа — одно и то же число 12. Убираю общее из обеих строк:</p>
+<div id="a3" data-art="3"><div class="frm st">клетка 3 = клетка 1</div></div>
+<p class="st">Так находятся равные клетки — и цепочка сама говорит, сколько на самом деле разных чисел в фигуре.</p>
 <p class="exam st"><b>Пример А (полоска-цепочка).</b> В полоску 1×5 вписывают целые положительные числа так, что сумма любых двух соседних равна 10. Сколькими способами? Какова наибольшая возможная сумма всей полоски?</p>
 <p class="step st"><b>Шаг 1 — план счёта.</b> Вопроса два, и оба про всю полоску сразу — нужно, чтобы она висела на одной клетке. Для этого зову первую клетку a и иду по цепочке: сосед дополняет до 10 → a, 10−a, a, 10−a, a — полоска <b>чередуется</b>, и заполнение — это просто выбор a.</p>
 <p class="st">Наибольшее возможное значение величины я записываю значком <code>max(…)</code>, наименьшее — <code>min(…)</code>. Например, <code>min(a) = 1</code> и <code>max(a) = 9</code> — дальше этих границ первая клетка не уходит, и найдёт их шаг 2.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">N(заполнений) = сколько значений пробегает a</div>
 <div class="frm st">max(сумма полоски) = самое большое значение формулы суммы через a</div>
 <p class="st">где <b>a</b> — число в первой клетке; полоска чередуется: a, 10−a, a, 10−a, a</p>
@@ -257,71 +266,68 @@
 <h4 class="st">💬 Фраза в конце — полнота</h4>
 <p class="st"><b>Probé todos los valores posibles de a y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.</b></p>
 <p class="st"><em>Проверил все возможные значения a, остальные не подходят под условие «все клетки положительные», — поэтому других нет.</em></p>
-<p class="exam st"><b>Пример Б (квадрат с центром).</b> В четырёх вершинах квадрата и в его центре — пять кружков. Центр соединён с вершинами: получились 4 треугольника, каждый — центр и две соседние вершины. Вписывают целые положительные числа так, чтобы сумма трёх чисел в каждом треугольнике была 15. Сколькими способами? Какова наибольшая возможная сумма всех пяти чисел?</p>
-<pre class="ascii st">   v1───v2       треугольники: c-v1-v2, c-v2-v3,
-    │ \ / │                    c-v3-v4, c-v4-v1
-    │  c  │
-    │ / \ │
-   v4───v3</pre>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Кружков пять, а равенств четыре — нужно, чтобы разных неизвестных осталось совсем мало. Для этого сравниваю треугольники, у которых есть общие клетки.</p>
-<p class="st">Первая пара — треугольники c-v1-v2 и c-v2-v3:</p>
-<div class="frm st">c + v1 + v2 = 15</div>
-<div class="frm st">c + v2 + v3 = 15</div>
-<p class="st">В обеих строках слева сидит одна и та же пара c и v2, а справа стоит одно и то же число 15. Убираю общую часть из обеих строк — остаётся:</p>
-<div class="frm st">v1 = v3</div>
-<p class="st">Вершины <b>через одну равны</b>. Вторая пара, c-v2-v3 и c-v3-v4, устроена так же: общие клетки у них c и v3, и остаётся</p>
-<figure class="st"><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start"><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">в1 и в3 — по диагонали, в2 и в4 — по другой</div><div style="display:inline-grid;grid-template-columns:repeat(3,40px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">a</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:transparent"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:transparent"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">ц</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:transparent"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:transparent"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">a</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">два треугольника с общей частью</div><div class="flab" style="margin-top:0px">ц + <span style="color:var(--blue)">в1</span> + <span style="color:var(--green)">в2</span> = 15</div><div class="flab" style="margin-top:0px">ц + <span style="color:var(--green)">в2</span> + <span style="color:var(--blue)">в3</span> = 15</div><div class="flab" style="margin-top:4px">общее ц и в2 убираю → <span style="color:var(--blue)">в1 = в3</span></div></div></div><div class="flab" style="margin-top:12px">на вершинах всего два разных числа: <span style="color:var(--blue)">a = в1 = в3</span> и <span style="color:var(--green)">b = в2 = в4</span> — и все четыре треугольника сливаются в одно равенство ц + a + b = 15</div><figcaption>Равенство вершин через одну не увидено на картинке, а получено вычитанием общей части двух соседних треугольников — на другой фигуре чередование ляжет иначе.</figcaption></figure>
-<div class="frm st">v2 = v4</div>
-<p class="st">Значит разных чисел на вершинах всего два. Даю им буквы:</p>
-<div class="frm st">a = v1 = v3</div>
-<div class="frm st">b = v2 = v4</div>
-<p class="st">Подставляю a и b во все четыре треугольника: c-v1-v2 превращается в c + a + b, c-v2-v3 — в c + b + a, c-v3-v4 — снова в c + a + b, c-v4-v1 — тоже. Четыре разных равенства слились в одно:</p>
-<div class="frm st">c + a + b = 15</div>
-<div class="frm st">a + b = 15 − c</div>
-<p class="st">Новой информации в остальных треугольниках нет. Значит заполнение — это тройка (c, a, b), и раскладывается она на миры по числу в центре.</p>
+<p class="exam st"><b>Пример Б (пирамида сумм).</b> Шесть клеток сложены пирамидой: внизу ряд из трёх клеток, над ним ряд из двух, наверху одна. Каждая клетка верхних рядов равна <b>сумме двух клеток, на которых она стоит</b>. В нижний ряд вписывают целые положительные числа, и в верхней клетке получается 30. Сколькими способами? Какова наибольшая возможная сумма всех шести чисел?</p>
+<pre class="ascii st">        ┌────┐
+        │ 30 │
+      ┌─┴──┬─┴──┐
+      │    │    │
+    ┌─┴──┬─┴──┬─┴──┐
+    │ a  │ b  │ c  │
+    └────┴────┴────┘</pre>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Посчитай, сколько дорожек ведёт от каждой нижней клетки к верхушке. Левая клетка a попадает только в левую клетку среднего ряда, правая c — только в правую, а средняя b входит <b>в обе</b>. Поэтому в верхушке b сидит дважды, а крайние по разу. Вот откуда весь ход: выбрал среднюю клетку — и крайние оказываются просто парой с известной суммой.</p></div>
+<figure class="st"><div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="display:flex;gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:52px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">30</span></div><div style="display:flex;gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:52px;height:34px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">a + b</span><span style="display:flex;align-items:center;justify-content:center;width:52px;height:34px;border-radius:5px;box-sizing:border-box;background:#151d29;border:1px solid #2c394c;color:var(--ink)">b + c</span></div><div style="display:flex;gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:52px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">a</span><span style="display:flex;align-items:center;justify-content:center;width:52px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">b</span><span style="display:flex;align-items:center;justify-content:center;width:52px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">c</span></div></div><div class="flab" style="margin-top:12px"><span style="color:var(--blue)">b</span> доходит до верхушки по двум дорожкам, <span style="color:var(--green)">a</span> и <span style="color:var(--green)">c</span> — по одной: 30 = a + 2·b + c</div><figcaption>Пересчёт дорожек и есть весь ход: выбрал среднюю клетку — крайние стали парой с известной суммой.</figcaption></figure>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Клеток шесть, а свободны только три нижние — значит вся пирамида выражается через них. Иду снизу вверх: средний ряд — это a + b и b + c, а верхушка — их сумма:</p>
+<div class="frm st">верхушка = (a + b) + (b + c)</div>
+<div class="frm st">верхушка = a + 2·b + c</div>
+<p class="st">Условие говорит, что наверху 30:</p>
+<div class="frm st">a + 2·b + c = 30</div>
+<div class="frm st">a + c = 30 − 2·b</div>
+<p class="st">Значит заполнение — это тройка (a, b, c), и раскладывается она на миры по числу в средней нижней клетке.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(заполнений) = сумма по мирам «какое число в центре»</div>
-<div class="frm st">max(сумма пяти чисел) = самое большое значение формулы c + 2a + 2b</div>
-<p class="st">где мир — все заполнения с одним и тем же c, и в каждом мире считается <code>N(пар (a, b))</code></p>
-<p class="st">Осталось найти: сколько пар в мире, докуда идёт c, и формулу суммы.</p></div>
-<p class="step st"><b>Шаг 2 — считаю пары при данном c.</b> Нужно, сколько пар (a, b) живёт в одном мире. Выбираю a, а b тогда досчитывается сама:</p>
-<div class="frm st">b = (15 − c) − a</div>
-<p class="st">Число b обязано остаться положительным, поэтому a идёт по порядку от 1 до (15 − c) − 1. Столько значений a — столько и пар:</p>
-<div class="frm st">N(пар в мире) = 14 − c</div>
-<p class="st">Клетки v1 и v2 разные, поэтому «a = 2, b = 3» и «a = 3, b = 2» — два разных заполнения; порядок здесь считается сам собой, делить пополам не нужно.</p>
-<p class="step st"><b>Шаг 3 — складываю миры.</b> Нужно пройти все центры: c пробегает 1, …, 13 (дальше некуда: при c = 13 остаётся a + b = 2 — ровно одна пара, а при c = 14 не осталось бы ни одной). Складываю по всем c: (14−1) + (14−2) + … + (14−13) — это знакомая лесенка 13 + 12 + 11 + … + 1, только длинная. Считаю подряд, накапливая: 13, 25, 36, 46, 55, 63, 70, 76, 81, 85, 88, 90, <b>91 способ</b>.</p>
-<p class="step st"><b>Шаг 4 — наибольшая сумма пяти чисел.</b> Нужен максимум, а перебирать его долго — беру сумму формулой. В сумме пяти чисел a встречается дважды (v1 и v3) и b дважды (v2 и v4), а пара a + b уже выражена через центр:</p>
-<div class="frm st">сумма = c + 2a + 2b = c + 2·(15 − c)</div>
-<p class="st">Раскрываю скобку — 2·(15 − c) это 30 − 2·c:</p>
-<div class="frm st">сумма = c + 30 − 2·c</div>
-<p class="st">Одна c минус две c — это минус одна c:</p>
-<div class="frm st">сумма = 30 − c</div>
-<p class="st">Перед c минус → сумма падает с ростом c, беру наименьшее c = 1:</p>
-<div class="frm st">max(сумма пяти чисел) = 30 − 1 = 29</div>
-<p class="st"><b>Других нет, потому что</b> каждое заполнение однозначно называет свою тройку чисел (c, a, b): c — это центр, a — вершина v1, b — вершина v2, а две оставшиеся вершины просто повторяют a и b. Центр перебран по порядку от 1 до 13 — на 14 пар уже не остаётся, — и при каждом c пары (a, b) перебраны все подряд, от a = 1 до a = 14 − c. Ни одно заполнение не попало сразу в два мира: миры различаются числом в центре.</p>
-<p class="st">Запомни ход «сумма формулой». Получив сумму в виде формулы от одной клетки, посмотри на знак перед этой клеткой. Плюс — сумма растёт вместе с ней, бери её самое большое допустимое значение (в примере А сумма 20 + a, максимум при a = 9). Минус — клетка тянет сумму вниз, бери самое маленькое (здесь 30 − c, максимум при c = 1). Перебирать не надо ни разу — но границу диапазона проверь, максимум живёт ровно на ней. Пример: c = 1, a = 1, b = 13 → треугольники 1+1+13 = 15 ✓, сумма пяти 29 ✓.</p>
+<div class="frm st">N(заполнений) = сумма по мирам «какое число в средней нижней клетке»</div>
+<div class="frm st">max(сумма шести чисел) = самое большое значение формулы суммы через b</div>
+<p class="st">где мир — все заполнения с одним и тем же b, и в каждом мире считается <code>N(пар (a, c))</code></p>
+<p class="st">Осталось найти: сколько пар в мире, докуда идёт b, и формулу суммы.</p></div>
+<p class="step st"><b>Шаг 2 — считаю пары при данном b.</b> Нужно, сколько пар (a, c) живёт в одном мире. Выбираю a, а c тогда досчитывается сама:</p>
+<div class="frm st">c = (30 − 2·b) − a</div>
+<p class="st">Число c обязано остаться положительным, поэтому a идёт по порядку от 1 до (30 − 2·b) − 1. Столько значений a — столько и пар:</p>
+<div class="frm st">N(пар в мире) = 29 − 2·b</div>
+<p class="st">Крайние клетки разные, поэтому «a = 2, c = 3» и «a = 3, c = 2» — два разных заполнения; порядок здесь считается сам собой, делить пополам не нужно.</p>
+<p class="step st"><b>Шаг 3 — складываю миры.</b> Нужно пройти все средние клетки: b пробегает 1, …, 14 (дальше некуда: при b = 14 остаётся a + c = 2 — ровно одна пара, а при b = 15 не осталось бы ни одной). Складываю по всем b: (29 − 2) + (29 − 4) + … + (29 − 28) — это лесенка через одно, 27 + 25 + 23 + … + 1. Считаю подряд, накапливая: 27, 52, 75, 96, 115, 132, 147, 160, 171, 180, 187, 192, 195, <b>196 способов</b>.</p>
+<p class="step st"><b>Шаг 4 — наибольшая сумма шести чисел.</b> Нужен максимум, а перебирать его долго — беру сумму формулой. В сумме шести чисел нижний ряд даёт a + b + c, средний — (a + b) + (b + c), верхушка — 30:</p>
+<div class="frm st">сумма = 2·a + 3·b + 2·c + 30</div>
+<p class="st">Пара крайних уже выражена через среднюю: a + c = 30 − 2·b, поэтому 2·a + 2·c — это 2·(30 − 2·b):</p>
+<div class="frm st">сумма = 2·(30 − 2·b) + 3·b + 30</div>
+<p class="st">Раскрываю скобку — 2·(30 − 2·b) это 60 − 4·b:</p>
+<div class="frm st">сумма = 60 − 4·b + 3·b + 30</div>
+<p class="st">Четыре b без трёх b — это одна b, и она уходит с минусом:</p>
+<div class="frm st">сумма = 90 − b</div>
+<p class="st">Перед b минус → сумма падает с ростом b, беру наименьшее b = 1:</p>
+<div class="frm st">max(сумма шести чисел) = 90 − 1 = 89</div>
+<p class="st"><b>Других нет, потому что</b> каждое заполнение однозначно называет свою тройку чисел (a, b, c): это три нижние клетки, а остальные три досчитываются по правилу пирамиды. Средняя клетка перебрана по порядку от 1 до 14 — на 15 пар уже не остаётся, — и при каждом b пары (a, c) перебраны все подряд, от a = 1 до a = 29 − 2·b. Ни одно заполнение не попало сразу в два мира: миры различаются числом в средней нижней клетке.</p>
+<p class="st">Запомни ход «сумма формулой». Получив сумму в виде формулы от одной клетки, посмотри на знак перед этой клеткой. Плюс — сумма растёт вместе с ней, бери её самое большое допустимое значение (в примере А сумма 20 + a, максимум при a = 9). Минус — клетка тянет сумму вниз, бери самое маленькое (здесь 90 − b, максимум при b = 1). Перебирать не надо ни разу — но границу диапазона проверь, максимум живёт ровно на ней. Пример: b = 1, a = 1, c = 27 → средний ряд 2 и 28, верхушка 2 + 28 = 30 ✓, сумма шести 1 + 1 + 27 + 2 + 28 + 30 = 89 ✓.</p>
 <h3 class="st">✍ Пример Б — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<p class="st"><b>Separé los casos según el número del centro: no se superponen y cubren todo, por eso los sumo.</b></p>
-<p class="st"><em>Разрезал на случаи по числу в центре: они не пересекаются и покрывают всё, поэтому складываю.</em></p>
+<p class="st"><b>Separé los casos según el número de la casilla del medio de abajo: no se superponen y cubren todo, por eso los sumo.</b></p>
+<p class="st"><em>Разрезал на случаи по числу в средней нижней клетке: они не пересекаются и покрывают всё, поэтому складываю.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">c — число в центре; a = v1 = v3 и b = v2 = v4 — вершины через одну равны.</p>
+<p class="st">a, b, c — числа нижнего ряда слева направо; средняя клетка b доходит до верхушки по двум дорожкам, крайние — по одной.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = сумма по мирам «какое число в центре»</div>
-<div class="frm st">max(сумма пяти чисел) = наибольшее значение формулы c + 2a + 2b</div></div>
-<ul class="st"><li>два соседних треугольника с общей парой → v1 = v3, v2 = v4</li><li>c + a + b = 15, значит a + b = 15 − c</li><li>в мире c: N(пар (a, b)) = 14 − c</li><li>c пробегает 1, …, 13 (при c = 14 пар не остаётся)</li><li>сумма = c + 2·(15 − c) = 30 − c</li></ul>
-<div class="frm st">N(заполнений) = 13 + 12 + … + 1 = 91</div>
+<div class="frm st">N(заполнений) = сумма по мирам «какое число в средней нижней клетке»</div>
+<div class="frm st">max(сумма шести чисел) = наибольшее значение формулы 2·a + 3·b + 2·c + 30</div></div>
+<ul class="st"><li>пирамида снизу вверх: средний ряд a + b и b + c, верхушка a + 2·b + c</li><li>a + 2·b + c = 30, значит a + c = 30 − 2·b</li><li>в мире b: N(пар (a, c)) = 29 − 2·b</li><li>b пробегает 1, …, 14 (при b = 15 пар не остаётся)</li><li>сумма = 2·(30 − 2·b) + 3·b + 30 = 90 − b</li></ul>
+<div class="frm st">N(заполнений) = 27 + 25 + … + 1 = 196</div>
 <p class="st"><b>💬 Фраза ко второму вопросу:</b></p>
-<p class="st"><b>Más de 29 no se puede, porque la suma vale 30 − c y c es al menos 1; y con c = 1 se logra, así que el máximo es 29.</b></p>
-<p class="st"><em>Больше 29 быть не может, потому что сумма равна 30 − c, а c не меньше 1; а при c = 1 она достигается, — значит максимум равен 29.</em></p>
-<div class="frm st">max(сумма пяти чисел) = 30 − 1 = 29</div>
-<p class="st">Проверка: c = 1, a = 1, b = 13 → 1 + 1 + 13 = 15 ✓, сумма пяти 29 ✓</p>
+<p class="st"><b>Más de 89 no se puede, porque la suma vale 90 − b y b es al menos 1; y con b = 1 se logra, así que el máximo es 89.</b></p>
+<p class="st"><em>Больше 89 быть не может, потому что сумма равна 90 − b, а b не меньше 1; а при b = 1 она достигается, — значит максимум равен 89.</em></p>
+<div class="frm st">max(сумма шести чисел) = 90 − 1 = 89</div>
+<p class="st">Проверка: b = 1, a = 1, c = 27 → средний ряд 2 и 28, верхушка 30 ✓, сумма шести 89 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
 <p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p>
 <p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <p class="st"><b>Типичные ошибки:</b></p>
-<ol class="st num"><li><span class="lin">1.</span> <b>Перебор деревом вместо выражения.</b> «Переберу все пять клеток» — это сотни веток. Одна клетка-хозяйка, остальные выражаются через неё.</li><li><span class="lin">2.</span> <b>Потерять диапазон.</b> «a любое» — нет: каждая выраженная клетка обязана остаться положительной. Проверь <b>все</b> выражения и найди, какое даёт стоп.</li><li><span class="lin">3.</span> <b>Максимум перебором.</b> Формула 30 − c отвечает мгновенно; перебор долог, и край легко потерять.</li><li><span class="lin">4.</span> <b>Перепутать, кто с кем равен.</b> Равенство v1 = v3 не угадано, а <b>выведено</b> из двух треугольников с общими клетками. Выводи каждый раз заново — на другой фигуре чередование может лечь иначе.</li></ol>
+<ol class="st num"><li><span class="lin">1.</span> <b>Перебор деревом вместо выражения.</b> «Переберу все шесть клеток» — это сотни веток. Одна клетка-хозяйка, остальные выражаются через неё.</li><li><span class="lin">2.</span> <b>Потерять диапазон.</b> «a любое» — нет: каждая выраженная клетка обязана остаться положительной. Проверь <b>все</b> выражения и найди, какое даёт стоп.</li><li><span class="lin">3.</span> <b>Максимум перебором.</b> Формула 90 − b отвечает мгновенно; перебор долог, и край легко потерять.</li><li><span class="lin">4.</span> <b>Сосчитать нижние клетки поровну.</b> Верхушка — это a + 2·b + c, а не a + b + c: до неё от средней клетки ведут две дорожки, а от крайних по одной. Считай дорожки каждый раз заново — на другой фигуре они лягут иначе.</li></ol>
 <div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2018 №3 — шестиугольник с центром: шесть треугольников по 24, «сколькими способами + наибольшая сумма семи чисел» — ровно машина этой главы (вершины через одну, всё висит на центре, максимум формулой).</p></div>
 <hr>
 <p class="xlink"><a href="../nandu_n1_nacional_3_doski2_reshebnik/02-blok-2-vse-cherez-odnu-kletku-glava-2.html">→ Задачи к этой главе: <b>Блок 2 — Всё через одну клетку</b></a></p><div class="pager"><a href="03-glava-1-skolko-sposobov-vmesto-vypishi-vse.html">← Глава 1. «Сколько способов» вместо «выпиши все»</a><a href="05-glava-3-poryadok-navyazan-schitay-mnozhestva.html">Глава 3. Порядок навязан — считай множества →</a></div>
