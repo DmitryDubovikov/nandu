@@ -212,11 +212,11 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 13 из 22</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = все a, при которых T остаётся двузначным.</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">(10 · T + a) − (100 · a + T) = 9 · T − 99 · a = 108</span></button>
-<button class="art cont" data-art="3"><span class="val f">делю на 9 → <b>T = 11 · a + 12</b></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = все a, при которых cola остаётся двузначным.</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">левая часть = 9 · cola − 99 · a</span></button>
+<button class="art cont" data-art="3"><span class="val f">делю на 9 → <b>cola = 11 · a + 12</b></span></button>
 <button class="art cont" data-art="4"><span class="val f">a = 1 → 23; 2 → 34; 3 → 45; 4 → 56; 5 → 67; 6 → 78; 7 → 89 ✓</span></button>
-<button class="art cont" data-art="5"><span class="val f">a = 8 → 100 — уже не двузначный, дальше T только растёт ✗</span></button>
+<button class="art cont" data-art="5"><span class="val f">a = 8 → 100 — уже не двузначный, дальше cola только растёт ✗</span></button>
 <button class="art cont" data-art="6"><span class="val f">7 чисел: 123, 234, 345, 456, 567, 678, 789</span></button>
 <button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de la primera cifra y los demás no cumplen la igualdad, por eso no hay más que estos.<br><em>Проверил все возможные значения первой цифры, остальные не подходят под равенство, — поэтому других нет.</em></span></button>
 </aside>
@@ -225,25 +225,27 @@
   <h1>6.5 ⭐⭐ Первая цифра уехала в конец</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> Тано задумал трёхзначное число и переставил его первую цифру в конец: из числа с цифрами a, b, c получилось число с цифрами b, c, a — тоже трёхзначное. Новое число оказалось на 108 больше задуманного. Найди все числа, которые мог задумать Тано.</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>При такой перестановке цифры b и c никогда не разлучаются: они стояли рядом в задуманном числе и остались рядом в новом, только переехали в начало. Значит, раскладывать число на <b>три</b> цифры незачем — хватит двух чисел: первой цифры a и двузначного хвоста bc. Назову хвост буквой T. Тогда</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>При такой перестановке цифры b и c никогда не разлучаются: они стояли рядом в задуманном числе и остались рядом в новом, только переехали в начало. Значит, раскладывать число на <b>три</b> цифры незачем — хватит двух предметов: первой цифры a и двузначного хвоста bc. Назову хвост <code>cola</code> (по-испански «хвост»). Задуманное число — это «a, а за ней хвост», новое — «хвост, а за ним a»:</p></div>
 <figure class="st"><div class="fcol"><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="flab">задумано</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">a</span><span style="display:inline-flex;gap:0"></span><span style="display:inline-flex;gap:4px;padding:2px;border:1px dashed #41506a;border-radius:8px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">b</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">c</span></span><span class="eq">=</span><span class="flab">100 · a + T</span></div><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px"><span class="flab">получилось</span><span style="display:inline-flex;gap:4px;padding:2px;border:1px dashed #41506a;border-radius:8px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">b</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">c</span></span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">a</span><span class="eq">=</span><span class="flab">10 · T + a</span></div></div><div class="frm" style="margin-top:16px;border-color:var(--green)">T — двузначный хвост bc</div><figcaption>Цифры b и c стояли рядом и остались рядом — переехал только хвост целиком. Поэтому три неизвестные цифры сжимаются до двух чисел: первой цифры a и хвоста T.</figcaption></figure>
-<div class="frm st">задуманное = 100 · a + T</div>
-<div class="frm st">новое = 10 · T + a</div>
-<p class="st">Задуманное — это «a, а за ней хвост»; новое — «хвост, а за ним a». Дальше вся задача идёт про два числа, а не про три цифры.</p>
-<p class="step st"><b>Шаг 1 — план: превратить «на 108 больше» в связь между a и T.</b> Про сами цифры условие ничего не говорит, оно говорит про разность двух чисел, а оба числа уже записаны через a и T. Значит, выпишу разность буквами — и получу одно уравнение с двумя неизвестными, из которого T выражается через a. После этого останется перебрать одну букву.</p>
-<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все a, при которых хвост T остаётся двузначным</p>
-<p class="st">a — первая цифра задуманного числа; T — двузначный хвост bc.</p>
-<p class="st">Осталось найти: формулу T через a; потом перебрать a от 1 до 9.</p></div>
-<p class="step st"><b>Шаг 2 — считаю разность буквами.</b> Нужна связь между a и T — беру разность из условия и подставляю обе записи:</p>
-<div class="frm st">(10 · T + a) − (100 · a + T) = 9 · T − 99 · a</div>
-<p class="st">По условию эта разность равна 108, значит</p>
-<div class="frm st">9 · T − 99 · a = 108</div>
+<div class="frm st">задуманное = 100 · a + cola</div>
+<div class="frm st">новое = 10 · cola + a</div>
+<p class="step st"><b>Шаг 1 — план: превратить «на 108 больше» в связь между a и cola.</b> Про сами цифры условие ничего не говорит — оно говорит про разность двух чисел, а оба уже записаны. Разность этих записей и есть равенство из условия:</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">(10 · cola + a) − (100 · a + cola) = 108</div>
+<ul class="st"><li>a — первая цифра задуманного числа</li><li>cola — двузначный хвост bc</li></ul>
+<p class="st">Ответ = все a, при которых cola получается двузначным; каждое такое a даёт число 100 · a + cola.</p>
+<p class="st">Осталось найти: формулу cola через a; потом перебрать a.</p></div>
+<p class="step st"><b>Шаг 2 — считаю разность буквами.</b> Собираю каждую букву в одно место:</p>
+<div class="frm st">10 · cola − cola = 9 · cola</div>
+<div class="frm st">a − 100 · a = −99 · a</div>
+<p class="st">Значит равенство плана превращается в</p>
+<div class="frm st">9 · cola − 99 · a = 108</div>
 <p class="st">Все три числа делятся на 9, поэтому делю на 9 всю строку:</p>
-<div class="frm st">T − 11 · a = 12</div>
-<p class="st">→ <b>T = 11 · a + 12</b></p>
-<p class="step st"><b>Шаг 3 — перебираю a.</b> Нужно понять, какие a доживают до конца. Ограничение ровно одно: T — двузначный хвост, значит T не больше 99 (и не меньше 10 — но при любом a это выполнено с запасом). Иду по a подряд:</p>
+<div class="frm st">cola − 11 · a = 12</div>
+<p class="st">→ <b>cola = 11 · a + 12</b></p>
+<p class="step st"><b>Шаг 3 — перебираю a.</b> Ограничение ровно одно: cola — двузначный хвост, то есть от 10 до 99. Снизу оно выполнено с запасом уже при a = 1 (там cola = 23), так что смотрю только верхнюю границу. Иду по a подряд:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>a</th><th>T = 11 · a + 12</th><th>двузначный?</th><th>задуманное число</th></tr>
+<tr><th>a</th><th>cola = 11 · a + 12</th><th>двузначный?</th><th>задуманное число</th></tr>
 <tr><td>1</td><td>23</td><td>да</td><td><b>123</b></td></tr>
 <tr><td>2</td><td>34</td><td>да</td><td><b>234</b></td></tr>
 <tr><td>3</td><td>45</td><td>да</td><td><b>345</b></td></tr>
@@ -254,8 +256,8 @@
 <tr><td>8</td><td>100</td><td>нет — три знака</td><td>✗</td></tr>
 <tr><td>9</td><td>111</td><td>нет</td><td>✗</td></tr>
 </table></div></div>
-<p class="st">С a = 8 хвост перевалил за 99, а дальше T только растёт — значит, ниже проверять нечего.</p>
-<p class="step st"><b>Шаг 4 — сборка.</b> Каждое уцелевшее a даёт своё число 100 · a + T → <b>семь чисел</b>: 123, 234, 345, 456, 567, 678, 789. Контроль: 231 − 123 = 108 ✓ и 897 − 789 = 108 ✓</p>
+<p class="st">С a = 8 хвост перевалил за 99, а дальше cola только растёт — значит, проверять больше нечего.</p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Каждое подошедшее a даёт своё число 100 · a + cola → <b>семь чисел</b>: 123, 234, 345, 456, 567, 678, 789. Контроль: 231 − 123 = 108 ✓ и 897 − 789 = 108 ✓</p>
 <p class="st"><b>Ответ:</b> <b>7 чисел</b> — 123, 234, 345, 456, 567, 678, 789.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
@@ -263,11 +265,11 @@
 <div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
 <p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">a — первая цифра; T — двузначный хвост bc.</p>
+<p class="st">a — первая цифра; cola — двузначный хвост bc: задуманное = 100 · a + cola, новое = 10 · cola + a.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">задуманное = 100 · a + T, новое = 10 · T + a</div>
-<p class="st">Ответ = все a, при которых T остаётся двузначным.</p></div></div>
-<div id="a5" data-art="5"><ul class="st"><li>(10 · T + a) − (100 · a + T) = 9 · T − 99 · a = 108</li><li>делю на 9 → <b>T = 11 · a + 12</b></li><li>a = 1 → 23; 2 → 34; 3 → 45; 4 → 56; 5 → 67; 6 → 78; 7 → 89 ✓</li><li>a = 8 → 100 — уже не двузначный, дальше T только растёт ✗</li></ul></div>
+<div class="frm st">(10 · cola + a) − (100 · a + cola) = 108</div>
+<p class="st">Ответ = все a, при которых cola остаётся двузначным.</p></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>левая часть = 9 · cola − 99 · a</li><li>делю на 9 → <b>cola = 11 · a + 12</b></li><li>a = 1 → 23; 2 → 34; 3 → 45; 4 → 56; 5 → 67; 6 → 78; 7 → 89 ✓</li><li>a = 8 → 100 — уже не двузначный, дальше cola только растёт ✗</li></ul></div>
 <div id="a6" data-art="6"><div class="frm st">7 чисел: 123, 234, 345, 456, 567, 678, 789</div></div>
 <p class="st">Проверка: 231 − 123 = 108 ✓; 897 − 789 = 108 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>

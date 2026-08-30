@@ -211,19 +211,20 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 18 из 19</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">блоки: 9 + 180 + 153 = 342</span></button>
-<button class="art cont" data-art="1"><span class="val f">342 цифры</span></button>
-<button class="art" data-art="2"><span class="lbl">💬 Фраза</span><span class="val ph">Hasta ese lugar entran 25 números de dos cifras enteros y sobran 1 cifra, así que solo miro dentro del último bloque.<br><em>До этого места умещается 25 целых двузначных чисел и остаётся ещё 1 цифра, поэтому смотрю только внутри последнего.</em></span></button>
-<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">места 1–9 заняты однозначными → позиция 60 в блоке двузначных</span></button>
-<button class="art cont" data-art="4"><span class="val f">от начала блока: 60 − 9 = 51</span></button>
-<button class="art cont" data-art="5"><span class="val f">51 = 2 · 25 + 1 → 25 двузначных целиком (10 … 34) → <b>num = 35</b>, <b>pos = 1</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">Цифра = 3</span></button>
-<button class="art" data-art="7"><span class="lbl">💬 Фраза</span><span class="val ph">Antes de 87 hay 163 cifras escritas, así que 87 empieza en el lugar 163 + 1.<br><em>До 87 записано 163 цифры, поэтому 87 начинается на месте 163 + 1.</em></span></button>
-<button class="art" data-art="8"><span class="lbl">План</span><span class="val f">старт = N(цифр до 87) + 1</span></button>
-<button class="art" data-art="9"><span class="lbl">На туре</span><span class="val f">однозначные: 9 цифр</span></button>
-<button class="art cont" data-art="10"><span class="val f">двузначные 10–86: их 86 − 10 + 1 = 77, цифр 77 · 2 = 154</span></button>
-<button class="art cont" data-art="11"><span class="val f"><b>N(цифр до 87) = 9 + 154 = 163</b></span></button>
-<button class="art cont" data-art="12"><span class="val f">Старт = 164</span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Corto la fila en bloques donde todos los números tienen la misma cantidad de cifras, así el largo de cada bloque es una multiplicación.<br><em>Режу строку на блоки, где у всех чисел одинаковое количество цифр, — тогда длина блока считается умножением.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">блоки: 9 + 180 + 153 = 342</span></button>
+<button class="art cont" data-art="2"><span class="val f">342 цифры</span></button>
+<button class="art" data-art="3"><span class="lbl">💬 Фраза</span><span class="val ph">Hasta ese lugar entran 25 números enteros de dos cifras y sobra 1 cifra, así que esa cifra es la primera del número siguiente.<br><em>До этого места умещается 25 целых двузначных чисел и остаётся ещё 1 цифра — значит, это первая цифра следующего числа.</em></span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">места 1–9 заняты однозначными → позиция 60 в блоке двузначных</span></button>
+<button class="art cont" data-art="5"><span class="val f">от начала блока: 60 − 9 = 51</span></button>
+<button class="art cont" data-art="6"><span class="val f">51 = 2 · 25 + 1 → 25 двузначных целиком (10 … 34) → <b>num = 35</b>, <b>pos = 1</b></span></button>
+<button class="art cont" data-art="7"><span class="val f">Цифра = 3</span></button>
+<button class="art" data-art="8"><span class="lbl">💬 Фраза</span><span class="val ph">Antes de 87 hay 163 cifras escritas, así que 87 empieza en el lugar 163 + 1.<br><em>До 87 записано 163 цифры, поэтому 87 начинается на месте 163 + 1.</em></span></button>
+<button class="art" data-art="9"><span class="lbl">План</span><span class="val f">старт = N(цифр до 87) + 1</span></button>
+<button class="art" data-art="10"><span class="lbl">На туре</span><span class="val f">однозначные: 9 цифр</span></button>
+<button class="art cont" data-art="11"><span class="val f">двузначные 10–86: их 86 − 10 + 1 = 77, цифр 77 · 2 = 154</span></button>
+<button class="art cont" data-art="12"><span class="val f"><b>N(цифр до 87) = 9 + 154 = 163</b></span></button>
+<button class="art cont" data-art="13"><span class="val f">Старт = 164</span></button>
 </aside>
 <main>
   
@@ -231,14 +232,17 @@
   <p class="sub">Числа и цифры — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>8.1</td><td><b>342 цифры</b></td><td>блоки: однозначные 9 · 1 = 9 (итог 9); двузначные 90 · 2 = 180 (итог 189); трёхзначные 100–150: их 51, цифр 153 (итог 342)</td></tr>
-<tr><td>8.2</td><td><b>3</b> — первая цифра числа 35</td><td>позиция 60 глубже однозначных (их 9), значит она в блоке двузначных. Считаю от начала блока: 60 − 9 = 51. Двузначные идут порциями по 2 цифры: 51 = 2 · 25 + 1 — 25 чисел прошли целиком, и ещё 1 цифра следующего. 25 полных — это числа от 10 до 10 + 25 − 1 = 34, значит следующее число 35, а остаток 1 — его первая цифра</td></tr>
-<tr><td>8.3</td><td>с <b>164-го</b> места</td><td>до 87 стоят: 9 цифр однозначных + числа 10–86 (их 77, цифр 154) = 163; старт на 164-м. Проверка на маленьком: до 12 стоят 9 + 4 = 13 → начинается на 14-м ✓</td></tr>
-<tr><td>8.4</td><td>а) <b>97 цифр</b>; б) <b>4</b> — вторая цифра числа 54</td><td>блоки этого списка другие: однозначных чётных 4 (2, 4, 6, 8), двузначных чётных 45 (цепочка 10, 12, …, 98: (98 − 10) : 2 + 1 = 45), и отдельно 100. Цифр: 4 · 1 = 4, 45 · 2 = 90, 1 · 3 = 3 → 4 + 90 + 3 = 97. Позиция 50: отбрасываю однозначные, 50 − 4 = 46 = 2 · 23 + 0 — остаток 0 значит «последняя цифра текущего числа», то есть вторая цифра 23-го двузначного чётного. 23-е в цепочке 10, 12, …: 10 + 2 · 22 = 54 → цифра <b>4</b></td></tr>
-<tr><td>8.5</td><td>а) <b>703 цифры</b>; б) <b>9</b>; в) с <b>443-го</b> места</td><td>однозначных в списке нет вовсе, а двузначные начинаются с 50 — блоки строим под этот список. Двузначные 50–99: их 99 − 50 + 1 = 50, цифр 100; трёхзначные 100–300: их 201, цифр 603 → всего 703. Место 250: 250 − 100 = 150 = 3 · 50 + 0, остаток 0 = <b>последняя</b> цифра 50-го трёхзначного (это 149) → 9. До числа 214 стоят 100 + 114 · 3 = 442 цифры → старт на 443-м</td></tr>
+<tr><td>8.1</td><td><b>342 цифры</b></td><td>блоки: 1–9 → 9 · 1 = 9 (итог 9); 10–99 → 90 · 2 = 180 (итог 189); 100–150 → их 150 − 100 + 1 = 51, цифр 51 · 3 = 153 (итог 342)</td></tr>
+<tr><td>8.2</td><td><b>3</b> — первая цифра числа 35</td><td>первые 9 мест — однозначные, 60 глубже → блок двузначных. От начала блока: 60 − 9 = 51. Порции по 2 цифры: 51 = 2 · 25 + 1 — 25 чисел прошли целиком (10 … 34), остаток 1 = первая цифра следующего, то есть числа 35</td></tr>
+<tr><td>8.3</td><td>с <b>164-го</b> места</td><td>до 87 стоят однозначные (9 цифр) и числа 10–86 (их 77, цифр 154): 9 + 154 = 163 → старт на 164-м. Проверка на маленьком: до 12 стоят 9 + 4 = 13 цифр → старт 14 ✓</td></tr>
+<tr><td>8.4</td><td>а) <b>97 цифр</b>; б) <b>4</b> — вторая цифра числа 54</td><td>блоки этого списка другие: однозначных чётных 4 (2, 4, 6, 8); двузначные чётные — цепочка 10, 12, …, 98 с шагом 2, их (98 − 10) : 2 + 1 = 45; и отдельно 100. Цифр: 4 · 1 = 4, 45 · 2 = 90, 1 · 3 = 3 → 4 + 90 + 3 = 97. Место 50: от начала двузначных 50 − 4 = 46 = 2 · 23 + 0 — остаток 0 = последняя цифра <b>23-го</b> числа блока, а 23-е в цепочке 10, 12, … это 10 + 2 · (23 − 1) = 54 → вторая цифра <b>4</b></td></tr>
+<tr><td>8.5</td><td>а) <b>703 цифры</b>; б) <b>9</b>; в) с <b>443-го</b> места</td><td>однозначных в списке нет вовсе, а двузначные начинаются с 50 — блоки строим под этот список. Двузначные 50–99: их 99 − 50 + 1 = 50, цифр 100; трёхзначные 100–300: их 201, цифр 603 → всего 703. Место 250: от начала трёхзначных 250 − 100 = 150 = 3 · 50 + 0 — остаток 0 = последняя цифра <b>50-го</b> трёхзначного, а это 100 + 50 − 1 = 149 → цифра 9. До числа 214 стоят 100 + 114 · 3 = 442 цифры → старт на 443-м</td></tr>
 </table></div></div>
 <h3 class="st">✍ 8.1 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Corto la fila en bloques donde todos los números tienen la misma cantidad de cifras, así el largo de cada bloque es una multiplicación.</b></p></div>
+<p class="st"><em>Режу строку на блоки, где у всех чисел одинаковое количество цифр, — тогда длина блока считается умножением.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">Таблица блоков с накопленным итогом:</p>
 <div class="st"><div class="tw"><table>
@@ -247,28 +251,28 @@
 <tr><td>10–99</td><td>90</td><td>180</td><td>189</td></tr>
 <tr><td>100–150</td><td>51</td><td>153</td><td><b>342</b></td></tr>
 </table></div></div>
-<div id="a0" data-art="0"><div class="frm st">блоки: 9 + 180 + 153 = 342</div></div>
-<div id="a1" data-art="1"><p class="st"><b>342 цифры</b></p></div>
+<div id="a1" data-art="1"><div class="frm st">блоки: 9 + 180 + 153 = 342</div></div>
+<div id="a2" data-art="2"><p class="st"><b>342 цифры</b></p></div>
 <h3 class="st">✍ 8.2 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a2" data-art="2"><p class="st"><b>Hasta ese lugar entran 25 números de dos cifras enteros y sobran 1 cifra, así que solo miro dentro del último bloque.</b></p></div>
-<p class="st"><em>До этого места умещается 25 целых двузначных чисел и остаётся ещё 1 цифра, поэтому смотрю только внутри последнего.</em></p>
+<div id="a3" data-art="3"><p class="st"><b>Hasta ese lugar entran 25 números enteros de dos cifras y sobra 1 cifra, así que esa cifra es la primera del número siguiente.</b></p></div>
+<p class="st"><em>До этого места умещается 25 целых двузначных чисел и остаётся ещё 1 цифра — значит, это первая цифра следующего числа.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">num — число, внутрь которого попала позиция; pos — какая по счёту цифра внутри числа num.</p>
-<div id="a5" data-art="5"><ul class="st"><li>места 1–9 заняты однозначными → позиция 60 в блоке двузначных</li><li>от начала блока: 60 − 9 = 51</li><li>51 = 2 · 25 + 1 → 25 двузначных целиком (10 … 34) → <b>num = 35</b>, <b>pos = 1</b></li></ul></div>
-<div id="a6" data-art="6"><div class="frm st">Цифра = 3</div></div>
+<div id="a6" data-art="6"><ul class="st"><li>места 1–9 заняты однозначными → позиция 60 в блоке двузначных</li><li>от начала блока: 60 − 9 = 51</li><li>51 = 2 · 25 + 1 → 25 двузначных целиком (10 … 34) → <b>num = 35</b>, <b>pos = 1</b></li></ul></div>
+<div id="a7" data-art="7"><div class="frm st">Цифра = 3</div></div>
 <h3 class="st">✍ 8.3 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a7" data-art="7"><p class="st"><b>Antes de 87 hay 163 cifras escritas, así que 87 empieza en el lugar 163 + 1.</b></p></div>
+<div id="a8" data-art="8"><p class="st"><b>Antes de 87 hay 163 cifras escritas, así que 87 empieza en el lugar 163 + 1.</b></p></div>
 <p class="st"><em>До 87 записано 163 цифры, поэтому 87 начинается на месте 163 + 1.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">Значок <code>N(…)</code> — «сколько объектов подходит под то, что названо в скобках».</p>
-<div id="a8" data-art="8"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div id="a9" data-art="9"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">старт = N(цифр до 87) + 1</div></div></div>
-<div id="a11" data-art="11"><ul class="st"><li>однозначные: 9 цифр</li><li>двузначные 10–86: их 86 − 10 + 1 = 77, цифр 77 · 2 = 154</li><li><b>N(цифр до 87) = 9 + 154 = 163</b></li></ul></div>
-<div id="a12" data-art="12"><div class="frm st">Старт = 164</div></div>
+<div id="a12" data-art="12"><ul class="st"><li>однозначные: 9 цифр</li><li>двузначные 10–86: их 86 − 10 + 1 = 77, цифр 77 · 2 = 154</li><li><b>N(цифр до 87) = 9 + 154 = 163</b></li></ul></div>
+<div id="a13" data-art="13"><div class="frm st">Старт = 164</div></div>
 <p class="st">Проверка на маленьком (Ч3): до 12 стоят 9 + 4 = 13 цифр → старт 14 ✓</p>
 <p class="st"><em>Боевая запись задач со звёздочками блока 8 — в <code>nandu_n1_nacional_1_cifry_resheniya.md</code>, рядом с их разборами.</em></p>
 <hr>

@@ -212,25 +212,42 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 12 из 22</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.<br><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">99 · (a − c) = 297</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><b>a − c = 297 : 99 = 3</b></span></button>
-<button class="art cont" data-art="3"><span class="val f">переворот трёхзначный → c ≥ 1 → c = 1, 2, 3, 4, 5, 6</span></button>
-<button class="art cont" data-art="4"><span class="val f">6 чисел: 401, 502, 603, 704, 805, 906</span></button>
-<button class="art" data-art="5"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">(100a + c) − (100c + a) = 297</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">левая часть = 99 · (a − c) → <b>a − c = 297 : 99 = 3</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">после обмена число трёхзначное → c ≥ 1</span></button>
+<button class="art cont" data-art="4"><span class="val f">c = 1 → 401; c = 2 → 502; c = 3 → 603; c = 4 → 704; c = 5 → 805; c = 6 → 906</span></button>
+<button class="art cont" data-art="5"><span class="val f">c = 7 → a = 10, не цифра, стоп</span></button>
+<button class="art cont" data-art="6"><span class="val f">6 чисел: 401, 502, 603, 704, 805, 906</span></button>
+<button class="art" data-art="7"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 </aside>
 <main>
   <p class="partlab">Блок 6 — Разрядная запись</p>
   <h1>6.4 ⭐ Трёхзначное с нулём в середине</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
 <p class="st"><b>Условие.</b> У трёхзначного числа средняя цифра 0. Когда его крайние цифры поменяли местами, число уменьшилось на 297 (и осталось трёхзначным). Найди все такие числа.</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Средняя цифра при обмене крайних остаётся на месте — значит, в разность она не входит вовсе, и то, что она равна нулю, разности не касается. Работают только две цифры из трёх.</p></div>
-<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = все числа, у которых разность крайних цифр даёт нужную разность 297, и при этом переворот остаётся трёхзначным.</p></div>
-<p class="st"><b>Ход.</b></p>
-<p class="st">Число записываю разрядно: 100a + 0 · 10 + c, его переворот — 100c + 0 · 10 + a. Разность:</p>
-<div class="frm st">(100a + c) − (100c + a) = 99a − 99c = 99 · (a − c)</div>
-<p class="st">99 · (a − c) = 297, значит a − c = 297 : 99 = 3.</p>
-<p class="st">Второе требование: переворот тоже трёхзначный, поэтому c ≥ 1. Тогда c = 1, 2, 3, 4, 5, 6, а a = c + 3.</p>
-<p class="st">Контроль: 401 − 104 = 297 ✓</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Средняя цифра при обмене крайних остаётся на своём месте: и в числе, и в новом числе она весит 10 — значит в разность не входит вовсе. То, что она равна нулю, разности не касается. Работают только две цифры из трёх.</p></div>
+<p class="step st"><b>Шаг 1 — план: перевести «уменьшилось на 297» в равенство между крайними цифрами.</b> Условие говорит только одно — насколько одно число меньше другого. Запишу оба разрядной записью, и это «насколько» станет равенством из букв.</p>
+<p class="st">Число с крайними цифрами a и c и нулём в середине — это</p>
+<p class="st">100a + 0 · 10 + c</p>
+<p class="st">После обмена крайних получается</p>
+<p class="st">100c + 0 · 10 + a</p>
+<p class="st">Число уменьшилось на 297 — значит первое минус второе равно 297:</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">(100a + c) − (100c + a) = 297</div>
+<ul class="st"><li>a — первая цифра числа</li><li>c — последняя цифра</li></ul>
+<p class="st">Ответ = все пары цифр (a, c), подходящие под это равенство, у которых число остаётся трёхзначным и после обмена.</p>
+<p class="st">Осталось найти: во что превращается равенство, когда одинаковые буквы собраны вместе, и какие пары цифр ему подходят.</p></div>
+<p class="step st"><b>Шаг 2 — получаю условие на цифры.</b> Пока каждая буква стоит в записи дважды, из равенства ничего не видно. Собираю каждую в одно место:</p>
+<div class="frm st">100a − a = 99a</div>
+<div class="frm st">c − 100c = −99c</div>
+<p class="st">Значит левая часть — это</p>
+<p class="st">99 · (a − c)</p>
+<p class="st">и равенство плана превращается в</p>
+<div class="frm st">99 · (a − c) = 297</div>
+<p class="st">→ <b>a − c = 297 : 99 = 3</b></p>
+<p class="step st"><b>Шаг 3 — перебираю пары цифр.</b> Иду по последней цифре подряд, начиная с самой маленькой. Ноль ей быть нельзя: после обмена c встаёт первой, а число обязано остаться трёхзначным, — значит старт c = 1. Первую цифру каждый раз считаю по условию a = c + 3:</p>
+<ul class="st"><li>c = 1 → a = 4 → <b>401</b></li><li>c = 2 → a = 5 → <b>502</b></li><li>c = 3 → a = 6 → <b>603</b></li><li>c = 4 → a = 7 → <b>704</b></li><li>c = 5 → a = 8 → <b>805</b></li><li>c = 6 → a = 9 → <b>906</b></li><li>c = 7 → a = 10 — это уже не цифра, стоп; дальше a будет только больше</li></ul>
+<p class="step st"><b>Шаг 4 — сборка.</b> Шесть пар цифр дали шесть чисел. Контроль: 401 − 104 = 297 ✓</p>
 <p class="st"><b>Ответ:</b> <b>шесть чисел</b> — 401, 502, 603, 704, 805, 906.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
@@ -238,14 +255,14 @@
 <div id="a0" data-art="0"><p class="st"><b>Escribo el número por sus cifras (10·a + b si tiene dos, 100·a + 10·b + c si tiene tres). Así la condición se vuelve una igualdad entre letras.</b></p></div>
 <p class="st"><em>Записываю число через цифры (10·a + b, если их две; 100·a + 10·b + c, если три). Тогда условие становится равенством между буквами.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">a, c — крайние цифры, средняя равна 0: число = 100a + c, переворот = 100c + a.</p>
+<p class="st">a, c — крайние цифры, средняя равна 0: число = 100a + c, после обмена = 100c + a.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">99 · (a − c) = 297</div></div></div>
-<div id="a3" data-art="3"><ul class="st"><li><b>a − c = 297 : 99 = 3</b></li><li>переворот трёхзначный → c ≥ 1 → c = 1, 2, 3, 4, 5, 6</li></ul></div>
-<div id="a4" data-art="4"><div class="frm st">6 чисел: 401, 502, 603, 704, 805, 906</div></div>
+<div class="frm st">(100a + c) − (100c + a) = 297</div></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>левая часть = 99 · (a − c) → <b>a − c = 297 : 99 = 3</b></li><li>после обмена число трёхзначное → c ≥ 1</li><li>c = 1 → 401; c = 2 → 502; c = 3 → 603; c = 4 → 704; c = 5 → 805; c = 6 → 906</li><li>c = 7 → a = 10, не цифра, стоп</li></ul></div>
+<div id="a6" data-art="6"><div class="frm st">6 чисел: 401, 502, 603, 704, 805, 906</div></div>
 <p class="st">Проверка: 401 − 104 = 297 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a5" data-art="5"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<div id="a7" data-art="7"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
 <p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <hr>
 <div class="pager"><a href="11-5-5-rakushki-tomi.html">← 5.5 ⭐⭐ Ракушки Томи</a><a href="13-6-5-pervaya-cifra-uehala-v-konec.html">6.5 ⭐⭐ Первая цифра уехала в конец →</a></div>
