@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3 Автобусы каждые 9 минут</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap battle">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 5 из 22</p>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 9 minutos, así que miro el resto de dividir por 9. Hasta la salida N hay N − 1 saltos, uno menos que salidas.<br><em>Узор повторяется через 9 минут, поэтому смотрю остаток от деления на 9. До N-го рейса — N − 1 прыжков, на один меньше, чем рейсов.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">до 9:30 прошло 90 минут: <b>90 = 9 · 10 + 0</b> → <b>рейс есть</b></span></button>
+<button class="art cont" data-art="2"><span class="val f">до 10:00 прошло 120 минут: <b>120 = 9 · 13 + 3</b> → res(120 : 9) = 3 ≠ 0 → <b>рейса нет</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">соседние рейсы: 9 · 13 = 117 мин = 1 ч 57 мин → <b>9:57</b>; 9 · 14 = 126 мин = 2 ч 6 мин → <b>10:06</b></span></button>
+<button class="art cont" data-art="4"><span class="val f">20-й рейс: до него 19 прыжков → <b>9 · 19 = 171 мин = 2 ч 51 мин</b> → <b>10:51</b></span></button>
+<button class="art cont" data-art="5"><span class="val f">рейс в 11:00: прошло 180 мин, это <b>180 : 9 = 20</b> прыжков, рейсов на один больше → <b>21-й</b></span></button>
+</aside>
+<main>
+  <p class="partlab">Блок 3 — Перебор по остаткам</p>
+  <h1>3.3 Автобусы каждые 9 минут</h1>
+  <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
+<p class="st"><b>Условие.</b> Автобус отходит каждые 9 минут, первый — ровно в 8:00. а) Уйдёт ли автобус ровно в 9:30? А ровно в 10:00? Если нет — когда ближайшие к этому времени рейсы? б) Во сколько уйдёт 20-й автобус? в) Рейс ровно в 11:00 есть — каким он будет по счёту?</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Пока время записано как «9:30» и «11:00», считать нечего: часы — не числа цепочки. Цепочка появляется, если мерить <b>минуты от первого рейса</b>: 0, 9, 18, 27, … Тогда все три вопроса становятся вопросами к одной цепочке — «попадает ли число в неё», «чему равен 20-й член», «каким по счёту идёт член 180», — и каждый решается своей строкой из таблицы главы 3.</p></div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<p class="st">Ответ (а) = делится ли 90 на 9 и делится ли 120 на 9, а если нет — соседние кратные</p>
+<p class="st">Ответ (б) = 20-й член цепочки, переведённый обратно в часы</p>
+<div class="frm st">Ответ (в) = номер того члена цепочки, который равен 180</div>
+<p class="st">Осталось найти: минуты от 8:00 для каждого времени из условия.</p></div>
+<p class="step st"><b>Шаг 1 — нужно единое поле для всех трёх вопросов, поэтому перевожу время в минуты от 8:00.</b> Первый рейс становится нулём, и цепочка получает три приметы: первое 0, шаг 9.</p>
+<ul class="st"><li>9:30 — это 1 час 30 минут после 8:00, то есть <b>90 минут</b></li><li>10:00 — <b>120 минут</b></li><li>11:00 — <b>180 минут</b></li></ul>
+<p class="step st"><b>Шаг 2 — нужно понять, рейс ли это, поэтому делю с остатком полной строкой (ритуал Ч2).</b> Число попадает в цепочку ровно тогда, когда оно делится на шаг нацело:</p>
+<div class="frm st">90 = 9 · 10 + 0</div>
+<p class="st">Остаток 0 → 90 в цепочке, рейс в 9:30 есть.</p>
+<div class="frm st">120 = 9 · 13 + 3</div>
+<p class="st">Остаток 3 ≠ 0 → 120 в цепочку не попадает, рейса в 10:00 нет.</p>
+<p class="st"><em>💬 Отсюда фраза: узор повторяется через 9 минут, поэтому смотрю только остаток от деления на 9.</em></p>
+<p class="st">→ <b>9:30 — да; 10:00 — нет</b></p>
+<p class="step st"><b>Шаг 3 — нужны ближайшие к 10:00 рейсы, поэтому беру соседние целые прыжки.</b> Строка деления уже показала, между какими прыжками застряло число 120: тринадцатым и четырнадцатым.</p>
+<p class="st"><b>9 · 13 = 117</b> минут — это 1 час 57 минут → <b>9:57</b></p>
+<p class="st"><b>9 · 14 = 126</b> минут — это 2 часа 6 минут → <b>10:06</b></p>
+<p class="st">→ <b>9:57 и 10:06</b> (ответ на а)</p>
+<p class="step st"><b>Шаг 4 — нужен 20-й рейс, поэтому считаю член цепочки по его номеру.</b> До 20-го рейса сделано на один прыжок меньше, чем рейсов, то есть 19:</p>
+<div class="frm st">0 + 9 · (20 − 1) = 9 · 19 = 171</div>
+<p class="st">171 минута — это 2 часа 51 минута после 8:00.</p>
+<p class="st"><em>💬 Отсюда вторая половина фразы: до N-го рейса — N − 1 прыжков, на один меньше, чем рейсов.</em></p>
+<p class="st">→ <b>20-й автобус уходит в 10:51</b> (ответ на б)</p>
+<p class="step st"><b>Шаг 5 — нужен номер рейса в 11:00, поэтому считаю прыжки и прибавляю единицу.</b> Тот же факт, только теперь известно число, а ищется его место:</p>
+<p class="st"><b>180 : 9 = 20</b> прыжков</p>
+<p class="st">Рейсов на один больше, чем прыжков:</p>
+<div class="frm st">20 + 1 = 21</div>
+<p class="st">Проверка на маленьком (Ч3): по этой же формуле рейс в 9:30 идёт под номером 90 : 9 + 1 = 11-м, а 11-й рейс по формуле шага 4 — это 9 · 10 = 90 минут, то есть 9:30 ✓</p>
+<p class="st">→ <b>рейс в 11:00 — 21-й</b> (ответ на в)</p>
+<p class="step st"><b>Шаг 6 — сборка.</b> а) в 9:30 рейс есть, в 10:00 нет, ближайшие — 9:57 и 10:06; б) 20-й автобус в <b>10:51</b>; в) рейс в 11:00 — <b>21-й</b>.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: строка «как рассуждаем» выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>El dibujo se repite cada 9 minutos, así que miro el resto de dividir por 9. Hasta la salida N hay N − 1 saltos, uno menos que salidas.</b></p></div>
+<p class="st"><em>Узор повторяется через 9 минут, поэтому смотрю остаток от деления на 9. До N-го рейса — N − 1 прыжков, на один меньше, чем рейсов.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Считаю минуты от 8:00.</p>
+<div id="a5" data-art="5"><ul class="st"><li>до 9:30 прошло 90 минут: <b>90 = 9 · 10 + 0</b> → <b>рейс есть</b></li><li>до 10:00 прошло 120 минут: <b>120 = 9 · 13 + 3</b> → res(120 : 9) = 3 ≠ 0 → <b>рейса нет</b></li><li>соседние рейсы: 9 · 13 = 117 мин = 1 ч 57 мин → <b>9:57</b>; 9 · 14 = 126 мин = 2 ч 6 мин → <b>10:06</b></li><li>20-й рейс: до него 19 прыжков → <b>9 · 19 = 171 мин = 2 ч 51 мин</b> → <b>10:51</b></li><li>рейс в 11:00: прошло 180 мин, это <b>180 : 9 = 20</b> прыжков, рейсов на один больше → <b>21-й</b></li></ul></div>
+<hr>
+<div class="pager"><a href="04-2-5-zriteli-v-zale.html">← 2.5 ⭐⭐ Зрители в зале</a><a href="06-3-4-dvuznachnye-s-summoy-cifr-kratnoy-5.html">3.4 ⭐ Двузначные с суммой цифр, кратной 5 →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>
