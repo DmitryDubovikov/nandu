@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -221,7 +227,7 @@
   
   <h1>5.5 ⭐⭐ Ракушки Томи</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> У Томи одна большая ракушка. За один ход он может обменять 1 большую ракушку на 4 маленькие — или 1 маленькую на 4 больших. Может ли у Томи в какой-то момент оказаться ровно 2025 ракушек? А ровно 2026? Объясни оба ответа.</p>
+<div class="card task st"><span class="tag">Условие</span><p>У Томи одна большая ракушка. За один ход он может обменять 1 большую ракушку на 4 маленькие — или 1 маленькую на 4 больших. Может ли у Томи в какой-то момент оказаться ровно 2025 ракушек? А ровно 2026? Объясни оба ответа.</p></div>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Ходов два, и они разные — но вопрос спрашивает только про <b>общее</b> число ракушек, а на него оба хода действуют одинаково: одна уходит, четыре приходят, всего становится на 3 больше. Значит различать «большие» и «маленькие» для этого вопроса не нужно вовсе: вместо двух ходов остаётся один, «+3».</p></div>
 <figure class="st"><div class="fgrid" style="gap:26px"><div class="fcol"><span class="flab">обмен 1: большая → четыре маленькие</span><div style="display:flex;gap:10px;align-items:center"><span class="dot gold" style="width:19px;height:19px"></span><span class="eq">→</span><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span></div></div><div class="fcol"><span class="flab">обмен 2: маленькая → четыре большие</span><div style="display:flex;gap:10px;align-items:center"><span class="dot"></span><span class="eq">→</span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span><span class="dot" style="width:19px;height:19px"></span></div></div></div><div class="flab" style="margin-top:14px">в обоих случаях: одна ушла, четыре пришли &nbsp;→&nbsp; всего стало на <span style="color:var(--green)">3</span> больше</div><figcaption>Для вопроса «сколько всего» размер ракушки не важен — и два разных хода становятся одним и тем же ходом «+3».</figcaption></figure>
 <p class="step st"><b>Шаг 1 — план.</b> Оба вопроса про общее число ракушек: назову его car (<em>caracoles</em>), в начале car = 1. Прыжок</p>

@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -224,7 +230,7 @@
   
   <h1>6.5 ⭐⭐ Первая цифра уехала в конец</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> Тано задумал трёхзначное число и переставил его первую цифру в конец: из числа с цифрами a, b, c получилось число с цифрами b, c, a — тоже трёхзначное. Новое число оказалось на 108 больше задуманного. Найди все числа, которые мог задумать Тано.</p>
+<div class="card task st"><span class="tag">Условие</span><p>Тано задумал трёхзначное число и переставил его первую цифру в конец: из числа с цифрами a, b, c получилось число с цифрами b, c, a — тоже трёхзначное. Новое число оказалось на 108 больше задуманного. Найди все числа, которые мог задумать Тано.</p></div>
 <div class="card key st"><span class="tag">Заметь главное</span><p>При такой перестановке цифры b и c никогда не разлучаются: они стояли рядом в задуманном числе и остались рядом в новом, только переехали в начало. Значит, раскладывать число на <b>три</b> цифры незачем — хватит двух предметов: первой цифры a и двузначного хвоста bc. Назову хвост <code>cola</code> (по-испански «хвост»). Задуманное число — это «a, а за ней хвост», новое — «хвост, а за ним a»:</p></div>
 <figure class="st"><div class="fcol"><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="flab">задумано</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">a</span><span style="display:inline-flex;gap:0"></span><span style="display:inline-flex;gap:4px;padding:2px;border:1px dashed #41506a;border-radius:8px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">b</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">c</span></span><span class="eq">=</span><span class="flab">100 · a + T</span></div><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px"><span class="flab">получилось</span><span style="display:inline-flex;gap:4px;padding:2px;border:1px dashed #41506a;border-radius:8px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">b</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #3d5a82;border-radius:16px;background:#16263a;color:inherit">c</span></span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:32px;padding:0 8px;border:1px solid #e0a83a;border-radius:16px;background:#3a2f18;color:var(--gold)">a</span><span class="eq">=</span><span class="flab">10 · T + a</span></div></div><div class="frm" style="margin-top:16px;border-color:var(--green)">T — двузначный хвост bc</div><figcaption>Цифры b и c стояли рядом и остались рядом — переехал только хвост целиком. Поэтому три неизвестные цифры сжимаются до двух чисел: первой цифры a и хвоста T.</figcaption></figure>
 <div class="frm st">задуманное = 100 · a + cola</div>

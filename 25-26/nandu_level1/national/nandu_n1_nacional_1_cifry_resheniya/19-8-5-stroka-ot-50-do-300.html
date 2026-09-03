@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -221,7 +227,7 @@
   
   <h1>8.5 ⭐⭐ Строка от 50 до 300</h1>
   <p class="sub">Числа и цифры — Разборы задач со звёздочками</p>
-<p class="st"><b>Условие.</b> Выписали подряд, без пробелов, все числа от 50 до 300: 505152…299300. а) Сколько цифр в строке? б) Какая цифра стоит на 250-м месте? в) С какого места начинается число 214?</p>
+<div class="card task st"><span class="tag">Условие</span><p>Выписали подряд, без пробелов, все числа от 50 до 300: 505152…299300. а) Сколько цифр в строке? б) Какая цифра стоит на 250-м месте? в) С какого места начинается число 214?</p></div>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Список начинается не с единицы, поэтому блок здесь — не «все двузначные», а «те двузначные, которые попали в список»: от 50 до 99. Однозначных нет вовсе. Но чисел в блоке считает всё та же формула — последнее минус первое плюс один, — и она не знает, с какого числа начался список: ей хватает границ самого блока. Значит, сбить её начало списка не может.</p></div>
 <figure class="st"><div class="fcol" style="align-items:flex-start;gap:6px"><span class="flab">однозначных в этом списке нет вовсе — блоки строим заново</span><div style="display:flex;gap:10px;align-items:baseline;color:inherit"><span style="min-width:150px">двузначные 50–99</span><span style="min-width:90px">50 чисел</span><span style="min-width:110px">50 · 2 = 100</span><span>итог 100</span></div><div style="display:flex;gap:10px;align-items:baseline;color:var(--gold)"><span style="min-width:150px">трёхзначные 100–300</span><span style="min-width:90px">201 число</span><span style="min-width:110px">201 · 3 = 603</span><span>итог 703</span></div></div><div class="flab" style="margin-top:14px">чисел в блоке = последнее − первое + 1 &nbsp;→&nbsp; 99 − 50 + 1 = 50 &nbsp;и&nbsp; 300 − 100 + 1 = 201</div><figcaption>Формула «последнее − первое + 1» не знает, с какого числа начался список, — ей хватает границ блока. Поэтому необычное начало счёт не сбивает.</figcaption></figure>
 <p class="step st"><b>Шаг 1 — план: сначала таблица блоков — она ответит на все три вопроса.</b> Как только блоки построены, каждый вопрос — короткий ход по ним. Число цифр, стоящих в строке до числа 214, назову N(цифр до 214).</p>
