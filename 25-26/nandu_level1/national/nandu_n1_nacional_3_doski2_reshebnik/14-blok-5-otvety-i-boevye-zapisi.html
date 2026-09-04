@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -212,28 +218,27 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 14 из 17</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elegido t₁, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de t₁.<br><em>Как только выбрано t₁, все остальные клетки определены, — поэтому перебираю только возможные t₁.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = длина диапазона x</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">max(число на доске) = наибольшее значение клеток на краях диапазона</span></button>
-<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">данные на полочки: res(2 : 3) = 2 → t₂ = 7; res(4 : 3) = 1 → m₁ = 6; res(5 : 3) = 2 → n₂ = 8</span></button>
-<button class="art cont" data-art="4"><span class="val f">средний столбец: 7 + m₂ + 8 = 24 → m₂ = 9; вторая строка: m₃ = 9</span></button>
-<button class="art cont" data-art="5"><span class="val f">t₃ = 17 − x; n₁ = 18 − x; n₃ = x − 2</span></button>
-<button class="art cont" data-art="6"><span class="val f">все клетки ≥ 1: жадные границы n₃ → x ≥ 3 и t₃ → x ≤ 16</span></button>
-<button class="art cont" data-art="7"><span class="val f">N(заполнений) = 14</span></button>
-<button class="art cont" data-art="8"><span class="val f">💬 Фраза ко второму вопросу:</span></button>
-<button class="art cont" data-art="9"><span class="val f">max(число на доске) = 16</span></button>
-<button class="art" data-art="10"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de t₁ y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.<br><em>Проверил все возможные значения t₁, остальные не подходят под условие «все клетки положительные», — поэтому других нет.</em></span></button>
-<button class="art" data-art="11"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.<br><em>Узор повторяется через 3 клетки, поэтому смотрю только остаток от деления на 3.</em></span></button>
-<button class="art" data-art="12"><span class="lbl">План</span><span class="val f">S(доски) = 4 · N(четвёрок) + 9 · N(девяток) + 2 · N(двоек)</span></button>
-<button class="art" data-art="13"><span class="lbl">На туре</span><span class="val f">20-й столбец: 20 = 3 · 6 + 2 → в 1-й строке там 9, дальше вниз узор 9-2-4</span></button>
-<button class="art cont" data-art="14"><span class="val f">строк 40 = 3 · 13 + 1 → девяток 14, двоек 13, четвёрок 13</span></button>
-<button class="art cont" data-art="15"><span class="val f">S(20-го столбца) = 14·9 + 13·2 + 13·4 = 204</span></button>
-<button class="art cont" data-art="16"><span class="val f">в строке: 62 = 3 · 20 + 2 → первые два числа узора по 21 разу, третье 20</span></button>
-<button class="art cont" data-art="17"><span class="val f">строк: 40 = 3 · 13 + 1 → «с 4» — 14, «с 9» — 13, «с 2» — 13</span></button>
-<button class="art cont" data-art="18"><span class="val f">N(четвёрок) = 14·21 + 13·20 + 13·21 = 827</span></button>
-<button class="art cont" data-art="19"><span class="val f">N(девяток) = 14·21 + 13·21 + 13·20 = 827</span></button>
-<button class="art cont" data-art="20"><span class="val f">N(двоек) = 2480 − 827 − 827 = 826</span></button>
-<button class="art cont" data-art="21"><span class="val f">S(доски) = 4·827 + 9·827 + 2·826 = 12403</span></button>
-<button class="art" data-art="22"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = max(x) − min(x) + 1</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">данные на полочки: res(2 : 3) = 2 → t₂ = 7; res(4 : 3) = 1 → m₁ = 6; res(5 : 3) = 2 → n₂ = 8</span></button>
+<button class="art cont" data-art="3"><span class="val f">средний столбец: 7 + m₂ + 8 = 24 → m₂ = 9; вторая строка: m₃ = 9</span></button>
+<button class="art cont" data-art="4"><span class="val f">t₃ = 17 − x; n₁ = 18 − x; n₃ = x − 2</span></button>
+<button class="art cont" data-art="5"><span class="val f">все клетки ≥ 1: жадные границы n₃ → x ≥ 3 и t₃ → x ≤ 16</span></button>
+<button class="art cont" data-art="6"><span class="val f">N(заполнений) = 14</span></button>
+<button class="art cont" data-art="7"><span class="val f">💬 Фраза ко второму вопросу:</span></button>
+<button class="art cont" data-art="8"><span class="val f">max(число на доске) = 16</span></button>
+<button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de t₁ y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.<br><em>Проверил все возможные значения t₁, остальные не подходят под условие «все клетки положительные», — поэтому других нет.</em></span></button>
+<button class="art" data-art="10"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.<br><em>Узор повторяется через 3 клетки, поэтому смотрю только остаток от деления на 3.</em></span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">S(доски) = 4 · N(четвёрок) + 9 · N(девяток) + 2 · N(двоек)</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">20-й столбец: 20 = 3 · 6 + 2 → в 1-й строке там 9, дальше вниз узор 9-2-4</span></button>
+<button class="art cont" data-art="13"><span class="val f">строк 40 = 3 · 13 + 1 → девяток 14, двоек 13, четвёрок 13</span></button>
+<button class="art cont" data-art="14"><span class="val f">S(20-го столбца) = 14·9 + 13·2 + 13·4 = 204</span></button>
+<button class="art cont" data-art="15"><span class="val f">в строке: 62 = 3 · 20 + 2 → первые два числа узора по 21 разу, третье 20</span></button>
+<button class="art cont" data-art="16"><span class="val f">строк: 40 = 3 · 13 + 1 → «с 4» — 14, «с 9» — 13, «с 2» — 13</span></button>
+<button class="art cont" data-art="17"><span class="val f">N(четвёрок) = 14·21 + 13·20 + 13·21 = 827</span></button>
+<button class="art cont" data-art="18"><span class="val f">N(девяток) = 14·21 + 13·21 + 13·20 = 827</span></button>
+<button class="art cont" data-art="19"><span class="val f">N(двоек) = 2480 − 827 − 827 = 826</span></button>
+<button class="art cont" data-art="20"><span class="val f">S(доски) = 4·827 + 9·827 + 2·826 = 12403</span></button>
+<button class="art" data-art="21"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
 <main>
   
@@ -241,8 +246,8 @@
   <p class="sub">Доски 2 — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>5.1</td><td>клетка 12: <b>7</b>; сумма <b>54</b>; заполнение единственно</td><td>сумма двух соседей 9 → чередование двух чисел; клетка 5 нечётная → все нечётные позиции 2, все чётные 9 − 2 = 7; клетка 12 чётная → 7; сумма = 6·2 + 6·7 = 54; единственность: каждый сосед вычисляется вычитанием, выбора нет нигде</td></tr>
-<tr><td>5.2</td><td>клетка 17: <b>10</b>; клетка 20: <b>10</b>; сумма <b>162</b></td><td>сумма любых трёх подряд одна и та же → клетка через три равна самой себе, период 3; полочка клетки — остаток её номера при делении на 3; клетка 2 лежит на полочке 2, там стоит 10; клетка 6 — на полочке 0, там 6; три подряд идущие клетки берут по одному числу с каждой полочки, поэтому на полочке 1 стоит 24 − 10 − 6 = 8; 17 = 3·5 + 2 → полочка 2 → 10; 20 = 3·6 + 2 → полочка 2 → 10; клеток на полочках среди 20: полочка 1 — 7, полочка 2 — 7, полочка 0 — 6 → 7·8 + 7·10 + 6·6 = 56 + 70 + 36 = 162</td></tr>
+<tr><td>5.1</td><td>a₁₂ = <b>7</b>; сумма <b>54</b>; заполнение единственно</td><td>клетки a₁ … a₁₂; сумма двух соседей 9 → чередование двух чисел; номер 5 нечётный → на всех нечётных местах 2, на чётных 9 − 2 = 7; номер 12 чётный → a₁₂ = 7; сумма = 6·2 + 6·7 = 54; единственность: каждый сосед вычисляется вычитанием, выбора нет нигде</td></tr>
+<tr><td>5.2</td><td>a₁₇ = <b>10</b>; a₂₀ = <b>10</b>; сумма <b>162</b></td><td>клетки a₁ … a₂₀; сумма любых трёх подряд одна и та же → клетка через три равна самой себе, период 3; полочка клетки — остаток её номера при делении на 3; a₂ лежит на полочке 2, там стоит 10; a₆ — на полочке 0, там 6; три подряд идущие клетки берут по одному числу с каждой полочки, поэтому на полочке 1 стоит 24 − 10 − 6 = 8; 17 = 3·5 + 2 → полочка 2 → 10; 20 = 3·6 + 2 → полочка 2 → 10; клеток на полочках среди 20: полочка 1 — 7, полочка 2 — 7, полочка 0 — 6 → 7·8 + 7·10 + 6·6 = 56 + 70 + 36 = 162</td></tr>
 </table></div></div>
 <div class="frm st">5.3 — ответ: 14 способов; наибольшее число на доске 16</div>
 <p class="step st"><b>Шаг 1 — план счёта.</b> Сумма любых трёх подряд идущих клеток равна 24, а соседние тройки отличаются только клеткой на каждом конце — значит клетка через три равна самой себе. Период 3 работает здесь <b>в обе стороны</b>: по строке 10 столбцов повторяют первые три ещё трижды с хвостом, а по столбцу 4-я строка равна 1-й.</p>
@@ -286,18 +291,17 @@
 <p class="st"><em>Как только выбрано t₁, все остальные клетки определены, — поэтому перебираю только возможные t₁.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">Период 3 в обе стороны → вся доска это квадрат 3×3: верх (t₁, t₂, t₃), вторая (m₁, m₂, m₃), третья (n₁, n₂, n₃); 4-я строка повторяет 1-ю. Зову x = t₁.</p>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = длина диапазона x</div>
-<div class="frm st">max(число на доске) = наибольшее значение клеток на краях диапазона</div></div></div>
-<div id="a6" data-art="6"><ul class="st"><li>данные на полочки: res(2 : 3) = 2 → t₂ = 7; res(4 : 3) = 1 → m₁ = 6; res(5 : 3) = 2 → n₂ = 8</li><li>средний столбец: 7 + m₂ + 8 = 24 → m₂ = 9; вторая строка: m₃ = 9</li><li>t₃ = 17 − x; n₁ = 18 − x; n₃ = x − 2</li><li>все клетки ≥ 1: жадные границы n₃ → x ≥ 3 и t₃ → x ≤ 16</li></ul></div>
-<div id="a7" data-art="7"><div class="frm st">N(заполнений) = 14</div></div>
-<div id="a8" data-art="8"><p class="st"><b>💬 Фраза ко второму вопросу:</b></p></div>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">N(заполнений) = max(x) − min(x) + 1</div></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>данные на полочки: res(2 : 3) = 2 → t₂ = 7; res(4 : 3) = 1 → m₁ = 6; res(5 : 3) = 2 → n₂ = 8</li><li>средний столбец: 7 + m₂ + 8 = 24 → m₂ = 9; вторая строка: m₃ = 9</li><li>t₃ = 17 − x; n₁ = 18 − x; n₃ = x − 2</li><li>все клетки ≥ 1: жадные границы n₃ → x ≥ 3 и t₃ → x ≤ 16</li></ul></div>
+<div id="a6" data-art="6"><div class="frm st">N(заполнений) = 14</div></div>
+<div id="a7" data-art="7"><p class="st"><b>💬 Фраза ко второму вопросу:</b></p></div>
 <p class="st"><b>Más de 16 no se puede, porque t₃ = 17 − x tiene que ser positiva; y con x = 16 se logra, así que el máximo es 16.</b></p>
 <p class="st"><em>Больше 16 быть не может, потому что клетка t₃ = 17 − x обязана быть положительной; а при x = 16 это достигается, — значит максимум равен 16.</em></p>
-<div id="a9" data-art="9"><div class="frm st">max(число на доске) = 16</div></div>
+<div id="a8" data-art="8"><div class="frm st">max(число на доске) = 16</div></div>
 <p class="st">Проверка третьей строкой: (18 − x) + 8 + (x − 2) = 24 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a10" data-art="10"><p class="st"><b>Probé todos los valores posibles de t₁ y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.</b></p></div>
+<div id="a9" data-art="9"><p class="st"><b>Probé todos los valores posibles de t₁ y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.</b></p></div>
 <p class="st"><em>Проверил все возможные значения t₁, остальные не подходят под условие «все клетки положительные», — поэтому других нет.</em></p>
 <p class="st"><b>5.4 — ответ: сумма 20-го столбца 204; сумма всей доски 12403</b></p>
 <p class="step st"><b>Шаг 1 — план счёта.</b> Вопроса два, и оба про большие куски доски — считать по клеткам нельзя, надо резать на порции. Порции здесь двух сортов: узор в строке идёт по три, и сами строки идут циклом «с 4», «с 9», «с 2». Первый вопрос — про <b>один столбец</b>, поэтому для него сначала пойму, какой узор идёт по столбцу сверху вниз. Второй вопрос — про всю доску, и его решает счёт каждого числа по типам строк.</p>
@@ -325,23 +329,22 @@
 <h3 class="st">✍ 5.4 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a11" data-art="11"><p class="st"><b>El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.</b></p></div>
+<div id="a10" data-art="10"><p class="st"><b>El dibujo se repite cada 3 casillas, así que solo miro el resto de dividir por 3.</b></p></div>
 <p class="st"><em>Узор повторяется через 3 клетки, поэтому смотрю только остаток от деления на 3.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">Тип строки — с какого числа узора она начинается: «с 4», «с 9» или «с 2».</p>
-<div id="a12" data-art="12"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<p class="st"><b>S(20-го столбца) = сумма по трём числам столбцового узора (число × сколько раз оно там стоит)</b></p>
+<div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">S(доски) = 4 · N(четвёрок) + 9 · N(девяток) + 2 · N(двоек)</div></div></div>
-<div id="a14" data-art="14"><ul class="st"><li>20-й столбец: 20 = 3 · 6 + 2 → в 1-й строке там 9, дальше вниз узор 9-2-4</li><li>строк 40 = 3 · 13 + 1 → девяток 14, двоек 13, четвёрок 13</li></ul></div>
-<div id="a15" data-art="15"><div class="frm st">S(20-го столбца) = 14·9 + 13·2 + 13·4 = 204</div></div>
-<div id="a17" data-art="17"><ul class="st"><li>в строке: 62 = 3 · 20 + 2 → первые два числа узора по 21 разу, третье 20</li><li>строк: 40 = 3 · 13 + 1 → «с 4» — 14, «с 9» — 13, «с 2» — 13</li></ul></div>
-<div id="a18" data-art="18"><div class="frm st">N(четвёрок) = 14·21 + 13·20 + 13·21 = 827</div></div>
-<div id="a19" data-art="19"><div class="frm st">N(девяток) = 14·21 + 13·21 + 13·20 = 827</div></div>
-<div id="a20" data-art="20"><div class="frm st">N(двоек) = 2480 − 827 − 827 = 826</div></div>
-<div id="a21" data-art="21"><div class="frm st">S(доски) = 4·827 + 9·827 + 2·826 = 12403</div></div>
+<div id="a13" data-art="13"><ul class="st"><li>20-й столбец: 20 = 3 · 6 + 2 → в 1-й строке там 9, дальше вниз узор 9-2-4</li><li>строк 40 = 3 · 13 + 1 → девяток 14, двоек 13, четвёрок 13</li></ul></div>
+<div id="a14" data-art="14"><div class="frm st">S(20-го столбца) = 14·9 + 13·2 + 13·4 = 204</div></div>
+<div id="a16" data-art="16"><ul class="st"><li>в строке: 62 = 3 · 20 + 2 → первые два числа узора по 21 разу, третье 20</li><li>строк: 40 = 3 · 13 + 1 → «с 4» — 14, «с 9» — 13, «с 2» — 13</li></ul></div>
+<div id="a17" data-art="17"><div class="frm st">N(четвёрок) = 14·21 + 13·20 + 13·21 = 827</div></div>
+<div id="a18" data-art="18"><div class="frm st">N(девяток) = 14·21 + 13·21 + 13·20 = 827</div></div>
+<div id="a19" data-art="19"><div class="frm st">N(двоек) = 2480 − 827 − 827 = 826</div></div>
+<div id="a20" data-art="20"><div class="frm st">S(доски) = 4·827 + 9·827 + 2·826 = 12403</div></div>
 <p class="st">Проверка по строкам: 14·313 + 13·311 + 13·306 = 12403 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a22" data-art="22"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<div id="a21" data-art="21"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
 <p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <div class="pager"><a href="13-blok-4-otvety-i-boevye-zapisi.html">← Блок 4 — ответы и боевые записи</a><a href="15-blok-6-otvety-i-boevye-zapisi.html">Блок 6 — ответы и боевые записи →</a></div>
 </main>

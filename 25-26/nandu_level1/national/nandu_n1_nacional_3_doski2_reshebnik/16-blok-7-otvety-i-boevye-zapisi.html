@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -221,8 +227,8 @@
 <button class="art cont" data-art="7"><span class="val f">N(укладок) = 4·9 + 4·8 + 2·10 + 3·8 = 112</span></button>
 <button class="art" data-art="8"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 <button class="art" data-art="9"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo el cuadrado 2×2 y después la casilla vacía; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю квадрат 2×2 и потом пустую клетку; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
-<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">N(положений уголка) = квадраты 2×2 × пустая клетка квадрата</span></button>
-<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">N(укладок) = N(положений уголка) × свободные клетки</span></button>
+<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">N(положений уголка) = N(квадратов 2×2) × 4</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">N(укладок) = N(положений уголка) × N(свободных клеток)</span></button>
 <button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">квадратов 2×2 на доске 2×3: 2</span></button>
 <button class="art cont" data-art="13"><span class="val f">пустой может быть любая из 4 клеток квадрата — это и есть четыре поворота</span></button>
 <button class="art cont" data-art="14"><span class="val f">N(положений уголка) = 2 × 4 = 8</span></button>
@@ -261,8 +267,6 @@
 <p class="st"><em>Иду по случаям по порядку и записываю, почему отброшенные невозможны.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">Позицию домино называю по левой клетке (горизонтальное) или по столбцу (вертикальное).</p>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<p class="st"><b>N(укладок) = сумма по позициям красного домино (в каждой — сколько позиций остаётся синему)</b></p></div>
 <div id="a6" data-art="6"><ul class="st"><li>карта позиций на 2×5: горизонтальных 2 строки · 4 = 8, вертикальных 5 → всего 13</li><li>горизонтальное у края строки (4 позиции): вычерков 4 → синему 9</li><li>горизонтальное в середине строки (4 позиции): вычерков 5 → синему 8</li><li>вертикальное на крайнем столбце (2 позиции): вычерков 3 → синему 10</li><li>вертикальное на среднем столбце (3 позиции): вычерков 5 → синему 8</li><li>сорта покрывают карту: 4 + 4 + 2 + 3 = 13 ✓</li></ul></div>
 <div id="a7" data-art="7"><div class="frm st">N(укладок) = 4·9 + 4·8 + 2·10 + 3·8 = 112</div></div>
 <p class="st">Одинаковыми домино каждая картинка посчитана дважды: <b>112 : 2 = 56</b></p>
@@ -282,8 +286,8 @@
 <p class="st"><em>Выбираю квадрат 2×2 и потом пустую клетку; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
 <div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(положений уголка) = квадраты 2×2 × пустая клетка квадрата</div>
-<div class="frm st">N(укладок) = N(положений уголка) × свободные клетки</div></div></div>
+<div class="frm st">N(положений уголка) = N(квадратов 2×2) × 4</div>
+<div class="frm st">N(укладок) = N(положений уголка) × N(свободных клеток)</div></div></div>
 <div id="a13" data-art="13"><ul class="st"><li>квадратов 2×2 на доске 2×3: 2</li><li>пустой может быть любая из 4 клеток квадрата — это и есть четыре поворота</li></ul></div>
 <div id="a14" data-art="14"><div class="frm st">N(положений уголка) = 2 × 4 = 8</div></div>
 <div id="a15" data-art="15"><ul class="st"><li>свободных клеток 6 − 3 = 3</li></ul></div>

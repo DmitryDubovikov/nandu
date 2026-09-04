@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -212,21 +218,22 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 10 из 17</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Separé los casos según qué cifra queda sin lugar: no se superponen y cubren todo, por eso los sumo.<br><em>Разрезал на случаи по тому, какая цифра осталась без места: они не пересекаются и покрывают всё, поэтому складываю.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = сумма по мирам (f, c)</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">якорь: столбик + ряд = 10 + 13 = 23 = S(вписанных цифр) + c</span></button>
-<button class="art cont" data-art="3"><span class="val f">S(цифр 1–6) = 21, вписаны пять: S(вписанных цифр) = 21 − f</span></button>
-<button class="art cont" data-art="4"><span class="val f">23 = 21 − f + c, значит c = f + 2</span></button>
-<button class="art cont" data-art="5"><span class="val f">миры (f, c): (1, 3), (2, 4), (3, 5), (4, 6)</span></button>
-<button class="art cont" data-art="6"><span class="val f">в каждом мире: пара столбика (1) × порядок (2) × пара ряда (1) × порядок (2) = 4</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = N(миров) × N(заполнений в мире)</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">a₁ + a₂ + a₃ = 13; a₂ + b₁ + b₂ = 10</span></button>
+<button class="art cont" data-art="3"><span class="val f">якорь: 13 + 10 = 23 = S(вписанных цифр) + a₂</span></button>
+<button class="art cont" data-art="4"><span class="val f">S(1…6) = 21, вписаны пять: S(вписанных цифр) = 21 − f → a₂ = f + 2</span></button>
+<button class="art cont" data-art="5"><span class="val f">миры (f, a₂): (1, 3), (2, 4), (3, 5), (4, 6)</span></button>
+<button class="art cont" data-art="6"><span class="val f">в каждом мире: пара (b₁, b₂) — 1 × порядок 2, пара (a₁, a₃) — 1 × порядок 2 → 4</span></button>
 <button class="art cont" data-art="7"><span class="val f">N(заполнений) = 4 × 4 = 16</span></button>
 <button class="art" data-art="8"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 <button class="art" data-art="9"><span class="lbl">💬 Фраза</span><span class="val ph">Elijo las parejas de las columnas y después su orden; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.<br><em>Выбираю пары столбцов и потом их порядок; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></span></button>
 <button class="art" data-art="10"><span class="lbl">План</span><span class="val f">N(таблиц) = N(троек) × N(порядков)</span></button>
-<button class="art" data-art="11"><span class="lbl">На туре</span><span class="val f">меню сумм по меньшей цифре: 3 → {0, 3}, {1, 2}; 15 → {6, 9}, {7, 8}; 9 → {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5}</span></button>
-<button class="art cont" data-art="12"><span class="val f">таблица по крайним столбцам: 3 + 1 + 1 + 3 → N(троек) = 8</span></button>
-<button class="art cont" data-art="13"><span class="val f">порядки: 2 × 2 × 2 → N(порядков) = 8</span></button>
-<button class="art cont" data-art="14"><span class="val f">N(таблиц) = 8 × 8 = 64</span></button>
-<button class="art" data-art="15"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todas las descomposiciones posibles de cada suma y las demás no cumplen que las seis cifras sean distintas, por eso no hay más que estas.<br><em>Проверил все возможные разложения каждой суммы, остальные не подходят под условие «шесть цифр разные», — поэтому других нет.</em></span></button>
+<button class="art" data-art="11"><span class="lbl">На туре</span><span class="val f">клетки a₁ a₂ a₃ / b₁ b₂ b₃: a₁ + b₁ = 3, a₂ + b₂ = 9, a₃ + b₃ = 15</span></button>
+<button class="art cont" data-art="12"><span class="val f">меню сумм по меньшей цифре: 3 → {0, 3}, {1, 2}; 15 → {6, 9}, {7, 8}; 9 → {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5}</span></button>
+<button class="art cont" data-art="13"><span class="val f">таблица по крайним столбцам: 3 + 1 + 1 + 3 → N(троек) = 8</span></button>
+<button class="art cont" data-art="14"><span class="val f">порядки: 2 × 2 × 2 → N(порядков) = 8</span></button>
+<button class="art cont" data-art="15"><span class="val f">N(таблиц) = 8 × 8 = 64</span></button>
+<button class="art" data-art="16"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todas las descomposiciones posibles de cada suma y las demás no cumplen que las seis cifras sean distintas, por eso no hay más que estas.<br><em>Проверил все возможные разложения каждой суммы, остальные не подходят под условие «шесть цифр разные», — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -234,30 +241,30 @@
   <p class="sub">Доски 2 — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>1.1</td><td>4 · 2 · 3 · 2 = <b>48</b></td><td>пары с суммой 8 по меньшей цифре: {0,8}, {1,7}, {2,6}, {3,5} — четыре ({4,4} запрещена); пары не пересекаются → левый столбец: пара (4) И порядок (2), правый: пара из оставшихся (3) И порядок (2). Других нет: каждая таблица однозначно называет свои пары и порядки</td></tr>
-<tr><td>1.3</td><td><b>2 таблицы</b>: у первой верхняя строка 1 6, нижняя 9 8; у второй верхняя 2 5, нижняя 8 9</td><td>жанр — список! якорь: 7 + 17 = 10 + 14 = 24 ✓; всё через клетку a (верхняя левая): b = 7−a, c = 10−a, d = 7+a; перебор a по порядку от 1: a = 1 ✓, a = 2 ✓, a = 3 даёт d = 10 — не цифра ✗. Дальше проверять нечего: с ростом a число d = 7 + a только растёт, цифрой оно уже не станет. Обе уцелевшие таблицы разные, повторов нет</td></tr>
+<tr><td>1.1</td><td>4 · 2 · 3 · 2 = <b>48</b></td><td>клетки a₁ a₂ / b₁ b₂, условие a₁ + b₁ = 8 и a₂ + b₂ = 8; пары с суммой 8 по меньшей цифре: {0,8}, {1,7}, {2,6}, {3,5} — четыре ({4,4} запрещена); пары не пересекаются → левый столбец: пара (4) И порядок (2), правый: пара из оставшихся (3) И порядок (2). Других нет: каждая таблица однозначно называет свои пары и порядки</td></tr>
+<tr><td>1.3</td><td><b>2 таблицы</b>: у первой верхняя строка 1 6, нижняя 9 8; у второй верхняя 2 5, нижняя 8 9</td><td>жанр — список! якорь: 7 + 17 = 10 + 14 = 24 ✓; клетки a₁ a₂ / b₁ b₂, всё через a₁: a₂ = 7 − a₁, b₁ = 10 − a₁, b₂ = 7 + a₁; перебор a₁ по порядку от 1: a₁ = 1 ✓, a₁ = 2 ✓, a₁ = 3 даёт b₂ = 10 — не цифра ✗. Дальше проверять нечего: с ростом a₁ число b₂ = 7 + a₁ только растёт, цифрой оно уже не станет. Обе уцелевшие таблицы разные, повторов нет</td></tr>
 </table></div></div>
 <p class="st"><em>1.2 и 1.4 — по шагам, ниже.</em></p>
 <div class="frm st">1.2 — ответ: 16</div>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Перебирать нечего, пока не известны общая клетка и невписанная цифра, — связать их между собой умеет якорь.</p>
+<p class="step st"><b>Шаг 1 — складываю то, что дано.</b> Клетки ряда слева направо — a₁ a₂ a₃, под средней стоят b₁ и b₂; столбик — это a₂, b₁, b₂. Ещё одно имя нужно цифре, которая осталась без места:</p>
 <p class="st">f — цифра, которая осталась без места <em>(fuera)</em></p>
-<p class="st">c — цифра в общей клетке ряда и столбика <em>(común)</em></p>
-<p class="st">Сумму набора я записываю значком <code>S(…)</code> — «сумма того, что в скобках»: <code>S(цифр 1–6) = 21</code>, это 1 + 2 + 3 + 4 + 5 + 6.</p>
-<p class="st">Столбик и ряд вместе накрывают все пять вписанных цифр, но общую клетку они считают <b>дважды</b> — она входит и в столбик, и в ряд:</p>
-<div class="frm st">столбик + ряд = 10 + 13 = 23</div>
-<div class="frm st">23 = S(вписанных цифр) + c</div>
-<p class="st">Сумма всех шести цифр 1–6 равна 21, а вписаны из них пять — все, кроме f:</p>
+<p class="st">Сумму набора я записываю значком <code>S(…)</code> — «сумма того, что в скобках»: <code>S(1…6) = 21</code>, это 1 + 2 + 3 + 4 + 5 + 6.</p>
+<div class="frm st">a₁ + a₂ + a₃ = 13</div>
+<div class="frm st">a₂ + b₁ + b₂ = 10</div>
+<p class="st">Вместе эти две строки накрывают все пять вписанных цифр, а <code>a₂</code> считают дважды:</p>
+<div class="frm st">13 + 10 = 23 = S(вписанных цифр) + a₂</div>
+<p class="st">Вписаны пять цифр из шести — все, кроме f:</p>
 <div class="frm st">S(вписанных цифр) = 21 − f</div>
-<div class="frm st">23 = 21 − f + c</div>
-<div class="frm st">c = f + 2</div>
-<p class="st">Цифра f — одна из шести цифр 1–6, поэтому перебор конечен: проверяю все шесть по порядку и смотрю, доживает ли c: f = 1 → c = 3 ✓; f = 2 → c = 4 ✓; f = 3 → c = 5 ✓; f = 4 → c = 6 ✓; f = 5 → c = 7 — такой цифры среди 1–6 нет ✗; f = 6 → c = 8 — тоже нет ✗. Других значений у f не бывает, список кончился. Меню пар (f, c): (1, 3), (2, 4), (3, 5), (4, 6) — четыре мира, пятого взяться неоткуда.</p>
+<div class="frm st">23 = 21 − f + a₂</div>
+<div class="frm st">a₂ = f + 2</div>
+<p class="st">Цифра f — одна из 1–6, поэтому перебор конечен: f = 1 → a₂ = 3 ✓; f = 2 → a₂ = 4 ✓; f = 3 → a₂ = 5 ✓; f = 4 → a₂ = 6 ✓; f = 5 → a₂ = 7 ✗; f = 6 → a₂ = 8 ✗. Меню миров (f, a₂): (1, 3), (2, 4), (3, 5), (4, 6).</p>
 <p class="st">Счёт «сколько» я записываю значком <code>N(…)</code>: <code>N(миров) = 4</code>. В скобках, как и у <code>S(…)</code>, стоит то, что считаем.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">N(заполнений) = сумма четырёх миров</div>
 <p class="st">где в каждом мире считается: пара столбика И её порядок И пара ряда И её порядок.</p></div>
-<p class="step st"><b>Шаг 2 — миры.</b> В каждом мире осталось четыре цифры; пара столбика должна дать 10 − c, пара ряда 13 − c:</p>
+<p class="step st"><b>Шаг 2 — миры.</b> В каждом мире осталось четыре цифры; пара столбика (b₁, b₂) должна дать 10 − a₂, пара ряда (a₁, a₃) — 13 − a₂:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>Мир (f, c)</th><th>Осталось</th><th>Столбик (сумма 10 − c)</th><th>Ряд (сумма 13 − c)</th><th>Способов</th></tr>
+<tr><th>Мир (f, a₂)</th><th>Осталось</th><th>b₁ + b₂ = 10 − a₂</th><th>a₁ + a₃ = 13 − a₂</th><th>Способов</th></tr>
 <tr><td>(1, 3)</td><td>2 4 5 6</td><td>{2, 5}</td><td>{4, 6}</td><td>2 × 2 = 4</td></tr>
 <tr><td>(2, 4)</td><td>1 3 5 6</td><td>{1, 5}</td><td>{3, 6}</td><td>4</td></tr>
 <tr><td>(3, 5)</td><td>1 2 4 6</td><td>{1, 4}</td><td>{2, 6}</td><td>4</td></tr>
@@ -265,24 +272,28 @@
 </table></div></div>
 <p class="step st"><b>Шаг 3 — сборка.</b> В каждом из четырёх миров по 4 заполнения:</p>
 <div class="frm st">N(заполнений) = 4 × 4 = 16</div>
-<p class="st">Других нет: общая клетка жёстко связана с невписанной цифрой якорем, а пары в каждом мире единственные (перебор по меньшей).</p>
+<p class="st">Других нет: клетка a₂ жёстко связана с f якорем, а пары в каждом мире единственные (перебор по меньшей).</p>
 <h3 class="st">✍ 1.2 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <div id="a0" data-art="0"><p class="st"><b>Separé los casos según qué cifra queda sin lugar: no se superponen y cubren todo, por eso los sumo.</b></p></div>
 <p class="st"><em>Разрезал на случаи по тому, какая цифра осталась без места: они не пересекаются и покрывают всё, поэтому складываю.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">f — цифра, оставшаяся без места; c — цифра в общей клетке.</p>
+<p class="st">Ряд a₁ a₂ a₃, под a₂ клетки b₁ b₂; f — цифра, оставшаяся без места.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = сумма по мирам (f, c)</div></div></div>
-<div id="a6" data-art="6"><ul class="st"><li>якорь: столбик + ряд = 10 + 13 = 23 = S(вписанных цифр) + c</li><li>S(цифр 1–6) = 21, вписаны пять: S(вписанных цифр) = 21 − f</li><li>23 = 21 − f + c, значит c = f + 2</li><li>миры (f, c): (1, 3), (2, 4), (3, 5), (4, 6)</li><li>в каждом мире: пара столбика (1) × порядок (2) × пара ряда (1) × порядок (2) = 4</li></ul></div>
+<div class="frm st">N(заполнений) = N(миров) × N(заполнений в мире)</div></div></div>
+<div id="a6" data-art="6"><ul class="st"><li>a₁ + a₂ + a₃ = 13; a₂ + b₁ + b₂ = 10</li><li>якорь: 13 + 10 = 23 = S(вписанных цифр) + a₂</li><li>S(1…6) = 21, вписаны пять: S(вписанных цифр) = 21 − f → a₂ = f + 2</li><li>миры (f, a₂): (1, 3), (2, 4), (3, 5), (4, 6)</li><li>в каждом мире: пара (b₁, b₂) — 1 × порядок 2, пара (a₁, a₃) — 1 × порядок 2 → 4</li></ul></div>
 <div id="a7" data-art="7"><div class="frm st">N(заполнений) = 4 × 4 = 16</div></div>
 <p class="st">Проверка на мире (1, 3): столбик 2 3 5 = 10 ✓, ряд 4 3 6 = 13 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
 <div id="a8" data-art="8"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
 <p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <div class="frm st">1.4 — ответ: 64</div>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Начинаю с того, что зажато сильнее всего, — с меню столбцов: сумма 3 — {0,3}, {1,2}; сумма 15 — {6,9}, {7,8}; сумма 9 — {0,9}, {1,8}, {2,7}, {3,6}, {4,5}. Крайние столбцы зажаты (по 2 пары), средний свободнее — его в конец. И цифры пары внутри столбца ещё меняются местами — это отдельный множитель.</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Клетки: верхняя строка a₁ a₂ a₃, нижняя b₁ b₂ b₃, и условие — это три столбца.</p>
+<div class="frm st">a₁ + b₁ = 3</div>
+<div class="frm st">a₂ + b₂ = 9</div>
+<div class="frm st">a₃ + b₃ = 15</div>
+<p class="st">Начинаю с того, что зажато сильнее всего, — с меню столбцов: сумма 3 — {0,3}, {1,2}; сумма 15 — {6,9}, {7,8}; сумма 9 — {0,9}, {1,8}, {2,7}, {3,6}, {4,5}. Крайние столбцы зажаты (по 2 пары), средний свободнее — его в конец. И цифры пары внутри столбца ещё меняются местами — это отдельный множитель.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">N(таблиц) = N(троек) × N(порядков)</div>
 <p class="st">где</p>
@@ -304,14 +315,13 @@
 <div id="a9" data-art="9"><p class="st"><b>Elijo las parejas de las columnas y después su orden; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p></div>
 <p class="st"><em>Выбираю пары столбцов и потом их порядок; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">N(троек) — тройки непересекающихся пар; N(порядков) — порядки внутри столбцов.</p>
 <div id="a10" data-art="10"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">N(таблиц) = N(троек) × N(порядков)</div></div></div>
-<div id="a13" data-art="13"><ul class="st"><li>меню сумм по меньшей цифре: 3 → {0, 3}, {1, 2}; 15 → {6, 9}, {7, 8}; 9 → {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5}</li><li>таблица по крайним столбцам: 3 + 1 + 1 + 3 → N(троек) = 8</li><li>порядки: 2 × 2 × 2 → N(порядков) = 8</li></ul></div>
-<div id="a14" data-art="14"><div class="frm st">N(таблиц) = 8 × 8 = 64</div></div>
+<div id="a14" data-art="14"><ul class="st"><li>клетки a₁ a₂ a₃ / b₁ b₂ b₃: a₁ + b₁ = 3, a₂ + b₂ = 9, a₃ + b₃ = 15</li><li>меню сумм по меньшей цифре: 3 → {0, 3}, {1, 2}; 15 → {6, 9}, {7, 8}; 9 → {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5}</li><li>таблица по крайним столбцам: 3 + 1 + 1 + 3 → N(троек) = 8</li><li>порядки: 2 × 2 × 2 → N(порядков) = 8</li></ul></div>
+<div id="a15" data-art="15"><div class="frm st">N(таблиц) = 8 × 8 = 64</div></div>
 <p class="st">Проверка на одной тройке: 0 + 3 = 3 ✓, 4 + 5 = 9 ✓, 7 + 8 = 15 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a15" data-art="15"><p class="st"><b>Probé todas las descomposiciones posibles de cada suma y las demás no cumplen que las seis cifras sean distintas, por eso no hay más que estas.</b></p></div>
+<div id="a16" data-art="16"><p class="st"><b>Probé todas las descomposiciones posibles de cada suma y las demás no cumplen que las seis cifras sean distintas, por eso no hay más que estas.</b></p></div>
 <p class="st"><em>Проверил все возможные разложения каждой суммы, остальные не подходят под условие «шесть цифр разные», — поэтому других нет.</em></p>
 <div class="pager"><a href="09-otvety.html">← Ответы</a><a href="11-blok-2-otvety-i-boevye-zapisi.html">Блок 2 — ответы и боевые записи →</a></div>
 </main>

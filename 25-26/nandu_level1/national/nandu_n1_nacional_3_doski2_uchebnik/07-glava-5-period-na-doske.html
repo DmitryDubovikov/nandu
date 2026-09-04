@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -228,21 +234,26 @@
 <div id="a3" data-art="3"><div class="frm st">клетка 4 = клетка 1</div></div>
 <p class="st">И так всюду: числа повторяются через три клетки. Это тот самый <b>цикл</b> из пары про числа: доска — дорожка из повторяющихся порций по три, и место клетки в порции говорит её <b>остаток</b> при делении на 3 (полочки!). Огромная доска оказывается маленьким узором, размноженным много раз, — а сколько раз и с каким хвостом, отвечает деление с остатком.</p>
 <p class="exam st"><b>Пример А (полоска).</b> В полоске 1×11 сумма любых трёх соседних клеток равна 15. Во 2-й клетке стоит 6, в 6-й — 4. а) Заполни полоску и найди сумму всех её чисел. б) А если известна только 2-я клетка, сколькими способами можно заполнить полоску целыми положительными числами?</p>
-<p class="step st"><b>Шаг 1 — план счёта.</b> В полоске одиннадцать клеток, а известны две — нужно, чтобы разных неизвестных стало мало. Беру две соседние тройки: (1,2,3) и (2,3,4) дают по 15, клетки 2 и 3 у них общие → клетка 4 = клетке 1, то есть <b>период 3</b>. Значит вся полоска — это три числа, разложенные по полочкам остатков от деления на 3: остаток 1 — клетки 1, 4, 7, 10 · остаток 2 — клетки 2, 5, 8, 11 · остаток 0 — клетки 3, 6, 9.</p>
-<p class="st">Остаток я записываю значком <code>res(…)</code>: <code>res(4 : 3) = 1</code> — четвёртая клетка сидит на полочке «остаток 1», потому что 4 = 3 · 1 + 1. Само деление по-прежнему пишу полной строкой (ритуал Ч2), а <code>res(…)</code> только называет уже добытый остаток коротко.</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Клетки слева направо — a₁ … a₁₁, дано a₂ = 6 и a₆ = 4. Известны две из одиннадцати — нужно, чтобы разных неизвестных стало мало. Беру две соседние тройки:</p>
+<div class="frm st">a₁ + a₂ + a₃ = 15</div>
+<div class="frm st">a₂ + a₃ + a₄ = 15</div>
+<p class="st">Общее у них — a₂ и a₃, убираю его из обеих строк:</p>
+<div class="frm st">a₄ = a₁</div>
+<p class="st">Это <b>период 3</b>: вся полоска — три числа, разложенные по полочкам остатков от деления номера на 3. Остаток 1 — a₁, a₄, a₇, a₁₀ · остаток 2 — a₂, a₅, a₈, a₁₁ · остаток 0 — a₃, a₆, a₉.</p>
+<p class="st">Остаток я записываю значком <code>res(…)</code>: <code>res(4 : 3) = 1</code> — клетка a₄ сидит на полочке «остаток 1», потому что 4 = 3 · 1 + 1. Само деление по-прежнему пишу полной строкой (ритуал Ч2), а <code>res(…)</code> только называет уже добытый остаток коротко.</p>
 <div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <p class="st"><b>S(полоски) = сложенные по трём полочкам произведения (число полочки × сколько на ней клеток)</b></p>
 <p class="st"><b>N(заполнений) = длина диапазона того единственного числа, которое осталось свободным</b></p>
 <p class="st">где полочка — все клетки, у которых <code>res(номер : 3)</code> один и тот же; на всей полочке стоит одно и то же число</p>
 <p class="st">Осталось найти: три числа полочек и три размера полочек (для а), диапазон свободного числа (для б).</p></div></div>
-<p class="step st"><b>Шаг 2 — числа на полочках.</b> Нужны сами три числа: клетка 2, у неё <code>res(2 : 3) = 2</code> → полочка «остаток 2» вся равна 6; клетка 6, у неё <code>res(6 : 3) = 0</code> → полочка «остаток 0» вся равна 4; третье число берётся из тройки: 15 − 6 − 4 = 5 на полочке «остаток 1».</p>
+<p class="step st"><b>Шаг 2 — числа на полочках.</b> Нужны сами три числа: у a₂ остаток <code>res(2 : 3) = 2</code> → полочка «остаток 2» вся равна 6; у a₆ остаток <code>res(6 : 3) = 0</code> → полочка «остаток 0» вся равна 4; третье число берётся из тройки: 15 − 6 − 4 = 5 на полочке «остаток 1».</p>
 <p class="step st"><b>Шаг 3 — сколько клеток на каждой полочке.</b> Для суммы нужны размеры полочек — делю длину полоски на длину порции с остатком (ритуал Ч2):</p>
 <div class="frm st">11 = 3 · 3 + 2</div>
-<p class="st">то есть <code>res(11 : 3) = 2</code>. Три полных порции — это клетки 1–9, и в них каждой полочке досталось ровно по 3 клетки. Хвост — клетки 10 и 11: десятая начинает новую порцию, её остаток 1, одиннадцатая идёт второй, её остаток 2. Значит хвост добавил по клетке двум полочкам: остаток 1 — 4 клетки, остаток 2 — 4, остаток 0 — 3.</p>
+<p class="st">то есть <code>res(11 : 3) = 2</code>. Три полных порции — это a₁ … a₉, и в них каждой полочке досталось ровно по 3 клетки. Хвост — a₁₀ и a₁₁: у a₁₀ остаток 1, у a₁₁ остаток 2. Значит хвост добавил по клетке двум полочкам: остаток 1 — 4 клетки, остаток 2 — 4, остаток 0 — 3.</p>
 <figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(11,34px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">1</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">2</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">3</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">6</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">7</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">8</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">9</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">10</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px solid transparent;color:var(--muted);font-size:12px;font-family:var(--sans)">11</span></div><div class="flab" style="margin-top:12px"><span style="color:var(--blue)">остаток 1 — клетки 1, 4, 7, 10 · число 5 · 4 клетки</span><br><span style="color:var(--gold)">остаток 2 — клетки 2, 5, 8, 11 · число 6 · 4 клетки</span><br><span style="color:var(--green)">остаток 0 — клетки 3, 6, 9 · число 4 · 3 клетки</span></div><div class="flab" style="margin-top:12px">11 = 3 · 3 + 2 — три полных порции (клетки 1–9) и хвост в две клетки, а хвост достался первым двум полочкам</div><figcaption>Полочки не поровну: хвост длиной 2 добавил по клетке только первым двум — поэтому 4, 4 и 3, а не «примерно по четыре».</figcaption></figure>
 <p class="step st"><b>Шаг 4 — сборка а).</b> Складываю полочки:</p>
 <div class="frm st">S(полоски) = 4·5 + 4·6 + 3·4 = 20 + 24 + 12 = 56</div>
-<p class="step st"><b>Шаг 5 — считаю б).</b> Теперь дана только шестёрка: она сидит на полочке «остаток 2», а два других числа полоски назову p₁ — то, что стоит на полочке «остаток 1», и p₀ — на полочке «остаток 0». Тройка p₁, 6, p₀ идёт подряд, и её сумма 15:</p>
+<p class="step st"><b>Шаг 5 — считаю б).</b> Теперь дана только шестёрка в a₂: она сидит на полочке «остаток 2», а два других числа полоски назову p₁ — то, что стоит на полочке «остаток 1», и p₀ — на полочке «остаток 0». Тройка p₁, 6, p₀ идёт подряд (это a₁, a₂, a₃), и её сумма 15:</p>
 <div class="frm st">p₁ + p₀ = 9</div>
 <p class="st">Оба числа положительные, значит p₁ = 1, …, 8:</p>
 <div class="frm st">N(заполнений) = 8 способов</div>
@@ -254,9 +265,8 @@
 <h4 class="st">Запись</h4>
 <p class="st">Полочка — клетки с одинаковым <code>res(номер : 3)</code>; на всей полочке стоит одно и то же число.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">S(полоски) = сумма по трём полочкам (число полочки × сколько на ней клеток)</div>
-<div class="frm st">N(заполнений) = длина диапазона свободного числа</div></div>
-<ul class="st"><li>две соседние тройки с общей парой → период 3</li><li>res(2 : 3) = 2 → полочка «остаток 2» = 6; res(6 : 3) = 0 → полочка «остаток 0» = 4</li><li>третье число из тройки: 15 − 6 − 4 = 5 на полочке «остаток 1»</li><li>11 = 3 · 3 + 2 → полочки: остаток 1 — 4 клетки, остаток 2 — 4, остаток 0 — 3</li></ul>
+<div class="frm st">S(полоски) = сумма по трём полочкам (число полочки × клеток на ней)</div></div>
+<ul class="st"><li>a₁ + a₂ + a₃ = 15 и a₂ + a₃ + a₄ = 15 → a₄ = a₁, период 3</li><li>res(2 : 3) = 2 → полочка «остаток 2» = 6; res(6 : 3) = 0 → полочка «остаток 0» = 4</li><li>третье число из тройки: 15 − 6 − 4 = 5 на полочке «остаток 1»</li><li>11 = 3 · 3 + 2 → полочки: остаток 1 — 4 клетки, остаток 2 — 4, остаток 0 — 3</li></ul>
 <div class="frm st">S(полоски) = 4·5 + 4·6 + 3·4 = 56</div>
 <p class="st">б) p₁ + p₀ = 9, оба ≥ 1 → <b>N(заполнений) = 8</b></p>
 <p class="st">Проверка: 5 6 4 5 6 4 5 6 4 5 6 — любые три подряд дают 15 ✓</p>
@@ -302,7 +312,7 @@
 <h4 class="st">Запись</h4>
 <p class="st">Строки по месту в порции из трёх: верх (t₁, t₂, t₃), низ (b₁, b₂, b₃). Зову x = t₁.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = длина диапазона x</div></div>
+<div class="frm st">N(заполнений) = max(x) − min(x) + 1</div></div>
 <ul class="st"><li>по строкам период 3; по вертикали периода нет — в столбце всего две клетки</li><li>якорь (Д3): 21 + 21 = 3 · S(столбца), значит S(столбца) = 14</li><li>данное на полочку: 6 = 3 · 2 + 0 → b₃ = 5, отсюда t₃ = 14 − 5 = 9</li><li>t₂ = 12 − x; b₁ = 14 − x; b₂ = 2 + x</li><li>все клетки ≥ 1; жадная граница от t₂: min(x) = 1, max(x) = 11</li></ul>
 <div class="frm st">N(заполнений) = 11</div>
 <p class="st">Проверка: x = 11 → верх 11-1-9, низ 3-13-5; строки по 21, столбцы по 14 ✓</p>
@@ -344,7 +354,6 @@
 <h4 class="st">Запись</h4>
 <p class="st">Тип строки — с какого числа узора она начинается: «с 3», «с 5» или «с 1».</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<p class="st"><b>N(клеток с данным числом) = сумма по трём типам строк (сколько строк такого типа × сколько раз число стоит в такой строке)</b></p>
 <div class="frm st">S(доски) = 3 · N(троек) + 1 · N(единиц) + 5 · N(пятёрок)</div></div>
 <ul class="st"><li>в строке: 11 = 3 · 3 + 2, res(11 : 3) = 2 → первые два числа узора по 4 раза, третье 3</li><li>строк: 7 = 3 · 2 + 1 → «с 3» — 3 строки, «с 5» — 2, «с 1» — 2</li></ul>
 <div class="frm st">N(пятёрок) = 3·3 + 2·4 + 2·4 = 25</div>

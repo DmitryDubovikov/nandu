@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -246,7 +252,6 @@
 <p class="st"><b>Elijo dónde va el trominó y después los cuadraditos; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p>
 <p class="st"><em>Выбираю положение тримино и потом клетки квадратиков; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">N(пар клеток) — пары клеток под два одинаковых квадратика.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">N(укладок) = N(позиций тримино) × N(пар клеток)</div></div>
 <ul class="st"><li>карта позиций на 4×4: 2 горизонтальные в каждой из 4 строк и 2 вертикальные в каждом из 4 столбцов → N(позиций тримино) = 8 + 8 = 16</li><li>свободных клеток 16 − 3 = 13; два одинаковых квадратика — пара без порядка, лесенка 12 + 11 + … + 1 → N(пар клеток) = 78</li></ul>
@@ -274,8 +279,6 @@
 <p class="st"><em>Иду по случаям по порядку и записываю, почему отброшенные невозможны.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">Позицию домино называю по его левой клетке: 1, 2, 3, 4.</p>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<p class="st"><b>N(укладок) = сумма по позициям красного домино (в каждой — сколько позиций остаётся синему)</b></p></div>
 <ul class="st"><li>красное на 1 (клетки 1-2) → синему годятся 3 и 4 → 2</li><li>красное на 2 (клетки 2-3) → синему годится 4 → 1</li><li>красное на 3 (клетки 3-4) → синему годится 1 → 1</li><li>красное на 4 (клетки 4-5) → синему годятся 1 и 2 → 2</li></ul>
 <div class="frm st">N(укладок) = 2 + 1 + 1 + 2 = 6</div>
 <p class="st">Если домино одинаковые, каждая картинка посчитана дважды: 6 : 2 = 3.</p>

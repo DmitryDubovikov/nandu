@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -212,8 +218,8 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 3 из 12</p>
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Машина прежняя: якорь → самая зажатая клетка → перебор по порядку.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары)<br><br>где<br>- N(расстановок левой пары) — сколькими способами пара первых двух клеток…</span></button>
-<button class="art" data-art="2"><span class="lbl">Заметь главное</span><span class="val">После средней клетки остались четыре цифры 1, 2, 3, 5, их сумма 11.</span></button>
+<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">После a₃ остались цифры 1, 2, 3, 5, их сумма 11.</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары)<br><br>где<br>- N(расстановок левой пары) — сколькими способами пара первых двух клеток…</span></button>
 </aside>
 <main>
   <p class="partlab">Часть A — Числовые доски</p>
@@ -221,71 +227,75 @@
   <p class="sub">Доски 2 — Учебник</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Машина прежняя: якорь → самая зажатая клетка → перебор по порядку. Меняется финиш: раньше ты выписывал таблицы-ответы, теперь считаешь, <b>сколько их</b>, — и часто это делается умножением, вообще без выписывания. А заканчивается каждое решение фразой ритуала Ч5: «других нет, потому что…».</p></div></div>
 <p class="exam st"><b>Пример А (полоска — считаем, потом сверяем списком).</b> В полоску из пяти клеток вписывают числа 1, 2, 3, 4, 5, каждое по разу. Сумма первых трёх клеток равна 9, сумма последних трёх — 10. Сколькими способами?</p>
-<pre class="ascii st">   ┌───┬───┬───┬───┬───┐
-   │   │   │ c │   │   │
-   └───┴───┴───┴───┴───┘
-    └─ сумма 9 ─┘
-            └─ сумма 10 ─┘</pre>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Пять клеток сразу не переберёшь; нужно, чтобы каждая тройка распалась на «средняя клетка плюс пара», — а для этого сначала нужна средняя. Её выдаёт якорь.</p>
-<p class="st">c — число в средней, третьей клетке</p>
-<p class="st">Сумму набора чисел я записываю значком <code>S(…)</code> — «сумма того, что в скобках». Например, <code>S(цифр 1–5) = 15</code>: это 1 + 2 + 3 + 4 + 5.</p>
-<p class="st">Первая тройка и последняя вместе накрывают все пять клеток, но третью — <b>дважды</b>: она входит и в первую тройку, и в последнюю. Отсюда равенство прямо из условия:</p>
-<div class="frm st">9 + 10 = S(цифр 1–5) + c</div>
-<p class="st">Когда средняя известна, первая тройка без неё — это пара с известной суммой, и последняя тоже; останется расставить каждую пару по её двум клеткам.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<pre class="ascii st">   ┌────┬────┬────┬────┬────┐
+   │ a₁ │ a₂ │ a₃ │ a₄ │ a₅ │
+   └────┴────┴────┴────┴────┘
+    └── сумма 9 ──┘
+              └── сумма 10 ──┘</pre>
+<p class="st">Сумму набора чисел я записываю значком <code>S(…)</code> — «сумма того, что в скобках». Например, <code>S(1…5) = 15</code>: это 1 + 2 + 3 + 4 + 5.</p>
+<p class="step st"><b>Шаг 1 — складываю то, что дано.</b> Пока не видно, за что взяться, — записываю оба известных факта вместе.</p>
+<div class="frm st">a₁ + a₂ + a₃ = 9</div>
+<div class="frm st">a₃ + a₄ + a₅ = 10</div>
+<p class="st">Каждая клетка вошла по разу, кроме <code>a₃</code> — она стоит в обеих строках.</p>
+<div class="frm st">9 + 10 = 19 = S(1…5) + a₃ = 15 + a₃</div>
+<div class="frm st">a₃ = 4</div>
+<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>После <code>a₃</code> остались цифры 1, 2, 3, 5, их сумма 11. Левой паре нужно 5, правой — 6, а вместе это ровно те же 11 — значит правую пару искать не придётся: что не ушло в левую, то и есть правая, и сумма 6 у неё сойдётся сама.</p></div></div>
+<figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(5,34px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">2</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">3</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">1</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">5</span></div><div class="flab" style="margin-top:12px"><span style="color:var(--blue)">левая пара</span> — сумма 5 &nbsp;·&nbsp; <span style="color:var(--gold)">средняя</span> = 4 &nbsp;·&nbsp; <span style="color:var(--green)">правая пара</span> — сумма 6</div><figcaption>Клетка a₃ входит в обе тройки, поэтому 9 + 10 считает её дважды. Как только она известна, левой паре остаётся 5, правой 6 — а вместе это все четыре оставшиеся цифры.</figcaption></figure>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары)</div>
 <p class="st">где</p>
 <ul class="st"><li><b>N(расстановок левой пары)</b> — сколькими способами пара первых двух клеток встаёт по этим двум клеткам;</li><li><b>N(расстановок правой пары)</b> — то же для двух последних клеток.</li></ul>
-<p class="st">Осталось найти: среднюю клетку c (её выдаёт якорь), а по ней — N(расстановок левой пары) и N(расстановок правой пары).</p></div></div>
-<p class="step st"><b>Шаг 2 — считаем среднюю клетку.</b> Нужно число в третьей клетке — подставляю числа в равенство якоря:</p>
-<div class="frm st">19 = 15 + c</div>
-<p class="st"><b>c = 4</b> — средняя найдена без единого перебора.</p>
-<div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное</span><p>После средней клетки остались четыре цифры 1, 2, 3, 5, их сумма 11. Левой паре нужно 5, правой — 6, а вместе это те же 11. Значит левая пара и правая делят оставшиеся четыре цифры без остатка и не спорят друг с другом ни за одну цифру. Потому левый край и правый и считаются по отдельности, а их числа перемножаются.</p></div></div>
-<figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(5,34px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">2</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">3</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">4</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">1</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">5</span></div><div class="flab" style="margin-top:12px"><span style="color:var(--blue)">левая пара</span> — сумма 5 &nbsp;·&nbsp; <span style="color:var(--gold)">средняя</span> = 4 &nbsp;·&nbsp; <span style="color:var(--green)">правая пара</span> — сумма 6</div><figcaption>Средняя клетка входит в обе тройки, поэтому 9 + 10 считают её дважды. Как только она известна, края делят оставшиеся четыре цифры и не спорят ни за одну.</figcaption></figure>
-<p class="step st"><b>Шаг 3 — считаем N(расстановок левой пары).</b> Нужны расстановки левого края — для этого сначала его пара: пара с суммой 9 − 4 = 5 из оставшихся цифр 1, 2, 3, 5. Перебираю по меньшей, а она не больше половины пятёрки; половина пятёрки — это 2 с половиной, а цифра целая, значит меньшая не больше 2: 1 → в пару к единице нужна четвёрка, но четвёрка уже стоит в середине ✗; 2 → {2, 3} ✓. Больше проверять нечего — пара ровно одна: <b>{2, 3}</b>, и по двум левым клеткам она встаёт двумя способами → <b>N(расстановок левой пары) = 2</b>.</p>
-<p class="step st"><b>Шаг 4 — считаем N(расстановок правой пары).</b> То же справа: пара с суммой 10 − 4 = 6 из тех же цифр 1, 2, 3, 5. Меньшая не больше 3: 1 → {1, 5} ✓; 2 → нужна 4, она в середине ✗; 3 → пришлось бы взять вторую тройку, а числа разные ✗. Пара ровно одна: <b>{1, 5}</b>, порядков у неё два → <b>N(расстановок правой пары) = 2</b>.</p>
-<p class="step st"><b>Шаг 5 — сборка.</b> Подставляю числа в формулу плана:</p>
+<p class="st">Осталось найти: N(расстановок левой пары) и N(расстановок правой пары).</p></div></div>
+<p class="step st"><b>Шаг 2 — пары.</b></p>
+<div class="frm st">a₁ + a₂ = 9 − 4 = 5</div>
+<div class="frm st">a₄ + a₅ = 10 − 4 = 6</div>
+<p class="st">Из оставшихся цифр 1, 2, 3, 5 сумму 5 даёт только пара <b>{2, 3}</b>. Правой достаётся остаток <b>{1, 5}</b>, его сумма 6 ✓</p>
+<p class="step st"><b>Шаг 3 — сборка.</b> Пара {2, 3} встаёт в левые клетки двумя способами: <b>2 3</b> и <b>3 2</b> — это разные заполнения. Так же и {1, 5} справа: <b>1 5</b> и <b>5 1</b>.</p>
 <div class="frm st">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары) = 2 × 2 = 4 способа</div>
-<p class="st"><b>Других нет, потому что</b> средняя клетка вычислена якорем однозначно, а пары {2, 3} и {1, 5} — единственные с нужными суммами (пары перебраны по меньшему числу подряд). Проверка списком (Д5): 2 3 4 1 5 · 2 3 4 5 1 · 3 2 4 1 5 · 3 2 4 5 1 — ровно четыре ✓.</p>
+<p class="st"><b>Других нет, потому что</b> <code>a₃</code> вычислена якорем однозначно, а из цифр 1, 2, 3, 5 сумму 5 даёт только пара {2, 3}. Проверка списком (Д5): 2 3 4 1 5 · 2 3 4 5 1 · 3 2 4 1 5 · 3 2 4 5 1 — ровно четыре ✓.</p>
 <h3 class="st">✍ Пример А — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <p class="st"><b>Elijo la pareja de la izquierda y después la de la derecha; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p>
 <p class="st"><em>Выбираю левую пару и потом правую; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">c — число в средней клетке; N(расстановок левой пары) — расстановки левой пары; N(расстановок правой пары) — расстановки правой.</p>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары)</div></div>
-<ul class="st"><li>якорь: 9 + 10 = S(цифр 1–5) + c</li><li>19 = 15 + c, значит c = 4</li><li>левая тройка без середины: пара с суммой 5 → {2, 3}, N(расстановок левой пары) = 2</li><li>правая тройка без середины: пара с суммой 6 → {1, 5}, N(расстановок правой пары) = 2</li></ul>
-<div class="frm st">N(заполнений) = 2 × 2 = 4</div>
+<p class="st">a₁ … a₅ — клетки слева направо.</p>
+<ul class="st"><li>9 + 10 = 19 = 15 + a₃ → a₃ = 4</li><li>a₁ + a₂ = 5 → {2, 3}</li><li>a₄ + a₅ = 6 → {1, 5}</li><li>каждая пара встаёт по своим клеткам двумя способами: <b>2 · 2 = 4</b></li></ul>
 <p class="st">Проверка: 2 + 3 + 4 = 9 ✓; 4 + 1 + 5 = 10 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
 <p class="st"><b>Probé todas las parejas posibles y las demás no cumplen la suma pedida, por eso no hay más que estas.</b></p>
 <p class="st"><em>Проверил все возможные пары, остальные не подходят под нужную сумму, — поэтому других нет.</em></p>
 <p class="exam st"><b>Пример Б (списком уже не выпишешь — только счёт).</b> В таблицу 2×2 вписывают четыре <b>разные</b> цифры так, чтобы сумма каждой строки была 9. Сколькими способами?</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Пары с суммой 9 — {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5} — это не просто список: вместе они разбирают все десять цифр без остатка, и каждая цифра попала ровно в одну пару. Поэтому верхняя строка не может задеть чужую пару наполовину: забрал одну пару целиком — внизу целыми остались ровно четыре другие. Вот откуда берётся множитель 4, и вот почему цепочку выборов честно перемножать.</p></div>
+<pre class="ascii st">   ┌────┬────┐
+   │ a₁ │ a₂ │  сумма 9
+   ├────┼────┤
+   │ b₁ │ b₂ │  сумма 9
+   └────┴────┘</pre>
+<div class="frm st">a₁ + a₂ = 9</div>
+<div class="frm st">b₁ + b₂ = 9</div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Пары с суммой 9 — {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5} — разбирают все десять цифр без остатка, каждая цифра ровно в одной паре. Поэтому верхняя строка не может задеть чужую пару наполовину: забрала одну пару целиком — внизу целыми остались четыре другие.</p></div>
 <figure class="st"><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start"><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">десять цифр — ровно пять пар, каждая цифра в одной</div><div style="display:flex;flex-wrap:wrap;gap:8px"><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)"><span style="font:15px var(--mono)">0</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">9</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#16263a;border:1px solid #3d5a82;color:var(--blue)"><span style="font:15px var(--mono)">1</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">8</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#16263a;border:1px solid #3d5a82;color:var(--blue)"><span style="font:15px var(--mono)">2</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">7</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#12281c;border:1px solid #2b5c3d;color:var(--green)"><span style="font:15px var(--mono)">3</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">6</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#16263a;border:1px solid #3d5a82;color:var(--blue)"><span style="font:15px var(--mono)">4</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">5</span></span></div><div class="flab" style="margin-top:8px"><span style="color:var(--gold)">пару забрала верхняя строка</span> → нижней остались целыми четыре</div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">одна из 80 таблиц</div><div style="display:inline-grid;grid-template-columns:repeat(2,38px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">0</span><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">9</span><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">3</span><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">6</span></div><div class="flab" style="margin-top:6px">строка = 9</div></div></div><div class="flab" style="margin-top:12px">П = 5 пар &nbsp;·&nbsp; 2 порядка &nbsp;·&nbsp; Н = 4 пары &nbsp;·&nbsp; 2 порядка</div><figcaption>Пары не задевают друг друга: забрал одну целиком — остальные четыре остались целыми, поэтому второй множитель ровно 4, а не 5.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Выписывать восемьдесят таблиц не нужно — нужно их число, а таблица собирается сверху вниз, цепочкой из четырёх выборов: пара верхней строки И её порядок И пара нижней строки И её порядок. Порядков у пары всегда два: клетки строки — разные места, поэтому «слева меньшая» и «слева большая» — две разные таблицы. Все четыре выбора стоят в одной картинке, значит это «И» и их числа перемножаются.</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Таблица собирается цепочкой выборов: пара для верхней строки И её порядок И пара для нижней И её порядок. Все четыре выбора в одной картинке — это «И».</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(таблиц) = N(пар верхней строки) × 2 × N(пар нижней строки) × 2</div>
-<p class="st">где</p>
-<ul class="st"><li><b>N(пар верхней строки)</b> — сколько пар с суммой 9 годится в верхнюю строку;</li><li><b>N(пар нижней строки)</b> — сколько пар остаётся нижней;</li><li>двойки — порядки внутри строк.</li></ul>
-<p class="st">Осталось найти: N(пар верхней строки) и N(пар нижней строки).</p></div>
-<p class="step st"><b>Шаг 2 — считаю N(пар верхней строки).</b> Нужно меню пар с суммой 9 из разных цифр — перебираю по меньшей цифре подряд: 0 → {0, 9} ✓; 1 → {1, 8} ✓; 2 → {2, 7} ✓; 3 → {3, 6} ✓; 4 → {4, 5} ✓; 5 — в пару к пятёрке нужна 4, но она меньше пятёрки, значит это уже названная пара {4, 5}. Стоп, дальше одни повторы. → <b>N(пар верхней строки) = 5</b>.</p>
-<p class="step st"><b>Шаг 3 — считаю N(пар нижней строки).</b> Нужно, сколько пар осталось после верхней строки: пять пар разбирают все десять цифр без остатка, верхняя строка забрала одну пару целиком — значит нетронутыми остались <b>N(пар нижней строки) = 4</b>.</p>
+<div class="frm st">N(таблиц) = N(пар верха) × 2 × N(пар низа) × 2</div>
+<p class="st">где двойки — порядки внутри строк: a₁ a₂ и a₂ a₁ стоят в разных клетках, значит это разные таблицы.</p>
+<p class="st">Осталось найти: N(пар верха) и N(пар низа).</p></div>
+<p class="step st"><b>Шаг 2 — считаю N(пар верха).</b> Нужно меню пар с суммой 9 из разных цифр — перебираю по меньшей цифре подряд: 0 → {0, 9} ✓; 1 → {1, 8} ✓; 2 → {2, 7} ✓; 3 → {3, 6} ✓; 4 → {4, 5} ✓; 5 — в пару к пятёрке нужна 4, но она меньше пятёрки, значит это уже названная пара {4, 5}. Стоп, дальше одни повторы.</p>
+<div class="frm st">N(пар верха) = 5</div>
+<p class="step st"><b>Шаг 3 — считаю N(пар низа).</b> Верхняя строка забрала одну пару целиком, остальные четыре не тронуты.</p>
+<div class="frm st">N(пар низа) = 4</div>
 <p class="step st"><b>Шаг 4 — сборка.</b> Перемножаю цепочку:</p>
-<p class="st"><b>N(таблиц) = N(пар верхней строки) × 2 × N(пар нижней строки) × 2 = 5 × 2 × 4 × 2 = 80 способов</b></p>
-<p class="st"><b>Других нет, потому что</b> каждая таблица-ответ строится ровно одним путём этой цепочки: по верхней строке видно её пару и порядок, по нижней — её. Выписывать 80 таблиц не нужно — в этом и сила жанра «число». Проверка вторым способом (Д5): пойдём по клеткам. Верхняя левая — любая из 10 цифр; верхняя правая после этого определена, это 9 минус верхняя левая. Теперь свободных цифр восемь, и они снова делятся на пары с суммой 9 — ведь мы забрали одну целую пару, а остальные четыре пары не тронуты. Значит, нижняя левая — любая из этих 8, а нижняя правая опять определяется сама. 10 × 8 = 80 ✓.</p>
+<div class="frm st">N(таблиц) = N(пар верха) × 2 × N(пар низа) × 2 = 5 × 2 × 4 × 2 = 80 способов</div>
+<p class="st"><b>Других нет, потому что</b> каждая таблица строится ровно одним путём этой цепочки: по верхней строке видно её пару и порядок, по нижней — её. Проверка вторым способом (Д5), по клеткам: a₁ — любая из 10 цифр, тогда a₂ = 9 − a₁ определена; свободных цифр остаётся 8, и они снова делятся на пары с суммой 9, поэтому b₁ — любая из 8, а b₂ определена. 10 × 8 = 80 ✓</p>
 <h3 class="st">✍ Пример Б — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <p class="st"><b>Elijo la pareja de arriba y después la de abajo; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p>
 <p class="st"><em>Выбираю пару верхней строки и потом пару нижней; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">N(пар верхней строки) — пары с суммой 9, годные в верхнюю строку; N(пар нижней строки) — пары, оставшиеся нижней.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(таблиц) = N(пар верхней строки) × 2 × N(пар нижней строки) × 2</div></div>
-<ul class="st"><li>пары с суммой 9 по меньшей цифре: {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5} → N(пар верхней строки) = 5</li><li>верхняя строка забрала пару целиком → N(пар нижней строки) = 4</li><li>порядки внутри строк: 2 и 2</li></ul>
+<div class="frm st">N(таблиц) = N(пар верха) × 2 × N(пар низа) × 2</div></div>
+<ul class="st"><li>пары с суммой 9 по меньшей цифре: {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5} → N(пар верха) = 5</li><li>верхняя строка забрала пару целиком → N(пар низа) = 4</li><li>порядки внутри строк: 2 и 2</li></ul>
 <div class="frm st">N(таблиц) = 5 × 2 × 4 × 2 = 80</div>
 <p class="st">Проверка по клеткам: 10 × 8 = 80 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
