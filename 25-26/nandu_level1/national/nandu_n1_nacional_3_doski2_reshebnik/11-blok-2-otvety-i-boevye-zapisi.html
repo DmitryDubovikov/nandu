@@ -218,18 +218,18 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 11 из 17</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Elegido v, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de v.<br><em>Как только выбрано v, все остальные клетки определены, — поэтому перебираю только возможные v.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = max(v) − min(v) + 1</span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = N(годных v)</span></button>
 <button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">соседние треугольники с общей парой → v₁ = v₃ = v₅ = v₂ = v₄: круг из пяти вершин замкнулся</span></button>
 <button class="art cont" data-art="3"><span class="val f">2v + c = 18, значит c = 18 − 2v</span></button>
-<button class="art cont" data-art="4"><span class="val f">c ≥ 1 → v ≤ 8; v ≥ 1: min(v) = 1, max(v) = 8</span></button>
-<button class="art cont" data-art="5"><span class="val f">сумма = 5v + (18 − 2v) = 3v + 18, перед v плюс → максимум на верхнем краю</span></button>
+<button class="art cont" data-art="4"><span class="val f">c ≥ 1 → v ≤ 8; v ≥ 1 → v = 1 … 8, N(годных v) = 8</span></button>
+<button class="art cont" data-art="5"><span class="val f">S(шести чисел) = 5v + (18 − 2v) = 3v + 18 → перед v плюс, максимум на верхнем краю</span></button>
 <button class="art cont" data-art="6"><span class="val f">N(заполнений) = 8</span></button>
 <button class="art cont" data-art="7"><span class="val f">💬 Фраза ко второму вопросу:</span></button>
-<button class="art cont" data-art="8"><span class="val f">max(сумма шести чисел) = 3 · 8 + 18 = 42</span></button>
+<button class="art cont" data-art="8"><span class="val f">max(S(шести чисел)) = 3 · 8 + 18 = 42</span></button>
 <button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los valores posibles de v y los demás no cumplen que el centro sea positivo, por eso no hay más que estos.<br><em>Проверил все возможные значения v, остальные не подходят под условие «центр положителен», — поэтому других нет.</em></span></button>
 <button class="art" data-art="10"><span class="lbl">💬 Фраза</span><span class="val ph">Elegido a₁, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de a₁.<br><em>Как только выбрано a₁, все остальные клетки определены, — поэтому перебираю только возможные a₁.</em></span></button>
 <button class="art" data-art="11"><span class="lbl">План</span><span class="val f">S(кольца) = 3 · 11</span></button>
-<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">клетки положительны: a₁ ≥ 1 и 11 − a₁ ≥ 1 → min(a₁) = 1, max(a₁) = 10</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">клетки положительны: a₁ ≥ 1 и 11 − a₁ ≥ 1 → a₁ = 1 … 10, N(годных a₁) = 10</span></button>
 <button class="art cont" data-art="13"><span class="val f">шесть клеток разбиваются на три пары соседей, каждая клетка ровно в одной</span></button>
 <button class="art cont" data-art="14"><span class="val f">N(заполнений) = 10</span></button>
 <button class="art cont" data-art="15"><span class="val f">S(кольца) = 3 · 11 = 33</span></button>
@@ -246,14 +246,20 @@
 </table></div></div>
 <p class="st"><em>2.3 и 2.4 — по шагам, ниже.</em></p>
 <div class="frm st">2.3 — ответ: 8 способов; наибольшая сумма 42</div>
+<pre class="ascii st">            v₁
+        ╱        ╲
+      v₅            v₂
+       │      c     │
+      v₄ ────────  v₃
+
+   треугольник = центр + две соседние вершины, каждый по 18</pre>
 <div class="card key st"><span class="tag">Заметь главное</span><p>У двух соседних треугольников две клетки общие: центр и вершина между ними. Убери общую часть — и от равенства сумм остаётся равенство двух крайних вершин, то есть <b>вершины через одну равны</b>. В квадрате такой шаг делит вершины на две независимые пары, а здесь вершин <b>пять</b>, число нечётное: шагая через одну, ты обходишь все пять вершин по очереди и возвращаешься туда, откуда вышел. Цепочка замкнулась, никто не остался в стороне — значит все пять вершин равны <b>одному</b> числу. Перебирать пятёрку не придётся: свободное число во всей картинке ровно одно.</p></div>
 <p class="step st"><b>Шаг 1 — план счёта.</b> Всё висит на одной клетке, и обе величины — и число способов, и сумма — будут её функциями.</p>
 <p class="st">v — число в каждой вершине</p>
 <p class="st">c — число в центре <em>(centro)</em></p>
-<p class="st">Наибольшее возможное значение я записываю значком <code>max(…)</code>, наименьшее — <code>min(…)</code>: например <code>min(v) = 1</code> и <code>max(v) = 8</code> — за эти границы вершина не выходит, и найдёт их шаг 3.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(заполнений) = сколько значений принимает v</div>
-<p class="st"><b>max(сумма шести чисел) = значение суммы, выраженной через v, на том краю диапазона, куда она растёт</b></p></div>
+<div class="frm st">N(заполнений) = N(годных v)</div>
+<p class="st"><b>max(S(шести чисел)) = S(шести чисел) при v на том краю диапазона, куда сумма растёт</b></p></div>
 <p class="step st"><b>Шаг 2 — свожу картинку к одному числу.</b> Нужно доказать, что вершины равны, — для этого выписываю цепочку по кругу. Соседние треугольники «центр + v₁ + v₂» и «центр + v₂ + v₃» имеют общее «центр + v₂», значит:</p>
 <div class="frm st">v₁ = v₃</div>
 <p class="st">Дальше тем же ходом, каждый раз выкидывая общую часть:</p>
@@ -262,19 +268,17 @@
 <div class="frm st">v₂ = v₄</div>
 <div class="frm st">v₄ = v₁</div>
 <p class="st">Круг замкнулся, и в цепочку попали все пять вершин → <b>все вершины равны одному числу v</b>.</p>
-<p class="step st"><b>Шаг 3 — диапазон v.</b> Нужно узнать, сколько значений разрешено v, — для этого выражаю через него центр. В любом треугольнике стоят две вершины и центр:</p>
+<p class="step st"><b>Шаг 3 — диапазон v.</b> Нужны годные значения v — для этого выражаю через него центр. В любом треугольнике стоят две вершины и центр:</p>
 <div class="frm st">2v + c = 18</div>
 <div class="frm st">c = 18 − 2v</div>
-<p class="st">Центр — целое положительное, значит <b>18 − 2v ≥ 1</b>, то есть v ≤ 8; сама вершина тоже положительна, значит v ≥ 1. Итого v = 1, 2, …, 8, то есть <code>min(v) = 1</code> и <code>max(v) = 8</code> → <b>v пробегает 8 значений</b>.</p>
+<p class="st">Центр — целое положительное, значит <b>18 − 2v ≥ 1</b>, то есть v ≤ 8; сама вершина тоже положительна, значит v ≥ 1. Итого v = 1, 2, …, 8 → <b>N(годных v) = 8</b>.</p>
 <p class="step st"><b>Шаг 4 — сумма как формула от v.</b> Нужна наибольшая сумма — для этого сначала записываю сумму при любом v: пять вершин по v и центр.</p>
-<div class="frm st">сумма = 5v + c</div>
-<div class="frm st">сумма = 5v + (18 − 2v)</div>
-<div class="frm st">сумма = 3v + 18</div>
-<p class="st">Перед v стоит плюс — сумма растёт вместе с v, значит максимум на верхнем краю диапазона: <b>v = 8</b>.</p>
-<p class="step st"><b>Шаг 5 — сборка.</b> Способов столько, сколько значений у v:</p>
+<div class="frm st">S(шести чисел) = 5v + c = 5v + (18 − 2v) = 3v + 18</div>
+<p class="st">Сумма <code>3v + 18</code> растёт вместе с v, значит максимум на верхнем краю диапазона: <b>v = 8</b>.</p>
+<p class="step st"><b>Шаг 5 — сборка.</b> Каждое годное v даёт своё заполнение:</p>
 <div class="frm st">N(заполнений) = 8 способов</div>
 <p class="st">Наибольшая сумма — формула шага 4 при v = 8:</p>
-<div class="frm st">max(сумма шести чисел) = 3 · 8 + 18 = 42</div>
+<div class="frm st">max(S(шести чисел)) = 3 · 8 + 18 = 42</div>
 <p class="st">Других нет: равенство всех вершин доказано цепочкой, диапазон v перебран целиком от края до края.</p>
 <h3 class="st">✍ 2.3 — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
@@ -284,32 +288,42 @@
 <h4 class="st">Запись</h4>
 <p class="st">v — число в каждой вершине; c — число в центре.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = max(v) − min(v) + 1</div></div></div>
-<div id="a5" data-art="5"><ul class="st"><li>соседние треугольники с общей парой → v₁ = v₃ = v₅ = v₂ = v₄: круг из пяти вершин замкнулся</li><li>2v + c = 18, значит c = 18 − 2v</li><li>c ≥ 1 → v ≤ 8; v ≥ 1: min(v) = 1, max(v) = 8</li><li>сумма = 5v + (18 − 2v) = 3v + 18, перед v плюс → максимум на верхнем краю</li></ul></div>
+<div class="frm st">N(заполнений) = N(годных v)</div></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>соседние треугольники с общей парой → v₁ = v₃ = v₅ = v₂ = v₄: круг из пяти вершин замкнулся</li><li>2v + c = 18, значит c = 18 − 2v</li><li>c ≥ 1 → v ≤ 8; v ≥ 1 → v = 1 … 8, N(годных v) = 8</li><li>S(шести чисел) = 5v + (18 − 2v) = 3v + 18 → перед v плюс, максимум на верхнем краю</li></ul></div>
 <div id="a6" data-art="6"><div class="frm st">N(заполнений) = 8</div></div>
 <div id="a7" data-art="7"><p class="st"><b>💬 Фраза ко второму вопросу:</b></p></div>
 <p class="st"><b>Más de 42 no se puede, porque la suma vale 3v + 18 y v no pasa de 8; y con v = 8 se logra, así que el máximo es 42.</b></p>
 <p class="st"><em>Больше 42 быть не может, потому что сумма равна 3v + 18, а v не больше 8; а при v = 8 она достигается, — значит максимум равен 42.</em></p>
-<div id="a8" data-art="8"><div class="frm st">max(сумма шести чисел) = 3 · 8 + 18 = 42</div></div>
+<div id="a8" data-art="8"><div class="frm st">max(S(шести чисел)) = 3 · 8 + 18 = 42</div></div>
 <p class="st">Проверка: v = 8 → c = 2, треугольник 8 + 8 + 2 = 18 ✓, сумма шести 42 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
 <div id="a9" data-art="9"><p class="st"><b>Probé todos los valores posibles de v y los demás no cumplen que el centro sea positivo, por eso no hay más que estos.</b></p></div>
 <p class="st"><em>Проверил все возможные значения v, остальные не подходят под условие «центр положителен», — поэтому других нет.</em></p>
 <div class="frm st">2.4 — ответ: 10 способов; сумма всегда 33</div>
+<pre class="ascii st">        a₁ ─── a₂
+       ╱          ╲
+     a₆            a₃
+       ╲          ╱
+        a₅ ─── a₄
+
+   каждая пара соседей по кругу даёт 11</pre>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Условие говорит только про <b>пары соседей</b>: каждая такая пара весит 11. А кольцо из шести клеток разбивается на такие пары целиком и без остатка: (a₁, a₂), (a₃, a₄), (a₅, a₆) — три пары, и каждая клетка попала ровно в одну. Значит сумма всех шести чисел — это просто три раза по 11, и она уже сосчитана, хотя ни одного числа мы ещё не знаем. Вот и весь сюрприз: числа в кольце меняются, а сумма меняться не может.</p></div>
 <p class="step st"><b>Шаг 1 — план счёта.</b> Свободное число здесь одно: поставил его в a₁ — и все остальные вычитаются по кругу.</p>
 <p class="st">Клетки по кругу — a₁ … a₆.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(заполнений) = сколько значений принимает a₁</div>
+<div class="frm st">N(заполнений) = N(годных a₁)</div>
 <div class="frm st">S(кольца) = три пары соседей по 11 — одно и то же число при любом a₁</div></div>
 <p class="step st"><b>Шаг 2 — заполняю кольцо через a₁.</b> Нужно понять, что кольцо от одного числа действительно достраивается, — для этого иду по клеткам подряд, каждый раз вычитая из 11:</p>
-<div class="frm st">a₂ = 11 − a₁</div>
-<div class="frm st">a₃ = 11 − a₂ = a₁</div>
-<p class="st">Дальше то же самое: кольцо чередуется a₁, 11 − a₁, a₁, 11 − a₁, a₁, 11 − a₁. Клеток шесть, число чётное — обойдя круг, чередование возвращается к a₁ правильной стороной: перед a₁ стоит 11 − a₁, как и положено. Кольцо сходится, противоречия нет.</p>
+<pre class="ascii st">        a₁ ─── 11−a₁
+       ╱             ╲
+   11−a₁              a₁
+       ╲             ╱
+        a₁ ─── 11−a₁</pre>
+<p class="st">Кольцо чередуется: a₂ = 11 − a₁, a₃ = 11 − a₂ = a₁, и так по кругу. Клеток шесть, число чётное — обойдя круг, чередование возвращается к a₁ правильной стороной: перед a₁ стоит 11 − a₁, как и положено. Кольцо сходится, противоречия нет.</p>
 <p class="step st"><b>Шаг 3 — диапазон a₁.</b> Нужно сосчитать способы — для этого смотрю, какие a₁ разрешены. Оба числа целые положительные:</p>
 <div class="frm st">a₁ ≥ 1</div>
 <p class="st"><b>11 − a₁ ≥ 1</b>, значит <b>a₁ ≤ 10</b></p>
-<p class="st">Итого a₁ = 1, 2, …, 10, то есть <code>min(a₁) = 1</code> и <code>max(a₁) = 10</code> → <b>a₁ пробегает 10 значений</b>. Разным a₁ отвечают разные кольца — клетка a₁ их сразу различает.</p>
+<p class="st">Итого a₁ = 1, 2, …, 10 → <b>N(годных a₁) = 10</b>. Разным a₁ отвечают разные кольца — клетка a₁ их сразу различает.</p>
 <p class="step st"><b>Шаг 4 — сумма.</b> Нужна сумма всех шести — для этого беру три пары соседей из «Заметь главное», каждая по 11:</p>
 <div class="frm st">S(кольца) = 3 · 11 = 33</div>
 <p class="st">Проверка через a₁ (Д5): три клетки несут a₁ и три несут 11 − a₁.</p>
@@ -324,9 +338,9 @@
 <h4 class="st">Запись</h4>
 <p class="st">Клетки по кругу a₁ … a₆; кольцо чередуется a₁, 11−a₁, a₁, 11−a₁, a₁, 11−a₁.</p>
 <div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = max(a₁) − min(a₁) + 1</div>
+<div class="frm st">N(заполнений) = N(годных a₁)</div>
 <div class="frm st">S(кольца) = 3 · 11</div></div></div>
-<div id="a13" data-art="13"><ul class="st"><li>клетки положительны: a₁ ≥ 1 и 11 − a₁ ≥ 1 → min(a₁) = 1, max(a₁) = 10</li><li>шесть клеток разбиваются на три пары соседей, каждая клетка ровно в одной</li></ul></div>
+<div id="a13" data-art="13"><ul class="st"><li>клетки положительны: a₁ ≥ 1 и 11 − a₁ ≥ 1 → a₁ = 1 … 10, N(годных a₁) = 10</li><li>шесть клеток разбиваются на три пары соседей, каждая клетка ровно в одной</li></ul></div>
 <div id="a14" data-art="14"><div class="frm st">N(заполнений) = 10</div></div>
 <div id="a15" data-art="15"><div class="frm st">S(кольца) = 3 · 11 = 33</div></div>
 <p class="st">Проверка: S(кольца) = 3a₁ + 3(11 − a₁) = 33 при любом a₁ ✓</p>

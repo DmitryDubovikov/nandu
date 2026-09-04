@@ -221,7 +221,7 @@
 <button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">клетка 1 + клетка 2 + клетка 3 = S</span></button>
 <button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">клетка 2 + клетка 3 + клетка 4 = S</span></button>
 <button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">клетка 4 = клетка 1</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val">S(полоски) = сложенные по трём полочкам произведения (число полочки × сколько на ней клеток)<br><br>N(заполнений) = длина диапазона того единственного…</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">S(полоски) = сложенные по трём полочкам произведения (число полочки × сколько на ней клеток)<br><br>N(заполнений) = N(годных p₁), где p₁ — единственное…</span></button>
 </aside>
 <main>
   
@@ -234,6 +234,12 @@
 <div id="a3" data-art="3"><div class="frm st">клетка 4 = клетка 1</div></div>
 <p class="st">И так всюду: числа повторяются через три клетки. Это тот самый <b>цикл</b> из пары про числа: доска — дорожка из повторяющихся порций по три, и место клетки в порции говорит её <b>остаток</b> при делении на 3 (полочки!). Огромная доска оказывается маленьким узором, размноженным много раз, — а сколько раз и с каким хвостом, отвечает деление с остатком.</p>
 <p class="exam st"><b>Пример А (полоска).</b> В полоске 1×11 сумма любых трёх соседних клеток равна 15. Во 2-й клетке стоит 6, в 6-й — 4. а) Заполни полоску и найди сумму всех её чисел. б) А если известна только 2-я клетка, сколькими способами можно заполнить полоску целыми положительными числами?</p>
+<pre class="ascii st">   ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+   │    │ 6  │    │    │    │ 4  │    │    │    │    │    │
+   └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+     a₁   a₂   a₃   a₄   a₅   a₆   a₇   a₈   a₉  a₁₀  a₁₁
+     └──── 15 ────┘
+          └──── 15 ────┘   и так далее по всей полоске</pre>
 <p class="step st"><b>Шаг 1 — план счёта.</b> Клетки слева направо — a₁ … a₁₁, дано a₂ = 6 и a₆ = 4. Известны две из одиннадцати — нужно, чтобы разных неизвестных стало мало. Беру две соседние тройки:</p>
 <div class="frm st">a₁ + a₂ + a₃ = 15</div>
 <div class="frm st">a₂ + a₃ + a₄ = 15</div>
@@ -243,7 +249,7 @@
 <p class="st">Остаток я записываю значком <code>res(…)</code>: <code>res(4 : 3) = 1</code> — клетка a₄ сидит на полочке «остаток 1», потому что 4 = 3 · 1 + 1. Само деление по-прежнему пишу полной строкой (ритуал Ч2), а <code>res(…)</code> только называет уже добытый остаток коротко.</p>
 <div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <p class="st"><b>S(полоски) = сложенные по трём полочкам произведения (число полочки × сколько на ней клеток)</b></p>
-<p class="st"><b>N(заполнений) = длина диапазона того единственного числа, которое осталось свободным</b></p>
+<p class="st"><b>N(заполнений) = N(годных p₁)</b>, где p₁ — единственное оставшееся свободным число</p>
 <p class="st">где полочка — все клетки, у которых <code>res(номер : 3)</code> один и тот же; на всей полочке стоит одно и то же число</p>
 <p class="st">Осталось найти: три числа полочек и три размера полочек (для а), диапазон свободного числа (для б).</p></div></div>
 <p class="step st"><b>Шаг 2 — числа на полочках.</b> Нужны сами три числа: у a₂ остаток <code>res(2 : 3) = 2</code> → полочка «остаток 2» вся равна 6; у a₆ остаток <code>res(6 : 3) = 0</code> → полочка «остаток 0» вся равна 4; третье число берётся из тройки: 15 − 6 − 4 = 5 на полочке «остаток 1».</p>
@@ -265,7 +271,7 @@
 <h4 class="st">Запись</h4>
 <p class="st">Полочка — клетки с одинаковым <code>res(номер : 3)</code>; на всей полочке стоит одно и то же число.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">S(полоски) = сумма по трём полочкам (число полочки × клеток на ней)</div></div>
+<p class="st"><b>S(полоски) = p₁ · N(клеток полочки 1) + p₂ · N(клеток полочки 2) + p₀ · N(клеток полочки 0)</b></p></div>
 <ul class="st"><li>a₁ + a₂ + a₃ = 15 и a₂ + a₃ + a₄ = 15 → a₄ = a₁, период 3</li><li>res(2 : 3) = 2 → полочка «остаток 2» = 6; res(6 : 3) = 0 → полочка «остаток 0» = 4</li><li>третье число из тройки: 15 − 6 − 4 = 5 на полочке «остаток 1»</li><li>11 = 3 · 3 + 2 → полочки: остаток 1 — 4 клетки, остаток 2 — 4, остаток 0 — 3</li></ul>
 <div class="frm st">S(полоски) = 4·5 + 4·6 + 3·4 = 56</div>
 <p class="st">б) p₁ + p₀ = 9, оба ≥ 1 → <b>N(заполнений) = 8</b></p>
@@ -274,10 +280,17 @@
 <p class="st"><b>Probé todos los valores posibles del número libre y los demás no cumplen que todas las casillas sean positivas, por eso no hay más que estos.</b></p>
 <p class="st"><em>Проверил все возможные значения свободного числа, остальные не подходят под условие «все клетки положительные», — поэтому других нет.</em></p>
 <p class="exam st"><b>Пример Б (доска 2×10 — счёт способов).</b> В доску из 2 строк и 10 столбцов вписывают целые положительные числа так, что сумма любых трёх подряд идущих клеток строки равна 21, а суммы всех столбцов равны между собой. В нижней строке в 6-м столбце стоит 5. Сколькими способами?</p>
+<pre class="ascii st">   ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+   │    │    │    │    │    │    │    │    │    │    │  верх
+   ├────┼────┼────┼────┼────┼────┼────┼────┼────┼────┤
+   │    │    │    │    │    │ 5  │    │    │    │    │  низ
+   └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+     1    2    3    4    5    6    7    8    9   10
+   любые три подряд в строке дают 21, и все столбцы равны между собой</pre>
 <p class="st">Буквы возьму по месту числа в порции: t₁, t₂, t₃ — первое, второе и третье число верхней строки, b₁, b₂, b₃ — то же для нижней. Место в порции и полочка остатка — одно и то же: первое число порции сидит на полочке «остаток 1», второе — «остаток 2», третье — «остаток 0» (оно же последнее в порции).</p>
 <p class="step st"><b>Шаг 1 — план счёта: в каком порядке тут работать.</b> Первым идёт период: он сжимает каждую строку из десяти чисел до трёх. Вторым — якорь: он выдаёт сумму столбца, которую в условии не назвали. Третьим — данные: вписанное число сажаю на его полочку. И только после этого — «всё через одну клетку»: выражаю всё через t₁, и ответом будет длина её диапазона.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<p class="st"><b>N(заполнений) = длина диапазона одной клетки t₁, через которую выражены все остальные</b></p></div>
+<p class="st"><b>N(заполнений) = N(годных x)</b>, где x = t₁ — клетка, через которую выражены все остальные</p></div>
 <p class="step st"><b>Шаг 2 — период сжимает строки.</b> По горизонтали период 3: беру две соседние тройки строки, у них общая пара клеток и одна и та же сумма 21, значит четвёртая клетка равна первой. Каждая строка — это три числа-полочки: верх (t₁, t₂, t₃) · низ (b₁, b₂, b₃). А по вертикали периода нет и быть не может: в столбце всего две клетки.</p>
 <figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(10,34px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₁</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₂</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₃</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₁</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₂</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₃</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₁</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₂</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₃</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">t₁</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₁</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₂</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₃</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₁</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₂</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">5</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₁</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₂</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₃</span><span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">b₁</span></div><div class="flab" style="margin-top:12px">по строке период 3 → в каждой строке всего три разных числа; столбцы все дают 14 (якорь: 21 + 21 = 3 · 14)</div><figcaption>Десять столбцов — это одна и та же тройка, повторённая снова и снова: вписанная пятёрка садится на полочку «остаток 0» и задаёт всю нижнюю строку.</figcaption></figure>
 <p class="step st"><b>Шаг 3 — якорь выдаёт сумму столбца.</b> Сумма столбца в условии не названа — беру её ритуалом Д3, сложив одни и те же клетки двумя способами. Возьму три подряд идущих столбца, то есть шесть клеток. По строкам это две тройки:</p>
@@ -300,7 +313,7 @@
 <p class="step st"><b>Шаг 6 — диапазон x.</b> Границы дают сами клетки, и не какие-то избранные, а <b>все</b>, в которых стоит x: каждая обязана остаться положительной. Выписываю их подряд, чтобы ни одна не потерялась.</p>
 <ul class="st"><li>x ≥ 1 — сама клетка t₁</li><li>t₂ = 12 − x ≥ 1, значит x ≤ 11</li><li>b₁ = 14 − x ≥ 1, значит x ≤ 13</li><li>b₂ = 2 + x — здесь x стоит с плюсом: такая клетка при x ≥ 1 положительна сама собой, верхней границы она не даёт</li></ul>
 <p class="st">Остальные две клетки — t₃ = 9 и b₃ = 5 — известные числа, от x не зависят и положительны.</p>
-<p class="st">Верхних границ вышло две: 11 и 13. Работает самая жадная, то есть самая маленькая, — от t₂: при x = 12 клетка t₂ обнулилась бы. Значит <code>min(x) = 1</code>, <code>max(x) = 11</code>.</p>
+<p class="st">Верхних границ вышло две: 11 и 13. Работает самая жадная, то есть самая маленькая, — от t₂: при x = 12 клетка t₂ обнулилась бы. Значит x = 1 … 11.</p>
 <p class="step st"><b>Шаг 7 — сборка.</b> x пробегает 1, …, 11:</p>
 <div class="frm st">N(заполнений) = 11 способов</div>
 <p class="st">Других нет, потому что каждое заполнение однозначно называет своё x = t₁, а x пробежал весь диапазон. Проверка (Д5): x = 11 → верх 11-1-9, низ 3-13-5; тройки строк 11 + 1 + 9 = 21 и 3 + 13 + 5 = 21 ✓, столбцы 11 + 3, 1 + 13, 9 + 5 — все по 14 ✓.</p>
@@ -312,8 +325,8 @@
 <h4 class="st">Запись</h4>
 <p class="st">Строки по месту в порции из трёх: верх (t₁, t₂, t₃), низ (b₁, b₂, b₃). Зову x = t₁.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(заполнений) = max(x) − min(x) + 1</div></div>
-<ul class="st"><li>по строкам период 3; по вертикали периода нет — в столбце всего две клетки</li><li>якорь (Д3): 21 + 21 = 3 · S(столбца), значит S(столбца) = 14</li><li>данное на полочку: 6 = 3 · 2 + 0 → b₃ = 5, отсюда t₃ = 14 − 5 = 9</li><li>t₂ = 12 − x; b₁ = 14 − x; b₂ = 2 + x</li><li>все клетки ≥ 1; жадная граница от t₂: min(x) = 1, max(x) = 11</li></ul>
+<div class="frm st">N(заполнений) = N(годных x)</div></div>
+<ul class="st"><li>по строкам период 3; по вертикали периода нет — в столбце всего две клетки</li><li>якорь (Д3): 21 + 21 = 3 · S(столбца), значит S(столбца) = 14</li><li>данное на полочку: 6 = 3 · 2 + 0 → b₃ = 5, отсюда t₃ = 14 − 5 = 9</li><li>t₂ = 12 − x; b₁ = 14 − x; b₂ = 2 + x</li><li>все клетки ≥ 1; жадная граница от t₂ → x = 1 … 11</li></ul>
 <div class="frm st">N(заполнений) = 11</div>
 <p class="st">Проверка: x = 11 → верх 11-1-9, низ 3-13-5; строки по 21, столбцы по 14 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
