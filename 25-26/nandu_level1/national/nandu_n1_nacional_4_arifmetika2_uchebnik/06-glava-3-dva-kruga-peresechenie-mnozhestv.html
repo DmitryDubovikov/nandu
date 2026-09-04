@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -255,13 +261,14 @@
 <div class="frm st">x / 12 = 60</div>
 <div class="frm st">Ответ 2 = x − (N(куры) + N(утки) − 60)</div>
 <p class="st"><code>x</code> — сколько жителей в деревне (чел.), это и есть первый ответ; <code>N(куры)</code> — сколько жителей держат кур (чел.); <code>N(утки)</code> — сколько жителей держат уток (чел.).</p>
-<p class="st">Осталось найти: <code>x</code>, потом <code>N(куры)</code> и <code>N(утки)</code>.</p></div></div>
-<p class="step st"><b>Шаг 2 — нахожу <code>x</code>.</b> Решаю первую строчку плана:</p>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li><code>x</code> — из первой строчки, она уравнение с одной буквой;</li><li><code>N(утки)</code> — из фразы «60 — шестая часть утководов»;</li><li><code>N(куры)</code> — из фразы «куры у трети жителей», когда <code>x</code> станет числом.</li></ul></div></div>
+<p class="step st"><b>Шаг 2 — нахожу <code>x</code>.</b> Нужен первый ответ — число жителей; оно и стоит в первой строчке плана, буква там одна:</p>
 <div class="frm st">x = 60 · 12 = 720</div>
 <p class="st">→ <b>жителей 720</b></p>
 <p class="step st"><b>Шаг 3 — считаю <code>N(утки)</code>.</b> Для полоски нужен второй набор целиком, а про уток сказано: 60 — его шестая часть, значит, сам он вшестеро больше:</p>
 <div class="frm st">N(утки) = 6 · 60 = 360</div>
-<p class="step st"><b>Шаг 4 — считаю <code>N(куры)</code> и «хотя бы одно».</b> Куры у трети жителей:</p>
+<p class="step st"><b>Шаг 4 — считаю <code>N(куры)</code> и «хотя бы одно».</b> Для полоски не хватает первого набора, а он взят от жителей, и жители уже известны — куры у трети:</p>
 <div class="frm st">N(куры) = 720 : 3 = 240</div>
 <div class="frm st">N(хотя бы одно) = 240 + 360 − 60 = 540</div>
 <p class="step st"><b>Шаг 5 — сборка.</b> Подставляю в формулу плана:</p>

@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -234,7 +240,7 @@
   
   <h1>П2.1. Макулатура четырёх классов</h1>
   <p class="sub">Национал — практика: разборы</p>
-<p class="st"><b>Условие.</b> Четыре класса — 5А, 5Б, 5В и 5Г — собрали вместе 6300 килограммов макулатуры.</p>
+<div class="card task st"><span class="tag">Условие</span><p>Четыре класса — 5А, 5Б, 5В и 5Г — собрали вместе 6300 килограммов макулатуры.</p></div>
 <p class="st">5А собрал шестую часть того, что собрали остальные три класса вместе. 5Б собрал пятую часть того, что собрали остальные три класса вместе. 5В собрал половину того, что собрали 5А и 5Г вместе. Всё остальное собрал 5Г.</p>
 <p class="st">а) Сколько килограммов собрал 5А?</p>
 <p class="st">б) Сколько килограммов собрал каждый из остальных трёх классов?</p>
@@ -247,7 +253,8 @@
 <p class="st">Ответ(б) = тройка <code>b</code>, <code>v</code>, <code>g</code></p>
 <p class="st">Ответ(в) = те из <code>a</code>, <code>b</code>, <code>v</code>, <code>g</code>, которые больше <code>6300 : 4</code></p>
 <p class="st">Буквы: <code>a</code> — килограммы 5А; <code>b</code> — 5Б; <code>v</code> — 5В; <code>g</code> — 5Г.</p>
-<p class="st">Осталось найти: <code>a</code> — из своей фразы, <code>b</code> — из своей, а <code>v</code> и <code>g</code> — вместе, из остатка «6300 без <code>a</code> и <code>b</code>» и фразы про 5В.</p></div>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li><code>a</code> — из фразы про 5А;</li><li><code>b</code> — из фразы про 5Б;</li><li><code>v</code> и <code>g</code> — вместе, из остатка «6300 без <code>a</code> и <code>b</code>» и фразы про 5В.</li></ul></div>
 <p class="step st"><b>Шаг 2 — считаю 5А (вопрос а).</b> Нужно <code>a</code> — для этого записываю его фразу, помня, что «остальные для 5А» — это все минус сам 5А, то есть <code>6300 − a</code>.</p>
 <ul class="st"><li>фраза про 5А → <code>a = (6300 − a) / 6</code>;</li><li>умножаю на 6 → <code>6a = 6300 − a</code> → <code>7a = 6300</code>;</li><li>делю → <code>a = 900</code>.</li></ul>
 <p class="st">→ <b>5А собрал 900 кг.</b></p>

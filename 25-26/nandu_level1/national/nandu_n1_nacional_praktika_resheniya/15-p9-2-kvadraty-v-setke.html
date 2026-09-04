@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -219,7 +225,7 @@
   
   <h1>П9.2. Квадраты в сетке</h1>
   <p class="sub">Национал — практика: разборы</p>
-<p class="st"><b>Условие.</b> Сетка из 4 строк и 6 столбцов (24 клетки). Строки считаем сверху вниз, столбцы — слева направо. В 3-й строке, 4-м столбце стоит буква <b>К</b>; в 1-й строке, 6-м столбце — буква <b>З</b>:</p>
+<div class="card task st"><span class="tag">Условие</span><p>Сетка из 4 строк и 6 столбцов (24 клетки). Строки считаем сверху вниз, столбцы — слева направо. В 3-й строке, 4-м столбце стоит буква <b>К</b>; в 1-й строке, 6-м столбце — буква <b>З</b>:</p></div>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
 <tr><td><b>1</b></td><td></td><td></td><td></td><td></td><td></td><td><b>З</b></td></tr>

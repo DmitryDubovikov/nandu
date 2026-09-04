@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -218,7 +224,7 @@
   
   <h1>П5.2. Арка с зубцом</h1>
   <p class="sub">Национал — практика: подсказки</p>
-<p class="st"><b>Условие.</b> Нарисуй прямоугольник ADEH: A — левый низ, D — правый низ, E — правый верх, H — левый верх.</p>
+<div class="card task st"><span class="tag">Условие</span><p>Нарисуй прямоугольник ADEH: A — левый низ, D — правый низ, E — правый верх, H — левый верх.</p></div>
 <p class="st">На нижней стороне AD отметь две точки: B и C (B ближе к A). На верхней стороне HE отметь точку M ровно над B и точку N ровно над C; проведи отрезки BM и CN.</p>
 <p class="st">Внутри полосы BCNM построй прямоугольник BCQP: P на отрезке BM, Q на отрезке CN, отрезок PQ параллелен BC. Прямоугольник BCQP из фигуры <b>вырезан</b> — получилась арка на двух ножках.</p>
 <p class="st">В вырезе на отрезке PQ висит равнобедренный треугольник PTQ (PT = TQ), вершина T смотрит вниз и до линии AD не достаёт. Треугольник — часть фигуры.</p>

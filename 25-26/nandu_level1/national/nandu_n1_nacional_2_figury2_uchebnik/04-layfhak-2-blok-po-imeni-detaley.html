@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -232,7 +238,7 @@
 <p class="step st"><b>Шаг 3 — нужно второе уравнение: записываю периметр блока P-P-Q.</b> Высота 2p + q, ширина та же. Тот же обход:</p>
 <div class="frm st">(2p + q) + 8 + (2p + q) + 8 = 68</div>
 <p class="st">Система записана — дальше только буквы.</p>
-<p class="step st"><b>Шаг 4 — решаю систему.</b> Сначала привожу подобные и убираю ширины. В первом уравнении раскрываю скобки:</p>
+<p class="step st"><b>Шаг 4 — нужны сами высоты p и q: решаю систему.</b> Сначала привожу подобные и убираю ширины. В первом уравнении раскрываю скобки:</p>
 <div class="frm st">2p + 2q + 16 = 46</div>
 <p class="st">Вычитаю 16 из обеих частей и делю на 2:</p>
 <div class="frm st">p + q = 15</div>

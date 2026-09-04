@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -218,7 +224,7 @@
   
   <h1>П11.1. Полоска из восьми клеток</h1>
   <p class="sub">Национал — практика: подсказки</p>
-<p class="st"><b>Условие.</b> В полоску из 8 клеток вписывают целые положительные числа так, чтобы сумма чисел в любых трёх подряд идущих клетках равнялась 18. Числа повторять можно. В 3-й клетке слева стоит 7:</p>
+<div class="card task st"><span class="tag">Условие</span><p>В полоску из 8 клеток вписывают целые положительные числа так, чтобы сумма чисел в любых трёх подряд идущих клетках равнялась 18. Числа повторять можно. В 3-й клетке слева стоит 7:</p></div>
 <div class="st"><div class="tw"><table>
 <tr><th>клетка</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
 <tr><td>число</td><td></td><td></td><td><b>7</b></td><td></td><td></td><td></td><td></td><td></td></tr>

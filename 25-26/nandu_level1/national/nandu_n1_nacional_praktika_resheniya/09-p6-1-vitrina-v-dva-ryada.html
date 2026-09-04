@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -237,7 +243,7 @@
   
   <h1>П6.1. Витрина в два ряда</h1>
   <p class="sub">Национал — практика: разборы</p>
-<p class="st"><b>Условие.</b> Прямоугольная витрина MNPQ разделена горизонтальным отрезком RS на два ряда: M — левый низ, N — правый низ, P — правый верх, Q — левый верх; R лежит на стороне QM, S — на стороне NP.</p>
+<div class="card task st"><span class="tag">Условие</span><p>Прямоугольная витрина MNPQ разделена горизонтальным отрезком RS на два ряда: M — левый низ, N — правый низ, P — правый верх, Q — левый верх; R лежит на стороне QM, S — на стороне NP.</p></div>
 <p class="st">Нижний ряд MNSR вертикальными отрезками разрезан на <b>четыре равные</b> детали B. Верхний ряд RSPQ вертикальными отрезками разрезан на <b>три равные</b> детали A.</p>
 <p class="st">Ещё на витрине проведён отрезок TU: T — середина стороны MN, U — середина стороны QP.</p>
 <p class="st">Известно:</p>

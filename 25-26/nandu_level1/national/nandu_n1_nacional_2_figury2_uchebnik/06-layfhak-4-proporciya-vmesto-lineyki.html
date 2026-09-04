@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -217,7 +223,7 @@
 <button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">RS = 2k</span></button>
 <button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">ST = 5k</span></button>
 <button class="art" data-art="5"><span class="lbl">Заметь главное</span><span class="val">Пропорция ничего не говорит о длине: ни ширина широкого стекла, ни ширина узкого из неё не вылезут.</span></button>
-<button class="art" data-art="6"><span class="lbl">План</span><span class="val">Ответ = P(окна) = 2·(5k + 14), где k — доля; саму долю добуду из периметра широкого стекла.</span></button>
+<button class="art" data-art="6"><span class="lbl">План</span><span class="val">Ответ = P(окна) = 2·(ширина окна + 14)</span></button>
 </aside>
 <main>
   
@@ -236,7 +242,9 @@
 <div id="a5" data-art="5"><div class="card key st"><span class="tag">Заметь главное</span><p>Пропорция ничего не говорит о длине: ни ширина широкого стекла, ни ширина узкого из неё не вылезут. Она говорит другое — что <b>оба стекла меряются одной и той же меркой</b>. Знаменатель 3 показывает, какой: возьми треть широкого стекла — она уложится в широкое три раза, а в узкое два. Вот почему тут не нужно двух неизвестных: одной доли хватает на обе ширины сразу, и как только доля найдена, оба стекла известны без всякого перебора.</p></div></div>
 <figure class='st'><svg viewBox='0 0 420 215' width='100%' role='img' aria-label='Окно из двух стёкол: широкое в три доли, узкое в две'><rect x='50' y='40' width='300' height='105' fill='none' stroke='#f0a83c' stroke-width='2.5'/><line x1='230' y1='40' x2='230' y2='145' stroke='#f2686c' stroke-width='2' stroke-dasharray='6 5'/><g stroke='#cfdae6' stroke-width='1' stroke-dasharray='5 4'><line x1='110' y1='40' x2='110' y2='145'/><line x1='170' y1='40' x2='170' y2='145'/><line x1='290' y1='40' x2='290' y2='145'/></g><g fill='#93a1b1' font-size='14' font-family='sans-serif' text-anchor='middle'><text x='80' y='98'>k</text><text x='140' y='98'>k</text><text x='200' y='98'>k</text><text x='260' y='98'>k</text><text x='320' y='98'>k</text></g><g stroke='#93a1b1' stroke-width='1'><line x1='34' y1='40' x2='34' y2='145'/><line x1='30' y1='40' x2='38' y2='40'/><line x1='30' y1='145' x2='38' y2='145'/></g><text x='18' y='98' fill='#93a1b1' font-size='14' font-family='sans-serif' text-anchor='middle'>14</text><g stroke='#f0a83c' stroke-width='1.5'><line x1='50' y1='166' x2='230' y2='166'/><line x1='50' y1='161' x2='50' y2='171'/><line x1='230' y1='161' x2='230' y2='171'/><line x1='230' y1='166' x2='350' y2='166'/><line x1='350' y1='161' x2='350' y2='171'/></g><g fill='#f0a83c' font-size='13.5' font-family='sans-serif' text-anchor='middle'><text x='140' y='184'>широкое — 3k</text><text x='290' y='184'>узкое — 2k</text></g><text x='200' y='206' fill='#93a1b1' font-size='13.5' font-family='sans-serif' text-anchor='middle'>всё окно — 5k в ширину</text></svg><figcaption>Одна и та же доля укладывается в широкое стекло три раза, в узкое два — дробь 2/3 только это и говорит.</figcaption></figure>
 <p class="step st"><b>Шаг 1 — план: свести обе ширины к одной доле.</b> Спрашивают периметр окна, а окно — прямоугольник высотой 14 и шириной «широкое плюс узкое». Значит нужны обе ширины, — для этого беру за долю <code>k</code> треть широкого стекла и выражаю через неё оба стекла и всё окно.</p>
-<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = P(окна) = 2·(5k + 14), где k — доля; саму долю добуду из периметра широкого стекла.</p></div></div>
+<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = P(окна) = 2·(ширина окна + 14)</p>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li>ширину окна через долю <code>k</code> — это обе ширины стёкол подряд;</li><li>саму долю <code>k</code> — из периметра широкого стекла.</li></ul></div></div>
 <p class="step st"><b>Шаг 2 — нужны ширины через долю: перевожу пропорцию.</b> Знаменатель дроби — 3, поэтому за долю беру треть широкого стекла. Тогда широкое стекло — три такие доли:</p>
 <div class="frm st">ширина широкого = 3k</div>
 <p class="st">А узкое — это 2/3 от широкого, то есть две доли из трёх:</p>

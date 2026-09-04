@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -235,7 +241,7 @@
   
   <h1>П4.1. Саженцы для площади</h1>
   <p class="sub">Национал — практика: разборы</p>
-<p class="st"><b>Условие.</b> В питомнике саженцы продают только двумя способами: лотками по 6 саженцев и ящиками по 11 саженцев. Лоток стоит 480 песо, ящик — 830 песо.</p>
+<div class="card task st"><span class="tag">Условие</span><p>В питомнике саженцы продают только двумя способами: лотками по 6 саженцев и ящиками по 11 саженцев. Лоток стоит 480 песо, ящик — 830 песо.</p></div>
 <p class="st">Для новой площади нужно ровно 205 саженцев, и ни одного лишнего.</p>
 <p class="st">а) Можно ли обойтись одними ящиками? Объясни.</p>
 <p class="st">б) Сколько лотков и сколько ящиков можно купить? Дай все возможности.</p>

@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -216,7 +222,7 @@
 <button class="art" data-art="2"><span class="lbl">План</span><span class="val f">Ответ(а) = 9 + 8</span></button>
 <button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></span></button>
 <button class="art cont" data-art="4"><span class="val f"><code>Ответ(а) = 9 + 8 = 17</code></span></button>
-<button class="art cont" data-art="5"><span class="val f"><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>N(всех пар) = 16 + 15 + … + 1</code>, с краёв по 17, пар 8 → <code>8 · 17 = 136</code></span></button>
 <button class="art cont" data-art="6"><span class="val f">углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></span></button>
 <button class="art cont" data-art="7"><span class="val f"><code>N(плохих пар) = 4 + 18 + 12 = 34</code></span></button>
 <button class="art cont" data-art="8"><span class="val f"><code>Ответ(б) = 136 − 34 = 102</code></span></button>
@@ -228,7 +234,7 @@
   
   <h1>П9.1. Две доминошки</h1>
   <p class="sub">Национал — практика: разборы</p>
-<p class="st"><b>Условие.</b> Доска из 3 строк и 4 столбцов:</p>
+<div class="card task st"><span class="tag">Условие</span><p>Доска из 3 строк и 4 столбцов:</p></div>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>столбец 1</th><th>столбец 2</th><th>столбец 3</th><th>столбец 4</th></tr>
 <tr><td><b>строка 1</b></td><td></td><td></td><td></td><td></td></tr>
@@ -253,7 +259,9 @@
 <p class="st">Буквы: <code>N(всех пар)</code> — сколько вообще есть пар положений домино; <code>N(плохих пар)</code> — из них те, у которых есть общая клетка (два домино на одну клетку не лягут).</p>
 <p class="st">Осталось найти: <code>N(всех пар)</code> и <code>N(плохих пар)</code>.</p></div>
 <p class="step st"><b>Шаг 3 — считаю <code>N(всех пар)</code>.</b> Нужен первый блок плана — сколько всего пар положений. Два домино одинаковы, значит важно только, <b>какие два положения заняты</b>, а не какое «первое». Это пара без порядка, и считается она <b>лесенкой</b>: первое положение даёт пару с каждым из 16 остальных, второе — с 15 ещё не учтёнными, третье — с 14, и так вниз до последней единственной пары. Складываю ступеньки:</p>
-<p class="st"><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2</code> = <b>136</b>.</p>
+<p class="st">Шестнадцать слагаемых подряд складывать не надо — беру их с краёв: 16 + 1 = 17, 15 + 2 = 17, и так до 9 + 8 = 17. Пар восемь:</p>
+<div class="frm st">N(всех пар) = 16 + 15 + … + 1 = 8 · 17 = 136</div>
+<p class="st">Проверка формулой пар из 17 предметов: <code>17 · 16 : 2 = 136</code> ✓</p>
 <p class="step st"><b>Шаг 4 — проверка минуса.</b> Может ли пара быть плохой дважды, то есть иметь <b>две</b> общие клетки? Два домино — это две клетки у каждого; две общие клетки означали бы, что положения совпали, а мы берём разные. Значит, у плохой пары общая клетка ровно одна, и каждая плохая пара считается один раз — вычитать честно.</p>
 <p class="st"><em>💬 «У плохой пары общая клетка ровно одна, поэтому вычитание честное» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="step st"><b>Шаг 5 — считаю <code>N(плохих пар)</code> по клеткам.</b> Нужен второй блок плана — число пар с общей клеткой. Каждая плохая пара сидит на своей общей клетке, поэтому пройду по клеткам и для каждой посчитаю пары домино, проходящие через неё. Сколько домино накрывают клетку — столько у неё соседей по стороне: домино, накрывшее клетку, обязано накрыть ещё ровно одного её соседа, и наоборот, каждый сосед даёт своё домино. Проверю на угловой клетке (строка 1, столбец 1): соседей у неё два — (строка 1, столбец 2) и (строка 2, столбец 1), и через угол правда проходят ровно два домино. Дальше — лесенка от числа соседей: столько-то домино через клетку дают столько-то пар через неё.</p>
@@ -299,7 +307,7 @@
 <div class="frm st">Ответ(в) = Ответ(б) · 2 · 8</div></div></div>
 <div id="a3" data-art="3"><ul class="st"><li>горизонтальные: <code>3 · 3 = 9</code> · вертикальные: <code>2 · 4 = 8</code></li></ul></div>
 <div id="a4" data-art="4"><div class="frm st"><code>Ответ(а) = 9 + 8 = 17</code></div></div>
-<div id="a7" data-art="7"><ul class="st"><li><code>N(всех пар) = 16 + 15 + … + 1 = 17 · 16 : 2 = 136</code></li><li>углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></li><li><code>N(плохих пар) = 4 + 18 + 12 = 34</code></li></ul></div>
+<div id="a7" data-art="7"><ul class="st"><li><code>N(всех пар) = 16 + 15 + … + 1</code>, с краёв по 17, пар 8 → <code>8 · 17 = 136</code></li><li>углы <code>4 · 1 = 4</code> · борта <code>6 · 3 = 18</code> · центры <code>2 · 6 = 12</code></li><li><code>N(плохих пар) = 4 + 18 + 12 = 34</code></li></ul></div>
 <div id="a8" data-art="8"><div class="frm st"><code>Ответ(б) = 136 − 34 = 102</code></div></div>
 <div id="a9" data-art="9"><ul class="st"><li>цвета дают множитель 2, свободных клеток под квадратик <code>12 − 4 = 8</code></li></ul></div>
 <div id="a10" data-art="10"><div class="frm st"><code>Ответ(в) = 102 · 2 · 8 = 1632</code></div></div>

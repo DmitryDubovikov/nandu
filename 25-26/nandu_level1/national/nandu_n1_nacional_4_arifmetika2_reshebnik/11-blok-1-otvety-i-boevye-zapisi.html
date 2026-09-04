@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -253,7 +259,8 @@
 <div class="frm st">Ответ 1 = g, c</div>
 <div class="frm st">Ответ 2 = 800 · N(ржаных больших) + 300 · N(ржаных маленьких)</div>
 <p class="st"><code>g</code> — сколько продали больших буханок (шт.); <code>c</code> — сколько продали маленьких буханок (шт.); <code>N(ржаных больших)</code> — сколько из больших ржаных (шт.); <code>N(ржаных маленьких)</code> — сколько из маленьких ржаных (шт.).</p>
-<p class="st">Осталось найти: <code>g</code> и <code>c</code> — из двух итогов задачи; <code>N(ржаных больших)</code> и <code>N(ржаных маленьких)</code> — по долям, когда <code>g</code> и <code>c</code> станут числами.</p></div>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li><code>g</code> и <code>c</code> — из двух итогов задачи;</li><li><code>N(ржаных больших)</code> — по доле с семечками, когда <code>g</code> станет числом;</li><li><code>N(ржаных маленьких)</code> — по доле пшеничных, когда <code>c</code> станет числом.</li></ul></div>
 <p class="step st"><b>Шаг 2 — считаю <code>g</code> и <code>c</code>.</b> Решаю систему из двух итогов:</p>
 <div class="frm st">g + c = 28</div>
 <div class="frm st">800g + 300c = 12400</div>
@@ -277,8 +284,9 @@
 <p class="st">Проверка: <code>8 + 20 = 28</code> ✓; <code>6400 + 6000 = 12400</code> ✓</p>
 <hr>
 <div class="frm st">1.4 — ответ: 300 партер, 170 балкон, 10 лож</div>
-<p class="step st"><b>Шаг 1 — план.</b> Сценария два, и отличаются они только партером: балкон и ложи в обоих проданы целиком, значит, в обе выручки они входят одинаковым куском и при вычитании исчезнут. Разница выручек — это стоимость той шестой части партера, которую в субботу не продали, и в ней остаётся одна буква. А когда партер известен, на балкон и ложи останутся два обычных условия: сколько мест и сколько песо.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Сценария два, и отличаются они только партером: балкон и ложи в обоих проданы целиком, значит, в обе выручки они входят одинаковым куском и при вычитании исчезнут. Поэтому разница выручек — это стоимость ровно той шестой части партера, которую в субботу не продали, и в ней остаётся одна буква.</p></div>
 <figure class='st'><div class='fcol' style='gap:16px'><div><div class='flab'>проданы все места — 12 900 песо</div><div style='display:flex;gap:5px;margin-top:6px'><div style='flex:90;background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:16px var(--mono);text-align:center;border-radius:8px;padding:10px 8px'>партер · 30 · p</div><div style='flex:39;background:#151d29;border:1px dashed #2c394c;color:var(--muted);font:13px var(--sans);text-align:center;border-radius:8px;padding:10px 8px'>балкон и ложи</div></div></div><div><div class='flab'>суббота — 11 400 песо</div><div style='display:flex;gap:5px;margin-top:6px'><div style='flex:75;background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:16px var(--mono);text-align:center;border-radius:8px;padding:10px 8px'>пять шестых партера</div><div style='flex:15;background:#2a1a1d;border:1px solid #5a3540;color:var(--red);font:13px var(--sans);text-align:center;border-radius:8px;padding:10px 8px'>не продано</div><div style='flex:39;background:#151d29;border:1px dashed #2c394c;color:var(--muted);font:13px var(--sans);text-align:center;border-radius:8px;padding:10px 8px'>балкон и ложи</div></div></div></div><div class='flab' style='margin-top:14px'>балкон и ложи в обоих сценариях проданы целиком — при вычитании этот кусок уходит</div><div class='frm' style='margin-top:10px'>(1/6) · 30 · p = 12900 − 11400</div><div class='frm' style='border-color:var(--green)'>5p = 1500 &nbsp;→&nbsp; p = 300</div><figcaption>В разности выручек остаётся ровно то, чем суббота отличалась от полного зала, — красная шестая часть партера.</figcaption></figure>
+<p class="step st"><b>Шаг 1 — план.</b> Нужны три числа мест, а отдельного условия про каждое нет. Зато вычитание сценариев сразу даёт партер строчкой с одной буквой. А когда партер известен, на балкон и ложи останутся два обычных условия: сколько мест и сколько песо.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">(1/6) · 30 · p = 12900 − 11400</div>
 <div class="frm st">b + l = 480 − p</div>
@@ -311,7 +319,8 @@
 <div class="frm st">Ответ 1 = b, s, 2b</div>
 <div class="frm st">Ответ 2 = 5 · N(красных больших) + 2 · N(красных средних) + 1 · N(красных маленьких)</div>
 <p class="st"><code>b</code> — сколько собрали больших фонариков (шт.); <code>s</code> — сколько собрали средних (шт.), маленьких тогда <code>2b</code>; <code>N(красных больших)</code>, <code>N(красных средних)</code>, <code>N(красных маленьких)</code> — сколько красных фонариков каждого размера (шт.).</p>
-<p class="st">Осталось найти: <code>b</code> и <code>s</code> — из двух итогов задачи; <code>N(красных больших)</code>, <code>N(красных средних)</code>, <code>N(красных маленьких)</code> — по долям.</p></div>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li><code>b</code> и <code>s</code> — из двух итогов задачи;</li><li><code>N(красных больших)</code> и <code>N(красных маленьких)</code> — по долям жёлтых и синих;</li><li><code>N(красных средних)</code> — по тому, что про средние сказано в условии.</li></ul></div>
 <p class="step st"><b>Шаг 2 — считаю <code>b</code> и <code>s</code>.</b> «Больших вдвое меньше, чем маленьких» — значит маленьких <code>2b</code>, и отдельной буквы им не нужно. Решаю систему из двух итогов:</p>
 <p class="st"><code>b + s + 2b = 34</code> → <code>3b + s = 34</code></p>
 <p class="st"><code>5b + 2s + 1 · 2b = 76</code> → <code>7b + 2s = 76</code></p>

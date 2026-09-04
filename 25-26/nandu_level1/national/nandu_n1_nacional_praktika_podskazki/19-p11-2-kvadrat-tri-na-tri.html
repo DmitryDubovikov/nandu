@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -218,7 +224,7 @@
   
   <h1>П11.2. Квадрат три на три</h1>
   <p class="sub">Национал — практика: подсказки</p>
-<p class="st"><b>Условие.</b> В квадрат 3×3 вписывают числа 2, 3, 4, 5, 6, 7, 8, 9, 10 — каждое ровно по одному разу:</p>
+<div class="card task st"><span class="tag">Условие</span><p>В квадрат 3×3 вписывают числа 2, 3, 4, 5, 6, 7, 8, 9, 10 — каждое ровно по одному разу:</p></div>
 <div class="st"><div class="tw"><table>
 </table></div></div>
 <p class="st">Требуется, чтобы суммы всех трёх строк, всех трёх столбцов и обеих диагоналей были <b>равны между собой</b>.</p>

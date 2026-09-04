@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -229,7 +235,7 @@
   
   <h1>П11.1. Полоска из восьми клеток</h1>
   <p class="sub">Национал — практика: разборы</p>
-<p class="st"><b>Условие.</b> В полоску из 8 клеток вписывают целые положительные числа так, чтобы сумма чисел в любых трёх подряд идущих клетках равнялась 18. Числа повторять можно. В 3-й клетке слева стоит 7:</p>
+<div class="card task st"><span class="tag">Условие</span><p>В полоску из 8 клеток вписывают целые положительные числа так, чтобы сумма чисел в любых трёх подряд идущих клетках равнялась 18. Числа повторять можно. В 3-й клетке слева стоит 7:</p></div>
 <div class="st"><div class="tw"><table>
 <tr><th>клетка</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
 <tr><td>число</td><td></td><td></td><td><b>7</b></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -239,7 +245,7 @@
 <p class="st">в) В скольких заполнениях число 7 стоит ровно в двух клетках?</p>
 <p class="st">г) Объясни, почему ты нашёл все заполнения и почему больше их нет.</p>
 <p class="step st"><b>Шаг 0 — жанр.</b> «Выпиши все заполнения» — список. Значит, перебор должен идти строго по порядку, чтобы никого не потерять и не повторить.</p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Соседние тройки перекрываются двумя клетками, поэтому крайние числа у них обязаны совпасть — и вся полоска оказывается не восемью независимыми числами, а тремя повторяющимися. Клетки 1, 4, 7 — это одно и то же число, клетки 2, 5, 8 — другое, клетки 3 и 6 — третье. Значит, данная семёрка задаёт не одну клетку, а сразу всю свою полочку, а свободным остаётся одно-единственное число: выбрал его — полоска дописалась сама. По той же причине сумма всех восьми клеток обязана быть одной и той же во всех заполнениях: в неё входит только сумма a + b, а она равна 11 по условию.</p></div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Соседние тройки перекрываются двумя клетками, поэтому крайние числа у них обязаны совпасть — и вся полоска оказывается не восемью независимыми числами, а тремя повторяющимися. Клетки 1, 4, 7 — это одно и то же число, клетки 2, 5, 8 — другое, клетки 3 и 6 — третье. Значит, данная семёрка задаёт не одну клетку, а сразу всю свою полочку, а свободным остаётся одно-единственное число: выбрал его — полоска дописалась сама. По той же причине сумма всех восьми клеток обязана быть одной и той же во всех заполнениях: в неё входит только сумма чисел из первых двух клеток, а её задаёт условие — вместе с семёркой они дают 18.</p></div>
 <figure class="st"><svg viewBox="0 0 700 200" width="100%" style="max-width:700px;display:block;margin:0 auto" font-family="var(--sans)" font-size="13">
 <rect x="30" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="58" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="58" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">1</text><rect x="86" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="114" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="114" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">2</text><rect x="142" y="90" width="56" height="56" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="170" y="128" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">7</text><text x="170" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">3</text><rect x="198" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="226" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="226" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">4</text><rect x="254" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="282" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="282" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">5</text><rect x="310" y="90" width="56" height="56" fill="#12281c" stroke="var(--green)" stroke-width="1.5"/><text x="338" y="128" text-anchor="middle" fill="var(--green)" font-family="var(--mono)" font-size="20">7</text><text x="338" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">6</text><rect x="366" y="90" width="56" height="56" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="394" y="128" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="20">a</text><text x="394" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">7</text><rect x="422" y="90" width="56" height="56" fill="#1d1810" stroke="var(--gold)" stroke-width="1.5"/><text x="450" y="128" text-anchor="middle" fill="var(--gold)" font-family="var(--mono)" font-size="20">b</text><text x="450" y="82" text-anchor="middle" fill="var(--muted)" font-size="12">8</text>
 <rect x="30" y="90" width="168" height="56" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5 4"/>

@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -218,7 +224,7 @@
   
   <h1>П5.1. Ступенька с крышей</h1>
   <p class="sub">Национал — практика: подсказки</p>
-<p class="st"><b>Условие.</b> Нарисуй прямоугольник ABCH: A — левый низ, B — правый низ, C — правый верх, H — левый верх; сам прямоугольник широкий и низкий.</p>
+<div class="card task st"><span class="tag">Условие</span><p>Нарисуй прямоугольник ABCH: A — левый низ, B — правый низ, C — правый верх, H — левый верх; сам прямоугольник широкий и низкий.</p></div>
 <p class="st">На стороне HC отметь точку D, на стороне AB — точку G ровно под D; проведи отрезок GD. Он делит прямоугольник ABCH на два прямоугольника: AGDH слева и GBCD справа.</p>
 <p class="st">На отрезке HD, как на нижней стороне, построй вверх прямоугольник HDEF: E — над D, F — над H.</p>
 <p class="st">На стороне FE построй равнобедренный треугольник FPE с вершиной P (FP = PE), направленный вверх, наружу от фигуры.</p>

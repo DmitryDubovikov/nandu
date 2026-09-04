@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -296,8 +302,9 @@
 <p class="st"><code>Ответ а) = тот из двух соседей у перелома, у кого модуль d меньше</code></p>
 <div class="frm st">Ответ б) = n741 − Ответ а)</div>
 <p class="st"><code>n</code> — сколько сыграно раундов; <code>d</code> — разрыв в очках после <code>n</code> раундов; <code>S(очков)</code> — сумма очков после <code>n</code> раундов; <code>n741</code> — номер раунда, после которого <code>S(очков) = 741</code>.</p>
-<p class="st">Осталось найти: обе формулы упростить, найти двух соседей у перелома и найти <code>n741</code>.</p></div>
-<p class="step st"><b>Шаг 2 — а) упрощаю разность и нахожу соседей.</b> Разрыв стартует с <code>941 − 60 = 881</code>, а за раунд Пума прибавляет 5 и Ягуар теряет 9, то есть разрыв съедается с двух сторон сразу на <code>5 + 9 = 14</code>:</p>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li>упрощённые формулы для <code>d</code> и для <code>S(очков)</code>;</li><li>двух соседей у перелома;</li><li><code>n741</code>.</li></ul></div>
+<p class="step st"><b>Шаг 2 — а) упрощаю разность и нахожу соседей.</b> Нужны два кандидата у перелома, а для этого разрыв должен быть виден формулой при любом <code>n</code>. Разрыв стартует с <code>941 − 60 = 881</code>, а за раунд Пума прибавляет 5 и Ягуар теряет 9, то есть разрыв съедается с двух сторон сразу на <code>5 + 9 = 14</code>:</p>
 <div class="frm st">d = 881 − 14n</div>
 <p class="st">Ноль был бы там, где 14 уместилось в 881 целиком, — делю с остатком:</p>
 <div class="frm st">881 = 14 · 62 + 13</div>

@@ -101,6 +101,12 @@
   .arsenal{border-left:3px solid var(--green);background:#0f1a14}
   .arsenal .tag{color:var(--green)}
 
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
   p.step b:first-child{color:var(--gold)}
@@ -214,7 +220,7 @@
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">«С 13-го дня всё повторяется», «дальше узор идёт по кругу» — это цикл: правило ходит по кругу с постоянным периодом (длиной круга).</span></button>
 <button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">res(200 : 12) = 8</span></button>
 <button class="art" data-art="2"><span class="lbl">Заметь главное</span><span class="val">«Потом снова 4 красные, 3 синие, 5 зелёных» значит, что бусина 13 такая же, как бусина 1, бусина 14 — как бусина 2, и так без конца.</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ а) = N(кругов до 250) · N(зел. в круге) + (сколько зелёных в хвосте длиной res(250 : per))</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val">Ответ а) = N(кругов до 250) · N(зелёных в круге) + N(зелёных в хвосте)</span></button>
 </aside>
 <main>
   
@@ -228,31 +234,33 @@
 <p class="st"><b>Пример.</b> «Ожерелье нанизывают по узору: 4 красные бусины, потом 3 синие, потом 5 зелёных, потом снова 4 красные, 3 синие, 5 зелёных — и так до конца нити. а) Сколько зелёных бусин среди первых 250? б) Какого цвета 227-я бусина? в) На какой по счёту бусине зелёных станет больше 60?»</p>
 <div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное</span><p>«Потом снова 4 красные, 3 синие, 5 зелёных» значит, что бусина 13 такая же, как бусина 1, бусина 14 — как бусина 2, и так без конца. Отсюда сразу две вещи. Первая: любой полный круг даёт одно и то же — 5 зелёных бусин, какой бы он ни был по счёту. Вторая: цвет конкретной бусины зависит <b>только</b> от того, какая она по счёту внутри круга, то есть от остатка при делении на 12. Поэтому 250 бусин считаются не по одной, а кругами.</p></div></div>
 <figure class='st'><div class='flab'>один круг — 12 бусин, дальше узор тот же самый</div><div style='display:grid;grid-template-columns:repeat(12,1fr);gap:4px;max-width:560px;margin-top:6px'><div class='flab' style='text-align:center'>1</div><div class='flab' style='text-align:center'>2</div><div class='flab' style='text-align:center'>3</div><div class='flab' style='text-align:center'>4</div><div class='flab' style='text-align:center'>5</div><div class='flab' style='text-align:center'>6</div><div class='flab' style='text-align:center'>7</div><div class='flab' style='text-align:center'>8</div><div class='flab' style='text-align:center'>9</div><div class='flab' style='text-align:center'>10</div><div class='flab' style='text-align:center'>11</div><div class='flab' style='text-align:center'>12</div></div><div style='display:grid;grid-template-columns:repeat(12,1fr);gap:4px;max-width:560px;margin-top:3px'><div style='background:#3a1c1c;border:1px solid #7a3030;color:var(--red);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>к</div><div style='background:#3a1c1c;border:1px solid #7a3030;color:var(--red);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>к</div><div style='background:#3a1c1c;border:1px solid #7a3030;color:var(--red);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>к</div><div style='background:#3a1c1c;border:1px solid #7a3030;color:var(--red);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>к</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>с</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>с</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>с</div><div style='background:#17301f;border:1px solid #2f6340;color:var(--green);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>з</div><div style='background:#17301f;border:1px solid #2f6340;color:var(--green);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>з</div><div style='background:#17301f;border:1px solid #2f6340;color:var(--green);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>з</div><div style='background:#17301f;border:1px solid #2f6340;color:var(--green);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>з</div><div style='background:#17301f;border:1px solid #2f6340;color:var(--green);font:14px var(--mono);text-align:center;border-radius:999px;padding:7px 0'>з</div></div><div class='frm' style='margin-top:16px'>per = 4 + 3 + 5 = 12, N(зел. в круге) = 5</div><div class='frm'>250 = 20 · 12 + 10</div><div class='frm'>227 = 18 · 12 + 11</div><div class='flab' style='margin-top:10px'><span style='color:var(--gold)'>остаток 11</span> — бусина 227 стоит в круге одиннадцатой, а одиннадцатое место круга зелёное</div><figcaption>Номер бусины сам по себе ничего не значит — значит только её место в круге, и это место называет остаток от деления на 12.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план.</b> Вопроса три, и все про далёкие бусины — по одной их не считают. Зато все три разбираются одним и тем же разложением «целые круги + хвост», а для него нужны две вещи: период <code>per</code> — длина круга, и вклад <code>N(зел. в круге)</code> — сколько зелёных бусин даёт один полный круг.</p>
-<p class="st">Двести пятьдесят бусин раскладываются делением с остатком, и каждый целый круг приносит по <code>N(зел. в круге)</code>:</p>
+<p class="step st"><b>Шаг 1 — план.</b> Вопроса три, и все про далёкие бусины — по одной их не считают. Зато все три разбираются одним и тем же разложением «целые круги + хвост», а для него нужны две вещи: период <code>per</code> — длина круга, и вклад <code>N(зелёных в круге)</code> — сколько зелёных бусин даёт один полный круг.</p>
+<p class="st">Двести пятьдесят бусин раскладываются делением с остатком, и каждый целый круг приносит по <code>N(зелёных в круге)</code>:</p>
 <div class="frm st">250 = N(кругов до 250) · per + res(250 : per)</div>
-<p class="st"><code>Ответ а) = N(кругов до 250) · N(зел. в круге) + (сколько зелёных в хвосте длиной res(250 : per))</code></p>
+<div class="frm st">Ответ а) = N(кругов до 250) · N(зелёных в круге) + N(зелёных в хвосте)</div>
 <p class="st">Бусина 227 — тот же приём, только нужен не итог, а место бусины внутри круга, и его говорит остаток:</p>
 <div class="frm st">227 = N(кругов до 227) · per + res(227 : per)</div>
 <div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">250 = N(кругов до 250) · per + res(250 : per)</div>
-<p class="st"><code>Ответ а) = N(кругов до 250) · N(зел. в круге) + (сколько зелёных в хвосте длиной res(250 : per))</code></p>
+<div class="frm st">Ответ а) = N(кругов до 250) · N(зелёных в круге) + N(зелёных в хвосте)</div>
 <div class="frm st">227 = N(кругов до 227) · per + res(227 : per)</div>
 <div class="frm st">Ответ б) = цвет бусины номер res(227 : per) внутри круга</div>
 <div class="frm st">Ответ в) = номер первой бусины, на которой зелёных станет больше 60</div>
-<p class="st"><code>per</code> — период, длина круга (бусин); <code>N(зел. в круге)</code> — сколько зелёных бусин в одном полном круге; <code>N(кругов до 250)</code> и <code>res(250 : per)</code> — сколько целых кругов и сколько бусин хвоста в двухстах пятидесяти; <code>N(кругов до 227)</code> и <code>res(227 : per)</code> — то же самое для 227 бусин.</p>
-<p class="st">Осталось найти: <code>per</code> и <code>N(зел. в круге)</code>, а по ним — <code>N(кругов до 250)</code>, <code>res(250 : per)</code>, <code>res(227 : per)</code>.</p></div></div>
-<p class="step st"><b>Шаг 2 — считаю <code>per</code> и <code>N(зел. в круге)</code>.</b> Круг — это 4 красные, 3 синие и 5 зелёных, потом всё сначала:</p>
+<p class="st"><code>per</code> — период, длина круга (бусин); <code>N(зелёных в круге)</code> — сколько зелёных бусин в одном полном круге; <code>N(кругов до 250)</code> и <code>res(250 : per)</code> — сколько целых кругов и сколько бусин хвоста в двухстах пятидесяти; <code>N(кругов до 227)</code> и <code>res(227 : per)</code> — то же самое для 227 бусин; <code>N(зелёных в хвосте)</code> — сколько зелёных среди первых <code>res(250 : per)</code> мест круга.</p>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li><code>per</code> и <code>N(зелёных в круге)</code> — прямо из узора, они нужны всем трём вопросам;</li><li><code>N(кругов до 250)</code> и <code>res(250 : per)</code> — делением с остатком, для а);</li><li><code>N(зелёных в хвосте)</code> — по местам внутри круга, для а);</li><li><code>res(227 : per)</code> — делением с остатком, для б).</li></ul></div></div>
+<p class="step st"><b>Шаг 2 — считаю <code>per</code> и <code>N(зелёных в круге)</code>.</b> Круг — это 4 красные, 3 синие и 5 зелёных, потом всё сначала:</p>
 <div class="frm st">per = 4 + 3 + 5 = 12</div>
 <p class="st">Зелёные в круге стоят на местах с 8-го по 12-е, их пять:</p>
-<div class="frm st">N(зел. в круге) = 5</div>
-<p class="step st"><b>Шаг 3 — а) сколько зелёных среди первых 250.</b> Раскладываю горизонт по первой строчке плана:</p>
+<div class="frm st">N(зелёных в круге) = 5</div>
+<p class="step st"><b>Шаг 3 — а) сколько зелёных среди первых 250.</b> Нужно, сколько тут целых кругов и какой длины хвост, — это первая строчка плана, деление с остатком:</p>
 <div class="frm st">250 = 20 · 12 + 10</div>
 <p class="st">Двадцать полных кругов и хвост в 10 бусин. Круги дают</p>
 <div class="frm st">20 · 5 = 100</div>
-<p class="st">Хвост считаю честно, по местам внутри круга: места 1–4 красные, 5–7 синие, 8–10 зелёные — значит в хвосте 3 зелёные.</p>
+<p class="st">Остался хвост, и его считаю честно, по местам внутри круга: места 1–4 красные, 5–7 синие, 8–10 зелёные.</p>
+<div class="frm st">N(зелёных в хвосте) = 3</div>
 <div class="frm st">Ответ а) = 100 + 3 = 103</div>
-<p class="step st"><b>Шаг 4 — б) какого цвета 227-я бусина.</b> Раскладываю 227 по третьей строчке плана:</p>
+<p class="step st"><b>Шаг 4 — б) какого цвета 227-я бусина.</b> Нужно место бусины 227 внутри своего круга — его, как сказано выше, называет остаток; раскладываю 227 по третьей строчке плана:</p>
 <div class="frm st">227 = 18 · 12 + 11</div>
 <p class="st">Остаток 11 — значит, бусина 227 стоит в своём круге одиннадцатой, а одиннадцатое место круга занимает <b>зелёная</b>.</p>
 <p class="step st"><b>Шаг 5 — в) когда зелёных станет больше 60.</b> Сначала грубо, целыми кругами до порога: 12 кругов дают <code>12 · 5 = 60</code> зелёных, и последняя из них — бусина <code>12 · 12 = 144</code>. Ровно 60 — это ещё не «больше», нужна 61-я зелёная. Теперь тонко, по хвосту: в 13-м круге бусины 145–148 красные, 149–151 синие, а бусина 152 — первая зелёная в круге. → <b>бусина 152</b></p>
@@ -264,8 +272,8 @@
 <p class="st"><b>El dibujo se repite cada 12 bolitas, así que solo miro el resto de dividir por 12.</b></p>
 <p class="st"><em>Узор повторяется через 12 бусин, поэтому смотрю только остаток от деления на 12.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>per</code> — период круга (бусин); <code>N(зел. в круге)</code> — зелёных в одном круге.</p>
-<ul class="st"><li><code>per = 4 + 3 + 5 = 12</code></li><li><code>N(зел. в круге) = 5</code> (места 8–12)</li><li>а) <code>250 = 20 · 12 + 10</code> → <code>20 · 5 = 100</code>, хвост 10 бусин даёт места 8, 9, 10 → <code>+3</code> → <b>103</b></li><li>б) <code>227 = 18 · 12 + 11</code>, то есть <code>res(227 : 12) = 11</code> → одиннадцатое место круга → <b>зелёная</b></li><li>в) <code>12 · 5 = 60</code> зелёных на бусине <code>12 · 12 = 144</code>; в 13-м круге первая зелёная — место 8 → <code>144 + 8</code> → <b>бусина 152</b></li></ul>
+<p class="st"><code>per</code> — период круга (бусин); <code>N(зелёных в круге)</code> — зелёных в одном круге.</p>
+<ul class="st"><li><code>per = 4 + 3 + 5 = 12</code></li><li><code>N(зелёных в круге) = 5</code> (места 8–12)</li><li>а) <code>250 = 20 · 12 + 10</code> → <code>20 · 5 = 100</code>, хвост 10 бусин даёт места 8, 9, 10 → <code>+3</code> → <b>103</b></li><li>б) <code>227 = 18 · 12 + 11</code>, то есть <code>res(227 : 12) = 11</code> → одиннадцатое место круга → <b>зелёная</b></li><li>в) <code>12 · 5 = 60</code> зелёных на бусине <code>12 · 12 = 144</code>; в 13-м круге первая зелёная — место 8 → <code>144 + 8</code> → <b>бусина 152</b></li></ul>
 <p class="st">Проверка б): <code>227 − 11 = 216 = 18 · 12</code> ✓</p>
 <p class="st"><b>Типичные ошибки:</b></p>
 <ol class="st num"><li><span class="lin">1.</span> <b>Остаток 0.</b> Если бы вышло <code>240 = 20·12 + 0</code>, это значило бы «бусина 240 — последняя в 20-м круге», а не «хвост нулевой длины» и не «начало нового круга». Проверь себя: бусина 12 — конец первого круга.</li><li><span class="lin">2.</span> <b>Хвост средней скоростью.</b> «В среднем 5/12 зелёной на бусину» — с этим числом хвост считается неверно: внутри круга зелёные лежат не поровну, а сплошным куском в конце. Хвост — только по местам.</li><li><span class="lin">3.</span> <b>«Больше 60» ≠ «ровно 60».</b> Вопрос про первую бусину, на которой зелёных стало <b>больше</b> порога; сравнивай строго — ровно 60 набралось ещё на бусине 144.</li></ol>
