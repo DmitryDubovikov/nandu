@@ -192,6 +192,39 @@
   .segn{color:var(--gold);font-size:13px}
   .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
 
+
+  /* ——— анимированные чертежи (иллюстрации из .vis.json) ———
+     Движение оправдано только там, где показывает ход: как отрезок переезжает,
+     как змейка обходит контур. Рисунок условия рисуется сразу и статично. */
+  figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;overflow:visible}
+  figure svg.narrow{max-width:520px}
+  figure{position:relative}
+  figure text{font-family:var(--sans)}
+  .fgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 22px;
+    max-width:760px;margin:0 auto}
+  .fgrid2 .cell svg{max-width:none}
+  .ccap{font-family:var(--sans);font-size:13px;line-height:1.45;color:var(--muted);
+    margin:6px 0 0;text-align:center}
+  .ccap b{color:#e8eef6;font-weight:600}
+  .replay{position:absolute;top:10px;right:12px;background:#1a2230;border:1px solid #2c394c;
+    color:var(--dim);border-radius:7px;font-family:var(--sans);font-size:12px;padding:4px 9px;
+    cursor:pointer;line-height:1}
+  .replay:hover{color:var(--gold);border-color:#6b5320}
+  /* Куда переезжает отрезок, задаёт сама иллюстрация: --to на элементе.
+     Без анимации он сразу лежит на месте назначения. */
+  .sl{transform-box:view-box;transform-origin:0 0;transform:var(--to)}
+  @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  @keyframes fin{from{opacity:0}to{opacity:1}}
+  @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
+    html.anim figure.fx:not(.seen) .fi{opacity:0}
+    html.anim figure.fx:not(.seen) .sl{transform:none}
+    html.anim figure.fx.seen .dr{stroke-dasharray:100;animation:drw var(--dur,2.2s) ease var(--d,0s) both}
+    html.anim figure.fx.seen .fi{animation:fin .55s ease var(--d,0s) both}
+    html.anim figure.fx.seen .sl{animation:sld 1.3s cubic-bezier(.55,0,.35,1) var(--d,0s) both}
+  }
+
   html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
   html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
 
@@ -203,7 +236,8 @@
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important}
-    .st{opacity:1;transform:none}
+    /* вес обязателен: иначе html.anim .st{opacity:0} перебивает и страница пуста */
+    .st,html.anim .st{opacity:1;transform:none}
   }
   @media print{
     aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
@@ -258,11 +292,11 @@ s − r = r/2</pre>
 <p class="st"><b>Лайфхаки.</b> Л5 (главный: разрезка на 5 равных → большой квадрат = 6/5 малого), Л4 + Л6 (середина M; BR = ½·AR — доли: AR две, BR одна), Л1. Косые MR, MS даны равенством — мерить нечего.</p>
 <p class="st"><b>Ловушка перевода.</b> Полоска разрезки <b>стоит</b>, а DEGH <b>лежит</b> — равенство «с поворотом»: длинная сторона полоски (q) = длинная сторона DEGH (q), короткая (q/5) = короткая (s − q). Кто сравнит «ширину с шириной», получит бессмыслицу. Вторая: в контуре MRSF отрезок R→S — сквозная вертикаль во всю высоту большого квадрата.</p>
 <h3 class="st">Этап 2 — решение (второй проход)</h3>
-<p class="step st"><b>Шаг 1 — нужны стороны обоих квадратов: причёсываю уравнение и считаю долю k.</b> Привожу подобные в первом уравнении:</p>
+<p class="step st"><b>Шаг 1 — первое уравнение целиком записано в долях k.</b> Привожу подобные в первом уравнении:</p>
 <div class="frm st">22k = 198</div>
 <div class="frm st">k = 198 : 22 = 9</div>
 <p class="st">Отсюда <b>малый квадрат 5k = 45, большой 6k = 54</b>.</p>
-<p class="step st"><b>Шаг 2 — нужны отрезки клюва: делю сторону на доли.</b> Уравнение s − r = r/2 говорит: остаток BR вдвое короче самого AR. Беру за долю половину AR — тогда AR это две доли, BR одна доля, а вся сторона 54 — три доли. Одна доля 54 : 3 = 18, значит</p>
+<p class="step st"><b>Шаг 2 — половина AR укладывается в стороне AB ровно три раза.</b> Уравнение s − r = r/2 говорит: остаток BR вдвое короче самого AR. Беру за долю половину AR — тогда AR это две доли, BR одна доля, а вся сторона 54 — три доли. Одна доля 54 : 3 = 18, значит</p>
 <p class="st">r = 2 · 18 = <b>36</b></p>
 <p class="st">Тогда BR = ES = <b>18</b>, а M — середина левой стороны, значит MA = MF = <b>27</b>.</p>
 <p class="step st"><b>Шаг 3 — сборка: считаю спрошенные периметры.</b></p>
@@ -319,6 +353,17 @@ s − r = r/2</pre>
         if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
+
+    // кнопка перезапуска — только у иллюстраций, где движение что-то показывает
+    document.querySelectorAll('figure.fx').forEach(function(f){
+      var b=document.createElement('button');
+      b.className='replay';b.type='button';b.textContent='↻ ещё раз';
+      b.addEventListener('click',function(){
+        f.classList.remove('seen');void f.offsetWidth;f.classList.add('seen');
+      });
+      f.appendChild(b);
+    });
+
     root.classList.add('anim');          // проявление включаем, только если всё живо
   }catch(err){
     root.classList.remove('anim');       // JS сломался — текст всё равно виден

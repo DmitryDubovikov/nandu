@@ -136,7 +136,8 @@
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important}
-    .st{opacity:1;transform:none}
+    /* вес обязателен: иначе html.anim .st{opacity:0} перебивает и страница пуста */
+    .st,html.anim .st{opacity:1;transform:none}
   }
 </style>
 </head>
