@@ -438,7 +438,7 @@ def xlink_html(x):
     if not x:
         return ''
     lbl, href, title = x
-    arrow = '←' if lbl.startswith('Теория') else '→'
+    arrow = '←' if lbl.startswith(('Теория', 'Задачи блока')) else '→'
     return (f'<p class="xlink"><a href="{href}">{arrow} {html.escape(lbl)}: '
             f'<b>{html.escape(plain(title))}</b></a></p>')
 
@@ -528,6 +528,31 @@ def razbor_links(src_path, chapters):
     return out
 
 
+def answer_links(chapters, names):
+    """Внутри решебника: блок задач ↔ его «ответы и боевые записи».
+
+    Ключ — заголовочный префикс («Блок 3», «Бонус-блок»), а не порядок глав:
+    ответы лежат отдельной пачкой в конце документа и нумерации не повторяют.
+    """
+    prob, ans = {}, {}
+    for n, c in enumerate(chapters):
+        m = re.match(r'^(Блок \d+|Бонус-блок)\s*[—–-]\s*(.*)$', plain(c['title']))
+        if m:
+            (ans if m.group(2).lower().startswith('ответы') else prob)[m.group(1)] = n
+    out = {}
+    for k, pn in prob.items():
+        an = ans.get(k)
+        if an is None:
+            continue
+        out.setdefault(pn, []).append(
+            ('Ответы и боевые записи', names[an], plain(chapters[an]['title'])))
+        out.setdefault(an, []).append(
+            ('Задачи блока', names[pn],
+             re.sub(r'\s*\((?:глава \d+|дополнение [^)]*)\)', '',
+                    plain(chapters[pn]['title']))))
+    return out
+
+
 def build_pages(md, visuals=None, src_path=None):
     visuals = visuals or {}
     kind = doc_kind(src_path)
@@ -537,6 +562,8 @@ def build_pages(md, visuals=None, src_path=None):
     xmap = crosslinks(src_path, chapters, names)
     for n, lk in razbor_links(src_path, chapters).items():
         xmap.setdefault(n, []).append(lk)
+    for n, lks in answer_links(chapters, names).items():
+        xmap.setdefault(n, []).extend(lks)
 
     for n, c in enumerate(chapters):
         # 1) какие блоки главы дают левую колонку
