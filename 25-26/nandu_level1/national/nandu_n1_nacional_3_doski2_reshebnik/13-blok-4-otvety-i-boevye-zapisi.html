@@ -252,18 +252,11 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 13 из 17</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">En cada fila y en cada columna cada número aparece una sola vez, así que al ubicar uno tacho su fila y su columna.<br><em>В каждой строке и в каждом столбце число встречается один раз, — поставив его, вычёркиваю его строку и столбец.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">строки a, b, c, d; клетка b₂: вычёркивание по строке и по столбцу оставляет кандидатов 1, 3, 4</span></button>
-<button class="art cont" data-art="2"><span class="val f">ветка «1»: b = 2 1 4 3, c = 3 4 1 2 или 3 4 2 1 → N(ветка «1») = 2</span></button>
-<button class="art cont" data-art="3"><span class="val f">ветка «3»: b = 2 3 4 1, дальше без выбора → N(ветка «3») = 1</span></button>
-<button class="art cont" data-art="4"><span class="val f">ветка «4»: b = 2 4 1 3, дальше без выбора → N(ветка «4») = 1</span></button>
-<button class="art cont" data-art="5"><span class="val f">N(квадратов) = 2 + 1 + 1 = 4</span></button>
-<button class="art" data-art="6"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.<br><em>Проверил всех возможных кандидатов этой клетки, остальные не подходят под правило латинского квадрата, — поэтому других нет.</em></span></button>
-<button class="art" data-art="7"><span class="lbl">💬 Фраза</span><span class="val ph">En cada fila y en cada columna cada número aparece una sola vez, así que al ubicar uno tacho su fila y su columna.<br><em>В каждой строке и в каждом столбце число встречается один раз, — поставив его, вычёркиваю его строку и столбец.</em></span></button>
-<button class="art" data-art="8"><span class="lbl">На туре</span><span class="val f">строки a, b, c, d; клетка a₂: не 1 (строка), не 2 (столбец) → кандидаты 3 и 4</span></button>
-<button class="art cont" data-art="9"><span class="val f">ветка «3»: 1 3 4 2 / 4 2 1 3 / 2 4 3 1 / 3 1 2 4 → N(ветка «3») = 1</span></button>
-<button class="art cont" data-art="10"><span class="val f">ветка «4»: 1 4 2 3 / 3 2 4 1 / 4 1 3 2 / 2 3 1 4 → N(ветка «4») = 1</span></button>
-<button class="art cont" data-art="11"><span class="val f">N(достроек) = 1 + 1 = 2</span></button>
-<button class="art" data-art="12"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.<br><em>Проверил всех возможных кандидатов этой клетки, остальные не подходят под правило латинского квадрата, — поэтому других нет.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">N(квадратов) = 1 + 2 + 1 = 4</span></button>
+<button class="art" data-art="2"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.<br><em>Проверил всех возможных кандидатов этой клетки, остальные не подходят под правило латинского квадрата, — поэтому других нет.</em></span></button>
+<button class="art" data-art="3"><span class="lbl">💬 Фраза</span><span class="val ph">En cada fila y en cada columna cada número aparece una sola vez, así que al ubicar uno tacho su fila y su columna.<br><em>В каждой строке и в каждом столбце число встречается один раз, — поставив его, вычёркиваю его строку и столбец.</em></span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">N(достроек) = 1 + 1 = 2</span></button>
+<button class="art" data-art="5"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.<br><em>Проверил всех возможных кандидатов этой клетки, остальные не подходят под правило латинского квадрата, — поэтому других нет.</em></span></button>
 </aside>
 <main>
   
@@ -271,84 +264,118 @@
   <p class="sub">Доски 2 — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>4.1</td><td><b>1</b> — квадрат 1 3 2 / 3 2 1 / 2 1 3</td><td>строки a, b, c сверху вниз; клетка a₂: вычёркивание строки {1} и столбца {2} → только 3; дальше каждая клетка достраивается единственно — цепочка без единого ветвления</td></tr>
-<tr><td>4.2</td><td><b>4</b></td><td>строки a, b, c, d сверху вниз; a и d заданы, свободны b и c; в каждом столбце для них осталась пара: {2,3}, {1,4}, {1,4}, {2,3}; собираю строку <b>b</b>: средние столбцы делят между собой 1 и 4 (2 порядка) И крайние делят 2 и 3 (2 порядка) — пары не зацеплены, значит перемножаю → 4; строка <b>c</b> после этого достраивается сама: в каждом столбце остаётся ровно одно неиспользованное число</td></tr>
+<tr><td>4.1</td><td><b>1</b> квадрат</td><td>строки a, b, c сверху вниз; клетка с одним кандидатом находится сразу и дальше каждый раз: a₂ — не 1 (строка), не 2 (столбец) → 3, значит a₃ = 2; b₁: в столбце 1 уже 1, в строке b уже 2 → 3, значит b₃ = 1; c₁ и c₂ дописываются остатками столбцов → выбора не было ни разу, квадрат один</td></tr>
+<tr><td>4.2</td><td><b>4</b></td><td>строки a, b, c, d сверху вниз, заданы a и d; клетки с одним кандидатом нет — у каждой ровно два, беру верхнюю левую <code>b₁</code>: в столбце 1 стоят 1 и 4 → кандидаты 2 и 3. После любого из них три клетки вынуждены (b₄, c₁, c₄), а потом снова выбор из двух — у <code>b₂</code> (в столбце 2 стоят 2 и 3 → 1 или 4), и дальше всё дописывается. Два ветвления по два: <b>2 × 2 = 4</b></td></tr>
 </table></div></div>
+<p class="st"><b>4.1 — все квадраты (их один):</b></p>
+<pre class="ascii st">   1 3 2
+   3 2 1
+   2 1 3</pre>
+<p class="st"><b>4.2 — четыре достройки</b> (в записи достаточно счёта веток, квадраты выписывать не просят):</p>
+<pre class="ascii st">   1 2 3 4     1 2 3 4     1 2 3 4     1 2 3 4
+   2 1 4 3     2 4 1 3     3 1 4 2     3 4 1 2
+   3 4 1 2     3 1 4 2     2 4 1 3     2 1 4 3
+   4 3 2 1     4 3 2 1     4 3 2 1     4 3 2 1</pre>
 <div class="frm st">4.3 — ответ: 4 квадрата (жанр — список!)</div>
 <pre class="ascii st">   1 2 3 4     1 2 3 4     1 2 3 4     1 2 3 4
-   2 1 4 3     2 1 4 3     2 3 4 1     2 4 1 3
-   3 4 1 2     3 4 2 1     3 4 1 2     3 1 4 2
-   4 3 2 1     4 3 1 2     4 1 2 3     4 3 2 1</pre>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Строки сверху вниз — a, b, c, d. Нужно место, где выбор всего один, — беру самую зажатую клетку <code>b₂</code>: вычёркивание по строке и по столбцу оставляет ей кандидатов 1, 3, 4 (двойку запрещают и строка, и столбец). Дальше каждая ветка достраивается сама по себе.</p>
+   2 4 1 3     2 1 4 3     2 1 4 3     2 3 4 1
+   3 1 4 2     3 4 1 2     3 4 2 1     3 4 1 2
+   4 3 2 1     4 3 2 1     4 3 1 2     4 1 2 3</pre>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Первая строка и первый столбец уже даны — неизвестен только угол 3×3, девять клеток. И у каждой из этих девяти сразу два запрета: своя строка и свой столбец. Поэтому клетки заполняются не в порядке чтения, а по зажатости: первой идёт та, у которой кандидатов меньше всего. Пока есть клетка с единственным кандидатом, ветвиться не нужно — её значение просто дописывается; ветвление начинается только там, где ни одной такой клетки не осталось.</p></div>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Строки сверху вниз — a, b, c, d; столбцы слева направо — 1, 2, 3, 4. Смотрю, нет ли клетки с единственным кандидатом: нет, у каждой клетки угла их минимум два. Значит ветвиться приходится сразу — беру самую зажатую, а из равных верхнюю левую. Это <code>b₃</code>: двойку запрещает строка b, тройку — столбец 3, остаются 1 и 4.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(квадратов) = N(ветка «1») + N(ветка «3») + N(ветка «4»)</div>
-<p class="st">где ветки — это кандидаты клетки b₂.</p></div>
-<p class="step st"><b>Шаг 2 — считаем N(ветка «1»).</b> Здесь b₂ = 1, и строка b достраивается без выбора:</p>
-<ul class="st"><li>в строке b остались 3 и 4; над b₃ стоит a₃ = 3 → b₃ = 4, b₄ = 3</li><li><b>строка b = 2 1 4 3</b></li></ul>
-<p class="st">Дальше строка c: начинается с 3, в ней остались 1, 2, 4; в столбце 2 уже стоят 2 и 1 → c₂ = 4. А столбцы 3 и 4 делят 1 и 2 в любом порядке — отсюда две достройки:</p>
-<ul class="st"><li>c = 3 4 1 2, d = 4 3 2 1</li><li>c = 3 4 2 1, d = 4 3 1 2</li></ul>
-<p class="st">→ <b>N(ветка «1») = 2</b></p>
-<p class="step st"><b>Шаг 3 — считаем N(ветка «3»).</b> Здесь b₂ = 3, и выбора не остаётся нигде:</p>
-<ul class="st"><li>в строке b остались 1 и 4; в столбце 4 четвёрка занята → <b>строка b = 2 3 4 1</b></li><li>в столбце 4 стоят 4 и 1 → c₄ = 2, дальше 1 и 4 встают без выбора → <b>строка c = 3 4 1 2</b></li><li>остатками достраивается <b>строка d = 4 1 2 3</b></li></ul>
-<p class="st">→ <b>N(ветка «3») = 1</b></p>
-<p class="step st"><b>Шаг 4 — считаем N(ветка «4»).</b> Здесь b₂ = 4, и снова всё вынуждено:</p>
-<ul class="st"><li>в строке b остались 1 и 3; в столбце 3 тройка занята → <b>строка b = 2 4 1 3</b></li><li>в столбце 2 заняты 2 и 4 → c₂ = 1; в столбце 4 заняты 4 и 3 → c₄ = 2 → <b>строка c = 3 1 4 2</b></li><li>остатками достраивается <b>строка d = 4 3 2 1</b></li></ul>
-<p class="st">→ <b>N(ветка «4») = 1</b></p>
-<p class="step st"><b>Шаг 5 — сборка.</b> Складываю ветки:</p>
-<div class="frm st">N(квадратов) = N(ветка «1») + N(ветка «3») + N(ветка «4») = 2 + 1 + 1 = 4</div>
-<p class="st">Других нет: у клетки b₂ кандидатов ровно три, они перебраны по порядку, а внутри каждой ветки достройка шла вычёркиванием до упора.</p>
+<div class="frm st">N(квадратов) = N(ветка b₃ = 1) + N(ветка b₃ = 4)</div></div>
+<p class="step st"><b>Шаг 2 — в ветке b₃ = 1 каждый раз находится клетка с единственным кандидатом.</b></p>
+<ul class="st"><li><code>b₄</code>: в строке b остались 3 и 4, а в столбце 4 четвёрка уже стоит → b₄ = 3, и строке b остаётся одно свободное место → b₂ = 4</li><li><code>c₂</code>: в строке c остались 1, 2, 4, а в столбце 2 уже стоят 2 и 4 → c₂ = 1</li><li><code>c₄</code>: в строке c остались 2 и 4, а в столбце 4 уже стоят 4 и 3 → c₄ = 2, значит c₃ = 4</li><li>строка d дописывается остатками столбцов → d = 4 3 2 1</li></ul>
+<p class="st">→ <b>N(ветка b₃ = 1) = 1</b></p>
+<p class="step st"><b>Шаг 3 — в ветке b₃ = 4 строка b не дописывается: у b₂ два кандидата.</b> В строке b остались 1 и 3; столбец 2 (в нём стоит 2) не запрещает ни одного из них, столбец 4 (в нём 4) — тоже. Клетки с единственным кандидатом нет и здесь, поэтому ветвлюсь второй раз — по b₂.</p>
+<p class="step st"><b>Шаг 3а — подветка b₂ = 1.</b></p>
+<ul class="st"><li>в строке b остаётся 3 → b₄ = 3, строка <b>b = 2 1 4 3</b></li><li><code>c₂</code>: в строке c остались 1, 2, 4, а в столбце 2 уже стоят 2 и 1 → c₂ = 4</li><li><code>c₃</code> и <code>c₄</code>: в строке c остались 1 и 2, и ни столбец 3 (3, 4), ни столбец 4 (4, 3) их не запрещают — оба порядка годятся, и строка d в каждом случае дописывается остатками:</li><li>c = 3 4 1 2, d = 4 3 2 1</li><li>c = 3 4 2 1, d = 4 3 1 2</li></ul>
+<p class="st">→ <b>N(подветка b₂ = 1) = 2</b></p>
+<p class="step st"><b>Шаг 3б — подветка b₂ = 3.</b></p>
+<ul class="st"><li>в строке b остаётся 1 → b₄ = 1, строка <b>b = 2 3 4 1</b></li><li><code>c₄</code>: в строке c остались 1, 2, 4, а в столбце 4 уже стоят 4 и 1 → c₄ = 2</li><li><code>c₃</code>: в строке c остались 1 и 4, а в столбце 3 уже стоят 3 и 4 → c₃ = 1, значит c₂ = 4</li><li>строка d дописывается остатками → d = 4 1 2 3</li></ul>
+<p class="st">→ <b>N(подветка b₂ = 3) = 1</b></p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Складываю подветки, потом ветки:</p>
+<div class="frm st">N(ветка b₃ = 4) = 2 + 1 = 3</div>
+<div class="frm st">N(квадратов) = N(ветка b₃ = 1) + N(ветка b₃ = 4) = 1 + 3 = 4</div>
+<p class="st">Других нет: ветвление шло только там, где у самой зажатой клетки было больше одного кандидата, и все её кандидаты перебраны.</p>
 <h3 class="st">✍ 4.3 — что достаточно написать на туре</h3>
-<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Жанр здесь — список, поэтому на бумагу идут сами квадраты; счёт по веткам показывает, что список полон.</em></p>
+<p class="st"><em>На бумаге — сетки, а не строчки текста: шесть маленьких квадратов, четыре из них и есть ответ. Новая сетка рисуется только на ветвлении, а не на каждой попытке.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <div id="a0" data-art="0"><p class="st"><b>En cada fila y en cada columna cada número aparece una sola vez, así que al ubicar uno tacho su fila y su columna.</b></p></div>
 <p class="st"><em>В каждой строке и в каждом столбце число встречается один раз, — поставив его, вычёркиваю его строку и столбец.</em></p>
 <h4 class="st">Запись</h4>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(квадратов) = N(ветка «1») + N(ветка «3») + N(ветка «4»)</div></div>
-<div id="a4" data-art="4"><ul class="st"><li>строки a, b, c, d; клетка b₂: вычёркивание по строке и по столбцу оставляет кандидатов 1, 3, 4</li><li>ветка «1»: b = 2 1 4 3, c = 3 4 1 2 или 3 4 2 1 → N(ветка «1») = 2</li><li>ветка «3»: b = 2 3 4 1, дальше без выбора → N(ветка «3») = 1</li><li>ветка «4»: b = 2 4 1 3, дальше без выбора → N(ветка «4») = 1</li></ul></div>
-<div id="a5" data-art="5"><div class="frm st">N(квадратов) = 2 + 1 + 1 = 4</div></div>
-<p class="st">Сами квадраты выписываю столбиком; проверка: в каждой строке и каждом столбце по 1, 2, 3, 4 ✓</p>
+<p class="st"><b>1.</b> Рисую сетку, вписываю данное. Клетке b₃ нельзя 2 (строка) и 3 (столбец) — остаются 1 и 4:</p>
+<pre class="ascii st">   1 2 3 4
+   2 · ? ·       ? = b₃: 1 или 4
+   3 · · ·
+   4 · · ·</pre>
+<p class="st"><b>2.</b> Ветка b₃ = 1 — дальше ни одного выбора:</p>
+<pre class="ascii st">   1 2 3 4
+   2 4 1 3
+   3 1 4 2
+   4 3 2 1</pre>
+<p class="st"><b>3.</b> Ветка b₃ = 4 — у b₂ два кандидата, 1 и 3. При b₂ = 1 ещё раз выбор: c₃ и c₄ делят 1 и 2 в любом порядке:</p>
+<pre class="ascii st">   1 2 3 4        1 2 3 4
+   2 1 4 3        2 1 4 3
+   3 4 1 2        3 4 2 1
+   4 3 2 1        4 3 1 2</pre>
+<p class="st">При b₂ = 3 выбора нет:</p>
+<pre class="ascii st">   1 2 3 4
+   2 3 4 1
+   3 4 1 2
+   4 1 2 3</pre>
+<p class="st"><b>4.</b> Считаю ветки:</p>
+<div id="a1" data-art="1"><div class="frm st">N(квадратов) = 1 + 2 + 1 = 4</div></div>
+<p class="st">Проверка: в каждой строке и каждом столбце по 1, 2, 3, 4 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a6" data-art="6"><p class="st"><b>Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.</b></p></div>
+<div id="a2" data-art="2"><p class="st"><b>Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.</b></p></div>
 <p class="st"><em>Проверил всех возможных кандидатов этой клетки, остальные не подходят под правило латинского квадрата, — поэтому других нет.</em></p>
 <div class="frm st">4.4 — ответ: 2</div>
-<pre class="ascii st">   ┌───┬───┬───┬───┐
-   │ 1 │   │   │   │   строки сверху вниз: a, b, c, d
-   ├───┼───┼───┼───┤
-   │   │ 2 │   │   │   заполнена только диагональ
-   ├───┼───┼───┼───┤
-   │   │   │ 3 │   │
-   ├───┼───┼───┼───┤
-   │   │   │   │ 4 │
-   └───┴───┴───┴───┘</pre>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Диагональ уже дала каждой строке и каждому столбцу по одному числу — значит у любой пустой клетки сразу два запрета, и кандидатов у неё не больше двух.</p></div>
+<pre class="ascii st">   1 · · ·      строки сверху вниз: a, b, c, d
+   · 2 · ·      заполнена только диагональ
+   · · 3 ·
+   · · · 4</pre>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Диагональ дала каждой строке и каждому столбцу по одному числу — значит у любой пустой клетки сразу два запрета и кандидатов не больше двух. Клетки с единственным кандидатом в начале нет, поэтому ветвиться приходится сразу; зато после первого выбора клетка с одним кандидатом находится каждый раз — и так до самого низа.</p></div>
 <figure class="st"><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start"><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">заполнена только диагональ</div><div style="display:inline-grid;grid-template-columns:repeat(4,40px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:#16263a;border:1px solid #3d5a82;color:var(--blue)">3/4</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">2</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">3</span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:transparent;border:1px dashed #2c394c;color:var(--muted)"></span><span style="display:flex;align-items:center;justify-content:center;width:40px;height:36px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">4</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">кандидаты клетки (1, 2)</div><div class="flab" style="margin-top:0px"><span style="color:var(--red)">не 1</span> — единица уже стоит в этой строке</div><div class="flab" style="margin-top:0px"><span style="color:var(--red)">не 2</span> — двойка уже стоит в этом столбце</div><div class="flab" style="margin-top:6px">остаются <span style="color:var(--blue)">3 и 4</span> — ровно две ветки</div></div></div><div class="flab" style="margin-top:12px">дальше выбора нет: как только в строке появилось второе число, два оставшихся расходятся по двум клеткам вынужденно — одно из них диагональ уже поставила в свой столбец</div><figcaption>Диагональ бьёт каждую пустую клетку сразу с двух сторон, поэтому кандидатов у неё не больше двух — и весь квадрат висит на одной-единственной развилке.</figcaption></figure>
-<p class="st">А как только в строке появляется ещё одно число, два оставшихся расходятся по двум клеткам без выбора: одно из них обязательно стоит на диагонали в своём столбце и туда не пройдёт.</p>
-<p class="st">Поэтому одна клетка <code>a₂</code> достраивает всю строку a, строка a — строку b, и так до низа: <b>выбор бывает ровно один раз</b>.</p>
-<p class="step st"><b>Шаг 1 — план счёта.</b> Строки сверху вниз — a, b, c, d. Заполнена только диагональ, поэтому нужна клетка, у которой уже сейчас мало кандидатов, — беру <code>a₂</code>: вычёркивание даёт не 1 (строка), не 2 (столбец) → остаются ветки «3» и «4», и каждая тянет за собой целые строки.</p>
+<p class="step st"><b>Шаг 1 — план счёта.</b> Строки сверху вниз — a, b, c, d. Самая зажатая клетка (из равных беру верхнюю левую) — <code>a₂</code>: единицу запрещает строка a, двойку — столбец 2, остаются 3 и 4.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(достроек) = N(ветка «3») + N(ветка «4»)</div>
-<p class="st">где ветки — это кандидаты клетки a₂.</p></div>
-<p class="step st"><b>Шаг 2 — считаем N(ветка «3»).</b> Здесь a₂ = 3, в строке a остались 2 и 4. На диагонали столбца 3 стоит 3, столбца 4 — 4; четвёрке в столбец 4 нельзя, значит a₃ = 4, a₄ = 2. Строка <b>a = 1 3 4 2</b>. Строка b: на диагонали b₂ = 2, в столбце 1 уже стоит 1 — остаются 3 и 4. Дальше вычёркивание по столбцам:</p>
-<ul class="st"><li>в столбце 3 стоят 4 (сверху) и 3 (диагональ) → туда годится только 1</li><li>в столбце 4 стоят 2 и 4 → туда только 3</li><li>значит b₁ = 4</li></ul>
-<p class="st">Строка <b>b = 4 2 1 3</b>. Строка c: на диагонали c₃ = 3. В столбце 1 заняты 1 и 4, остаются 2 и 3, но тройка в этой строке уже есть → c₁ = 2. В столбце 4 стоят 2 и 3, остаются 1 и 4 — но четвёрку в нём заберёт d₄, значит c₄ = 1. Тогда c₂ = 4. Строка <b>c = 2 4 3 1</b>. Строка d — остатки столбцов: <b>3 1 2 4</b>. Выбора не было ни разу → <b>N(ветка «3») = 1</b>.</p>
-<p class="step st"><b>Шаг 3 — считаем N(ветка «4»).</b> Здесь a₂ = 4, в строке a остались 2 и 3. На диагонали столбца 3 стоит 3 — тройке туда нельзя, значит a₃ = 2, a₄ = 3. Строка <b>a = 1 4 2 3</b>. Строка b: на диагонали b₂ = 2, в столбце 1 уже стоит 1. В столбце 4 стоят 3 (сверху) и 4 (диагональ) — туда годится только 1, b₄ = 1. В столбце 3 стоят 2 (сверху) и 3 (диагональ) — туда из оставшихся годится 4, b₃ = 4. Тогда b₁ = 3. Строка <b>b = 3 2 4 1</b>. Строка c: на диагонали c₃ = 3. В столбце 2 заняты 4 и 2 — c₂ = 1. В столбце 4 стоят 3 и 1, а четвёрку заберёт d₄ — значит c₄ = 2. Тогда c₁ = 4. Строка <b>c = 4 1 3 2</b>. Строка d — остатки столбцов: <b>2 3 1 4</b>. Снова без единого выбора → <b>N(ветка «4») = 1</b>.</p>
+<div class="frm st">N(достроек) = N(ветка a₂ = 3) + N(ветка a₂ = 4)</div></div>
+<p class="step st"><b>Шаг 2 — в ветке a₂ = 3 каждый раз находится клетка с единственным кандидатом.</b></p>
+<ul class="st"><li><code>a₄</code>: в строке a остались 2 и 4, а в столбце 4 четвёрка стоит на диагонали → a₄ = 2, значит a₃ = 4</li><li><code>b₃</code>: в строке b осталось 1, 3, 4, а в столбце 3 уже стоят 4 и 3 → b₃ = 1</li><li><code>b₄</code>: в строке b остались 3 и 4, а в столбце 4 уже стоят 2 и 4 → b₄ = 3, значит b₁ = 4</li><li><code>c₁</code>: в строке c осталось 1, 2, 4, а в столбце 1 уже стоят 1 и 4 → c₁ = 2</li><li><code>c₄</code>: в строке c остались 1 и 4, а в столбце 4 уже стоят 2, 3, 4 → c₄ = 1, значит c₂ = 4</li><li>строка d дописывается остатками столбцов → d = 3 1 2 4</li></ul>
+<p class="st">→ <b>N(ветка a₂ = 3) = 1</b></p>
+<p class="step st"><b>Шаг 3 — в ветке a₂ = 4 всё так же вынуждено.</b></p>
+<ul class="st"><li><code>a₃</code>: в строке a остались 2 и 3, а в столбце 3 тройка стоит на диагонали → a₃ = 2, значит a₄ = 3</li><li><code>b₄</code>: в строке b осталось 1, 3, 4, а в столбце 4 уже стоят 3 и 4 → b₄ = 1</li><li><code>b₃</code>: в строке b остались 3 и 4, а в столбце 3 уже стоят 2 и 3 → b₃ = 4, значит b₁ = 3</li><li><code>c₂</code>: в строке c осталось 1, 2, 4, а в столбце 2 уже стоят 4 и 2 → c₂ = 1</li><li><code>c₄</code>: в строке c остались 2 и 4, а в столбце 4 уже стоят 3, 1, 4 → c₄ = 2, значит c₁ = 4</li><li>строка d дописывается остатками → d = 2 3 1 4</li></ul>
+<p class="st">→ <b>N(ветка a₂ = 4) = 1</b></p>
 <p class="step st"><b>Шаг 4 — сборка.</b> Складываю ветки:</p>
-<div class="frm st">N(достроек) = N(ветка «3») + N(ветка «4») = 1 + 1 = 2 способа</div>
-<p class="st">Других нет: у клетки a₂ кандидатов ровно два, они перебраны оба, а внутри каждой ветки выбора не было ни разу — каждая клетка достраивалась вычёркиванием однозначно.</p>
+<div class="frm st">N(достроек) = N(ветка a₂ = 3) + N(ветка a₂ = 4) = 1 + 1 = 2 способа</div>
+<p class="st">Других нет: у клетки a₂ кандидатов ровно два, оба перебраны, а внутри каждой ветки выбора не было ни разу.</p>
 <h3 class="st">✍ 4.4 — что достаточно написать на туре</h3>
-<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<p class="st"><em>На бумаге — три сетки: одна с диагональю и две достроенные.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a7" data-art="7"><p class="st"><b>En cada fila y en cada columna cada número aparece una sola vez, así que al ubicar uno tacho su fila y su columna.</b></p></div>
+<div id="a3" data-art="3"><p class="st"><b>En cada fila y en cada columna cada número aparece una sola vez, así que al ubicar uno tacho su fila y su columna.</b></p></div>
 <p class="st"><em>В каждой строке и в каждом столбце число встречается один раз, — поставив его, вычёркиваю его строку и столбец.</em></p>
 <h4 class="st">Запись</h4>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(достроек) = N(ветка «3») + N(ветка «4»)</div></div>
-<div id="a10" data-art="10"><ul class="st"><li>строки a, b, c, d; клетка a₂: не 1 (строка), не 2 (столбец) → кандидаты 3 и 4</li><li>ветка «3»: 1 3 4 2 / 4 2 1 3 / 2 4 3 1 / 3 1 2 4 → N(ветка «3») = 1</li><li>ветка «4»: 1 4 2 3 / 3 2 4 1 / 4 1 3 2 / 2 3 1 4 → N(ветка «4») = 1</li></ul></div>
-<div id="a11" data-art="11"><div class="frm st">N(достроек) = 1 + 1 = 2</div></div>
+<p class="st"><b>1.</b> Сетка с диагональю. Клетке a₂ нельзя 1 (строка) и 2 (столбец) — остаются 3 и 4:</p>
+<pre class="ascii st">   1 ? · ·      ? = a₂: 3 или 4
+   · 2 · ·
+   · · 3 ·
+   · · · 4</pre>
+<p class="st"><b>2.</b> Ветка a₂ = 3 — дальше ни одного выбора:</p>
+<pre class="ascii st">   1 3 4 2
+   4 2 1 3
+   2 4 3 1
+   3 1 2 4</pre>
+<p class="st"><b>3.</b> Ветка a₂ = 4 — тоже без выбора:</p>
+<pre class="ascii st">   1 4 2 3
+   3 2 4 1
+   4 1 3 2
+   2 3 1 4</pre>
+<p class="st"><b>4.</b> Считаю ветки:</p>
+<div id="a4" data-art="4"><div class="frm st">N(достроек) = 1 + 1 = 2</div></div>
 <p class="st">Проверка: в каждой строке и каждом столбце по 1, 2, 3, 4, на диагонали 1, 2, 3, 4 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a12" data-art="12"><p class="st"><b>Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.</b></p></div>
+<div id="a5" data-art="5"><p class="st"><b>Probé todos los candidatos posibles de esa casilla y los demás no cumplen la regla del cuadrado latino, por eso no hay más que estos.</b></p></div>
 <p class="st"><em>Проверил всех возможных кандидатов этой клетки, остальные не подходят под правило латинского квадрата, — поэтому других нет.</em></p>
 <p class="xlink"><a href="04-blok-4-latinskiy-kvadrat-glava-4.html">← Задачи блока: <b>Блок 4 — Латинский квадрат</b></a></p><div class="pager"><a href="12-blok-3-otvety-i-boevye-zapisi.html">← Блок 3 — ответы и боевые записи</a><a href="14-blok-5-otvety-i-boevye-zapisi.html">Блок 5 — ответы и боевые записи →</a></div>
 </main>

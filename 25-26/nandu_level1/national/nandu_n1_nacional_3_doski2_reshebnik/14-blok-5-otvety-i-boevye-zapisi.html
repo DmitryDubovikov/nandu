@@ -339,7 +339,14 @@
 <div id="a0" data-art="0"><p class="st"><b>Elegido t₁, todas las demás casillas quedan obligadas, así que solo pruebo los valores posibles de t₁.</b></p></div>
 <p class="st"><em>Как только выбрано t₁, все остальные клетки определены, — поэтому перебираю только возможные t₁.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">Период 3 в обе стороны → вся доска это квадрат 3×3: верх (t₁, t₂, t₃), вторая (m₁, m₂, m₃), третья (n₁, n₂, n₃); 4-я строка повторяет 1-ю. Зову x = t₁.</p>
+<p class="st">Период 3 в обе стороны → вся доска это квадрат 3×3; 4-я строка повторяет 1-ю. Рисую его и вписываю данные:</p>
+<pre class="ascii st">   t₁   7   t₃        каждая строка и каждый столбец
+   6   m₂  m₃         этого квадрата даёт 24
+   n₁   8   n₃</pre>
+<p class="st">Зову x = t₁ и заполняю квадрат до конца:</p>
+<pre class="ascii st">     x    7   17−x
+     6    9    9
+   18−x   8   x−2</pre>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">N(заполнений) = N(годных x)</div></div></div>
 <div id="a5" data-art="5"><ul class="st"><li>данные на полочки: res(2 : 3) = 2 → t₂ = 7; res(4 : 3) = 1 → m₁ = 6; res(5 : 3) = 2 → n₂ = 8</li><li>средний столбец: 7 + m₂ + 8 = 24 → m₂ = 9; вторая строка: m₃ = 9</li><li>t₃ = 17 − x; n₁ = 18 − x; n₃ = x − 2</li><li>все клетки ≥ 1: жадные границы n₃ → x ≥ 3 и t₃ → x ≤ 16</li></ul></div>
