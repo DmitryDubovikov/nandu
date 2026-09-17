@@ -348,6 +348,14 @@ def dry_spec(blocks):
         if k in ('h1', 'h2', 'h3'):
             in_battle = bool(BATTLE_H.match(v))
             continue
+        # ✍-блок обязан кончиться там же, где он кончается в боевой ветке:
+        # своего заголовка у следующего разбора нет, он набран жирным абзацем.
+        # Без этого всё, что стоит в главе ПОСЛЕ первого ✍-блока (наблюдения и
+        # планы следующих примеров), молча выпадало из сухого остатка.
+        if in_battle and k == 'h4' and not BATTLE_H4.match(v):
+            in_battle = False
+        if in_battle and k == 'p' and BATTLE_END.match(v.strip()):
+            in_battle = False
         if in_battle:
             continue          # ✍-блок разобранного примера в сухой остаток не идёт
         if k == 'p' and re.match(r'^\*\*(Разобранный пример|Пример|Разбор|Шаг \d)', v):
