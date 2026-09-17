@@ -253,7 +253,9 @@
   <p class="rtitle">Сухой остаток главы</p>
   <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Машина прежняя: якорь → самая зажатая клетка → перебор по порядку.</span></button>
 <button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">После a₃ остались цифры 1, 2, 3, 5, их сумма 11.</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары)<br><br>где<br>- N(расстановок левой пары) — сколькими способами пара первых двух клеток…</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары)<br><br>где<br>- N(расстановок левой пары) — сколькими способами два числа левой пары…</span></button>
+<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Пары с суммой 9 — {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5} — разбирают все десять цифр без остатка, каждая цифра ровно в одной паре.</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">N(таблиц) = N(пар верха) × 2 × N(пар низа) × 2<br><br>где двойки — порядки внутри строк: пару {0, 9} можно записать как 0 9 и как 9 0, и это две разные…</span></button>
 </aside>
 <main>
   <p class="partlab">Часть A — Числовые доски</p>
@@ -278,27 +280,28 @@
 <div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары)</div>
 <p class="st">где</p>
-<ul class="st"><li><b>N(расстановок левой пары)</b> — сколькими способами пара первых двух клеток встаёт по этим двум клеткам;</li><li><b>N(расстановок правой пары)</b> — то же для двух последних клеток.</li></ul>
-<p class="st">Осталось найти: N(расстановок левой пары) и N(расстановок правой пары).</p></div></div>
+<ul class="st"><li><b>N(расстановок левой пары)</b> — сколькими способами два числа левой пары раскладываются по клеткам a₁ и a₂;</li><li><b>N(расстановок правой пары)</b> — то же для чисел правой пары по клеткам a₄ и a₅.</li></ul>
+<p class="st">Осталось найти: какие два числа стоят слева и какие справа, а потом N(расстановок левой пары) и N(расстановок правой пары).</p></div></div>
 <p class="step st"><b>Шаг 2 — пары.</b></p>
 <div class="frm st">a₁ + a₂ = 9 − 4 = 5</div>
 <div class="frm st">a₄ + a₅ = 10 − 4 = 6</div>
 <p class="st">Из оставшихся цифр 1, 2, 3, 5 сумму 5 даёт только пара <b>{2, 3}</b>. Правой достаётся остаток <b>{1, 5}</b>, его сумма 6 ✓</p>
-<p class="step st"><b>Шаг 3 — сборка.</b> Пара {2, 3} встаёт в левые клетки двумя способами: <b>2 3</b> и <b>3 2</b> — это разные заполнения. Так же и {1, 5} справа: <b>1 5</b> и <b>5 1</b>.</p>
+<p class="step st"><b>Шаг 3 — сколько расстановок у каждой пары.</b> Пара {2, 3} встаёт в левые клетки двумя способами: <b>2 3</b> и <b>3 2</b> — это разные заполнения. Так же и {1, 5} справа: <b>1 5</b> и <b>5 1</b>.</p>
 <div class="frm st">N(заполнений) = N(расстановок левой пары) × N(расстановок правой пары) = 2 × 2 = 4 способа</div>
 <p class="st"><b>Других нет, потому что</b> <code>a₃</code> вычислена якорем однозначно, а из цифр 1, 2, 3, 5 сумму 5 даёт только пара {2, 3}. Проверка списком (Д5): 2 3 4 1 5 · 2 3 4 5 1 · 3 2 4 1 5 · 3 2 4 5 1 — ровно четыре ✓.</p>
+<p class="st"><b>Ответ на задачу.</b> Полоску можно заполнить <b>4 способами</b>.</p>
 <h3 class="st">✍ Пример А — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<p class="st"><b>Elijo la pareja de la izquierda y después la de la derecha; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p>
-<p class="st"><em>Выбираю левую пару и потом правую; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
+<p class="st"><b>Elijo el orden de la pareja de la izquierda y después el de la pareja de la derecha; cualquier opción del primer paso se combina con cualquiera del segundo y nunca se repite el resultado, por eso multiplico.</b></p>
+<p class="st"><em>Выбираю порядок левой пары и потом порядок правой; любой вариант первого шага сочетается с любым вариантом второго, и результат ни разу не повторяется — поэтому перемножаю.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">a₁ … a₅ — клетки слева направо.</p>
 <ul class="st"><li>9 + 10 = 19 = 15 + a₃ → a₃ = 4</li><li>a₁ + a₂ = 5 → {2, 3}</li><li>a₄ + a₅ = 6 → {1, 5}</li><li>каждая пара встаёт по своим клеткам двумя способами: <b>2 · 2 = 4</b></li></ul>
 <p class="st">Проверка: 2 + 3 + 4 = 9 ✓; 4 + 1 + 5 = 10 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<p class="st"><b>Probé todas las parejas posibles y las demás no cumplen la suma pedida, por eso no hay más que estas.</b></p>
-<p class="st"><em>Проверил все возможные пары, остальные не подходят под нужную сумму, — поэтому других нет.</em></p>
+<p class="st"><b>La casilla del medio sale sola de la suma total, y con las cifras que quedan la suma 5 la da una sola pareja, por eso no hay más.</b></p>
+<p class="st"><em>Средняя клетка выходит сама из общей суммы, а из оставшихся цифр сумму 5 даёт одна-единственная пара, — поэтому других нет.</em></p>
 <p class="exam st"><b>Пример Б (списком уже не выпишешь — только счёт).</b> В таблицу 2×2 вписывают четыре <b>разные</b> цифры так, чтобы сумма каждой строки была 9. Сколькими способами?</p>
 <pre class="ascii st">   ┌────┬────┐
    │ a₁ │ a₂ │  сумма 9
@@ -307,20 +310,22 @@
    └────┴────┘</pre>
 <div class="frm st">a₁ + a₂ = 9</div>
 <div class="frm st">b₁ + b₂ = 9</div>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Пары с суммой 9 — {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5} — разбирают все десять цифр без остатка, каждая цифра ровно в одной паре. Поэтому верхняя строка не может задеть чужую пару наполовину: забрала одну пару целиком — внизу целыми остались четыре другие.</p></div>
+<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное</span><p>Пары с суммой 9 — {0, 9}, {1, 8}, {2, 7}, {3, 6}, {4, 5} — разбирают все десять цифр без остатка, каждая цифра ровно в одной паре. Поэтому верхняя строка не может задеть чужую пару наполовину: забрала одну пару целиком — внизу целыми остались четыре другие.</p></div></div>
 <figure class="st"><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start"><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">десять цифр — ровно пять пар, каждая цифра в одной</div><div style="display:flex;flex-wrap:wrap;gap:8px"><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)"><span style="font:15px var(--mono)">0</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">9</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#16263a;border:1px solid #3d5a82;color:var(--blue)"><span style="font:15px var(--mono)">1</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">8</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#16263a;border:1px solid #3d5a82;color:var(--blue)"><span style="font:15px var(--mono)">2</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">7</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#12281c;border:1px solid #2b5c3d;color:var(--green)"><span style="font:15px var(--mono)">3</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">6</span></span><span style="display:inline-flex;gap:2px;padding:4px 7px;border-radius:8px;background:#16263a;border:1px solid #3d5a82;color:var(--blue)"><span style="font:15px var(--mono)">4</span><span style="font:15px var(--mono);opacity:.55">+</span><span style="font:15px var(--mono)">5</span></span></div><div class="flab" style="margin-top:8px"><span style="color:var(--gold)">пару забрала верхняя строка</span> → нижней остались целыми четыре</div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><div class="flab" style="margin-bottom:8px">одна из 80 таблиц</div><div style="display:inline-grid;grid-template-columns:repeat(2,38px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">0</span><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">9</span><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">3</span><span style="display:flex;align-items:center;justify-content:center;width:38px;height:34px;border-radius:5px;box-sizing:border-box;background:#12281c;border:1px solid #2b5c3d;color:var(--green)">6</span></div><div class="flab" style="margin-top:6px">строка = 9</div></div></div><div class="flab" style="margin-top:12px">П = 5 пар &nbsp;·&nbsp; 2 порядка &nbsp;·&nbsp; Н = 4 пары &nbsp;·&nbsp; 2 порядка</div><figcaption>Пары не задевают друг друга: забрал одну целиком — остальные четыре остались целыми, поэтому второй множитель ровно 4, а не 5.</figcaption></figure>
 <p class="step st"><b>Шаг 1 — план счёта.</b> Таблица собирается цепочкой выборов: пара для верхней строки И её порядок И пара для нижней И её порядок. Все четыре выбора в одной картинке — это «И».</p>
-<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">N(таблиц) = N(пар верха) × 2 × N(пар низа) × 2</div>
-<p class="st">где двойки — порядки внутри строк: a₁ a₂ и a₂ a₁ стоят в разных клетках, значит это разные таблицы.</p>
-<p class="st">Осталось найти: N(пар верха) и N(пар низа).</p></div>
-<p class="step st"><b>Шаг 2 — считаю N(пар верха).</b> Нужно меню пар с суммой 9 из разных цифр — перебираю по меньшей цифре подряд: 0 → {0, 9} ✓; 1 → {1, 8} ✓; 2 → {2, 7} ✓; 3 → {3, 6} ✓; 4 → {4, 5} ✓; 5 — в пару к пятёрке нужна 4, но она меньше пятёрки, значит это уже названная пара {4, 5}. Стоп, дальше одни повторы.</p>
+<p class="st">где двойки — порядки внутри строк: пару {0, 9} можно записать как <b>0 9</b> и как <b>9 0</b>, и это две разные таблицы.</p>
+<p class="st">Осталось найти: N(пар верха) и N(пар низа).</p></div></div>
+<p class="step st"><b>Шаг 2 — считаю N(пар верха).</b> Сначала соберу <b>меню</b> — так дальше называется полный список того, из чего идёт выбор. Здесь меню — это все пары разных цифр с суммой 9. Перебираю по меньшей цифре подряд:</p>
+<ul class="st"><li>0 → {0, 9} ✓</li><li>1 → {1, 8} ✓</li><li>2 → {2, 7} ✓</li><li>3 → {3, 6} ✓</li><li>4 → {4, 5} ✓</li><li>5 — в пару к пятёрке нужна 4, но она меньше пятёрки, значит это уже названная пара {4, 5}. Стоп, дальше одни повторы.</li></ul>
 <div class="frm st">N(пар верха) = 5</div>
 <p class="step st"><b>Шаг 3 — считаю N(пар низа).</b> Верхняя строка забрала одну пару целиком, остальные четыре не тронуты.</p>
 <div class="frm st">N(пар низа) = 4</div>
 <p class="step st"><b>Шаг 4 — сборка.</b> Перемножаю цепочку:</p>
 <div class="frm st">N(таблиц) = N(пар верха) × 2 × N(пар низа) × 2 = 5 × 2 × 4 × 2 = 80 способов</div>
 <p class="st"><b>Других нет, потому что</b> каждая таблица строится ровно одним путём этой цепочки: по верхней строке видно её пару и порядок, по нижней — её. Проверка вторым способом (Д5), по клеткам: a₁ — любая из 10 цифр, тогда a₂ = 9 − a₁ определена; свободных цифр остаётся 8, и они снова делятся на пары с суммой 9, поэтому b₁ — любая из 8, а b₂ определена. 10 × 8 = 80 ✓</p>
+<p class="st"><b>Ответ на задачу.</b> Таблицу 2×2 можно заполнить <b>80 способами</b>.</p>
 <h3 class="st">✍ Пример Б — что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
