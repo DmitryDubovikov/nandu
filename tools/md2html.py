@@ -407,6 +407,8 @@ def artifact(k, v, in_example=False):
         return ('Идея', first_sentence(v))
     if v.startswith('**Заметь главное'):
         return ('Заметь главное', first_sentence(v))
+    if v.startswith('**Обозначения'):
+        return ('Обозначения', first_sentence(v))
     m = re.match(r'^\*\*(Подсказка \d+)', v)
     if m:
         return (m.group(1), first_sentence(v))
