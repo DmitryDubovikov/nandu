@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>№3 — доска 123×123 с узором 2-0-1-6 (Т3′: период на доске, полочки строк и столбцов)</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+
+  /* ——— анимированные чертежи (иллюстрации из .vis.json) ———
+     Движение оправдано только там, где показывает ход: как отрезок переезжает,
+     как змейка обходит контур. Рисунок условия рисуется сразу и статично. */
+  figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;overflow:visible}
+  figure svg.narrow{max-width:520px}
+  figure{position:relative}
+  figure text{font-family:var(--sans)}
+  .fgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 22px;
+    max-width:760px;margin:0 auto}
+  .fgrid2 .cell svg{max-width:none}
+  .ccap{font-family:var(--sans);font-size:13px;line-height:1.45;color:var(--muted);
+    margin:6px 0 0;text-align:center}
+  .ccap b{color:#e8eef6;font-weight:600}
+  .replay{position:absolute;top:10px;right:12px;background:#1a2230;border:1px solid #2c394c;
+    color:var(--dim);border-radius:7px;font-family:var(--sans);font-size:12px;padding:4px 9px;
+    cursor:pointer;line-height:1}
+  .replay:hover{color:var(--gold);border-color:#6b5320}
+  /* Куда переезжает отрезок, задаёт сама иллюстрация: --to на элементе.
+     Без анимации он сразу лежит на месте назначения. */
+  .sl{transform-box:view-box;transform-origin:0 0;transform:var(--to)}
+  @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  @keyframes fin{from{opacity:0}to{opacity:1}}
+  @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
+    html.anim figure.fx:not(.seen) .fi{opacity:0}
+    html.anim figure.fx:not(.seen) .sl{transform:none}
+    html.anim figure.fx.seen .dr{stroke-dasharray:100;animation:drw var(--dur,2.2s) ease var(--d,0s) both}
+    html.anim figure.fx.seen .fi{animation:fin .55s ease var(--d,0s) both}
+    html.anim figure.fx.seen .sl{animation:sld 1.3s cubic-bezier(.55,0,.35,1) var(--d,0s) both}
+  }
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    /* вес обязателен: иначе html.anim .st{opacity:0} перебивает и страница пуста */
+    .st,html.anim .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap battle">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 3 из 3</p>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 4 casillas, así que solo miro el resto de dividir por 4.<br><em>Узор повторяется через 4 клетки, поэтому смотрю только остаток от деления на 4.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(x) = сумма по типам строк: (строк такого типа) · (раз x в такой строке)</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">S(доски) = 2 · N(двоек) + 0 · N(нулей) + 1 · N(единиц) + 6 · N(шестёрок)</span></button>
+<button class="art" data-art="3"><span class="lbl">На туре</span><span class="val f">в строке: 123 = 4 · 30 + 3 → первые три числа узора строки по 31 разу, четвёртое 30</span></button>
+<button class="art cont" data-art="4"><span class="val f">строк: 123 = 4 · 30 + 3 → «с 2», «с 0», «с 1» — по 31 строке, «с 6» — 30</span></button>
+<button class="art cont" data-art="5"><span class="val f">30 раз в строке стоит: «с 2» — 6, «с 0» — 2, «с 1» — 0, «с 6» — 1</span></button>
+<button class="art cont" data-art="6"><span class="val f">N(двоек) = 31·31 + 31·30 + 31·31 + 30·31 = 3782</span></button>
+<button class="art cont" data-art="7"><span class="val f">N(нулей) = 31·31 + 31·31 + 31·30 + 30·31 = 3782</span></button>
+<button class="art cont" data-art="8"><span class="val f">N(шестёрок) = 31·30 + 31·31 + 31·31 + 30·31 = 3782</span></button>
+<button class="art cont" data-art="9"><span class="val f">N(единиц) = 31·31 + 31·31 + 31·31 + 30·30 = 3783</span></button>
+<button class="art cont" data-art="10"><span class="val f">S(доски) = 8 · 3782 + 1 · 3783 = 34 039</span></button>
+<button class="art" data-art="11"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
+</aside>
+<main>
+  
+  <h1>№3 — доска 123×123 с узором 2-0-1-6 <em>(Т3′: период на доске, полочки строк и столбцов)</em></h1>
+  <p class="sub">Национальный этап 2016 — боевые решения</p>
+<div class="card task st"><span class="tag">Условие</span><p>В клетках доски из 123 строк и 123 столбцов записывают числа 2, 0, 1, 6 вот так. Первая строка: 2 0 1 6 2 0 1 6 2 0 1 6 … Вторая: 0 1 6 2 0 1 6 2 0 1 6 2 … Третья: 1 6 2 0 1 6 2 0 1 6 2 0 … Четвёртая: 6 2 0 1 6 2 0 1 6 2 0 1 … Пятая снова: 2 0 1 6 2 0 1 6 2 0 1 6 … Шестая: 0 1 6 2 0 1 6 2 0 1 6 2 … — и так далее до конца доски. а) Какое число записано больше всего раз? Объясни почему. б) Чему равна сумма всех чисел, записанных на доске?</p></div>
+<figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(13,30px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">…</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">…</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">…</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">…</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">…</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">…</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">⋮</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none"></span></div><figcaption>Левый верхний угол доски 123×123 — первые шесть строк и двенадцать столбцов, как на листе тура. Каждая следующая строка начинает круг 2 → 0 → 1 → 6 на одно число дальше, чем предыдущая.</figcaption></figure>
+<p class="st">Сначала жанр ответа (ритуал Д6). Оба вопроса — <b>число с объяснением</b>, а не список. В а) нужно одно из четырёх чисел и довод, почему именно оно; в б) — одна сумма. Клеток 123 · 123 = 15 129, по одной их не пересчитать, — значит, нужен счёт без выписывания.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Каждая строка — это один и тот же круг 2 → 0 → 1 → 6 → 2 → …, строки различаются только тем, с какого числа круг начинается. И начала строк сами идут по тому же кругу: 1-я строка начинается с 2, 2-я — с 0, 3-я — с 1, 4-я — с 6, 5-я — снова с 2. Поэтому числа повторяются через четыре клетки и вдоль строки, и вдоль столбца: доска — маленький узор, размноженный много раз. Такое повторение называется <b>период 4</b>.</p></div>
+<p class="st"><em>💬 «Узор повторяется через 4 клетки, поэтому смотрю только остаток от деления на 4» — это мысль для фразы-объяснения.</em></p>
+<p class="step st"><b>Шаг 1 — план.</b> Нужно для а) — сколько раз записано каждое из четырёх чисел, для б) — сумма всей доски.</p>
+<p class="st">Строк бывает всего четыре <b>типа</b> — по тому, с какого числа строка начинается: «с 2», «с 0», «с 1», «с 6». Все строки одного типа одинаковы клетка в клетку. Значит, число x в строках одного типа встречается столько раз: сколько таких строк, умножить на сколько раз x стоит в одной такой строке. Складываю по четырём типам:</p>
+<p class="st"><b>N(x) = сумма по четырём типам строк: (сколько строк такого типа) · (сколько раз x стоит в одной такой строке)</b></p>
+<p class="st">Сумма доски складывается по числам: каждое число столько раз, сколько оно записано.</p>
+<div class="frm st">S(доски) = 2 · N(двоек) + 0 · N(нулей) + 1 · N(единиц) + 6 · N(шестёрок)</div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<p class="st"><b>N(x) = сумма по четырём типам строк: (сколько строк такого типа) · (сколько раз x стоит в одной такой строке)</b></p>
+<div class="frm st">S(доски) = 2 · N(двоек) + 0 · N(нулей) + 1 · N(единиц) + 6 · N(шестёрок)</div>
+<ul class="st"><li>x — одно из чисел 2, 0, 1, 6;</li><li>N(x) — сколько раз число x записано на доске;</li><li>тип строки — с какого числа она начинается: «с 2», «с 0», «с 1» или «с 6».</li></ul>
+<p class="st">Ответ а) = то число, у которого N больше всех; ответ б) = S(доски).</p>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li>сколько раз каждое число стоит в одной строке каждого типа;</li><li>сколько на доске строк каждого типа.</li></ul></div>
+<p class="step st"><b>Шаг 2 — сколько раз каждое число стоит в одной строке.</b> Делю длину строки на длину узора с остатком (ритуал Ч2):</p>
+<div class="frm st">123 = 4 · 30 + 3</div>
+<p class="st">Значит, строка — это 30 полных порций по четыре клетки и хвост из трёх клеток. В 30 полных порциях каждое число узора стоит по 30 раз. Хвост — начало новой порции, то есть <b>первые три числа узора именно этой строки</b>, и они получают по 31-му разу. Четвёртое число узора в хвост не попало.</p>
+<p class="st">→ <b>в любой строке первые три числа её узора стоят по 31 разу, четвёртое — 30 раз</b></p>
+<figure class="st"><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start"><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px"><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span></div><span style="font:12px var(--sans);color:var(--muted)">порция 1</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px"><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span></div><span style="font:12px var(--sans);color:var(--muted)">порция 2</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="height:30px;line-height:30px;font:15px var(--mono);color:var(--muted)">…</div><span style="font:12px var(--sans);color:var(--muted)"></span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px"><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span></div><span style="font:12px var(--sans);color:var(--muted)">порция 30</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px"><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span></div><span style="font:12px var(--sans);color:var(--muted)">хвост: 3 клетки</span></div></div><figcaption>Строка «с 2»: 123 = 4 · 30 + 3. Хвост — это начало новой порции, поэтому в него попадают первые три числа узора строки (2, 0, 1 — по 31 разу), а четвёртое (6) остаётся с 30.</figcaption></figure>
+<p class="st">Четвёртое число у каждого типа своё:</p>
+<ul class="st"><li>«с 2», узор 2-0-1-6 → 30 раз стоит <b>6</b></li><li>«с 0», узор 0-1-6-2 → 30 раз стоит <b>2</b></li><li>«с 1», узор 1-6-2-0 → 30 раз стоит <b>0</b></li><li>«с 6», узор 6-2-0-1 → 30 раз стоит <b>1</b></li></ul>
+<p class="step st"><b>Шаг 3 — сколько строк каждого типа.</b> Начала строк идут тем же кругом 2, 0, 1, 6, поэтому строки тоже делятся на порции по четыре. Делю число строк:</p>
+<div class="frm st">123 = 4 · 30 + 3</div>
+<p class="st">30 полных четвёрок строк — по 30 строк каждого типа — и хвост из трёх строк: 121-я начинается с 2, 122-я — с 0, 123-я — с 1.</p>
+<p class="st">→ <b>строк «с 2», «с 0», «с 1» — по 31, строк «с 6» — 30</b></p>
+<p class="st">Четыре типа не пересекаются (строка начинается ровно с одного числа) и покрывают все строки:</p>
+<div class="frm st">31 + 31 + 31 + 30 = 123</div>
+<p class="st">Поэтому каждая клетка доски попадёт в счёт ровно один раз.</p>
+<p class="st"><em>💬 «Это все случаи: они не повторяют друг друга и ни один не потерян» — это мысль для фразы про полноту.</em></p>
+<p class="step st"><b>Шаг 4 — считаю N каждого числа.</b> В каждом типе строк произведение бывает только трёх видов:</p>
+<div class="frm st">31 · 31 = 961</div>
+<div class="frm st">31 · 30 = 930</div>
+<div class="frm st">30 · 30 = 900</div>
+<p class="st">Двойки — по типам строк (сколько строк · сколько раз в строке):</p>
+<ul class="st"><li>«с 2» — 31 строка, двойка первая в узоре → 31 · 31 = 961</li><li>«с 0» — 31 строка, двойка четвёртая → 31 · 30 = 930</li><li>«с 1» — 31 строка, двойка третья → 31 · 31 = 961</li><li>«с 6» — 30 строк, двойка вторая → 30 · 31 = 930</li></ul>
+<div class="frm st">N(двоек) = 961 + 930 + 961 + 930 = 3782</div>
+<p class="st">Нули — по тем же типам: 961 («с 2»), 961 («с 0»), 930 («с 1», ноль четвёртый), 930 («с 6», 30 строк):</p>
+<div class="frm st">N(нулей) = 961 + 961 + 930 + 930 = 3782</div>
+<p class="st">Шестёрки: 930 («с 2», шестёрка четвёртая), 961 («с 0»), 961 («с 1»), 930 («с 6», 30 строк):</p>
+<div class="frm st">N(шестёрок) = 930 + 961 + 961 + 930 = 3782</div>
+<p class="st">Единицы:</p>
+<ul class="st"><li>«с 2» — 31 строка, единица третья → 31 · 31 = 961</li><li>«с 0» — 31 строка, единица вторая → 31 · 31 = 961</li><li>«с 1» — 31 строка, единица первая → 31 · 31 = 961</li><li>«с 6» — 30 строк, единица четвёртая → 30 · 30 = 900</li></ul>
+<div class="frm st">N(единиц) = 961 + 961 + 961 + 900 = 3783</div>
+<p class="st">Проверка (Д5): все клетки доски — 123 · 123 = 15 129.</p>
+<p class="st"><b>3782 + 3782 + 3783 + 3782 = 15 129</b> ✓</p>
+<p class="st">→ <b>единица записана 3783 раза, каждое из остальных чисел — 3782 раза</b></p>
+<p class="st"><b>Почему именно единица.</b> Будь все четыре типа по 31 строке и стой каждое число в строке по 31 разу, каждое число вышло бы 4 · 961 раз. Настоящая доска недодаёт двумя способами: строк «с 6» на одну меньше (30 вместо 31), и в каждой строке одно число стоит 30 раз вместо 31.</p>
+<ul class="st"><li>У двойки, нуля и шестёрки эти две недостачи приходятся на <b>разные</b> типы строк: каждая отнимает по 31 (961 → 930 два раза), всего 62.</li><li>У единицы обе недостачи падают на <b>одни и те же</b> строки — «с 6»: там единица последняя в узоре, а самих строк меньше. Недостачи накладываются друг на друга: 961 → 900, всего 61.</li></ul>
+<p class="st">Единица теряет на одну клетку меньше остальных — поэтому её больше ровно на одну.</p>
+<p class="step st"><b>Шаг 5 — сборка.</b> Подставляю N в формулу плана:</p>
+<div class="frm st">S(доски) = 2 · 3782 + 0 · 3782 + 1 · 3783 + 6 · 3782</div>
+<p class="st">Двойки и шестёрки записаны одинаковое число раз, их вклады складываю вместе:</p>
+<div class="frm st">2 · 3782 + 6 · 3782 = 8 · 3782 = 30 256</div>
+<div class="frm st">S(доски) = 30 256 + 3783 = 34 039</div>
+<p class="st">Проверка формулы на маленькой доске (ритуал Ч3). У доски 7×7 тот же хвост, что у 123×123:</p>
+<div class="frm st">7 = 4 · 1 + 3</div>
+<p class="st">Формула обещает: строк «с 2», «с 0», «с 1» — по 2, строк «с 6» — 1; в строке первые три числа узора — по 2 раза, четвёртое — 1 раз. Тогда:</p>
+<div class="frm st">N(единиц) = 2 · 2 + 2 · 2 + 2 · 2 + 1 · 1 = 13</div>
+<div class="frm st">N(двоек) = 2 · 2 + 2 · 1 + 2 · 2 + 1 · 2 = 12</div>
+<p class="st">На выписанной доске 7×7 единиц ровно 13, и единица снова впереди на одну ✓</p>
+<figure class="st"><div style="display:inline-grid;grid-template-columns:repeat(8,30px);gap:3px;font:15px var(--mono)"><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none"></span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">3</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">4</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">5</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">7</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">с 2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">с 0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">с 1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">с 6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">с 2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">с 0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;color:var(--muted);font-size:12px;background:none">с 1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">0</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#3a2f18;border:1px solid #6b5320;color:var(--gold)">1</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">6</span><span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:5px;box-sizing:border-box;background:#1a2230;border:1px solid #2c394c;color:var(--ink)">2</span></div><figcaption>Доска 7×7 для проверки (7 = 4 · 1 + 3 — тот же хвост, что у 123). Единицы выделены: их 13, остальных чисел по 12. Строка «с 6» здесь одна, и в ней единица стоит всего один раз — обе недостачи в одном месте, как на большой доске.</figcaption></figure>
+<p class="st">Проверка суммы вторым способом (Д5) — по строкам. В строке 30 полных порций, сумма каждой —</p>
+<div class="frm st">2 + 0 + 1 + 6 = 9</div>
+<p class="st">и хвост из первых трёх чисел узора:</p>
+<ul class="st"><li>«с 2»: 30 · 9 + (2 + 0 + 1) = 273</li><li>«с 0»: 30 · 9 + (0 + 1 + 6) = 277</li><li>«с 1»: 30 · 9 + (1 + 6 + 2) = 279</li><li>«с 6»: 30 · 9 + (6 + 2 + 0) = 278</li></ul>
+<p class="st"><b>31 · 273 + 31 · 277 + 31 · 279 + 30 · 278 = 8463 + 8587 + 8649 + 8340 = 34 039</b> ✓</p>
+<p class="st">Проверка вторым способом: программа строит всю доску 123×123 прямо по правилу условия (первые шесть строк сверены с листом тура) и пересчитывает все 15 129 клеток — единиц 3783, двоек, нулей и шестёрок по 3782, сумма 34 039; суммы строк — 273, 277, 279 (по 31 строке) и 278 (30 строк). Совпадает с официальным ключом (a) el 1; b) 34 039).</p>
+<p class="st"><b>Ответ на задачу:</b> а) больше всего раз записана <b>единица</b> — 3783 раза, а 2, 0 и 6 — по 3782 раза. Почему: в каждой строке одно число стоит 30 раз вместо 31, и строк «с 6» на одну меньше; у единицы обе недостачи приходятся на одни и те же строки «с 6», а у остальных чисел — на разные, поэтому единица теряет на одну клетку меньше. б) Сумма всех чисел на доске — <b>34 039</b>.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение и фраза про полноту входят в образец наравне с числами.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>El dibujo se repite cada 4 casillas, así que solo miro el resto de dividir por 4.</b></p></div>
+<p class="st"><em>Узор повторяется через 4 клетки, поэтому смотрю только остаток от деления на 4.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">Тип строки — с какого числа она начинается: «с 2», «с 0», «с 1» или «с 6».</p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">N(x) = сумма по типам строк: (строк такого типа) · (раз x в такой строке)</div>
+<div class="frm st">S(доски) = 2 · N(двоек) + 0 · N(нулей) + 1 · N(единиц) + 6 · N(шестёрок)</div></div></div>
+<div id="a5" data-art="5"><ul class="st"><li>в строке: 123 = 4 · 30 + 3 → первые три числа узора строки по 31 разу, четвёртое 30</li><li>строк: 123 = 4 · 30 + 3 → «с 2», «с 0», «с 1» — по 31 строке, «с 6» — 30</li><li>30 раз в строке стоит: «с 2» — 6, «с 0» — 2, «с 1» — 0, «с 6» — 1</li></ul></div>
+<div id="a6" data-art="6"><div class="frm st">N(двоек) = 31·31 + 31·30 + 31·31 + 30·31 = 3782</div></div>
+<div id="a7" data-art="7"><div class="frm st">N(нулей) = 31·31 + 31·31 + 31·30 + 30·31 = 3782</div></div>
+<div id="a8" data-art="8"><div class="frm st">N(шестёрок) = 31·30 + 31·31 + 31·31 + 30·31 = 3782</div></div>
+<div id="a9" data-art="9"><div class="frm st">N(единиц) = 31·31 + 31·31 + 31·31 + 30·30 = 3783</div></div>
+<p class="st">Проверка:</p>
+<p class="st"><b>3 · 3782 + 3783 = 15 129 = 123 · 123</b> ✓</p>
+<p class="st">а) больше всего единиц: у 1 обе недостачи (30 строк «с 6» и 30 раз в строке) в одних и тех же строках, у 2, 0, 6 — в разных.</p>
+<div id="a10" data-art="10"><div class="frm st">S(доски) = 8 · 3782 + 1 · 3783 = 34 039</div></div>
+<p class="st">Проверка по строкам:</p>
+<p class="st"><b>31 · 273 + 31 · 277 + 31 · 279 + 30 · 278 = 34 039</b> ✓</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a11" data-art="11"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
+<div class="pager"><a href="02-2-domik-s-treugolnoy-kryshey-t2-perimetry-obscha.html">← №2 — домик с треугольной крышей (Т2: периметры, общая сторона двух треугольников и дробь 3/2)</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // кнопка перезапуска — только у иллюстраций, где движение что-то показывает
+    document.querySelectorAll('figure.fx').forEach(function(f){
+      var b=document.createElement('button');
+      b.className='replay';b.type='button';b.textContent='↻ ещё раз';
+      b.addEventListener('click',function(){
+        f.classList.remove('seen');void f.offsetWidth;f.classList.add('seen');
+      });
+      f.appendChild(b);
+    });
+
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

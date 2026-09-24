@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>№3 — полоска Доры: шаги ±1 и возврат к 15 (Т3′: баланс плюсов и минусов + выбор мест)</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+
+  /* ——— анимированные чертежи (иллюстрации из .vis.json) ———
+     Движение оправдано только там, где показывает ход: как отрезок переезжает,
+     как змейка обходит контур. Рисунок условия рисуется сразу и статично. */
+  figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;overflow:visible}
+  figure svg.narrow{max-width:520px}
+  figure{position:relative}
+  figure text{font-family:var(--sans)}
+  .fgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 22px;
+    max-width:760px;margin:0 auto}
+  .fgrid2 .cell svg{max-width:none}
+  .ccap{font-family:var(--sans);font-size:13px;line-height:1.45;color:var(--muted);
+    margin:6px 0 0;text-align:center}
+  .ccap b{color:#e8eef6;font-weight:600}
+  .replay{position:absolute;top:10px;right:12px;background:#1a2230;border:1px solid #2c394c;
+    color:var(--dim);border-radius:7px;font-family:var(--sans);font-size:12px;padding:4px 9px;
+    cursor:pointer;line-height:1}
+  .replay:hover{color:var(--gold);border-color:#6b5320}
+  /* Куда переезжает отрезок, задаёт сама иллюстрация: --to на элементе.
+     Без анимации он сразу лежит на месте назначения. */
+  .sl{transform-box:view-box;transform-origin:0 0;transform:var(--to)}
+  @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  @keyframes fin{from{opacity:0}to{opacity:1}}
+  @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
+    html.anim figure.fx:not(.seen) .fi{opacity:0}
+    html.anim figure.fx:not(.seen) .sl{transform:none}
+    html.anim figure.fx.seen .dr{stroke-dasharray:100;animation:drw var(--dur,2.2s) ease var(--d,0s) both}
+    html.anim figure.fx.seen .fi{animation:fin .55s ease var(--d,0s) both}
+    html.anim figure.fx.seen .sl{animation:sld 1.3s cubic-bezier(.55,0,.35,1) var(--d,0s) both}
+  }
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    /* вес обязателен: иначе html.anim .st{opacity:0} перебивает и страница пуста */
+    .st,html.anim .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap battle">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 3 из 3</p>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Las dos partes son iguales y juntas dan el total, así que cada una es exactamente la mitad.<br><em>Две части равны, а вместе дают всё целое, — значит каждая ровно половина.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">N(заполнений) = C(8, s)</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">s + r = 8</span></button>
+<button class="art cont" data-art="3"><span class="val f">15 + s − r = 15 → s = r</span></button>
+<button class="art cont" data-art="4"><span class="val f"><b>s = r = 4</b></span></button>
+<button class="art cont" data-art="5"><span class="val f">8 — чётное, возврат возможен</span></button>
+<button class="art cont" data-art="6"><span class="val f">заполнение = какие 4 перехода из 8 дают +1</span></button>
+<button class="art cont" data-art="7"><span class="val f">C(8, 4) = 8 · 7 · 6 · 5 : (4 · 3 · 2 · 1) = 1680 : 24 = 70</span></button>
+<button class="art cont" data-art="8"><span class="val f">Ответ: 70 способов</span></button>
+<button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">No hace falta escribir la lista: cada elección de 4 pasos donde suma 1 da exactamente un tablero, y elecciones distintas dan tableros distintos, por eso el conteo es exacto.<br><em>Список выписывать не нужно: каждый выбор четырёх переходов, где Дора прибавляет 1, даёт ровно одну полоску, а разные выборы дают разные полоски, — поэтому счёт точен.</em></span></button>
+</aside>
+<main>
+  
+  <h1>№3 — полоска Доры: шаги ±1 и возврат к 15 <em>(Т3′: баланс плюсов и минусов + выбор мест)</em></h1>
+  <p class="sub">Национальный этап 2013 — боевые решения</p>
+<div class="card task st"><span class="tag">Условие</span><p>Дора записывает по одному числу в каждую клетку полоски из 9 клеток (полоска нарисована ниже). В первую клетку она записывает число 15. Каждую следующую клетку она заполняет так: прибавляет 1 к числу в предыдущей клетке или отнимает от него 1. Сколькими способами Дора может заполнить полоску так, чтобы в последней клетке тоже оказалось число 15? Объясни, как ты их считал.</p></div>
+<figure class="st"><svg viewBox="0 0 508 116" width="100%" style="max-width:508px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="46.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">1</text><rect x="20" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="46.0" y="60" fill="var(--ink)" font-size="18" text-anchor="middle" font-weight="700">15</text><text x="98.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">2</text><rect x="72" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="150.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">3</text><rect x="124" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="202.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">4</text><rect x="176" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="254.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">5</text><rect x="228" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="306.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">6</text><rect x="280" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="358.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">7</text><rect x="332" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="410.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">8</text><rect x="384" y="28" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="462.0" y="20" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">9</text><rect x="436" y="28" width="52" height="52" fill="var(--gold)" fill-opacity=".18" stroke="var(--gold)" stroke-width="2.5"/><text x="462.0" y="60" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="700">15?</text><text x="254.0" y="104" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">полоска из 9 клеток: в первой 15, в последней тоже должно выйти 15</text></svg><figcaption>Рисунок условия. Номера клеток — сверху. Каждое следующее число на 1 больше или на 1 меньше предыдущего; золотая клетка — то, что требуется в конце.</figcaption></figure>
+<p class="st">Сначала жанр ответа (ритуал Д6). «Сколькими способами» плюс «объясни, как считал» — это <b>число с объяснением</b>, а не список: заполнения не выписываем, а считаем, и отдельно пишем, почему ни одно не потеряно и ни одно не посчитано дважды (ритуал Ч5). Один способ — это вся полоска, заполненная целиком. Два способа разные, если хоть в одной клетке у них стоят разные числа.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Каждая клетка, начиная со второй, получается из соседней слева одним <b>переходом</b>: «+1» или «−1». Клеток 9, а переходов между соседними клетками на один меньше:</p></div>
+<div class="frm st">9 − 1 = 8</div>
+<p class="st">Дальше два наблюдения, на которых держится весь счёт.</p>
+<ul class="st"><li><b>Последнее число зависит только от того, сколько было «+1» и сколько «−1»</b>, а не от того, в каком порядке они шли: каждый «+1» поднимает число на единицу, каждый «−1» опускает, и подъёмы со спусками просто складываются.</li><li><b>Заполнение целиком задаётся восемью знаками переходов.</b> Первое число известно (15), а каждое следующее однозначно получается из предыдущего и знака перехода. Разные ряды знаков дают разные полоски: в первом же переходе, где знаки расходятся, числа в следующей клетке разойдутся на 2.</li></ul>
+<figure class="st"><svg viewBox="0 0 508 230" width="100%" style="max-width:508px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="10" y="32" fill="var(--muted)" font-size="13" text-anchor="start" font-weight="400">заполнение 1: плюсы на переходах 1, 2, 6, 8</text><rect x="20" y="40" width="52" height="52" fill="var(--green)" fill-opacity=".15" stroke="var(--green)" stroke-width="2"/><text x="46.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">15</text><text x="72" y="108" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="72" y="40" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="98.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">16</text><text x="124" y="108" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="124" y="40" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="150.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">17</text><text x="176" y="108" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="176" y="40" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="202.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">16</text><text x="228" y="108" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="228" y="40" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="254.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">15</text><text x="280" y="108" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="280" y="40" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="306.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">14</text><text x="332" y="108" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="332" y="40" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="358.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">15</text><text x="384" y="108" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="384" y="40" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="410.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">14</text><text x="436" y="108" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="436" y="40" width="52" height="52" fill="var(--green)" fill-opacity=".15" stroke="var(--green)" stroke-width="2"/><text x="462.0" y="72" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">15</text><text x="10" y="142" fill="var(--muted)" font-size="13" text-anchor="start" font-weight="400">заполнение 2: плюсы на переходах 5, 6, 7, 8</text><rect x="20" y="150" width="52" height="52" fill="var(--green)" fill-opacity=".15" stroke="var(--green)" stroke-width="2"/><text x="46.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">15</text><text x="72" y="218" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="72" y="150" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="98.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">14</text><text x="124" y="218" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="124" y="150" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="150.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">13</text><text x="176" y="218" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="176" y="150" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="202.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">12</text><text x="228" y="218" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">−1</text><rect x="228" y="150" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="254.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">11</text><text x="280" y="218" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="280" y="150" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="306.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">12</text><text x="332" y="218" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="332" y="150" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="358.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">13</text><text x="384" y="218" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="384" y="150" width="52" height="52" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="410.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">14</text><text x="436" y="218" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="700">+1</text><rect x="436" y="150" width="52" height="52" fill="var(--green)" fill-opacity=".15" stroke="var(--green)" stroke-width="2"/><text x="462.0" y="182" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">15</text></svg><figcaption>Под полоской — знаки восьми переходов между соседними клетками. В обоих заполнениях плюсов четыре и минусов четыре, поэтому оба кончаются числом 15. Какое именно заполнение получилось, решает только одно: на каких местах стоят плюсы.</figcaption></figure>
+<p class="st">Даже восемь минусов подряд дают 15 − 8 = 7, так что до нуля и отрицательных чисел не доходит; а среди заполнений, которые кончаются числом 15, самое маленькое число — 11.</p>
+<p class="step st"><b>Шаг 1 — план.</b> Нужно число всех заполнений, которые кончаются числом 15, — его спрашивает условие. Запись <code>N(…)</code> значит «сколько объектов подходит под то, что названо в скобках»: N(заполнений) — число подходящих заполнений полоски.</p>
+<p class="st">Назову s (<em>suma</em>) — сколько переходов из восьми «+1», r (<em>resta</em>) — сколько переходов «−1». Каждый переход — ровно один из двух:</p>
+<div class="frm st">s + r = 8</div>
+<p class="st">По первому наблюдению число в последней клетке — это 15, поднятое s раз и опущенное r раз:</p>
+<div class="frm st">число в последней клетке = 15 + s − r</div>
+<p class="st">По второму наблюдению заполнение — это то же самое, что ряд из восьми знаков. Ряд знаков с s плюсами полностью задан тем, <b>на каких s местах из восьми стоят плюсы</b>: на остальных местах сами собой стоят минусы. Выбор нескольких мест, когда порядок внутри выбранного не важен, называется <b>сочетанием</b>: C(8, s) — «це из восьми по s» — сколькими способами выбрать s мест из 8.</p>
+<div class="frm st">N(заполнений) = C(8, s)</div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">N(заполнений) = C(8, s)</div>
+<ul class="st"><li>s — сколько переходов «+1», r — сколько переходов «−1»;</li><li>C(8, s) — сколькими способами выбрать s мест из 8.</li></ul>
+<p class="st">Ответ = N(заполнений).</p>
+<p class="st">Осталось найти: s — из условия «в последней клетке 15»; затем C(8, s).</p></div>
+<p class="step st"><b>Шаг 2 — нужно s.</b> В последней клетке должно стоять 15, значит:</p>
+<div class="frm st">15 + s − r = 15</div>
+<div class="frm st">s = r</div>
+<p class="st">Плюсов столько же, сколько минусов: сколько раз поднялись, столько и опустились. Две равные части вместе дают все 8 переходов — значит каждая ровно половина. Подставляю в первое равенство плана вместо r равное ему s:</p>
+<div class="frm st">2 · s = 8</div>
+<p class="st">→ <b>s = r = 4</b></p>
+<p class="st"><em>💬 «Две части равны, а вместе дают всё целое, — значит каждая ровно половина» (части — плюсы и минусы, целое — 8 переходов) — это мысль для фразы-объяснения.</em></p>
+<p class="st">Заметь, что сработало деление восьми пополам. Если бы переходов было нечётное число, поровну их не разделить — и ни одного способа не было бы. Это видно и по <b>чётности</b>: каждый переход меняет чётность числа (15 нечётное, 16 чётное, 14 чётное…), два перехода возвращают её обратно, и вернуться к нечётному 15 можно только за чётное число переходов. Восемь — чётное, так что возврат возможен.</p>
+<p class="step st"><b>Шаг 3 — нужно C(8, 4).</b> Считаю, сколькими способами выбрать 4 места для плюсов из 8.</p>
+<p class="st">Сначала выберу места <b>по очереди</b>: первое место плюса — любое из 8, второе — любое из оставшихся 7, третье — из 6, четвёртое — из 5:</p>
+<div class="frm st">8 · 7 · 6 · 5 = 1680</div>
+<p class="st">Но так одна и та же четвёрка мест посчитана много раз — всеми порядками, в которых её можно было набрать. Четыре места можно упорядочить так: первым — любое из 4, вторым — из 3, третьим — из 2, последним — оставшееся:</p>
+<div class="frm st">4 · 3 · 2 · 1 = 24</div>
+<p class="st">Каждая четвёрка мест посчитана ровно 24 раза, поэтому делю:</p>
+<div class="frm st">C(8, 4) = 1680 : 24 = 70</div>
+<p class="st">Проверяю перебором по младшему месту: в каждой четвёрке есть самое левое место плюса, а три остальных — тройка из мест правее него.</p>
+<ul class="st"><li>левый плюс на месте 1 — три других из 7 мест: C(7, 3) = 35</li><li>на месте 2 — из 6: C(6, 3) = 20</li><li>на месте 3 — из 5: C(5, 3) = 10</li><li>на месте 4 — из 4: C(4, 3) = 4</li><li>на месте 5 — из 3: C(3, 3) = 1</li><li>на месте 6 и правее левым плюс быть не может: правее меньше трёх мест</li></ul>
+<p class="st"><b>35 + 20 + 10 + 4 + 1 = 70</b> ✓</p>
+<p class="st">→ <b>C(8, 4) = 70</b></p>
+<p class="st"><em>💬 «Каждый выбор четырёх переходов, где прибавляем 1, даёт ровно одно заполнение, а разные выборы дают разные заполнения» — это мысль для фразы про полноту.</em></p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Подставляю s = 4 в формулу плана:</p>
+<div class="frm st">N(заполнений) = C(8, 4) = 70</div>
+<p class="st"><b>⚠ Ловушки.</b> (1) Считать переходов 9 по числу клеток: девять не делится пополам, и выйдет «ни одного способа» — а переходов на один меньше, чем клеток. (2) Остановиться на произведении 1680 из шага 3: так каждая четвёрка мест для плюсов посчитана 24 раза, по одному разу на каждый порядок, в котором её набирали. (3) Ответить 256 — это все заполнения полоски (восемь переходов, у каждого 2 варианта), а не только те, что кончаются числом 15.</p>
+<p class="st"><b>Проверка вторым способом — клетка за клеткой.</b> Для каждой клетки считаю, сколькими способами в ней может оказаться каждое число. В клетку попадают только из соседней левой клетки — из числа на 1 меньше или на 1 больше. Поэтому способов прийти к числу — сумма способов прийти к двум его соседям в предыдущей клетке. На рисунке оставлены только те числа, от которых ещё можно успеть вернуться к 15. Последние строки:</p>
+<figure class="st"><svg viewBox="0 0 538 380" width="100%" style="max-width:538px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="48.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">клетка</text><text x="120.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">11</text><text x="168.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">12</text><text x="216.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">13</text><text x="264.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">14</text><text x="312.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="700">15</text><text x="360.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">16</text><text x="408.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">17</text><text x="456.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">18</text><text x="504.0" y="28" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">19</text><text x="48.0" y="62.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">1</text><rect x="290" y="42" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="312.0" y="62.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><text x="48.0" y="96.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">2</text><rect x="242" y="76" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="264.0" y="96.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><rect x="338" y="76" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="360.0" y="96.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><text x="48.0" y="130.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">3</text><rect x="194" y="110" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="216.0" y="130.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><rect x="290" y="110" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="312.0" y="130.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">2</text><rect x="386" y="110" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="408.0" y="130.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><text x="48.0" y="164.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">4</text><rect x="146" y="144" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="168.0" y="164.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><rect x="242" y="144" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="264.0" y="164.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">3</text><rect x="338" y="144" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="360.0" y="164.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">3</text><rect x="434" y="144" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="456.0" y="164.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><text x="48.0" y="198.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">5</text><rect x="98" y="178" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="120.0" y="198.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><rect x="194" y="178" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="216.0" y="198.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">4</text><rect x="290" y="178" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="312.0" y="198.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">6</text><rect x="386" y="178" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="408.0" y="198.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">4</text><rect x="482" y="178" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="504.0" y="198.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">1</text><text x="48.0" y="232.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">6</text><rect x="146" y="212" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="168.0" y="232.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">5</text><rect x="242" y="212" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="264.0" y="232.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">10</text><rect x="338" y="212" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="360.0" y="232.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">10</text><rect x="434" y="212" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="456.0" y="232.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">5</text><text x="48.0" y="266.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">7</text><rect x="194" y="246" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="216.0" y="266.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">15</text><rect x="290" y="246" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="312.0" y="266.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">20</text><rect x="386" y="246" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="408.0" y="266.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">15</text><text x="48.0" y="300.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">8</text><rect x="242" y="280" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="264.0" y="300.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">35</text><rect x="338" y="280" width="44" height="30" fill="var(--bg2)" stroke="var(--muted)" stroke-width="1.5"/><text x="360.0" y="300.0" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">35</text><text x="48.0" y="334.0" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">9</text><rect x="290" y="314" width="44" height="30" fill="var(--green)" fill-opacity=".18" stroke="var(--green)" stroke-width="2"/><text x="312.0" y="334.0" fill="var(--green)" font-size="15" text-anchor="middle" font-weight="700">70</text><text x="312.0" y="368" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">в клетке — сколькими способами можно прийти к этому числу</text></svg><figcaption>Строка — клетка полоски, столбец — число в ней. Каждое число клетки равно сумме двух чисел над ним по диагонали (нет числа — значит 0): прийти можно только от соседа на 1 меньше или на 1 больше. Числа дальше от 15 не показаны — от них к девятой клетке уже не вернуться. Внизу: 35 + 35 = 70.</figcaption></figure>
+<ul class="st"><li>клетка 8: к числу 14 — 35 способов, к числу 16 — 35 способов</li><li>клетка 9: к числу 15 можно прийти от 14 и от 16</li></ul>
+<p class="st"><b>35 + 35 = 70</b> ✓</p>
+<p class="st">Ещё две сверки:</p>
+<ul class="st"><li>полный компьютерный перебор всех 256 рядов из восьми знаков «+1»/«−1» даёт ровно 70 заполнений, кончающихся числом 15 (самое маленькое число на них — 11);</li><li>перебор по младшему месту из шага 3:</li></ul>
+<div class="frm st">35 + 20 + 10 + 4 + 1 = 70</div>
+<p class="st">Все способы дают 70 — совпадает с официальным ключом (70 maneras).</p>
+<p class="st"><b>Ответ на задачу:</b> Дора может заполнить полоску <b>70 способами</b>. Как считали: переходов между девятью клетками восемь; чтобы вернуться к 15, плюсов должно быть столько же, сколько минусов, — по 4; заполнение целиком задаётся тем, на каких 4 местах из 8 стоят плюсы, а таких выборов 70.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение и фраза про полноту входят в образец наравне с числами.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Las dos partes son iguales y juntas dan el total, así que cada una es exactamente la mitad.</b></p></div>
+<p class="st"><em>Две части равны, а вместе дают всё целое, — значит каждая ровно половина.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">s — сколько раз +1, r — сколько раз −1; переходов 9 − 1 = 8.</p>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">N(заполнений) = C(8, s)</div></div></div>
+<div id="a6" data-art="6"><ul class="st"><li>s + r = 8</li><li>15 + s − r = 15 → s = r</li><li><b>s = r = 4</b></li><li>8 — чётное, возврат возможен</li><li>заполнение = какие 4 перехода из 8 дают +1</li></ul></div>
+<div id="a7" data-art="7"><div class="frm st">C(8, 4) = 8 · 7 · 6 · 5 : (4 · 3 · 2 · 1) = 1680 : 24 = 70</div></div>
+<p class="st">Проверка:</p>
+<p class="st"><b>35 + 20 + 10 + 4 + 1 = 70</b> ✓</p>
+<div id="a8" data-art="8"><div class="frm st">Ответ: 70 способов</div></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a9" data-art="9"><p class="st"><b>No hace falta escribir la lista: cada elección de 4 pasos donde suma 1 da exactamente un tablero, y elecciones distintas dan tableros distintos, por eso el conteo es exacto.</b></p></div>
+<p class="st"><em>Список выписывать не нужно: каждый выбор четырёх переходов, где Дора прибавляет 1, даёт ровно одну полоску, а разные выборы дают разные полоски, — поэтому счёт точен.</em></p>
+<div class="pager"><a href="02-2-vosmiugolnik-iz-ramki-i-ugolkov-t2-perimetry-r.html">← №2 — восьмиугольник из рамки и уголков (Т2: периметры, равные стороны и равные треугольники дают три буквы)</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // кнопка перезапуска — только у иллюстраций, где движение что-то показывает
+    document.querySelectorAll('figure.fx').forEach(function(f){
+      var b=document.createElement('button');
+      b.className='replay';b.type='button';b.textContent='↻ ещё раз';
+      b.addEventListener('click',function(){
+        f.classList.remove('seen');void f.offsetWidth;f.classList.add('seen');
+      });
+      f.appendChild(b);
+    });
+
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

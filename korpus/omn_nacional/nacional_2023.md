@@ -7,7 +7,7 @@
 Paulo quiere completar este tablero con números enteros positivos de manera que la suma de cualesquiera tres casillas consecutivas, horizontales o verticales, sea siempre igual a 40.
 Puede haber números repetidos.
 Muestra cómo puede hacerlo. Dar todas las posibilidades.
-[Figura: tablero de 3 filas por 9 columnas; con un 30 en la fila superior (segunda casilla), un 15 en la fila del medio (primera casilla) y un 10 en la fila inferior (sexta casilla aprox.).]
+[Figura: tablero de 4 filas por 10 columnas; un 30 en la segunda fila (segunda casilla), un 15 en la tercera fila (primera casilla) y un 10 en la cuarta fila (sexta casilla). Verificado contra el PDF.]
 
 ### Primer Día — Problema 2
 En la figura:
@@ -35,7 +35,7 @@ b) …que no contienen al cuadradito verde?
 c) …que contienen al verde y contienen al rojo?
 d) …que no contienen ni al azul ni al rojo ni al verde?
 Explica cómo los contaste.
-[Figura: cuadrícula de 7x7; A en la casilla superior izquierda, V en la fila superior a la derecha, R en una casilla central.]
+[Figura: cuadrícula de 7x7; A en la casilla superior izquierda (1,1), V en la segunda fila, última columna (2,7), R en la casilla central (4,4). Verificado contra el PDF.]
 
 ### Segundo Día — Problema 4
 Para una fiesta se compraron 4 clases de bebidas: gaseosa común, gaseosa sin azúcar, limonada y agua, todas en botellas de 1 litro.

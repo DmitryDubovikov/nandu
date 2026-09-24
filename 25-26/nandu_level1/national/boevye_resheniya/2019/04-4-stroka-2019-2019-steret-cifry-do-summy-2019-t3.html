@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>№4 — строка 2019…2019: стереть цифры до суммы 2019 (Т3″: сумма цифр строки и жадный выбор с проверкой)</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  h3{font-family:var(--sans);font-size:15px;color:var(--dim);font-weight:500;margin:0 0 20px}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+
+  /* ——— анимированные чертежи (иллюстрации из .vis.json) ———
+     Движение оправдано только там, где показывает ход: как отрезок переезжает,
+     как змейка обходит контур. Рисунок условия рисуется сразу и статично. */
+  figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;overflow:visible}
+  figure svg.narrow{max-width:520px}
+  figure{position:relative}
+  figure text{font-family:var(--sans)}
+  .fgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 22px;
+    max-width:760px;margin:0 auto}
+  .fgrid2 .cell svg{max-width:none}
+  .ccap{font-family:var(--sans);font-size:13px;line-height:1.45;color:var(--muted);
+    margin:6px 0 0;text-align:center}
+  .ccap b{color:#e8eef6;font-weight:600}
+  .replay{position:absolute;top:10px;right:12px;background:#1a2230;border:1px solid #2c394c;
+    color:var(--dim);border-radius:7px;font-family:var(--sans);font-size:12px;padding:4px 9px;
+    cursor:pointer;line-height:1}
+  .replay:hover{color:var(--gold);border-color:#6b5320}
+  /* Куда переезжает отрезок, задаёт сама иллюстрация: --to на элементе.
+     Без анимации он сразу лежит на месте назначения. */
+  .sl{transform-box:view-box;transform-origin:0 0;transform:var(--to)}
+  @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  @keyframes fin{from{opacity:0}to{opacity:1}}
+  @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
+    html.anim figure.fx:not(.seen) .fi{opacity:0}
+    html.anim figure.fx:not(.seen) .sl{transform:none}
+    html.anim figure.fx.seen .dr{stroke-dasharray:100;animation:drw var(--dur,2.2s) ease var(--d,0s) both}
+    html.anim figure.fx.seen .fi{animation:fin .55s ease var(--d,0s) both}
+    html.anim figure.fx.seen .sl{animation:sld 1.3s cubic-bezier(.55,0,.35,1) var(--d,0s) both}
+  }
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    /* вес обязателен: иначе html.anim .st{opacity:0} перебивает и страница пуста */
+    .st,html.anim .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap battle">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 4 из 6</p>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Tengo que sacar exactamente 993, y cada cifra saca a lo sumo 9, por eso saco primero las más grandes: así hacen falta menos.<br><em>Унести надо ровно 993, а каждая цифра уносит не больше 9, — поэтому убираю сначала самые большие: так их нужно меньше.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = наименьшее число цифр, уносящих ровно S(унести), и сами эти цифры.</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><code>1004 = 4 · 251 + 0</code> → <b>251 порция «2019»</b>, S(порции) = 2 + 0 + 1 + 9 = 12</span></button>
+<button class="art cont" data-art="3"><span class="val f"><b>S(строки) = 12 · 251 = 3012</b></span></button>
+<button class="art cont" data-art="4"><span class="val f"><b>S(унести) = 3012 − 2019 = 993</b></span></button>
+<button class="art cont" data-art="5"><span class="val f">жадно, без перелёта: <code>993 = 9 · 110 + 3</code> → 110 девяток = 990; добрать 3 = 2 + 1 (цифры 3 нет) → <b>112 цифр</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">110 цифрами нельзя: 110 · 9 = 990 &lt; 993</span></button>
+<button class="art cont" data-art="7"><span class="val f">111 цифрами нельзя: 111 девяток = 999 — перелёт; замена девятки на 2 роняет на 7, на 1 — на 8, на 0 — на 9 → 992 и меньше; 993 лежит в дырке между 992 и 999</span></button>
+<button class="art cont" data-art="8"><span class="val f">ровно собрано: 110 · 9 + 2 + 1 = 993 ✓, остаётся 3012 − 993 = 2019 ✓</span></button>
+<button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">Menos de 112 cifras no se puede, porque con 111 cifras lo sacado es 999 o a lo sumo 992, y nunca da 993; y con 110 nueves, un 2 y un 1 se logra, así que el mínimo es 112 cifras.<br><em>Меньше 112 цифр быть не может, потому что 111 цифрами уносится либо 999, либо 992 и меньше, а 993 — никогда; а 110 девятками, двойкой и единицей это достигается, — значит минимум равен 112.</em></span></button>
+</aside>
+<main>
+  
+  <h1>№4 — строка 2019…2019: стереть цифры до суммы 2019 <em>(Т3″: сумма цифр строки и жадный выбор с проверкой)</em></h1>
+  <p class="sub">Национальный этап 2019 — боевые решения</p>
+<div class="card task st"><span class="tag">Условие</span><p>На доске несколько раз подряд написано число 2019:</p></div>
+<p class="st">201920192019201920192019……20192019</p>
+<p class="st">Всего на доске написано 1004 цифры. Какое наименьшее количество цифр можно стереть, чтобы сумма цифр, оставшихся на доске, была равна 2019? Какие цифры нужно стереть? Объясни, как ты их нашёл.</p>
+<figure class="st"><div class="fgrid" style="gap:10px 8px;align-items:center"><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="flab" style="font-size:18px">…</div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div></div><div class="flab" style="margin-top:12px">всего 1004 цифры · в каждой порции одна девятка</div><figcaption>Строка на доске — одна и та же порция «2019», написанная подряд. Цифр в строке всего четыре сорта: 2, 0, 1 и 9; девятки выделены — это самые «тяжёлые» цифры.</figcaption></figure>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Про оставшиеся цифры известна одна только их сумма — какие они и сколько их, не сказано. А про стёртые цифры известно сразу всё главное: вместе они обязаны <b>унести</b> ровно то, что в строке лишнее сверх 2019. Поэтому считаем не оставшиеся цифры, а стёртые: «стереть как можно меньше» — это «унести нужную сумму как можно меньшим числом цифр».</p></div>
+<p class="st"><em>💬 Унести надо ровно определённую сумму, а каждая цифра уносит не больше 9, — отсюда фраза-объяснение: чем крупнее стёртые цифры, тем их нужно меньше.</em></p>
+<p class="step st"><b>Шаг 1 — план: перевести вопрос на стёртые цифры.</b> Ищем наименьшее число стёртых цифр — значит сперва надо знать, сколько эти цифры обязаны унести. Для этого нужна сумма всех цифр строки, а строка — это одна и та же порция «2019», повторённая много раз, поэтому складывать тысячу цифр подряд незачем.</p>
+<p class="st">Запись <code>S(…)</code> значит «сумма цифр того, что названо в скобках», <code>N(…)</code> — «сколько штук». Например, сумма цифр одной порции:</p>
+<div class="frm st">S(порции) = 2 + 0 + 1 + 9 = 12</div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">S(строки) = S(порции) · N(порций)</div>
+<div class="frm st">S(унести) = S(строки) − 2019</div>
+<p class="st"><b>Ответ = наименьшее число цифр, уносящих ровно S(унести), и сами эти цифры</b></p>
+<p class="st">S(строки) — сумма всех 1004 цифр на доске; S(порции) — сумма цифр одной порции «2019»; N(порций) — сколько раз порция написана; S(унести) — сколько суммы обязаны унести стёртые цифры.</p>
+<p class="st">Осталось найти:</p>
+<ul class="st"><li>N(порций) и S(порции);</li><li>S(строки) и S(унести);</li><li>сам набор стёртых цифр;</li><li>оба шага полноты — «меньше нельзя» и «столько можно».</li></ul></div>
+<p class="step st"><b>Шаг 2 — считаю N(порций): делю число цифр на длину порции.</b> В каждой порции «2019» четыре цифры. Пишу деление целиком (ритуал Ч2), чтобы увидеть, нет ли в конце обрывка порции:</p>
+<div class="frm st">1004 = 4 · 251 + 0</div>
+<p class="st">Остаток 0 — значит строка состоит ровно из целых порций, обрывка нет (и условие это подтверждает: строка кончается на «…2019»).</p>
+<p class="st">→ <b>N(порций) = 251</b></p>
+<p class="st">А сумма цифр одной порции уже посчитана выше: <b>S(порции) = 12</b>.</p>
+<p class="step st"><b>Шаг 3 — считаю S(строки) и S(унести): подставляю в план.</b></p>
+<div class="frm st">S(строки) = S(порции) · N(порций) = 12 · 251</div>
+<p class="st">Умножаю по частям: 12 · 250 = 3000, и ещё 12 · 1 = 12.</p>
+<div class="frm st">S(строки) = 3000 + 12 = 3012</div>
+<p class="st">Теперь — сколько лишнего:</p>
+<p class="st">S(унести) = 3012 − 2019 = <b>993</b></p>
+<p class="step st"><b>Шаг 4 — ищу сам набор: набираю 993 жадно.</b> Чтобы цифр ушло поменьше, каждая должна унести побольше. Поэтому беру самые большие цифры первыми и слежу, чтобы не перелететь: нужно унести <b>ровно</b> 993, а не «хотя бы». Такой ход — на каждом шаге брать самое выгодное прямо сейчас — называется <b>жадным выбором</b>.</p>
+<p class="st">Самая большая цифра строки — 9, девяток в строке 251, по одной в каждой порции. Сколько девяток влезает в 993 без перелёта, показывает деление с остатком:</p>
+<div class="frm st">993 = 9 · 110 + 3</div>
+<ul class="st"><li>110 девяток уносят 990 (девяток хватает: 110 меньше 251);</li><li>осталось унести 3, но цифры 3 в строке <b>нет</b> — там только 2, 0, 1 и 9;</li><li>добираю 3 = 2 + 1: одна двойка и одна единица, они в строке есть.</li></ul>
+<p class="st">→ <b>набор: 110 девяток, одна двойка и одна единица — 112 цифр</b></p>
+<p class="st">Проверка — набор уносит ровно столько, сколько надо:</p>
+<p class="st">990 + 2 + 1 = 993 ✓</p>
+<p class="st">и на доске остаётся 3012 − 993 = 2019 ✓</p>
+<div class="card key st"><span class="tag">Заметь главное перед полнотой</span><p>В строке всего четыре сорта цифр: 9, 2, 1 и 0. Поэтому любой набор из какого-то числа цифр получается из набора «одни девятки» заменами, и каждая замена роняет сумму на строго определённую величину:</p></div>
+<ul class="st"><li>девятка на двойку — на 9 − 2 = 7;</li><li>девятка на единицу — на 9 − 1 = 8;</li><li>девятка на ноль — на 9.</li></ul>
+<p class="st">Самая дешёвая замена роняет сумму сразу на 7, меньше не бывает. Значит, суммы наборов одного размера идут не подряд: после «всех девяток» сразу дырка шириной в шесть чисел. Нужное число может угодить как раз в эту дырку — на этом и будет держаться «меньше нельзя».</p>
+<p class="step st"><b>Шаг 5 — «меньше нельзя»: сначала грубо, потом точно.</b> Это первый из двух шагов полноты плана (ритуал Ч5); второй, «столько можно», уже сделан в шаге 4.</p>
+<p class="st">Грубо: каждая стёртая цифра уносит не больше 9, поэтому 110 цифрами унесёшь самое большее</p>
+<div class="frm st">110 · 9 = 990 &lt; 993</div>
+<p class="st">→ цифр не меньше 111.</p>
+<p class="st">Точно: а хватит ли ровно 111? Девяток в строке 251, так что 111 девяток стереть можно, и это самый богатый набор из 111 цифр:</p>
+<div class="frm st">111 · 9 = 999</div>
+<p class="st">Это перелёт на 6. Любой другой набор из 111 цифр получается из него заменами, а самая дешёвая замена роняет сумму сразу на 7:</p>
+<div class="frm st">999 − 7 = 992</div>
+<p class="st">Дальше каждая замена только уменьшает: 111 цифрами уносится либо ровно 999, либо 992 и меньше — а 993 лежит в дырке между ними.</p>
+<p class="st">→ <b>111 цифрами ровно 993 не унести</b></p>
+<figure class="st"><svg viewBox="0 0 560 170" width="100%" style="max-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><line x1="25" y1="90" x2="535" y2="90" stroke="var(--muted)" stroke-width="2"/><rect x="206" y="80" width="268" height="20" rx="4" fill="var(--red)" fill-opacity="0.15"/><text x="340.0" y="126" text-anchor="middle" font-size="13" fill="var(--red)">дырка: 993…998 — 111 цифрами не собрать</text><line x1="40" y1="84" x2="40" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="40" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">988</text><line x1="80" y1="84" x2="80" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="80" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">989</text><line x1="120" y1="84" x2="120" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="120" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">990</text><line x1="160" y1="84" x2="160" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="160" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">991</text><line x1="200" y1="84" x2="200" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="200" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">992</text><line x1="240" y1="84" x2="240" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="240" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">993</text><line x1="280" y1="84" x2="280" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="280" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">994</text><line x1="320" y1="84" x2="320" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="320" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">995</text><line x1="360" y1="84" x2="360" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="360" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">996</text><line x1="400" y1="84" x2="400" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="400" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">997</text><line x1="440" y1="84" x2="440" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="440" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">998</text><line x1="480" y1="84" x2="480" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="480" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">999</text><line x1="520" y1="84" x2="520" y2="96" stroke="var(--muted)" stroke-width="1.5"/><text x="520" y="150" text-anchor="middle" font-size="12" fill="var(--muted)">1000</text><circle cx="120" cy="90" r="6" fill="var(--gold)"/><circle cx="160" cy="90" r="6" fill="var(--gold)"/><circle cx="200" cy="90" r="6" fill="var(--gold)"/><circle cx="480" cy="90" r="7" fill="var(--gold)"/><circle cx="240" cy="90" r="8" fill="none" stroke="var(--red)" stroke-width="2.5"/><text x="480" y="40" text-anchor="middle" font-size="13" fill="var(--gold)">111 девяток</text><text x="480" y="58" text-anchor="middle" font-size="13" fill="var(--gold)">= 999</text><text x="190" y="40" text-anchor="middle" font-size="13" fill="var(--gold)">девятка → двойка</text><text x="190" y="58" text-anchor="middle" font-size="13" fill="var(--gold)">999 − 7 = 992</text><text x="248" y="74" text-anchor="start" font-size="13" fill="var(--red)">надо 993</text></svg><figcaption>Суммы, которые уносят ровно 111 цифр (золотые точки: 999, а ниже — 992, 991, 990 и суммы ещё меньше). Самая дешёвая замена роняет 999 сразу на 7, поэтому числа от 993 до 998 не получаются ни при каком наборе — и нужное 993 попадает как раз в эту дырку.</figcaption></figure>
+<p class="st"><em>💬 Для фразы о полноте: 111 цифр уносят 999 или 992 и меньше, но никогда 993; а 110 девяток, двойка и единица уносят ровно 993.</em></p>
+<p class="step st"><b>Шаг 6 — сборка.</b> 110 и меньше цифр — нельзя (шаг 5, грубо), 111 — нельзя (шаг 5, точно), 112 — получилось (шаг 4). Значит, наименьшее число стёртых цифр — <b>112</b>.</p>
+<p class="st">Остаётся вопрос «какие цифры». Состав набора из 112 цифр единственный — это видно по тем же заменам. Сто двенадцать девяток унесли бы</p>
+<div class="frm st">112 · 9 = 1008</div>
+<p class="st">а нужно 993, то есть замены обязаны уронить сумму ровно на 15 (1008 − 993 = 15). Замены роняют на 7, 8 или 9:</p>
+<ul class="st"><li>одной заменой больше 9 не уронить — мало;</li><li>три замены роняют уже самое меньшее на 21 — много;</li><li>значит, замен ровно две. Переберём пары:</li><li>7 + 7 = 14 — мало;</li><li>7 + 8 = 15 — ровно;</li><li>7 + 9 = 16 — много;</li><li>8 + 8 = 16 — много;</li><li>остальные пары (8 + 9, 9 + 9) ещё больше — много.</li><li>Ровно 15 даёт только 7 + 8: одна девятка меняется на двойку (роняет на 7), другая на единицу (роняет на 8).</li></ul>
+<p class="st">Какие именно девятки, двойку и единицу стирать — неважно: подойдут любые 110 девяток из 251, любая двойка и любая единица.</p>
+<p class="st">⚠ <b>Ловушка 1.</b> Стирать нули. Ноль не уносит ничего — стереть его значит потратить цифру впустую.</p>
+<p class="st">⚠ <b>Ловушка 2.</b> Поделить 993 на 9, получить 110 и остаток 3 и объявить ответом «на одну больше», то есть 111. Грубая прикидка говорит только «меньше 111 нельзя», а что 111 цифрами <b>получится</b>, она не обещает — и здесь не получается: остаток 3 одной цифрой не унести.</p>
+<p class="st">⚠ <b>Ловушка 3.</b> Потерять точность при добивке: стереть 111 девяток, «раз уж 110 не хватает». Уйдёт 999, и на доске останется 2013, а не 2019. Нужно унести ровно 993, перелёт — такая же ошибка, как недолёт.</p>
+<p class="st"><em>Проверка вторым способом: программа выписала настоящую строку из 1004 цифр и для каждой возможной унесённой суммы от 0 до 993 нашла наименьшее число цифр, которые её уносят (перебор «брать или не брать» по всем 1004 цифрам), — для 993 вышло 112. Перебор всех составов (сколько девяток, двоек, единиц, нулей) показал, что набор из 112 цифр единственный — 110 девяток, 2 и 1, — а 111 цифрами уносятся суммы …, 990, 991, 992 и 999, но не 993. Число 1004 сверено с оригинальным листом тура; совпадает с официальным ключом.</em></p>
+<p class="st"><b>Ответ на задачу:</b> наименьшее количество — <b>112 цифр</b>; стереть нужно 110 девяток, одну двойку и одну единицу (любые). Нашли так: сумма всех цифр 12 · 251 = 3012, унести надо 3012 − 2019 = 993; девятками без перелёта уносится 990, остаток 3 добирается двойкой и единицей; меньше нельзя, потому что 110 цифр уносят не больше 990, а 111 цифр — либо 999, либо 992 и меньше.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Tengo que sacar exactamente 993, y cada cifra saca a lo sumo 9, por eso saco primero las más grandes: así hacen falta menos.</b></p></div>
+<p class="st"><em>Унести надо ровно 993, а каждая цифра уносит не больше 9, — поэтому убираю сначала самые большие: так их нужно меньше.</em></p>
+<h4 class="st">Запись</h4>
+<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">S(унести) = S(строки) − 2019</div>
+<p class="st">Ответ = наименьшее число цифр, уносящих ровно S(унести), и сами эти цифры.</p></div></div>
+<div id="a8" data-art="8"><ul class="st"><li><code>1004 = 4 · 251 + 0</code> → <b>251 порция «2019»</b>, S(порции) = 2 + 0 + 1 + 9 = 12</li><li><b>S(строки) = 12 · 251 = 3012</b></li><li><b>S(унести) = 3012 − 2019 = 993</b></li><li>жадно, без перелёта: <code>993 = 9 · 110 + 3</code> → 110 девяток = 990; добрать 3 = 2 + 1 (цифры 3 нет) → <b>112 цифр</b></li><li>110 цифрами нельзя: 110 · 9 = 990 &lt; 993</li><li>111 цифрами нельзя: 111 девяток = 999 — перелёт; замена девятки на 2 роняет на 7, на 1 — на 8, на 0 — на 9 → 992 и меньше; 993 лежит в дырке между 992 и 999</li><li>ровно собрано: 110 · 9 + 2 + 1 = 993 ✓, остаётся 3012 − 993 = 2019 ✓</li></ul></div>
+<p class="st"><b>112 цифр</b> (110 девяток, одна двойка и одна единица)</p>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a9" data-art="9"><p class="st"><b>Menos de 112 cifras no se puede, porque con 111 cifras lo sacado es 999 o a lo sumo 992, y nunca da 993; y con 110 nueves, un 2 y un 1 se logra, así que el mínimo es 112 cifras.</b></p></div>
+<p class="st"><em>Меньше 112 цифр быть не может, потому что 111 цифрами уносится либо 999, либо 992 и меньше, а 993 — никогда; а 110 девятками, двойкой и единицей это достигается, — значит минимум равен 112.</em></p>
+<hr>
+<div class="pager"><a href="03-3-girlyanda-shestiugolnikov-t2-rastuschiy-uzor-f.html">← №3 — гирлянда шестиугольников (Т2″: растущий узор, формула P(n))</a><a href="05-5-pryamougolnik-s-kryshey-i-klinom-t2-perimetry-.html">№5 — прямоугольник с крышей и клином (Т2: периметры, данный контур содержит целый треугольник) →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // кнопка перезапуска — только у иллюстраций, где движение что-то показывает
+    document.querySelectorAll('figure.fx').forEach(function(f){
+      var b=document.createElement('button');
+      b.className='replay';b.type='button';b.textContent='↻ ещё раз';
+      b.addEventListener('click',function(){
+        f.classList.remove('seen');void f.offsetWidth;f.classList.add('seen');
+      });
+      f.appendChild(b);
+    });
+
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>
