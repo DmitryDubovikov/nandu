@@ -261,10 +261,21 @@
 <button class="art cont" data-art="7"><span class="val f"><b>J = 6, G = 3</b> или <b>J = 8, G = 7</b> (J = 5, 7, 9 ✗)</span></button>
 <button class="art cont" data-art="8"><span class="val f">сотни: N + L + перенос = S ≤ 9</span></button>
 <button class="art cont" data-art="9"><span class="val f">десятки: I + I = T + 10 · перенос</span></button>
-<button class="art cont" data-art="10"><span class="val f">J = 6, свободны 2, 4, 7, 8, 9: {2, 4} → S = 7, I = 9, T = 8 ✓; {2, 7} → S = 9, I = 4, T = 8 ✓</span></button>
-<button class="art cont" data-art="11"><span class="val f">J = 8, свободны 2, 3, 4, 6, 9: {3, 6} → S = 9, I = 2, T = 4 ✓; {2, 3}, {2, 4}, {2, 6}, {3, 4} ✗</span></button>
-<button class="art cont" data-art="12"><span class="val f">N и L меняются местами → 3 · 2 = 6</span></button>
-<button class="art" data-art="13"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
+<button class="art cont" data-art="10"><span class="val f">J = 6, свободны 2, 4, 7, 8, 9:</span></button>
+<button class="art cont" data-art="11"><span class="val f">{2, 4} → S = 7, I = 9, T = 8 ✓</span></button>
+<button class="art cont" data-art="12"><span class="val f">{2, 7} → S = 9, I = 4, T = 8 ✓</span></button>
+<button class="art cont" data-art="13"><span class="val f">J = 8, свободны 2, 3, 4, 6, 9:</span></button>
+<button class="art cont" data-art="14"><span class="val f">{3, 6} → S = 9, I = 2, T = 4 ✓</span></button>
+<button class="art cont" data-art="15"><span class="val f">{2, 3}, {2, 4}, {2, 6}, {3, 4} ✗</span></button>
+<button class="art cont" data-art="16"><span class="val f">N и L меняются местами → 3 · 2 = 6</span></button>
+<button class="art cont" data-art="17"><span class="val f">6 решений:</span></button>
+<button class="art cont" data-art="18"><span class="val f"><b>65240 + 65740 = 130980</b> и <b>65740 + 65240 = 130980</b></span></button>
+<button class="art cont" data-art="19"><span class="val f"><b>65290 + 65490 = 130780</b> и <b>65490 + 65290 = 130780</b></span></button>
+<button class="art cont" data-art="20"><span class="val f"><b>85320 + 85620 = 170940</b> и <b>85620 + 85320 = 170940</b></span></button>
+<button class="art cont" data-art="21"><span class="val f">65240 + 65740 = 130980 ✓</span></button>
+<button class="art cont" data-art="22"><span class="val f">65290 + 65490 = 130780 ✓</span></button>
+<button class="art cont" data-art="23"><span class="val f">85320 + 85620 = 170940 ✓</span></button>
+<button class="art" data-art="24"><span class="lbl">💬 Полнота</span><span class="val ph">Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.<br><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></span></button>
 </aside>
 <main>
   
@@ -275,7 +286,7 @@
 <p class="st">Слова — названия месяцев: JUNIO — июнь, JULIO — июль, AGOSTO — август. Такой пример, где цифры спрятаны за буквами, называется <b>криптарифм</b>. Правила игры у него три: одинаковые буквы — одинаковые цифры; разные буквы — разные цифры; первая буква числа — не ноль (иначе JUNIO не было бы пятизначным числом).</p>
 <p class="st">В столбике каждая колонка складывает <b>цифру + цифру + перенос из колонки справа</b>. <b>Перенос</b> — единица, которая уходит в соседнюю колонку слева, когда сумма колонки дошла до 10 или больше. При сложении двух чисел перенос бывает только 0 или 1 — даже в самой большой колонке из неё уходит одна единица, не больше:</p>
 <div class="frm st">9 + 9 + 1 = 19</div>
-<p class="st">Ритуал Ч4 велит читать столбик с краёв. В каждом краю сидит своя <b>открывашка</b> — колонка, которая называет цифру сразу, без перебора.</p>
+<p class="st">Криптарифм читают <b>с краёв</b>, а не с середины: на краях меньше всего неизвестного. Слева сумма длиннее слагаемых — её первая цифра может взяться только из переноса. Справа, в единицах, перенос не приходит ни откуда — там складываются одни цифры. Поэтому в каждом краю сидит своя <b>открывашка</b> — колонка, которая называет цифру сразу, без перебора.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Выпиши все разные буквы: J, U, N, I, O, L, A, G, S, T. Их <b>ровно десять</b> — столько же, сколько цифр. Значит, каждая цифра от 0 до 9 достанется какой-то букве, и ровно одной. Отсюда главная экономия: как только часть букв найдена, про остальные известно не только «какие-то другие цифры», а точный список — <b>все незанятые</b>. Перебирать останется не цифры от 0 до 9, а раздачу нескольких известных цифр нескольким буквам.</p></div>
 <p class="step st"><b>Шаг 1 — план.</b> Десять букв наугад — это миллионы расстановок. Читаю столбик с краёв. Левая открывашка назовёт A: сумма длиннее слагаемых. Правая назовёт O: в единицах стоит O + O, и кончается это на O.</p>
 <p class="st">Буква O стоит в сумме ещё раз — в колонке тысяч. Значит, после O колонка тысяч сведётся к одной неизвестной букве U. Дальше колонка десятков тысяч: там J, J и G, и вариантов будет немного.</p>
@@ -289,7 +300,7 @@
 <div class="frm st">JUNIO + JULIO &lt; 100 000 + 100 000 = 200 000</div>
 <p class="st">Шестая цифра суммы может быть только единицей. Это перенос из колонки десятков тысяч — другого источника у неё нет.</p>
 <p class="st">→ <b>A = 1</b>, перенос из десятков тысяч = 1</p>
-<p class="step st"><b>Шаг 3 — считаю O (колонка единиц).</b> Нужна вторая бесплатная буква. В единицы перенос не приходит ни откуда — там просто O + O, и кончаться это должно на O. Правая открывашка: «Х + Х кончается на Х» бывает только при Х = 0 (0 + 0 = 0; у любой другой цифры последняя цифра удвоенного числа другая). Буква O ни одно число не начинает, так что ноль ей разрешён.</p>
+<p class="step st"><b>Шаг 3 — считаю O (колонка единиц).</b> Нужна вторая бесплатная буква. В единицы перенос не приходит ни откуда — там просто O + O, и кончаться это должно на O. Правая открывашка: «цифра плюс та же цифра кончается на эту же цифру» бывает только у нуля: 0 + 0 = 0. У любой другой цифры удвоенное число кончается иначе: 1 + 1 = 2, 5 + 5 = 10, 9 + 9 = 18. Буква O ни одно число не начинает, так что ноль ей разрешён.</p>
 <p class="st">→ <b>O = 0</b>, перенос из единиц = 0</p>
 <p class="step st"><b>Шаг 4 — считаю U (колонка тысяч).</b> Нужна третья буква плана. В тысячах складываются U, U и перенос из сотен, а кончиться всё должно на O, то есть на 0. Перенос из сотен — 0 или 1, пробую оба:</p>
 <ul class="st"><li>перенос 0: U + U кончается на 0 — это U = 0 (занято буквой O) или U = 5 (5 + 5 = 10) ✓;</li><li>перенос 1: U + U + 1 — число нечётное, на 0 не кончается никогда ✗.</li></ul>
@@ -297,7 +308,8 @@
 <p class="st"><em>💬 «При сложении двух цифр перенос бывает только 0 или 1 — значит случаев на проверку мало» — это мысль для фразы-объяснения: в каждой колонке перенос — выбор всего из двух, и здесь выбор закрылся сразу.</em></p>
 <p class="step st"><b>Шаг 5 — считаю варианты J и G (колонка десятков тысяч).</b> Нужны буквы плана J и G. В этой колонке J, J и перенос 1 из тысяч. Из колонки уходит перенос 1 — это A (шаг 2), значит, сумма колонки — это 10 плюс цифра G:</p>
 <div class="frm st">J + J + 1 = 10 + G</div>
-<div class="frm st">G = 2 · J − 9</div>
+<p class="st">Убираю 10 с обеих сторон:</p>
+<div class="frm st">G = 2 · J + 1 − 10 = 2 · J − 9</div>
 <p class="st">Сумма колонки должна дойти до 10, поэтому J не меньше 5. Иду по J подряд и сразу проверяю: и J, и G должны быть свободными цифрами (занято: A = 1, O = 0, U = 5) и не совпадать между собой.</p>
 <ul class="st"><li>J = 5 — занято буквой U ✗</li><li>J = 6 → G = 3 ✓</li><li>J = 7 → G = 5 — занято буквой U ✗</li><li>J = 8 → G = 7 ✓</li><li>J = 9 → G = 9 — та же цифра, что у J, а буквы разные ✗</li></ul>
 <p class="st">→ <b>две ветки: J = 6, G = 3 или J = 8, G = 7</b></p>
@@ -306,7 +318,8 @@
 <div class="frm st">I + I = T + 10 · (перенос из десятков)</div>
 <p class="st">Сотни: складываются N, L и перенос из десятков. Влево из сотен ничего не уходит (шаг 4) — значит, сумма колонки и есть цифра S:</p>
 <div class="frm st">N + L + (перенос из десятков) = S</div>
-<p class="st">Из второго равенства: сумма цифр N и L не больше 9 — иначе S не цифра. Это и будет сито: в каждой ветке беру пары N, L из незанятых цифр с суммой до 9. Тогда S — либо сама эта сумма (перенос 0), либо на единицу больше (перенос 1), и S тоже обязана быть незанятой. Последние две незанятые цифры — это I и T в каком-то порядке; пробую оба порядка на равенстве десятков.</p>
+<p class="st">Из второго равенства: сумма цифр N и L не больше 9 — иначе S не цифра. Это и будет сито. В каждой ветке:</p>
+<ul class="st"><li>беру пары N, L из незанятых цифр с суммой до 9;</li><li>S — либо сама эта сумма (перенос 0), либо на единицу больше (перенос 1), и S тоже обязана быть незанятой;</li><li>последние две незанятые цифры — это I и T в каком-то порядке; пробую оба порядка на равенстве десятков.</li></ul>
 <figure class="st"><svg viewBox="0 0 560 150" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif" role="img"><rect x="188" y="30" width="44" height="116" rx="6" fill="var(--gold)" fill-opacity=".14" stroke="var(--gold)"/><rect x="238" y="30" width="44" height="116" rx="6" fill="var(--gold)" fill-opacity=".14" stroke="var(--gold)"/><text x="210" y="20" text-anchor="middle" fill="var(--muted)" font-size="12">сотни</text><text x="260" y="20" text-anchor="middle" fill="var(--muted)" font-size="12">десятки</text><text x="110" y="52" text-anchor="middle" fill="var(--blue)" font-size="24" font-family="var(--mono)">J</text><text x="160" y="52" text-anchor="middle" fill="var(--green)" font-size="24" font-family="var(--mono)">5</text><text x="210" y="52" text-anchor="middle" fill="var(--gold)" font-size="24" font-family="var(--mono)">N</text><text x="260" y="52" text-anchor="middle" fill="var(--gold)" font-size="24" font-family="var(--mono)">I</text><text x="310" y="52" text-anchor="middle" fill="var(--green)" font-size="24" font-family="var(--mono)">0</text><text x="110" y="88" text-anchor="middle" fill="var(--blue)" font-size="24" font-family="var(--mono)">J</text><text x="160" y="88" text-anchor="middle" fill="var(--green)" font-size="24" font-family="var(--mono)">5</text><text x="210" y="88" text-anchor="middle" fill="var(--gold)" font-size="24" font-family="var(--mono)">L</text><text x="260" y="88" text-anchor="middle" fill="var(--gold)" font-size="24" font-family="var(--mono)">I</text><text x="310" y="88" text-anchor="middle" fill="var(--green)" font-size="24" font-family="var(--mono)">0</text><text x="22" y="88" text-anchor="middle" fill="var(--ink)" font-size="24" font-family="var(--mono)">+</text><line x1="12" y1="102" x2="336" y2="102" stroke="var(--muted)" stroke-width="1.5"/><text x="60" y="136" text-anchor="middle" fill="var(--green)" font-size="24" font-family="var(--mono)">1</text><text x="110" y="136" text-anchor="middle" fill="var(--blue)" font-size="24" font-family="var(--mono)">G</text><text x="160" y="136" text-anchor="middle" fill="var(--green)" font-size="24" font-family="var(--mono)">0</text><text x="210" y="136" text-anchor="middle" fill="var(--gold)" font-size="24" font-family="var(--mono)">S</text><text x="260" y="136" text-anchor="middle" fill="var(--gold)" font-size="24" font-family="var(--mono)">T</text><text x="310" y="136" text-anchor="middle" fill="var(--green)" font-size="24" font-family="var(--mono)">0</text><text x="356" y="52" text-anchor="start" fill="var(--green)" font-size="13">A = 1, O = 0, U = 5</text><text x="356" y="76" text-anchor="start" fill="var(--blue)" font-size="13">J = 6, G = 3</text><text x="356" y="94" text-anchor="start" fill="var(--blue)" font-size="13">или J = 8, G = 7</text><text x="356" y="120" text-anchor="start" fill="var(--muted)" font-size="13">из сотен влево</text><text x="356" y="138" text-anchor="start" fill="var(--muted)" font-size="13">переноса нет</text></svg><figcaption>Открытыми остались две жёлтые колонки. Пять букв в них делят между собой пять незанятых цифр, а из сотен влево ничего не уходит — поэтому сумма N и L вместе с переносом не больше 9.</figcaption></figure>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Буквы N и L встречаются <b>только в колонке сотен</b>, и там они просто складываются. Поменяй их местами — ни одна колонка не заметит. Например, если N = 2, L = 7, то после обмена N = 7, L = 2: JUNIO и JULIO поменяются местами, а сумма и все колонки останутся прежними. Значит, каждая найденная пара N, L даёт <b>два</b> решения. Поэтому пары перебираю без порядка (меньшая цифра первой), а в сборке умножаю на 2.</p></div>
 <p class="step st"><b>Шаг 7 — ветка J = 6, G = 3.</b> Заняты 0, 1, 3, 5, 6, свободны <b>2, 4, 7, 8, 9</b>. Пары с суммой до 9: только {2, 4} и {2, 7} — любая другая пара даёт уже 10 или больше (самая маленькая из них 2 + 8 = 10).</p>
@@ -320,7 +333,8 @@
 <div class="frm st">Число решений = 3 · 2 = 6</div>
 <ul class="st"><li>65240 + 65740 = 130980 и 65740 + 65240 = 130980</li><li>65290 + 65490 = 130780 и 65490 + 65290 = 130780</li><li>85320 + 85620 = 170940 и 85620 + 85320 = 170940</li></ul>
 <p class="st">Проверка одного решения целиком: 65240 + 65740 = 130980 ✓. Буквы J = 6, U = 5, N = 2, I = 4, O = 0, L = 7, A = 1, G = 3, S = 9, T = 8 — все десять цифр разные ✓.</p>
-<p class="st"><b>⚠ Ловушки.</b> (1) Взять U = 0: «U + U кончается на 0» — но ноль уже у буквы O. (2) Забыть, что J = 9 даёт G = 9: колонка сходится, а правило «разные буквы — разные цифры» нарушено. (3) Считать 65240 + 65740 и 65740 + 65240 одним решением: условие спрашивает, какое число стоит за каждым словом, а JUNIO в них разный. (4) Проверять I и T по всем цифрам от 0 до 9: им достаются ровно две последние незанятые цифры.</p>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ul class="st"><li>Взять U = 0: «U + U кончается на 0» — но ноль уже у буквы O.</li><li>Забыть, что J = 9 даёт G = 9: колонка сходится, а правило «разные буквы — разные цифры» нарушено.</li><li>Считать 65240 + 65740 и 65740 + 65240 одним решением: условие спрашивает, какое число стоит за каждым словом, а JUNIO в них разный.</li><li>Проверять I и T по всем цифрам от 0 до 9: им достаются ровно две последние незанятые цифры.</li></ul>
 <p class="st">Проверка вторым способом: полный компьютерный перебор всех расстановок десяти разных цифр по десяти буквам (J и A не ноль) — ровно 6 верных сумм, и это те же шесть; плюс сложение столбиком каждой из трёх различных сумм.</p>
 <p class="st"><b>Ответ на задачу:</b> возможностей <b>шесть</b>:</p>
 <ul class="st"><li>JUNIO = 65240, JULIO = 65740, AGOSTO = 130980;</li><li>JUNIO = 65740, JULIO = 65240, AGOSTO = 130980;</li><li>JUNIO = 65290, JULIO = 65490, AGOSTO = 130780;</li><li>JUNIO = 65490, JULIO = 65290, AGOSTO = 130780;</li><li>JUNIO = 85320, JULIO = 85620, AGOSTO = 170940;</li><li>JUNIO = 85620, JULIO = 85320, AGOSTO = 170940.</li></ul>
@@ -334,11 +348,13 @@
 <p class="st">Разные буквы — разные цифры; букв 10, значит заняты все цифры, каждая по разу.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <p class="st"><b>Ответ = все расстановки N, L, S, I, T, при которых сходятся колонки сотен и десятков</b></p></div></div>
-<div id="a12" data-art="12"><ul class="st"><li>два пятизначных &lt; 200 000 → <b>A = 1</b></li><li>единицы: O + O кончается на O → <b>O = 0</b></li><li>тысячи: U + U + перенос кончается на 0; U = 0 занято, с переносом нечётно → <b>U = 5</b>, из сотен переноса нет</li><li>десятки тысяч:</li><li>2 · J + 1 = 10 + G</li><li><b>J = 6, G = 3</b> или <b>J = 8, G = 7</b> (J = 5, 7, 9 ✗)</li><li>сотни: N + L + перенос = S ≤ 9</li><li>десятки: I + I = T + 10 · перенос</li><li>J = 6, свободны 2, 4, 7, 8, 9: {2, 4} → S = 7, I = 9, T = 8 ✓; {2, 7} → S = 9, I = 4, T = 8 ✓</li><li>J = 8, свободны 2, 3, 4, 6, 9: {3, 6} → S = 9, I = 2, T = 4 ✓; {2, 3}, {2, 4}, {2, 6}, {3, 4} ✗</li><li>N и L меняются местами → 3 · 2 = 6</li></ul></div>
-<p class="st"><b>6 решений: 65240 + 65740, 65740 + 65240 = 130980; 65290 + 65490, 65490 + 65290 = 130780; 85320 + 85620, 85620 + 85320 = 170940</b></p>
-<p class="st">Проверка: 65240 + 65740 = 130980 ✓; 65290 + 65490 = 130780 ✓; 85320 + 85620 = 170940 ✓</p>
+<div id="a16" data-art="16"><ul class="st"><li>два пятизначных &lt; 200 000 → <b>A = 1</b></li><li>единицы: O + O кончается на O → <b>O = 0</b></li><li>тысячи: U + U + перенос кончается на 0; U = 0 занято, с переносом нечётно → <b>U = 5</b>, из сотен переноса нет</li><li>десятки тысяч:</li><li>2 · J + 1 = 10 + G</li><li><b>J = 6, G = 3</b> или <b>J = 8, G = 7</b> (J = 5, 7, 9 ✗)</li><li>сотни: N + L + перенос = S ≤ 9</li><li>десятки: I + I = T + 10 · перенос</li><li>J = 6, свободны 2, 4, 7, 8, 9:</li><li>{2, 4} → S = 7, I = 9, T = 8 ✓</li><li>{2, 7} → S = 9, I = 4, T = 8 ✓</li><li>J = 8, свободны 2, 3, 4, 6, 9:</li><li>{3, 6} → S = 9, I = 2, T = 4 ✓</li><li>{2, 3}, {2, 4}, {2, 6}, {3, 4} ✗</li><li>N и L меняются местами → 3 · 2 = 6</li></ul></div>
+<div id="a17" data-art="17"><p class="st"><b>6 решений:</b></p></div>
+<div id="a20" data-art="20"><ul class="st"><li><b>65240 + 65740 = 130980</b> и <b>65740 + 65240 = 130980</b></li><li><b>65290 + 65490 = 130780</b> и <b>65490 + 65290 = 130780</b></li><li><b>85320 + 85620 = 170940</b> и <b>85620 + 85320 = 170940</b></li></ul></div>
+<p class="st">Проверка столбиком:</p>
+<div id="a23" data-art="23"><ul class="st"><li>65240 + 65740 = 130980 ✓</li><li>65290 + 65490 = 130780 ✓</li><li>85320 + 85620 = 170940 ✓</li></ul></div>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a13" data-art="13"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
+<div id="a24" data-art="24"><p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p></div>
 <p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
 <div class="pager"><a href="05-5-boss-6-a-4-b-2-c-2-d-t2-skvoznaya-liniya-dolya.html">← №5 — босс: 6 A + 4 B + 2 C + 2 D (Т2′: сквозная линия + доля вместо дроби)</a></div>
 </main>
