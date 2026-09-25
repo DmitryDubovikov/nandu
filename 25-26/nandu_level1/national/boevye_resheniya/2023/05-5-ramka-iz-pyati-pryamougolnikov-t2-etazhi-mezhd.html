@@ -251,118 +251,125 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 5 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">a = AB = CD</span></button>
-<button class="art cont" data-art="1"><span class="val f">w = BC</span></button>
-<button class="art cont" data-art="2"><span class="val f">v = AH</span></button>
-<button class="art cont" data-art="3"><span class="val f">m — высота перемычки</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">P(ADEH) = 2·((2a + w) + v)</span></button>
-<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">P(BDEG) = 2·((w + a) + v)</span></button>
-<button class="art" data-art="6"><span class="lbl">План</span><span class="val f">P(MPFG) = 2·(w + (v − m))</span></button>
-<button class="art" data-art="7"><span class="lbl">План</span><span class="val f">P(BCFG) = 2·(w + v)</span></button>
-<button class="art" data-art="8"><span class="lbl">На туре</span><span class="val f">P(BCPM) = 56 → (1) w + m = 28</span></button>
-<button class="art cont" data-art="9"><span class="val f">HG = 2·GS → (2) a = 2m</span></button>
-<button class="art cont" data-art="10"><span class="val f">P(ABGH) = 116 → (3) a + v = 58</span></button>
-<button class="art cont" data-art="11"><span class="val f">P(MPRS) = 112 → (4) w + (v − 2m) = 56</span></button>
-<button class="art cont" data-art="12"><span class="val f">из (1): w = 28 − m</span></button>
-<button class="art cont" data-art="13"><span class="val f">из (4): v = 28 + 3m</span></button>
-<button class="art cont" data-art="14"><span class="val f">из (3) и (2): 2m + 28 + 3m = 58</span></button>
-<button class="art cont" data-art="15"><span class="val f"><b>m = 6</b></span></button>
-<button class="art cont" data-art="16"><span class="val f"><b>w = 22</b>, <b>a = 12</b>, <b>v = 46</b></span></button>
-<button class="art cont" data-art="17"><span class="val f">P(ADEH) = 2·(46 + 46) = 184</span></button>
-<button class="art cont" data-art="18"><span class="val f">P(BDEG) = 2·((22 + 12) + 46) = 160</span></button>
-<button class="art cont" data-art="19"><span class="val f">P(MPFG) = 2·(22 + (46 − 6)) = 124</span></button>
-<button class="art cont" data-art="20"><span class="val f">P(BCFG) = 2·(22 + 46) = 136</span></button>
-<button class="art cont" data-art="21"><span class="val f">P(BCPM) = 2·(22 + 6) = 56 ✓</span></button>
-<button class="art cont" data-art="22"><span class="val f">P(ABGH) = 2·(12 + 46) = 116 ✓</span></button>
-<button class="art cont" data-art="23"><span class="val f">P(MPRS) = 2·(22 + (46 − 2·6)) = 112 ✓</span></button>
+  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики:</span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">a = AB = CD = HG</span></button>
+<button class="art cont" data-art="2"><span class="val f">w = BC</span></button>
+<button class="art cont" data-art="3"><span class="val f">v = AH</span></button>
+<button class="art cont" data-art="4"><span class="val f">m = GS — высота перемычки</span></button>
+<button class="art cont" data-art="5"><span class="val f">MS = v − 2m</span></button>
+<button class="art cont" data-art="6"><span class="val f">MG = v − m</span></button>
+<button class="art cont" data-art="7"><span class="val f">(1) P(BCPM) = 2 · (w + m) = 56</span></button>
+<button class="art cont" data-art="8"><span class="val f">(2) HG = 2 · GS: a = 2m</span></button>
+<button class="art cont" data-art="9"><span class="val f">(3) P(ABGH) = 2 · (a + v) = 116</span></button>
+<button class="art cont" data-art="10"><span class="val f">(4) P(MPRS) = 2 · (w + (v − 2m)) = 112</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">P(ADEH) = 2 · ((2a + w) + v)</span></button>
+<button class="art" data-art="12"><span class="lbl">План</span><span class="val f">P(BDEG) = 2 · ((w + a) + v)</span></button>
+<button class="art" data-art="13"><span class="lbl">План</span><span class="val f">P(MPFG) = 2 · (w + (v − m))</span></button>
+<button class="art" data-art="14"><span class="lbl">План</span><span class="val f">P(BCFG) = 2 · (w + v)</span></button>
+<button class="art" data-art="15"><span class="lbl">На туре</span><span class="val f">(1) : 2 → (5) w + m = 28 → w = 28 − m</span></button>
+<button class="art cont" data-art="16"><span class="val f">(4) : 2 → (7) w + v − 2m = 56 → (8) v = 28 + 3m</span></button>
+<button class="art cont" data-art="17"><span class="val f">(3) : 2 → (6) a + v = 58</span></button>
+<button class="art cont" data-art="18"><span class="val f">(6), подставить (2) и (8): 2m + 28 + 3m = 58</span></button>
+<button class="art cont" data-art="19"><span class="val f"><b>m = 6</b></span></button>
+<button class="art cont" data-art="20"><span class="val f"><b>w = 22</b></span></button>
+<button class="art cont" data-art="21"><span class="val f"><b>a = 12</b></span></button>
+<button class="art cont" data-art="22"><span class="val f"><b>v = 46</b></span></button>
+<button class="art cont" data-art="23"><span class="val f">P(ADEH) = 2 · (46 + 46) = 184</span></button>
+<button class="art cont" data-art="24"><span class="val f">P(BDEG) = 2 · ((22 + 12) + 46) = 160</span></button>
+<button class="art cont" data-art="25"><span class="val f">P(MPFG) = 2 · (22 + (46 − 6)) = 124</span></button>
+<button class="art cont" data-art="26"><span class="val f">P(BCFG) = 2 · (22 + 46) = 136</span></button>
+<button class="art cont" data-art="27"><span class="val f">(1): 2 · (22 + 6) = 56 ✓</span></button>
+<button class="art cont" data-art="28"><span class="val f">(3): 2 · (12 + 46) = 116 ✓</span></button>
+<button class="art cont" data-art="29"><span class="val f">(4): 2 · (22 + (46 − 2 · 6)) = 112 ✓</span></button>
 </aside>
 <main>
   
   <h1>№5 — рамка из пяти прямоугольников <em>(Т2′: этажи между колоннами + пропорция отрезков)</em></h1>
   <p class="sub">Национальный этап 2023 — боевые решения</p>
-<div class="card task st"><span class="tag">Условие</span><p>На рисунке MPRS — прямоугольник. Прямоугольники ABGH и CDEF равны. Прямоугольники BCPM и SRFG равны. HG = 2·GS. Периметр BCPM равен 56 см. Периметр ABGH равен 116 см. Периметр MPRS равен 112 см. Чему равен периметр ADEH? Чему равен периметр BDEG? Чему равен периметр MPFG? Чему равен периметр BCFG?</p></div>
+<div class="card task st"><span class="tag">Условие</span><p>На рисунке MPRS — прямоугольник. Прямоугольники ABGH и CDEF равны. Прямоугольники BCPM и SRFG равны. HG = 2 · GS. Периметр BCPM равен 56 см. Периметр ABGH равен 116 см. Периметр MPRS равен 112 см. Чему равен периметр ADEH? Чему равен периметр BDEG? Чему равен периметр MPFG? Чему равен периметр BCFG?</p></div>
 <figure class="st"><svg viewBox="0 0 360 300" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="60" y="40" width="240" height="220" fill="none" stroke="var(--muted)" stroke-width="2"/><line x1="120" y1="40" x2="120" y2="260" stroke="var(--muted)" stroke-width="2"/><line x1="240" y1="40" x2="240" y2="260" stroke="var(--muted)" stroke-width="2"/><line x1="120" y1="230" x2="240" y2="230" stroke="var(--muted)" stroke-width="2"/><line x1="120" y1="70" x2="240" y2="70" stroke="var(--muted)" stroke-width="2"/><circle cx="60" cy="260" r="3.5" fill="var(--ink)"/><circle cx="120" cy="260" r="3.5" fill="var(--ink)"/><circle cx="240" cy="260" r="3.5" fill="var(--ink)"/><circle cx="300" cy="260" r="3.5" fill="var(--ink)"/><circle cx="60" cy="40" r="3.5" fill="var(--ink)"/><circle cx="120" cy="40" r="3.5" fill="var(--ink)"/><circle cx="240" cy="40" r="3.5" fill="var(--ink)"/><circle cx="300" cy="40" r="3.5" fill="var(--ink)"/><circle cx="120" cy="230" r="3.5" fill="var(--ink)"/><circle cx="240" cy="230" r="3.5" fill="var(--ink)"/><circle cx="120" cy="70" r="3.5" fill="var(--ink)"/><circle cx="240" cy="70" r="3.5" fill="var(--ink)"/><text x="50" y="278" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="120" y="280" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="240" y="280" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="310" y="278" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="50" y="30" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="120" y="28" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="240" y="28" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">F</text><text x="310" y="30" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="106" y="224" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">M</text><text x="254" y="224" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">P</text><text x="106" y="88" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">S</text><text x="254" y="88" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">R</text></svg><figcaption>Рисунок условия. ADEH — вся фигура; вертикали B–G и C–F отрезают равные колонны ABGH и CDEF; между колоннами снизу вверх — перемычка BCPM, окно MPRS, перемычка SRFG.</figcaption></figure>
-<p class="st">Как читать рисунок: вся фигура — прямоугольник ADEH (A — левый низ, D — правый низ, E — правый верх, H — левый верх). Две вертикали B→G и C→F отрезают по краям две равные колонны: левую ABGH и правую CDEF. Полоса между колоннами разрезана поперёк на три этажа: снизу перемычка BCPM, в середине окно MPRS, сверху перемычка SRFG.</p>
-<p class="st"><b>🔍 С чего начать.</b> <b>Какие кирпичики?</b> Размеров всего четыре: ширина колонны, ширина полосы между колоннами, высота всей фигуры и высота перемычки. <b>Какие контуры спрошены?</b> Все четыре — прямоугольники, собранные из колонн и этажей, так что каждый периметр — это «ширина плюс высота, дважды».</p>
-<p class="st">Кирпичики:</p>
-<ul class="st"><li><code>a</code> — ширина колонны: a = AB = CD (колонны равны)</li><li><code>w</code> — ширина полосы между колоннами: w = BC</li><li><code>v</code> — высота всей фигуры: v = AH</li><li><code>m</code> — высота перемычки</li></ul>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Три этажа средней полосы стоят друг на друге вдоль одной вертикали B→G, а она проходит через фигуру насквозь — от нижней стороны до верхней, во всю высоту v. Обе перемычки имеют одну и ту же ширину w (снизу BC, сверху GF — обе между колоннами), и перемычки равны, значит, и высота у них одна — m. Поэтому окну MPRS достаётся высота фигуры без двух перемычек, а контуру MPFG (окно вместе с верхней перемычкой) — без одной нижней:</p></div>
+<p class="st"><em>Как устроен рисунок.</em> Вся фигура — прямоугольник ADEH (A — левый низ, D — правый низ, E — правый верх, H — левый верх). Две вертикали B→G и C→F отрезают по краям две равные колонны: левую ABGH и правую CDEF. Полоса между колоннами разрезана поперёк на три этажа: снизу перемычка BCPM, в середине окно MPRS, сверху перемычка SRFG.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Три этажа средней полосы стоят друг на друге вдоль одной вертикали B→G, а она проходит через фигуру насквозь — от нижней стороны до верхней, во всю высоту фигуры. Обе перемычки одной и той же ширины (снизу BC, сверху GF — обе между колоннами), и перемычки равны, значит, и высота у них одна. Поэтому окну MPRS достаётся высота фигуры без двух перемычек, а контуру MPFG (окно вместе с верхней перемычкой) — без одной нижней.</p></div>
+<h3 class="st">Часть 1 — геометрия: что даёт рисунок</h3>
+<p class="st"><b>Буквы.</b> Кирпичики — так в курсе зовут буквы, через которые выражается каждый отрезок рисунка. Размеров на рисунке всего четыре:</p>
+<ul class="st"><li><code>a</code> — ширина колонны: AB = CD (колонны равны), и верх колонны HG тоже a;</li><li><code>w</code> — ширина полосы между колоннами: BC = MP = SR = GF;</li><li><code>v</code> — высота всей фигуры: AH = BG = CF = DE;</li><li><code>m</code> — высота перемычки: BM = CP = SG = RF (перемычки равны).</li></ul>
+<p class="st">Высоты окна и контура MPFG — по «Заметь главное»: из всей высоты v вычитаю две перемычки или одну.</p>
 <div class="frm st">MS = v − 2m</div>
 <div class="frm st">MG = v − m</div>
 <figure class="st"><svg viewBox="0 0 400 300" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="120" y="230" width="120" height="30" fill="#2a2212" stroke="none"/><rect x="120" y="40" width="120" height="30" fill="#2a2212" stroke="none"/><rect x="60" y="40" width="240" height="220" fill="none" stroke="var(--muted)" stroke-width="2"/><line x1="120" y1="40" x2="120" y2="260" stroke="var(--muted)" stroke-width="2"/><line x1="240" y1="40" x2="240" y2="260" stroke="var(--muted)" stroke-width="2"/><line x1="120" y1="230" x2="240" y2="230" stroke="var(--muted)" stroke-width="2"/><line x1="120" y1="70" x2="240" y2="70" stroke="var(--muted)" stroke-width="2"/><line x1="120" y1="260" x2="120" y2="230" stroke="var(--gold)" stroke-width="4"/><line x1="120" y1="230" x2="120" y2="70" stroke="var(--blue)" stroke-width="4"/><line x1="120" y1="70" x2="120" y2="40" stroke="var(--gold)" stroke-width="4"/><line x1="60" y1="40" x2="120" y2="40" stroke="var(--green)" stroke-width="4"/><circle cx="60" cy="260" r="3.5" fill="var(--ink)"/><circle cx="120" cy="260" r="3.5" fill="var(--ink)"/><circle cx="240" cy="260" r="3.5" fill="var(--ink)"/><circle cx="300" cy="260" r="3.5" fill="var(--ink)"/><circle cx="60" cy="40" r="3.5" fill="var(--ink)"/><circle cx="120" cy="40" r="3.5" fill="var(--ink)"/><circle cx="240" cy="40" r="3.5" fill="var(--ink)"/><circle cx="300" cy="40" r="3.5" fill="var(--ink)"/><circle cx="120" cy="230" r="3.5" fill="var(--ink)"/><circle cx="240" cy="230" r="3.5" fill="var(--ink)"/><circle cx="120" cy="70" r="3.5" fill="var(--ink)"/><circle cx="240" cy="70" r="3.5" fill="var(--ink)"/><text x="50" y="278" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="120" y="280" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="240" y="280" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="310" y="278" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="50" y="30" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="120" y="28" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="240" y="28" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">F</text><text x="310" y="30" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="106" y="224" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">M</text><text x="254" y="224" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">P</text><text x="106" y="88" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">S</text><text x="254" y="88" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">R</text><text x="180.0" y="250.0" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="600">m</text><text x="180.0" y="60.0" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="600">m</text><text x="180.0" y="155.0" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="600">окно: v − 2m</text><text x="90.0" y="58" fill="var(--green)" font-size="14" text-anchor="middle" font-weight="600">a</text><line x1="334" y1="40" x2="334" y2="260" stroke="var(--muted)" stroke-width="1.5"/><line x1="329" y1="40" x2="339" y2="40" stroke="var(--muted)" stroke-width="1.5"/><line x1="329" y1="260" x2="339" y2="260" stroke="var(--muted)" stroke-width="1.5"/><text x="348" y="155.0" fill="var(--muted)" font-size="15" text-anchor="middle" font-weight="600">v</text></svg><figcaption>Вертикаль B→G проходит насквозь: перемычка m, окно, перемычка m — вместе вся высота v. Перемычки равны и одной ширины, поэтому у обеих высота m, и окну остаётся высота без двух перемычек. HG — горизонталь над колонной (a), GS — вертикаль (m).</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план.</b> Спрошены четыре периметра — обвожу каждый контур и называю его ширину и высоту.</p>
-<p class="st">ADEH — вся фигура: ширина — две колонны и полоса, высота — v.</p>
-<div class="frm st">P(ADEH) = 2·((2a + w) + v)</div>
-<p class="st">BDEG — полоса вместе с правой колонной: ширина — полоса и одна колонна, высота — v.</p>
-<div class="frm st">P(BDEG) = 2·((w + a) + v)</div>
-<p class="st">MPFG — окно вместе с верхней перемычкой: ширина — w, высота — вся фигура без нижней перемычки.</p>
-<div class="frm st">P(MPFG) = 2·(w + (v − m))</div>
-<p class="st">BCFG — вся средняя полоса: ширина — w, высота — v.</p>
-<div class="frm st">P(BCFG) = 2·(w + v)</div>
-<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">P(ADEH) = 2·((2a + w) + v)</div>
-<div class="frm st">P(BDEG) = 2·((w + a) + v)</div>
-<div class="frm st">P(MPFG) = 2·(w + (v − m))</div>
-<div class="frm st">P(BCFG) = 2·(w + v)</div>
-<ul class="st"><li><code>a</code> — ширина колонны (AB = CD)</li><li><code>w</code> — ширина полосы (BC)</li><li><code>v</code> — высота фигуры (AH)</li><li><code>m</code> — высота перемычки</li></ul>
-<p class="st">Ответ = четыре периметра по этим формулам.</p>
-<p class="st">Осталось найти: w, m, a, v.</p></div>
-<p class="step st"><b>Шаг 2 — четыре данных условия — четыре уравнения на кирпичики.</b> Каждое данное связывает кирпичики плана. Где дан периметр прямоугольника, сразу делю его пополам: половина периметра — это ширина плюс высота.</p>
-<p class="st">BCPM — нижняя перемычка: ширина w, высота m, полупериметр 56 : 2 = 28.</p>
-<div class="frm st">(1) w + m = 28</div>
-<p class="st">HG — это кусок верхней стороны от угла H до точки G, он лежит над левой колонной, то есть это её ширина a. GS — вертикаль от G вниз до S, то есть высота верхней перемычки m.</p>
+<p class="st">Все контуры в этой задаче — прямоугольники. Периметр прямоугольника — ширина плюс высота, взятые дважды.</p>
+<p class="st"><code>P(X)</code> — периметр контура X: обхожу контур карандашом и складываю отрезки.</p>
+<p class="st"><b>Уравнения из условия.</b></p>
+<p class="st">Контур BCPM — нижняя перемычка: ширина w, высота m.</p>
+<div class="frm st">(1) 2 · (w + m) = 56</div>
+<p class="st">Пропорция из условия:</p>
+<div class="frm st">HG = 2 · GS</div>
+<p class="st">HG — кусок верхней стороны от угла H до точки G, он лежит над левой колонной, то есть это её ширина a. GS — вертикаль от G вниз до S, то есть высота верхней перемычки m.</p>
 <div class="frm st">(2) a = 2m</div>
-<p class="st">ABGH — левая колонна: ширина a, высота v, полупериметр 116 : 2 = 58.</p>
-<div class="frm st">(3) a + v = 58</div>
-<p class="st">MPRS — окно: ширина w, высота — по «Заметь главное» — вся высота без двух перемычек; полупериметр 112 : 2 = 56.</p>
-<div class="frm st">(4) w + (v − 2m) = 56</div>
-<p class="st">→ <b>четыре уравнения (1)–(4)</b></p>
-<p class="step st"><b>Шаг 3 — в (1) и (2) кирпичики w и a выражаются через одну m.</b> Значит, всё можно свести к одной букве m методом подстановки: выразить букву из одного уравнения и подставить это выражение в другое. Из (1) и (2):</p>
+<p class="st">Контур ABGH — левая колонна: ширина a, высота v.</p>
+<div class="frm st">(3) 2 · (a + v) = 116</div>
+<p class="st">Контур MPRS — окно: ширина w, высота MS.</p>
+<div class="frm st">(4) 2 · (w + (v − 2m)) = 112</div>
+<figure class="st"><svg viewBox="0 0 690 198" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><line x1="20.0" y1="158.4" x2="168.8" y2="158.4" stroke="#2c394c" stroke-width="1.5"/><line x1="168.8" y1="158.4" x2="168.8" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="168.8" y1="22.0" x2="20.0" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="20.0" y1="22.0" x2="20.0" y2="158.4" stroke="#2c394c" stroke-width="1.5"/><line x1="57.2" y1="158.4" x2="57.2" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="131.6" y1="158.4" x2="131.6" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="57.2" y1="139.8" x2="131.6" y2="139.8" stroke="#2c394c" stroke-width="1.5"/><line x1="57.2" y1="40.6" x2="131.6" y2="40.6" stroke="#2c394c" stroke-width="1.5"/><polygon points="57.2,158.4 131.6,158.4 131.6,139.8 57.2,139.8" fill="#2a2212" fill-opacity=".6" stroke="var(--gold)" stroke-width="3.2"/><text x="94.4" y="174.4" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">w</text><text x="139.6" y="154.1" fill="var(--gold)" font-size="14" text-anchor="start" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">m</text><text x="12.0" y="170.4" fill="var(--muted)" font-size="11" text-anchor="middle">A</text><text x="57.2" y="172.4" fill="var(--muted)" font-size="11" text-anchor="middle">B</text><text x="131.6" y="172.4" fill="var(--muted)" font-size="11" text-anchor="middle">C</text><text x="176.8" y="170.4" fill="var(--muted)" font-size="11" text-anchor="middle">D</text><text x="12.0" y="18.0" fill="var(--muted)" font-size="11" text-anchor="middle">H</text><text x="57.2" y="16.0" fill="var(--muted)" font-size="11" text-anchor="middle">G</text><text x="131.6" y="16.0" fill="var(--muted)" font-size="11" text-anchor="middle">F</text><text x="176.8" y="18.0" fill="var(--muted)" font-size="11" text-anchor="middle">E</text><text x="66.2" y="134.8" fill="var(--muted)" font-size="11" text-anchor="middle">M</text><text x="122.6" y="134.8" fill="var(--muted)" font-size="11" text-anchor="middle">P</text><text x="66.2" y="54.6" fill="var(--muted)" font-size="11" text-anchor="middle">S</text><text x="122.6" y="54.6" fill="var(--muted)" font-size="11" text-anchor="middle">R</text><text x="94.4" y="188" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">(1) P(BCPM) = 56</text><line x1="250.0" y1="158.4" x2="398.8" y2="158.4" stroke="#2c394c" stroke-width="1.5"/><line x1="398.8" y1="158.4" x2="398.8" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="398.8" y1="22.0" x2="250.0" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="250.0" y1="22.0" x2="250.0" y2="158.4" stroke="#2c394c" stroke-width="1.5"/><line x1="287.2" y1="158.4" x2="287.2" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="361.6" y1="158.4" x2="361.6" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="287.2" y1="139.8" x2="361.6" y2="139.8" stroke="#2c394c" stroke-width="1.5"/><line x1="287.2" y1="40.6" x2="361.6" y2="40.6" stroke="#2c394c" stroke-width="1.5"/><polygon points="250.0,158.4 287.2,158.4 287.2,22.0 250.0,22.0" fill="#2a2212" fill-opacity=".6" stroke="var(--gold)" stroke-width="3.2"/><text x="268.6" y="174.4" fill="var(--green)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">a</text><text x="295.2" y="95.2" fill="var(--red)" font-size="14" text-anchor="start" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">v</text><text x="242.0" y="170.4" fill="var(--muted)" font-size="11" text-anchor="middle">A</text><text x="287.2" y="172.4" fill="var(--muted)" font-size="11" text-anchor="middle">B</text><text x="361.6" y="172.4" fill="var(--muted)" font-size="11" text-anchor="middle">C</text><text x="406.8" y="170.4" fill="var(--muted)" font-size="11" text-anchor="middle">D</text><text x="242.0" y="18.0" fill="var(--muted)" font-size="11" text-anchor="middle">H</text><text x="287.2" y="16.0" fill="var(--muted)" font-size="11" text-anchor="middle">G</text><text x="361.6" y="16.0" fill="var(--muted)" font-size="11" text-anchor="middle">F</text><text x="406.8" y="18.0" fill="var(--muted)" font-size="11" text-anchor="middle">E</text><text x="296.2" y="134.8" fill="var(--muted)" font-size="11" text-anchor="middle">M</text><text x="352.6" y="134.8" fill="var(--muted)" font-size="11" text-anchor="middle">P</text><text x="296.2" y="54.6" fill="var(--muted)" font-size="11" text-anchor="middle">S</text><text x="352.6" y="54.6" fill="var(--muted)" font-size="11" text-anchor="middle">R</text><text x="324.4" y="188" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">(3) P(ABGH) = 116</text><line x1="480.0" y1="158.4" x2="628.8" y2="158.4" stroke="#2c394c" stroke-width="1.5"/><line x1="628.8" y1="158.4" x2="628.8" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="628.8" y1="22.0" x2="480.0" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="480.0" y1="22.0" x2="480.0" y2="158.4" stroke="#2c394c" stroke-width="1.5"/><line x1="517.2" y1="158.4" x2="517.2" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="591.6" y1="158.4" x2="591.6" y2="22.0" stroke="#2c394c" stroke-width="1.5"/><line x1="517.2" y1="139.8" x2="591.6" y2="139.8" stroke="#2c394c" stroke-width="1.5"/><line x1="517.2" y1="40.6" x2="591.6" y2="40.6" stroke="#2c394c" stroke-width="1.5"/><polygon points="517.2,139.8 591.6,139.8 591.6,40.6 517.2,40.6" fill="#2a2212" fill-opacity=".6" stroke="var(--gold)" stroke-width="3.2"/><text x="554.4" y="155.8" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">w</text><text x="554.6" y="95.2" fill="var(--red)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">v − 2m</text><text x="472.0" y="170.4" fill="var(--muted)" font-size="11" text-anchor="middle">A</text><text x="517.2" y="172.4" fill="var(--muted)" font-size="11" text-anchor="middle">B</text><text x="591.6" y="172.4" fill="var(--muted)" font-size="11" text-anchor="middle">C</text><text x="636.8" y="170.4" fill="var(--muted)" font-size="11" text-anchor="middle">D</text><text x="472.0" y="18.0" fill="var(--muted)" font-size="11" text-anchor="middle">H</text><text x="517.2" y="16.0" fill="var(--muted)" font-size="11" text-anchor="middle">G</text><text x="591.6" y="16.0" fill="var(--muted)" font-size="11" text-anchor="middle">F</text><text x="636.8" y="18.0" fill="var(--muted)" font-size="11" text-anchor="middle">E</text><text x="526.2" y="134.8" fill="var(--muted)" font-size="11" text-anchor="middle">M</text><text x="582.6" y="134.8" fill="var(--muted)" font-size="11" text-anchor="middle">P</text><text x="526.2" y="54.6" fill="var(--muted)" font-size="11" text-anchor="middle">S</text><text x="582.6" y="54.6" fill="var(--muted)" font-size="11" text-anchor="middle">R</text><text x="554.4" y="188" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">(4) P(MPRS) = 112</text></svg><figcaption>Три данных контура и их уравнения. Каждый — прямоугольник, поэтому в уравнение идут только его ширина и высота. У окна MPRS высота — вся высота фигуры без двух перемычек, v − 2m.</figcaption></figure>
+<p class="st"><b>Что спрошено.</b> Каждый искомый контур — прямоугольник; называю его ширину и высоту.</p>
+<p class="st">ADEH — вся фигура: ширина — две колонны и полоса, 2a + w; высота — v.</p>
+<p class="st">BDEG — полоса вместе с правой колонной: ширина — полоса и одна колонна, w + a; высота — v.</p>
+<p class="st">MPFG — окно вместе с верхней перемычкой: ширина — w; высота — MG.</p>
+<p class="st">BCFG — вся средняя полоса: ширина — w; высота — v.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">P(ADEH) = 2 · ((2a + w) + v)</div>
+<div class="frm st">P(BDEG) = 2 · ((w + a) + v)</div>
+<div class="frm st">P(MPFG) = 2 · (w + (v − m))</div>
+<div class="frm st">P(BCFG) = 2 · (w + v)</div>
+<p class="st">Осталось найти: <code>a</code>, <code>w</code>, <code>v</code>, <code>m</code> — из системы (1)–(4).</p></div>
+<h3 class="st">Часть 2 — алгебра: решаем систему</h3>
+<p class="st"><em>Полупериметр</em> — половина периметра прямоугольника, то есть ширина плюс высота. Делю (1), (3) и (4) на 2:</p>
+<div class="frm st">(5) w + m = 28</div>
+<div class="frm st">(6) a + v = 58</div>
+<div class="frm st">(7) w + v − 2m = 56</div>
+<p class="st">Заметь: из (5) и (2) буквы w и a выражаются через одну m. Значит, работает <b>метод подстановки</b>: выразить букву из одного уравнения и подставить это выражение в другое.</p>
 <div class="frm st">w = 28 − m</div>
 <div class="frm st">a = 2m</div>
-<p class="st">В (4) вместо w подставляю его выражение через m — остаётся связь v с m:</p>
+<p class="st">(7), подставить w — остаётся связь v с m:</p>
 <div class="frm st">28 − m + v − 2m = 56</div>
-<div class="frm st">v = 28 + 3m</div>
-<p class="st">В (3) вместо a и v подставляю их выражения через m — остаётся одна буква:</p>
+<div class="frm st">(8) v = 28 + 3m</div>
+<p class="st">(6), подставить a из (2) и v из (8) — остаётся одна буква:</p>
 <div class="frm st">2m + 28 + 3m = 58</div>
 <div class="frm st">5m = 30</div>
 <div class="frm st">m = 6</div>
 <p class="st">Остальные кирпичики — из выражений через m:</p>
-<ul class="st"><li>w = 28 − 6 = 22</li><li>a = 2 · 6 = 12</li><li>v = 28 + 3 · 6 = 46</li></ul>
-<p class="st">→ <b>m = 6, w = 22, a = 12, v = 46</b></p>
-<p class="step st"><b>Шаг 4 — сборка.</b> Подставляю кирпичики в формулы плана. Сначала ширины и высоты контуров:</p>
-<div class="frm st">2a + w = 24 + 22 = 46</div>
-<div class="frm st">w + a = 22 + 12 = 34</div>
-<div class="frm st">v − m = 46 − 6 = 40</div>
+<ul class="st"><li><b>w = 28 − 6 = 22</b></li><li><b>a = 2 · 6 = 12</b></li><li><b>v = 28 + 3 · 6 = 46</b></li></ul>
+<p class="st"><b>Сборка.</b> Сначала ширины и высоты контуров:</p>
+<ul class="st"><li>2a + w = 24 + 22 = 46</li><li>w + a = 22 + 12 = 34</li><li>v − m = 46 − 6 = 40</li></ul>
 <p class="st">Ширина всей фигуры 46 и высота 46 — внешний прямоугольник ADEH оказался квадратом.</p>
-<div class="frm st">P(ADEH) = 2·(46 + 46) = 184</div>
-<div class="frm st">P(BDEG) = 2·(34 + 46) = 160</div>
-<div class="frm st">P(MPFG) = 2·(22 + 40) = 124</div>
-<div class="frm st">P(BCFG) = 2·(22 + 46) = 136</div>
-<p class="st">→ <b>P(ADEH) = 184</b>, <b>P(BDEG) = 160</b>, <b>P(MPFG) = 124</b>, <b>P(BCFG) = 136</b></p>
-<p class="st">Проверка по данным условия. Высота окна — вся высота без двух перемычек:</p>
-<div class="frm st">MS = v − 2m = 46 − 2·6 = 34</div>
-<ul class="st"><li>P(BCPM) = 2·(22 + 6) = 56 ✓</li><li>P(ABGH) = 2·(12 + 46) = 116 ✓</li><li>P(MPRS) = 2·(22 + 34) = 112 ✓</li><li>HG = 12, GS = 6 — вдвое ✓</li></ul>
-<p class="st"><b>⚠ Ловушки.</b> (1) HG — не вся верхняя сторона, а её кусок над колонной; GS — вертикаль. Прочитать пропорцию как «две горизонтали» — завал. (2) Высота окна MPRS — вся высота без <b>двух</b> перемычек, а у MPFG — без <b>одной</b>. (3) BDEG — не вся фигура: левая колонна в него не входит, ширина — одна колонна плюс полоса.</p>
+<p class="st">Подставляю в формулы плана:</p>
+<ul class="st"><li><b>P(ADEH)</b> = 2 · (46 + 46) = <b>184</b></li><li><b>P(BDEG)</b> = 2 · (34 + 46) = <b>160</b></li><li><b>P(MPFG)</b> = 2 · (22 + 40) = <b>124</b></li><li><b>P(BCFG)</b> = 2 · (22 + 46) = <b>136</b></li></ul>
+<p class="st">Проверка подстановкой в (1)–(4). Высота окна:</p>
+<div class="frm st">MS = 46 − 2 · 6 = 34</div>
+<ul class="st"><li>(1): 2 · (22 + 6) = 56 ✓</li><li>(2): 12 = 2 · 6 ✓</li><li>(3): 2 · (12 + 46) = 116 ✓</li><li>(4): 2 · (22 + 34) = 112 ✓</li></ul>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ol class="st num"><li><span class="lin">1.</span> HG — не вся верхняя сторона, а её кусок над колонной; GS — вертикаль. Прочитать пропорцию как «две горизонтали» — завал.</li><li><span class="lin">2.</span> Высота окна MPRS — вся высота без <b>двух</b> перемычек, а у MPFG — без <b>одной</b>.</li><li><span class="lin">3.</span> BDEG — не вся фигура: левая колонна в него не входит, ширина — одна колонна плюс полоса.</li></ol>
 <p class="st">Проверка вторым способом: программа перебрала все целые ширины колонны и полосы, высоту фигуры и высоты обеих перемычек по отдельности (их равенство не закладывалось, а проверялось как «прямоугольники BCPM и SRFG равны»), расставила по ним координаты всех двенадцати точек, оставила только наборы, где выполнены все данные условия, и посчитала спрошенные периметры обходом вершин — единственный набор a = 12, w = 22, v = 46, m = 6 и периметры 184, 160, 124, 136.</p>
 <p class="st"><b>Ответ на задачу:</b> периметр ADEH — 184 см, периметр BDEG — 160 см, периметр MPFG — 124 см, периметр BCFG — 136 см. <em>(Официальный ключ: 184; 160; 124; 136 — совпадает.)</em></p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Периметры фразы-объяснения не требуют: буквы, равенства и вычитание говорят сами за себя.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a3" data-art="3"><ul class="st"><li>a = AB = CD</li><li>w = BC</li><li>v = AH</li><li>m — высота перемычки</li></ul></div>
-<div id="a7" data-art="7"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">P(ADEH) = 2·((2a + w) + v)</div>
-<div class="frm st">P(BDEG) = 2·((w + a) + v)</div>
-<div class="frm st">P(MPFG) = 2·(w + (v − m))</div>
-<div class="frm st">P(BCFG) = 2·(w + v)</div>
-<p class="st">Осталось найти w, m, a, v.</p></div></div>
-<div id="a16" data-art="16"><ul class="st"><li>P(BCPM) = 56 → (1) w + m = 28</li><li>HG = 2·GS → (2) a = 2m</li><li>P(ABGH) = 116 → (3) a + v = 58</li><li>P(MPRS) = 112 → (4) w + (v − 2m) = 56</li><li>из (1): w = 28 − m</li><li>из (4): v = 28 + 3m</li><li>из (3) и (2): 2m + 28 + 3m = 58</li><li><b>m = 6</b></li><li><b>w = 22</b>, <b>a = 12</b>, <b>v = 46</b></li></ul></div>
-<div id="a17" data-art="17"><div class="frm st">P(ADEH) = 2·(46 + 46) = 184</div></div>
-<div id="a18" data-art="18"><div class="frm st">P(BDEG) = 2·((22 + 12) + 46) = 160</div></div>
-<div id="a19" data-art="19"><div class="frm st">P(MPFG) = 2·(22 + (46 − 6)) = 124</div></div>
-<div id="a20" data-art="20"><div class="frm st">P(BCFG) = 2·(22 + 46) = 136</div></div>
+<div id="a0" data-art="0"><p class="st">Кирпичики:</p></div>
+<div id="a6" data-art="6"><ul class="st"><li>a = AB = CD = HG</li><li>w = BC</li><li>v = AH</li><li>m = GS — высота перемычки</li><li>MS = v − 2m</li><li>MG = v − m</li></ul></div>
+<p class="st">Уравнения:</p>
+<div id="a10" data-art="10"><ul class="st"><li>(1) P(BCPM) = 2 · (w + m) = 56</li><li>(2) HG = 2 · GS: a = 2m</li><li>(3) P(ABGH) = 2 · (a + v) = 116</li><li>(4) P(MPRS) = 2 · (w + (v − 2m)) = 112</li></ul></div>
+<div id="a14" data-art="14"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(ADEH) = 2 · ((2a + w) + v)</div>
+<div class="frm st">P(BDEG) = 2 · ((w + a) + v)</div>
+<div class="frm st">P(MPFG) = 2 · (w + (v − m))</div>
+<div class="frm st">P(BCFG) = 2 · (w + v)</div></div></div>
+<div id="a22" data-art="22"><ul class="st"><li>(1) : 2 → (5) w + m = 28 → w = 28 − m</li><li>(4) : 2 → (7) w + v − 2m = 56 → (8) v = 28 + 3m</li><li>(3) : 2 → (6) a + v = 58</li><li>(6), подставить (2) и (8): 2m + 28 + 3m = 58</li><li><b>m = 6</b></li><li><b>w = 22</b></li><li><b>a = 12</b></li><li><b>v = 46</b></li></ul></div>
+<div id="a23" data-art="23"><div class="frm st">P(ADEH) = 2 · (46 + 46) = 184</div></div>
+<div id="a24" data-art="24"><div class="frm st">P(BDEG) = 2 · ((22 + 12) + 46) = 160</div></div>
+<div id="a25" data-art="25"><div class="frm st">P(MPFG) = 2 · (22 + (46 − 6)) = 124</div></div>
+<div id="a26" data-art="26"><div class="frm st">P(BCFG) = 2 · (22 + 46) = 136</div></div>
 <p class="st">Проверка:</p>
-<div id="a23" data-art="23"><ul class="st"><li>P(BCPM) = 2·(22 + 6) = 56 ✓</li><li>P(ABGH) = 2·(12 + 46) = 116 ✓</li><li>P(MPRS) = 2·(22 + (46 − 2·6)) = 112 ✓</li></ul></div>
+<div id="a29" data-art="29"><ul class="st"><li>(1): 2 · (22 + 6) = 56 ✓</li><li>(3): 2 · (12 + 46) = 116 ✓</li><li>(4): 2 · (22 + (46 − 2 · 6)) = 112 ✓</li></ul></div>
 <div class="pager"><a href="04-4-napitki-dlya-prazdnika-t1-dolya-ot-izvestnogo-.html">← №4 — напитки для праздника (Т1′: доля от известного итога + метод вычитания)</a><a href="06-6-chislo-plyus-perevorot-daet-1ddd-t3-razryadnay.html">№6 — Число плюс переворот даёт 1DDD (Т3″: разрядная запись и переносы) →</a></div>
 </main>
 </div>

@@ -262,31 +262,33 @@
 <button class="art cont" data-art="8"><span class="val f">EG = FD = r + s</span></button>
 <button class="art cont" data-art="9"><span class="val f">FG = EG − b</span></button>
 <button class="art cont" data-art="10"><span class="val f">AC = b + s</span></button>
-<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">P(BCDE) = s + s + q + (p + s)</span></button>
-<button class="art" data-art="12"><span class="lbl">План</span><span class="val f">P(ABIFG) = b + s + r + ((r + s) − b) + s : 2</span></button>
-<button class="art" data-art="13"><span class="lbl">План</span><span class="val f">P(ACDFG) = (b + s) + s + (r + s) + ((r + s) − b) + s : 2</span></button>
-<button class="art" data-art="14"><span class="lbl">План</span><span class="val f">P(ACDEG) = (b + s) + s + q + (r + s) + s : 2</span></button>
-<button class="art" data-art="15"><span class="lbl">На туре</span><span class="val f">P(BCDI) = 4s = 128 → <b>s = 32</b></span></button>
-<button class="art cont" data-art="16"><span class="val f">P(ABHG) = 2b + 32 = 92 → <b>b = 30</b></span></button>
-<button class="art cont" data-art="17"><span class="val f">P(EFI) = 72 → r + p = 72 − 30 = 42</span></button>
-<button class="art cont" data-art="18"><span class="val f">P(DEI) = 96 → p + q = 96 − 32 = 64</span></button>
-<button class="art cont" data-art="19"><span class="val f">P(DEF) = 120 → q + r = 120 − 30 − 32 = 58</span></button>
-<button class="art cont" data-art="20"><span class="val f">складываю все три: 2 · (p + q + r) = 164 → p + q + r = 82</span></button>
-<button class="art cont" data-art="21"><span class="val f"><b>p = 82 − 58 = 24</b></span></button>
-<button class="art cont" data-art="22"><span class="val f"><b>q = 82 − 42 = 40</b></span></button>
-<button class="art cont" data-art="23"><span class="val f"><b>r = 82 − 64 = 18</b></span></button>
-<button class="art cont" data-art="24"><span class="val f">EB = <b>56</b></span></button>
-<button class="art cont" data-art="25"><span class="val f">EG = FD = <b>50</b></span></button>
-<button class="art cont" data-art="26"><span class="val f">FG = <b>20</b></span></button>
-<button class="art cont" data-art="27"><span class="val f">AC = b + s = <b>62</b></span></button>
-<button class="art cont" data-art="28"><span class="val f">GA = s : 2 = <b>16</b></span></button>
-<button class="art cont" data-art="29"><span class="val f">P(BCDE) = 32 + 32 + 40 + 56 = 160</span></button>
-<button class="art cont" data-art="30"><span class="val f">P(ABIFG) = 30 + 32 + 18 + 20 + 16 = 116</span></button>
-<button class="art cont" data-art="31"><span class="val f">P(ACDFG) = 62 + 32 + 50 + 20 + 16 = 180</span></button>
-<button class="art cont" data-art="32"><span class="val f">P(ACDEG) = 62 + 32 + 40 + 50 + 16 = 200</span></button>
-<button class="art cont" data-art="33"><span class="val f">P(EFI) = 30 + 18 + 24 = 72 ✓</span></button>
-<button class="art cont" data-art="34"><span class="val f">P(DEI) = 40 + 24 + 32 = 96 ✓</span></button>
-<button class="art cont" data-art="35"><span class="val f">P(DEF) = 40 + 30 + 50 = 120 ✓</span></button>
+<button class="art cont" data-art="11"><span class="val f">(1) P(BCDI) = 4s = 128</span></button>
+<button class="art cont" data-art="12"><span class="val f">(2) P(ABHG) = 2b + s = 92</span></button>
+<button class="art cont" data-art="13"><span class="val f">(3) P(EFI) = b + r + p = 72</span></button>
+<button class="art cont" data-art="14"><span class="val f">(4) P(DEI) = q + p + s = 96</span></button>
+<button class="art cont" data-art="15"><span class="val f">(5) P(DEF) = q + b + (r + s) = 120</span></button>
+<button class="art" data-art="16"><span class="lbl">План</span><span class="val f">P(BCDE) = s + s + q + (p + s)</span></button>
+<button class="art" data-art="17"><span class="lbl">План</span><span class="val f">P(ABIFG) = b + s + r + ((r + s) − b) + s : 2</span></button>
+<button class="art" data-art="18"><span class="lbl">План</span><span class="val f">P(ACDFG) = (b + s) + s + (r + s) + ((r + s) − b) + s : 2</span></button>
+<button class="art" data-art="19"><span class="lbl">План</span><span class="val f">P(ACDEG) = (b + s) + s + q + (r + s) + s : 2</span></button>
+<button class="art" data-art="20"><span class="lbl">На туре</span><span class="val f">(1) → <b>s = 32</b></span></button>
+<button class="art cont" data-art="21"><span class="val f">(2) → <b>b = 30</b></span></button>
+<button class="art cont" data-art="22"><span class="val f">(3) → (6) r + p = 42</span></button>
+<button class="art cont" data-art="23"><span class="val f">(4) → (7) p + q = 64</span></button>
+<button class="art cont" data-art="24"><span class="val f">(5) → (8) q + r = 58</span></button>
+<button class="art cont" data-art="25"><span class="val f">(6) + (7) + (8): 2 · (p + q + r) = 164 → (9) p + q + r = 82</span></button>
+<button class="art cont" data-art="26"><span class="val f">(9) − (8) → <b>p = 24</b></span></button>
+<button class="art cont" data-art="27"><span class="val f">(9) − (6) → <b>q = 40</b></span></button>
+<button class="art cont" data-art="28"><span class="val f">(9) − (7) → <b>r = 18</b></span></button>
+<button class="art cont" data-art="29"><span class="val f">EB = <b>56</b></span></button>
+<button class="art cont" data-art="30"><span class="val f">EG = FD = <b>50</b></span></button>
+<button class="art cont" data-art="31"><span class="val f">FG = <b>20</b></span></button>
+<button class="art cont" data-art="32"><span class="val f">AC = <b>62</b></span></button>
+<button class="art cont" data-art="33"><span class="val f">GA = <b>16</b></span></button>
+<button class="art cont" data-art="34"><span class="val f">P(BCDE) = 32 + 32 + 40 + 56 = 160</span></button>
+<button class="art cont" data-art="35"><span class="val f">P(ABIFG) = 30 + 32 + 18 + 20 + 16 = 116</span></button>
+<button class="art cont" data-art="36"><span class="val f">P(ACDFG) = 62 + 32 + 50 + 20 + 16 = 180</span></button>
+<button class="art cont" data-art="37"><span class="val f">P(ACDEG) = 62 + 32 + 40 + 50 + 16 = 200</span></button>
 </aside>
 <main>
   
@@ -298,79 +300,74 @@
 <p class="st"><b>Три неизвестных отрезка у E.</b> У вершины E есть три отрезка, которые не собрать из сторон квадрата и прямоугольника: IE (стоит вертикально), ED (идёт вкось, как скат крыши) и FI (лежит горизонтально). Каждому даём свою букву и достаём её из уравнений. Дальше эти три отрезка так и зовутся — <b>неизвестные отрезки</b>.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Три данных треугольника — EFI, DEI и DEF — пересекаются, и каждый неизвестный отрезок входит ровно в два из них:</p></div>
 <ul class="st"><li>IE — в EFI и DEI;</li><li>ED — в DEI и DEF;</li><li>FI — в EFI и DEF.</li></ul>
-<p class="st">Поэтому ни один треугольник поодиночке не выдаёт ни одного неизвестного отрезка: в каждом их по два. Зато если сложить все три треугольника разом, каждый неизвестный отрезок встретится в сумме ровно дважды — и сумма всех трёх найдётся одним делением на 2. Это и есть ключ задачи; проверить «каждый ровно в двух» стоит до того, как складывать.</p>
-<p class="step st"><b>Шаг 1 — план: записать четыре спрошенных периметра через буквы.</b></p>
-<p class="st">Кирпичики (так в курсе зовут буквы, через которые выражается каждый отрезок рисунка):</p>
+<p class="st">Поэтому ни один треугольник поодиночке не выдаёт ни одного неизвестного отрезка: в каждом их по два. Зато если сложить все три треугольника разом, каждый неизвестный отрезок встретится в сумме ровно дважды — и сумма всех трёх найдётся одним делением на 2. Это и есть ключ задачи; проверить «каждый ровно в двух» стоит до того, как складывать. Работает он в части 2, а часть 1 только записывает, что даёт рисунок.</p>
+<h3 class="st">Часть 1 — геометрия: что даёт рисунок</h3>
+<p class="st"><b>Буквы.</b> Кирпичики — так в курсе зовут буквы, через которые выражается каждый отрезок рисунка:</p>
+<ul class="st"><li><code>s</code> — сторона квадрата BCDI: BC = CD = DI = IB;</li><li><code>b</code> — AB, ширина прямоугольника ABHG; верх прямоугольника GH равен низу, а условие EF = GH переносит ту же длину на косой отрезок: AB = GH = EF;</li><li><code>p</code> — IE;</li><li><code>q</code> — ED;</li><li><code>r</code> — FI.</li></ul>
 <figure class="st"><svg viewBox="0 0 640 530" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><line x1="70" y1="488" x2="310" y2="488" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"/><line x1="310" y1="488" x2="566" y2="488" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"/><line x1="566" y1="488" x2="566" y2="232" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"/><line x1="566" y1="232" x2="310" y2="232" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"/><line x1="310" y1="232" x2="310" y2="488" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"/><line x1="70" y1="360" x2="70" y2="488" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"/><line x1="70" y1="360" x2="310" y2="360" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"/><line x1="310" y1="232" x2="310" y2="40" stroke="var(--blue)" stroke-width="3.2" stroke-linecap="round"/><line x1="310" y1="40" x2="566" y2="232" stroke="var(--gold)" stroke-width="3.2" stroke-linecap="round"/><line x1="166" y1="232" x2="310" y2="232" stroke="var(--green)" stroke-width="3.2" stroke-linecap="round"/><line x1="310" y1="40" x2="166" y2="232" stroke="var(--red)" stroke-width="3.2" stroke-linecap="round"/><line x1="166" y1="232" x2="70" y2="360" stroke="var(--dim)" stroke-width="2.2" stroke-linecap="round"/><text x="190.0" y="514.0" fill="var(--red)" font-size="19" text-anchor="middle" font-weight="600">b</text><text x="438.0" y="514.0" fill="var(--ink)" font-size="19" text-anchor="middle" font-weight="600">s</text><text x="582.0" y="366.0" fill="var(--ink)" font-size="19" text-anchor="middle" font-weight="600">s</text><text x="438.0" y="254.0" fill="var(--ink)" font-size="19" text-anchor="middle" font-weight="600">s</text><text x="296.0" y="142.0" fill="var(--blue)" font-size="19" text-anchor="middle" font-weight="600">p</text><text x="452.0" y="130.0" fill="var(--gold)" font-size="19" text-anchor="middle" font-weight="600">q</text><text x="238.0" y="224.0" fill="var(--green)" font-size="19" text-anchor="middle" font-weight="600">r</text><text x="222.0" y="134.0" fill="var(--red)" font-size="19" text-anchor="middle" font-weight="600">b</text><text x="190.0" y="352.0" fill="var(--red)" font-size="19" text-anchor="middle" font-weight="600">b</text><text x="40.0" y="430.0" fill="var(--muted)" font-size="19" text-anchor="middle" font-weight="600">s : 2</text><circle cx="70" cy="488" r="4.5" fill="#e8eef6"/><text x="58" y="514" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">A</text><circle cx="310" cy="488" r="4.5" fill="#e8eef6"/><text x="310" y="518" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">B</text><circle cx="566" cy="488" r="4.5" fill="#e8eef6"/><text x="578" y="514" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">C</text><circle cx="566" cy="232" r="4.5" fill="#e8eef6"/><text x="582" y="230" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">D</text><circle cx="310" cy="232" r="4.5" fill="#e8eef6"/><text x="324" y="230" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">I</text><circle cx="166" cy="232" r="4.5" fill="#e8eef6"/><text x="152" y="230" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">F</text><circle cx="70" cy="360" r="4.5" fill="#e8eef6"/><text x="54" y="360" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">G</text><circle cx="310" cy="360" r="4.5" fill="#e8eef6"/><text x="326" y="372" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">H</text><circle cx="310" cy="40" r="4.5" fill="#e8eef6"/><text x="310" y="32" fill="#e8eef6" font-size="18" text-anchor="middle" font-weight="600">E</text></svg><figcaption>Кирпичики на чертеже. Внизу s — сторона квадрата, b — ширина прямоугольника; его высота GA = BH = s : 2. Три неизвестных отрезка у вершины E: p = IE (синяя), q = ED (золотая), r = FI (зелёная). Красным — всё, что равно b: AB, GH и косой отрезок EF (по условию EF = GH).</figcaption></figure>
-<ul class="st"><li><code>s</code> — сторона квадрата BCDI;</li><li><code>b</code> — AB, ширина прямоугольника ABHG;</li><li><code>p</code> — IE;</li><li><code>q</code> — ED;</li><li><code>r</code> — FI.</li></ul>
-<p class="st"><code>P(X)</code> — периметр контура X: обхожу контур карандашом по буквам и складываю отрезки.</p>
-<p class="st">Теперь выражаю через кирпичики все отрезки, которые попадут в спрошенные контуры.</p>
+<p class="st">Остальные отрезки, которые понадобятся, собираются из кирпичиков.</p>
 <p class="st">H — середина BI, значит высота прямоугольника ABHG — половина стороны квадрата. Левая сторона прямоугольника GA равна правой BH:</p>
 <div class="frm st">GA = BH = s : 2</div>
-<p class="st">У прямоугольника верх равен низу, а условие переносит эту длину на косой отрезок EF. Так условие само выдаёт длину EF — отдельной буквы ему не нужно:</p>
-<div class="frm st">EF = GH = AB = b</div>
 <p class="st">B, I и E на одной прямой, значит отрезок EB складывается из двух кусков:</p>
 <div class="frm st">EB = EI + IB = p + s</div>
-<p class="st">F, I и D на одной прямой, значит FD тоже складывается из двух кусков, а условие переносит эту длину на EG:</p>
+<p class="st">F, I и D на одной прямой, значит FD тоже складывается из двух кусков, а условие FD = EG переносит эту длину на EG:</p>
 <div class="frm st">EG = FD = FI + ID = r + s</div>
-<p class="st">E, F и G на одной прямой, значит EG складывается из двух кусков:</p>
-<div class="frm st">EG = EF + FG</div>
-<p class="st">Кусок FG — это EG без EF:</p>
+<p class="st">E, F и G на одной прямой, значит EG складывается из EF и FG. Кусок FG — это EG без EF:</p>
 <div class="frm st">FG = (r + s) − b</div>
 <p class="st">A, B и C на одной прямой, значит AC складывается из двух кусков:</p>
 <div class="frm st">AC = AB + BC = b + s</div>
-<p class="st">Обхожу четыре спрошенных контура.</p>
-<p class="st">BCDE: B → C, C → D, D → E, E → B:</p>
-<div class="frm st">P(BCDE) = s + s + q + (p + s)</div>
-<p class="st">ABIFG: A → B, B → I, I → F, F → G, G → A:</p>
-<div class="frm st">P(ABIFG) = b + s + r + ((r + s) − b) + s : 2</div>
-<p class="st">ACDFG: A → C, C → D, D → F — одна сторона через I, F → G, G → A:</p>
-<div class="frm st">P(ACDFG) = (b + s) + s + (r + s) + ((r + s) − b) + s : 2</div>
-<p class="st">ACDEG: A → C, C → D, D → E, E → G — одна сторона через F, G → A:</p>
-<div class="frm st">P(ACDEG) = (b + s) + s + q + (r + s) + s : 2</div>
+<p class="st"><code>P(X)</code> — периметр контура X: обхожу контур карандашом по буквам и складываю отрезки.</p>
+<p class="st"><b>Уравнения из условия.</b> Каждый данный периметр — обход контура, записанный буквами.</p>
+<p class="st">Контур BCDI — квадрат, четыре стороны s:</p>
+<div class="frm st">(1) 4s = 128</div>
+<p class="st">Контур ABHG: AB, BH, HG, GA — ширина b дважды и высота s : 2 дважды:</p>
+<div class="frm st">(2) b + s : 2 + b + s : 2 = 92</div>
+<p class="st">Контур EFI: EF, FI, IE.</p>
+<div class="frm st">(3) b + r + p = 72</div>
+<p class="st">Контур DEI: DE, EI, ID.</p>
+<div class="frm st">(4) q + p + s = 96</div>
+<p class="st">Контур DEF: DE, EF, FD. Сторона FD идёт сквозь I, поэтому она r + s, а не одно r.</p>
+<div class="frm st">(5) q + b + (r + s) = 120</div>
+<figure class="st"><svg viewBox="0 0 696 224" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><line x1="16.0" y1="175.3" x2="194.6" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="194.6" y1="175.3" x2="194.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="194.6" y1="83.1" x2="50.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="102.4" y1="14.0" x2="102.4" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="102.4" y1="14.0" x2="194.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="102.4" y1="14.0" x2="16.0" y2="129.2" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="16.0" y1="129.2" x2="16.0" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="16.0" y1="129.2" x2="102.4" y2="129.2" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="102.4" y1="14.0" x2="50.6" y2="83.1" stroke="var(--red)" stroke-width="3.5" stroke-linecap="round"/><line x1="50.6" y1="83.1" x2="102.4" y2="83.1" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round"/><line x1="102.4" y1="83.1" x2="102.4" y2="14.0" stroke="var(--blue)" stroke-width="3.5" stroke-linecap="round"/><text x="69.9" y="44.7" fill="var(--red)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">b</text><text x="72.6" y="98.4" fill="var(--green)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">r</text><text x="111.6" y="47.4" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">p</text><text x="8.0" y="187.3" fill="var(--muted)" font-size="12" text-anchor="middle">A</text><text x="102.4" y="189.3" fill="var(--muted)" font-size="12" text-anchor="middle">B</text><text x="202.6" y="187.3" fill="var(--muted)" font-size="12" text-anchor="middle">C</text><text x="204.6" y="87.1" fill="var(--muted)" font-size="12" text-anchor="middle">D</text><text x="111.4" y="97.1" fill="var(--muted)" font-size="12" text-anchor="middle">I</text><text x="48.6" y="76.1" fill="var(--muted)" font-size="12" text-anchor="middle">F</text><text x="6.0" y="133.2" fill="var(--muted)" font-size="12" text-anchor="middle">G</text><text x="112.4" y="141.2" fill="var(--muted)" font-size="12" text-anchor="middle">H</text><text x="102.4" y="8.0" fill="var(--muted)" font-size="12" text-anchor="middle">E</text><text x="110" y="214" fill="#e8eef6" font-size="15" text-anchor="middle" font-weight="600">(3) P(EFI) = 72</text><line x1="248.0" y1="175.3" x2="426.6" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="426.6" y1="175.3" x2="426.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="426.6" y1="83.1" x2="282.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="334.4" y1="14.0" x2="334.4" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="334.4" y1="14.0" x2="426.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="334.4" y1="14.0" x2="248.0" y2="129.2" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="248.0" y1="129.2" x2="248.0" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="248.0" y1="129.2" x2="334.4" y2="129.2" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="426.6" y1="83.1" x2="334.4" y2="14.0" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/><line x1="334.4" y1="14.0" x2="334.4" y2="83.1" stroke="var(--blue)" stroke-width="3.5" stroke-linecap="round"/><line x1="334.4" y1="83.1" x2="426.6" y2="83.1" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/><text x="389.3" y="47.0" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">q</text><text x="324.1" y="49.7" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">p</text><text x="386.6" y="97.3" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">s</text><text x="240.0" y="187.3" fill="var(--muted)" font-size="12" text-anchor="middle">A</text><text x="334.4" y="189.3" fill="var(--muted)" font-size="12" text-anchor="middle">B</text><text x="434.6" y="187.3" fill="var(--muted)" font-size="12" text-anchor="middle">C</text><text x="436.6" y="87.1" fill="var(--muted)" font-size="12" text-anchor="middle">D</text><text x="343.4" y="97.1" fill="var(--muted)" font-size="12" text-anchor="middle">I</text><text x="280.6" y="76.1" fill="var(--muted)" font-size="12" text-anchor="middle">F</text><text x="238.0" y="133.2" fill="var(--muted)" font-size="12" text-anchor="middle">G</text><text x="344.4" y="141.2" fill="var(--muted)" font-size="12" text-anchor="middle">H</text><text x="334.4" y="8.0" fill="var(--muted)" font-size="12" text-anchor="middle">E</text><text x="342" y="214" fill="#e8eef6" font-size="15" text-anchor="middle" font-weight="600">(4) P(DEI) = 96</text><line x1="480.0" y1="175.3" x2="658.6" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="658.6" y1="175.3" x2="658.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="658.6" y1="83.1" x2="514.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="566.4" y1="14.0" x2="566.4" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="566.4" y1="14.0" x2="658.6" y2="83.1" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="566.4" y1="14.0" x2="480.0" y2="129.2" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="480.0" y1="129.2" x2="480.0" y2="175.3" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="480.0" y1="129.2" x2="566.4" y2="129.2" stroke="#2c394c" stroke-width="1.5" stroke-linecap="round"/><line x1="658.6" y1="83.1" x2="566.4" y2="14.0" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/><line x1="566.4" y1="14.0" x2="514.6" y2="83.1" stroke="var(--red)" stroke-width="3.5" stroke-linecap="round"/><line x1="514.6" y1="83.1" x2="658.6" y2="83.1" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round"/><text x="622.9" y="49.9" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">q</text><text x="529.9" y="50.5" fill="var(--red)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">b</text><text x="620.6" y="100.1" fill="var(--green)" font-size="14" text-anchor="middle" font-weight="600" stroke="#0b0f16" stroke-width="3" paint-order="stroke">r + s</text><text x="472.0" y="187.3" fill="var(--muted)" font-size="12" text-anchor="middle">A</text><text x="566.4" y="189.3" fill="var(--muted)" font-size="12" text-anchor="middle">B</text><text x="666.6" y="187.3" fill="var(--muted)" font-size="12" text-anchor="middle">C</text><text x="668.6" y="87.1" fill="var(--muted)" font-size="12" text-anchor="middle">D</text><text x="575.4" y="97.1" fill="var(--muted)" font-size="12" text-anchor="middle">I</text><text x="512.6" y="76.1" fill="var(--muted)" font-size="12" text-anchor="middle">F</text><text x="470.0" y="133.2" fill="var(--muted)" font-size="12" text-anchor="middle">G</text><text x="576.4" y="141.2" fill="var(--muted)" font-size="12" text-anchor="middle">H</text><text x="566.4" y="8.0" fill="var(--muted)" font-size="12" text-anchor="middle">E</text><text x="574" y="214" fill="#e8eef6" font-size="15" text-anchor="middle" font-weight="600">(5) P(DEF) = 120</text></svg><figcaption>Три данных треугольника и их уравнения. Цвет — буква: p синяя, q золотая, r зелёная, b красная. Каждый цвет встречается ровно в двух панелях: p — в (3) и (4), q — в (4) и (5), r — в (3) и (5). Сторона FD треугольника DEF идёт сквозь I, поэтому она r + s.</figcaption></figure>
+<p class="st"><b>Что спрошено.</b> Каждый искомый периметр — тоже обход, записанный буквами.</p>
+<p class="st">Контур BCDE: B → C, C → D, D → E, E → B. Сторона E → B идёт сквозь I.</p>
+<p class="st">Контур ABIFG: A → B, B → I, I → F, F → G, G → A.</p>
+<p class="st">Контур ACDFG: A → C, C → D, D → F — одна сторона через I, F → G, G → A.</p>
+<p class="st">Контур ACDEG: A → C, C → D, D → E, E → G — одна сторона через F, G → A.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">P(BCDE) = s + s + q + (p + s)</div>
 <div class="frm st">P(ABIFG) = b + s + r + ((r + s) − b) + s : 2</div>
 <div class="frm st">P(ACDFG) = (b + s) + s + (r + s) + ((r + s) − b) + s : 2</div>
 <div class="frm st">P(ACDEG) = (b + s) + s + q + (r + s) + s : 2</div>
-<ul class="st"><li><code>s</code> — сторона квадрата BCDI;</li><li><code>b</code> — AB = GH = EF;</li><li><code>p</code> — IE;</li><li><code>q</code> — ED;</li><li><code>r</code> — FI.</li></ul>
-<p class="st">Ответ = четыре периметра, расписанные через <code>s</code>, <code>b</code>, <code>p</code>, <code>q</code>, <code>r</code>.</p>
-<p class="st">Осталось найти: <code>s</code> — из P(BCDI); <code>b</code> — из P(ABHG); три неизвестных отрезка <code>p</code>, <code>q</code>, <code>r</code> — из трёх треугольников EFI, DEI, DEF.</p></div>
-<p class="step st"><b>Шаг 2 — s из периметра квадрата.</b> У квадрата четыре равные стороны:</p>
-<div class="frm st">s + s + s + s = 128</div>
-<div class="frm st">4s = 128</div>
+<p class="st">Осталось найти: <code>s</code>, <code>b</code>, <code>p</code>, <code>q</code>, <code>r</code> — из системы (1)–(5).</p></div>
+<h3 class="st">Часть 2 — алгебра: решаем систему</h3>
+<p class="st">(1) : 4:</p>
 <div class="frm st">s = 32</div>
-<p class="step st"><b>Шаг 3 — b из периметра прямоугольника ABHG.</b> Ширина прямоугольника b, высота — половина стороны квадрата, 32 : 2 = 16:</p>
-<div class="frm st">b + 16 + b + 16 = 92</div>
-<div class="frm st">2b = 60</div>
-<div class="frm st">b = 30</div>
-<p class="step st"><b>Шаг 4 — в каждом треугольнике часть длин уже известна.</b> Обхожу три треугольника по буквам.</p>
-<p class="st">EFI: EF, FI, IE:</p>
-<div class="frm st">b + r + p = 72</div>
-<p class="st">DEI: DE, EI, ID:</p>
-<div class="frm st">q + p + s = 96</div>
-<p class="st">DEF: DE, EF, FD:</p>
-<div class="frm st">q + b + (r + s) = 120</div>
-<p class="st">Подставляю s = 32 и b = 30 и вычитаю из периметра все известные числа — от каждого треугольника остаётся сумма двух неизвестных отрезков. В EFI известно одно число (b = 30), в DEI — одно (s = 32), а в DEF — два: b = 30 и s = 32, которое сидит внутри FD. Вычитаю каждое:</p>
-<div class="frm st">(1) r + p = 72 − 30 = 42</div>
-<div class="frm st">(2) p + q = 96 − 32 = 64</div>
-<div class="frm st">(3) q + r = 120 − 30 − 32 = 58</div>
-<p class="step st"><b>Шаг 5 — каждый неизвестный отрезок стоит ровно в двух уравнениях из трёх.</b> Это наблюдение из «Заметь главное», теперь видное в самих уравнениях: p — в (1) и (2), q — в (2) и (3), r — в (1) и (3). Значит, работает <b>метод сложения</b>: складываю все три уравнения целиком, левые части с левыми, правые с правыми. Каждый неизвестный отрезок попадает в сумму дважды:</p>
+<p class="st">В (2) две половинки s : 2 вместе дают целое s:</p>
+<div class="frm st">2b + s = 92</div>
+<p class="st">Подставляю s = 32:</p>
+<div class="frm st">b = (92 − 32) : 2 = 30</div>
+<p class="st">Подставляю s = 32 и b = 30 в (3)–(5) и переношу известные числа вправо. В (3) известно одно число (b = 30), в (4) — одно (s = 32), а в (5) — два: b = 30 и s = 32, которое сидит внутри FD:</p>
+<div class="frm st">(6) r + p = 72 − 30 = 42</div>
+<div class="frm st">(7) p + q = 96 − 32 = 64</div>
+<div class="frm st">(8) q + r = 120 − 30 − 32 = 58</div>
+<p class="st">Каждый неизвестный отрезок стоит ровно в двух уравнениях из трёх — это наблюдение из «Заметь главное», теперь видное в самих уравнениях: p — в (6) и (7), q — в (7) и (8), r — в (6) и (8). Значит, работает <b>метод сложения</b>: (6) + (7) + (8), левые части с левыми, правые с правыми. Каждый неизвестный отрезок попадает в сумму дважды:</p>
 <figure class='st fx'><svg viewBox='-24 -14 200 120' width='100%' role='img' aria-label='Три уравнения складываются в одну строку, где каждый неизвестный отрезок встречается дважды'><rect x='0' y='0' width='18' height='9' fill='#5fd38d' fill-opacity='.22' stroke='#5fd38d' stroke-width='0.8'/><text x='9.0' y='6.4' fill='#5fd38d' font-size='4.8' text-anchor='middle' font-weight='600'>r</text><rect x='18' y='0' width='24' height='9' fill='#5ba8f5' fill-opacity='.22' stroke='#5ba8f5' stroke-width='0.8'/><text x='30.0' y='6.4' fill='#5ba8f5' font-size='4.8' text-anchor='middle' font-weight='600'>p</text><text x='-4' y='6.4' fill='#93a1b1' font-size='4.4' text-anchor='end'>(1)</text><text x='46' y='6.4' fill='#93a1b1' font-size='4.8' text-anchor='start' font-weight='600'>= 42</text><rect x='0' y='20' width='24' height='9' fill='#5ba8f5' fill-opacity='.22' stroke='#5ba8f5' stroke-width='0.8'/><text x='12.0' y='26.4' fill='#5ba8f5' font-size='4.8' text-anchor='middle' font-weight='600'>p</text><rect x='24' y='20' width='40' height='9' fill='#f0a83c' fill-opacity='.22' stroke='#f0a83c' stroke-width='0.8'/><text x='44.0' y='26.4' fill='#f0a83c' font-size='4.8' text-anchor='middle' font-weight='600'>q</text><text x='-4' y='26.4' fill='#93a1b1' font-size='4.4' text-anchor='end'>(2)</text><text x='68' y='26.4' fill='#93a1b1' font-size='4.8' text-anchor='start' font-weight='600'>= 64</text><rect x='0' y='40' width='40' height='9' fill='#f0a83c' fill-opacity='.22' stroke='#f0a83c' stroke-width='0.8'/><text x='20.0' y='46.4' fill='#f0a83c' font-size='4.8' text-anchor='middle' font-weight='600'>q</text><rect x='40' y='40' width='18' height='9' fill='#5fd38d' fill-opacity='.22' stroke='#5fd38d' stroke-width='0.8'/><text x='49.0' y='46.4' fill='#5fd38d' font-size='4.8' text-anchor='middle' font-weight='600'>r</text><text x='-4' y='46.4' fill='#93a1b1' font-size='4.4' text-anchor='end'>(3)</text><text x='62' y='46.4' fill='#93a1b1' font-size='4.8' text-anchor='start' font-weight='600'>= 58</text><rect class='sl' style='--d:0.7s;--to:translate(0px,46px)' x='0' y='20' width='24' height='9' fill='#5ba8f5' fill-opacity='.30' stroke='#5ba8f5' stroke-width='1'/><rect class='sl' style='--d:1.0s;--to:translate(6px,66px)' x='18' y='0' width='24' height='9' fill='#5ba8f5' fill-opacity='.30' stroke='#5ba8f5' stroke-width='1'/><rect class='sl' style='--d:1.4s;--to:translate(24px,46px)' x='24' y='20' width='40' height='9' fill='#f0a83c' fill-opacity='.30' stroke='#f0a83c' stroke-width='1'/><rect class='sl' style='--d:1.8s;--to:translate(88px,26px)' x='0' y='40' width='40' height='9' fill='#f0a83c' fill-opacity='.30' stroke='#f0a83c' stroke-width='1'/><rect class='sl' style='--d:2.1s;--to:translate(128px,66px)' x='0' y='0' width='18' height='9' fill='#5fd38d' fill-opacity='.30' stroke='#5fd38d' stroke-width='1'/><rect class='sl' style='--d:2.5s;--to:translate(106px,26px)' x='40' y='40' width='18' height='9' fill='#5fd38d' fill-opacity='.30' stroke='#5fd38d' stroke-width='1'/><text class='fi' style='--d:2.9s' x='12.0' y='72.4' fill='#5ba8f5' font-size='4.8' text-anchor='middle' font-weight='600'>p</text><text class='fi' style='--d:2.9s' x='36.0' y='72.4' fill='#5ba8f5' font-size='4.8' text-anchor='middle' font-weight='600'>p</text><text class='fi' style='--d:2.9s' x='68.0' y='72.4' fill='#f0a83c' font-size='4.8' text-anchor='middle' font-weight='600'>q</text><text class='fi' style='--d:2.9s' x='108.0' y='72.4' fill='#f0a83c' font-size='4.8' text-anchor='middle' font-weight='600'>q</text><text class='fi' style='--d:2.9s' x='137.0' y='72.4' fill='#5fd38d' font-size='4.8' text-anchor='middle' font-weight='600'>r</text><text class='fi' style='--d:2.9s' x='155.0' y='72.4' fill='#5fd38d' font-size='4.8' text-anchor='middle' font-weight='600'>r</text><g class='fi' style='--d:3.2s' fill='none' stroke='#93a1b1' stroke-width='.6'><path d='M0 79.5V83.5M0 81.5H164M164 79.5V83.5'/></g><text class='fi' style='--d:3.5s' x='82' y='93' fill='#e8eef6' font-size='5.6' text-anchor='middle' font-weight='600'>2 · (p + q + r) = 42 + 64 + 58 = 164</text><text class='fi' style='--d:3.9s' x='82' y='102.5' fill='#5fd38d' font-size='5.6' text-anchor='middle' font-weight='600'>p + q + r = 82</text></svg><figcaption>Каждый неизвестный отрезок входит ровно в два из трёх уравнений — поэтому все шесть кусочков выкладываются в одну строку парами: два p, два q, два r. Длина этой строки — 42 + 64 + 58 = 164, а это ровно два раза p + q + r, значит p + q + r = 82.</figcaption></figure>
 <div class="frm st">(r + p) + (p + q) + (q + r) = 2 · (p + q + r)</div>
 <div class="frm st">2 · (p + q + r) = 42 + 64 + 58 = 164</div>
-<div class="frm st">p + q + r = 82</div>
-<p class="step st"><b>Шаг 6 — для каждого неизвестного отрезка есть уравнение, где его нет.</b> В (3) нет p, в (1) нет q, в (2) нет r. Вычитаю такое уравнение из суммы всех трёх — два отрезка уходят, остаётся третий:</p>
-<p class="st">p = 82 − 58 = <b>24</b></p>
-<p class="st">q = 82 − 42 = <b>40</b></p>
-<p class="st">r = 82 − 64 = <b>18</b></p>
-<p class="step st"><b>Шаг 7 — сборка.</b> Сначала составные отрезки плана:</p>
+<div class="frm st">(9) p + q + r = 82</div>
+<p class="st">Для каждой буквы есть уравнение, где её нет: в (8) нет p, в (6) нет q, в (7) нет r. Метод вычитания — из (9) вычитаю такое уравнение, две буквы уходят:</p>
+<p class="st">(9) − (8): <b>p = 82 − 58 = 24</b></p>
+<p class="st">(9) − (6): <b>q = 82 − 42 = 40</b></p>
+<p class="st">(9) − (7): <b>r = 82 − 64 = 18</b></p>
+<p class="st"><b>Сборка.</b> Сначала составные отрезки из части 1:</p>
 <ul class="st"><li>EB = p + s = 24 + 32 = <b>56</b></li><li>EG = FD = r + s = 18 + 32 = <b>50</b></li><li>FG = 50 − 30 = <b>20</b></li><li>AC = b + s = 30 + 32 = <b>62</b></li><li>GA = s : 2 = <b>16</b></li></ul>
 <p class="st">Подставляю в формулы плана:</p>
 <ul class="st"><li><b>P(BCDE)</b> = 32 + 32 + 40 + 56 = <b>160</b></li><li><b>P(ABIFG)</b> = 30 + 32 + 18 + 20 + 16 = <b>116</b></li><li><b>P(ACDFG)</b> = 62 + 32 + 50 + 20 + 16 = <b>180</b></li><li><b>P(ACDEG)</b> = 62 + 32 + 40 + 50 + 16 = <b>200</b></li></ul>
-<p class="st">Проверка по данным условия:</p>
-<ul class="st"><li>P(EFI) = 30 + 18 + 24 = 72 ✓</li><li>P(DEI) = 40 + 24 + 32 = 96 ✓</li><li>P(DEF) = 40 + 30 + 50 = 120 ✓</li></ul>
-<p class="st"><b>⚠ Ловушки.</b> (1) EF идёт вкось, но новой буквы ему не надо: условие EF = GH приравнивает его к горизонтали длины b. Кто этого не заметит, получит в треугольнике EFI три неизвестных. (2) Левая сторона GA — это половина стороны квадрата (16), а не вся сторона (32). (3) В контуре ACDEG сторона E → G идёт сквозь F и равна всему EG = 50, а не EF; в контуре ACDFG сторона D → F идёт сквозь I и равна всему FD = 50, а не FI. (4) Не пытайся найти каждый неизвестный отрезок из «своего» треугольника: в каждом их по два, работает только сложение всех трёх.</p>
+<p class="st">Проверка подстановкой в (3)–(5):</p>
+<ul class="st"><li>(3): 30 + 18 + 24 = 72 ✓</li><li>(4): 40 + 24 + 32 = 96 ✓</li><li>(5): 40 + 30 + 50 = 120 ✓</li></ul>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ol class="st num"><li><span class="lin">1.</span> EF идёт вкось, но новой буквы ему не надо: условие EF = GH приравнивает его к горизонтали длины b. Кто этого не заметит, получит в треугольнике EFI три неизвестных.</li><li><span class="lin">2.</span> Левая сторона GA — это половина стороны квадрата (16), а не вся сторона (32).</li><li><span class="lin">3.</span> В контуре ACDEG сторона E → G идёт сквозь F и равна всему EG = 50, а не EF. В контуре ACDFG сторона D → F идёт сквозь I и равна всему FD = 50, а не FI.</li><li><span class="lin">4.</span> Не пытайся найти каждый неизвестный отрезок из «своего» треугольника: в каждом их по два, работает только сложение всех трёх.</li></ol>
 <p class="st"><em>Проверка вторым способом: программа перебрала все целые чертежи по координатам (сторона квадрата, ширина прямоугольника, высота E над I, отступ F от I — каждое от 1 до 100) и мерила отрезки настоящими расстояниями, без букв разбора. Она проверяла все пять периметров, равенства EF = GH и FD = EG и то, что E, F, G на одной прямой. Подходит ровно один чертёж — s = 32, b = 30, IE = 24, FI = 18, ED = 40, — и обход его контуров даёт 160, 116, 180, 200. Для родителя: неизвестные отрезки сидят в прямоугольных треугольниках 18-24-30 (EFI), 24-32-40 (EID) и 30-40-50 (EG), все подобны 3-4-5 — чертёж существует на самом деле, данные не противоречат друг другу. Совпадает с официальным ключом.</em></p>
 <p class="st"><b>Ответ на задачу:</b> периметр BCDE равен <b>160 см</b>, периметр ABIFG — <b>116 см</b>, периметр ACDFG — <b>180 см</b>, периметр ACDEG — <b>200 см</b>. <em>(официальный ключ ✓ по всем четырём)</em></p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
@@ -378,19 +375,18 @@
 <h4 class="st">Запись</h4>
 <div id="a0" data-art="0"><p class="st">Кирпичики:</p></div>
 <div id="a10" data-art="10"><ul class="st"><li>s = сторона квадрата BCDI</li><li>b = AB = GH = EF</li><li>p = IE</li><li>q = ED</li><li>r = FI</li><li>GA = BH = s : 2</li><li>EB = p + s</li><li>EG = FD = r + s</li><li>FG = EG − b</li><li>AC = b + s</li></ul></div>
-<div id="a14" data-art="14"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st">Уравнения:</p>
+<div id="a15" data-art="15"><ul class="st"><li>(1) P(BCDI) = 4s = 128</li><li>(2) P(ABHG) = 2b + s = 92</li><li>(3) P(EFI) = b + r + p = 72</li><li>(4) P(DEI) = q + p + s = 96</li><li>(5) P(DEF) = q + b + (r + s) = 120</li></ul></div>
+<div id="a19" data-art="19"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">P(BCDE) = s + s + q + (p + s)</div>
 <div class="frm st">P(ABIFG) = b + s + r + ((r + s) − b) + s : 2</div>
 <div class="frm st">P(ACDFG) = (b + s) + s + (r + s) + ((r + s) − b) + s : 2</div>
-<div class="frm st">P(ACDEG) = (b + s) + s + q + (r + s) + s : 2</div>
-<p class="st">Осталось найти s, b и три неизвестных отрезка p, q, r.</p></div></div>
-<div id="a28" data-art="28"><ul class="st"><li>P(BCDI) = 4s = 128 → <b>s = 32</b></li><li>P(ABHG) = 2b + 32 = 92 → <b>b = 30</b></li><li>P(EFI) = 72 → r + p = 72 − 30 = 42</li><li>P(DEI) = 96 → p + q = 96 − 32 = 64</li><li>P(DEF) = 120 → q + r = 120 − 30 − 32 = 58</li><li>складываю все три: 2 · (p + q + r) = 164 → p + q + r = 82</li><li><b>p = 82 − 58 = 24</b></li><li><b>q = 82 − 42 = 40</b></li><li><b>r = 82 − 64 = 18</b></li><li>EB = <b>56</b></li><li>EG = FD = <b>50</b></li><li>FG = <b>20</b></li><li>AC = b + s = <b>62</b></li><li>GA = s : 2 = <b>16</b></li></ul></div>
-<div id="a29" data-art="29"><div class="frm st">P(BCDE) = 32 + 32 + 40 + 56 = 160</div></div>
-<div id="a30" data-art="30"><div class="frm st">P(ABIFG) = 30 + 32 + 18 + 20 + 16 = 116</div></div>
-<div id="a31" data-art="31"><div class="frm st">P(ACDFG) = 62 + 32 + 50 + 20 + 16 = 180</div></div>
-<div id="a32" data-art="32"><div class="frm st">P(ACDEG) = 62 + 32 + 40 + 50 + 16 = 200</div></div>
-<p class="st">Проверка по данным условия:</p>
-<div id="a35" data-art="35"><ul class="st"><li>P(EFI) = 30 + 18 + 24 = 72 ✓</li><li>P(DEI) = 40 + 24 + 32 = 96 ✓</li><li>P(DEF) = 40 + 30 + 50 = 120 ✓</li></ul></div>
+<div class="frm st">P(ACDEG) = (b + s) + s + q + (r + s) + s : 2</div></div></div>
+<div id="a33" data-art="33"><ul class="st"><li>(1) → <b>s = 32</b></li><li>(2) → <b>b = 30</b></li><li>(3) → (6) r + p = 42</li><li>(4) → (7) p + q = 64</li><li>(5) → (8) q + r = 58</li><li>(6) + (7) + (8): 2 · (p + q + r) = 164 → (9) p + q + r = 82</li><li>(9) − (8) → <b>p = 24</b></li><li>(9) − (6) → <b>q = 40</b></li><li>(9) − (7) → <b>r = 18</b></li><li>EB = <b>56</b></li><li>EG = FD = <b>50</b></li><li>FG = <b>20</b></li><li>AC = <b>62</b></li><li>GA = <b>16</b></li></ul></div>
+<div id="a34" data-art="34"><div class="frm st">P(BCDE) = 32 + 32 + 40 + 56 = 160</div></div>
+<div id="a35" data-art="35"><div class="frm st">P(ABIFG) = 30 + 32 + 18 + 20 + 16 = 116</div></div>
+<div id="a36" data-art="36"><div class="frm st">P(ACDFG) = 62 + 32 + 50 + 20 + 16 = 180</div></div>
+<div id="a37" data-art="37"><div class="frm st">P(ACDEG) = 62 + 32 + 40 + 50 + 16 = 200</div></div>
 <div class="pager"><a href="01-1-doska-4-10-lyubye-tri-podryad-dayut-40-t4-peri.html">← №1 — доска 4×10, любые три подряд дают 40 (Т4: период на доске + всё через одну клетку)</a><a href="03-3-setka-7-7-s-tremya-cvetnymi-kletkami-t3-okna-v.html">№3 — сетка 7×7 с тремя цветными клетками (Т3′: окна в сетке + центр ловит все большие окна) →</a></div>
 </main>
 </div>
