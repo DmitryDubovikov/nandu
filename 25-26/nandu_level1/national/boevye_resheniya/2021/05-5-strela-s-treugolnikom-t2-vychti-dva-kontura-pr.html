@@ -257,23 +257,27 @@
 <button class="art cont" data-art="3"><span class="val f">высота A и B = 2k</span></button>
 <button class="art cont" data-art="4"><span class="val f">высота R = 3k</span></button>
 <button class="art cont" data-art="5"><span class="val f">ширина R = (x + y) : 5</span></button>
-<button class="art" data-art="6"><span class="lbl">План</span><span class="val f">P(A) = 2·(x + 2k)</span></button>
-<button class="art" data-art="7"><span class="lbl">План</span><span class="val f">P(B) = 2·(y + 2k)</span></button>
-<button class="art" data-art="8"><span class="lbl">План</span><span class="val f">P(R) = 2·((x + y) : 5 + 3k)</span></button>
-<button class="art" data-art="9"><span class="lbl">На туре</span><span class="val f">P(фигуры) − P(T) = 386 − 166 → 2·(x + y) = 220 → x + y = 110</span></button>
-<button class="art cont" data-art="10"><span class="val f">P(A и B) = 276 → 110 + 2k = 138 → <b>k = 14</b></span></button>
-<button class="art cont" data-art="11"><span class="val f">P(T) = 166, 5k = 70 → 2x = 96 → <b>x = 48</b></span></button>
-<button class="art cont" data-art="12"><span class="val f">y = 110 − 48 → <b>y = 62</b></span></button>
-<button class="art cont" data-art="13"><span class="val f">размеры деталей:</span></button>
-<button class="art cont" data-art="14"><span class="val f">высота A и B = <b>28</b></span></button>
-<button class="art cont" data-art="15"><span class="val f">высота R = <b>42</b></span></button>
-<button class="art cont" data-art="16"><span class="val f">ширина R = 110 : 5 = <b>22</b></span></button>
-<button class="art cont" data-art="17"><span class="val f">P(A) = 2·(48 + 28) = 152</span></button>
-<button class="art cont" data-art="18"><span class="val f">P(B) = 2·(62 + 28) = 180</span></button>
-<button class="art cont" data-art="19"><span class="val f">P(R) = 2·(22 + 42) = 128</span></button>
-<button class="art cont" data-art="20"><span class="val f">P(T) = 70 + 96 = 166 ✓</span></button>
-<button class="art cont" data-art="21"><span class="val f">P(фигуры) = 220 + 70 + 96 = 386 ✓</span></button>
-<button class="art cont" data-art="22"><span class="val f">P(A и B) = 2·(110 + 28) = 276 ✓</span></button>
+<button class="art cont" data-art="6"><span class="val f">основание T = правая стена = 5k</span></button>
+<button class="art cont" data-art="7"><span class="val f">(1) P(T): 5k + 2x = 166</span></button>
+<button class="art cont" data-art="8"><span class="val f">(2) P(фигуры): 2 · (x + y) + 5k + 2x = 386</span></button>
+<button class="art cont" data-art="9"><span class="val f">(3) P(A и B), пополам: (x + y) + 2k = 138</span></button>
+<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">P(A) = 2 · (x + 2k)</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">P(B) = 2 · (y + 2k)</span></button>
+<button class="art" data-art="12"><span class="lbl">План</span><span class="val f">P(R) = 2 · ((x + y) : 5 + 3k)</span></button>
+<button class="art" data-art="13"><span class="lbl">На туре</span><span class="val f">(2) − (1): 2 · (x + y) = 220 → <b>x + y = 110</b></span></button>
+<button class="art cont" data-art="14"><span class="val f">(3) → 110 + 2k = 138 → <b>k = 14</b></span></button>
+<button class="art cont" data-art="15"><span class="val f">(1) → 2x = 166 − 70 = 96 → <b>x = 48</b></span></button>
+<button class="art cont" data-art="16"><span class="val f">y = 110 − 48 → <b>y = 62</b></span></button>
+<button class="art cont" data-art="17"><span class="val f">размеры деталей:</span></button>
+<button class="art cont" data-art="18"><span class="val f">высота A и B = <b>28</b></span></button>
+<button class="art cont" data-art="19"><span class="val f">высота R = <b>42</b></span></button>
+<button class="art cont" data-art="20"><span class="val f">ширина R = 110 : 5 = <b>22</b></span></button>
+<button class="art cont" data-art="21"><span class="val f">P(A) = 2 · (48 + 28) = 152</span></button>
+<button class="art cont" data-art="22"><span class="val f">P(B) = 2 · (62 + 28) = 180</span></button>
+<button class="art cont" data-art="23"><span class="val f">P(R) = 2 · (22 + 42) = 128</span></button>
+<button class="art cont" data-art="24"><span class="val f">P(T) = 70 + 96 = 166 ✓</span></button>
+<button class="art cont" data-art="25"><span class="val f">P(фигуры) = 220 + 70 + 96 = 386 ✓</span></button>
+<button class="art cont" data-art="26"><span class="val f">P(A и B) = 2 · (110 + 28) = 276 ✓</span></button>
 </aside>
 <main>
   
@@ -282,83 +286,75 @@
 <div class="card task st"><span class="tag">Условие</span><p>Фигура разбита на прямоугольник A, прямоугольник B, 5 равных прямоугольников R и равнобедренный треугольник T. Каждая из равных сторон T равна горизонтальной стороне A. Длина вертикальной стороны R в полтора раза больше длины вертикальной стороны B. Периметр фигуры равен 386 см. Периметр T равен 166 см. Периметр прямоугольника, который образуют A и B, равен 276 см. Чему равен периметр A? Чему равен периметр B? Чему равен периметр R?</p></div>
 <figure class="st"><svg viewBox="0 0 420 242" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="110" y="40" width="264.0" height="168.0" fill="none" stroke="var(--muted)" stroke-width="2"/><line x1="110.0" y1="107.2" x2="374.0" y2="107.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="225.2" y1="40.0" x2="225.2" y2="107.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="162.8" y1="107.2" x2="162.8" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="215.6" y1="107.2" x2="215.6" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="268.4" y1="107.2" x2="268.4" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="321.2" y1="107.2" x2="321.2" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="31.2" y1="124.0" x2="110.0" y2="40.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="31.2" y1="124.0" x2="110.0" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><circle cx="110.0" cy="40.0" r="3.2" fill="var(--ink)"/><circle cx="225.2" cy="40.0" r="3.2" fill="var(--ink)"/><circle cx="374.0" cy="40.0" r="3.2" fill="var(--ink)"/><circle cx="110.0" cy="107.2" r="3.2" fill="var(--ink)"/><circle cx="374.0" cy="107.2" r="3.2" fill="var(--ink)"/><circle cx="31.2" cy="124.0" r="3.2" fill="var(--ink)"/><circle cx="110.0" cy="208.0" r="3.2" fill="var(--ink)"/><circle cx="374.0" cy="208.0" r="3.2" fill="var(--ink)"/><circle cx="162.8" cy="107.2" r="3.2" fill="var(--ink)"/><circle cx="215.6" cy="107.2" r="3.2" fill="var(--ink)"/><circle cx="268.4" cy="107.2" r="3.2" fill="var(--ink)"/><circle cx="321.2" cy="107.2" r="3.2" fill="var(--ink)"/><circle cx="162.8" cy="208.0" r="3.2" fill="var(--ink)"/><circle cx="215.6" cy="208.0" r="3.2" fill="var(--ink)"/><circle cx="268.4" cy="208.0" r="3.2" fill="var(--ink)"/><circle cx="321.2" cy="208.0" r="3.2" fill="var(--ink)"/><text x="167.6" y="80.6" fill="var(--ink)" font-size="18" text-anchor="middle" font-weight="600">A</text><text x="299.6" y="80.6" fill="var(--ink)" font-size="18" text-anchor="middle" font-weight="600">B</text><text x="80.0" y="130.0" fill="var(--ink)" font-size="18" text-anchor="middle" font-weight="600">T</text><text x="136.4" y="164.6" fill="var(--ink)" font-size="18" text-anchor="middle" font-weight="600">R</text></svg><figcaption>Рисунок условия. Сверху — A и B (вместе — прямоугольник), снизу — пять равных R; слева к фигуре целиком приклеен равнобедренный треугольник T остриём влево.</figcaption></figure>
 <p class="st">Как читать рисунок: справа — прямоугольная часть в два этажа. Верхний этаж — A (слева) и B (справа); вместе они образуют прямоугольник, поэтому высота у A и B одна и та же. Нижний этаж — пять равных R подряд, во всю ширину верхнего этажа. Слева к прямоугольной части <b>целиком</b> приклеен треугольник T остриём влево: его основание — вся левая сторона прямоугольной части, оба этажа сразу. Буквенных вершин на рисунке нет — все куски названы по именам деталей.</p>
-<p class="st"><b>🔍 С чего начать.</b> <b>Какие кирпичики?</b> Горизонталь A, горизонталь B и высоты двух этажей. <b>Какие контуры спрошены?</b> A, B и R — все три прямоугольники, так что каждый периметр — это «ширина плюс высота, дважды».</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Треугольник приклеен к левой стороне прямоугольной части (A, B и пяти R) <b>целиком</b>, и отсюда следуют две вещи.</p></div>
+<ul class="st"><li>Обе боковые стороны T идут прямо по контуру фигуры — это одни и те же отрезки, они стоят и в периметре T, и в периметре фигуры.</li><li>Основание T — вся левая сторона прямоугольной части, оба этажа. Это внутренний стык, в периметр фигуры оно <b>не</b> входит; зато правая стена фигуры имеет ровно ту же высоту. Здесь совпадают уже не сами отрезки, а их длины: основание T равно правой стене.</li></ul>
+<p class="st">Значит, у периметра фигуры и периметра T есть общий кусок: две боковые стороны T плюс отрезок длиной в оба этажа. Это пригодится в алгебре.</p>
+<figure class="fx"><svg viewBox="0 0 420 242" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="110" y="40" width="264.0" height="168.0" fill="none" stroke="var(--muted)" stroke-width="2"/><line x1="110.0" y1="107.2" x2="374.0" y2="107.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="225.2" y1="40.0" x2="225.2" y2="107.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="162.8" y1="107.2" x2="162.8" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="215.6" y1="107.2" x2="215.6" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="268.4" y1="107.2" x2="268.4" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="321.2" y1="107.2" x2="321.2" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="31.2" y1="124.0" x2="110.0" y2="40.0" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/><line x1="31.2" y1="124.0" x2="110.0" y2="208.0" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/><line x1="110.0" y1="40.0" x2="110.0" y2="208.0" stroke="var(--blue)" stroke-width="4" stroke-linecap="round" stroke-dasharray="7 6"/><g class="sl" style="--to:translate(264.0px,0);--d:.6s"><line x1="110.0" y1="40.0" x2="110.0" y2="208.0" stroke="var(--blue)" stroke-width="5" stroke-linecap="round"/></g><text x="54.6" y="86.0" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">x</text><text x="54.6" y="180.0" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">x</text><text x="128.0" y="158.0" fill="var(--blue)" font-size="15" text-anchor="middle" font-weight="600">5k</text><text x="394.0" y="129.0" fill="var(--blue)" font-size="15" text-anchor="middle" font-weight="600">5k</text><text x="167.6" y="80.6" fill="var(--muted)" font-size="18" text-anchor="middle" font-weight="600">A</text><text x="299.6" y="80.6" fill="var(--muted)" font-size="18" text-anchor="middle" font-weight="600">B</text></svg><figcaption>Золотые боковые стороны T лежат на контуре фигуры — они входят в оба периметра. Синее основание (5k) спрятано внутри фигуры, но правая стена — ровно такой же длины: основание «переезжает» на неё. Поэтому общий кусок — две стороны x и отрезок 5k — стоит в обоих периметрах.</figcaption></figure>
+<h3 class="st">Часть 1 — геометрия: что даёт рисунок</h3>
+<p class="st"><b>Буквы.</b> Спрошены A, B и R — все три прямоугольники, так что каждый периметр — «ширина плюс высота, дважды». Нужны горизонтали A и B и высоты двух этажей.</p>
 <p class="st">Высота нижнего этажа — «полторы» высоты верхнего. Чтобы в уравнениях не было дробей, берём <b>мелкий кирпичик</b> — половину высоты верхнего этажа — и называем его k. Тогда высота верхнего этажа — два таких кирпичика, а полтора раза по два кирпичика — три кирпичика. Например, если бы высота B была 10, то k было бы 5, а высота R — 15, ровно в полтора раза больше.</p>
-<p class="st">Кирпичики:</p>
-<ul class="st"><li><code>x</code> — горизонтальная сторона A; по условию она же — каждая из равных сторон T</li><li><code>y</code> — горизонтальная сторона B</li><li><code>k</code> — половина высоты верхнего этажа: высота A и B — 2k, высота R — 3k</li></ul>
+<ul class="st"><li><code>x</code> — горизонтальная сторона A; по условию ей равна каждая из боковых сторон T;</li><li><code>y</code> — горизонтальная сторона B;</li><li><code>k</code> — половина высоты верхнего этажа: высота A и B — 2k, высота R — 3k.</li></ul>
 <p class="st">Ширина R — пятая часть ширины всего этажа:</p>
 <div class="frm st">ширина R = (x + y) : 5</div>
-<p class="st">Вся левая сторона прямоугольной части — оба этажа:</p>
+<p class="st">Вся левая сторона прямоугольной части (она же основание T) и правая стена — оба этажа:</p>
 <div class="frm st">2k + 3k = 5k</div>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Треугольник приклеен к левой стороне прямоугольной части (A, B и пяти R) целиком, и отсюда следуют две вещи. Первая: обе боковые стороны T идут прямо по контуру фигуры — это одни и те же отрезки, они стоят и в периметре T, и в периметре фигуры. Вторая: основание T — вся левая сторона прямоугольной части, 5k, — это внутренний стык, в периметр фигуры оно <b>не</b> входит; зато правая стена фигуры имеет ровно ту же высоту 5k. Здесь совпадают уже не сами отрезки, а их длины: 5k основания равно 5k правой стены. Поэтому в двух периметрах стоит одинаковый хвост:</p></div>
-<div class="frm st">P(фигуры) = 2·(x + y) + (5k + 2x)</div>
-<div class="frm st">P(T) = 5k + 2x</div>
-<p class="st">Если из периметра фигуры вычесть периметр T, хвост уходит целиком — вместе с высотой и обеими сторонами x:</p>
-<div class="frm st">P(фигуры) − P(T) = 2·(x + y)</div>
-<figure class="fx"><svg viewBox="0 0 420 242" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="110" y="40" width="264.0" height="168.0" fill="none" stroke="var(--muted)" stroke-width="2"/><line x1="110.0" y1="107.2" x2="374.0" y2="107.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="225.2" y1="40.0" x2="225.2" y2="107.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="162.8" y1="107.2" x2="162.8" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="215.6" y1="107.2" x2="215.6" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="268.4" y1="107.2" x2="268.4" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="321.2" y1="107.2" x2="321.2" y2="208.0" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><line x1="31.2" y1="124.0" x2="110.0" y2="40.0" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/><line x1="31.2" y1="124.0" x2="110.0" y2="208.0" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/><line x1="110.0" y1="40.0" x2="110.0" y2="208.0" stroke="var(--blue)" stroke-width="4" stroke-linecap="round" stroke-dasharray="7 6"/><g class="sl" style="--to:translate(264.0px,0);--d:.6s"><line x1="110.0" y1="40.0" x2="110.0" y2="208.0" stroke="var(--blue)" stroke-width="5" stroke-linecap="round"/></g><text x="54.6" y="86.0" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">x</text><text x="54.6" y="180.0" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">x</text><text x="128.0" y="158.0" fill="var(--blue)" font-size="15" text-anchor="middle" font-weight="600">5k</text><text x="394.0" y="129.0" fill="var(--blue)" font-size="15" text-anchor="middle" font-weight="600">5k</text><text x="167.6" y="80.6" fill="var(--muted)" font-size="18" text-anchor="middle" font-weight="600">A</text><text x="299.6" y="80.6" fill="var(--muted)" font-size="18" text-anchor="middle" font-weight="600">B</text></svg><figcaption>Золотые боковые стороны T лежат на контуре фигуры — они входят в оба периметра. Синее основание (5k) спрятано внутри фигуры, но правая стена — ровно такой же длины: основание «переезжает» на неё. Поэтому хвост 5k + 2x стоит в обоих периметрах и при вычитании уходит.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план.</b> Спрошены периметры A, B и R — у каждого называю ширину и высоту через кирпичики.</p>
-<p class="st">A: ширина x, высота 2k.</p>
-<div class="frm st">P(A) = 2·(x + 2k)</div>
-<p class="st">B: ширина y, высота 2k.</p>
-<div class="frm st">P(B) = 2·(y + 2k)</div>
-<p class="st">R: ширина — пятая часть этажа, высота 3k.</p>
-<div class="frm st">P(R) = 2·((x + y) : 5 + 3k)</div>
-<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">P(A) = 2·(x + 2k)</div>
-<div class="frm st">P(B) = 2·(y + 2k)</div>
-<div class="frm st">P(R) = 2·((x + y) : 5 + 3k)</div>
-<ul class="st"><li><code>x</code> — горизонталь A (= боковая сторона T)</li><li><code>y</code> — горизонталь B</li><li><code>k</code> — половина высоты верхнего этажа</li></ul>
-<p class="st">Ответ = три периметра по этим формулам.</p>
-<p class="st">Осталось найти: x, y, k.</p></div>
-<p class="step st"><b>Шаг 2 — три данных периметра — три уравнения на кирпичики.</b> Обвожу каждый данный контур карандашом и складываю его стороны.</p>
-<p class="st">T — основание 5k и две боковые по x:</p>
+<p class="st"><code>P(X)</code> — периметр контура X.</p>
+<p class="st"><b>Уравнения из условия.</b> Каждый данный периметр — обход контура.</p>
+<figure class='st fx'><div class='fgrid2'><div class='cell'><svg viewBox='0 0 430 246' role='img' aria-label='Контур T'><g stroke='#4a5866' stroke-width='1.6' fill='none'><rect x='110' y='40' width='264' height='168'/><line x1='110' y1='107.2' x2='374' y2='107.2'/><line x1='225.2' y1='40' x2='225.2' y2='107.2'/><line x1='162.8' y1='107.2' x2='162.8' y2='208'/><line x1='215.6' y1='107.2' x2='215.6' y2='208'/><line x1='268.4' y1='107.2' x2='268.4' y2='208'/><line x1='321.2' y1='107.2' x2='321.2' y2='208'/><line x1='31.2' y1='124' x2='110' y2='40'/><line x1='31.2' y1='124' x2='110' y2='208'/></g><g fill='#93a1b1' font-size='18' text-anchor='middle' font-weight='600'><text x='167.6' y='80'>A</text><text x='299.6' y='80'>B</text><text x='80' y='130'>T</text><text x='189' y='164'>R</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M110 40L110 208L31.2 124Z'/><text x='128' y='130' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:0.8s'>5k</text><text x='55' y='72' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:1.3s'>x</text><text x='55' y='190' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:1.8s'>x</text></svg><p class='ccap'><b>(1)</b> P(T) = 166</p></div><div class='cell'><svg viewBox='0 0 430 246' role='img' aria-label='Контур всей фигуры'><g stroke='#4a5866' stroke-width='1.6' fill='none'><rect x='110' y='40' width='264' height='168'/><line x1='110' y1='107.2' x2='374' y2='107.2'/><line x1='225.2' y1='40' x2='225.2' y2='107.2'/><line x1='162.8' y1='107.2' x2='162.8' y2='208'/><line x1='215.6' y1='107.2' x2='215.6' y2='208'/><line x1='268.4' y1='107.2' x2='268.4' y2='208'/><line x1='321.2' y1='107.2' x2='321.2' y2='208'/><line x1='31.2' y1='124' x2='110' y2='40'/><line x1='31.2' y1='124' x2='110' y2='208'/></g><g fill='#93a1b1' font-size='18' text-anchor='middle' font-weight='600'><text x='167.6' y='80'>A</text><text x='299.6' y='80'>B</text><text x='80' y='130'>T</text><text x='189' y='164'>R</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M110 40L374 40L374 208L110 208L31.2 124Z'/><text x='242' y='30' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:0.8s'>x + y</text><text x='394' y='128' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:1.3s'>5k</text><text x='242' y='230' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:1.8s'>x + y</text><text x='55' y='190' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:2.3s'>x</text><text x='55' y='72' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:2.8s'>x</text></svg><p class='ccap'><b>(2)</b> P(фигуры) = 386</p></div><div class='cell'><svg viewBox='0 0 430 246' role='img' aria-label='Контур A и B'><g stroke='#4a5866' stroke-width='1.6' fill='none'><rect x='110' y='40' width='264' height='168'/><line x1='110' y1='107.2' x2='374' y2='107.2'/><line x1='225.2' y1='40' x2='225.2' y2='107.2'/><line x1='162.8' y1='107.2' x2='162.8' y2='208'/><line x1='215.6' y1='107.2' x2='215.6' y2='208'/><line x1='268.4' y1='107.2' x2='268.4' y2='208'/><line x1='321.2' y1='107.2' x2='321.2' y2='208'/><line x1='31.2' y1='124' x2='110' y2='40'/><line x1='31.2' y1='124' x2='110' y2='208'/></g><g fill='#93a1b1' font-size='18' text-anchor='middle' font-weight='600'><text x='167.6' y='80'>A</text><text x='299.6' y='80'>B</text><text x='80' y='130'>T</text><text x='189' y='164'>R</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M110 40L374 40L374 107.2L110 107.2Z'/><text x='242' y='30' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:0.8s'>x + y</text><text x='394' y='78' fill='#f0a83c' font-size='18' text-anchor='middle' font-weight='700' class='fi' style='--d:1.3s'>2k</text></svg><p class='ccap'><b>(3)</b> P(A и B) = 276</p></div></div><figcaption>Три данных контура — три уравнения. В обходе всей фигуры основания T нет: оно внутри, а вместо него идёт правая стена той же длины 5k. Поэтому (1) и (2) делят общий хвост 5k + 2x.</figcaption></figure>
+<p class="st">Контур T: основание и две боковые стороны.</p>
 <div class="frm st">(1) 5k + 2x = 166</div>
-<p class="st">Вся фигура — верх (x + y), правая стена 5k, низ (x + y) и две боковые стороны T:</p>
-<div class="frm st">(2) 2·(x + y) + 5k + 2x = 386</div>
-<p class="st">Прямоугольник из A и B — ширина x + y, высота 2k; его периметр сразу делю пополам — половина периметра прямоугольника это ширина плюс высота, 276 : 2 = 138:</p>
-<div class="frm st">(3) (x + y) + 2k = 138</div>
-<p class="st">→ <b>три уравнения (1)–(3)</b></p>
-<p class="step st"><b>Шаг 3 — в (1) и (2) стоит один и тот же хвост 5k + 2x.</b> Это и есть «Заметь главное»: вычитаю (1) из (2), и хвост уходит. Такой ход называется <b>методом вычитания</b> (исключением неизвестной): из одного уравнения вычитают другое, чтобы общая часть пропала. Здесь пропадают сразу две буквы — k и x:</p>
-<div class="frm st">2·(x + y) = 386 − 166 = 220</div>
-<div class="frm st">x + y = 110</div>
-<p class="st">→ <b>x + y = 110</b></p>
-<p class="step st"><b>Шаг 4 — в (3) стоит та же сумма x + y.</b> Она уже известна — подставляю вместо неё 110 (<b>метод подстановки</b>: найденное значение ставим в другое уравнение), и в (3) остаётся одна буква k:</p>
+<p class="st">Контур всей фигуры: верх, правая стена, низ и две боковые стороны T; основание T внутри и не входит.</p>
+<div class="frm st">(2) (x + y) + 5k + (x + y) + 2x = 386</div>
+<p class="st">Контур прямоугольника из A и B: ширина x + y, высота 2k, каждая дважды.</p>
+<div class="frm st">(3) 2 · ((x + y) + 2k) = 276</div>
+<p class="st"><b>Что спрошено.</b></p>
+<ul class="st"><li>A: ширина x, высота 2k;</li><li>B: ширина y, высота 2k;</li><li>R: ширина — пятая часть этажа, высота 3k.</li></ul>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">P(A) = 2 · (x + 2k)</div>
+<div class="frm st">P(B) = 2 · (y + 2k)</div>
+<div class="frm st">P(R) = 2 · ((x + y) : 5 + 3k)</div>
+<p class="st">Осталось найти: x, y, k — из системы (1)–(3).</p></div>
+<h3 class="st">Часть 2 — алгебра: решаем систему</h3>
+<p class="st">Заметь: в (1) и (2) стоит один и тот же хвост 5k + 2x — это общий кусок из «Заметь главное». Поэтому <b>метод вычитания</b> (исключение неизвестной): вычитаю (1) из (2), и уходят сразу две буквы — k и x.</p>
+<div class="frm st">(2) − (1): 2 · (x + y) = 386 − 166 = 220</div>
+<div class="frm st">(4) x + y = 110</div>
+<p class="st">(3) пополам, затем подставить (4) (<b>метод подстановки</b>):</p>
 <div class="frm st">110 + 2k = 138</div>
 <div class="frm st">2k = 28</div>
 <p class="st">→ <b>k = 14</b></p>
-<p class="step st"><b>Шаг 5 — в (1) теперь неизвестна только x.</b> Основание T уже известно:</p>
-<div class="frm st">5k = 5 · 14 = 70</div>
-<div class="frm st">2x = 166 − 70 = 96</div>
-<div class="frm st">x = 48</div>
-<p class="st">А y — из суммы шага 3:</p>
-<div class="frm st">y = 110 − 48 = 62</div>
-<p class="st">→ <b>x = 48, y = 62</b></p>
-<p class="step st"><b>Шаг 6 — сборка.</b> Подставляю кирпичики в формулы плана. Сначала размеры деталей:</p>
+<p class="st">(1), подставить k — основание T: 5k = 70</p>
+<p class="st">2x = 166 − 70 = 96, <b>x = 48</b></p>
+<p class="st">(4), подставить x: y = 110 − 48, <b>y = 62</b></p>
+<p class="st"><b>Сборка.</b> Сначала размеры деталей:</p>
 <ul class="st"><li>высота A и B: 2k = 28</li><li>высота R: 3k = 42</li><li>ширина R: 110 : 5 = 22</li></ul>
-<div class="frm st">P(A) = 2·(48 + 28) = 152</div>
-<div class="frm st">P(B) = 2·(62 + 28) = 180</div>
-<div class="frm st">P(R) = 2·(22 + 42) = 128</div>
-<p class="st">→ <b>P(A) = 152</b>, <b>P(B) = 180</b>, <b>P(R) = 128</b></p>
+<p class="st">Подставляю в формулы плана:</p>
+<ul class="st"><li><b>P(A)</b> = 2 · (48 + 28) = <b>152</b></li><li><b>P(B)</b> = 2 · (62 + 28) = <b>180</b></li><li><b>P(R)</b> = 2 · (22 + 42) = <b>128</b></li></ul>
 <p class="st">Проверка сложением по данным условия:</p>
-<ul class="st"><li>P(T) = 70 + 96 = 166 ✓</li><li>P(фигуры) = 220 + 70 + 96 = 386 ✓</li><li>P(A и B) = 2·(110 + 28) = 276 ✓</li><li>высота R 42 = 28 + 14 — в полтора раза больше высоты B ✓</li></ul>
-<p class="st"><b>⚠ Ловушки.</b> (1) Основание T — внутренний стык: в периметр T входит, в периметр фигуры — нет. (2) Основание T — <b>вся</b> левая сторона прямоугольной части, оба этажа (5k), а не высота одного этажа. (3) Ширина R — не x и не y, а пятая часть <b>всего</b> этажа: пять R стоят под A и B вместе.</p>
+<ul class="st"><li>P(T) = 70 + 96 = 166 ✓</li><li>P(фигуры) = 220 + 70 + 96 = 386 ✓</li><li>P(A и B) = 2 · (110 + 28) = 276 ✓</li><li>высота R: 42 = 28 + 14 — в полтора раза больше высоты B ✓</li></ul>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ul class="st"><li>Основание T — внутренний стык: в периметр T входит, в периметр фигуры — нет.</li><li>Основание T — <b>вся</b> левая сторона прямоугольной части, оба этажа (5k), а не высота одного этажа.</li><li>Ширина R — не x и не y, а пятая часть <b>всего</b> этажа: пять R стоят под A и B вместе.</li></ul>
 <p class="st">Проверка вторым способом: программа перебрала все целые горизонтали A и B и высоты обоих этажей по отдельности (отношение «в полтора раза» не закладывалось, а проверялось), поставила острие T на такое расстояние, чтобы боковые стороны были равны горизонтали A, посчитала периметры фигуры, T и прямоугольника из A и B обходом вершин по координатам и оставила наборы, где сошлись все три данных, — нашёлся единственный: горизонтали 48 и 62, высоты этажей 28 и 42, периметры 152, 180, 128.</p>
 <p class="st"><b>Ответ на задачу:</b> периметр A — 152 см, периметр B — 180 см, периметр R — 128 см. <em>(Официальный ключ: 152; 180; 128 — совпадает.)</em></p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Периметры фразы-объяснения не требуют: буквы, равенства и вычитание говорят сами за себя.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a5" data-art="5"><ul class="st"><li>x = горизонталь A (= бок T)</li><li>y = горизонталь B</li><li>k = половина высоты A</li><li>высота A и B = 2k</li><li>высота R = 3k</li><li>ширина R = (x + y) : 5</li></ul></div>
-<div id="a8" data-art="8"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">P(A) = 2·(x + 2k)</div>
-<div class="frm st">P(B) = 2·(y + 2k)</div>
-<div class="frm st">P(R) = 2·((x + y) : 5 + 3k)</div>
-<p class="st">Осталось найти x, y, k.</p></div></div>
-<div id="a16" data-art="16"><ul class="st"><li>P(фигуры) − P(T) = 386 − 166 → 2·(x + y) = 220 → x + y = 110</li><li>P(A и B) = 276 → 110 + 2k = 138 → <b>k = 14</b></li><li>P(T) = 166, 5k = 70 → 2x = 96 → <b>x = 48</b></li><li>y = 110 − 48 → <b>y = 62</b></li><li>размеры деталей:</li><li>высота A и B = <b>28</b></li><li>высота R = <b>42</b></li><li>ширина R = 110 : 5 = <b>22</b></li></ul></div>
-<div id="a17" data-art="17"><div class="frm st">P(A) = 2·(48 + 28) = 152</div></div>
-<div id="a18" data-art="18"><div class="frm st">P(B) = 2·(62 + 28) = 180</div></div>
-<div id="a19" data-art="19"><div class="frm st">P(R) = 2·(22 + 42) = 128</div></div>
+<p class="st">Буквы:</p>
+<div id="a6" data-art="6"><ul class="st"><li>x = горизонталь A (= бок T)</li><li>y = горизонталь B</li><li>k = половина высоты A</li><li>высота A и B = 2k</li><li>высота R = 3k</li><li>ширина R = (x + y) : 5</li><li>основание T = правая стена = 5k</li></ul></div>
+<p class="st">Уравнения:</p>
+<div id="a7" data-art="7"><div class="frm st">(1) P(T): 5k + 2x = 166</div></div>
+<div id="a8" data-art="8"><div class="frm st">(2) P(фигуры): 2 · (x + y) + 5k + 2x = 386</div></div>
+<div id="a9" data-art="9"><div class="frm st">(3) P(A и B), пополам: (x + y) + 2k = 138</div></div>
+<div id="a12" data-art="12"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(A) = 2 · (x + 2k)</div>
+<div class="frm st">P(B) = 2 · (y + 2k)</div>
+<div class="frm st">P(R) = 2 · ((x + y) : 5 + 3k)</div></div></div>
+<p class="st">Решение:</p>
+<div id="a20" data-art="20"><ul class="st"><li>(2) − (1): 2 · (x + y) = 220 → <b>x + y = 110</b></li><li>(3) → 110 + 2k = 138 → <b>k = 14</b></li><li>(1) → 2x = 166 − 70 = 96 → <b>x = 48</b></li><li>y = 110 − 48 → <b>y = 62</b></li><li>размеры деталей:</li><li>высота A и B = <b>28</b></li><li>высота R = <b>42</b></li><li>ширина R = 110 : 5 = <b>22</b></li></ul></div>
+<div id="a21" data-art="21"><div class="frm st">P(A) = 2 · (48 + 28) = 152</div></div>
+<div id="a22" data-art="22"><div class="frm st">P(B) = 2 · (62 + 28) = 180</div></div>
+<div id="a23" data-art="23"><div class="frm st">P(R) = 2 · (22 + 42) = 128</div></div>
 <p class="st">Проверка:</p>
-<div id="a22" data-art="22"><ul class="st"><li>P(T) = 70 + 96 = 166 ✓</li><li>P(фигуры) = 220 + 70 + 96 = 386 ✓</li><li>P(A и B) = 2·(110 + 28) = 276 ✓</li></ul></div>
+<div id="a26" data-art="26"><ul class="st"><li>P(T) = 70 + 96 = 166 ✓</li><li>P(фигуры) = 220 + 70 + 96 = 386 ✓</li><li>P(A и B) = 2 · (110 + 28) = 276 ✓</li></ul></div>
 <div class="pager"><a href="04-4-elektromobili-i-benzin-t1-dolya-ot-doli-neizve.html">← №4 — электромобили и бензин (Т1′: доля от доли неизвестного итога + пересечение множеств)</a><a href="06-6-doska-4-2-summa-stroki-i-proizvedeniya-stolbco.html">№6 — доска 4×2: сумма строки и произведения столбцов (Т4′: меню произведения + привратник-произведение) →</a></div>
 </main>
 </div>

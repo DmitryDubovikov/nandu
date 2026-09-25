@@ -252,15 +252,19 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 4 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">No sé el total, así que lo llamo h y escribo cada parte como una fracción de h.<br><em>Итог мне неизвестен, поэтому называю его h и каждую часть записываю долей от h.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ 2 = h − (N(электро) + N(бензин) − 1450)</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><code>N(электро) = h : 5</code></span></button>
-<button class="art cont" data-art="3"><span class="val f"><code>N(оба) = h : 5 : 4 = h : 20</code></span></button>
-<button class="art cont" data-art="4"><span class="val f"><code>h = 1450 · 20 = 29000</code></span></button>
-<button class="art cont" data-art="5"><span class="val f"><code>N(бензин) = 8 · (h : 20) = 8 · 1450 = 11600</code></span></button>
-<button class="art cont" data-art="6"><span class="val f">Los que están en los dos grupos los conté dos veces, así que los resto una vez.</span></button>
-<button class="art cont" data-art="7"><span class="val f"><code>N(электро) = 29000 : 5 = 5800</code></span></button>
-<button class="art cont" data-art="8"><span class="val f"><code>N(хотя бы одна) = 5800 + 11600 − 1450 = 15950</code></span></button>
-<button class="art cont" data-art="9"><span class="val f">h = 29000; Ответ 2 = 29000 − 15950 = 13050</span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>h</code> — жителей;</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>N(электро)</code> — сколько жителей с электромобилем;</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>N(бензин)</code> — сколько жителей с машиной на бензине.</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">Ответ 2 = h − (N(электро) + N(бензин) − 1450)</span></button>
+<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f"><code>N(электро) = h : 5</code></span></button>
+<button class="art cont" data-art="6"><span class="val f"><code>N(оба) = h : 5 : 4 = h : 20</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>h = 1450 · 20 = 29000</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>N(бензин) = 8 · (h : 20) = 8 · 1450 = 11600</code></span></button>
+<button class="art cont" data-art="9"><span class="val f">Los que están en los dos grupos los conté dos veces, así que los resto una vez.</span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>N(электро) = 29000 : 5 = 5800</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>N(хотя бы одна) = 5800 + 11600 − 1450 = 15950</code></span></button>
+<button class="art cont" data-art="12"><span class="val f">h = 29000</span></button>
+<button class="art cont" data-art="13"><span class="val f">Ответ 2 = 29000 − 15950 = 13050</span></button>
 </aside>
 <main>
   
@@ -287,7 +291,8 @@
 <ul class="st"><li><code>h</code> — из первой строчки, в ней буква одна;</li><li><code>N(бензин)</code> — из фразы «1450 — восьмая часть тех, у кого бензин»;</li><li><code>N(электро)</code> — из фразы «электромобиль у пятой части жителей», когда <code>h</code> станет числом.</li></ul></div>
 <p class="step st"><b>Шаг 2 — считаем <code>h</code>.</b> Это первый ответ, и он стоит в первой строчке плана: одна двадцатая жителей — это 1450, значит, жителей в двадцать раз больше.</p>
 <div class="frm st">h = 1450 · 20 = 29000</div>
-<p class="st">Число целое ✓, и оно делится на 5, а пятая часть — на 4: <code>29000 : 5 = 5800</code>, <code>5800 : 4 = 1450</code> ✓ — доли условия берутся без остатка.</p>
+<p class="st">Число целое ✓. Доли условия тоже должны браться без остатка — проверяю: h делится на 5, а пятая часть — на 4.</p>
+<ul class="st"><li><code>29000 : 5 = 5800</code> ✓</li><li><code>5800 : 4 = 1450</code> ✓</li></ul>
 <p class="st">→ <b>h = 29000</b></p>
 <p class="step st"><b>Шаг 3 — считаем <code>N(бензин)</code>.</b> Про бензин сказано: 1450 — это восьмая часть его владельцев. А 1450 — это и есть «оба», то есть двадцатая часть жителей:</p>
 <div class="frm st">N(оба) = h : 20 = 1450</div>
@@ -306,11 +311,14 @@
 <p class="st">Проверка по зонам. Разложим всех жителей на четыре зоны, которые не пересекаются:</p>
 <ul class="st"><li>только электромобиль: <code>5800 − 1450 = 4350</code>;</li><li>оба вида: 1450;</li><li>только бензин: <code>11600 − 1450 = 10150</code>;</li><li>ни одной машины: 13 050.</li></ul>
 <p class="st"><code>4350 + 1450 + 10150 + 13050 = 29000</code> ✓</p>
-<p class="st">Прогон условия вперёд (ритуал 2): пятая часть от 29 000 — это 5800 ✓; четверть от 5800 — это 1450 ✓; 1450 — восьмая часть от 11 600 ✓.</p>
+<p class="st">Прогон условия вперёд (ритуал 2) — от ответа к данным:</p>
+<ul class="st"><li>пятая часть от 29 000 — это 5800 ✓</li><li>четверть от 5800 — это 1450 ✓</li><li>1450 — восьмая часть от 11 600 ✓</li></ul>
 <p class="st"><b>То же самое в уме.</b> Все числа задачи — это целые куски по 1450: жители — 20 кусков, электромобили — 4 куска, бензин — 8 кусков, «оба» — 1 кусок. Хотя бы одна машина — это оба набора без дважды посчитанного куска:</p>
 <div class="frm st">4 + 8 − 1 = 11</div>
-<p class="st">Без машины — остальные 9 кусков, потому что <code>20 − 11 = 9</code>, а <code>9 · 1450 = 13050</code> ✓.</p>
+<p class="st">Без машины — остальные 9 кусков:</p>
 <figure class="st"><svg viewBox="0 0 560 176" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><path d="M42 30 V24 H134 V30" fill="none" stroke="#cfdae6" stroke-width="1.3"/><text x="88.0" y="18" fill="#cfdae6" font-size="12" text-anchor="middle">электро: 4 куска</text><path d="M114 58 V52 H302 V58" fill="none" stroke="var(--green)" stroke-width="1.3"/><text x="208.0" y="46" fill="var(--green)" font-size="12" text-anchor="middle">бензин: 8 кусков</text><rect x="40" y="62" width="24" height="28" fill="#3d5a82" fill-opacity=".8" stroke="#2c394c"/><rect x="64" y="62" width="24" height="28" fill="#3d5a82" fill-opacity=".8" stroke="#2c394c"/><rect x="88" y="62" width="24" height="28" fill="#3d5a82" fill-opacity=".8" stroke="#2c394c"/><rect x="112" y="62" width="24" height="28" fill="var(--gold)" fill-opacity=".75" stroke="#2c394c"/><rect x="136" y="62" width="24" height="28" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><rect x="160" y="62" width="24" height="28" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><rect x="184" y="62" width="24" height="28" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><rect x="208" y="62" width="24" height="28" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><rect x="232" y="62" width="24" height="28" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><rect x="256" y="62" width="24" height="28" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><rect x="280" y="62" width="24" height="28" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><rect x="304" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="328" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="352" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="376" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="400" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="424" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="448" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="472" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><rect x="496" y="62" width="24" height="28" fill="#2c394c" fill-opacity=".35" stroke="#2c394c"/><text x="76.0" y="108" fill="#cfdae6" font-size="11" text-anchor="middle">только</text><text x="76.0" y="122" fill="#cfdae6" font-size="11" text-anchor="middle">электро 3</text><text x="124.0" y="108" fill="var(--gold)" font-size="11" text-anchor="middle">оба</text><text x="124.0" y="122" fill="var(--gold)" font-size="11" text-anchor="middle">1</text><text x="208" y="108" fill="#cfdae6" font-size="11" text-anchor="middle">только бензин</text><text x="208" y="122" fill="#cfdae6" font-size="11" text-anchor="middle">7</text><path d="M306 92 V98 H518 V92" fill="none" stroke="var(--muted)" stroke-width="1.3"/><text x="412.0" y="114" fill="var(--muted)" font-size="12" text-anchor="middle">ни одной: 9 кусков</text><text x="412.0" y="130" fill="var(--muted)" font-size="12" text-anchor="middle">9 · 1450 = 13 050</text><text x="280" y="160" fill="#cfdae6" font-size="12" text-anchor="middle">всего 20 кусков по 1450 = 29 000 жителей</text></svg><figcaption>Электро и бензин перекрываются ровно на один кусок — «оба». Вместе они занимают 4 + 8 − 1 = 11 кусков, остальные 9 — жители без машины.</figcaption></figure>
+<div class="frm st">20 − 11 = 9</div>
+<p class="st"><code>9 · 1450 = 13050</code> ✓</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>«Из них у четверти» — это четверть <b>от владельцев электромобилей</b>, а не от всех жителей. Кто прочитает «четверть всех жителей», получит жителей всего <code>1450 · 4 = 5800</code> — и тогда электромобилей было бы <code>5800 : 5 = 1160</code>, меньше, чем 1450 владельцев обоих видов, чего быть не может.</li><li>«1450 — восьмая часть тех, у кого бензин» — доля от владельцев бензина, а не от жителей. Бензин — не «восьмая часть жителей»: к <code>h</code> он привязан только через «оба» и в 8 раз больше их.</li><li>Сложить 5800 и 11 600 и забыть вычесть 1450 — тогда 1450 человек посчитаны дважды, и выйдет <code>29000 − 17400 = 11600</code> вместо 13 050.</li></ul>
 <p class="st">Проверка вторым способом: программа перебрала все целые числа жителей от 1 до 200 000 и точными дробями проверила «пятая часть — электро, четверть от них — оба, оба = 1450» — подходит единственное 29 000; затем по четырём зонам (4350, 1450, 10 150, 13 050) прогнала условие вперёд, включая «1450 — восьмая часть бензина»; счёт кусками по 1450 (20 − 11 = 9 кусков) даёт то же 13 050. Совпадает с официальным ключом.</p>
@@ -321,15 +329,16 @@
 <div id="a0" data-art="0"><p class="st"><b>No sé el total, así que lo llamo h y escribo cada parte como una fracción de h.</b></p></div>
 <p class="st"><em>Итог мне неизвестен, поэтому называю его h и каждую часть записываю долей от h.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>h</code> — жителей; <code>N(электро)</code> и <code>N(бензин)</code> — сколько жителей с электромобилем и с машиной на бензине.</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div id="a3" data-art="3"><ul class="st"><li><code>h</code> — жителей;</li><li><code>N(электро)</code> — сколько жителей с электромобилем;</li><li><code>N(бензин)</code> — сколько жителей с машиной на бензине.</li></ul></div>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">h : 20 = 1450</div>
 <div class="frm st">Ответ 2 = h − (N(электро) + N(бензин) − 1450)</div></div></div>
-<div id="a5" data-art="5"><ul class="st"><li><code>N(электро) = h : 5</code></li><li><code>N(оба) = h : 5 : 4 = h : 20</code></li><li><code>h = 1450 · 20 = 29000</code></li><li><code>N(бензин) = 8 · (h : 20) = 8 · 1450 = 11600</code></li></ul></div>
-<div id="a6" data-art="6"><p class="st"><b>Los que están en los dos grupos los conté dos veces, así que los resto una vez.</b></p></div>
+<div id="a8" data-art="8"><ul class="st"><li><code>N(электро) = h : 5</code></li><li><code>N(оба) = h : 5 : 4 = h : 20</code></li><li><code>h = 1450 · 20 = 29000</code></li><li><code>N(бензин) = 8 · (h : 20) = 8 · 1450 = 11600</code></li></ul></div>
+<div id="a9" data-art="9"><p class="st"><b>Los que están en los dos grupos los conté dos veces, así que los resto una vez.</b></p></div>
 <p class="st"><em>Тех, кто попал в обе группы, я посчитал дважды — поэтому вычитаю их один раз.</em></p>
-<div id="a8" data-art="8"><ul class="st"><li><code>N(электро) = 29000 : 5 = 5800</code></li><li><code>N(хотя бы одна) = 5800 + 11600 − 1450 = 15950</code></li></ul></div>
-<div id="a9" data-art="9"><div class="frm st">h = 29000; Ответ 2 = 29000 − 15950 = 13050</div></div>
+<div id="a11" data-art="11"><ul class="st"><li><code>N(электро) = 29000 : 5 = 5800</code></li><li><code>N(хотя бы одна) = 5800 + 11600 − 1450 = 15950</code></li></ul></div>
+<div id="a12" data-art="12"><div class="frm st">h = 29000</div></div>
+<div id="a13" data-art="13"><div class="frm st">Ответ 2 = 29000 − 15950 = 13050</div></div>
 <p class="st">Проверка по зонам: <code>4350 + 1450 + 10150 + 13050 = 29000</code> ✓</p>
 <div class="pager"><a href="03-3-sinyaya-fishka-mezhdu-sosedyami-t3-vse-minus-p.html">← №3 — синяя фишка между соседями (Т3′: всё минус плохие + «И» по клетке синей)</a><a href="05-5-strela-s-treugolnikom-t2-vychti-dva-kontura-pr.html">№5 — стрела с треугольником (Т2′: вычти два контура + пропорция через мелкий кирпичик) →</a></div>
 </main>

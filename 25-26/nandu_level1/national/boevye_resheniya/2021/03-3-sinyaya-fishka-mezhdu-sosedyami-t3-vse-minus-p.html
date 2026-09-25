@@ -259,10 +259,13 @@
 <button class="art cont" data-art="5"><span class="val f">b, b, b: 1</span></button>
 <button class="art cont" data-art="6"><span class="val f">N(всего) = 5 · 6 · 10 = 300</span></button>
 <button class="art cont" data-art="7"><span class="val f">c1 — v a v: r в одну из 4 клеток → 4</span></button>
-<button class="art cont" data-art="8"><span class="val f">c2 — b a b: r → 4, v, v → C(3, 2) = 3, итого 4 · 3 = 12</span></button>
-<button class="art cont" data-art="9"><span class="val f">N(плохих) = 5 · (4 + 12) = 80</span></button>
-<button class="art cont" data-art="10"><span class="val f">N(досок) = 300 − 80 = 220</span></button>
-<button class="art" data-art="11"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
+<button class="art cont" data-art="8"><span class="val f">c2 — b a b:</span></button>
+<button class="art cont" data-art="9"><span class="val f">r → 4</span></button>
+<button class="art cont" data-art="10"><span class="val f">v, v → C(3, 2) = 3</span></button>
+<button class="art cont" data-art="11"><span class="val f">итого 4 · 3 = 12</span></button>
+<button class="art cont" data-art="12"><span class="val f">N(плохих) = 5 · (4 + 12) = 80</span></button>
+<button class="art cont" data-art="13"><span class="val f">N(досок) = 300 − 80 = 220</span></button>
+<button class="art" data-art="14"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
 <main>
   
@@ -313,9 +316,11 @@
 <p class="step st"><b>Шаг 4 — сборка.</b> Подставляю в формулу плана:</p>
 <div class="frm st">N(досок) = 300 − 80 = 220</div>
 <p class="st"><b>⚠ Ловушки.</b></p>
-<ul class="st"><li>Считать фишки одного цвета разными — если считать все семь фишек различными (порядок фишек, а не цветов), получится</li></ul>
-<div class="frm st">7 · 6 · 5 · 4 · 3 · 2 · 1 = 5040 = 12 · 420</div>
-<p class="st">в 12 раз больше, чем надо: две зелёные меняются местами двумя способами, три белые — шестью. Доска — это цвета в клетках, а не номера фишек.</p>
+<ul class="st"><li>Считать фишки одного цвета разными. Тогда при поставленной синей шесть остальных фишек, все «разные», раскладываются так:</li></ul>
+<div class="frm st">6 · 5 · 4 · 3 · 2 · 1 = 720</div>
+<p class="st">а не 60, как в шаге 2, — в 12 раз больше, чем надо: две зелёные меняются местами двумя способами, три белые — шестью, и</p>
+<div class="frm st">2 · 6 = 12</div>
+<p class="st">Но от перестановки одинаковых фишек доска не меняется: доска — это цвета в клетках, а не номера фишек.</p>
 <ul class="st"><li>Забыть случай «оба соседа белые» и вычесть только зелёных: получится 300 − 20 = 280.</li><li>Ставить синюю в первую или последнюю клетку и потом разбираться с одним соседом: условие запрещает эти клетки сразу.</li><li>Понять «между двумя фишками одного цвета» как «где-то левее и где-то правее»: речь о соседях — фишка лежит между двумя соседними.</li></ul>
 <p class="st"><b>Проверка вторым способом:</b> напрямую, по соседям синей. При каждой клетке синей её соседи — два <b>разных</b> цвета; пару цветов можно поставить слева-справа двумя порядками, а остальные четыре фишки раскладываются по четырём свободным клеткам:</p>
 <ul class="st"><li>r и v: осталось v, b, b, b — 4 раскладки</li><li>2 · 4 = 8</li><li>r и b: осталось v, v, b, b — 6 раскладок</li><li>2 · 6 = 12</li><li>v и b: осталось r, v, b, b — 4 · 3 = 12 раскладок</li><li>2 · 12 = 24</li></ul>
@@ -338,11 +343,11 @@
 <div id="a5" data-art="5"><ul class="st"><li>a: клетки 2–6 → 5</li><li>r: 6</li><li>v, v: C(5, 2) = 10</li><li>b, b, b: 1</li></ul></div>
 <div id="a6" data-art="6"><div class="frm st">N(всего) = 5 · 6 · 10 = 300</div></div>
 <p class="st">Плохие (соседи a одного цвета), при каждой клетке a:</p>
-<div id="a8" data-art="8"><ul class="st"><li>c1 — v a v: r в одну из 4 клеток → 4</li><li>c2 — b a b: r → 4, v, v → C(3, 2) = 3, итого 4 · 3 = 12</li></ul></div>
-<div id="a9" data-art="9"><div class="frm st">N(плохих) = 5 · (4 + 12) = 80</div></div>
-<div id="a10" data-art="10"><div class="frm st">N(досок) = 300 − 80 = 220</div></div>
+<div id="a11" data-art="11"><ul class="st"><li>c1 — v a v: r в одну из 4 клеток → 4</li><li>c2 — b a b:</li><li>r → 4</li><li>v, v → C(3, 2) = 3</li><li>итого 4 · 3 = 12</li></ul></div>
+<div id="a12" data-art="12"><div class="frm st">N(плохих) = 5 · (4 + 12) = 80</div></div>
+<div id="a13" data-art="13"><div class="frm st">N(досок) = 300 − 80 = 220</div></div>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a11" data-art="11"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<div id="a14" data-art="14"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
 <p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <div class="pager"><a href="02-2-domik-s-kryshey-i-bokovym-treugolnikom-t2-peri.html">← №2 — домик с крышей и боковым треугольником (Т2: периметры, вершина равнобедренного — над серединой основания)</a><a href="04-4-elektromobili-i-benzin-t1-dolya-ot-doli-neizve.html">№4 — электромобили и бензин (Т1′: доля от доли неизвестного итога + пересечение множеств) →</a></div>
 </main>
