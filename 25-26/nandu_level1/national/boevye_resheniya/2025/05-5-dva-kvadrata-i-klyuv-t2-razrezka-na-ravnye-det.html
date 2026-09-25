@@ -251,19 +251,27 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 5 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">MR = MS = BC = q</span></button>
-<button class="art cont" data-art="1"><span class="val f">s − q = q/5</span></button>
-<button class="art cont" data-art="2"><span class="val f">q = 5k, s = 6k</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(ACDF) = 2·((s + q) + s)</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">P(MRSF) = MR + RS + SF + FM</span></button>
-<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">P(MRCDS) = MR + RC + CD + DS + SM</span></button>
-<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f">P(BCDE) = 2·(5k + 6k) = 198 → 22k = 198 → <b>k = 9</b> → <b>q = 45, s = 54</b></span></button>
-<button class="art cont" data-art="7"><span class="val f">AR + BR = 54, BR = ½·AR → часть 54 : 3 = 18 → <b>r = 36, BR = ES = 18</b></span></button>
-<button class="art cont" data-art="8"><span class="val f">M — середина → <b>MF = 27</b>; ES = BR → <b>SF = r = 36, RS = 54</b></span></button>
-<button class="art cont" data-art="9"><span class="val f"><b>RC = DS = 18 + 45 = 63</b></span></button>
-<button class="art cont" data-art="10"><span class="val f">P(ACDF) = 2·(99 + 54) = 306</span></button>
-<button class="art cont" data-art="11"><span class="val f">P(MRSF) = 45 + 54 + 36 + 27 = 162</span></button>
-<button class="art cont" data-art="12"><span class="val f">P(MRCDS) = 45 + 63 + 54 + 63 + 45 = 270</span></button>
+  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">s — сторона большого квадрата;</span></button>
+<button class="art cont" data-art="1"><span class="val f">q — сторона малого, MR = MS = BC = q;</span></button>
+<button class="art cont" data-art="2"><span class="val f">r = AR;</span></button>
+<button class="art cont" data-art="3"><span class="val f">t = BR = ES.</span></button>
+<button class="art cont" data-art="4"><span class="val f">(1) разрезка: s − q = q/5</span></button>
+<button class="art cont" data-art="5"><span class="val f">(2) P(BCDE): 2 · (q + s) = 198</span></button>
+<button class="art cont" data-art="6"><span class="val f">(3) r = 2t</span></button>
+<button class="art cont" data-art="7"><span class="val f">(4) r + t = s</span></button>
+<button class="art cont" data-art="8"><span class="val f">SF = r, RS = s;</span></button>
+<button class="art cont" data-art="9"><span class="val f">DS = RC = q + t;</span></button>
+<button class="art cont" data-art="10"><span class="val f">FM = s/2.</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">P(ACDF) = 2 · ((s + q) + s)</span></button>
+<button class="art" data-art="12"><span class="lbl">План</span><span class="val f">P(MRSF) = q + s + r + s/2</span></button>
+<button class="art" data-art="13"><span class="lbl">План</span><span class="val f">P(MRCDS) = q + (t + q) + s + (q + t) + q</span></button>
+<button class="art" data-art="14"><span class="lbl">На туре</span><span class="val f">(1) → q = 5k, s = 6k</span></button>
+<button class="art cont" data-art="15"><span class="val f">(2) → 22k = 198 → <b>k = 9</b> → <b>q = 45, s = 54</b></span></button>
+<button class="art cont" data-art="16"><span class="val f">(3), (4) → 3t = 54 → <b>t = 18, r = 36</b></span></button>
+<button class="art cont" data-art="17"><span class="val f"><b>FM = 27, RC = DS = 18 + 45 = 63</b></span></button>
+<button class="art cont" data-art="18"><span class="val f">P(ACDF) = 2 · (99 + 54) = 306</span></button>
+<button class="art cont" data-art="19"><span class="val f">P(MRSF) = 45 + 54 + 36 + 27 = 162</span></button>
+<button class="art cont" data-art="20"><span class="val f">P(MRCDS) = 45 + 63 + 54 + 63 + 45 = 270</span></button>
 </aside>
 <main>
   
@@ -274,8 +282,12 @@
 <p class="st">Как читать рисунок: слева большой квадрат ABEF (A — левый низ, B — правый низ, E — правый верх, F — левый верх). Справа к нему приставлен квадрат поменьше BCHG, а щель между его верхом GH и уровнем E–D закрывает лежачий прямоугольник DEGH. R стоит на нижней стороне AB, S — на верхней стороне FE; косые M→R и M→S похожи на клюв.</p>
 <p class="st"><b>🔍 С чего начать.</b> <b>Какие кирпичики?</b> Две стороны — большого квадрата и малого. Но они не независимы: разрезка малого квадрата на 5 равных прямоугольников их связывает. <b>Что делать с косыми MR и MS?</b> Ничего: их длина <b>дана</b> — она равна BC, стороне малого квадрата. Мерить и вычислять косые не нужно.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Разрезка сравнивает две детали, повёрнутые друг относительно друга. Отрезки разрезки параллельны BG, то есть вертикальны, поэтому полоска малого квадрата <b>стоит</b>: её длинная сторона — вся сторона малого квадрата, а короткая — пятая часть этой стороны. А DEGH <b>лежит</b>: его длинная сторона ED равна BC, то есть тоже стороне малого квадрата, а короткая EG — это то, на сколько большой квадрат выше малого. Длинные стороны равны сами собой, вся работа — в коротких.</p></div>
-<p class="st">Пусть s — сторона большого квадрата, q — сторона малого. Короткая сторона полоски равна короткой стороне DEGH:</p>
-<div class="frm st">s − q = q/5</div>
+<h3 class="st">Часть 1 — геометрия: что даёт рисунок</h3>
+<p class="st"><b>Буквы.</b></p>
+<ul class="st"><li>s — сторона большого квадрата; ей равны AB, BE, EF, FA и правая сторона CD (прямоугольник DEGH доводит правый край до уровня E);</li><li>q — сторона малого квадрата; ей равны BC, CH, HG, GB, длинная сторона ED прямоугольника DEGH и обе косые MR и MS (по условию);</li><li>r = AR;</li><li>t = BR, ему равен ES (по условию).</li></ul>
+<p class="st"><b>Уравнения из условия.</b></p>
+<p class="st">Разрезка: короткая сторона стоячей полоски (пятая часть q) равна короткой стороне лежачего DEGH — той, на сколько большой квадрат выше малого.</p>
+<div class="frm st">(1) s − q = q/5</div>
 <pre class="ascii st">полоска малого квадрата (стоит)      DEGH (лежит)
 
   G┌──┬──┬──┬──┬──┐H                 E┌──────────────┐D
@@ -283,54 +295,50 @@
    │  │  │  │  │  │
   B└──┴──┴──┴──┴──┘C
    ширина q/5, высота q               длина q, высота s − q</pre>
-<p class="st">Кто сравнит «ширину с шириной», получит бессмыслицу. Дробь q/5 здесь не единственная (ещё будет «половина AR»), поэтому сразу беру долю: <code>k</code> — пятая часть стороны малого квадрата. Малый квадрат — пять таких долей, а большой выше него ещё на одну долю, итого шесть.</p>
-<div class="frm st">q = 5k</div>
-<div class="frm st">s = 6k</div>
-<p class="step st"><b>Шаг 1 — план.</b> Спрошены три периметра — обвожу каждый контур по сторонам.</p>
+<p class="st">Кто сравнит «ширину с шириной», получит бессмыслицу.</p>
+<p class="st">Контур BCDE — стоячий прямоугольник: ширина BC — сторона малого квадрата, высота BE — сторона большого.</p>
+<div class="frm st">(2) 2 · (q + s) = 198</div>
+<p class="st">R делит нижнюю сторону AB на AR и BR, и BR — половина AR:</p>
+<div class="frm st">(3) r = 2t</div>
+<div class="frm st">(4) r + t = s</div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>S стоит ровно над R. ES по условию равен BR, поэтому кусок верха SF — это сторона без ES, а кусок низа AR — та же сторона без такого же куска BR. Значит, SF = AR, и S с R на одном расстоянии от левого края. Отсюда два подарка: отрезок R→S — сквозная вертикаль во всю высоту большого квадрата, а верхний кусок DS равен нижнему RC (каждый — сторона малого квадрата плюс кусок t).</p></div>
+<figure class="st"><svg viewBox="0 0 560 292" width="100%"  xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="40" y="88" width="162" height="162" fill="#131923" stroke="#2c394c" stroke-width="1.2"/><rect x="202" y="115" width="135" height="135" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><rect x="202" y="88" width="135" height="27" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><polygon points="40,169 148,250 148,88 40,88" fill="var(--gold)" fill-opacity=".16" stroke="var(--gold)" stroke-width="3"/><circle cx="40" cy="169" r="4.5" fill="var(--gold)"/><circle cx="148" cy="250" r="4.5" fill="var(--gold)"/><circle cx="148" cy="88" r="4.5" fill="var(--gold)"/><circle cx="40" cy="88" r="4.5" fill="var(--gold)"/><text x="28" y="80" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">F</text><text x="26" y="174" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">M</text><text x="148" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">R</text><text x="148" y="79" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">S</text><text x="28" y="266" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="196" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="212" y="79" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="48" y="242" fill="var(--gold)" font-size="13" text-anchor="start" font-weight="400">MR = q</text><text x="142" y="169" fill="var(--gold)" font-size="13" text-anchor="end" font-weight="400">RS = s</text><text x="94" y="78" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="400">SF = r</text><text x="46" y="112" fill="var(--gold)" font-size="13" text-anchor="start" font-weight="400">FM = s/2</text><line x1="148" y1="250" x2="148" y2="88" stroke="var(--gold)" stroke-width="3" /><text x="360" y="169" fill="var(--muted)" font-size="12" text-anchor="start" font-weight="400">R и S — на одной вертикали</text></svg><figcaption>R стоит на нижней стороне, S — на верхней, и оба на одном расстоянии от левого края: отрезок между ними пересекает квадрат насквозь, то есть равен целой стороне.</figcaption></figure>
+<div class="frm st">SF = s − ES = s − BR = AR = r</div>
+<div class="frm st">RS = s</div>
+<div class="frm st">DS = DE + ES = q + t</div>
+<div class="frm st">RC = BR + BC = t + q</div>
+<p class="st">И последний кусок: M — середина стороны AF, поэтому</p>
+<div class="frm st">FM = s/2</div>
+<p class="st"><b>Что спрошено.</b> Три периметра — обвожу каждый контур по сторонам.</p>
+<figure class='st fx'><div class='fgrid2'><div class='cell'><svg viewBox='0 60 380 225' role='img' aria-label='Контур ACDF'><rect x='40' y='88' width='162' height='162' fill='none' stroke='#4a5866' stroke-width='1.6'/><rect x='202' y='115' width='135' height='135' fill='none' stroke='#4a5866' stroke-width='1.6'/><path d='M202 88H337V115' fill='none' stroke='#4a5866' stroke-width='1.6'/><path d='M148 250L40 169L148 88' fill='none' stroke='#4a5866' stroke-width='1.6'/><g fill='#93a1b1' font-size='14' text-anchor='middle' font-weight='600'><text x='28' y='266'>A</text><text x='148' y='270'>R</text><text x='208' y='270'>B</text><text x='349' y='268'>C</text><text x='28' y='80'>F</text><text x='148' y='79'>S</text><text x='208' y='79'>E</text><text x='349' y='80'>D</text><text x='214' y='132'>G</text><text x='351' y='132'>H</text><text x='26' y='174'>M</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='4' fill='none' stroke-linejoin='round' d='M40 250L337 250L337 88L40 88Z'/><text x='188' y='244' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>s + q</text><text x='362' y='172' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:1.4s'>s</text></svg><p class='ccap'><b>P(ACDF)</b> = 2 · ((s + q) + s)</p></div><div class='cell'><svg viewBox='0 60 380 225' role='img' aria-label='Контур MRSF'><rect x='40' y='88' width='162' height='162' fill='none' stroke='#4a5866' stroke-width='1.6'/><rect x='202' y='115' width='135' height='135' fill='none' stroke='#4a5866' stroke-width='1.6'/><path d='M202 88H337V115' fill='none' stroke='#4a5866' stroke-width='1.6'/><path d='M148 250L40 169L148 88' fill='none' stroke='#4a5866' stroke-width='1.6'/><g fill='#93a1b1' font-size='14' text-anchor='middle' font-weight='600'><text x='28' y='266'>A</text><text x='148' y='270'>R</text><text x='208' y='270'>B</text><text x='349' y='268'>C</text><text x='28' y='80'>F</text><text x='148' y='79'>S</text><text x='208' y='79'>E</text><text x='349' y='80'>D</text><text x='214' y='132'>G</text><text x='351' y='132'>H</text><text x='26' y='174'>M</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='4' fill='none' stroke-linejoin='round' d='M40 169L148 250L148 88L40 88Z'/><text x='86' y='228' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>q</text><text x='162' y='172' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:1.4s'>s</text><text x='94' y='104' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>r</text><text x='56' y='132' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:2.4s'>s/2</text></svg><p class='ccap'><b>P(MRSF)</b> = q + s + r + s/2</p></div><div class='cell'><svg viewBox='0 60 380 225' role='img' aria-label='Контур MRCDS'><rect x='40' y='88' width='162' height='162' fill='none' stroke='#4a5866' stroke-width='1.6'/><rect x='202' y='115' width='135' height='135' fill='none' stroke='#4a5866' stroke-width='1.6'/><path d='M202 88H337V115' fill='none' stroke='#4a5866' stroke-width='1.6'/><path d='M148 250L40 169L148 88' fill='none' stroke='#4a5866' stroke-width='1.6'/><g fill='#93a1b1' font-size='14' text-anchor='middle' font-weight='600'><text x='28' y='266'>A</text><text x='148' y='270'>R</text><text x='208' y='270'>B</text><text x='349' y='268'>C</text><text x='28' y='80'>F</text><text x='148' y='79'>S</text><text x='208' y='79'>E</text><text x='349' y='80'>D</text><text x='214' y='132'>G</text><text x='351' y='132'>H</text><text x='26' y='174'>M</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='4' fill='none' stroke-linejoin='round' d='M40 169L148 250L337 250L337 88L148 88Z'/><text x='86' y='228' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>q</text><text x='242' y='244' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:1.4s'>t + q</text><text x='362' y='172' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>s</text><text x='242' y='104' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:2.4s'>q + t</text><text x='78' y='116' fill='#f0a83c' font-size='16' text-anchor='middle' font-weight='600' class='fi' style='--d:2.9s'>q</text></svg><p class='ccap'><b>P(MRCDS)</b> = q + (t + q) + s + (q + t) + q</p></div></div><figcaption>Три спрошенных контура. Косые всюду q — это дано; R→S и C→D — целая сторона большого квадрата s; куски низа и верха у MRCDS одинаковые, t + q, потому что S стоит ровно над R.</figcaption></figure>
 <p class="st">ACDF — прямоугольник: низ AC — это сторона большого квадрата плюс сторона малого, высота — сторона большого.</p>
-<div class="frm st">P(ACDF) = 2·((s + q) + s)</div>
-<p class="st">MRSF — обхожу четырёхугольник от M: косая вниз к R, от R к S, по верху к F и по левой стороне обратно к M.</p>
-<div class="frm st">P(MRSF) = MR + RS + SF + FM</div>
+<p class="st">MRSF — обхожу от M: косая вниз к R, от R вверх к S, по верху к F и по левой стороне обратно к M.</p>
 <p class="st">MRCDS — обхожу от M: косая к R, по низу до C, вверх до D, по верху до S и косой обратно к M.</p>
-<div class="frm st">P(MRCDS) = MR + RC + CD + DS + SM</div>
-<p class="st">Косые известны сразу — по условию они равны стороне малого квадрата:</p>
-<div class="frm st">MR = MS = BC = q</div>
-<p class="st">Всё остальное в контурах — куски сторон квадратов, а куски низа и верха зависят от того, где стоят R и S, то есть от AR.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">P(ACDF) = 2·((s + q) + s)</div>
-<div class="frm st">P(MRSF) = MR + RS + SF + FM</div>
-<div class="frm st">P(MRCDS) = MR + RC + CD + DS + SM</div>
-<ul class="st"><li><code>s</code> — сторона большого квадрата, <code>q</code> — сторона малого; MR = MS = q</li><li><code>k</code> — пятая часть q: q = 5k, s = 6k</li><li><code>r</code> = AR</li></ul>
-<p class="st">Ответ = три периметра по этим формулам.</p>
-<p class="st">Осталось найти: долю <code>k</code> (из P(BCDE)) и <code>r</code> (из BR = ½·AR).</p></div>
-<p class="step st"><b>Шаг 2 — нужна доля k.</b> Её даёт единственное число условия: BCDE — стоячий прямоугольник. Его ширина — сторона малого квадрата, высота — сторона большого:</p>
-<div class="frm st">BC = 5k</div>
-<div class="frm st">BE = 6k</div>
-<div class="frm st">P(BCDE) = 2·(5k + 6k) = 198</div>
+<div class="frm st">P(ACDF) = 2 · ((s + q) + s)</div>
+<div class="frm st">P(MRSF) = q + s + r + s/2</div>
+<div class="frm st">P(MRCDS) = q + (t + q) + s + (q + t) + q</div>
+<p class="st">Осталось найти: s, q, r, t — из системы (1)–(4).</p></div>
+<h3 class="st">Часть 2 — алгебра: решаем систему</h3>
+<p class="st">Заметь: в (1) стоит дробь q/5. Чтобы не таскать дробь, беру долю: <code>k</code> — пятая часть стороны малого квадрата. Малый квадрат — пять таких долей, а по (1) большой выше него ещё на одну долю, итого шесть.</p>
+<p class="st">(1): <b>q = 5k</b>, <b>s = 6k</b></p>
+<p class="st">(2), подставить:</p>
+<div class="frm st">2 · (5k + 6k) = 198</div>
 <div class="frm st">22k = 198</div>
 <div class="frm st">k = 198 : 22 = 9</div>
 <p class="st">→ <b>k = 9</b>, малый квадрат <b>q = 45</b>, большой <b>s = 54</b></p>
-<p class="step st"><b>Шаг 3 — нужно r = AR.</b> R делит нижнюю сторону AB = 54 на два отрезка, и BR — половина AR. Назову <b>частью</b> половину AR (это не доля k — часть крупнее). Тогда AR — две части, BR — одна, вся сторона — три части.</p>
-<p class="st">54 : 3 = 18 — одна часть</p>
-<div class="frm st">r = 2 · 18 = 36</div>
-<p class="st">→ <b>r = AR = 36</b>, BR = ES = <b>18</b></p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>S стоит ровно над R. ES по условию равен BR, поэтому кусок верха SF — это сторона без ES, а кусок низа AR — та же сторона без такого же куска BR. Значит, SF = AR, и S с R на одном расстоянии от левого края. Отсюда два подарка: отрезок R→S — сквозная вертикаль во всю высоту большого квадрата, а верхний кусок DS равен нижнему RC (каждый — сторона малого квадрата плюс кусок 18).</p></div>
-<figure class="st"><svg viewBox="0 0 560 292" width="100%"  xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="40" y="88" width="162" height="162" fill="#131923" stroke="#2c394c" stroke-width="1.2"/><rect x="202" y="115" width="135" height="135" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><rect x="202" y="88" width="135" height="27" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><polygon points="40,169 148,250 148,88 40,88" fill="var(--gold)" fill-opacity=".16" stroke="var(--gold)" stroke-width="3"/><circle cx="40" cy="169" r="4.5" fill="var(--gold)"/><circle cx="148" cy="250" r="4.5" fill="var(--gold)"/><circle cx="148" cy="88" r="4.5" fill="var(--gold)"/><circle cx="40" cy="88" r="4.5" fill="var(--gold)"/><text x="28" y="80" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">F</text><text x="26" y="174" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">M</text><text x="148" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">R</text><text x="148" y="79" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">S</text><text x="28" y="266" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="196" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="212" y="79" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="48" y="242" fill="var(--gold)" font-size="13" text-anchor="start" font-weight="400">MR = 45</text><text x="142" y="169" fill="var(--gold)" font-size="13" text-anchor="end" font-weight="400">RS = 54</text><text x="94" y="78" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="400">SF = 36</text><text x="46" y="112" fill="var(--gold)" font-size="13" text-anchor="start" font-weight="400">FM = 27</text><line x1="148" y1="250" x2="148" y2="88" stroke="var(--gold)" stroke-width="3" /><text x="360" y="169" fill="var(--muted)" font-size="12" text-anchor="start" font-weight="400">R и S — на одной вертикали</text></svg><figcaption>R стоит на нижней стороне, S — на верхней, и оба на одном расстоянии от левого края: отрезок между ними пересекает квадрат насквозь, то есть равен целой стороне.</figcaption></figure>
-<div class="frm st">SF = s − ES = s − BR = AR</div>
-<div class="frm st">RS = s</div>
-<div class="frm st">DS = DE + ES = BC + BR = RC</div>
-<p class="step st"><b>Шаг 4 — сборка.</b> Подставляю числа в формулы плана. Сначала недостающие отрезки контуров. Левый кусок FM — половина стороны AF:</p>
+<p class="st">(3) в (4), подставить r = 2t и s = 54: BR — одна часть, AR — две, вся сторона — три части.</p>
+<div class="frm st">2t + t = 54</div>
+<div class="frm st">3t = 54</div>
+<p class="st">→ <b>t = 18</b>, <b>r = 36</b></p>
+<p class="st"><b>Сборка.</b> Подставляю s = 54, q = 45, r = 36, t = 18 в формулы плана. Сначала куски контуров:</p>
 <p class="st">M — середина AF → MA = MF = 27</p>
 <figure class="st"><svg viewBox="0 0 440 292" width="100%"  xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="40" y="88" width="162" height="162" fill="#131923" stroke="var(--muted)" stroke-width="2"/><rect x="202" y="115" width="135" height="135" fill="#151d29" stroke="var(--muted)" stroke-width="2"/><rect x="202" y="88" width="135" height="27" fill="#16263a" stroke="var(--blue)" stroke-width="2"/><line x1="229" y1="115" x2="229" y2="250" stroke="#2c394c" stroke-width="1" stroke-dasharray="4 3"/><line x1="256" y1="115" x2="256" y2="250" stroke="#2c394c" stroke-width="1" stroke-dasharray="4 3"/><line x1="283" y1="115" x2="283" y2="250" stroke="#2c394c" stroke-width="1" stroke-dasharray="4 3"/><line x1="310" y1="115" x2="310" y2="250" stroke="#2c394c" stroke-width="1" stroke-dasharray="4 3"/><line x1="40" y1="169" x2="148" y2="250" stroke="var(--gold)" stroke-width="2.5" /><line x1="40" y1="169" x2="148" y2="88" stroke="var(--gold)" stroke-width="2.5" /><circle cx="40" cy="169" r="4.5" fill="var(--gold)"/><circle cx="148" cy="250" r="4.5" fill="var(--gold)"/><circle cx="148" cy="88" r="4.5" fill="var(--gold)"/><text x="28" y="266" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="196" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="349" y="266" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="28" y="80" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">F</text><text x="194" y="79" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="349" y="80" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="191" y="120" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="349" y="120" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="26" y="174" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">M</text><text x="148" y="268" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">R</text><text x="148" y="79" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">S</text><text x="94" y="270" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">36</text><text x="175" y="270" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">18</text><text x="270" y="270" fill="#cfdae6" font-size="13" text-anchor="middle" font-weight="400">45  (малый квадрат)</text><text x="121" y="56" fill="#cfdae6" font-size="13" text-anchor="middle" font-weight="400">54  (большой квадрат)</text><text x="24" y="128" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">27</text><text x="24" y="212" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">27</text><text x="104" y="132" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">45</text><text x="104" y="212" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">45</text><text x="360" y="104" fill="var(--blue)" font-size="14" text-anchor="start" font-weight="400">9</text><text x="360" y="182" fill="#cfdae6" font-size="12" text-anchor="start" font-weight="400">q : 5 = 9</text></svg><figcaption>M делит левую сторону пополам (27 и 27), R делит низ на 36 и 18; косые MR и MS по условию равны стороне малого квадрата — 45.</figcaption></figure>
-<p class="st">Верхний отрезок SF равен AR, отрезок RS и правая сторона CD — сторона большого квадрата:</p>
-<div class="frm st">SF = AR = 36</div>
-<div class="frm st">RS = 54</div>
-<div class="frm st">CD = 54</div>
-<p class="st">Нижний отрезок RC (и равный ему DS) складывается из двух:</p>
-<div class="frm st">RC = BR + BC = 18 + 45 = 63</div>
-<div class="frm st">DS = 63</div>
-<div class="frm st">P(ACDF) = 2·((54 + 45) + 54)</div>
-<div class="frm st">P(ACDF) = 2·(99 + 54) = 306</div>
+<div class="frm st">SF = r = 36</div>
+<div class="frm st">RS = CD = s = 54</div>
+<div class="frm st">RC = DS = 18 + 45 = 63</div>
+<div class="frm st">P(ACDF) = 2 · ((54 + 45) + 54)</div>
+<div class="frm st">P(ACDF) = 2 · (99 + 54) = 306</div>
 <div class="frm st">P(MRSF) = 45 + 54 + 36 + 27 = 162</div>
 <div class="frm st">P(MRCDS) = 45 + 63 + 54 + 63 + 45 = 270</div>
 <p class="st">→ <b>P(ACDF) = 306</b>, <b>P(MRSF) = 162</b>, <b>P(MRCDS) = 270</b></p>
@@ -338,27 +346,30 @@
 <div class="frm st">MR = √(36² + 27²) = 45</div>
 <p class="st">— ровно BC, данные условия согласованы: треугольник 27, 36, 45 — это египетский 3, 4, 5, увеличенный в 9 раз ✓.</p>
 <p class="st"><b>⚠ Ловушки.</b> (1) Разрезка «с поворотом»: полоска стоит, DEGH лежит — длинное с длинным, короткое с коротким. (2) Отрезок R→S в контуре MRSF — сквозная вертикаль, вся высота 54, а не кусок. (3) Косые MR и MS не измеряются — они даны равенством с BC.</p>
-<p class="st">Проверка вторым способом: программа перебрала все целые стороны квадратов и положения R, оставила только те, где выполнены все условия (разрезка на 5 равных DEGH, P(BCDE) = 198, BR = ES = ½·AR, MR = MS = BC — длины косых по теореме Пифагора), и посчитала периметры обходом вершин по координатам — единственный набор 54, 45, 36 и периметры 306, 162, 270.</p>
+<p class="st">Проверка вторым способом: программа перебрала все целые стороны квадратов и положения R, оставила только те, где выполнены все условия (разрезка на 5 равных DEGH, P(BCDE) = 198, BR = ES = ½ · AR, косые MR и MS равны BC — их длины по теореме Пифагора), и посчитала периметры обходом вершин по координатам — единственный набор 54, 45, 36 и периметры 306, 162, 270.</p>
 <p class="st"><b>Ответ на задачу:</b> периметр ACDF — 306 см, периметр MRSF — 162 см, периметр MRCDS — 270 см. <em>(Официальный ключ: 306; 162; 270 — совпадает.)</em></p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Периметры фразы-объяснения не требуют: буквы, равенства и вычитание говорят сами за себя.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st">s — сторона большого квадрата, q — малого, r = AR.</p>
-<div id="a0" data-art="0"><div class="frm st">MR = MS = BC = q</div></div>
-<p class="st">Разрезка: полоска стоит, DEGH лежит — короткая сторона равна короткой:</p>
-<div id="a1" data-art="1"><div class="frm st">s − q = q/5</div></div>
-<p class="st">Доля k — пятая часть q:</p>
-<div id="a2" data-art="2"><div class="frm st">q = 5k, s = 6k</div></div>
-<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">P(ACDF) = 2·((s + q) + s)</div>
-<div class="frm st">P(MRSF) = MR + RS + SF + FM</div>
-<div class="frm st">P(MRCDS) = MR + RC + CD + DS + SM</div>
-<p class="st">Осталось найти k из P(BCDE) и r из BR = ½·AR.</p></div></div>
-<div id="a9" data-art="9"><ul class="st"><li>P(BCDE) = 2·(5k + 6k) = 198 → 22k = 198 → <b>k = 9</b> → <b>q = 45, s = 54</b></li><li>AR + BR = 54, BR = ½·AR → часть 54 : 3 = 18 → <b>r = 36, BR = ES = 18</b></li><li>M — середина → <b>MF = 27</b>; ES = BR → <b>SF = r = 36, RS = 54</b></li><li><b>RC = DS = 18 + 45 = 63</b></li></ul></div>
-<div id="a10" data-art="10"><div class="frm st">P(ACDF) = 2·(99 + 54) = 306</div></div>
-<div id="a11" data-art="11"><div class="frm st">P(MRSF) = 45 + 54 + 36 + 27 = 162</div></div>
-<div id="a12" data-art="12"><div class="frm st">P(MRCDS) = 45 + 63 + 54 + 63 + 45 = 270</div></div>
-<p class="st">Проверка: P(BCDE) = 2·(45 + 54) = 198 ✓; AR + BR = 36 + 18 = 54 ✓</p>
+<p class="st">Буквы:</p>
+<div id="a3" data-art="3"><ul class="st"><li>s — сторона большого квадрата;</li><li>q — сторона малого, MR = MS = BC = q;</li><li>r = AR;</li><li>t = BR = ES.</li></ul></div>
+<p class="st">Уравнения:</p>
+<div id="a4" data-art="4"><div class="frm st">(1) разрезка: s − q = q/5</div></div>
+<div id="a5" data-art="5"><div class="frm st">(2) P(BCDE): 2 · (q + s) = 198</div></div>
+<div id="a6" data-art="6"><div class="frm st">(3) r = 2t</div></div>
+<div id="a7" data-art="7"><div class="frm st">(4) r + t = s</div></div>
+<p class="st">ES = BR, поэтому:</p>
+<div id="a10" data-art="10"><ul class="st"><li>SF = r, RS = s;</li><li>DS = RC = q + t;</li><li>FM = s/2.</li></ul></div>
+<div id="a13" data-art="13"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(ACDF) = 2 · ((s + q) + s)</div>
+<div class="frm st">P(MRSF) = q + s + r + s/2</div>
+<div class="frm st">P(MRCDS) = q + (t + q) + s + (q + t) + q</div></div></div>
+<p class="st">Решение:</p>
+<div id="a17" data-art="17"><ul class="st"><li>(1) → q = 5k, s = 6k</li><li>(2) → 22k = 198 → <b>k = 9</b> → <b>q = 45, s = 54</b></li><li>(3), (4) → 3t = 54 → <b>t = 18, r = 36</b></li><li><b>FM = 27, RC = DS = 18 + 45 = 63</b></li></ul></div>
+<div id="a18" data-art="18"><div class="frm st">P(ACDF) = 2 · (99 + 54) = 306</div></div>
+<div id="a19" data-art="19"><div class="frm st">P(MRSF) = 45 + 54 + 36 + 27 = 162</div></div>
+<div id="a20" data-art="20"><div class="frm st">P(MRCDS) = 45 + 63 + 54 + 63 + 45 = 270</div></div>
+<p class="st">Проверка: P(BCDE) = 2 · (45 + 54) = 198 ✓; AR + BR = 36 + 18 = 54 ✓</p>
 <div class="pager"><a href="04-4-pakety-i-korobki-alfahorov-t1-celye-resheniya-.html">← №4 — пакеты и коробки альфахоров (Т1‴: целые решения по остаткам + минимум)</a><a href="06-6-trimino-i-kvadratiki-na-doske-3-4-t3-karta-poz.html">№6 — тримино и квадратики на доске 3×4 (Т3′: карта позиций + «И») →</a></div>
 </main>
 </div>
