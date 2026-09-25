@@ -251,18 +251,26 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 2 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">Кирпичики: c = AC (ширина плиты) · v = AH = BC (высота плиты) · s = сторона квадрата GHIJ</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(DEGH) = 2·(c + s)</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(ABCDH) = AB + BC + v + c + v</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(DEFGH) = s + (AB + BC) + s + c</span></button>
-<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">P(DEJI) = 100 → (c − s) + s = 50 → <b>c = 50</b></span></button>
-<button class="art cont" data-art="5"><span class="val f">P(ACDH) = 128 → c + v = 64 → <b>v = 14</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">CE = EJ → v + s = c − s → 14 + 2s = 50 → <b>s = 18</b></span></button>
-<button class="art cont" data-art="7"><span class="val f">CE = 14 + 18 = 32 → AB = (3/2)·32 = <b>48</b></span></button>
-<button class="art cont" data-art="8"><span class="val f">BC = AH = <b>14</b>; AC = c = <b>50</b></span></button>
-<button class="art cont" data-art="9"><span class="val f">P(DEGH) = 2·(50 + 18) = 136</span></button>
-<button class="art cont" data-art="10"><span class="val f">P(ABCDH) = 48 + 14 + 14 + 50 + 14 = 140</span></button>
-<button class="art cont" data-art="11"><span class="val f">P(DEFGH) = 18 + 62 + 18 + 50 = 148</span></button>
+  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики:</span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">c = AC (ширина плиты)</span></button>
+<button class="art cont" data-art="2"><span class="val f">v = AH = BC (высота плиты)</span></button>
+<button class="art cont" data-art="3"><span class="val f">s = сторона квадрата GHIJ</span></button>
+<button class="art cont" data-art="4"><span class="val f">(1) P(DEJI) = 2 · ((c − s) + s) = 100</span></button>
+<button class="art cont" data-art="5"><span class="val f">(2) P(ACDH) = 2 · (c + v) = 128</span></button>
+<button class="art cont" data-art="6"><span class="val f">(3) CE = EJ: v + s = c − s</span></button>
+<button class="art cont" data-art="7"><span class="val f">(4) AB = (3/2) · (v + s)</span></button>
+<button class="art cont" data-art="8"><span class="val f">GE = s + (c − s) = c = AC, поэтому EF + FG = AB + BC</span></button>
+<button class="art" data-art="9"><span class="lbl">План</span><span class="val f">P(DEGH) = 2 · (c + s)</span></button>
+<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">P(ABCDH) = AB + v + v + c + v</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">P(DEFGH) = s + (AB + v) + s + c</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">(1) → <b>c = 50</b></span></button>
+<button class="art cont" data-art="13"><span class="val f">(2) → c + v = 64 → <b>v = 14</b></span></button>
+<button class="art cont" data-art="14"><span class="val f">(3) → 14 + 2s = 50 → <b>s = 18</b></span></button>
+<button class="art cont" data-art="15"><span class="val f">(4) → CE = 32 → <b>AB = 48</b></span></button>
+<button class="art cont" data-art="16"><span class="val f">BC = <b>14</b>; AC = <b>50</b></span></button>
+<button class="art cont" data-art="17"><span class="val f">P(DEGH) = 2 · (50 + 18) = 136</span></button>
+<button class="art cont" data-art="18"><span class="val f">P(ABCDH) = 48 + 14 + 14 + 50 + 14 = 140</span></button>
+<button class="art cont" data-art="19"><span class="val f">P(DEFGH) = 18 + 62 + 18 + 50 = 148</span></button>
 </aside>
 <main>
   
@@ -271,57 +279,58 @@
 <div class="card task st"><span class="tag">Условие</span><p>На рисунке GHIJ — квадрат; ACDH и DEJI — прямоугольники; ABC и EFG — равные треугольники. Известно: CE = EJ и AH = BC; периметр DEJI равен 100 см, периметр ACDH равен 128 см; сторона AB составляет 3/2 от CE. а) Чему равен периметр DEGH? б) Сколько сантиметров в каждой стороне треугольника ABC? в) Чему равен периметр ABCDH? г) Чему равен периметр DEFGH?</p></div>
 <figure class="st"><svg viewBox="0 0 400 370" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рисунок условия: плита ACDH, над ней квадрат GHIJ и прямоугольник DEJI, снизу треугольник ABC, сверху треугольник EFG" font-family="ui-sans-serif,-apple-system,sans-serif"><polygon points="70,101.2 320,101.2 320,261.2 70,261.2" fill="#131923" stroke="var(--muted)" stroke-width="2"/><line x1="70" y1="191.2" x2="320" y2="191.2" stroke="var(--muted)" stroke-width="2"/><line x1="160" y1="101.2" x2="160" y2="191.2" stroke="var(--muted)" stroke-width="2"/><polygon points="70,261.2 300.4,328.4 320,261.2" fill="#131923" stroke="var(--muted)" stroke-width="2"/><polygon points="70,101.2 89.6,34.0 320,101.2" fill="#131923" stroke="var(--muted)" stroke-width="2"/><circle cx="70" cy="261.2" r="3.5" fill="var(--muted)"/><circle cx="300.4" cy="328.4" r="3.5" fill="var(--muted)"/><circle cx="320" cy="261.2" r="3.5" fill="var(--muted)"/><circle cx="320" cy="191.2" r="3.5" fill="var(--muted)"/><circle cx="320" cy="101.2" r="3.5" fill="var(--muted)"/><circle cx="89.6" cy="34.0" r="3.5" fill="var(--muted)"/><circle cx="70" cy="101.2" r="3.5" fill="var(--muted)"/><circle cx="70" cy="191.2" r="3.5" fill="var(--muted)"/><circle cx="160" cy="191.2" r="3.5" fill="var(--muted)"/><circle cx="160" cy="101.2" r="3.5" fill="var(--muted)"/><text x="58" y="280.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="304.4" y="351.4" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="332" y="280.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="333" y="201.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="333" y="102.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="87.6" y="29.0" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">F</text><text x="57" y="102.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="57" y="201.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="169" y="211.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">I</text><text x="160" y="97.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">J</text></svg><figcaption>Рисунок условия (буквы — как в оригинале). Правая стена C–D–E — одна прямая: D стоит на ней как точка, а не как угол. То же с левой стеной A–H–G.</figcaption></figure>
 <p class="st"><b>Фигура.</b> Посередине лежит плита ACDH: A — левый нижний угол, C — правый нижний, D — правый верхний, H — левый верхний. Над ней второй этаж от H до D: слева квадрат GHIJ, справа прямоугольник DEJI, E стоит над D. Снизу к плите приставлен треугольник ABC (B — под плитой, ближе к C), сверху на линию G–J–E поставлен равный ему треугольник EFG (F — над этажом, ближе к G). Правая стена C–D–E — одна прямая, D на ней только точка.</p>
-<p class="st"><b>Кирпичики.</b> Три буквы задают всю фигуру:</p>
-<ul class="st"><li><code>c</code> = AC — ширина плиты;</li><li><code>v</code> = AH — высота плиты;</li><li><code>s</code> — сторона квадрата GHIJ.</li></ul>
+<div class="card key st"><span class="tag">Заметь главное. Этаж над плитой поделён на две части</span><p>квадрат GHIJ и прямоугольник DEJI — вместе они дают всю ширину плиты. Высоту этажа задаёт тот же квадрат: высота DEJI равна стороне квадрата.</p></div>
+<h3 class="st">Часть 1 — геометрия: что даёт рисунок</h3>
+<p class="st"><b>Буквы.</b> Три кирпичика задают всю фигуру:</p>
+<ul class="st"><li><code>c</code> = AC — ширина плиты;</li><li><code>v</code> = AH = BC — высота плиты (BC = AH по условию);</li><li><code>s</code> — сторона квадрата GHIJ.</li></ul>
 <p class="st">Через них выражается любой отрезок этажей:</p>
 <ul class="st"><li>HI и GJ — ширина квадрата, s;</li><li>ID и JE — остаток ширины плиты, c − s;</li><li>DE — высота этажа, та же s: этаж высотой в квадрат;</li><li>правая стена CE проходит оба этажа насквозь.</li></ul>
-<div class="card key st"><span class="tag">Заметь главное. Этаж над плитой поделён на две части</span><p>квадрат GHIJ шириной s и прямоугольник DEJI шириной c − s, — вместе они дают всю ширину плиты c. Высоту этажа задаёт тот же квадрат, она тоже s.</p></div>
 <figure class="st"><svg viewBox="0 0 400 264" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Этаж над плитой: квадрат GHIJ шириной s и прямоугольник DEJI шириной c − s, оба высотой s" font-family="ui-sans-serif,-apple-system,sans-serif"><polygon points="70,117.2 320,117.2 320,187.2 70,187.2" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><polygon points="70,27.2 160,27.2 160,117.2 70,117.2" fill="#131923" stroke="var(--muted)" stroke-width="2"/><polygon points="160,27.2 320,27.2 320,117.2 160,117.2" fill="var(--gold)" fill-opacity=".14" stroke="var(--gold)" stroke-width="2.5"/><text x="57" y="28.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="160" y="23.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">J</text><text x="333" y="28.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="57" y="127.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="169" y="137.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">I</text><text x="333" y="127.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="58" y="206.2" fill="var(--muted)" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="332" y="206.2" fill="var(--muted)" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="115.0" y="17.2" fill="var(--muted)" font-size="15" text-anchor="middle" font-weight="400">s</text><text x="240.0" y="17.2" fill="var(--gold)" font-size="15" text-anchor="middle" font-weight="400">c − s</text><text x="86.0" y="77.2" fill="var(--muted)" font-size="15" text-anchor="middle" font-weight="400">s</text><text x="306.0" y="77.2" fill="var(--gold)" font-size="15" text-anchor="middle" font-weight="400">s</text><text x="148.0" y="77.2" fill="var(--muted)" font-size="15" text-anchor="middle" font-weight="400">s</text><text x="195.0" y="157.2" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">плита ACDH, ширина c</text><text x="200" y="252" fill="var(--green)" font-size="15" text-anchor="middle" font-weight="600">полупериметр DEJI = (c − s) + s = c</text></svg><figcaption>Квадрат и DEJI стоят на одном этаже: сторона квадрата задаёт соседу и высоту. В полупериметре DEJI буква s сначала отнята от ширины, потом добавлена высотой — остаётся ширина всей плиты.</figcaption></figure>
-<p class="st"><em>Полупериметр</em> — половина периметра прямоугольника, то есть ширина плюс высота. У DEJI периметр 100, значит полупериметр 100 : 2 = 50. А через буквы он такой:</p>
-<div class="frm st">полупериметр DEJI = (c − s) + s = c</div>
-<p class="st">Буква s вычитается и тут же прибавляется: полупериметр DEJI сообщает ширину плиты и ничего не говорит про s. Один данный периметр — и c = 50 сразу, без системы. Работает это только потому, что квадрат стоит на том же этаже: будь высота DEJI другой, s не ушла бы.</p>
-<p class="step st"><b>Шаг 1 — план: расписать все четыре ответа через c, v, s.</b> <code>P(X)</code> — периметр контура X; например, <code>P(DEJI) = 100</code> — данное условия.</p>
-<p class="st">DEGH — это квадрат вместе с DEJI, прямоугольник шириной c и высотой s:</p>
-<div class="frm st">P(DEGH) = 2·(c + s)</div>
-<p class="st">Треугольник ABC. Сторона AC — общая с плитой, значит AC = c. Сторона BC по пометке условия равна AH, то есть v. Сторону AB даёт пропорция от CE, а CE — сквозная стена через оба этажа:</p>
-<div class="frm st">CE = v + s</div>
-<div class="frm st">AB = (3/2)·CE</div>
-<p class="st">Контур ABCDH карандашом: A→B→C→D→H→A. Отрезок AC остаётся внутри фигуры и в периметр не входит:</p>
-<div class="frm st">P(ABCDH) = AB + BC + v + c + v</div>
-<p class="st">Контур DEFGH: D→E→F→G→H→D. Отрезок GE внутри. Стороны E→F и F→G — две стороны треугольника EFG, но какая сторона EFG равна какой стороне ABC, условие прямо не говорит; выручает третья сторона — она складывается из верха квадрата и верха DEJI:</p>
-<div class="frm st">GE = s + (c − s) = c</div>
-<p class="st">Это ровно AC. Значит, EF и FG — это AB и BC в каком-то порядке, а периметру нужна только их сумма:</p>
-<div class="frm st">P(DEFGH) = s + (AB + BC) + s + c</div>
-<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">P(DEGH) = 2·(c + s)</div>
-<div class="frm st">P(ABCDH) = AB + BC + v + c + v</div>
-<div class="frm st">P(DEFGH) = s + (AB + BC) + s + c</div>
-<ul class="st"><li><code>c</code> — ширина плиты (= AC);</li><li><code>v</code> — высота плиты (= AH = BC);</li><li><code>s</code> — сторона квадрата;</li><li>AB = (3/2)·CE, где CE = v + s.</li></ul>
-<p class="st">Ответ = три периметра по этим формулам и стороны ABC: AB, BC = v, AC = c.</p>
-<p class="st">Осталось найти: c, v, s, затем CE и AB.</p></div>
-<p class="step st"><b>Шаг 2 — в полупериметре DEJI буква s уходит сама: остаётся c.</b> Как в «Заметь главное»:</p>
-<div class="frm st">(c − s) + s = 100 : 2</div>
-<div class="frm st">c = 50</div>
-<p class="step st"><b>Шаг 3 — в периметре плиты ACDH неизвестна только v.</b> Плита — прямоугольник шириной c и высотой v, её полупериметр 128 : 2 = 64:</p>
-<div class="frm st">c + v = 64</div>
-<div class="frm st">v = 64 − 50</div>
-<div class="frm st">v = 14</div>
-<p class="step st"><b>Шаг 4 — равенство CE = EJ сравнивает сквозную стену с верхом DEJI: из него s.</b> CE — сквозная стена, в неё входят оба этажа: v снизу и s сверху. EJ — верх прямоугольника DEJI, его ширина c − s. Равенство сравнивает вертикаль с горизонталью:</p>
+<p class="st"><code>P(X)</code> — периметр контура X: обхожу контур карандашом и складываю отрезки.</p>
+<p class="st"><b>Уравнения из условия.</b></p>
+<p class="st">Контур DEJI — прямоугольник шириной c − s (верх JE) и высотой s (сторона DE):</p>
+<div class="frm st">(1) 2 · ((c − s) + s) = 100</div>
+<p class="st">Контур ACDH — плита шириной c и высотой v:</p>
+<div class="frm st">(2) 2 · (c + v) = 128</div>
+<p class="st">Равенство CE = EJ. CE — сквозная стена, в неё входят оба этажа: v снизу и s сверху. EJ — верх прямоугольника DEJI, его ширина c − s. Равенство сравнивает вертикаль с горизонталью:</p>
+<div class="frm st">(3) v + s = c − s</div>
 <figure class="st"><svg viewBox="0 0 400 264" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Сквозная стена C–D–E длиной v + s и верх EJ длиной c − s" font-family="ui-sans-serif,-apple-system,sans-serif"><polygon points="70,27.2 320,27.2 320,187.2 70,187.2" fill="#131923" stroke="#2c394c" stroke-width="1.2"/><line x1="70" y1="117.2" x2="320" y2="117.2" stroke="#2c394c" stroke-width="1.2"/><line x1="160" y1="27.2" x2="160" y2="117.2" stroke="#2c394c" stroke-width="1.2"/><line x1="320" y1="187.2" x2="320" y2="27.2" stroke="var(--gold)" stroke-width="4"/><line x1="320" y1="27.2" x2="160" y2="27.2" stroke="var(--blue)" stroke-width="4"/><circle cx="320" cy="117.2" r="4.5" fill="var(--gold)"/><text x="57" y="28.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="160" y="23.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">J</text><text x="333" y="28.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="57" y="127.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="169" y="137.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">I</text><text x="333" y="127.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="58" y="206.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="332" y="206.2" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="334.0" y="157.2" fill="var(--gold)" font-size="15" text-anchor="start" font-weight="400">v</text><text x="334.0" y="77.2" fill="var(--gold)" font-size="15" text-anchor="start" font-weight="400">s</text><text x="240.0" y="15.2" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="600">EJ = c − s</text><text x="200" y="252" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="600">CE = v + s — стена сквозь два этажа</text></svg><figcaption>Стена CE проходит через D не сворачивая, поэтому в неё входят оба этажа: v снизу и s сверху. Равенство CE = EJ сравнивает вертикаль с горизонталью — так и появляется уравнение на s.</figcaption></figure>
-<div class="frm st">v + s = c − s</div>
-<p class="st">Подставляю v = 14 и c = 50:</p>
+<p class="st">Пропорция «AB составляет 3/2 от CE», где CE = v + s:</p>
+<div class="frm st">(4) AB = (3/2) · (v + s)</div>
+<p class="st"><b>Что спрошено.</b></p>
+<p class="st">DEGH — это квадрат вместе с DEJI, прямоугольник шириной c и высотой s.</p>
+<p class="st">Треугольник ABC. Сторона AC — общая с плитой, значит AC = c. Сторона BC по пометке условия равна AH, то есть v. Сторону AB даёт (4).</p>
+<p class="st">Контур ABCDH карандашом: A → B → C → D → H → A. Отрезок AC остаётся внутри фигуры и в периметр не входит.</p>
+<p class="st">Контур DEFGH: D → E → F → G → H → D. Отрезок GE внутри. Стороны E → F и F → G — две стороны треугольника EFG, но какая сторона EFG равна какой стороне ABC, условие прямо не говорит. Выручает третья сторона — она складывается из верха квадрата и верха DEJI:</p>
+<div class="frm st">GE = s + (c − s) = c</div>
+<p class="st">Это ровно AC. Значит, EF и FG — это AB и BC в каком-то порядке, а периметру нужна только их сумма.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">P(DEGH) = 2 · (c + s)</div>
+<div class="frm st">P(ABCDH) = AB + v + v + c + v</div>
+<div class="frm st">P(DEFGH) = s + (AB + v) + s + c</div>
+<p class="st">Стороны ABC: AB, BC = v, AC = c.</p>
+<p class="st">Осталось найти: c, v, s, AB — из системы (1)–(4).</p></div>
+<h3 class="st">Часть 2 — алгебра: решаем систему</h3>
+<p class="st"><em>Полупериметр</em> — половина периметра прямоугольника, то есть ширина плюс высота.</p>
+<p class="st">Заметь: в (1) буква s вычитается и тут же прибавляется — полупериметр DEJI сообщает ширину плиты и ничего не говорит про s. Делю (1) на 2:</p>
+<div class="frm st">c = 50</div>
+<p class="st">Работает это только потому, что квадрат стоит на том же этаже: будь высота DEJI другой, s не ушла бы.</p>
+<p class="st">(2) : 2, затем подставить c = 50:</p>
+<div class="frm st">v = 64 − 50 = 14</div>
+<p class="st">(3) с подставленными v = 14 и c = 50:</p>
 <div class="frm st">14 + s = 50 − s</div>
-<p class="st">Справа s стоит с минусом. Прибавляю s к обеим частям — равенство не нарушится:</p>
+<p class="st">Прибавляю s к обеим частям — равенство не нарушится:</p>
 <div class="frm st">14 + 2s = 50</div>
-<div class="frm st">2s = 36</div>
 <div class="frm st">s = 18</div>
-<p class="step st"><b>Шаг 5 — стороны ABC (вопрос б): сначала CE, потом пропорция и пометка AH = BC.</b> Сквозная стена:</p>
-<div class="frm st">CE = v + s = 14 + 18 = 32</div>
+<p class="st">(4): сначала сквозная стена.</p>
+<div class="frm st">CE = 14 + 18 = 32</div>
 <p class="st">«3/2 от CE» — это половина CE, взятая три раза: 32 : 2 = 16, и 16 · 3 = 48.</p>
-<ul class="st"><li>AB = (3/2)·32 = <b>48</b></li><li>BC = AH = v = <b>14</b></li><li>AC = c = <b>50</b></li></ul>
-<p class="step st"><b>Шаг 6 — сборка: подставляю числа в формулы плана.</b></p>
+<div class="frm st">AB = 48</div>
+<p class="st"><b>Сборка.</b> Стороны треугольника ABC (вопрос б):</p>
+<ul class="st"><li>AB = <b>48</b></li><li>BC = AH = v = <b>14</b></li><li>AC = c = <b>50</b></li></ul>
+<p class="st">Подставляю числа в формулы плана:</p>
+<ul class="st"><li><b>P(DEGH)</b> = 2 · (50 + 18) = <b>136</b></li><li><b>P(ABCDH)</b> = 48 + 14 + 14 + 50 + 14 = <b>140</b></li><li><b>P(DEFGH)</b> = 18 + (48 + 14) + 18 + 50 = <b>148</b></li></ul>
 <figure class="st"><svg viewBox="0 0 600 312" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Контуры ABCDH и DEFGH с длинами сторон" font-family="ui-sans-serif,-apple-system,sans-serif"><polygon points="40,73.8 240,73.8 240,201.8 40,201.8" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><line x1="40" y1="145.8" x2="240" y2="145.8" stroke="#2c394c" stroke-width="1.2"/><line x1="112" y1="73.8" x2="112" y2="145.8" stroke="#2c394c" stroke-width="1.2"/><polygon points="40,201.8 224.3,255.5 240,201.8" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><polygon points="40,73.8 55.7,20.0 240,73.8" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><polygon points="40,201.8 224.3,255.5 240,201.8 240,145.8 40,145.8" fill="var(--gold)" fill-opacity=".13" stroke="var(--gold)" stroke-width="2.5"/><line x1="40" y1="201.8" x2="240" y2="201.8" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="28" y="220.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">A</text><text x="228.3" y="278.5" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">B</text><text x="252" y="220.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">C</text><text x="253" y="155.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="27" y="155.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="122.2" y="242.7" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">48</text><text x="250.2" y="242.7" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">14</text><text x="252.0" y="177.8" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">14</text><text x="140.0" y="137.8" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">50</text><text x="26.0" y="177.8" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">14</text><text x="140.0" y="195.8" fill="var(--muted)" font-size="11" text-anchor="middle" font-weight="400">внутри</text><text x="140" y="300" fill="var(--green)" font-size="15" text-anchor="middle" font-weight="600">P(ABCDH) = 140</text><polygon points="320,73.8 520,73.8 520,201.8 320,201.8" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><line x1="320" y1="145.8" x2="520" y2="145.8" stroke="#2c394c" stroke-width="1.2"/><line x1="392" y1="73.8" x2="392" y2="145.8" stroke="#2c394c" stroke-width="1.2"/><polygon points="320,201.8 504.3,255.5 520,201.8" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><polygon points="320,73.8 335.7,20.0 520,73.8" fill="#0f141d" stroke="#2c394c" stroke-width="1.2"/><polygon points="520,145.8 520,73.8 335.7,20.0 320,73.8 320,145.8" fill="var(--gold)" fill-opacity=".13" stroke="var(--gold)" stroke-width="2.5"/><line x1="320" y1="73.8" x2="520" y2="73.8" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="533" y="155.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">D</text><text x="533" y="74.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">E</text><text x="333.7" y="15.0" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">F</text><text x="307" y="74.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">G</text><text x="307" y="155.8" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="600">H</text><text x="532.0" y="113.8" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">18</text><text x="452" y="30" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">EF + FG = 62</text><text x="306.0" y="113.8" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">18</text><text x="420.0" y="161.8" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="600">50</text><text x="420.0" y="89.8" fill="var(--muted)" font-size="11" text-anchor="middle" font-weight="400">внутри</text><text x="420" y="300" fill="var(--green)" font-size="15" text-anchor="middle" font-weight="600">P(DEFGH) = 148</text></svg><figcaption>Пунктир — отрезки внутри фигуры: AC у ABCDH и GE у DEFGH. Карандаш по ним не идёт, в периметр они не входят. У EFG стороны EF и FG — это AB и BC в каком-то порядке; периметру важна только их сумма 62.</figcaption></figure>
-<ul class="st"><li><b>P(DEGH)</b> = 2·(50 + 18) = <b>136</b></li><li><b>P(ABCDH)</b> = 48 + 14 + 14 + 50 + 14 = <b>140</b></li><li><b>P(DEFGH)</b> = 18 + (48 + 14) + 18 + 50 = <b>148</b></li></ul>
 <p class="st"><b>⚠ Ловушки.</b> (1) CE — вся стена C–D–E, оба этажа, 32 см, а не только верхний кусок DE и не только высота плиты: D на прямой — точка, не угол.</p>
 <p class="st">(2) Условие не обещает, что буквы у равных треугольников идут в одном порядке. Из данных следует только GE = AC. По чертежу FG короткая (14), EF длинная (48), но доказать это нельзя — и не нужно: периметру DEFGH нужна лишь сумма двух оставшихся сторон, а она не зависит от того, какая сторона какая:</p>
 <div class="frm st">EF + FG = 48 + 14 = 62</div>
@@ -331,17 +340,18 @@
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Периметры фразы-объяснения не требуют: буквы, равенства и вычитание говорят сами за себя.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a0" data-art="0"><p class="st">Кирпичики: c = AC (ширина плиты) · v = AH = BC (высота плиты) · s = сторона квадрата GHIJ.</p></div>
-<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">P(DEGH) = 2·(c + s)</div>
-<div class="frm st">P(ABCDH) = AB + BC + v + c + v</div>
-<div class="frm st">P(DEFGH) = s + (AB + BC) + s + c</div>
-<p class="st">Осталось найти c, v, s, затем CE и AB.</p></div></div>
-<div id="a8" data-art="8"><ul class="st"><li>P(DEJI) = 100 → (c − s) + s = 50 → <b>c = 50</b></li><li>P(ACDH) = 128 → c + v = 64 → <b>v = 14</b></li><li>CE = EJ → v + s = c − s → 14 + 2s = 50 → <b>s = 18</b></li><li>CE = 14 + 18 = 32 → AB = (3/2)·32 = <b>48</b></li><li>BC = AH = <b>14</b>; AC = c = <b>50</b></li></ul></div>
-<div id="a9" data-art="9"><div class="frm st">P(DEGH) = 2·(50 + 18) = 136</div></div>
-<div id="a10" data-art="10"><div class="frm st">P(ABCDH) = 48 + 14 + 14 + 50 + 14 = 140</div></div>
-<div id="a11" data-art="11"><div class="frm st">P(DEFGH) = 18 + 62 + 18 + 50 = 148</div></div>
-<p class="st">Проверка сложением: P(DEJI) = 2·(32 + 18) = 100 ✓; P(ACDH) = 2·(50 + 14) = 128 ✓; CE = 32 = EJ ✓</p>
+<div id="a0" data-art="0"><p class="st">Кирпичики:</p></div>
+<div id="a3" data-art="3"><ul class="st"><li>c = AC (ширина плиты)</li><li>v = AH = BC (высота плиты)</li><li>s = сторона квадрата GHIJ</li></ul></div>
+<p class="st">Уравнения:</p>
+<div id="a8" data-art="8"><ul class="st"><li>(1) P(DEJI) = 2 · ((c − s) + s) = 100</li><li>(2) P(ACDH) = 2 · (c + v) = 128</li><li>(3) CE = EJ: v + s = c − s</li><li>(4) AB = (3/2) · (v + s)</li><li>GE = s + (c − s) = c = AC, поэтому EF + FG = AB + BC</li></ul></div>
+<div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(DEGH) = 2 · (c + s)</div>
+<div class="frm st">P(ABCDH) = AB + v + v + c + v</div>
+<div class="frm st">P(DEFGH) = s + (AB + v) + s + c</div></div></div>
+<div id="a16" data-art="16"><ul class="st"><li>(1) → <b>c = 50</b></li><li>(2) → c + v = 64 → <b>v = 14</b></li><li>(3) → 14 + 2s = 50 → <b>s = 18</b></li><li>(4) → CE = 32 → <b>AB = 48</b></li><li>BC = <b>14</b>; AC = <b>50</b></li></ul></div>
+<div id="a17" data-art="17"><div class="frm st">P(DEGH) = 2 · (50 + 18) = 136</div></div>
+<div id="a18" data-art="18"><div class="frm st">P(ABCDH) = 48 + 14 + 14 + 50 + 14 = 140</div></div>
+<div id="a19" data-art="19"><div class="frm st">P(DEFGH) = 18 + 62 + 18 + 50 = 148</div></div>
 <div class="pager"><a href="01-1-doska-krest-s-ciframi-3-9-t4-miry-po-param-str.html">← №1 — доска-крест с цифрами 3–9 (Т4: миры по парам строк + пара для столбца)</a><a href="03-3-opros-v-desyati-domah-t3-miry-po-raskladu-i-po.html">№3 — опрос в десяти домах (Т3: миры по раскладу + «И» по улицам) →</a></div>
 </main>
 </div>
