@@ -251,94 +251,108 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 2 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики: k = HI · a = сторона квадрата · b = BC · c = CD.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(IMGH) = 2·(a + k)</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(BCFG) = 2·(b + a)</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(BDEG) = 2·((b + c) + a)</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">P(ACFH) = 2·((a + b) + a)</span></button>
-<button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f">P(KLMI) = 324 → 7k + 2k + 7k + 2k = 324 → 18k = 324 → <b>k = 18</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">a = 7 · 18 → <b>a = 126</b></span></button>
-<button class="art cont" data-art="7"><span class="val f">AB = 3·BC → b = 126 : 3 → <b>b = 42</b></span></button>
-<button class="art cont" data-art="8"><span class="val f">BC = 3·CD → c = 42 : 3 → <b>c = 14</b></span></button>
-<button class="art cont" data-art="9"><span class="val f">P(IMGH) = 2·(126 + 18) = 288</span></button>
-<button class="art cont" data-art="10"><span class="val f">P(BCFG) = 2·(42 + 126) = 336</span></button>
-<button class="art cont" data-art="11"><span class="val f">P(BDEG) = 2·(56 + 126) = 364</span></button>
-<button class="art cont" data-art="12"><span class="val f">P(ACFH) = 2·(168 + 126) = 588</span></button>
+  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">k = HI, тогда IK = 2k, KA = 4k;</span></button>
+<button class="art cont" data-art="1"><span class="val f">a — сторона квадрата;</span></button>
+<button class="art cont" data-art="2"><span class="val f">b = BC;</span></button>
+<button class="art cont" data-art="3"><span class="val f">c = CD.</span></button>
+<button class="art cont" data-art="4"><span class="val f">(1) квадрат: a = k + 2k + 4k = 7k</span></button>
+<button class="art cont" data-art="5"><span class="val f">(2) P(KLMI): a + 2k + a + 2k = 324</span></button>
+<button class="art cont" data-art="6"><span class="val f">(3) a = 3b</span></button>
+<button class="art cont" data-art="7"><span class="val f">(4) b = 3c</span></button>
+<button class="art" data-art="8"><span class="lbl">План</span><span class="val f">P(IMGH) = 2 · (a + k)</span></button>
+<button class="art" data-art="9"><span class="lbl">План</span><span class="val f">P(BCFG) = 2 · (b + a)</span></button>
+<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">P(BDEG) = 2 · ((b + c) + a)</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">P(ACFH) = 2 · ((a + b) + a)</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">(1) в (2) → 18k = 324 → <b>k = 18</b></span></button>
+<button class="art cont" data-art="13"><span class="val f">(1) → a = 7 · 18 → <b>a = 126</b></span></button>
+<button class="art cont" data-art="14"><span class="val f">(3) → b = 126 : 3 → <b>b = 42</b></span></button>
+<button class="art cont" data-art="15"><span class="val f">(4) → c = 42 : 3 → <b>c = 14</b></span></button>
+<button class="art cont" data-art="16"><span class="val f">P(IMGH) = 2 · (126 + 18) = 288</span></button>
+<button class="art cont" data-art="17"><span class="val f">P(BCFG) = 2 · (42 + 126) = 336</span></button>
+<button class="art cont" data-art="18"><span class="val f">P(BDEG) = 2 · (56 + 126) = 364</span></button>
+<button class="art cont" data-art="19"><span class="val f">P(ACFH) = 2 · (168 + 126) = 588</span></button>
+<button class="art cont" data-art="20"><span class="val f">HI + IK + KA = 18 + 36 + 72 = 126 = AB ✓</span></button>
+<button class="art cont" data-art="21"><span class="val f">P(KLMI) = 2 · (126 + 36) = 324 ✓</span></button>
 </aside>
 <main>
   
   <h1>№2 — квадрат с двумя полосками справа <em>(Т2: всё меряется стороной квадрата, дробная пропорция → доля)</em></h1>
   <p class="sub">Национальный этап 2019 — боевые решения</p>
-<div class="card task st"><span class="tag">Условие</span><p>На рисунке ABGH — квадрат; KLMI, IMGH, BCFG и CDEF — прямоугольники. AB = 3·BC, BC = 3·CD, HI = ½·IK, IK = ½·KA. Периметр KLMI равен 324 см. Чему равен периметр IMGH? Чему равен периметр BCFG? Чему равен периметр BDEG? Чему равен периметр ACFH?</p></div>
+<div class="card task st"><span class="tag">Условие</span><p>На рисунке ABGH — квадрат; KLMI, IMGH, BCFG и CDEF — прямоугольники. AB = 3 · BC, BC = 3 · CD, HI = ½ · IK, IK = ½ · KA. Периметр KLMI равен 324 см. Чему равен периметр IMGH? Чему равен периметр BCFG? Чему равен периметр BDEG? Чему равен периметр ACFH?</p></div>
 <figure class='st'><svg style='max-width:300px' viewBox='-14 -16 212 160' role='img' aria-label='Рисунок условия: квадрат ABGH, внутри горизонтали IM и KL, справа полоски BCFG и CDEF'><g fill='none' stroke='#cfdae6' stroke-width='1'><rect x='0' y='0' width='126' height='126'/><path d='M0 18H126M0 54H126'/><rect x='126' y='0' width='42' height='126'/><rect x='168' y='0' width='14' height='126'/></g><g fill='#e8eef6'><circle cx='0' cy='0' r='1.6'/><circle cx='126' cy='0' r='1.6'/><circle cx='168' cy='0' r='1.6'/><circle cx='182' cy='0' r='1.6'/><circle cx='0' cy='126' r='1.6'/><circle cx='126' cy='126' r='1.6'/><circle cx='168' cy='126' r='1.6'/><circle cx='182' cy='126' r='1.6'/><circle cx='0' cy='18' r='1.6'/><circle cx='0' cy='54' r='1.6'/><circle cx='126' cy='18' r='1.6'/><circle cx='126' cy='54' r='1.6'/></g><text x='-4' y='-4' fill='#e8eef6' font-size='8' text-anchor='end' font-weight='600'>H</text><text x='126' y='-5' fill='#e8eef6' font-size='8' text-anchor='middle' font-weight='600'>G</text><text x='167' y='-5' fill='#e8eef6' font-size='8' text-anchor='middle' font-weight='600'>F</text><text x='184' y='-5' fill='#e8eef6' font-size='8' text-anchor='start' font-weight='600'>E</text><text x='-5' y='21' fill='#e8eef6' font-size='8' text-anchor='end' font-weight='600'>I</text><text x='-5' y='57' fill='#e8eef6' font-size='8' text-anchor='end' font-weight='600'>K</text><text x='122' y='15' fill='#e8eef6' font-size='8' text-anchor='end' font-weight='600'>M</text><text x='122' y='51' fill='#e8eef6' font-size='8' text-anchor='end' font-weight='600'>L</text><text x='-4' y='136' fill='#e8eef6' font-size='8' text-anchor='end' font-weight='600'>A</text><text x='126' y='137' fill='#e8eef6' font-size='8' text-anchor='middle' font-weight='600'>B</text><text x='167' y='137' fill='#e8eef6' font-size='8' text-anchor='middle' font-weight='600'>C</text><text x='184' y='137' fill='#e8eef6' font-size='8' text-anchor='start' font-weight='600'>D</text></svg><figcaption>Рисунок из условия. Квадрат ABGH разрезан горизонталями IM и KL на три этажа; справа к нему во всю высоту приставлены полоска BCFG и ещё более узкая CDEF. Верх H, G, F, E и низ A, B, C, D — прямые линии.</figcaption></figure>
 <p class="st"><b>Как устроен рисунок.</b> Слева квадрат ABGH: A — левый низ, B — правый низ, G — правый верх, H — левый верх. Его левая сторона AH и правая сторона BG разрезаны двумя горизонталями: верхняя идёт от I к M, нижняя — от K к L. Так квадрат делится на три этажа: сверху узкая полоска IMGH, в середине полоска KLMI, внизу всё остальное. Справа к квадрату приставлены две вертикальные полоски во всю его высоту: сначала BCFG, за ней ещё более узкая CDEF. Нижний край A, B, C, D и верхний край H, G, F, E — прямые линии.</p>
-<p class="st"><b>Кирпичики.</b> Неизвестных отрезков четыре, каждому — буква:</p>
-<ul class="st"><li>k — отрезок HI;</li><li>a — сторона квадрата ABGH (AB = BG = GH = HA);</li><li>b — отрезок BC;</li><li>c — отрезок CD.</li></ul>
-<p class="st"><code>P(X)</code> — периметр фигуры X; например, P(KLMI) = 324 — данное условия.</p>
 <div class="card key st"><span class="tag">Заметь главное. Весь рисунок меряется одной стороной квадрата</span><p>Посмотри, куда ни глянь:</p></div>
-<ul class="st"><li>горизонтали IM и KL идут через весь квадрат — их длина a;</li><li>полоски BCFG и CDEF стоят во всю высоту квадрата — их высота тоже a;</li><li>BC и CD по условию — доли от AB, то есть опять от a.</li></ul>
-<p class="st">А узнать a можно только через левую сторону AH: её точки I и K режут на куски, и пропорции условия эти куски сравнивают. Слово «квадрат» — это мост: сторона AH вертикальная, AB горизонтальная, но они равны. Поэтому всё, что узнаем про вертикальные куски на AH, сразу переходит в горизонтальную ширину квадрата.</p>
+<ul class="st"><li>горизонтали IM и KL идут через весь квадрат — их длина равна стороне квадрата;</li><li>полоски BCFG и CDEF стоят во всю высоту квадрата — их высота тоже равна стороне квадрата;</li><li>BC и CD по условию — доли от AB, то есть опять от стороны квадрата.</li></ul>
+<p class="st">А узнать сторону квадрата можно только через левую сторону AH: её точки I и K режут на куски, и пропорции условия эти куски сравнивают. Слово «квадрат» — это мост: сторона AH вертикальная, AB горизонтальная, но они равны. Поэтому всё, что узнаем про вертикальные куски на AH, сразу переходит в горизонтальную ширину квадрата.</p>
+<h3 class="st">Часть 1 — геометрия: что даёт рисунок</h3>
+<p class="st"><b>Буквы.</b> <code>P(X)</code> — периметр фигуры X; например, P(KLMI) = 324 — данное условия.</p>
+<p class="st">Левая сторона AH разрезана на три куска, и пропорции сравнивают их по очереди. Первая говорит, что HI — половина IK, то есть HI вдвое <b>короче</b> IK. Вторая — что IK половина KA, то есть IK вдвое короче KA. Дробь ½ — сигнал взять за долю самый маленький кусок, тогда дробей не будет. Самый маленький — HI, его и назову буквой:</p>
+<ul class="st"><li>k = HI; тогда IK = 2k, а KA = 2 · 2k = 4k (2k значит 2 · k: знак умножения перед буквой обычно пропускают);</li><li>a — сторона квадрата ABGH: ей равны AB, BG, GH, HA, горизонтали IM и KL, высоты полосок CF и DE;</li><li>b = BC, ему равен FG;</li><li>c = CD, ему равен EF.</li></ul>
+<p class="st"><b>Уравнения из условия.</b></p>
+<p class="st">Квадрат: нижняя сторона AB равна левой стороне AH, а AH — это три куска подряд, HI, IK и KA.</p>
 <figure class='st'><svg style='max-width:260px' viewBox='-48 -12 190 158' role='img' aria-label='Сторона AH разрезана на k, 2k, 4k; сторона AB квадрата тоже 7k'><g fill='none' stroke='#4a5866' stroke-width='0.8'><rect x='0' y='0' width='126' height='126'/><path d='M0 18H126M0 54H126'/></g><g stroke='#f0a83c' stroke-width='1' fill='none'><path d='M-12 0H-6M-12 18H-6M-12 54H-6M-12 126H-6M-9 0V126'/></g><text x='-14' y='12.0' fill='#f0a83c' font-size='8' text-anchor='end' font-weight='600'>k</text><text x='-14' y='39.0' fill='#f0a83c' font-size='8' text-anchor='end' font-weight='600'>2k</text><text x='-14' y='93.0' fill='#f0a83c' font-size='8' text-anchor='end' font-weight='600'>4k</text><path d='M0 0V126' stroke='#f0a83c' stroke-width='2'/><path d='M0 126H126' stroke='#f0a83c' stroke-width='2'/><text x='-3' y='-4' fill='#93a1b1' font-size='7' text-anchor='end' font-weight='600'>H</text><text x='129' y='-4' fill='#93a1b1' font-size='7' text-anchor='start' font-weight='600'>G</text><text x='3' y='15' fill='#93a1b1' font-size='7' text-anchor='start' font-weight='600'>I</text><text x='3' y='51' fill='#93a1b1' font-size='7' text-anchor='start' font-weight='600'>K</text><text x='123' y='15' fill='#93a1b1' font-size='7' text-anchor='end' font-weight='600'>M</text><text x='123' y='51' fill='#93a1b1' font-size='7' text-anchor='end' font-weight='600'>L</text><text x='-3' y='135' fill='#93a1b1' font-size='7' text-anchor='end' font-weight='600'>A</text><text x='129' y='135' fill='#93a1b1' font-size='7' text-anchor='start' font-weight='600'>B</text><text x='63.0' y='139' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600'>AB = 7k</text><text x='-38' y='63' transform='rotate(-90 -38 63)' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600'>AH = 7k</text></svg><figcaption>Точки I и K режут левую сторону на куски k, 2k и 4k — всего 7k. Квадрат переносит эту длину на низ: AB тоже 7k, а с ним и горизонтали IM, KL, и высота полосок справа.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план: обойти четыре спрошенных контура и назвать стороны буквами.</b> Нужны четыре периметра — для этого обхожу каждый прямоугольник и называю ширину и высоту через k, a, b, c.</p>
-<p class="st">IMGH — верхний этаж квадрата. Ширина IM идёт через весь квадрат, это a; высота HI — это k:</p>
-<div class="frm st">P(IMGH) = 2·(a + k)</div>
-<p class="st">BCFG — первая полоска справа. Ширина BC — это b; высота BG — сторона квадрата, a:</p>
-<div class="frm st">P(BCFG) = 2·(b + a)</div>
-<p class="st">BDEG — обе полоски вместе. Ширина BD — это BC и CD подряд; высота DE равна высоте полоски CDEF, а она стоит во всю высоту квадрата:</p>
-<div class="frm st">P(BDEG) = 2·((b + c) + a)</div>
-<p class="st">ACFH — квадрат вместе с первой полоской. Ширина AC — это AB и BC подряд; высота AH — сторона квадрата:</p>
-<div class="frm st">P(ACFH) = 2·((a + b) + a)</div>
+<div class="frm st">(1) a = k + 2k + 4k</div>
+<p class="st">Контур KLMI: ширины KL и MI идут через весь квадрат, это a; высоты LM и IK — по 2k.</p>
+<figure class='st fx'><div class='fgrid2'><div class='cell'><svg viewBox='-14 -12 212 152' role='img' aria-label='Контур KLMI'><g fill='none' stroke='#4a5866' stroke-width='0.8'><rect x='0' y='0' width='126' height='126'/><path d='M0 18H126M0 54H126'/><rect x='126' y='0' width='42' height='126'/><rect x='168' y='0' width='14' height='126'/></g><g fill='#93a1b1' font-size='7' font-weight='600'><text x='-4' y='-3' text-anchor='end'>H</text><text x='126' y='-4' text-anchor='middle'>G</text><text x='168' y='-4' text-anchor='middle'>F</text><text x='184' y='-3' text-anchor='start'>E</text><text x='-4' y='21' text-anchor='end'>I</text><text x='-4' y='57' text-anchor='end'>K</text><text x='129' y='15' text-anchor='start'>M</text><text x='129' y='51' text-anchor='start'>L</text><text x='-4' y='133' text-anchor='end'>A</text><text x='126' y='134' text-anchor='middle'>B</text><text x='168' y='134' text-anchor='middle'>C</text><text x='184' y='133' text-anchor='start'>D</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='2.2' fill='none' stroke-linejoin='round' d='M0 54L126 54L126 18L0 18Z'/><text x='63' y='48' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>a</text><text x='12' y='39' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:1.5s'>2k</text></svg><p class='ccap'><b>(2)</b> P(KLMI) = a + 2k + a + 2k = 324</p></div></div><figcaption>Единственный данный периметр. Ширина среднего этажа — вся сторона квадрата a, высота — кусок IK, то есть 2k. Других букв в этом контуре нет, поэтому вместе с (1) он сразу даёт k.</figcaption></figure>
+<div class="frm st">(2) a + 2k + a + 2k = 324</div>
+<p class="st">Равенство AB = 3 · BC: AB — сторона квадрата.</p>
+<div class="frm st">(3) a = 3b</div>
+<p class="st">Равенство BC = 3 · CD.</p>
+<div class="frm st">(4) b = 3c</div>
+<p class="st"><b>Что спрошено.</b> Каждый спрошенный периметр — тоже обход, и все четыре контура — прямоугольники.</p>
+<figure class='st fx'><div class='fgrid2'><div class='cell'><svg viewBox='-14 -12 212 152' role='img' aria-label='Периметр IMGH'><g fill='none' stroke='#4a5866' stroke-width='0.8'><rect x='0' y='0' width='126' height='126'/><path d='M0 18H126M0 54H126'/><rect x='126' y='0' width='42' height='126'/><rect x='168' y='0' width='14' height='126'/></g><g fill='#93a1b1' font-size='7' font-weight='600'><text x='-4' y='-3' text-anchor='end'>H</text><text x='126' y='-4' text-anchor='middle'>G</text><text x='168' y='-4' text-anchor='middle'>F</text><text x='184' y='-3' text-anchor='start'>E</text><text x='-4' y='21' text-anchor='end'>I</text><text x='-4' y='57' text-anchor='end'>K</text><text x='129' y='15' text-anchor='start'>M</text><text x='129' y='51' text-anchor='start'>L</text><text x='-4' y='133' text-anchor='end'>A</text><text x='126' y='134' text-anchor='middle'>B</text><text x='168' y='134' text-anchor='middle'>C</text><text x='184' y='133' text-anchor='start'>D</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='2.2' fill='none' stroke-linejoin='round' d='M0 18L126 18L126 0L0 0Z'/><text x='63' y='12' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>a</text><text x='8' y='12' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:1.5s'>k</text></svg><p class='ccap'><b>P(IMGH)</b> = 2 · (a + k)</p></div><div class='cell'><svg viewBox='-14 -12 212 152' role='img' aria-label='Периметр BCFG'><g fill='none' stroke='#4a5866' stroke-width='0.8'><rect x='0' y='0' width='126' height='126'/><path d='M0 18H126M0 54H126'/><rect x='126' y='0' width='42' height='126'/><rect x='168' y='0' width='14' height='126'/></g><g fill='#93a1b1' font-size='7' font-weight='600'><text x='-4' y='-3' text-anchor='end'>H</text><text x='126' y='-4' text-anchor='middle'>G</text><text x='168' y='-4' text-anchor='middle'>F</text><text x='184' y='-3' text-anchor='start'>E</text><text x='-4' y='21' text-anchor='end'>I</text><text x='-4' y='57' text-anchor='end'>K</text><text x='129' y='15' text-anchor='start'>M</text><text x='129' y='51' text-anchor='start'>L</text><text x='-4' y='133' text-anchor='end'>A</text><text x='126' y='134' text-anchor='middle'>B</text><text x='168' y='134' text-anchor='middle'>C</text><text x='184' y='133' text-anchor='start'>D</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='2.2' fill='none' stroke-linejoin='round' d='M126 126L168 126L168 0L126 0Z'/><text x='147' y='120' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>b</text><text x='147' y='66' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:1.5s'>a</text></svg><p class='ccap'><b>P(BCFG)</b> = 2 · (b + a)</p></div><div class='cell'><svg viewBox='-14 -12 212 152' role='img' aria-label='Периметр BDEG'><g fill='none' stroke='#4a5866' stroke-width='0.8'><rect x='0' y='0' width='126' height='126'/><path d='M0 18H126M0 54H126'/><rect x='126' y='0' width='42' height='126'/><rect x='168' y='0' width='14' height='126'/></g><g fill='#93a1b1' font-size='7' font-weight='600'><text x='-4' y='-3' text-anchor='end'>H</text><text x='126' y='-4' text-anchor='middle'>G</text><text x='168' y='-4' text-anchor='middle'>F</text><text x='184' y='-3' text-anchor='start'>E</text><text x='-4' y='21' text-anchor='end'>I</text><text x='-4' y='57' text-anchor='end'>K</text><text x='129' y='15' text-anchor='start'>M</text><text x='129' y='51' text-anchor='start'>L</text><text x='-4' y='133' text-anchor='end'>A</text><text x='126' y='134' text-anchor='middle'>B</text><text x='168' y='134' text-anchor='middle'>C</text><text x='184' y='133' text-anchor='start'>D</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='2.2' fill='none' stroke-linejoin='round' d='M126 126L182 126L182 0L126 0Z'/><text x='154' y='120' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>b + c</text><text x='154' y='66' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:1.5s'>a</text></svg><p class='ccap'><b>P(BDEG)</b> = 2 · ((b + c) + a)</p></div><div class='cell'><svg viewBox='-14 -12 212 152' role='img' aria-label='Периметр ACFH'><g fill='none' stroke='#4a5866' stroke-width='0.8'><rect x='0' y='0' width='126' height='126'/><path d='M0 18H126M0 54H126'/><rect x='126' y='0' width='42' height='126'/><rect x='168' y='0' width='14' height='126'/></g><g fill='#93a1b1' font-size='7' font-weight='600'><text x='-4' y='-3' text-anchor='end'>H</text><text x='126' y='-4' text-anchor='middle'>G</text><text x='168' y='-4' text-anchor='middle'>F</text><text x='184' y='-3' text-anchor='start'>E</text><text x='-4' y='21' text-anchor='end'>I</text><text x='-4' y='57' text-anchor='end'>K</text><text x='129' y='15' text-anchor='start'>M</text><text x='129' y='51' text-anchor='start'>L</text><text x='-4' y='133' text-anchor='end'>A</text><text x='126' y='134' text-anchor='middle'>B</text><text x='168' y='134' text-anchor='middle'>C</text><text x='184' y='133' text-anchor='start'>D</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2s' stroke='#f0a83c' stroke-width='2.2' fill='none' stroke-linejoin='round' d='M0 126L168 126L168 0L0 0Z'/><text x='84' y='120' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>a + b</text><text x='8' y='90' fill='#f0a83c' font-size='8' text-anchor='middle' font-weight='600' class='fi' style='--d:1.5s'>a</text></svg><p class='ccap'><b>P(ACFH)</b> = 2 · ((a + b) + a)</p></div></div><figcaption>Четыре спрошенных контура — четыре прямоугольника на одном чертеже. Высота у всех, кроме верхнего этажа, — сторона квадрата a; ширины складываются из кусков нижнего края.</figcaption></figure>
+<p class="st">IMGH — верхний этаж квадрата: ширина IM идёт через весь квадрат, это a; высота HI — это k.</p>
+<p class="st">BCFG — первая полоска справа: ширина BC — это b; высота BG — сторона квадрата, a.</p>
+<p class="st">BDEG — обе полоски вместе: ширина BD — это BC и CD подряд; высота DE равна высоте полоски CDEF, а она стоит во всю высоту квадрата.</p>
+<p class="st">ACFH — квадрат вместе с первой полоской: ширина AC — это AB и BC подряд; высота AH — сторона квадрата.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">P(IMGH) = 2·(a + k)</div>
-<div class="frm st">P(BCFG) = 2·(b + a)</div>
-<div class="frm st">P(BDEG) = 2·((b + c) + a)</div>
-<div class="frm st">P(ACFH) = 2·((a + b) + a)</div>
-<ul class="st"><li>k — отрезок HI;</li><li>a — сторона квадрата;</li><li>b — отрезок BC;</li><li>c — отрезок CD.</li></ul>
-<p class="st">Ответ = четыре периметра по этим формулам.</p>
-<p class="st">Осталось найти k, a, b, c.</p></div>
-<p class="step st"><b>Шаг 2 — сторона AH разрезана на три куска, и пропорции сравнивают их по очереди.</b> Первая пропорция говорит, что HI — половина IK, то есть HI вдвое <b>короче</b> IK. Вторая — что IK половина KA, то есть IK вдвое короче KA. Дробь ½ — сигнал взять за долю самый маленький кусок, тогда дробей не будет. Самый маленький — HI, это и есть k:</p>
-<div class="frm st">HI = k</div>
-<div class="frm st">IK = 2k</div>
-<div class="frm st">KA = 4k</div>
-<p class="st">Вся сторона AH — три куска подряд:</p>
-<div class="frm st">AH = k + 2k + 4k = 7k</div>
-<p class="st">ABGH — квадрат, поэтому ширина AB равна высоте AH (ритуал 4: пометка «квадрат» — это уравнение):</p>
-<p class="st">→ <b>a = 7k</b></p>
-<p class="step st"><b>Шаг 3 — периметр KLMI дан, а обе его стороны уже выражены через k.</b> Средний этаж KLMI: ширина KL идёт через весь квадрат — это сторона квадрата, 7k; высота — отрезок IK, 2k. Обвожу контур:</p>
+<div class="frm st">P(IMGH) = 2 · (a + k)</div>
+<div class="frm st">P(BCFG) = 2 · (b + a)</div>
+<div class="frm st">P(BDEG) = 2 · ((b + c) + a)</div>
+<div class="frm st">P(ACFH) = 2 · ((a + b) + a)</div>
+<p class="st">Осталось найти: k, a, b, c — из системы (1)–(4).</p></div>
+<h3 class="st">Часть 2 — алгебра: решаем систему</h3>
+<p class="st">Система треугольная: в (1) и (2) стоят только a и k, дальше (3) даёт b через a, (4) — c через b. Решаю методом подстановки.</p>
+<p class="st">(1) — складываю куски:</p>
+<div class="frm st">a = 7k</div>
+<p class="st">подставить a = 7k в (2):</p>
 <div class="frm st">7k + 2k + 7k + 2k = 324</div>
-<div class="frm st">18k = 324</div>
-<p class="st">→ <b>k = 18</b></p>
-<p class="st">Отсюда сторона квадрата:</p>
-<div class="frm st">a = 7 · 18 = 126</div>
-<p class="st">→ <b>a = 126</b></p>
-<p class="step st"><b>Шаг 4 — нижний край справа от A идёт кусками, и каждый следующий втрое короче предыдущего.</b> По условию AB втрое длиннее BC, а BC втрое длиннее CD. AB — это сторона квадрата, значит, BC — треть стороны, а CD — треть BC:</p>
-<div class="frm st">b = 126 : 3 = 42</div>
-<div class="frm st">c = 42 : 3 = 14</div>
-<p class="st">→ <b>b = 42</b>, <b>c = 14</b></p>
-<p class="step st"><b>Шаг 5 — сборка: подставляю k = 18, a = 126, b = 42, c = 14 в формулы плана.</b></p>
+<p class="st">18k = 324, <b>k = 18</b></p>
+<p class="st">снова (1): a = 7 · 18, <b>a = 126</b></p>
+<p class="st">(3): b = 126 : 3, <b>b = 42</b></p>
+<p class="st">(4): c = 42 : 3, <b>c = 14</b></p>
+<p class="st"><b>Сборка: подставляю k = 18, a = 126, b = 42, c = 14 в формулы плана.</b></p>
 <p class="st">Сначала две ширины, составленные из кусков:</p>
 <div class="frm st">b + c = 42 + 14 = 56</div>
 <div class="frm st">a + b = 126 + 42 = 168</div>
-<ul class="st"><li><b>P(IMGH)</b> = 2·(126 + 18) = <b>288</b></li><li><b>P(BCFG)</b> = 2·(42 + 126) = <b>336</b></li><li><b>P(BDEG)</b> = 2·(56 + 126) = <b>364</b></li><li><b>P(ACFH)</b> = 2·(168 + 126) = <b>588</b></li></ul>
-<p class="st"><b>⚠ Ловушки.</b> (1) Пропорцию про HI и IK легко прочесть задом наперёд. HI — половина IK, значит, HI <b>короче</b>: подставь HI = 1, получится IK = 2. (2) KA — это не 2k, а 4k: KA вдвое длиннее IK, а IK уже 2k. (3) Высота полосок BCFG и CDEF — не BC и не CD, а сторона квадрата: полоски стоят во всю его высоту. (4) Ширина KLMI — вся сторона квадрата a, а не какой-то новый отрезок: точки L и M лежат на BG.</p>
-<p class="st">Проверка вторым способом: программа перебрала целые длины HI, IK, KA до 800 и оставила только те, что буквально выполняют обе пропорции условия про HI, IK и KA; построила квадрат со стороной HI + IK + KA по координатам, приставила полоски по двум пропорциям нижнего края и нашла периметры как длину обхода вершин. Условию P(KLMI) = 324 отвечает единственный набор HI = 18, IK = 36, KA = 72, и он даёт те же 288, 336, 364 и 588.</p>
+<ul class="st"><li><b>P(IMGH)</b> = 2 · (126 + 18) = <b>288</b></li><li><b>P(BCFG)</b> = 2 · (42 + 126) = <b>336</b></li><li><b>P(BDEG)</b> = 2 · (56 + 126) = <b>364</b></li><li><b>P(ACFH)</b> = 2 · (168 + 126) = <b>588</b></li></ul>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ul class="st"><li>Пропорцию про HI и IK легко прочесть задом наперёд. HI — половина IK, значит, HI <b>короче</b>: подставь HI = 1, получится IK = 2.</li><li>KA — это не 2k, а 4k: KA вдвое длиннее IK, а IK уже 2k.</li><li>Высота полосок BCFG и CDEF — не BC и не CD, а сторона квадрата: полоски стоят во всю его высоту.</li><li>Ширина KLMI — вся сторона квадрата a, а не какой-то новый отрезок: точки L и M лежат на BG.</li></ul>
+<p class="st">Проверка вторым способом: программа перебрала целые длины HI, IK, KA до 800 и оставила только те, что буквально выполняют обе пропорции условия про HI, IK и KA; построила по координатам квадрат, сторона которого — эти три куска вместе,, приставила полоски по двум пропорциям нижнего края и нашла периметры как длину обхода вершин. Условию P(KLMI) = 324 отвечает единственный набор HI = 18, IK = 36, KA = 72, и он даёт те же 288, 336, 364 и 588.</p>
 <p class="st"><b>Ответ на задачу:</b> периметр IMGH равен 288 см, периметр BCFG — 336 см, периметр BDEG — 364 см, периметр ACFH — 588 см. <em>(официальный ключ ✓ по всем четырём)</em></p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Периметры фразы-объяснения не требуют: буквы, равенства и деление говорят сами за себя.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a0" data-art="0"><p class="st">Кирпичики: k = HI · a = сторона квадрата · b = BC · c = CD. HI = k, IK = 2k, KA = 4k → AH = 7k = a.</p></div>
-<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">P(IMGH) = 2·(a + k)</div>
-<div class="frm st">P(BCFG) = 2·(b + a)</div>
-<div class="frm st">P(BDEG) = 2·((b + c) + a)</div>
-<div class="frm st">P(ACFH) = 2·((a + b) + a)</div>
-<p class="st">Осталось найти k, a, b, c.</p></div></div>
-<div id="a8" data-art="8"><ul class="st"><li>P(KLMI) = 324 → 7k + 2k + 7k + 2k = 324 → 18k = 324 → <b>k = 18</b></li><li>a = 7 · 18 → <b>a = 126</b></li><li>AB = 3·BC → b = 126 : 3 → <b>b = 42</b></li><li>BC = 3·CD → c = 42 : 3 → <b>c = 14</b></li></ul></div>
-<div id="a9" data-art="9"><div class="frm st">P(IMGH) = 2·(126 + 18) = 288</div></div>
-<div id="a10" data-art="10"><div class="frm st">P(BCFG) = 2·(42 + 126) = 336</div></div>
-<div id="a11" data-art="11"><div class="frm st">P(BDEG) = 2·(56 + 126) = 364</div></div>
-<div id="a12" data-art="12"><div class="frm st">P(ACFH) = 2·(168 + 126) = 588</div></div>
-<p class="st">Проверка сложением: HI + IK + KA = 18 + 36 + 72 = 126 = AB ✓; P(KLMI) = 2·(126 + 36) = 324 ✓</p>
+<p class="st">Буквы:</p>
+<div id="a3" data-art="3"><ul class="st"><li>k = HI, тогда IK = 2k, KA = 4k;</li><li>a — сторона квадрата;</li><li>b = BC;</li><li>c = CD.</li></ul></div>
+<p class="st">Уравнения:</p>
+<div id="a4" data-art="4"><div class="frm st">(1) квадрат: a = k + 2k + 4k = 7k</div></div>
+<div id="a5" data-art="5"><div class="frm st">(2) P(KLMI): a + 2k + a + 2k = 324</div></div>
+<div id="a6" data-art="6"><div class="frm st">(3) a = 3b</div></div>
+<div id="a7" data-art="7"><div class="frm st">(4) b = 3c</div></div>
+<div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">P(IMGH) = 2 · (a + k)</div>
+<div class="frm st">P(BCFG) = 2 · (b + a)</div>
+<div class="frm st">P(BDEG) = 2 · ((b + c) + a)</div>
+<div class="frm st">P(ACFH) = 2 · ((a + b) + a)</div></div></div>
+<p class="st">Решение:</p>
+<div id="a15" data-art="15"><ul class="st"><li>(1) в (2) → 18k = 324 → <b>k = 18</b></li><li>(1) → a = 7 · 18 → <b>a = 126</b></li><li>(3) → b = 126 : 3 → <b>b = 42</b></li><li>(4) → c = 42 : 3 → <b>c = 14</b></li></ul></div>
+<div id="a16" data-art="16"><div class="frm st">P(IMGH) = 2 · (126 + 18) = 288</div></div>
+<div id="a17" data-art="17"><div class="frm st">P(BCFG) = 2 · (42 + 126) = 336</div></div>
+<div id="a18" data-art="18"><div class="frm st">P(BDEG) = 2 · (56 + 126) = 364</div></div>
+<div id="a19" data-art="19"><div class="frm st">P(ACFH) = 2 · (168 + 126) = 588</div></div>
+<p class="st">Проверка сложением:</p>
+<div id="a21" data-art="21"><ul class="st"><li>HI + IK + KA = 18 + 36 + 72 = 126 = AB ✓</li><li>P(KLMI) = 2 · (126 + 36) = 324 ✓</li></ul></div>
 <div class="pager"><a href="01-1-chetvero-druzey-i-podarok-za-2100-t1-dolya-ot-.html">← №1 — четверо друзей и подарок за $2100 (Т1′: доля от остальных — у Альдо и Бето уравнение с одной буквой)</a><a href="03-3-girlyanda-shestiugolnikov-t2-rastuschiy-uzor-f.html">№3 — гирлянда шестиугольников (Т2″: растущий узор, формула P(n)) →</a></div>
 </main>
 </div>

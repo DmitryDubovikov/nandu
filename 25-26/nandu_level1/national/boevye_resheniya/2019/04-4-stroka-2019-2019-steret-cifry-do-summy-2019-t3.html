@@ -253,14 +253,20 @@
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Tengo que sacar exactamente 993, y cada cifra saca a lo sumo 9, por eso saco primero las más grandes: así hacen falta menos.<br><em>Унести надо ровно 993, а каждая цифра уносит не больше 9, — поэтому убираю сначала самые большие: так их нужно меньше.</em></span></button>
 <button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = наименьшее число цифр, уносящих ровно S(унести), и сами эти цифры.</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><code>1004 = 4 · 251 + 0</code> → <b>251 порция «2019»</b>, S(порции) = 2 + 0 + 1 + 9 = 12</span></button>
-<button class="art cont" data-art="3"><span class="val f"><b>S(строки) = 12 · 251 = 3012</b></span></button>
-<button class="art cont" data-art="4"><span class="val f"><b>S(унести) = 3012 − 2019 = 993</b></span></button>
-<button class="art cont" data-art="5"><span class="val f">жадно, без перелёта: <code>993 = 9 · 110 + 3</code> → 110 девяток = 990; добрать 3 = 2 + 1 (цифры 3 нет) → <b>112 цифр</b></span></button>
-<button class="art cont" data-art="6"><span class="val f">110 цифрами нельзя: 110 · 9 = 990 &lt; 993</span></button>
-<button class="art cont" data-art="7"><span class="val f">111 цифрами нельзя: 111 девяток = 999 — перелёт; замена девятки на 2 роняет на 7, на 1 — на 8, на 0 — на 9 → 992 и меньше; 993 лежит в дырке между 992 и 999</span></button>
-<button class="art cont" data-art="8"><span class="val f">ровно собрано: 110 · 9 + 2 + 1 = 993 ✓, остаётся 3012 − 993 = 2019 ✓</span></button>
-<button class="art" data-art="9"><span class="lbl">💬 Полнота</span><span class="val ph">Menos de 112 cifras no se puede, porque con 111 cifras lo sacado es 999 o a lo sumo 992, y nunca da 993; y con 110 nueves, un 2 y un 1 se logra, así que el mínimo es 112 cifras.<br><em>Меньше 112 цифр быть не может, потому что 111 цифрами уносится либо 999, либо 992 и меньше, а 993 — никогда; а 110 девятками, двойкой и единицей это достигается, — значит минимум равен 112.</em></span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><code>1004 = 4 · 251 + 0</code> → <b>251 порция «2019»</b></span></button>
+<button class="art cont" data-art="3"><span class="val f">S(порции) = 2 + 0 + 1 + 9 = 12</span></button>
+<button class="art cont" data-art="4"><span class="val f"><b>S(строки) = 12 · 251 = 3012</b></span></button>
+<button class="art cont" data-art="5"><span class="val f"><b>S(унести) = 3012 − 2019 = 993</b></span></button>
+<button class="art cont" data-art="6"><span class="val f">жадно, без перелёта: <code>993 = 9 · 110 + 3</code> → 110 девяток = 990</span></button>
+<button class="art cont" data-art="7"><span class="val f">добрать 3 = 2 + 1 (цифры 3 нет) → <b>112 цифр</b></span></button>
+<button class="art cont" data-art="8"><span class="val f">110 цифрами нельзя: 110 · 9 = 990 &lt; 993</span></button>
+<button class="art cont" data-art="9"><span class="val f">111 цифрами нельзя:</span></button>
+<button class="art cont" data-art="10"><span class="val f">111 девяток = 999 — перелёт;</span></button>
+<button class="art cont" data-art="11"><span class="val f">замена девятки на 2 роняет на 7, на 1 — на 8, на 0 — на 9 → 992 и меньше;</span></button>
+<button class="art cont" data-art="12"><span class="val f">993 лежит в дырке между 992 и 999</span></button>
+<button class="art cont" data-art="13"><span class="val f">ровно собрано: 110 · 9 + 2 + 1 = 993 ✓</span></button>
+<button class="art cont" data-art="14"><span class="val f">остаётся 3012 − 993 = 2019 ✓</span></button>
+<button class="art" data-art="15"><span class="lbl">💬 Полнота</span><span class="val ph">Menos de 112 cifras no se puede, porque con 111 cifras lo sacado es 999 o a lo sumo 992, y nunca da 993; y con 110 nueves, un 2 y un 1 se logra, así que el mínimo es 112 cifras.<br><em>Меньше 112 цифр быть не может, потому что 111 цифрами уносится либо 999, либо 992 и меньше, а 993 — никогда; а 110 девятками, двойкой и единицей это достигается, — значит минимум равен 112.</em></span></button>
 </aside>
 <main>
   
@@ -269,7 +275,7 @@
 <div class="card task st"><span class="tag">Условие</span><p>На доске несколько раз подряд написано число 2019:</p></div>
 <p class="st">201920192019201920192019……20192019</p>
 <p class="st">Всего на доске написано 1004 цифры. Какое наименьшее количество цифр можно стереть, чтобы сумма цифр, оставшихся на доске, была равна 2019? Какие цифры нужно стереть? Объясни, как ты их нашёл.</p>
-<figure class="st"><div class="fgrid" style="gap:10px 8px;align-items:center"><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="flab" style="font-size:18px">…</div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div></div><div class="flab" style="margin-top:12px">всего 1004 цифры · в каждой порции одна девятка</div><figcaption>Строка на доске — одна и та же порция «2019», написанная подряд. Цифр в строке всего четыре сорта: 2, 0, 1 и 9; девятки выделены — это самые «тяжёлые» цифры.</figcaption></figure>
+<figure class="st"><div class="fgrid" style="gap:10px 8px;align-items:center"><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="flab" style="font-size:18px">…</div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div><div class="num"><span class="d">2</span><span class="d">0</span><span class="d">1</span><span class="d sp">9</span></div></div><div class="flab" style="margin-top:12px">всего 1004 цифры; в каждой порции одна девятка</div><figcaption>Строка на доске — одна и та же порция «2019», написанная подряд. Цифр в строке всего четыре сорта: 2, 0, 1 и 9; девятки выделены — это самые «тяжёлые» цифры.</figcaption></figure>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Про оставшиеся цифры известна одна только их сумма — какие они и сколько их, не сказано. А про стёртые цифры известно сразу всё главное: вместе они обязаны <b>унести</b> ровно то, что в строке лишнее сверх 2019. Поэтому считаем не оставшиеся цифры, а стёртые: «стереть как можно меньше» — это «унести нужную сумму как можно меньшим числом цифр».</p></div>
 <p class="st"><em>💬 Унести надо ровно определённую сумму, а каждая цифра уносит не больше 9, — отсюда фраза-объяснение: чем крупнее стёртые цифры, тем их нужно меньше.</em></p>
 <p class="step st"><b>Шаг 1 — план: перевести вопрос на стёртые цифры.</b> Ищем наименьшее число стёртых цифр — значит сперва надо знать, сколько эти цифры обязаны унести. Для этого нужна сумма всех цифр строки, а строка — это одна и та же порция «2019», повторённая много раз, поэтому складывать тысячу цифр подряд незачем.</p>
@@ -279,17 +285,19 @@
 <div class="frm st">S(строки) = S(порции) · N(порций)</div>
 <div class="frm st">S(унести) = S(строки) − 2019</div>
 <p class="st"><b>Ответ = наименьшее число цифр, уносящих ровно S(унести), и сами эти цифры</b></p>
-<p class="st">S(строки) — сумма всех 1004 цифр на доске; S(порции) — сумма цифр одной порции «2019»; N(порций) — сколько раз порция написана; S(унести) — сколько суммы обязаны унести стёртые цифры.</p>
+<ul class="st"><li>S(строки) — сумма всех 1004 цифр на доске;</li><li>S(порции) — сумма цифр одной порции «2019»;</li><li>N(порций) — сколько раз порция написана;</li><li>S(унести) — сколько суммы обязаны унести стёртые цифры.</li></ul>
 <p class="st">Осталось найти:</p>
 <ul class="st"><li>N(порций) и S(порции);</li><li>S(строки) и S(унести);</li><li>сам набор стёртых цифр;</li><li>оба шага полноты — «меньше нельзя» и «столько можно».</li></ul></div>
-<p class="step st"><b>Шаг 2 — считаю N(порций): делю число цифр на длину порции.</b> В каждой порции «2019» четыре цифры. Пишу деление целиком (ритуал Ч2), чтобы увидеть, нет ли в конце обрывка порции:</p>
+<p class="step st"><b>Шаг 2 — считаю N(порций): делю число цифр на длину порции.</b> В каждой порции «2019» четыре цифры. Пишу деление целиком, полной строкой «делимое = делитель · частное + остаток»: в ней видно и сколько целых порций, и нет ли в конце обрывка порции:</p>
 <div class="frm st">1004 = 4 · 251 + 0</div>
 <p class="st">Остаток 0 — значит строка состоит ровно из целых порций, обрывка нет (и условие это подтверждает: строка кончается на «…2019»).</p>
 <p class="st">→ <b>N(порций) = 251</b></p>
 <p class="st">А сумма цифр одной порции уже посчитана выше: <b>S(порции) = 12</b>.</p>
 <p class="step st"><b>Шаг 3 — считаю S(строки) и S(унести): подставляю в план.</b></p>
 <div class="frm st">S(строки) = S(порции) · N(порций) = 12 · 251</div>
-<p class="st">Умножаю по частям: 12 · 250 = 3000, и ещё 12 · 1 = 12.</p>
+<p class="st">Умножаю по частям — 251 это 250 и ещё 1:</p>
+<div class="frm st">12 · 250 = 3000</div>
+<div class="frm st">12 · 1 = 12</div>
 <div class="frm st">S(строки) = 3000 + 12 = 3012</div>
 <p class="st">Теперь — сколько лишнего:</p>
 <p class="st">S(унести) = 3012 − 2019 = <b>993</b></p>
@@ -304,7 +312,7 @@
 <div class="card key st"><span class="tag">Заметь главное перед полнотой</span><p>В строке всего четыре сорта цифр: 9, 2, 1 и 0. Поэтому любой набор из какого-то числа цифр получается из набора «одни девятки» заменами, и каждая замена роняет сумму на строго определённую величину:</p></div>
 <ul class="st"><li>девятка на двойку — на 9 − 2 = 7;</li><li>девятка на единицу — на 9 − 1 = 8;</li><li>девятка на ноль — на 9.</li></ul>
 <p class="st">Самая дешёвая замена роняет сумму сразу на 7, меньше не бывает. Значит, суммы наборов одного размера идут не подряд: после «всех девяток» сразу дырка шириной в шесть чисел. Нужное число может угодить как раз в эту дырку — на этом и будет держаться «меньше нельзя».</p>
-<p class="step st"><b>Шаг 5 — «меньше нельзя»: сначала грубо, потом точно.</b> Это первый из двух шагов полноты плана (ритуал Ч5); второй, «столько можно», уже сделан в шаге 4.</p>
+<p class="step st"><b>Шаг 5 — «меньше нельзя»: сначала грубо, потом точно.</b> Ответ «наименьшее число» держится на двух утверждениях: «столько можно» — предъявить набор, и «меньше нельзя» — доказать, что меньшим числом цифр не обойтись. Первое уже сделано в шаге 4, здесь — второе.</p>
 <p class="st">Грубо: каждая стёртая цифра уносит не больше 9, поэтому 110 цифрами унесёшь самое большее</p>
 <div class="frm st">110 · 9 = 990 &lt; 993</div>
 <p class="st">→ цифр не меньше 111.</p>
@@ -336,10 +344,10 @@
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">S(унести) = S(строки) − 2019</div>
 <p class="st">Ответ = наименьшее число цифр, уносящих ровно S(унести), и сами эти цифры.</p></div></div>
-<div id="a8" data-art="8"><ul class="st"><li><code>1004 = 4 · 251 + 0</code> → <b>251 порция «2019»</b>, S(порции) = 2 + 0 + 1 + 9 = 12</li><li><b>S(строки) = 12 · 251 = 3012</b></li><li><b>S(унести) = 3012 − 2019 = 993</b></li><li>жадно, без перелёта: <code>993 = 9 · 110 + 3</code> → 110 девяток = 990; добрать 3 = 2 + 1 (цифры 3 нет) → <b>112 цифр</b></li><li>110 цифрами нельзя: 110 · 9 = 990 &lt; 993</li><li>111 цифрами нельзя: 111 девяток = 999 — перелёт; замена девятки на 2 роняет на 7, на 1 — на 8, на 0 — на 9 → 992 и меньше; 993 лежит в дырке между 992 и 999</li><li>ровно собрано: 110 · 9 + 2 + 1 = 993 ✓, остаётся 3012 − 993 = 2019 ✓</li></ul></div>
+<div id="a14" data-art="14"><ul class="st"><li><code>1004 = 4 · 251 + 0</code> → <b>251 порция «2019»</b></li><li>S(порции) = 2 + 0 + 1 + 9 = 12</li><li><b>S(строки) = 12 · 251 = 3012</b></li><li><b>S(унести) = 3012 − 2019 = 993</b></li><li>жадно, без перелёта: <code>993 = 9 · 110 + 3</code> → 110 девяток = 990</li><li>добрать 3 = 2 + 1 (цифры 3 нет) → <b>112 цифр</b></li><li>110 цифрами нельзя: 110 · 9 = 990 &lt; 993</li><li>111 цифрами нельзя:</li><li>111 девяток = 999 — перелёт;</li><li>замена девятки на 2 роняет на 7, на 1 — на 8, на 0 — на 9 → 992 и меньше;</li><li>993 лежит в дырке между 992 и 999</li><li>ровно собрано: 110 · 9 + 2 + 1 = 993 ✓</li><li>остаётся 3012 − 993 = 2019 ✓</li></ul></div>
 <p class="st"><b>112 цифр</b> (110 девяток, одна двойка и одна единица)</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a9" data-art="9"><p class="st"><b>Menos de 112 cifras no se puede, porque con 111 cifras lo sacado es 999 o a lo sumo 992, y nunca da 993; y con 110 nueves, un 2 y un 1 se logra, así que el mínimo es 112 cifras.</b></p></div>
+<div id="a15" data-art="15"><p class="st"><b>Menos de 112 cifras no se puede, porque con 111 cifras lo sacado es 999 o a lo sumo 992, y nunca da 993; y con 110 nueves, un 2 y un 1 se logra, así que el mínimo es 112 cifras.</b></p></div>
 <p class="st"><em>Меньше 112 цифр быть не может, потому что 111 цифрами уносится либо 999, либо 992 и меньше, а 993 — никогда; а 110 девятками, двойкой и единицей это достигается, — значит минимум равен 112.</em></p>
 <hr>
 <div class="pager"><a href="03-3-girlyanda-shestiugolnikov-t2-rastuschiy-uzor-f.html">← №3 — гирлянда шестиугольников (Т2″: растущий узор, формула P(n))</a><a href="05-5-pryamougolnik-s-kryshey-i-klinom-t2-perimetry-.html">№5 — прямоугольник с крышей и клином (Т2: периметры, данный контур содержит целый треугольник) →</a></div>

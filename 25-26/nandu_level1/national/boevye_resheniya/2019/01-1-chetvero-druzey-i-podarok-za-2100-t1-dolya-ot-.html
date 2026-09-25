@@ -252,12 +252,18 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Llamo a, b, c, d a lo que no sé y escribo cada dato como una igualdad.<br><em>Называю буквами то, чего не знаю, и каждое данное записываю равенством.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = a, b, c, d</span></button>
-<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><code>a = (2100 − a) / 2</code> → <code>3 · a = 2100</code> → <code>a = 700</code></span></button>
-<button class="art cont" data-art="3"><span class="val f"><code>b = (2100 − b) / 3</code> → <code>4 · b = 2100</code> → <code>b = 525</code></span></button>
-<button class="art cont" data-art="4"><span class="val f"><code>d = 2100 − 700 − 525 − c</code> → <code>d = 875 − c</code></span></button>
-<button class="art cont" data-art="5"><span class="val f"><code>4 · c = 700 + 875 − c</code> → <code>5 · c = 1575</code> → <code>c = 315</code></span></button>
-<button class="art cont" data-art="6"><span class="val f"><code>d = 875 − 315 = 560</code></span></button>
+<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>a</code> — Альдо;</span></button>
+<button class="art cont" data-art="2"><span class="val f"><code>b</code> — Бето;</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>c</code> — Карлос;</span></button>
+<button class="art cont" data-art="4"><span class="val f"><code>d</code> — Дани.</span></button>
+<button class="art" data-art="5"><span class="lbl">План</span><span class="val f">Ответ = a, b, c, d</span></button>
+<button class="art" data-art="6"><span class="lbl">На туре</span><span class="val f"><code>a = (2100 − a) / 2</code> → <code>3 · a = 2100</code> → <code>a = 700</code></span></button>
+<button class="art cont" data-art="7"><span class="val f"><code>b = (2100 − b) / 3</code> → <code>4 · b = 2100</code> → <code>b = 525</code></span></button>
+<button class="art cont" data-art="8"><span class="val f"><code>d = 2100 − 700 − 525 − c</code> → <code>d = 875 − c</code></span></button>
+<button class="art cont" data-art="9"><span class="val f"><code>4 · c = 700 + 875 − c</code> → <code>5 · c = 1575</code> → <code>c = 315</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>d = 875 − 315 = 560</code></span></button>
+<button class="art cont" data-art="11"><span class="val f"><code>700 + 525 + 315 + 560 = 2100</code> ✓</span></button>
+<button class="art cont" data-art="12"><span class="val f"><code>(700 + 560) : 4 = 315</code> ✓</span></button>
 </aside>
 <main>
   
@@ -266,8 +272,9 @@
 <div class="card task st"><span class="tag">Условие</span><p>Четверо друзей — Альдо, Бето, Карлос и Дани — покупают подарок за $2100. Альдо платит половину суммы, которую заплатили трое остальных. Бето платит третью часть суммы, которую заплатили трое остальных. Карлос платит четвёртую часть суммы, которую заплатили Альдо и Дани. Сколько платит каждый из четырёх друзей?</p></div>
 <div class="card key st"><span class="tag">Заметь главное</span><p>«Остальные трое» — это все четверо без самого Альдо, то есть весь подарок минус то, что заплатил Альдо. Если назвать <code>a</code> то, что заплатил Альдо, то</p></div>
 <div class="frm st">остальные для Альдо = 2100 − a</div>
-<figure class="st"><div class="ruler"><div class="seg one" style="flex:1;min-width:110px;border-color:var(--gold)"><span class="segl">Альдо</span><span class="segn">a</span></div><div class="seg two" style="flex:2;min-width:180px"><span class="segl">Бето + Карлос + Дани — «остальные трое»</span><span class="segn">2100 − a</span></div></div><div class="flab" style="margin-top:12px">весь подарок · $2100</div><figcaption>«Остальные» для Альдо — это та же полоса в $2100, только без его собственного куска. Поэтому во фразе про Альдо неизвестна одна величина — он сам, а не трое других по отдельности.</figcaption></figure>
-<p class="st">Поэтому фраза «Альдо платит половину того, что остальные» содержит <b>одну</b> неизвестную — самого Альдо, и решается отдельно, без системы. То же с Бето. У Карлоса иначе: его доля взята не от всех остальных, а только от двоих — Альдо и Дани, и в этой фразе сидят две неизвестные, он сам и Дани. А про Дани в условии нет никакой фразы вовсе — значит, Дани — это то, что осталось от $2100 после остальных троих.</p>
+<figure class="st"><div class="ruler"><div class="seg one" style="flex:1;min-width:110px;border-color:var(--gold)"><span class="segl">Альдо</span><span class="segn">a</span></div><div class="seg two" style="flex:2;min-width:180px"><span class="segl">Бето + Карлос + Дани — «остальные трое»</span><span class="segn">2100 − a</span></div></div><div class="flab" style="margin-top:12px">весь подарок: $2100</div><figcaption>«Остальные» для Альдо — это та же полоса в $2100, только без его собственного куска. Поэтому во фразе про Альдо неизвестна одна величина — он сам, а не трое других по отдельности.</figcaption></figure>
+<p class="st">Поэтому фразы условия устроены по-разному:</p>
+<ul class="st"><li>«Альдо платит половину того, что остальные» — в этой фразе <b>одна</b> неизвестная, сам Альдо, и она решается отдельно, без системы; то же с Бето;</li><li>у Карлоса иначе: его доля взята не от всех остальных, а только от двоих — Альдо и Дани, и в этой фразе сидят две неизвестные, он сам и Дани;</li><li>про Дани в условии нет никакой фразы вовсе — значит, Дани — это то, что осталось от $2100 после остальных троих.</li></ul>
 <p class="st"><em>💬 «Называю буквами то, чего не знаю, и каждое данное записываю равенством» — это и есть мысль для фразы-объяснения: каждая фраза условия становится равенством, а «остальные» записываются как весь подарок минус сам человек.</em></p>
 <p class="step st"><b>Шаг 1 — план.</b> Каждого назовём первой буквой имени: <code>a</code> — Альдо, <code>b</code> — Бето, <code>c</code> — Карлос, <code>d</code> — Дани (в долларах).</p>
 <p class="st">Фраза про Альдо: «остальные» — это 2100 без Альдо, а Альдо платит половину этого.</p>
@@ -299,7 +306,7 @@
 <p class="st">Так же, как с Альдо, прибавляю <code>b</code> к обеим частям:</p>
 <div class="frm st">4 · b = 2100</div>
 <p class="st">→ <b>b = 525</b></p>
-<p class="step st"><b>Шаг 4 — выражаю <code>d</code> через <code>c</code>.</b> Чтобы в четвёртой строчке осталась одна буква, Дани надо записать через Карлоса. Подставляю найденные <code>a</code> и <code>b</code> в третью строчку:</p>
+<p class="step st"><b>Шаг 4 — выражаю <code>d</code> через <code>c</code>.</b> Чтобы в четвёртой строчке осталась одна буква, Дани надо записать через Карлоса — это <b>метод подстановки</b>: одну неизвестную выражаем через другую и подставляем. Подставляю найденные <code>a</code> и <code>b</code> в третью строчку:</p>
 <div class="frm st">d = 2100 − 700 − 525 − c</div>
 <div class="frm st">d = 875 − c</div>
 <p class="step st"><b>Шаг 5 — считаю <code>c</code>.</b> Нужен Карлос — он в четвёртой строчке. Подставляю в неё <code>a = 700</code>, а вместо <code>d</code> — только что полученное выражение; букв остаётся одна:</p>
@@ -325,11 +332,13 @@
 <div id="a0" data-art="0"><p class="st"><b>Llamo a, b, c, d a lo que no sé y escribo cada dato como una igualdad.</b></p></div>
 <p class="st"><em>Называю буквами то, чего не знаю, и каждое данное записываю равенством.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>a</code> — Альдо, <code>b</code> — Бето, <code>c</code> — Карлос, <code>d</code> — Дани ($).</p>
-<div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st">Буквы (в долларах):</p>
+<div id="a4" data-art="4"><ul class="st"><li><code>a</code> — Альдо;</li><li><code>b</code> — Бето;</li><li><code>c</code> — Карлос;</li><li><code>d</code> — Дани.</li></ul></div>
+<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">Ответ = a, b, c, d</div></div></div>
-<div id="a6" data-art="6"><ul class="st"><li><code>a = (2100 − a) / 2</code> → <code>3 · a = 2100</code> → <code>a = 700</code></li><li><code>b = (2100 − b) / 3</code> → <code>4 · b = 2100</code> → <code>b = 525</code></li><li><code>d = 2100 − 700 − 525 − c</code> → <code>d = 875 − c</code></li><li><code>4 · c = 700 + 875 − c</code> → <code>5 · c = 1575</code> → <code>c = 315</code></li><li><code>d = 875 − 315 = 560</code></li></ul></div>
-<p class="st">Проверка: <code>700 + 525 + 315 + 560 = 2100</code> ✓; <code>(700 + 560) : 4 = 315</code> ✓</p>
+<div id="a10" data-art="10"><ul class="st"><li><code>a = (2100 − a) / 2</code> → <code>3 · a = 2100</code> → <code>a = 700</code></li><li><code>b = (2100 − b) / 3</code> → <code>4 · b = 2100</code> → <code>b = 525</code></li><li><code>d = 2100 − 700 − 525 − c</code> → <code>d = 875 − c</code></li><li><code>4 · c = 700 + 875 − c</code> → <code>5 · c = 1575</code> → <code>c = 315</code></li><li><code>d = 875 − 315 = 560</code></li></ul></div>
+<p class="st">Проверка:</p>
+<div id="a12" data-art="12"><ul class="st"><li><code>700 + 525 + 315 + 560 = 2100</code> ✓</li><li><code>(700 + 560) : 4 = 315</code> ✓</li></ul></div>
 <hr>
 <div class="pager"><a href="02-2-kvadrat-s-dvumya-poloskami-sprava-t2-vse-merya.html">№2 — квадрат с двумя полосками справа (Т2: всё меряется стороной квадрата, дробная пропорция → доля) →</a></div>
 </main>
