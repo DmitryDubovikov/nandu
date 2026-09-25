@@ -255,7 +255,7 @@
 <button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">a — у Aldo, у Beto тоже a</span></button>
 <button class="art cont" data-art="2"><span class="val f">Carlos, Dani, Edu делят s конфет, каждому ≥ 1</span></button>
 <button class="art cont" data-art="3"><span class="val f">s = 13 − 2 · a</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">N(раздач) = N(раздач при a = 1) + … + N(раздач при a = 5)</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val f">N(раздач) = N(при a = 1) + N(при a = 2) + N(при a = 3) + N(при a = 4) + N(при a = 5)</span></button>
 <button class="art" data-art="5"><span class="lbl">На туре</span><span class="val f">a ≥ 1 и s ≥ 3 → a = 1 … 5</span></button>
 <button class="art cont" data-art="6"><span class="val f">троим s конфет: Carlos 1 … s − 2 → 1 + 2 + … + (s − 2)</span></button>
 <button class="art cont" data-art="7"><span class="val f">a = 1: s = 11 → 1 + … + 9 = 45</span></button>
@@ -278,15 +278,16 @@
 <figure class='st'><svg viewBox='0 0 444 100' width='100%' xmlns='http://www.w3.org/2000/svg' font-family='ui-sans-serif,-apple-system,sans-serif' role='img' aria-label='13 конфет: по 3 у Aldo и Beto, остальные 7 делят трое'><circle cx='30' cy='40' r='11' fill='var(--blue)' fill-opacity='0.25' stroke='var(--blue)' stroke-width='1.5'/><circle cx='60' cy='40' r='11' fill='var(--blue)' fill-opacity='0.25' stroke='var(--blue)' stroke-width='1.5'/><circle cx='90' cy='40' r='11' fill='var(--blue)' fill-opacity='0.25' stroke='var(--blue)' stroke-width='1.5'/><circle cx='132' cy='40' r='11' fill='var(--blue)' fill-opacity='0.25' stroke='var(--blue)' stroke-width='1.5'/><circle cx='162' cy='40' r='11' fill='var(--blue)' fill-opacity='0.25' stroke='var(--blue)' stroke-width='1.5'/><circle cx='192' cy='40' r='11' fill='var(--blue)' fill-opacity='0.25' stroke='var(--blue)' stroke-width='1.5'/><circle cx='234' cy='40' r='11' fill='none' stroke='var(--muted)' stroke-width='1.5'/><circle cx='264' cy='40' r='11' fill='none' stroke='var(--muted)' stroke-width='1.5'/><circle cx='294' cy='40' r='11' fill='none' stroke='var(--muted)' stroke-width='1.5'/><circle cx='324' cy='40' r='11' fill='none' stroke='var(--muted)' stroke-width='1.5'/><circle cx='354' cy='40' r='11' fill='none' stroke='var(--muted)' stroke-width='1.5'/><circle cx='384' cy='40' r='11' fill='none' stroke='var(--muted)' stroke-width='1.5'/><circle cx='414' cy='40' r='11' fill='none' stroke='var(--muted)' stroke-width='1.5'/><path d='M19 60 v8 H101 v-8' fill='none' stroke='var(--blue)' stroke-width='1.5'/><text x='60.0' y='86' fill='var(--blue)' font-size='13' text-anchor='middle'>Aldo: a = 3</text><path d='M121 60 v8 H203 v-8' fill='none' stroke='var(--blue)' stroke-width='1.5'/><text x='162.0' y='86' fill='var(--blue)' font-size='13' text-anchor='middle'>Beto: тоже 3</text><path d='M223 60 v8 H425 v-8' fill='none' stroke='var(--ink)' stroke-width='1.5'/><text x='324.0' y='86' fill='var(--ink)' font-size='13' text-anchor='middle'>Carlos, Dani, Edu делят 7, каждому ≥ 1</text><text x='19' y='16' fill='var(--muted)' font-size='12'>13 одинаковых конфет, пример: a = 3</text></svg><figcaption>Выбрал долю Aldo — доля Beto и остаток для троих определены сами.</figcaption></figure>
 <p class="step st"><b>Шаг 1 — план.</b> По «Заметь главное» режу все раздачи на группы по доле Aldo. Группу раздач с одним и тем же a назову <b>миром</b>: мир a = 1 — все раздачи, где у Aldo одна конфета, мир a = 2 — где две, и так далее. В каждой раздаче a равно ровно одному числу, поэтому миры не пересекаются и вместе покрывают все раздачи — их складывают.</p>
 <p class="st"><em>💬 «Разрезал на случаи по тому, сколько конфет у Aldo: они не пересекаются и покрывают всё, поэтому складываю» — это мысль для фразы-объяснения.</em></p>
-<div class="frm st">N(раздач) = N(раздач при a = 1) + N(раздач при a = 2) + … + N(раздач при наибольшем a)</div>
+<div class="frm st">N(раздач) = N(при a = 1) + N(при a = 2) + … + N(при наибольшем a)</div>
+<p class="st">Какое a наибольшее — пока не известно.</p>
 <p class="st">Внутри мира Aldo и Beto уже получили по a, остаток раздаётся трём другим. Сколько конфет остаётся троим, обозначу s:</p>
 <div class="frm st">s = 13 − 2 · a</div>
-<div class="frm st">N(раздач при данном a) = N(раздач s конфет троим, каждому ≥ 1)</div>
+<div class="frm st">N(при данном a) = N(раздач s конфет троим, каждому ≥ 1)</div>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(раздач) = N(раздач при a = 1) + … + N(раздач при наибольшем a)</div>
+<div class="frm st">N(раздач) = N(при a = 1) + … + N(при наибольшем a)</div>
 <div class="frm st">s = 13 − 2 · a</div>
-<div class="frm st">N(раздач при данном a) = N(раздач s конфет троим, каждому ≥ 1)</div>
-<ul class="st"><li><b>a</b> — сколько конфет у Aldo (и столько же у Beto)</li><li><b>s</b> — сколько конфет остаётся Carlos, Dani и Edu вместе</li><li><b>N(раздач s конфет троим, каждому ≥ 1)</b> — сколькими способами Carlos, Dani и Edu делят s одинаковых конфет, если каждому хотя бы одна</li></ul>
+<div class="frm st">N(при данном a) = N(раздач s конфет троим, каждому ≥ 1)</div>
+<ul class="st"><li><b>a</b> — сколько конфет у Aldo (и столько же у Beto)</li><li><b>s</b> — сколько конфет остаётся Carlos, Dani и Edu вместе</li><li><b>N(при a = 1)</b> — сколько раздач, где у Aldo (и у Beto) одна конфета; так же для других a</li><li><b>N(раздач s конфет троим, каждому ≥ 1)</b> — сколькими способами Carlos, Dani и Edu делят s одинаковых конфет, если каждому хотя бы одна</li></ul>
 <p class="st">Осталось найти: N(раздач s конфет троим, каждому ≥ 1) для любого s — и какие a годятся.</p></div>
 <p class="step st"><b>Шаг 2 — считаем N(раздач s конфет троим, каждому ≥ 1).</b> Считаю сразу для любого s — перебором доли Carlos по порядку.</p>
 <p class="st">Carlos получает хотя бы 1, а Dani и Edu нужно оставить хотя бы по одной, поэтому доля Carlos пробегает значения:</p>
@@ -303,9 +304,12 @@
 <p class="step st"><b>Шаг 3 — считаем, какие a годятся.</b> Aldo должен получить хотя бы одну, поэтому a ≥ 1. Carlos, Dani и Edu вместе должны получить хотя бы 3, поэтому Aldo и Beto вдвоём — не больше 10:</p>
 <div class="frm st">2 · a ≤ 13 − 3 = 10</div>
 <p class="st">→ <b>a = 1, 2, 3, 4, 5 — пять миров</b> (при a = 6 трём детям осталась бы одна конфета на троих)</p>
-<p class="step st"><b>Шаг 4 — считаем каждый мир по формуле шага 2.</b> Для каждого a из шага 3 считаю s по формуле плана и складываю лесенку. Лесенка для каждого мира — в предпоследнем столбце таблицы (см. шаг 2):</p>
+<p class="st">Наибольшее a = 5, и многоточие в плане уходит:</p>
+<div class="plan st"><p class="st">✅ <b>План уточнён:</b></p>
+<div class="frm st">N(раздач) = N(при a = 1) + N(при a = 2) + N(при a = 3) + N(при a = 4) + N(при a = 5)</div></div>
+<p class="step st"><b>Шаг 4 — считаем пять слагаемых уточнённого плана.</b> Миры однотипные, поэтому все пять — в одной таблице: для каждого a считаю s по формуле плана, а N(при a) — лесенкой из шага 2:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>a</th><th>у Aldo и Beto вместе</th><th>s = 13 − 2 · a</th><th>лесенка 1 + … + (s − 2)</th><th>N(раздач при данном a)</th></tr>
+<tr><th>a</th><th>у Aldo и Beto вместе</th><th>s = 13 − 2 · a</th><th>лесенка 1 + … + (s − 2)</th><th>N(при a)</th></tr>
 <tr><td>1</td><td>2</td><td>11</td><td>1 + … + 9</td><td>45</td></tr>
 <tr><td>2</td><td>4</td><td>9</td><td>1 + … + 7</td><td>28</td></tr>
 <tr><td>3</td><td>6</td><td>7</td><td>1 + … + 5</td><td>15</td></tr>
@@ -319,7 +323,7 @@
 <p class="st">Лесенка 1 + … + 5: пары 1 + 5, 2 + 4 дают по 6, серединка 3:</p>
 <div class="frm st">1 + 2 + … + 5 = 2 · 6 + 3 = 15</div>
 <p class="st">Последний мир проверяю руками: при a = 5 у Aldo и Beto по 5, остаются 3 конфеты на троих — только по одной каждому, 1 способ ✓.</p>
-<p class="step st"><b>Шаг 5 — сборка.</b> Подставляю миры в формулу плана:</p>
+<p class="step st"><b>Шаг 5 — сборка.</b> Подставляю пять слагаемых в уточнённый план:</p>
 <div class="frm st">N(раздач) = 45 + 28 + 15 + 6 + 1 = 95</div>
 <p class="st"><em>💬 «Это все случаи: они не повторяют друг друга и ни один не потерян»: доля Aldo пробежала все годные значения от 1 до 5, каждая раздача попала ровно в тот мир, сколько в ней у Aldo, а внутри мира доля Carlos пробежала все значения по порядку. Это мысль для фразы про полноту.</em></p>
 <p class="st"><b>⚠ Ловушки.</b></p>
@@ -336,7 +340,7 @@
 <div id="a2" data-art="2"><ul class="st"><li>a — у Aldo, у Beto тоже a</li><li>Carlos, Dani, Edu делят s конфет, каждому ≥ 1</li></ul></div>
 <div id="a3" data-art="3"><div class="frm st">s = 13 − 2 · a</div></div>
 <div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">N(раздач) = N(раздач при a = 1) + … + N(раздач при a = 5)</div></div></div>
+<div class="frm st">N(раздач) = N(при a = 1) + N(при a = 2) + N(при a = 3) + N(при a = 4) + N(при a = 5)</div></div></div>
 <div id="a11" data-art="11"><ul class="st"><li>a ≥ 1 и s ≥ 3 → a = 1 … 5</li><li>троим s конфет: Carlos 1 … s − 2 → 1 + 2 + … + (s − 2)</li><li>a = 1: s = 11 → 1 + … + 9 = 45</li><li>a = 2: s = 9 → 1 + … + 7 = 28</li><li>a = 3: s = 7 → 1 + … + 5 = 15</li><li>a = 4: s = 5 → 1 + 2 + 3 = 6</li><li>a = 5: s = 3 → 1</li></ul></div>
 <div id="a12" data-art="12"><div class="frm st">N(раздач) = 45 + 28 + 15 + 6 + 1 = 95</div></div>
 <p class="st">Проверка: s = 5 → 113, 122, 131, 212, 221, 311 — 6 ✓</p>
