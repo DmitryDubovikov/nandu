@@ -124,6 +124,11 @@ These conventions are load-bearing across all existing pairs — keep them.
    caps cell text, hides the thread); a mini-table or bullet list of «И»-factors is allowed only *inside* a step for
    ≥2 short uniform moves, preceded by a goal phrase. Deliberate wrong-way demos («как хочется сделать») may keep the
    old table look to stay visually distinct. Applies to new and edited разборы; don't retro-rewrite untouched documents unasked.
+   **After the plan, steps are the plan's parts** (сент 2026): each step is named after a term of the artifact
+   («Шаг 2 — все пары для короткого столбца»), an auxiliary fact is computed inside the step that needs it, the plan
+   uses only what is already known (no numbers or objects from later steps, no «это проверит шаг 4»), and a plan with
+   «+ …» is rewritten concretely once the cases are listed (`> ✅ **План уточнён:** …`). A world in `N(…)` carries its
+   defining condition: `N(короткий = {6, 9})`. Model: `25-26/nandu_level1/national/boevye_resheniya/_md/parts/2025_3.md`.
 9. **Наблюдение, на котором держится приём, называется отдельно** (авг 2026). If a разбор works because of a specific
    property of the problem (в таблице 2×2 любые две клетки лежат в общей строке или столбце; расстановка одинаковых
    фишек = выбор дырок; островок одноцветный; условие связывает только соседние строки; одиночка тянет за собой
