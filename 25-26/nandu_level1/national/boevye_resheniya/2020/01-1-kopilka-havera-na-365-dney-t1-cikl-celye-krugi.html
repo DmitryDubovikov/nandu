@@ -252,21 +252,30 @@
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El dibujo se repite cada 21 días, así que solo miro el resto de dividir por 21.<br><em>Узор повторяется через 21 день, поэтому смотрю только остаток от деления на 21.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f"><code>per = 21</code>, <code>S(круга) = 7 · 10 + 7 · 20 + 7 · 25 = 385</code></span></button>
-<button class="art cont" data-art="2"><span class="val f">а) <code>2020 = 5 · 385 + 95</code> → 5 кругов = 105 дней, $1925</span></button>
-<button class="art cont" data-art="3"><span class="val f">6-й круг: день 7 → <code>70</code>, день 8 → <code>90</code>, день 9 → <code>110 &gt; 95</code></span></button>
-<button class="art cont" data-art="4"><span class="val f">день <code>105 + 9 = 114</code>, сумма <code>1925 + 110 = 2035</code></span></button>
-<button class="art cont" data-art="5"><span class="val f">б) <code>365 = 17 · 21 + 8</code> → <code>17 · 385 = 6545</code>, хвост <code>70 + 20 = 90</code></span></button>
-<button class="art cont" data-art="6"><span class="val f">а) день 114, $2035; б) $6635</span></button>
+<button class="art" data-art="1"><span class="lbl">Кирпичики</span><span class="val">Обозначения:</span></button>
+<button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><code>per</code> — период круга (дней)</span></button>
+<button class="art cont" data-art="3"><span class="val f"><code>S(круга)</code> — долларов за один круг</span></button>
+<button class="art cont" data-art="4"><span class="val f"><code>per = 21</code></span></button>
+<button class="art cont" data-art="5"><span class="val f"><code>S(круга) = 7 · 10 + 7 · 20 + 7 · 25 = 385</code></span></button>
+<button class="art cont" data-art="6"><span class="val f">а) <code>2020 = 5 · 385 + 95</code> → 5 кругов = 105 дней, $1925</span></button>
+<button class="art cont" data-art="7"><span class="val f">6-й круг: день 7 → <code>70</code>, день 8 → <code>90</code>, день 9 → <code>110 &gt; 95</code></span></button>
+<button class="art cont" data-art="8"><span class="val f">день <code>105 + 9 = 114</code></span></button>
+<button class="art cont" data-art="9"><span class="val f">сумма <code>1925 + 110 = 2035</code></span></button>
+<button class="art cont" data-art="10"><span class="val f">б) <code>365 = 17 · 21 + 8</code></span></button>
+<button class="art cont" data-art="11"><span class="val f">17 кругов: <code>17 · 385 = 6545</code></span></button>
+<button class="art cont" data-art="12"><span class="val f">хвост 8 дней: <code>70 + 20 = 90</code></span></button>
+<button class="art cont" data-art="13"><span class="val f"><code>6545 + 90 = 6635</code></span></button>
+<button class="art cont" data-art="14"><span class="val f">а) день 114, $2035</span></button>
+<button class="art cont" data-art="15"><span class="val f">б) $6635</span></button>
 </aside>
 <main>
   
   <h1>№1 — копилка Хавьера на 365 дней <em>(Т1″: цикл — целые круги + хвост, переломный день)</em></h1>
   <p class="sub">Национальный этап 2020 — боевые решения</p>
 <div class="card task st"><span class="tag">Условие</span><p>В течение 365 дней Хавьер откладывал деньги на свой будущий отпуск. С 1-го по 7-й день он откладывал по $10 в день. С 8-го по 14-й день — по $20 в день. С 15-го по 21-й день — по $25 в день. Начиная с 22-го дня он повторял то, что делал в первые 21 день. а) В какой день у него впервые оказалось отложено больше $2020? Сколько денег было у него отложено в тот день? б) Сколько денег было у него отложено к концу 365-го дня?</p></div>
-<p class="st">Вопросов три (ритуал 1 — подчеркнул все): номер дня и сумма в этот день — в а), сумма к концу года — в б). «Отложено в тот день» — это к концу дня, когда дневная порция уже в копилке.</p>
+<p class="st">Вопросов три — подчеркни все, чтобы в конце ответить на каждый: номер дня и сумма в этот день — в а), сумма к концу года — в б). «Отложено в тот день» — это к концу дня, когда дневная порция уже в копилке.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>«С 22-го дня повторял первые 21 день» значит: день 22 такой же, как день 1, день 29 — как день 8, день 43 — как день 22 и как день 1, и так до конца года. Правило ходит по кругу, и такой круг называется <b>циклом</b>, а его длина — <b>периодом</b>; здесь период 21 день. Отсюда две вещи. Первая: любой полный круг приносит одну и ту же сумму, какой бы он ни был по счёту. Вторая: сколько Хавьер кладёт в конкретный день, зависит <b>только</b> от того, какой это день внутри своего круга, — то есть от остатка при делении номера дня на 21. Поэтому 365 дней считаются не по одному, а целыми кругами, и по дням — только хвост.</p></div>
-<figure class="st"><div class="ruler"><div class="seg one" style="flex:1;min-width:120px"><span class="segl">дни 1–7 · по $10</span><span class="segn">7 · 10 = 70</span></div><div class="seg one" style="flex:1;min-width:120px"><span class="segl">дни 8–14 · по $20</span><span class="segn">7 · 20 = 140</span></div><div class="seg one" style="flex:1;min-width:120px"><span class="segl">дни 15–21 · по $25</span><span class="segn">7 · 25 = 175</span></div></div><div class="flab" style="margin-top:12px">день 22 = день 1 нового круга · круг 1, круг 2, круг 3, … устроены одинаково</div><figcaption>Один круг — три недели с разным темпом. Все круги одинаковы, поэтому полный круг всегда приносит одну и ту же сумму, а темп дня зависит только от его места внутри круга.</figcaption></figure>
+<figure class="st"><div class="ruler"><div class="seg one" style="flex:1;min-width:120px"><span class="segl">дни 1–7, по $10</span><span class="segn">7 · 10 = 70</span></div><div class="seg one" style="flex:1;min-width:120px"><span class="segl">дни 8–14, по $20</span><span class="segn">7 · 20 = 140</span></div><div class="seg one" style="flex:1;min-width:120px"><span class="segl">дни 15–21, по $25</span><span class="segn">7 · 25 = 175</span></div></div><div class="flab" style="margin-top:12px">день 22 = день 1 нового круга; круг 1, круг 2, круг 3, … устроены одинаково</div><figcaption>Один круг — три недели с разным темпом. Все круги одинаковы, поэтому полный круг всегда приносит одну и ту же сумму, а темп дня зависит только от его места внутри круга.</figcaption></figure>
 <p class="st"><em>💬 «Узор повторяется через 21 день, поэтому смотрю только остаток от деления на 21» — это и есть мысль для фразы-объяснения.</em></p>
 <p class="st">И ещё одно, для вопроса а): Хавьер только кладёт и ничего не берёт, поэтому отложенная сумма с каждым днём растёт. Значит, если к концу какого-то дня она ещё не больше $2020, то и во все дни раньше она не больше; а перешагнув через 2020, назад уже не опустится. Первый день «больше 2020» — это день, когда накануне было ещё не больше, а сегодня уже больше.</p>
 <p class="step st"><b>Шаг 1 — план.</b> Обе части задачи раскладываются одним и тем же способом «целые круги + хвост». Для этого понадобятся две величины одного круга:</p>
@@ -291,38 +300,46 @@
 <ul class="st"><li><code>per</code> и <code>S(круга)</code> — прямо из условия, они нужны обоим вопросам;</li><li><code>N(кругов до 2020)</code> и <code>res(2020 : S(круга))</code> — делением с остатком, для а);</li><li><code>k</code> и <code>S(первых k дней круга)</code> — по дням внутри круга, для а);</li><li><code>N(кругов до 365)</code>, <code>res(365 : per)</code> и <code>S(хвоста)</code> — для б).</li></ul></div>
 <p class="step st"><b>Шаг 2 — считаю <code>per</code> и <code>S(круга)</code>.</b> Круг — это три недели: неделя по $10, неделя по $20, неделя по $25, потом всё сначала.</p>
 <div class="frm st">per = 7 + 7 + 7 = 21</div>
-<p class="st">За неделю по $10 набегает <code>7 · 10 = 70</code>, по $20 — <code>7 · 20 = 140</code>, по $25 — <code>7 · 25 = 175</code>.</p>
+<p class="st">Сколько набегает за каждую неделю круга:</p>
+<ul class="st"><li>неделя по $10: <code>7 · 10 = 70</code>;</li><li>неделя по $20: <code>7 · 20 = 140</code>;</li><li>неделя по $25: <code>7 · 25 = 175</code>.</li></ul>
 <div class="frm st">S(круга) = 70 + 140 + 175 = 385</div>
-<p class="st">→ <b>per = 21, S(круга) = 385</b></p>
-<p class="step st"><b>Шаг 3 — а) сколько целых кругов умещается в $2020.</b> Это первая строчка плана — деление с остатком, по ритуалу Ч2 записанное целиком:</p>
+<p class="st">→ <b>per = 21</b></p>
+<p class="st">→ <b>S(круга) = 385</b></p>
+<p class="step st"><b>Шаг 3 — а) сколько целых кругов умещается в $2020.</b> Это первая строчка плана — деление с остатком. Пишу его полной строкой «делимое = делитель · частное + остаток»: в ней видны сразу оба ответа — и сколько целых кругов, и сколько долларов сверх них.</p>
 <div class="frm st">2020 = 5 · 385 + 95</div>
-<p class="st">Проверка строки: <code>5 · 385 = 1925</code>, <code>2020 − 1925 = 95</code>, и остаток 95 меньше 385 ✓.</p>
+<p class="st">Проверка строки:</p>
+<ul class="st"><li><code>5 · 385 = 1925</code>;</li><li><code>2020 − 1925 = 95</code>;</li><li>остаток 95 меньше 385 ✓ — значит, шестой круг уже не умещается.</li></ul>
 <p class="st">Пять целых кругов — это</p>
 <div class="frm st">5 · 21 = 105</div>
 <p class="st">дней, и к концу дня 105 отложено $1925 — ещё не больше 2020. Шестой круг целиком дал бы</p>
 <div class="frm st">1925 + 385 = 2310</div>
 <p class="st">— уже больше. Значит, перелом внутри шестого круга, и в нём надо добрать <b>больше</b> $95.</p>
-<p class="st">→ <b>N(кругов до 2020) = 5, res(2020 : S(круга)) = 95</b></p>
+<p class="st">→ <b>N(кругов до 2020) = 5</b></p>
+<p class="st">→ <b>res(2020 : S(круга)) = 95</b></p>
 <p class="step st"><b>Шаг 4 — а) на каком дне шестого круга накопленное в круге станет больше 95.</b> Хвост считаю по дням честно: первые 7 дней круга идут по $10, дальше по $20.</p>
 <ul class="st"><li>к концу 7-го дня круга: <code>7 · 10 = 70</code> — ещё не больше 95;</li><li>к концу 8-го дня: <code>70 + 20 = 90</code> — ещё не больше 95;</li><li>к концу 9-го дня: <code>90 + 20 = 110</code> — уже больше 95.</li></ul>
-<p class="st">→ <b>k = 9, S(первых k дней круга) = 110</b></p>
+<p class="st">→ <b>k = 9</b></p>
+<p class="st">→ <b>S(первых k дней круга) = 110</b></p>
 <p class="st">Сборка по плану:</p>
 <div class="frm st">Ответ а), день = 5 · 21 + 9 = 114</div>
 <div class="frm st">Ответ а), сумма = 1925 + 110 = 2035</div>
 <p class="st">Проверяю обоих соседей перелома: к концу дня 113 отложено</p>
 <div class="frm st">1925 + 90 = 2015</div>
 <p class="st">— это не больше 2020, а к концу дня 114 уже 2035 — больше. Раз сумма только растёт, раньше дня 114 больше 2020 не было ни разу ✓.</p>
-<figure class="st"><div class="ruler"><div class="seg one" style="min-width:150px"><span class="segl">5 целых кругов · дни 1–105</span><span class="segn">$1925</span></div><div class="seg one"><span class="segl">дни 106–112 · по $10</span><span class="segn">$1995</span></div><div class="seg one"><span class="segl">день 113 · +$20</span><span class="segn">$2015 — ещё не больше 2020</span></div><div class="seg" style="background:#1d1810;border-color:#6b5320"><span class="segl">день 114 · +$20</span><span class="segn">$2035 — уже больше 2020</span></div></div><figcaption>Сумма к концу дня только растёт, поэтому перелом один: накануне ещё не больше 2020, в этот день уже больше. Смотреть достаточно двух соседних дней — 113 и 114.</figcaption></figure>
+<figure class="st"><div class="ruler"><div class="seg one" style="min-width:150px"><span class="segl">5 целых кругов, дни 1–105</span><span class="segn">$1925</span></div><div class="seg one"><span class="segl">дни 106–112, по $10</span><span class="segn">$1995</span></div><div class="seg one"><span class="segl">день 113: +$20</span><span class="segn">$2015 — ещё не больше 2020</span></div><div class="seg" style="background:#1d1810;border-color:#6b5320"><span class="segl">день 114: +$20</span><span class="segn">$2035 — уже больше 2020</span></div></div><figcaption>Сумма к концу дня только растёт, поэтому перелом один: накануне ещё не больше 2020, в этот день уже больше. Смотреть достаточно двух соседних дней — 113 и 114.</figcaption></figure>
 <p class="step st"><b>Шаг 5 — б) сколько отложено к концу дня 365.</b> Раскладываю 365 по четвёртой строчке плана:</p>
 <div class="frm st">365 = 17 · 21 + 8</div>
-<p class="st">Проверка строки: <code>17 · 21 = 357</code>, <code>365 − 357 = 8</code> ✓. То есть <code>res(365 : 21) = 8</code>: 17 целых кругов и хвост в 8 дней. Хвост — это дни 1–8 нового круга: семь дней по $10 и один день по $20.</p>
+<p class="st">Проверка строки:</p>
+<ul class="st"><li><code>17 · 21 = 357</code>;</li><li><code>365 − 357 = 8</code> ✓.</li></ul>
+<p class="st">То есть <code>res(365 : 21) = 8</code>: 17 целых кругов и хвост в 8 дней. Хвост — это дни 1–8 нового круга: семь дней по $10 и один день по $20.</p>
 <div class="frm st">S(хвоста) = 70 + 20 = 90</div>
 <p class="st">Сборка по плану:</p>
 <div class="frm st">Ответ б) = 17 · 385 + 90</div>
 <div class="frm st">17 · 385 = 6545</div>
 <div class="frm st">Ответ б) = 6545 + 90 = 6635</div>
 <p class="st">→ <b>$6635</b></p>
-<p class="st"><b>⚠ Ловушки.</b> (1) Хвост «средней скоростью»: за 8 дней «в среднем по 385 : 21» не выходит даже целого числа, а на деле первые 7 дней идут по $10 и только 8-й — по $20. Хвост — только по дням. (2) «Больше 2020» — строго: к концу дня 113 отложено $2015, это ещё не больше. (3) В а) делить на 21 бессмысленно: спрашивают про сумму, поэтому делится 2020 на $385, а в дни круги переводятся уже потом, умножением на 21.</p>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ol class="st num"><li><span class="lin">1.</span> Хвост «средней скоростью»: за 8 дней «в среднем по 385 : 21» не выходит даже целого числа, а на деле первые 7 дней идут по $10 и только 8-й — по $20. Хвост — только по дням.</li><li><span class="lin">2.</span> «Больше 2020» — строго: к концу дня 113 отложено $2015, это ещё не больше.</li><li><span class="lin">3.</span> В а) делить на 21 бессмысленно: спрашивают про сумму, поэтому делится 2020 на $385, а в дни круги переводятся уже потом, умножением на 21.</li></ol>
 <p class="st">Проверка вторым способом: компьютерная симуляция по дням (365 дней, темп дня определяется по месту внутри круга из 21 дня) даёт первый день с суммой больше 2020 — день 114 ($2035, накануне $2015) и $6635 к концу дня 365 — то же, что целыми кругами и хвостом; совпадает с официальным ключом.</p>
 <p class="st"><b>Ответ на задачу:</b> а) впервые больше $2020 оказалось отложено в день 114, и в тот день у Хавьера было $2035; б) к концу 365-го дня было отложено $6635. <em>(официальный ключ ✓)</em></p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
@@ -331,9 +348,12 @@
 <div id="a0" data-art="0"><p class="st"><b>El dibujo se repite cada 21 días, así que solo miro el resto de dividir por 21.</b></p></div>
 <p class="st"><em>Узор повторяется через 21 день, поэтому смотрю только остаток от деления на 21.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>per</code> — период круга (дней); <code>S(круга)</code> — долларов за один круг.</p>
-<div id="a5" data-art="5"><ul class="st"><li><code>per = 21</code>, <code>S(круга) = 7 · 10 + 7 · 20 + 7 · 25 = 385</code></li><li>а) <code>2020 = 5 · 385 + 95</code> → 5 кругов = 105 дней, $1925</li><li>6-й круг: день 7 → <code>70</code>, день 8 → <code>90</code>, день 9 → <code>110 &gt; 95</code></li><li>день <code>105 + 9 = 114</code>, сумма <code>1925 + 110 = 2035</code></li><li>б) <code>365 = 17 · 21 + 8</code> → <code>17 · 385 = 6545</code>, хвост <code>70 + 20 = 90</code></li></ul></div>
-<div id="a6" data-art="6"><p class="st"><b>а) день 114, $2035; б) $6635</b></p></div>
+<div id="a1" data-art="1"><p class="st">Обозначения:</p></div>
+<div id="a3" data-art="3"><ul class="st"><li><code>per</code> — период круга (дней)</li><li><code>S(круга)</code> — долларов за один круг</li></ul></div>
+<p class="st">Счёт:</p>
+<div id="a13" data-art="13"><ul class="st"><li><code>per = 21</code></li><li><code>S(круга) = 7 · 10 + 7 · 20 + 7 · 25 = 385</code></li><li>а) <code>2020 = 5 · 385 + 95</code> → 5 кругов = 105 дней, $1925</li><li>6-й круг: день 7 → <code>70</code>, день 8 → <code>90</code>, день 9 → <code>110 &gt; 95</code></li><li>день <code>105 + 9 = 114</code></li><li>сумма <code>1925 + 110 = 2035</code></li><li>б) <code>365 = 17 · 21 + 8</code></li><li>17 кругов: <code>17 · 385 = 6545</code></li><li>хвост 8 дней: <code>70 + 20 = 90</code></li><li><code>6545 + 90 = 6635</code></li></ul></div>
+<div id="a14" data-art="14"><p class="st"><b>а) день 114, $2035</b></p></div>
+<div id="a15" data-art="15"><p class="st"><b>б) $6635</b></p></div>
 <p class="st">Проверка а): день 113 → <code>1925 + 90 = 2015</code>, не больше 2020 ✓</p>
 <div class="pager"><a href="02-2-treugolnik-i-ego-utroennye-storony-t2-perimetr.html">№2 — треугольник и его утроенные стороны (Т2: периметры, большие отрезки через стороны маленького треугольника) →</a></div>
 </main>

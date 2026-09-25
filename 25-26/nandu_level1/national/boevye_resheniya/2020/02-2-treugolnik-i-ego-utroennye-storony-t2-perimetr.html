@@ -251,17 +251,30 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 2 из 6</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">Кирпичики</span><span class="val">Кирпичики: a = AF · b = AB · c = BF · d = BC; CE = CD = DE = 3a, CF = 3b, EF = 3c, EA = 3c + a.</span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">P(CDE) = 3a + 3a + 3a</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">P(BCEF) = d + 3a + 3c + c</span></button>
-<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">P(ABCDE) = b + d + 3a + 3a + 3c + a</span></button>
-<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">P(CDEF) = 6a + 3b + 3c = 3 · 48 + 3a = 180 → 3a = 36 → <b>a = 12</b></span></button>
-<button class="art cont" data-art="5"><span class="val f">P(ABCF) − P(BCF) = a + b − c = 128 − 120 = 8 → c − b = 4</span></button>
-<button class="art cont" data-art="6"><span class="val f">P(ABF): b + c = 48 − 12 = 36 → <b>b = 16</b>, <b>c = 20</b></span></button>
-<button class="art cont" data-art="7"><span class="val f">P(BCF) = d + 3b + c = 120 → <b>d = 120 − 48 − 20 = 52</b></span></button>
-<button class="art cont" data-art="8"><span class="val f">P(CDE) = 36 + 36 + 36 = 108</span></button>
-<button class="art cont" data-art="9"><span class="val f">P(BCEF) = 52 + 36 + 60 + 20 = 168</span></button>
-<button class="art cont" data-art="10"><span class="val f">P(ABCDE) = 16 + 52 + 36 + 36 + 72 = 212</span></button>
+  <button class="art" data-art="0"><span class="lbl">На туре</span><span class="val f">a = AF, CE = CD = DE = 3a</span></button>
+<button class="art cont" data-art="1"><span class="val f">b = AB, CF = 3b</span></button>
+<button class="art cont" data-art="2"><span class="val f">c = BF, EF = 3c</span></button>
+<button class="art cont" data-art="3"><span class="val f">d = BC</span></button>
+<button class="art cont" data-art="4"><span class="val f">EA = 3c + a</span></button>
+<button class="art cont" data-art="5"><span class="val f">(1) P(ABF): b + c + a = 48</span></button>
+<button class="art cont" data-art="6"><span class="val f">(2) P(CDEF): 6a + 3b + 3c = 180</span></button>
+<button class="art cont" data-art="7"><span class="val f">(3) P(ABCF): b + d + 3b + a = 128</span></button>
+<button class="art cont" data-art="8"><span class="val f">(4) P(BCF): d + 3b + c = 120</span></button>
+<button class="art" data-art="9"><span class="lbl">План</span><span class="val f">P(CDE) = 3a + 3a + 3a</span></button>
+<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">P(BCEF) = d + 3a + 3c + c</span></button>
+<button class="art" data-art="11"><span class="lbl">План</span><span class="val f">P(ABCDE) = b + d + 3a + 3a + (3c + a)</span></button>
+<button class="art" data-art="12"><span class="lbl">На туре</span><span class="val f">(2) − 3 · (1): 3a = 180 − 144 = 36 → <b>a = 12</b></span></button>
+<button class="art cont" data-art="13"><span class="val f">(3) − (4): (5) a + b − c = 8 → (6) c = b + 4</span></button>
+<button class="art cont" data-art="14"><span class="val f">(1): (7) b + c = 36</span></button>
+<button class="art cont" data-art="15"><span class="val f">(6) в (7): 2b = 32 → <b>b = 16</b>, <b>c = 20</b></span></button>
+<button class="art cont" data-art="16"><span class="val f">(4): d = 120 − 48 − 20 → <b>d = 52</b></span></button>
+<button class="art cont" data-art="17"><span class="val f">P(CDE) = 36 + 36 + 36 = 108</span></button>
+<button class="art cont" data-art="18"><span class="val f">P(BCEF) = 52 + 36 + 60 + 20 = 168</span></button>
+<button class="art cont" data-art="19"><span class="val f">P(ABCDE) = 16 + 52 + 36 + 36 + 72 = 212</span></button>
+<button class="art cont" data-art="20"><span class="val f">(1): 16 + 20 + 12 = 48 ✓</span></button>
+<button class="art cont" data-art="21"><span class="val f">(2): 36 + 36 + 60 + 48 = 180 ✓</span></button>
+<button class="art cont" data-art="22"><span class="val f">(3): 16 + 52 + 48 + 12 = 128 ✓</span></button>
+<button class="art cont" data-art="23"><span class="val f">(4): 52 + 48 + 20 = 120 ✓</span></button>
 </aside>
 <main>
   
@@ -273,84 +286,86 @@
 <p class="st"><b>Равносторонний треугольник</b> — треугольник, у которого все три стороны равны. У CDE это значит: CD, DE и CE — одной длины.</p>
 <p class="st"><b>Точки на одной прямой.</b> A, F и E лежат на одной прямой, и F — между A и E. Значит, путь от E до A идёт через F, и отрезок EA складывается из двух кусков:</p>
 <div class="frm st">EA = EF + FA</div>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Все три равенства условия говорят одно и то же: длинный отрезок равен <b>утроенной стороне маленького треугольника ABF</b>. Сторона AF, утроенная, — это CE (а с ним CD и DE, ведь CDE равносторонний). Сторона AB, утроенная, — это CF. Сторона BF, утроенная, — это EF. Поэтому букв нужно всего три на весь рисунок — по одной на каждую сторону ABF:</p></div>
-<ul class="st"><li>a = AF, тогда CE = CD = DE = 3a;</li><li>b = AB, тогда CF = 3b;</li><li>c = BF, тогда EF = 3c.</li></ul>
-<p class="st">Только BC ни с чем не связан — через a, b, c его не выразить; ему четвёртая буква d. Четыре буквы и четыре данных периметра: задача сводится к четырём неизвестным.</p>
+<div class="card key st"><span class="tag">Заметь главное</span><p>Все три равенства условия говорят одно и то же: длинный отрезок равен <b>утроенной стороне маленького треугольника ABF</b>. Сторона AF, утроенная, — это CE (а с ним CD и DE, ведь CDE равносторонний). Сторона AB, утроенная, — это CF. Сторона BF, утроенная, — это EF. Поэтому на весь рисунок хватает трёх букв — по одной на каждую сторону ABF. Только BC ни с чем не связан — через стороны ABF его не выразить, и ему нужна четвёртая буква. Четыре буквы и четыре данных периметра: четыре уравнения на четыре неизвестных.</p></div>
 <figure class="st"><svg viewBox="0 0 400 572" width="100%" style="max-width:360px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><line x1="139.0" y1="40.1" x2="40.0" y2="211.6" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/><line x1="139.0" y1="40.1" x2="238.0" y2="211.6" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/><line x1="40.0" y1="211.6" x2="238.0" y2="211.6" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/><line x1="40.0" y1="211.6" x2="238.0" y2="475.6" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round"/><line x1="238.0" y1="211.6" x2="238.0" y2="475.6" stroke="var(--blue)" stroke-width="3.5" stroke-linecap="round"/><line x1="238.0" y1="211.6" x2="348.0" y2="475.6" stroke="var(--muted)" stroke-width="2.5" stroke-linecap="round"/><line x1="238.0" y1="475.6" x2="348.0" y2="475.6" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round"/><line x1="238.0" y1="475.6" x2="277.6" y2="528.4" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/><line x1="277.6" y1="528.4" x2="348.0" y2="475.6" stroke="var(--blue)" stroke-width="3.5" stroke-linecap="round"/><circle cx="139.0" cy="40.1" r="4" fill="var(--ink)"/><text x="139.0" y="28.1" fill="var(--ink)" font-size="17" text-anchor="middle" font-weight="600">D</text><circle cx="40.0" cy="211.6" r="4" fill="var(--ink)"/><text x="25.0" y="216.6" fill="var(--ink)" font-size="17" text-anchor="middle" font-weight="600">E</text><circle cx="238.0" cy="211.6" r="4" fill="var(--ink)"/><text x="253.0" y="205.6" fill="var(--ink)" font-size="17" text-anchor="middle" font-weight="600">C</text><circle cx="238.0" cy="475.6" r="4" fill="var(--ink)"/><text x="223.0" y="481.6" fill="var(--ink)" font-size="17" text-anchor="middle" font-weight="600">F</text><circle cx="348.0" cy="475.6" r="4" fill="var(--ink)"/><text x="363.0" y="480.6" fill="var(--ink)" font-size="17" text-anchor="middle" font-weight="600">B</text><circle cx="277.6" cy="528.4" r="4" fill="var(--ink)"/><text x="285.6" y="547.4" fill="var(--ink)" font-size="17" text-anchor="middle" font-weight="600">A</text><text x="72" y="124" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">3a</text><text x="208" y="124" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">3a</text><text x="139" y="203" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">3a</text><text x="121" y="348" fill="var(--green)" font-size="16" text-anchor="middle" font-weight="600">3c</text><text x="220" y="348" fill="var(--blue)" font-size="16" text-anchor="middle" font-weight="600">3b</text><text x="311" y="344" fill="var(--muted)" font-size="16" text-anchor="middle" font-weight="600">d</text><text x="293" y="467" fill="var(--green)" font-size="16" text-anchor="middle" font-weight="600">c</text><text x="244" y="506" fill="var(--gold)" font-size="16" text-anchor="middle" font-weight="600">a</text><text x="325" y="516" fill="var(--blue)" font-size="16" text-anchor="middle" font-weight="600">b</text></svg><figcaption>Каждый длинный цветной отрезок — утроенная сторона треугольника ABF того же цвета: золотые — от AF, синие — от AB, зелёные — от BF. BC ни с чем не связан — это d.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план: записать спрошенные периметры через четыре буквы.</b></p>
-<p class="st"><code>P(X)</code> — периметр контура X: обхожу контур карандашом по буквам и складываю отрезки. Например, данное условия «периметр ABF равен 48» записывается так:</p>
-<div class="frm st">P(ABF) = AB + BF + FA = 48</div>
-<p class="st">Треугольник CDE — три стороны по 3a:</p>
-<div class="frm st">P(CDE) = 3a + 3a + 3a</div>
-<p class="st">Контур BCEF идёт B → C → E → F → B, то есть BC, CE, EF и FB. Отрезок CF остаётся внутри, в контур не входит:</p>
-<div class="frm st">P(BCEF) = d + 3a + 3c + c</div>
-<p class="st">Контур ABCDE идёт A → B → C → D → E → A, то есть AB, BC, CD, DE и EA. Последний кусок E → A проходит через F, поэтому он равен EF + FA:</p>
-<div class="frm st">P(ABCDE) = b + d + 3a + 3a + 3c + a</div>
+<h3 class="st">Часть 1 — геометрия: что даёт рисунок</h3>
+<p class="st"><b>Буквы.</b> Три стороны маленького треугольника ABF и отрезок BC:</p>
+<ul class="st"><li>a = AF; ему втрое равны стороны равностороннего треугольника: CE = CD = DE = 3a;</li><li>b = AB; ему втрое равен CF = 3b;</li><li>c = BF; ему втрое равен EF = 3c;</li><li>d = BC — ни с чем не связан.</li></ul>
+<p class="st">F лежит между A и E, поэтому EA складывается из двух кусков:</p>
+<div class="frm st">EA = EF + FA = 3c + a</div>
+<p class="st"><code>P(X)</code> — периметр контура X: обхожу контур карандашом по буквам и складываю отрезки.</p>
+<p class="st"><b>Уравнения из условия.</b> Каждый данный периметр — обход контура по рисунку.</p>
+<figure class='st fx'><div class='fgrid2'><div class='cell'><svg viewBox='-10 0 420 575' role='img' aria-label='Контур ABF'><path fill='none' stroke='#4a5866' stroke-width='2.25' stroke-linecap='round' d='M139.0 40.1L40.0 211.6M139.0 40.1L238.0 211.6M238.0 211.6L40.0 211.6M40.0 211.6L238.0 475.6M238.0 475.6L238.0 211.6M238.0 211.6L348.0 475.6M238.0 475.6L348.0 475.6M238.0 475.6L277.6 528.4M277.6 528.4L348.0 475.6'/><g fill='#93a1b1' font-size='22.8' text-anchor='middle' font-weight='600'><text x='139.0' y='26.1'>D</text><text x='22.0' y='217.6'>E</text><text x='256.0' y='203.6'>C</text><text x='220.0' y='483.6'>F</text><text x='366.0' y='481.6'>B</text><text x='287.6' y='558.4'>A</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2.0s' stroke='#f0a83c' stroke-width='5.00' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M277.6 528.4L348.0 475.6L238.0 475.6L277.6 528.4Z'/><text x='324.8' y='526.4' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.5s'>b</text><text x='293.0' y='464.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.2s'>c</text><text x='241.8' y='522.4' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>a</text></svg><p class='ccap'><b>(1)</b> P(ABF) = 48</p></div><div class='cell'><svg viewBox='-10 0 420 575' role='img' aria-label='Контур CDEF'><path fill='none' stroke='#4a5866' stroke-width='2.25' stroke-linecap='round' d='M139.0 40.1L40.0 211.6M139.0 40.1L238.0 211.6M238.0 211.6L40.0 211.6M40.0 211.6L238.0 475.6M238.0 475.6L238.0 211.6M238.0 211.6L348.0 475.6M238.0 475.6L348.0 475.6M238.0 475.6L277.6 528.4M277.6 528.4L348.0 475.6'/><g fill='#93a1b1' font-size='22.8' text-anchor='middle' font-weight='600'><text x='139.0' y='26.1'>D</text><text x='22.0' y='217.6'>E</text><text x='256.0' y='203.6'>C</text><text x='220.0' y='483.6'>F</text><text x='366.0' y='481.6'>B</text><text x='287.6' y='558.4'>A</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2.0s' stroke='#f0a83c' stroke-width='5.00' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M238.0 211.6L139.0 40.1L40.0 211.6L238.0 475.6L238.0 211.6Z'/><text x='205.8' y='124.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.5s'>3a</text><text x='72.2' y='124.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>3a</text><text x='123.0' y='364.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.4s'>3c</text><text x='258.0' y='352.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>3b</text></svg><p class='ccap'><b>(2)</b> P(CDEF) = 180</p></div><div class='cell'><svg viewBox='-10 0 420 575' role='img' aria-label='Контур ABCF'><path fill='none' stroke='#4a5866' stroke-width='2.25' stroke-linecap='round' d='M139.0 40.1L40.0 211.6M139.0 40.1L238.0 211.6M238.0 211.6L40.0 211.6M40.0 211.6L238.0 475.6M238.0 475.6L238.0 211.6M238.0 211.6L348.0 475.6M238.0 475.6L348.0 475.6M238.0 475.6L277.6 528.4M277.6 528.4L348.0 475.6'/><g fill='#93a1b1' font-size='22.8' text-anchor='middle' font-weight='600'><text x='139.0' y='26.1'>D</text><text x='22.0' y='217.6'>E</text><text x='256.0' y='203.6'>C</text><text x='220.0' y='483.6'>F</text><text x='366.0' y='481.6'>B</text><text x='287.6' y='558.4'>A</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2.0s' stroke='#f0a83c' stroke-width='5.00' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M277.6 528.4L348.0 475.6L238.0 211.6L238.0 475.6L277.6 528.4Z'/><text x='324.8' y='526.4' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.5s'>b</text><text x='311.5' y='344.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>d</text><text x='218.0' y='352.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.4s'>3b</text><text x='241.8' y='522.4' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>a</text></svg><p class='ccap'><b>(3)</b> P(ABCF) = 128, BF внутри</p></div><div class='cell'><svg viewBox='-10 0 420 575' role='img' aria-label='Контур BCF'><path fill='none' stroke='#4a5866' stroke-width='2.25' stroke-linecap='round' d='M139.0 40.1L40.0 211.6M139.0 40.1L238.0 211.6M238.0 211.6L40.0 211.6M40.0 211.6L238.0 475.6M238.0 475.6L238.0 211.6M238.0 211.6L348.0 475.6M238.0 475.6L348.0 475.6M238.0 475.6L277.6 528.4M277.6 528.4L348.0 475.6'/><g fill='#93a1b1' font-size='22.8' text-anchor='middle' font-weight='600'><text x='139.0' y='26.1'>D</text><text x='22.0' y='217.6'>E</text><text x='256.0' y='203.6'>C</text><text x='220.0' y='483.6'>F</text><text x='366.0' y='481.6'>B</text><text x='287.6' y='558.4'>A</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2.0s' stroke='#f0a83c' stroke-width='5.00' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M348.0 475.6L238.0 211.6L238.0 475.6L348.0 475.6Z'/><text x='311.5' y='344.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.5s'>d</text><text x='218.0' y='352.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.2s'>3b</text><text x='293.0' y='504.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>c</text></svg><p class='ccap'><b>(4)</b> P(BCF) = 120</p></div></div><figcaption>Четыре данных контура — четыре уравнения. Буквы a, b, c стоят на сторонах маленького треугольника, их утроения — на длинных отрезках. В (3) и (4) обход идёт одной и той же дорогой B → C → F, а расходится только концовкой.</figcaption></figure>
+<p class="st">Контур ABF: AB, BF, FA.</p>
+<div class="frm st">(1) b + c + a = 48</div>
+<p class="st">Контур CDEF: CD, DE, EF, FC.</p>
+<div class="frm st">(2) 3a + 3a + 3c + 3b = 180</div>
+<p class="st">Контур ABCF: AB, BC, CF, FA; отрезок BF остаётся внутри.</p>
+<div class="frm st">(3) b + d + 3b + a = 128</div>
+<p class="st">Контур BCF: BC, CF, FB.</p>
+<div class="frm st">(4) d + 3b + c = 120</div>
+<p class="st"><b>Что спрошено.</b> Каждый искомый периметр — тоже обход.</p>
+<figure class='st fx'><div class='fgrid2'><div class='cell'><svg viewBox='-10 0 420 575' role='img' aria-label='Контур CDE'><path fill='none' stroke='#4a5866' stroke-width='2.25' stroke-linecap='round' d='M139.0 40.1L40.0 211.6M139.0 40.1L238.0 211.6M238.0 211.6L40.0 211.6M40.0 211.6L238.0 475.6M238.0 475.6L238.0 211.6M238.0 211.6L348.0 475.6M238.0 475.6L348.0 475.6M238.0 475.6L277.6 528.4M277.6 528.4L348.0 475.6'/><g fill='#93a1b1' font-size='22.8' text-anchor='middle' font-weight='600'><text x='139.0' y='26.1'>D</text><text x='22.0' y='217.6'>E</text><text x='256.0' y='203.6'>C</text><text x='220.0' y='483.6'>F</text><text x='366.0' y='481.6'>B</text><text x='287.6' y='558.4'>A</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2.0s' stroke='#f0a83c' stroke-width='5.00' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M238.0 211.6L139.0 40.1L40.0 211.6L238.0 211.6Z'/><text x='205.8' y='124.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.5s'>3a</text><text x='72.2' y='124.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.2s'>3a</text><text x='139.0' y='240.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>3a</text></svg><p class='ccap'>P(CDE)</p></div><div class='cell'><svg viewBox='-10 0 420 575' role='img' aria-label='Контур BCEF'><path fill='none' stroke='#4a5866' stroke-width='2.25' stroke-linecap='round' d='M139.0 40.1L40.0 211.6M139.0 40.1L238.0 211.6M238.0 211.6L40.0 211.6M40.0 211.6L238.0 475.6M238.0 475.6L238.0 211.6M238.0 211.6L348.0 475.6M238.0 475.6L348.0 475.6M238.0 475.6L277.6 528.4M277.6 528.4L348.0 475.6'/><g fill='#93a1b1' font-size='22.8' text-anchor='middle' font-weight='600'><text x='139.0' y='26.1'>D</text><text x='22.0' y='217.6'>E</text><text x='256.0' y='203.6'>C</text><text x='220.0' y='483.6'>F</text><text x='366.0' y='481.6'>B</text><text x='287.6' y='558.4'>A</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2.0s' stroke='#f0a83c' stroke-width='5.00' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M348.0 475.6L238.0 211.6L40.0 211.6L238.0 475.6L348.0 475.6Z'/><text x='311.5' y='344.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.5s'>d</text><text x='139.0' y='200.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.9s'>3a</text><text x='123.0' y='364.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.4s'>3c</text><text x='293.0' y='504.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.9s'>c</text></svg><p class='ccap'>P(BCEF), CF внутри</p></div><div class='cell'><svg viewBox='-10 0 420 575' role='img' aria-label='Контур ABCDE'><path fill='none' stroke='#4a5866' stroke-width='2.25' stroke-linecap='round' d='M139.0 40.1L40.0 211.6M139.0 40.1L238.0 211.6M238.0 211.6L40.0 211.6M40.0 211.6L238.0 475.6M238.0 475.6L238.0 211.6M238.0 211.6L348.0 475.6M238.0 475.6L348.0 475.6M238.0 475.6L277.6 528.4M277.6 528.4L348.0 475.6'/><g fill='#93a1b1' font-size='22.8' text-anchor='middle' font-weight='600'><text x='139.0' y='26.1'>D</text><text x='22.0' y='217.6'>E</text><text x='256.0' y='203.6'>C</text><text x='220.0' y='483.6'>F</text><text x='366.0' y='481.6'>B</text><text x='287.6' y='558.4'>A</text></g><path class='dr' pathLength='100' style='--d:0.2s;--dur:2.0s' stroke='#f0a83c' stroke-width='5.00' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M277.6 528.4L348.0 475.6L238.0 211.6L139.0 40.1L40.0 211.6L238.0 475.6L277.6 528.4Z'/><text x='324.8' y='526.4' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.4s'>b</text><text x='311.5' y='344.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:0.7s'>d</text><text x='205.8' y='124.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.0s'>3a</text><text x='72.2' y='124.3' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.4s'>3a</text><text x='123.0' y='364.0' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:1.7s'>3c</text><text x='241.8' y='522.4' fill='#f0a83c' font-size='24.0' text-anchor='middle' font-weight='600' class='fi' style='--d:2.0s'>a</text></svg><p class='ccap'>P(ABCDE): сторона E → A идёт сквозь F</p></div></div><figcaption>Три спрошенных контура. Последняя сторона ABCDE — от E до A целиком, сквозь F: это 3c + a, а не одно 3c.</figcaption></figure>
+<p class="st">Контур CDE: три стороны по 3a.</p>
+<p class="st">Контур BCEF: B → C → E → F → B, то есть BC, CE, EF, FB; отрезок CF остаётся внутри.</p>
+<p class="st">Контур ABCDE: A → B → C → D → E → A, то есть AB, BC, CD, DE и EA; последняя сторона E → A идёт сквозь F, она равна 3c + a.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
 <div class="frm st">P(CDE) = 3a + 3a + 3a</div>
 <div class="frm st">P(BCEF) = d + 3a + 3c + c</div>
-<div class="frm st">P(ABCDE) = b + d + 3a + 3a + 3c + a</div>
-<ul class="st"><li><code>a</code> — длина AF;</li><li><code>b</code> — длина AB;</li><li><code>c</code> — длина BF;</li><li><code>d</code> — длина BC.</li></ul>
-<p class="st">Ответ = три периметра, расписанные через <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>.</p>
-<p class="st">Осталось найти: <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> — из четырёх данных периметров.</p></div>
-<p class="step st"><b>Шаг 2 — четыре данных периметра, записанные буквами.</b> Каждый контур обхожу карандашом.</p>
-<p class="st">Треугольник ABF: AB, BF, FA —</p>
-<div class="frm st">(1) b + c + a = 48</div>
-<p class="st">Четырёхугольник CDEF: C → D → E → F → C, то есть CD, DE, EF, FC —</p>
-<div class="frm st">(2) 3a + 3a + 3c + 3b = 180</div>
-<p class="st">Четырёхугольник ABCF: A → B → C → F → A, то есть AB, BC, CF, FA (отрезок BF внутри) —</p>
-<div class="frm st">(3) b + d + 3b + a = 128</div>
-<p class="st">Треугольник BCF: BC, CF, FB —</p>
-<div class="frm st">(4) d + 3b + c = 120</div>
-<p class="step st"><b>Шаг 3 — в контуре CDEF спрятан утроенный треугольник ABF.</b> В уравнении (2) стоят 3a, 3b и 3c — это три стороны ABF, каждая взятая трижды, — и сверху ещё одно лишнее 3a. Утроенный треугольник ABF весит</p>
+<div class="frm st">P(ABCDE) = b + d + 3a + 3a + (3c + a)</div>
+<p class="st">Осталось найти: a, b, c, d — из системы (1)–(4).</p></div>
+<h3 class="st">Часть 2 — алгебра: решаем систему</h3>
+<p class="st">Заметь: в (2) стоят 3a, 3b и 3c — это утроенное (1), — и сверху ещё одно лишнее 3a. Утроенное (1):</p>
 <div class="frm st">3a + 3b + 3c = 3 · 48 = 144</div>
-<p class="st">Значит, на лишнее 3a приходится остаток:</p>
+<p class="st">Метод вычитания, (2) − 3 · (1): утроенный треугольник уходит, остаётся лишнее 3a.</p>
 <div class="frm st">3a = 180 − 144 = 36</div>
 <div class="frm st">a = 12</div>
-<p class="step st"><b>Шаг 4 — в (3) и (4) стоит один и тот же кусок d + 3b.</b> Контуры ABCF и BCF оба идут B → C → F (это и есть общий кусок BC + CF), а дальше расходятся — каждый по-своему возвращается в B:</p>
-<p class="st">ABCF: … → F → A → B, кусок a + b</p>
-<p class="st">BCF: … → F → B, кусок c</p>
-<p class="st">Вычитаю (4) из (3) — общий кусок уходит, остаётся разница концовок:</p>
-<div class="frm st">(a + b) − c = 128 − 120 = 8</div>
+<p class="st">В (3) и (4) стоят одни и те же d и 3b: оба контура идут B → C → F, а расходятся только концовкой — ABCF возвращается через A (куски a и b), BCF сразу в B (кусок c). Метод вычитания, (3) − (4): d и 3b уходят.</p>
+<div class="frm st">(5) a + b − c = 8</div>
 <p class="st">Подставляю a = 12:</p>
 <div class="frm st">12 + b − c = 8</div>
-<p class="st">Прибавляю c к обеим частям — «минус c» слева уходит:</p>
-<div class="frm st">12 + b = c + 8</div>
-<p class="st">Слева b вместе с двенадцатью, справа c вместе с восьмёркой, и суммы равны. Восьмёрка на 4 меньше двенадцати — значит, c больше b на 12 − 8 = 4:</p>
-<div class="frm st">c − b = 4</div>
-<p class="step st"><b>Шаг 5 — в треугольнике ABF теперь известна сумма двух остальных сторон.</b> Из уравнения (1):</p>
-<div class="frm st">b + c = 48 − 12 = 36</div>
-<p class="st">Сумма b и c равна 36, и c больше b на 4. Отнимаю лишние 4 — остаются две одинаковые части по b:</p>
-<div class="frm st">b + b = 36 − 4 = 32</div>
+<p class="st">Из 12 + b вычли c и получили 8 — значит, c на 12 − 8 = 4 больше, чем b:</p>
+<div class="frm st">(6) c = b + 4</div>
+<p class="st">(1) с a = 12:</p>
+<div class="frm st">(7) b + c = 36</div>
+<p class="st">Метод подстановки, (6) в (7):</p>
+<div class="frm st">b + (b + 4) = 36</div>
+<div class="frm st">2b = 32</div>
 <div class="frm st">b = 16</div>
-<div class="frm st">c = 16 + 4</div>
-<div class="frm st">c = 20</div>
-<p class="step st"><b>Шаг 6 — в треугольнике BCF неизвестна только сторона BC.</b> В уравнении (4) CF = 3b = 48 и FB = c = 20 уже известны:</p>
-<div class="frm st">d = 120 − 48 − 20</div>
-<div class="frm st">d = 52</div>
-<p class="step st"><b>Шаг 7 — сборка.</b> Подставляю a = 12, b = 16, c = 20, d = 52 в формулы плана. Сначала длинные отрезки: 3a = 36, 3c = 60.</p>
-<ul class="st"><li><b>P(CDE)</b> = 36 + 36 + 36 = <b>108</b></li><li><b>P(BCEF)</b> = 52 + 36 + 60 + 20 = <b>168</b></li><li><b>P(ABCDE)</b> = 16 + 52 + 36 + 36 + 60 + 12 = <b>212</b></li></ul>
-<p class="st">Проверка по данным условия:</p>
-<ul class="st"><li>P(ABF) = 16 + 20 + 12 = 48 ✓</li><li>P(CDEF) = 36 + 36 + 60 + 48 = 180 ✓</li><li>P(ABCF) = 16 + 52 + 48 + 12 = 128 ✓</li><li>P(BCF) = 52 + 48 + 20 = 120 ✓</li></ul>
-<p class="st"><b>⚠ Ловушки.</b> (1) Последняя сторона контура ABCDE — это EA целиком, от E через F до A:</p>
-<div class="frm st">EA = EF + FA = 60 + 12 = 72</div>
-<p class="st">а не только EF = 60. Точка F лежит на этой стороне, и забыть кусок FA — самая частая потеря 12 см. (2) CE = 3AF значит, что CE втрое <b>длиннее</b> AF, а не AF втрое длиннее CE: тройка стоит у короткого отрезка. (3) В контурах BCEF и ABCF внутри остаются разные отрезки: в BCEF — CF, в ABCF — BF.</p>
+<div class="frm st">c = 16 + 4 = 20</div>
+<p class="st">(4), подставляю 3b = 48 и c = 20:</p>
+<div class="frm st">d = 120 − 48 − 20 = 52</div>
+<p class="st"><b>Сборка.</b> Сначала длинные отрезки:</p>
+<ul class="st"><li>3a = <b>36</b></li><li>3c = <b>60</b></li><li>EA = 60 + 12 = <b>72</b></li></ul>
+<p class="st">Подставляю в формулы плана:</p>
+<ul class="st"><li><b>P(CDE)</b> = 36 + 36 + 36 = <b>108</b></li><li><b>P(BCEF)</b> = 52 + 36 + 60 + 20 = <b>168</b></li><li><b>P(ABCDE)</b> = 16 + 52 + 36 + 36 + 72 = <b>212</b></li></ul>
+<p class="st">Проверка подстановкой в (1)–(4):</p>
+<ul class="st"><li>(1): 16 + 20 + 12 = 48 ✓</li><li>(2): 36 + 36 + 60 + 48 = 180 ✓</li><li>(3): 16 + 52 + 48 + 12 = 128 ✓</li><li>(4): 52 + 48 + 20 = 120 ✓</li></ul>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ol class="st num"><li><span class="lin">1.</span> Последняя сторона контура ABCDE — это EA целиком, от E через F до A, то есть 60 + 12 = 72, а не только EF = 60. Точка F лежит на этой стороне, и забыть кусок FA — самая частая потеря 12 см.</li><li><span class="lin">2.</span> CE = 3AF значит, что CE втрое <b>длиннее</b> AF, а не AF втрое длиннее CE: тройка стоит у короткого отрезка.</li><li><span class="lin">3.</span> В контурах BCEF и ABCF внутри остаются разные отрезки: в BCEF — CF, в ABCF — BF.</li></ol>
 <p class="st"><em>Проверка вторым способом: полный перебор целых длин (каждый из девяти отрезков своей переменной, AF и AB до 100, BC до 300) под семь равенств условия и четыре данных периметра дал единственное решение AF = 12, AB = 16, BF = 20, BC = 52 и те же три ответа 108, 168, 212. Кроме того, фигура с этими длинами действительно строится: треугольники ABF (12, 16, 20) и CEF (36, 48, 60) — прямоугольные с пропорцией сторон 3 : 4 : 5, BCF (20, 48, 52) — прямоугольный с пропорцией 5 : 12 : 13, что совпадает с оригинальным чертежом (CF вертикален, FB горизонтален, CE горизонтален), и точка F в этих координатах лежит ровно на прямой AE.</em></p>
 <p class="st"><b>Ответ на задачу:</b> периметр CDE равен <b>108 см</b>, периметр BCEF — <b>168 см</b>, периметр ABCDE — <b>212 см</b>. <em>(официальный ключ ✓ по всем трём)</em></p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Периметры фразы-объяснения не требуют: буквы, равенства и вычитание говорят сами за себя.</em></p>
 <h4 class="st">Запись</h4>
-<div id="a0" data-art="0"><p class="st">Кирпичики: a = AF · b = AB · c = BF · d = BC; CE = CD = DE = 3a, CF = 3b, EF = 3c, EA = 3c + a.</p></div>
-<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<p class="st">Буквы:</p>
+<div id="a4" data-art="4"><ul class="st"><li>a = AF, CE = CD = DE = 3a</li><li>b = AB, CF = 3b</li><li>c = BF, EF = 3c</li><li>d = BC</li><li>EA = 3c + a</li></ul></div>
+<p class="st">Уравнения:</p>
+<div id="a5" data-art="5"><div class="frm st">(1) P(ABF): b + c + a = 48</div></div>
+<div id="a6" data-art="6"><div class="frm st">(2) P(CDEF): 6a + 3b + 3c = 180</div></div>
+<div id="a7" data-art="7"><div class="frm st">(3) P(ABCF): b + d + 3b + a = 128</div></div>
+<div id="a8" data-art="8"><div class="frm st">(4) P(BCF): d + 3b + c = 120</div></div>
+<div id="a11" data-art="11"><div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">P(CDE) = 3a + 3a + 3a</div>
 <div class="frm st">P(BCEF) = d + 3a + 3c + c</div>
-<div class="frm st">P(ABCDE) = b + d + 3a + 3a + 3c + a</div>
-<p class="st">Осталось найти a, b, c, d из P(ABF), P(CDEF), P(ABCF), P(BCF).</p></div></div>
-<div id="a7" data-art="7"><ul class="st"><li>P(CDEF) = 6a + 3b + 3c = 3 · 48 + 3a = 180 → 3a = 36 → <b>a = 12</b></li><li>P(ABCF) − P(BCF) = a + b − c = 128 − 120 = 8 → c − b = 4</li><li>P(ABF): b + c = 48 − 12 = 36 → <b>b = 16</b>, <b>c = 20</b></li><li>P(BCF) = d + 3b + c = 120 → <b>d = 120 − 48 − 20 = 52</b></li></ul></div>
-<div id="a8" data-art="8"><div class="frm st">P(CDE) = 36 + 36 + 36 = 108</div></div>
-<div id="a9" data-art="9"><div class="frm st">P(BCEF) = 52 + 36 + 60 + 20 = 168</div></div>
-<div id="a10" data-art="10"><div class="frm st">P(ABCDE) = 16 + 52 + 36 + 36 + 72 = 212</div></div>
-<p class="st">Проверка сложением: P(ABF) = 16 + 20 + 12 = 48 ✓; P(CDEF) = 36 + 36 + 60 + 48 = 180 ✓; P(ABCF) = 16 + 52 + 48 + 12 = 128 ✓; P(BCF) = 52 + 48 + 20 = 120 ✓</p>
+<div class="frm st">P(ABCDE) = b + d + 3a + 3a + (3c + a)</div></div></div>
+<p class="st">Решение:</p>
+<div id="a16" data-art="16"><ul class="st"><li>(2) − 3 · (1): 3a = 180 − 144 = 36 → <b>a = 12</b></li><li>(3) − (4): (5) a + b − c = 8 → (6) c = b + 4</li><li>(1): (7) b + c = 36</li><li>(6) в (7): 2b = 32 → <b>b = 16</b>, <b>c = 20</b></li><li>(4): d = 120 − 48 − 20 → <b>d = 52</b></li></ul></div>
+<div id="a17" data-art="17"><div class="frm st">P(CDE) = 36 + 36 + 36 = 108</div></div>
+<div id="a18" data-art="18"><div class="frm st">P(BCEF) = 52 + 36 + 60 + 20 = 168</div></div>
+<div id="a19" data-art="19"><div class="frm st">P(ABCDE) = 16 + 52 + 36 + 36 + 72 = 212</div></div>
+<p class="st">Проверка сложением:</p>
+<div id="a23" data-art="23"><ul class="st"><li>(1): 16 + 20 + 12 = 48 ✓</li><li>(2): 36 + 36 + 60 + 48 = 180 ✓</li><li>(3): 16 + 52 + 48 + 12 = 128 ✓</li><li>(4): 52 + 48 + 20 = 120 ✓</li></ul></div>
 <div class="pager"><a href="01-1-kopilka-havera-na-365-dney-t1-cikl-celye-krugi.html">← №1 — копилка Хавьера на 365 дней (Т1″: цикл — целые круги + хвост, переломный день)</a><a href="03-3-krasnaya-i-sinyaya-fishki-na-doske-4-4-bez-kas.html">№3 — красная и синяя фишки на доске 4×4 без касания (Т3′: карта соседей + пачки клеток) →</a></div>
 </main>
 </div>
