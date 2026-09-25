@@ -278,7 +278,7 @@
 <ul class="st"><li><code>g</code> — сколько больших пакетов продали;</li><li><code>m</code> — сколько средних пакетов, и столько же маленьких;</li><li><code>N(больших красных)</code>, <code>N(средних красных)</code>, <code>N(маленьких красных)</code> — сколько пакетов каждого размера с красным чаем.</li></ul>
 <p class="st">Осталось найти:</p>
 <ul class="st"><li><code>g</code> и <code>m</code> — из двух итогов задачи, 117 пакетов и 13 500 граммов;</li><li>три числа <code>N(… красных)</code> — по долям, когда <code>g</code> и <code>m</code> станут числами.</li></ul></div>
-<p class="step st"><b>Шаг 2 — перевод: в условии два итога, и каждый говорит про все пакеты сразу.</b> «Всего 117 пакетов» и «всего 13 500 граммов» — каждая фраза про весь товар целиком, а такая фраза записывается равенством.</p>
+<p class="step st"><b>Шаг 2 — считаем <code>g</code> и <code>m</code>.</b> Их дают два итога задачи: «всего 117 пакетов» и «всего 13 500 граммов» — каждая фраза про весь товар целиком, а такая фраза записывается равенством.</p>
 <p class="st"><em>💬 Называем буквами то, чего не знаем, и каждое данное записываем равенством — это и есть мысль для фразы-объяснения.</em></p>
 <p class="st">Первый итог — штуки: больших <code>g</code>, средних <code>m</code>, маленьких тоже <code>m</code>.</p>
 <div class="frm st">g + m + m = 117</div>
@@ -287,7 +287,7 @@
 <div class="frm st">250 · g + 100 · m + 50 · m = 13500</div>
 <div class="frm st">(2)  250 · g + 150 · m = 13500</div>
 <p class="st">Проверка перевода: неизвестных две — <code>g</code> и <code>m</code>; уравнений тоже два ✓. Уравнение (1) считает штуки, (2) — граммы ✓.</p>
-<p class="step st"><b>Шаг 3 — считаем <code>g</code> и <code>m</code>: решаю систему.</b> Все числа уравнения (2) делятся на 50 — сначала упрощаю его:</p>
+<p class="st">Теперь решаю систему. Все числа уравнения (2) делятся на 50 — сначала упрощаю его:</p>
 <p class="st">(2′)  5 · g + 3 · m = 270</p>
 <p class="st">Из (1) выражаю <code>g</code> через <code>m</code>:</p>
 <div class="frm st">g = 117 − 2 · m</div>
@@ -303,7 +303,7 @@
 <p class="st">граммов:</p>
 <p class="st">27 · 250 + 45 · 100 + 45 · 50 = 6750 + 4500 + 2250 = 13500 ✓</p>
 <p class="st">→ <b>27 больших, 45 средних, 45 маленьких</b> — первый вопрос закрыт.</p>
-<p class="step st"><b>Шаг 4 — считаем три числа <code>N(… красных)</code>: доли по готовым количествам.</b> Количества пакетов есть — теперь доли становятся числами. Красные — это все, кто не попал в «чёрную» или «зелёную» долю.</p>
+<p class="step st"><b>Шаг 3 — считаем три числа <code>N(… красных)</code>: доли по готовым количествам.</b> Количества пакетов есть — теперь доли становятся числами. Красные — это все, кто не попал в «чёрную» или «зелёную» долю.</p>
 <ul class="st"><li>Большие: чёрных 2/3 от 27, и это целое число ✓ (27 делится на 3):</li></ul>
 <div class="frm st">(2/3) · 27 = 18</div>
 <div class="frm st">N(больших красных) = 27 − 18 = 9</div>
@@ -314,7 +314,7 @@
 <div class="frm st">N(средних красных) = 45</div>
 <p class="st">⚠ <b>Ловушка.</b> Кто забудет, что у средних долей нет вовсе, и выкинет их из подсчёта, получит 2700 г вместо 7200 г.</p>
 <figure class="st"><svg viewBox="0 0 560 160" width="100%"  xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="96" y="44" fill="#cfdae6" font-size="13" text-anchor="end" font-weight="400">большие 27</text><rect x="104" y="26" width="108.0" height="26" fill="#2c394c" fill-opacity=".55" stroke="#2c394c"/><text x="158.0" y="44" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">чёрный 18</text><rect x="212.0" y="26" width="54.0" height="26" fill="var(--red)" fill-opacity=".65" stroke="var(--red)"/><text x="239.0" y="44" fill="#ffe3e4" font-size="12" text-anchor="middle" font-weight="400">красный 9</text><text x="278.0" y="44" fill="#cfdae6" font-size="13" text-anchor="start" font-weight="400">9 · 250 = 2250 г</text><text x="96" y="90" fill="#cfdae6" font-size="13" text-anchor="end" font-weight="400">средние 45</text><rect x="104.0" y="72" width="270.0" height="26" fill="var(--red)" fill-opacity=".65" stroke="var(--red)"/><text x="239.0" y="90" fill="#ffe3e4" font-size="12" text-anchor="middle" font-weight="400">красный 45</text><text x="386.0" y="90" fill="#cfdae6" font-size="13" text-anchor="start" font-weight="400">45 · 100 = 4500 г</text><text x="96" y="136" fill="#cfdae6" font-size="13" text-anchor="end" font-weight="400">маленькие 45</text><rect x="104" y="118" width="216.0" height="26" fill="var(--green)" fill-opacity=".55" stroke="#2c394c"/><text x="212.0" y="136" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">зелёный 36</text><rect x="320.0" y="118" width="54.0" height="26" fill="var(--red)" fill-opacity=".65" stroke="var(--red)"/><text x="347.0" y="136" fill="#ffe3e4" font-size="12" text-anchor="middle" font-weight="400">красный 9</text><text x="386.0" y="136" fill="#cfdae6" font-size="13" text-anchor="start" font-weight="400">9 · 50 = 450 г</text></svg><figcaption>Красное — всё, что не отрезано ни чёрной, ни зелёной долей. У средних доли не названо ни одной, поэтому красным достаётся весь их ряд целиком, а не ноль.</figcaption></figure>
-<p class="step st"><b>Шаг 5 — сборка.</b> Все три числа плана найдены — подставляю в формулу второго ответа:</p>
+<p class="step st"><b>Шаг 4 — сборка.</b> Все три числа плана найдены — подставляю в формулу второго ответа:</p>
 <div class="frm st">Ответ 2 = 250 · 9 + 100 · 45 + 50 · 9</div>
 <div class="frm st">Ответ 2 = 2250 + 4500 + 450 = 7200</div>
 <p class="st">Проверка вторым способом: полный перебор всех троек (большие, средние, маленькие) от 0 до 117 при условиях «117 пакетов», «13 500 г», «средних = маленьких» даёт единственную тройку 27, 45, 45 и 7200 г красного чая; совпадает с официальным ключом.</p>
