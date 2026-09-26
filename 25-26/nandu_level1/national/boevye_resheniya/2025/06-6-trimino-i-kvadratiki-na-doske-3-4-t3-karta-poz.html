@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -267,6 +274,23 @@
   <p class="sub">Национальный этап 2025 — боевые решения</p>
 <div class="card task st"><span class="tag">Условие</span><p>Эми хочет разложить фишки на доске, изображённой на рисунке (3 строки по 4 клетки). У неё есть две прямоугольные фишки — одна красная, другая синяя — и две квадратные зелёные фишки. Каждая прямоугольная фишка закрывает три клетки доски, а каждая квадратная — одну клетку. Уточнение: прямоугольную фишку можно положить горизонтально или вертикально. Сколькими различными способами она может положить фишки на доску? Объясни, как ты их считал.</p></div>
 <figure class="st"><svg viewBox="0 0 470 172" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="30" y="20" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="70" y="20" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="110" y="20" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="150" y="20" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="30" y="60" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="70" y="60" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="110" y="60" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="150" y="60" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="30" y="100" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="70" y="100" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="110" y="100" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><rect x="150" y="100" width="40" height="40" fill="#161d29" stroke="var(--muted)" stroke-width="1.5"/><text x="110" y="160" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">доска: 3 строки × 4 столбца</text><rect x="250" y="24" width="96" height="32" rx="3" fill="var(--red)" fill-opacity=".35" stroke="var(--red)" stroke-width="1.5"/><text x="360" y="45" fill="var(--red)" font-size="13" text-anchor="start" font-weight="400">красная</text><rect x="250" y="66" width="96" height="32" rx="3" fill="var(--blue)" fill-opacity=".35" stroke="var(--blue)" stroke-width="1.5"/><text x="360" y="87" fill="var(--blue)" font-size="13" text-anchor="start" font-weight="400">синяя</text><rect x="250" y="108" width="32" height="32" rx="3" fill="var(--green)" fill-opacity=".35" stroke="var(--green)" stroke-width="1.5"/><rect x="294" y="108" width="32" height="32" rx="3" fill="var(--green)" fill-opacity=".35" stroke="var(--green)" stroke-width="1.5"/><text x="360" y="129" fill="var(--green)" font-size="13" text-anchor="start" font-weight="400">две зелёные</text><text x="298" y="160" fill="var(--muted)" font-size="13" text-anchor="middle" font-weight="400">фишки (каждая лежит по клеткам)</text></svg><figcaption>Доска из условия — по оригинальному листу тура: 3 строки по 4 клетки. Прямоугольная фишка закрывает три клетки в ряд и может лежать как горизонтально, так и вертикально.</figcaption></figure>
+<div class="tldr st"><span class="tag">⚡ Коротко</span>
+<p class="st"><b>Идея.</b> Два тримино занимают 6 клеток, и свободных клеток при любой раскладке ровно 6. Поэтому выбор мест для тримино и выбор клеток для квадратиков независимы, и числа перемножаются:</p>
+<div class="frm st">N = N(пар мест) · 2 · N(пар клеток)</div>
+<p class="st">Здесь N(пар мест) — пары непересекающихся мест для тримино без учёта цвета, 2 — какое из мест красное, N(пар клеток) — пары свободных клеток под одинаковые зелёные квадратики.</p>
+<p class="st"><b>1. Позиции одного тримино.</b> Горизонтальных 3 · 2 = 6 (в строке из 4 клеток — клетки 1–3 или 2–4). Вертикальных 4: высота доски 3, и тримино занимает столбец целиком. Итого 10.</p>
+<p class="st"><b>2. Пары мест.</b> По расположению тримино:</p>
+<ul class="st"><li>оба горизонтальные — только в разных строках (в одной строке позиции 1–3 и 2–4 пересекаются): три пары строк, в каждой строке по 2 позиции;</li></ul>
+<div class="frm st">3 · 2 · 2 = 12</div>
+<ul class="st"><li>оба вертикальные — два разных столбца из четырёх: 6;</li><li>горизонтальное и вертикальное — горизонтальное на клетках 1–3 оставляет свободным только столбец 4, на клетках 2–4 — только столбец 1: по одному на каждое из 6 горизонтальных, 6.</li></ul>
+<p class="st">Всего пар мест:</p>
+<div class="frm st">12 + 6 + 6 = 24</div>
+<p class="st"><b>3. Пары клеток.</b> Сочетания из 6 свободных клеток по 2:</p>
+<div class="frm st">6 · 5 : 2 = 15</div>
+<p class="st"><b>Сборка.</b></p>
+<div class="frm st">N = 24 · 2 · 15 = 720</div>
+<p class="st"><b>Ответ.</b> 720 способов.</p>
+<p class="st"><b>⚠ Ловушки.</b> Забыть, что тримино разного цвета (выйдет 360). Считать зелёные квадратики различимыми (выйдет 1440). Официальный ключ даёт 6480 — это ошибка ключа: перебор по оригинальной доске 3×4 даёт 720.</p></div>
 <p class="st"><b>🔍 С чего начать.</b> <b>Жанр ответа (ритуал Д6)?</b> «Сколькими способами» плюс «объясни, как считал» — это <b>число с объяснением</b>, не список: картинки не выписываем, а умножаем и складываем. <b>Что здесь один способ?</b> Расположение всех четырёх фишек сразу, без наложений. <b>Различимы ли фишки?</b> Прямоугольные — да (красная и синяя), квадратики — <b>нет</b> (оба зелёные). Это две разные арифметики в одной задаче.</p>
 <p class="st">Прямоугольную фишку 1×3 дальше зовём <b>тримино</b> — полоска из трёх клеток в ряд.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Два тримино всегда съедают ровно 6 клеток, значит свободных клеток <b>всегда ровно 12 − 6 = 6</b>, как бы тримино ни легли. Сами свободные клетки при разных раскладках разные, но их <b>число</b> одно и то же — а значит, и число способов посадить на них квадратики одно и то же. Поэтому раскладку тримино и выбор клеток под квадратики можно считать отдельно и перемножить.</p></div>

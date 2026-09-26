@@ -144,7 +144,41 @@ def render_table(src):
     out.append('</table></div>')
     return '\n'.join(out)
 
+TLDR_HEAD = re.compile(r'^\*\*⚡ ?Коротко')
+
+def is_tldr(src):
+    return bool(TLDR_HEAD.match(src.strip()))
+
+def render_tldr(src, visuals=None, used=None):
+    """Блок «⚡ Коротко» — конспект решения под условием.
+
+    Карточки (Идея, Шаг) внутри не раскрываются: блок — сам по себе карточка,
+    вложенная рамка в рамке только шумит. Иллюстрации ставятся по якорю внутрь
+    блока — рисунок с буквами принадлежит конспекту, а не разбору под ним.
+    """
+    out = []
+    for k, v in parse(src):
+        if k == 'p' and TLDR_HEAD.match(v):
+            out.append('<span class="tag">⚡ Коротко</span>')
+            continue
+        if k == 'p' and re.fullmatch(r'\*[^*].*[^*]\*', v.strip()):
+            # подпись-источник над уравнением: откуда в условии оно взято
+            out.append(f'<p class="src st">{inline(v)}</p>')
+        elif k == 'p' and not is_formula(v):
+            out.append(f'<p class="st">{inline(v)}</p>')
+        else:
+            out.append(render_block((k, v)))
+        if visuals is not None:
+            key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v)).strip()
+            for anchor, figure in visuals.items():
+                if anchor in key and anchor not in used:
+                    used.add(anchor)
+                    out.append(figure)
+    return '<div class="tldr st">' + '\n'.join(out) + '</div>'
+
 def render_quote(src):
+    if is_tldr(src):
+        return render_tldr(src)
     cls = 'plan' if '✅' in src else 'note'
     inner = []
     for blk in parse(src):
@@ -592,6 +626,9 @@ def build_pages(md, visuals=None, src_path=None):
         # 2) одна сборка тела: разметка + якоря артефактов + иллюстрации
         body = []
         for idx, (k, v) in enumerate(c['blocks']):
+            if k == 'quote' and is_tldr(v):
+                body.append(render_tldr(v, visuals, used))
+                continue
             h = render_block((k, v))
             if idx in at:
                 h = f'<div id="a{at[idx]}" data-art="{at[idx]}">{h}</div>'

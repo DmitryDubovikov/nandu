@@ -38,4 +38,5 @@ for y in sys.argv[1:]:
     print(y, 'check rc =', c.returncode, tail)
     rc |= c.returncode | r.returncode
 subprocess.run([sys.executable, os.path.join(M, 'obshchiy_index.py')])
+subprocess.run([sys.executable, os.path.join(M, 'tldr_stranica.py')])
 sys.exit(rc)
