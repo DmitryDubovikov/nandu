@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -267,6 +274,33 @@
   <h1>№4 — напитки для праздника <em>(Т1′: доля от известного итога + метод вычитания)</em></h1>
   <p class="sub">Национальный этап 2023 — боевые решения</p>
 <div class="card task st"><span class="tag">Условие</span><p>Для праздника купили напитки четырёх видов: обычную газировку <em>(gaseosa común)</em>, газировку без сахара <em>(gaseosa sin azúcar)</em>, лимонад <em>(limonada)</em> и воду <em>(agua)</em> — всё в бутылках по 1 литру. Всего купили 120 литров, и две трети из них были не водой. Цена одной бутылки: обычная газировка — 120 песо, газировка без сахара — 144 песо, лимонад — 72 песо, вода — 24 песо. За газировки заплатили 7440 песо, а всего на напитки потратили 10 200 песо. Сколько бутылок каждого вида купили?</p></div>
+<div class="tldr st"><span class="tag">⚡ Коротко</span>
+<p class="st"><b>Идея.</b> «Две трети — не вода» — это доля от известного итога 120 литров, поэтому вода находится сразу: оставшаяся треть. А обе газировки входят в данные только вместе, одним куском «за газировки 7440 песо», и тот же кусок сидит внутри общих 10 200 песо. Разность 10 200 − 7440 — деньги за лимонад и воду, а вода уже известна.</p>
+<figure class="st"><svg viewBox="0 0 660 224" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="100.0" y="50.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">литры</text><rect x="110.0" y="30.0" width="333.3" height="32.0" rx="0" fill="#5ba8f5" fill-opacity=".3" stroke="#5ba8f5"/><text x="276.7" y="51.0" fill="#dceaff" font-size="13" font-weight="400" text-anchor="middle">не вода — 2/3: 80</text><rect x="443.3" y="30.0" width="166.7" height="32.0" rx="0" fill="#f0a83c" fill-opacity=".4" stroke="#f0a83c"/><text x="526.7" y="51.0" fill="#f3e3b8" font-size="13" font-weight="600" text-anchor="middle">вода — 1/3: 40</text><text x="616.0" y="51.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="start">120</text><text x="100.0" y="120.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">песо</text><rect x="110.0" y="100.0" width="364.7" height="32.0" rx="0" fill="#5ba8f5" fill-opacity=".3" stroke="#5ba8f5"/><text x="292.4" y="121.0" fill="#dceaff" font-size="13" font-weight="400" text-anchor="middle">обе газировки: 7440</text><rect x="474.7" y="100.0" width="88.2" height="32.0" rx="0" fill="#5fd38d" fill-opacity=".35" stroke="#5fd38d"/><text x="518.8" y="121.0" fill="#d8f5e3" font-size="12" font-weight="400" text-anchor="middle">1800</text><rect x="562.9" y="100.0" width="47.1" height="32.0" rx="0" fill="#f0a83c" fill-opacity=".4" stroke="#f0a83c"/><text x="586.5" y="121.0" fill="#f3e3b8" font-size="12" font-weight="400" text-anchor="middle">960</text><text x="616.0" y="121.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="start">10 200</text><text x="518.8" y="148.0" fill="#5fd38d" font-size="12" font-weight="600" text-anchor="middle">лимонад</text><text x="586.5" y="148.0" fill="#f0a83c" font-size="12" font-weight="600" text-anchor="middle">вода</text><path d="M474.7 156.0 V162.0 H610.0 V156.0" fill="none" stroke="#93a1b1" stroke-width="1.3"/><text x="542.4" y="180.0" fill="#e8eef6" font-size="13" font-weight="400" text-anchor="middle">10 200 − 7440 = 2760</text><text x="110.0" y="212.0" fill="#e8eef6" font-size="13" font-weight="400" text-anchor="start">вода: 24 · 40 = 960;  лимонад: 2760 − 960 = 1800, это 1800 : 72 = 25 бутылок</text></svg><figcaption>Верхняя полоса: доля взята от известных 120 литров, поэтому <b style="color:#f0a83c">вода</b> — сразу 40 бутылок. Нижняя: кусок «обе газировки» стоит внутри общих 10 200 целиком, и после вычитания остаются только лимонад и вода.</figcaption></figure>
+<p class="st"><b>1. Уравнения.</b> c, s — бутылок обычной газировки и газировки без сахара, lim — лимонада, ag — воды; бутылки литровые, так что литры и бутылки — одно число.</p>
+<p class="src st"><em>«всего купили 120 литров»</em></p>
+<div class="frm st">c + s + lim + ag = 120</div>
+<p class="src st"><em>«две трети из них были не водой» — значит, вода — оставшаяся треть</em></p>
+<div class="frm st">ag = 120 : 3 = 40</div>
+<p class="src st"><em>«за газировки заплатили 7440 песо»</em></p>
+<div class="frm st">120 · c + 144 · s = 7440</div>
+<p class="src st"><em>«всего на напитки потратили 10 200 песо»</em></p>
+<div class="frm st">120 · c + 144 · s + 72 · lim + 24 · ag = 10200</div>
+<p class="st"><b>2. Лимонад.</b> Третье уравнение, вычтенное из четвёртого, исключает сразу обе газировки (метод вычитания):</p>
+<div class="frm st">72 · lim + 24 · 40 = 2760</div>
+<div class="frm st">72 · lim = 2760 − 960 = 1800</div>
+<div class="frm st">lim = 1800 : 72 = 25</div>
+<p class="st"><b>3. Газировки.</b> Из первого уравнения</p>
+<div class="frm st">c + s = 55</div>
+<p class="st">а третье, сокращённое на 24, —</p>
+<div class="frm st">5 · c + 6 · s = 310</div>
+<p class="st">Удобнее всего, пожалуй, подстановка: из первого</p>
+<div class="frm st">c = 55 − s</div>
+<p class="st">и во втором остаётся</p>
+<div class="frm st">275 + s = 310</div>
+<p class="st">Годится и метод вычитания: первое, умноженное на 5, вычитается из второго и сразу исключает c. Итог: s = 35, c = 20.</p>
+<p class="st"><b>Ответ.</b> 20 бутылок обычной газировки, 35 — газировки без сахара, 25 — лимонада, 40 — воды.</p>
+<p class="st"><b>⚠ Ловушки.</b> Принять за воду две трети, 80 литров: для лимонада останется 72 · lim = 840, а 840 на 72 нацело не делится. Засчитать лимонад в «газировки»: он в 7440 песо не входит.</p></div>
 <p class="st">Вопрос один, но ответ — четыре числа: обычная газировка, газировка без сахара, лимонад и вода (ритуал 1 — ответь на все вопросы: подчеркнул в вопросе все четыре).</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Данные задачи не надо решать все разом — они развязываются по одному. «Две трети — не вода» — это доля не от неизвестного количества, а от <b>известного итога</b> 120 литров, поэтому вода находится сразу, без других букв. А обе газировки встречаются в данных только <b>вместе</b>, одним куском «за газировки 7440 песо», и этот же кусок сидит внутри общих 10 200 песо. Если вычесть, газировки исчезнут обе сразу, и в деньгах останутся лимонад и вода — а вода уже известна. Так и идём: вода → лимонад → две газировки.</p></div>
 <p class="step st"><b>Шаг 1 — план.</b> Неизвестных четыре — сколько бутылок каждого вида. Бутылка литровая, поэтому «литров» и «бутылок» — одно и то же число. Имена беру по испанским словам условия:</p>

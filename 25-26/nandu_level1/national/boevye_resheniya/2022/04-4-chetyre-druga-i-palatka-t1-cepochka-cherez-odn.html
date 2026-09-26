@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -270,6 +277,30 @@
   <h1>№4 — четыре друга и палатка <em>(Т1: цепочка через одну букву + доля от неизвестной цены)</em></h1>
   <p class="sub">Национальный этап 2022 — боевые решения</p>
 <div class="card task st"><span class="tag">Условие</span><p>Четверо друзей — Альдо, Бруно, Карлос и Дани — хотят купить палатку <em>(carpa)</em> к следующим каникулам. У Бруно на 3000 песо больше, чем у Альдо. У Карлоса половина того, что есть у Альдо и Бруно вместе. У Дани половина того, что есть у Бруно и Карлоса вместе. У всех четверых вместе 40 950 песо, и это 9/10 того, сколько стоит палатка. Сколько песо у каждого из четверых друзей? Сколько стоит палатка? Если разделить расходы на покупку поровну, хватит ли кому-нибудь из них своих денег, чтобы заплатить свою часть?</p></div>
+<div class="tldr st"><span class="tag">⚡ Коротко</span>
+<p class="st"><b>Идея.</b> Друзья заданы <b>цепочкой</b>: Бруно — через Альдо, Карлос — через Альдо и Бруно, Дани — через Бруно и Карлоса. Каждого можно достроить по очереди, и у каждого выходит «столько же, сколько у Альдо» плюс свой <b>хвост</b> — поэтому неизвестная по сути одна. Цена палатки в цепочку не входит: она связана только с общей суммой.</p>
+<p class="st"><b>1. Уравнения.</b> ald, b, c, d — песо у Альдо, Бруно, Карлоса и Дани; p — цена палатки.</p>
+<p class="src st"><em>«у Бруно на 3000 песо больше, чем у Альдо»</em></p>
+<div class="frm st">b = ald + 3000</div>
+<p class="src st"><em>«у Карлоса половина того, что у Альдо и Бруно вместе»</em></p>
+<div class="frm st">c = (ald + b) : 2</div>
+<p class="src st"><em>«у Дани половина того, что у Бруно и Карлоса вместе»</em></p>
+<div class="frm st">d = (b + c) : 2</div>
+<p class="src st"><em>«у всех четверых вместе 40 950 песо»</em></p>
+<div class="frm st">ald + b + c + d = 40950</div>
+<p class="src st"><em>«и это 9/10 того, сколько стоит палатка»</em></p>
+<div class="frm st">(9/10) · p = 40950</div>
+<p class="st"><b>Как решать.</b> Система — цепочка: каждое уравнение выражает следующего друга через предыдущих, поэтому метод выбирать не приходится — подстановка по порядку. Хвосты Карлоса и Дани:</p>
+<div class="frm st">c = ald + 1500</div>
+<div class="frm st">d = ald + 2250</div>
+<p class="st">и сумма становится уравнением с одной буквой:</p>
+<div class="frm st">4 · ald + 6750 = 40950</div>
+<p class="st">Итог: ald = 8550, b = 11 550, c = 10 050, d = 10 800.</p>
+<p class="st"><b>2. Цена.</b> Девять десятых цены — 40 950 песо, одна десятая — 40950 : 9 = 4550, вся цена — 45 500 песо.</p>
+<p class="st"><b>3. Части поровну.</b> Часть каждого — 45500 : 4 = 11375. Больше этого только у Бруно: 11 550, и остаётся 175 песо. У Альдо, Карлоса и Дани меньше.</p>
+<figure class="st"><svg viewBox="0 0 660 236" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="90.0" y="54.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">Альдо</text><rect x="100.0" y="34.0" width="150.0" height="28.0" rx="0" fill="#93a1b1" fill-opacity=".2" stroke="#93a1b1"/><path d="M170.0 31 l5 8 l-5 8 l5 8 l-5 8" fill="none" stroke="#93a1b1" stroke-width="1.2"/><text x="199.0" y="53.0" fill="#e8eef6" font-size="13" font-weight="400" text-anchor="middle">ald</text><text x="514.2" y="53.0" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="start">8550</text><text x="90.0" y="96.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">Бруно</text><rect x="100.0" y="76.0" width="150.0" height="28.0" rx="0" fill="#93a1b1" fill-opacity=".2" stroke="#93a1b1"/><path d="M170.0 73 l5 8 l-5 8 l5 8 l-5 8" fill="none" stroke="#93a1b1" stroke-width="1.2"/><text x="199.0" y="95.0" fill="#e8eef6" font-size="13" font-weight="400" text-anchor="middle">ald</text><rect x="250.0" y="76.0" width="254.2" height="28.0" rx="0" fill="#f0a83c" fill-opacity=".4" stroke="#f0a83c"/><rect x="504.2" y="76.0" width="15.8" height="28.0" rx="0" fill="#5fd38d" fill-opacity=".5" stroke="#5fd38d"/><text x="385.0" y="95.0" fill="#f3e3b8" font-size="12" font-weight="600" text-anchor="middle">+3000</text><text x="530.0" y="95.0" fill="#5fd38d" font-size="13" font-weight="600" text-anchor="start">11 550</text><text x="90.0" y="138.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">Карлос</text><rect x="100.0" y="118.0" width="150.0" height="28.0" rx="0" fill="#93a1b1" fill-opacity=".2" stroke="#93a1b1"/><path d="M170.0 115 l5 8 l-5 8 l5 8 l-5 8" fill="none" stroke="#93a1b1" stroke-width="1.2"/><text x="199.0" y="137.0" fill="#e8eef6" font-size="13" font-weight="400" text-anchor="middle">ald</text><rect x="250.0" y="118.0" width="135.0" height="28.0" rx="0" fill="#f0a83c" fill-opacity=".4" stroke="#f0a83c"/><text x="317.5" y="137.0" fill="#f3e3b8" font-size="12" font-weight="600" text-anchor="middle">+1500</text><text x="514.2" y="137.0" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="start">10 050</text><text x="90.0" y="180.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">Дани</text><rect x="100.0" y="160.0" width="150.0" height="28.0" rx="0" fill="#93a1b1" fill-opacity=".2" stroke="#93a1b1"/><path d="M170.0 157 l5 8 l-5 8 l5 8 l-5 8" fill="none" stroke="#93a1b1" stroke-width="1.2"/><text x="199.0" y="179.0" fill="#e8eef6" font-size="13" font-weight="400" text-anchor="middle">ald</text><rect x="250.0" y="160.0" width="202.5" height="28.0" rx="0" fill="#f0a83c" fill-opacity=".4" stroke="#f0a83c"/><text x="351.2" y="179.0" fill="#f3e3b8" font-size="12" font-weight="600" text-anchor="middle">+2250</text><text x="514.2" y="179.0" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="start">10 800</text><line x1="504.2" y1="18.0" x2="504.2" y2="202.0" stroke="#f2686c" stroke-width="2" stroke-dasharray="5 4"/><text x="544.2" y="12.0" fill="#f2686c" font-size="12" font-weight="600" text-anchor="end">часть каждого: 45 500 : 4 = 11 375</text><text x="100.0" y="224.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="start">серый кусок ald = 8550 — одинаковый у всех (сжат, не в масштабе)</text></svg><figcaption>У каждого — кусок «как у Альдо» и свой <b style="color:#f0a83c">хвост</b>: 3000, 1500, 2250. Вместе 4 · ald + 6750 = 40 950, откуда ald = 8550. Красная черта — часть каждого при делении поровну; за неё выходит только <b style="color:#5fd38d">Бруно</b>, на 175 песо.</figcaption></figure>
+<p class="st"><b>Ответ.</b> У Альдо 8550 песо, у Бруно 11 550, у Карлоса 10 050, у Дани 10 800; палатка стоит 45 500 песо; при делении поровну (по 11 375 песо) своих денег хватает только Бруно.</p>
+<p class="st"><b>⚠ Ловушки.</b> Взять 9/10 от 40 950 вместо «40 950 — это 9/10 цены»: цена выйдет 36 855 — меньше денег друзей. У Дани половина от Бруно и Карлоса, а не от Альдо и Бруно; при такой ошибке у Альдо выйдет нецелое 8737,5. Вопрос «хватит ли кому-нибудь», а не «хватит ли всем»: ответ «нет» неверен — Бруно хватает.</p></div>
 <p class="st">Вопросов три, и первый требует четырёх чисел: сколько у Альдо, у Бруно, у Карлоса и у Дани (ритуал 1 — подчеркнул все три вопроса).</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Друзья описаны <b>цепочкой</b>: Бруно — через Альдо, Карлос — через Альдо и Бруно, Дани — через Бруно и Карлоса. Никто не описан через того, кто идёт после него. Значит, если знать деньги Альдо, всех остальных можно достроить по очереди, одного за другим. Поэтому по-настоящему неизвестное число среди друзей одно — деньги Альдо; остальные трое — это выражения через него, и общая сумма 40 950 станет уравнением с одной буквой. Цена палатки в эту цепочку не входит: она связана только с общей суммой, и её считаем отдельно.</p></div>
 <p class="step st"><b>Шаг 1 — план.</b> Неизвестных пять — деньги четырёх друзей и цена палатки. Имена беру по испанским словам условия:</p>

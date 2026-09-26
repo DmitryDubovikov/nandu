@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -265,6 +272,33 @@
   <h1>№1 — четыре девочки копят на каникулы <em>(Т1: цепочка через последнюю букву, метод подстановки)</em></h1>
   <p class="sub">Национальный этап 2017 — боевые решения</p>
 <div class="card task st"><span class="tag">Условие</span><p>Агустина, Камила, Хуана и Мора копят деньги на каникулы. Сегодня Пабло спросил их, сколько у них есть. Вот что они ответили. <b>Агустина:</b> «Мне не хватает 10 песо, чтобы у меня было вдвое больше, чем у Камилы». <b>Камила:</b> «Мне не хватает 20 песо, чтобы у меня было втрое больше, чем у Хуаны». <b>Хуана:</b> «Мне не хватает 30 песо, чтобы у меня было вчетверо больше, чем у Моры». <b>Мора:</b> «У нас четверых вместе 2500 песо». Сколько песо у каждой из них?</p></div>
+<div class="tldr st"><span class="tag">⚡ Коротко</span>
+<p class="st"><b>Идея.</b> Девочки связаны <b>цепочкой</b>: Агустина описана через Камилу, Камила — через Хуану, Хуана — через Мору, а Мора ни через кого. Поэтому все выражаются через деньги Моры, и общая сумма 2500 становится уравнением с одной буквой.</p>
+<p class="st"><b>1. СЛАУ.</b> ag, c, j, m — песо у Агустины, Камилы, Хуаны и Моры.</p>
+<p class="src st"><em>Агустина: «не хватает 10, чтобы было вдвое больше, чем у Камилы»</em></p>
+<div class="frm st">ag + 10 = 2c</div>
+<p class="src st"><em>Камила: «не хватает 20, чтобы было втрое больше, чем у Хуаны»</em></p>
+<div class="frm st">c + 20 = 3j</div>
+<p class="src st"><em>Хуана: «не хватает 30, чтобы было вчетверо больше, чем у Моры»</em></p>
+<div class="frm st">j + 30 = 4m</div>
+<p class="src st"><em>Мора: «у нас четверых вместе 2500 песо»</em></p>
+<div class="frm st">ag + c + j + m = 2500</div>
+<p class="st"><b>Как решать.</b> Удобнее всего, пожалуй, подстановка по цепочке снизу вверх, от Моры:</p>
+<div class="frm st">j = 4m − 30</div>
+<div class="frm st">c = 3j − 20 = 12m − 110</div>
+<div class="frm st">ag = 2c − 10 = 24m − 230</div>
+<figure class="st"><svg viewBox="0 0 640 150" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="12" y="50" width="118" height="52" rx="8" fill="#f0a83c" fill-opacity=".3" stroke="#f0a83c"/><text x="71" y="71" fill="#f3e3b8" font-size="13" font-weight="400" text-anchor="middle">Мора</text><text x="71" y="91" fill="#e8eef6" font-size="15" font-weight="700" text-anchor="middle">m</text><line x1="134" y1="76" x2="162" y2="76" stroke="#f0a83c" stroke-width="1.8"/><path d="M162,71 l7,5 l-7,5 z" fill="#f0a83c"/><text x="150" y="40" fill="#f0a83c" font-size="12" font-weight="600" text-anchor="middle">×4, −30</text><rect x="168" y="50" width="118" height="52" rx="8" fill="#5ba8f5" fill-opacity=".18" stroke="#5ba8f5"/><text x="227" y="71" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">Хуана</text><text x="227" y="91" fill="#e8eef6" font-size="15" font-weight="700" text-anchor="middle">4m − 30</text><line x1="290" y1="76" x2="318" y2="76" stroke="#f0a83c" stroke-width="1.8"/><path d="M318,71 l7,5 l-7,5 z" fill="#f0a83c"/><text x="306" y="40" fill="#f0a83c" font-size="12" font-weight="600" text-anchor="middle">×3, −20</text><rect x="324" y="50" width="118" height="52" rx="8" fill="#5ba8f5" fill-opacity=".18" stroke="#5ba8f5"/><text x="383" y="71" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">Камила</text><text x="383" y="91" fill="#e8eef6" font-size="15" font-weight="700" text-anchor="middle">12m − 110</text><line x1="446" y1="76" x2="474" y2="76" stroke="#f0a83c" stroke-width="1.8"/><path d="M474,71 l7,5 l-7,5 z" fill="#f0a83c"/><text x="462" y="40" fill="#f0a83c" font-size="12" font-weight="600" text-anchor="middle">×2, −10</text><rect x="480" y="50" width="118" height="52" rx="8" fill="#5ba8f5" fill-opacity=".18" stroke="#5ba8f5"/><text x="539" y="71" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">Агустина</text><text x="539" y="91" fill="#e8eef6" font-size="15" font-weight="700" text-anchor="middle">24m − 230</text><text x="12" y="20" fill="#f0a83c" font-size="12" font-weight="600" text-anchor="start">конец цепочки</text><text x="598" y="132" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">в сумме: 41 раз по m без 370 = 2500</text></svg><figcaption>Мора — <b style="color:#f0a83c">конец цепочки</b>: её деньги ни через кого не выражены, поэтому их и берём за букву m. Каждая стрелка — одна фраза условия, прочитанная назад: умножить и отнять недостачу. Проход по стрелкам выражает всех через m, и сумма 2500 даёт уравнение с одной буквой.</figcaption></figure>
+<p class="st">Годится и подстановка сверху, от Агустины: из первого уравнения</p>
+<div class="frm st">c = (ag + 10) : 2</div>
+<p class="st">и буква c исключена, но дальше выражения пойдут с дробями.</p>
+<p class="st"><b>2. Мора.</b> После подстановки в сумму остаётся одна буква:</p>
+<div class="frm st">41m − 370 = 2500</div>
+<div class="frm st">m = 2870 : 41 = 70</div>
+<p class="st"><b>3. Остальные.</b> По цепочке вверх: j = 250, c = 730, ag = 1450.</p>
+<p class="st"><b>Ответ.</b> У Агустины 1450 песо, у Камилы 730, у Хуаны 250, у Моры 70.</p>
+<p class="st"><b>⚠ Ловушки.</b> «Не хватает 10 до двойного» значит, что у Агустины на 10 <b>меньше</b> двойных денег Камилы, а не больше. Если перепутать знаки у всех трёх девочек, сумма даст</p>
+<div class="frm st">41m + 370 = 2500</div>
+<p class="st">и m выйдет нецелым: 2130 на 41 нацело не делится. Мора называет общую сумму, а не свои деньги: m = 2500 — ошибка.</p></div>
 <p class="st">Вопрос один, но ответ — четыре числа: сколько у Агустины, у Камилы, у Хуаны и у Моры. Это видно, если ещё до счёта подчеркнуть вопрос и сосчитать, сколько чисел он требует.</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>Девочки описаны <b>цепочкой</b>: Агустина — через Камилу, Камила — через Хуану, Хуана — через Мору. А Мора ни через кого не описана — на ней цепочка кончается. Значит, если знать деньги Моры, всех остальных можно достроить по очереди, снизу вверх: Хуану, потом Камилу, потом Агустину. Поэтому по-настоящему неизвестное число одно — деньги Моры; остальные три — выражения через него, и общая сумма 2500 станет уравнением с одной буквой.</p></div>
 <p class="step st"><b>Шаг 1 — план.</b> Неизвестных четыре — деньги каждой девочки. Имена беру по первым буквам имён:</p>

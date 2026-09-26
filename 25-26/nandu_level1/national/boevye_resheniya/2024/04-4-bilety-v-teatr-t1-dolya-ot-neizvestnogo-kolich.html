@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -264,6 +271,37 @@
   <h1>№4 — билеты в театр <em>(Т1′: доля от неизвестного количества + метод вычитания)</em></h1>
   <p class="sub">Национальный этап 2024 — боевые решения</p>
 <div class="card task st"><span class="tag">Условие</span><p>На театральный спектакль в продаже 900 билетов. Цена билета зависит от места: нижний партер <em>(Platea Baja)</em> — 30 песо, верхний партер <em>(Platea Alta)</em> — 24 песо, боковой партер <em>(Platea Lateral)</em> — 20 песо. Если продать все билеты, выручка составит 22 720 песо. На деле продали 4/5 билетов нижнего партера, 3/4 билетов верхнего партера и все билеты бокового партера — и выручили 18 880 песо. Сколько билетов было в продаже на каждое место?</p></div>
+<div class="tldr st"><span class="tag">⚡ Коротко</span>
+<p class="st"><b>Идея.</b> Боковой партер продан целиком в обеих ситуациях — «если продать всё» и «на деле», — поэтому в обе выручки он входит одним и тем же куском и при вычитании выручек пропадает. Разность выручек — деньги за непроданные билеты: пятую часть нижнего партера и четверть верхнего. И тут совпадение: на каждый билет нижнего партера недобор 30 : 5 = 6 песо, на каждый билет верхнего — 24 : 4 = 6 песо. Значит, разность выручек — это 6 песо на каждый билет двух партеров вместе.</p>
+<figure class="st"><svg viewBox="0 0 660 262" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="178.0" y="46.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">нижний, 30 песо</text><rect x="190.0" y="26.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="230.0" y="26.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="270.0" y="26.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="310.0" y="26.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="350.0" y="26.0" width="34.0" height="28.0" rx="4" fill="#f0a83c" fill-opacity=".25" stroke="#f0a83c" stroke-dasharray="5 4"/><text x="190.0" y="74.0" fill="#f0a83c" font-size="12" font-weight="600" text-anchor="start">не продана 1 из 5: недобор 30 : 5 = 6 на билет</text><text x="178.0" y="108.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">верхний, 24 песо</text><rect x="190.0" y="88.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="230.0" y="88.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="270.0" y="88.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="310.0" y="88.0" width="34.0" height="28.0" rx="4" fill="#f0a83c" fill-opacity=".25" stroke="#f0a83c" stroke-dasharray="5 4"/><text x="190.0" y="136.0" fill="#f0a83c" font-size="12" font-weight="600" text-anchor="start">не продана 1 из 4: недобор 24 : 4 = 6 на билет</text><text x="178.0" y="170.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">боковой, 20 песо</text><rect x="190.0" y="150.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="230.0" y="150.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="270.0" y="150.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><rect x="310.0" y="150.0" width="34.0" height="28.0" rx="4" fill="#5ba8f5" fill-opacity=".35" stroke="#5ba8f5"/><text x="190.0" y="198.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="start">продан весь: в разность не входит</text><text x="190.0" y="228.0" fill="#e8eef6" font-size="13" font-weight="400" text-anchor="start">разность выручек: 22 720 − 18 880 = 3840 = 6 · (нижних + верхних)</text><text x="190.0" y="250.0" fill="#f0a83c" font-size="13" font-weight="600" text-anchor="start">нижних и верхних вместе: 3840 : 6 = 640</text></svg><figcaption>Синие билеты проданы, <b style="color:#f0a83c">пунктирные</b> — нет. Недобор с каждых пяти нижних билетов — 30 песо, с каждых четырёх верхних — 24, и в пересчёте на один билет это одни и те же 6 песо. Боковой партер продан целиком и в разность выручек не попадает.</figcaption></figure>
+<p class="st"><b>1. Уравнения.</b> baj, alt, lat — билетов нижнего, верхнего и бокового партера.</p>
+<p class="src st"><em>«в продаже 900 билетов»</em></p>
+<div class="frm st">baj + alt + lat = 900</div>
+<p class="src st"><em>«если продать все билеты — 22 720 песо»</em></p>
+<div class="frm st">30 · baj + 24 · alt + 20 · lat = 22720</div>
+<p class="src st"><em>«продали 4/5 нижнего, 3/4 верхнего и весь боковой — 18 880 песо»; 4/5 от 30 — это 24, 3/4 от 24 — это 18</em></p>
+<div class="frm st">24 · baj + 18 · alt + 20 · lat = 18880</div>
+<p class="st"><b>Как решать.</b> Удобнее всего, пожалуй, метод вычитания: третье уравнение, вычтенное из второго, исключает lat:</p>
+<div class="frm st">6 · baj + 6 · alt = 3840</div>
+<p class="st">Годится и подстановка: lat из первого уравнения</p>
+<div class="frm st">lat = 900 − baj − alt</div>
+<p class="st">подставляется во второе и третье и исключается из обоих:</p>
+<div class="frm st">10 · baj + 4 · alt = 4720</div>
+<div class="frm st">4 · baj − 2 · alt = 880</div>
+<p class="st"><b>2. Боковой партер.</b></p>
+<div class="frm st">baj + alt = 3840 : 6 = 640</div>
+<div class="frm st">lat = 900 − 640 = 260</div>
+<p class="st"><b>3. Нижний и верхний.</b> Во втором уравнении боковой партер даёт 20 · 260 = 5200:</p>
+<div class="frm st">30 · baj + 24 · alt = 17520</div>
+<p class="st">Подстановка</p>
+<div class="frm st">alt = 640 − baj</div>
+<p class="st">даёт</p>
+<div class="frm st">6 · baj = 17520 − 15360 = 2160</div>
+<p class="st">Итог: baj = 360, alt = 280.</p>
+<p class="st"><b>Ответ.</b> В продаже было 360 билетов нижнего партера, 280 — верхнего и 260 — бокового.</p>
+<p class="st"><b>⚠ Ловушка.</b> 4/5 и 3/4 — доли от билетов своего места, а не от всех 900: иначе нижнего партера «продано»</p>
+<div class="frm st">(4/5) · 900 = 720</div>
+<p class="st">билетов — вдвое больше, чем их вообще есть (360).</p></div>
 <p class="st">Вопрос один, но ответ — три числа: нижний, верхний и боковой партер (ритуал 1 — подчеркнул все три).</p>
 <div class="card key st"><span class="tag">Заметь главное</span><p>В условии две ситуации: «если бы продали всё» и «как продали на деле». Боковой партер продан целиком <b>в обеих</b> — значит, в обе выручки он входит одним и тем же куском, каким бы этот кусок ни был. Если вычесть одну выручку из другой, боковой партер исчезнет целиком, и останется только то, чем ситуации различаются: непроданная пятая часть нижнего партера и непроданная четверть верхнего.</p></div>
 <figure class="st"><svg viewBox="0 0 540 222" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="20" y="24" fill="var(--muted)" font-size="14" text-anchor="start" font-weight="400">если продать все билеты — 22 720 песо</text><rect x="20" y="34" width="200" height="42" rx="6" fill="#151d29" stroke="#2c394c" stroke-width="1.5"/><text x="120" y="60" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="400">нижний · 30</text><rect x="226" y="34" width="160" height="42" rx="6" fill="#151d29" stroke="#2c394c" stroke-width="1.5"/><text x="306" y="60" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="400">верхний · 24</text><rect x="392" y="34" width="130" height="42" rx="6" fill="#3a2f18" stroke="var(--gold)" stroke-width="1.5"/><text x="457" y="60" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">боковой · 20</text><text x="20" y="112" fill="var(--muted)" font-size="14" text-anchor="start" font-weight="400">продано на деле — 18 880 песо</text><rect x="20" y="122" width="160" height="42" rx="6" fill="#151d29" stroke="#2c394c" stroke-width="1.5"/><text x="100" y="148" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="400">4/5 нижнего</text><rect x="182" y="122" width="38" height="42" rx="6" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 4"/><text x="201" y="183" fill="var(--red)" font-size="13" text-anchor="middle" font-weight="400">1/5</text><rect x="226" y="122" width="120" height="42" rx="6" fill="#151d29" stroke="#2c394c" stroke-width="1.5"/><text x="286" y="148" fill="#e8eef6" font-size="14" text-anchor="middle" font-weight="400">3/4 верхнего</text><rect x="348" y="122" width="38" height="42" rx="6" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 4"/><text x="367" y="183" fill="var(--red)" font-size="13" text-anchor="middle" font-weight="400">1/4</text><rect x="392" y="122" width="130" height="42" rx="6" fill="#3a2f18" stroke="var(--gold)" stroke-width="1.5"/><text x="457" y="148" fill="var(--gold)" font-size="14" text-anchor="middle" font-weight="400">весь боковой</text><text x="457" y="183" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="400">тот же кусок</text><text x="20" y="210" fill="var(--muted)" font-size="13" text-anchor="start" font-weight="400">пунктир — непроданные билеты: только ими ситуации и различаются</text></svg><figcaption>Схема, не в масштабе. Боковой партер продан целиком в обеих ситуациях — в обе выручки он входит одним и тем же куском, поэтому при вычитании выручек пропадает. Разность выручек — это цена одних только пунктирных кусков.</figcaption></figure>

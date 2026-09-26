@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -270,6 +277,30 @@
   <h1>№1 — четверо друзей и подарок за $2100 <em>(Т1′: доля от остальных — у Альдо и Бето уравнение с одной буквой)</em></h1>
   <p class="sub">Национальный этап 2019 — боевые решения</p>
 <div class="card task st"><span class="tag">Условие</span><p>Четверо друзей — Альдо, Бето, Карлос и Дани — покупают подарок за $2100. Альдо платит половину суммы, которую заплатили трое остальных. Бето платит третью часть суммы, которую заплатили трое остальных. Карлос платит четвёртую часть суммы, которую заплатили Альдо и Дани. Сколько платит каждый из четырёх друзей?</p></div>
+<div class="tldr st"><span class="tag">⚡ Коротко</span>
+<p class="st"><b>Идея.</b> «Альдо платит половину того, что заплатили трое остальных»: если деньги Альдо — одна часть, то остальные — две такие части, а весь подарок — три части. Так доля «от остальных» становится долей от всего подарка: Альдо платит треть от 2100. Бето — одна часть против трёх, то есть четверть от 2100. Карлос — одна часть против четырёх у Альдо и Дани вместе; втроём они платят всё, кроме Бето.</p>
+<figure class="st"><svg viewBox="0 0 660 205" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="170.0" y="22.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="start">0</text><text x="630.0" y="22.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="end">$2100</text><text x="158.0" y="52.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">Альдо</text><text x="158.0" y="70.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="end">1 часть из 3</text><rect x="170.0" y="36.0" width="153.3" height="30.0" rx="0" fill="#f0a83c" fill-opacity=".35" stroke="#f0a83c"/><rect x="323.3" y="36.0" width="153.3" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><rect x="476.7" y="36.0" width="153.3" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><text x="246.7" y="56.0" fill="#f3e3b8" font-size="13" font-weight="600" text-anchor="middle">700</text><text x="476.7" y="56.0" fill="#dceaff" font-size="13" font-weight="400" text-anchor="middle">остальные 1400</text><text x="158.0" y="116.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">Бето</text><text x="158.0" y="134.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="end">1 часть из 4</text><rect x="170.0" y="100.0" width="115.0" height="30.0" rx="0" fill="#f0a83c" fill-opacity=".35" stroke="#f0a83c"/><rect x="285.0" y="100.0" width="115.0" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><rect x="400.0" y="100.0" width="115.0" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><rect x="515.0" y="100.0" width="115.0" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><text x="227.5" y="120.0" fill="#f3e3b8" font-size="13" font-weight="600" text-anchor="middle">525</text><text x="457.5" y="120.0" fill="#dceaff" font-size="13" font-weight="400" text-anchor="middle">остальные 1575</text><text x="158.0" y="180.0" fill="#e8eef6" font-size="14" font-weight="600" text-anchor="end">Карлос</text><text x="158.0" y="198.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="end">1 часть из 5</text><rect x="170.0" y="164.0" width="69.0" height="30.0" rx="0" fill="#f0a83c" fill-opacity=".35" stroke="#f0a83c"/><rect x="239.0" y="164.0" width="69.0" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><rect x="308.0" y="164.0" width="69.0" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><rect x="377.0" y="164.0" width="69.0" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><rect x="446.0" y="164.0" width="69.0" height="30.0" rx="0" fill="#5ba8f5" fill-opacity=".25" stroke="#5ba8f5"/><text x="204.5" y="184.0" fill="#f3e3b8" font-size="13" font-weight="600" text-anchor="middle">315</text><text x="377.0" y="184.0" fill="#dceaff" font-size="13" font-weight="400" text-anchor="middle">Альдо + Дани 1260</text><rect x="515.0" y="164.0" width="115.0" height="30.0" rx="0" fill="#93a1b1" fill-opacity=".08" stroke="#93a1b1" stroke-dasharray="5 4"/><text x="572.5" y="184.0" fill="#93a1b1" font-size="12" font-weight="400" text-anchor="middle">Бето 525</text></svg><figcaption>Доля «от остальных» превращается в долю от всего: если Альдо — одна часть, остальные — две, и весь подарок — три части. Так же Бето — одна часть из четырёх. Карлос с Альдо и Дани платят всё, кроме Бето, и Карлос — <b style="color:#f0a83c">одна часть из пяти</b>: его четверть взята от Альдо и Дани вместе.</figcaption></figure>
+<p class="st"><b>1. Уравнения.</b> a, b, c, d — сколько заплатили Альдо, Бето, Карлос и Дани ($).</p>
+<p class="src st"><em>«Альдо платит половину того, что заплатили трое остальных»; остальные — это 2100 без Альдо</em></p>
+<div class="frm st">a = (2100 − a) : 2</div>
+<p class="src st"><em>«Бето платит третью часть того, что заплатили трое остальных»</em></p>
+<div class="frm st">b = (2100 − b) : 3</div>
+<p class="src st"><em>«Карлос платит четвёртую часть того, что заплатили Альдо и Дани»</em></p>
+<div class="frm st">c = (a + d) : 4</div>
+<p class="src st"><em>«покупают подарок за $2100»</em></p>
+<div class="frm st">a + b + c + d = 2100</div>
+<p class="st"><b>Как решать.</b> Удобнее всего, пожалуй, частями, как в Идее: в первых двух уравнениях по одной букве, а третье после них тоже сводится к одной. Годится и метод подстановки: когда a и b найдены, из суммы выражается Дани</p>
+<div class="frm st">d = 875 − c</div>
+<p class="st">и в уравнении Карлоса остаётся одна буква:</p>
+<div class="frm st">4c = 700 + 875 − c</div>
+<p class="st"><b>2. Альдо и Бето.</b></p>
+<div class="frm st">a = 2100 : 3 = 700</div>
+<div class="frm st">b = 2100 : 4 = 525</div>
+<p class="st"><b>3. Карлос и Дани.</b> Карлос, Альдо и Дани вместе заплатили всё, кроме Бето: 2100 − 525 = 1575. Это пять частей — одна у Карлоса, четыре у Альдо и Дани:</p>
+<div class="frm st">c = 1575 : 5 = 315</div>
+<div class="frm st">d = 1575 − 700 − 315 = 560</div>
+<p class="st"><b>Ответ.</b> Альдо платит $700, Бето — $525, Карлос — $315, Дани — $560.</p>
+<p class="st"><b>⚠ Ловушки.</b> Взять половину всего подарка, а не остальных: Альдо выйдет $1050. Решить фразу Карлоса так же, как у Альдо, — «четверть от всех остальных»: выйдет $420, а доля Карлоса взята только от Альдо и Дани.</p></div>
 <div class="card key st"><span class="tag">Заметь главное</span><p>«Остальные трое» — это все четверо без самого Альдо, то есть весь подарок минус то, что заплатил Альдо. Если назвать <code>a</code> то, что заплатил Альдо, то</p></div>
 <div class="frm st">остальные для Альдо = 2100 − a</div>
 <figure class="st"><div class="ruler"><div class="seg one" style="flex:1;min-width:110px;border-color:var(--gold)"><span class="segl">Альдо</span><span class="segn">a</span></div><div class="seg two" style="flex:2;min-width:180px"><span class="segl">Бето + Карлос + Дани — «остальные трое»</span><span class="segn">2100 − a</span></div></div><div class="flab" style="margin-top:12px">весь подарок: $2100</div><figcaption>«Остальные» для Альдо — это та же полоса в $2100, только без его собственного куска. Поэтому во фразе про Альдо неизвестна одна величина — он сам, а не трое других по отдельности.</figcaption></figure>
