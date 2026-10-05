@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,6 +131,13 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
@@ -271,8 +285,8 @@
   <p class="sub">Арифметика 2.0 — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>2.1</td><td><b>Пабло 100, Диего 200</b></td><td><code>p = d/2</code>, <code>p + d = 300</code> → <code>3p = 300</code> (здесь «остальные» — один Диего)</td></tr>
-<tr><td>2.2</td><td><b>Ана 280, Бето 210, Кора 350</b></td><td><code>a = (840 − a)/2</code> → <code>a = 280</code>; <code>b = (840 − b)/3</code> → <code>b = 210</code>; Кора — остаток</td></tr>
+<tr><td>2.1</td><td class="new"><b>Пабло 100, Диего 200</b></td><td><code>p = d/2</code>, <code>p + d = 300</code> → <code>3p = 300</code> (здесь «остальные» — один Диего)</td></tr>
+<tr><td>2.2</td><td class="new"><b>Ана 280, Бето 210, Кора 350</b></td><td><code>a = (840 − a)/2</code> → <code>a = 280</code>; <code>b = (840 − b)/3</code> → <code>b = 210</code>; Кора — остаток</td></tr>
 </table></div></div>
 <p class="st"><em>2.3 и 2.4 — по шагам, ниже.</em></p>
 <p class="st"><b>2.3 — ответ: Тео 800, Вера 300, Гого 420, Дан 880</b></p>

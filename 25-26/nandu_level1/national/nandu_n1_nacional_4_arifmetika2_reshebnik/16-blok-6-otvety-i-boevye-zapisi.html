@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,6 +131,13 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
@@ -265,9 +279,9 @@
   <p class="sub">Арифметика 2.0 — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>6.1</td><td><b>300 приседаний</b></td><td>цикл 7 дней, вклад <code>30 + 40 = 70</code>; <code>30 = 4·7 + 2</code> → <code>4·70 = 280</code> плюс хвост пн+вт <code>10 + 10</code> → <code>300</code></td></tr>
-<tr><td>6.2</td><td><b>453 л; в сотый день 3 л</b></td><td>цикл 6, вклад <code>8 + 10 + 9 = 27</code>; <code>100 = 16·6 + 4</code> → <code>432</code> плюс хвост <code>8 + 5 + 5 + 3 = 21</code> → <code>453</code>; день 100 — 4-й день цикла → <code>3 л</code></td></tr>
-<tr><td>6.4</td><td><b>в 84-й день</b></td><td>цикл 5, вклад <code>120</code>; <code>16</code> циклов <code>= 1920</code> страниц (день 80); хвост: день 81 → <code>1940</code>, 82 → <code>1960</code>, 83 → <code>1990</code>, 84 → перевалит <code>2000</code> (нужно всего 10 из 40)</td></tr>
+<tr><td>6.1</td><td class="new"><b>300 приседаний</b></td><td>цикл 7 дней, вклад <code>30 + 40 = 70</code>; <code>30 = 4·7 + 2</code> → <code>4·70 = 280</code> плюс хвост пн+вт <code>10 + 10</code> → <code>300</code></td></tr>
+<tr><td>6.2</td><td class="new"><b>453 л; в сотый день 3 л</b></td><td>цикл 6, вклад <code>8 + 10 + 9 = 27</code>; <code>100 = 16·6 + 4</code> → <code>432</code> плюс хвост <code>8 + 5 + 5 + 3 = 21</code> → <code>453</code>; день 100 — 4-й день цикла → <code>3 л</code></td></tr>
+<tr><td>6.4</td><td class="new"><b>в 84-й день</b></td><td>цикл 5, вклад <code>120</code>; <code>16</code> циклов <code>= 1920</code> страниц (день 80); хвост: день 81 → <code>1940</code>, 82 → <code>1960</code>, 83 → <code>1990</code>, 84 → перевалит <code>2000</code> (нужно всего 10 из 40)</td></tr>
 </table></div></div>
 <p class="st"><em>6.3 — по шагам, ниже.</em></p>
 <div class="frm st">6.3 — ответ: а) минута 47; б) 1708 наклеек</div>

@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,6 +131,13 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
@@ -279,8 +293,8 @@
   <p class="sub">Арифметика 2.0 — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>7.1</td><td><b>11 пачек по 4 + 1 по 9, или 2 по 4 + 5 по 9</b></td><td><code>4a + 9b = 53</code>; остаток 53 при делении на 4 — это 1; остатки <code>9b</code> при <code>b = 0, 1, 2, 3</code> — это <code>0, 1, 2, 3</code>, дальше по кругу → подходит <code>b = 1</code> и каждый четвёртый после него; граница <code>9b ≤ 53</code> → <code>b ∈ {1, 5}</code></td></tr>
-<tr><td>7.2</td><td><b>(22, 1), (12, 4), (2, 7); меньше всего лотков — 2 по 6 + 7 по 20 = 9 лотков</b></td><td><code>6a + 20b = 152</code>; все три числа чётные, поэтому делю уравнение пополам целиком — решения от этого не меняются: <code>3a + 10b = 76</code>; смотрю остатки при делении на 3: у 76 остаток 1, у <code>10b</code> при <code>b = 0, 1, 2</code> — <code>0, 1, 2</code> → подходит <code>b = 1</code> и каждый третий после него; граница <code>10b ≤ 76</code> → <code>b ∈ {1, 4, 7}</code>; всего лотков <code>23, 16, 9</code></td></tr>
+<tr><td>7.1</td><td class="new"><b>11 пачек по 4 + 1 по 9, или 2 по 4 + 5 по 9</b></td><td><code>4a + 9b = 53</code>; остаток 53 при делении на 4 — это 1; остатки <code>9b</code> при <code>b = 0, 1, 2, 3</code> — это <code>0, 1, 2, 3</code>, дальше по кругу → подходит <code>b = 1</code> и каждый четвёртый после него; граница <code>9b ≤ 53</code> → <code>b ∈ {1, 5}</code></td></tr>
+<tr><td>7.2</td><td class="new"><b>(22, 1), (12, 4), (2, 7); меньше всего лотков — 2 по 6 + 7 по 20 = 9 лотков</b></td><td><code>6a + 20b = 152</code>; все три числа чётные, поэтому делю уравнение пополам целиком — решения от этого не меняются: <code>3a + 10b = 76</code>; смотрю остатки при делении на 3: у 76 остаток 1, у <code>10b</code> при <code>b = 0, 1, 2</code> — <code>0, 1, 2</code> → подходит <code>b = 1</code> и каждый третий после него; граница <code>10b ≤ 76</code> → <code>b ∈ {1, 4, 7}</code>; всего лотков <code>23, 16, 9</code></td></tr>
 </table></div></div>
 <p class="st"><em>7.3, 7.4 и 7.5 — по шагам, ниже.</em></p>
 <p class="st"><b>7.3 — ответ: 5 коробок + 14 подносов, 9400 песо</b></p>

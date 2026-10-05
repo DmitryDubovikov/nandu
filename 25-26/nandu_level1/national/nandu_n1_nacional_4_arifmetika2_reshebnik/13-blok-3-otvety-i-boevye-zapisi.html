@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,6 +131,13 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
@@ -266,9 +280,9 @@
 <p class="st">Обозначение <code>N(…)</code> читается «сколько тех, про кого сказано в скобках»: например, в 3.1 <code>N(футбол) = 26</code>.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>3.1</td><td><b>6 детей</b></td><td><code>N(хотя бы одно) = 26 + 19 − 11 = 34</code>; <code>N(ни во что) = 40 − 34 = 6</code></td></tr>
-<tr><td>3.2</td><td><b>10 детей</b></td><td><code>N(хотя бы одно) = 30 − 3 = 27</code>; <code>N(оба) = 21 + 16 − 27 = 10</code></td></tr>
-<tr><td>3.4</td><td><b>8 взяли и то и другое; 17 — только фрукты</b></td><td>каждый взял что-то → <code>N(хотя бы одно) = 45</code>; <code>N(оба) = 28 + 25 − 45 = 8</code>; <code>N(только фрукты) = 25 − 8 = 17</code></td></tr>
+<tr><td>3.1</td><td class="new"><b>6 детей</b></td><td><code>N(хотя бы одно) = 26 + 19 − 11 = 34</code>; <code>N(ни во что) = 40 − 34 = 6</code></td></tr>
+<tr><td>3.2</td><td class="new"><b>10 детей</b></td><td><code>N(хотя бы одно) = 30 − 3 = 27</code>; <code>N(оба) = 21 + 16 − 27 = 10</code></td></tr>
+<tr><td>3.4</td><td class="new"><b>8 взяли и то и другое; 17 — только фрукты</b></td><td>каждый взял что-то → <code>N(хотя бы одно) = 45</code>; <code>N(оба) = 28 + 25 − 45 = 8</code>; <code>N(только фрукты) = 25 − 8 = 17</code></td></tr>
 </table></div></div>
 <p class="st"><em>3.3 — по шагам, ниже.</em></p>
 <div class="frm st">3.3 — ответ: 2880 жителей; 480 без питомцев</div>

@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,6 +131,13 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
@@ -251,22 +265,19 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 15 из 19</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso el total de cuentas no cambia, así que lo que vale al final tiene que valer también al principio: de ahí sale la igualdad.<br><em>На каждом шаге общее число бусин не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></span></button>
-<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = r, a, v</span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso el total de cuentas no cambia, así que lo que vale al final tiene que valer también al principio: de ahí sale la igualdad.<br><em>На каждом шаге всего бусин не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ = столбец «вначале»</span></button>
 <button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><code>N(всего бусин) = 56 + 146 + 100 = 302</code></span></button>
-<button class="art cont" data-art="3"><span class="val f"><code>r = 56 · 3/2 · 3/2 = 126</code>, после раунда 1 — <code>84</code></span></button>
-<button class="art cont" data-art="4"><span class="val f">зелёные перед раундом 2: <code>100 · 3/2 = 150</code></span></button>
-<button class="art cont" data-art="5"><span class="val f">досыпка раунда 2: <code>N(жёлтых после раунда 1) + 84/3 + 150/3 = 146</code> → <code>N(жёлтых после раунда 1) = 68</code></span></button>
-<button class="art cont" data-art="6"><span class="val f"><code>a = 68 · 3/2 = 102</code></span></button>
-<button class="art cont" data-art="7"><span class="val f"><code>v = 302 − 126 − 102 = 74</code></span></button>
-<button class="art cont" data-art="8"><span class="val f">Ответ: 126, 102, 74</span></button>
-<button class="art" data-art="9"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso el total de frutas no cambia, así que lo que vale al final tiene que valer también al principio: de ahí sale la igualdad.<br><em>На каждом шаге общее число фруктов не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></span></button>
-<button class="art" data-art="10"><span class="lbl">План</span><span class="val f">m = N(всего фруктов) − 240 − 168</span></button>
-<button class="art" data-art="11"><span class="lbl">На туре</span><span class="val f"><code>N(лимонов в конце) = 240 · 3/4 · 2/3 = 120</code></span></button>
-<button class="art cont" data-art="12"><span class="val f"><code>N(апельсинов в конце) = 168 · 3/4 · 2/3 = 84</code></span></button>
-<button class="art cont" data-art="13"><span class="val f"><code>N(всего фруктов) = 120 + 84 + 504 = 708</code></span></button>
-<button class="art cont" data-art="14"><span class="val f"><code>m = 708 − 240 − 168 = 300</code></span></button>
-<button class="art cont" data-art="15"><span class="val f">Манго было 300</span></button>
+<button class="art cont" data-art="3"><span class="val f">после раунда 1: красные <code>56 · 3/2 = 84</code>, зелёные <code>100 · 3/2 = 150</code>, жёлтые <code>302 − 84 − 150 = 68</code></span></button>
+<button class="art cont" data-art="4"><span class="val f">вначале: красные <code>84 · 3/2 = 126</code>, жёлтые <code>68 · 3/2 = 102</code>, зелёные <code>302 − 126 − 102 = 74</code></span></button>
+<button class="art cont" data-art="5"><span class="val f">Ответ: 126, 102, 74</span></button>
+<button class="art" data-art="6"><span class="lbl">💬 Фраза</span><span class="val ph">En cada paso el total de frutas no cambia, así que lo que vale al final tiene que valer también al principio: de ahí sale la igualdad.<br><em>На каждом шаге всего фруктов не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></span></button>
+<button class="art" data-art="7"><span class="lbl">План</span><span class="val f">Ответ = N(всего фруктов) − 240 − 168</span></button>
+<button class="art" data-art="8"><span class="lbl">На туре</span><span class="val f">лимоны в конце: <code>240 · 3/4 · 2/3 = 120</code></span></button>
+<button class="art cont" data-art="9"><span class="val f">апельсины в конце: <code>168 · 3/4 · 2/3 = 84</code></span></button>
+<button class="art cont" data-art="10"><span class="val f"><code>N(всего фруктов) = 120 + 84 + 504 = 708</code></span></button>
+<button class="art cont" data-art="11"><span class="val f">манго вначале: <code>708 − 240 − 168 = 300</code></span></button>
+<button class="art cont" data-art="12"><span class="val f">Манго было 300</span></button>
 </aside>
 <main>
   
@@ -274,78 +285,124 @@
   <p class="sub">Арифметика 2.0 — Решебник</p>
 <div class="st"><div class="tw"><table>
 <tr><th>№</th><th>Ответ</th><th>Как рассуждаем</th></tr>
-<tr><td>5.1</td><td><b>84 шарика; красных 46</b></td><td>сумма — инвариант: 84; красных было <code>2/3 · 84 = 56</code>, стало <code>46</code></td></tr>
-<tr><td>5.2</td><td><b>120 белых, 36 чёрных</b></td><td>белые только изымали: <code>90 · 4/3 = 120</code>; инвариант <code>156</code> → чёрных было <code>36</code>; прогон: вынули 30 белых, досыпали 30 чёрных: <code>66</code> ✓</td></tr>
+<tr><td>5.1</td><td class="new"><b>84 шарика; красных 46</b></td><td>всего шариков не меняется: 84; красных было <code>2/3 · 84 = 56</code>, стало <code>46</code></td></tr>
+<tr><td>5.2</td><td class="new"><b>120 белых, 36 чёрных</b></td><td>белые только изымали: <code>90 · 4/3 = 120</code>; инвариант <code>156</code> → чёрных было <code>36</code>; прогон: вынули 30 белых, досыпали 30 чёрных: <code>66</code> ✓</td></tr>
 </table></div></div>
 <p class="st"><em>5.3 и 5.4 — по шагам, ниже.</em></p>
 <p class="st"><b>5.3 — ответ: 126 красных, 102 жёлтых, 74 зелёных</b></p>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Досыпают ровно столько, сколько вынули, — значит общее число бусин в шкатулке не меняется ни в одном раунде. Это инвариант: в конце все три числа даны, поэтому сумму видно целиком, и та же сумма стояла в самом начале. Она и вытащит тот цвет, который по шагам не проследить.</p></div>
-<p class="step st"><b>Шаг 1 — план.</b> Нужны три начальных числа, и путь к каждому свой. Красные только изымали (дважды по трети) → разворот умножением доведёт их до начала. Зелёные: досыпали в раунде 1, изымали в раунде 2 → назад через раунд 2 можно, дальше — нельзя. Жёлтые: изымали в раунде 1, досыпали в раунде 2 → с конца не развернуть, добираем уравнением досыпки. А последний цвет достаётся из инварианта: сумма трёх начальных чисел равна сумме трёх конечных.</p>
-<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">N(всего бусин) = r + a + v</div>
-<p class="st"><code>r</code> — сколько красных бусин было вначале (шт.); <code>a</code> — сколько жёлтых было вначале (шт.); <code>v</code> — сколько зелёных было вначале (шт.); <code>N(всего бусин)</code> — инвариант, всего бусин в шкатулке (не меняется).</p>
-<p class="st">Ответ = <code>r</code>, <code>a</code>, <code>v</code></p>
-<p class="st">Осталось найти:</p>
-<ul class="st"><li><code>N(всего бусин)</code> — сложением конечных количеств;</li><li><code>r</code> — разворотом с конца;</li><li><code>a</code> — из уравнения досыпки второго раунда;</li><li><code>v</code> — из формулы плана.</li></ul></div>
-<p class="step st"><b>Шаг 2 — считаю <code>r</code>.</b> Нужно начальное число красных — их только изымали, поэтому работает разворот:</p>
-<div class="frm st">r = 56 · 3/2 · 3/2 = 126</div>
-<p class="st">По дороге пригодится и промежуточное: после раунда 1 красных было <code>84</code>.</p>
-<p class="step st"><b>Шаг 3 — считаю зелёные перед раундом 2.</b> Это число понадобится в уравнении досыпки; в раунде 2 зелёные только изымались — снова разворот:</p>
-<div class="frm st">100 · 3/2 = 150</div>
-<p class="step st"><b>Шаг 4 — считаю <code>a</code>.</b> Нужно начальное число жёлтых, а с конца оно не разворачивается — добираем уравнением досыпки: в раунде 2 к жёлтым досыпали всё изъятое за этот раунд:</p>
-<div class="frm st">N(жёлтых после раунда 1) + 84/3 + 150/3 = 146</div>
-<div class="frm st">N(жёлтых после раунда 1) + 28 + 50 = 146</div>
-<p class="st">→ <b>N(жёлтых после раунда 1) = 68</b></p>
-<p class="st">В раунде 1 жёлтые только изымались — разворот доводит их до начала:</p>
-<div class="frm st">a = 68 · 3/2 = 102</div>
-<p class="step st"><b>Шаг 5 — сборка: считаю <code>v</code>.</b> Осталось начальное число зелёных, и достаёт его инвариант. Сумму беру по концу истории:</p>
-<div class="frm st">N(всего бусин) = 56 + 146 + 100 = 302</div>
-<p class="st">Столько же бусин было и вначале, а два цвета из трёх уже известны:</p>
-<div class="frm st">v = 302 − 126 − 102 = 74</div>
-<p class="st"><b>Прогон.</b> Раунд 1: вынули 42 кр. и 34 ж., досыпали 76 з.: <code>84, 68, 150</code> (всего 302 ✓). Раунд 2: вынули 28 кр. и 50 з., досыпали 78 ж.: <code>56, 146, 100</code> ✓.</p>
+<div class="card task st"><span class="tag">Условие</span><p>В шкатулке красные, жёлтые и зелёные бусины. Раунд 1: вынули треть красных и треть жёлтых, а зелёных досыпали, чтобы бусин стало сколько было. Раунд 2: вынули треть красных и треть зелёных, а жёлтых досыпали до прежнего числа. Теперь в шкатулке 56 красных, 146 жёлтых и 100 зелёных. Сколько бусин каждого цвета было вначале?</p></div>
+<div class="card key st"><span class="tag">Заметь главное: всего бусин не меняется</span><p>Досыпают ровно столько, сколько вынули. Значит, всего бусин вначале, после раунда 1 и в конце — одно и то же число.</p></div>
+<div class="card key st"><span class="tag">Заметь главное: досыпают только один цвет</span><p>В каждом раунде два цвета теряют треть, а третий досыпают:</p></div>
+<ul class="st"><li>раунд 1 — теряют 🔴 и 🟡, досыпают 🟢;</li><li>раунд 2 — теряют 🔴 и 🟢, досыпают 🟡.</li></ul>
+<p class="step st"><b>Шаг 1 — план.</b> Все числа задачи укладываются в одну таблицу: три цвета и три момента. Столбец «в конце» дан в условии.</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-red"><td>🔴 красные</td><td>?</td><td>?</td><td>56</td></tr>
+<tr class="t-yellow"><td>🟡 жёлтые</td><td>?</td><td>?</td><td>146</td></tr>
+<tr class="t-green"><td>🟢 зелёные</td><td>?</td><td>?</td><td>100</td></tr>
+<tr><td>всего бусин</td><td>?</td><td>?</td><td>?</td></tr>
+</table></div></div>
+<p class="st">Пустую клетку заполняет один из двух ходов:</p>
+<ul class="st"><li><b>разворот</b> — цвет в этом раунде потерял треть: осталось 2/3, значит до раунда было в 3/2 раза больше;</li><li><b>дополнение</b> — два цвета в столбце уже известны: третий = всего бусин минус эти два.</li></ul>
+<p class="st">По второму «Заметь главное» в каждом раунде два цвета берёт разворот, а третий — дополнение. Поэтому таблица заполняется справа налево, столбец за столбцом. Новые клетки обведены, в каждой записано, откуда число.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b> Ответ = столбец «вначале».</p>
+<p class="st">Осталось заполнить:</p>
+<ul class="st"><li>строку «всего бусин» — по столбцу «в конце»;</li><li>столбец «после раунда 1» — из столбца «в конце»;</li><li>столбец «вначале» — из столбца «после раунда 1».</li></ul></div>
+<p class="step st"><b>Шаг 2 — строка «всего бусин».</b> В столбце «в конце» известны все три цвета, а всего бусин во всех столбцах одно и то же.</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-red"><td>🔴 красные</td><td>?</td><td>?</td><td>56</td></tr>
+<tr class="t-yellow"><td>🟡 жёлтые</td><td>?</td><td>?</td><td>146</td></tr>
+<tr class="t-green"><td>🟢 зелёные</td><td>?</td><td>?</td><td>100</td></tr>
+<tr><td>всего бусин</td><td class="new"><b>302</b></td><td class="new"><b>302</b></td><td class="new"><b>56 + 146 + 100 = 302</b></td></tr>
+</table></div></div>
+<p class="step st"><b>Шаг 3 — столбец «после раунда 1».</b> В раунде 2 🔴 и 🟢 потеряли треть — их берёт разворот. 🟡 досыпали — их берёт дополнение.</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-red"><td>🔴 красные</td><td>?</td><td class="new"><b>56 · 3/2 = 84</b></td><td>56</td></tr>
+<tr class="t-yellow"><td>🟡 жёлтые</td><td>?</td><td class="new"><b>302 − 84 − 150 = 68</b></td><td>146</td></tr>
+<tr class="t-green"><td>🟢 зелёные</td><td>?</td><td class="new"><b>100 · 3/2 = 150</b></td><td>100</td></tr>
+<tr><td>всего бусин</td><td>302</td><td>302</td><td>302</td></tr>
+</table></div></div>
+<p class="step st"><b>Шаг 4 — столбец «вначале».</b> В раунде 1 🔴 и 🟡 потеряли треть — разворот. 🟢 досыпали — дополнение.</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-red"><td>🔴 красные</td><td class="new"><b>84 · 3/2 = 126</b></td><td>84</td><td>56</td></tr>
+<tr class="t-yellow"><td>🟡 жёлтые</td><td class="new"><b>68 · 3/2 = 102</b></td><td>68</td><td>146</td></tr>
+<tr class="t-green"><td>🟢 зелёные</td><td class="new"><b>302 − 126 − 102 = 74</b></td><td>150</td><td>100</td></tr>
+<tr><td>всего бусин</td><td>302</td><td>302</td><td>302</td></tr>
+</table></div></div>
+<p class="st"><b>Прогон вперёд.</b> Раунд 1: вынули 42 🔴 и 34 🟡, досыпали 76 🟢 → <code>84, 68, 150</code>, всего 302 ✓. Раунд 2: вынули 28 🔴 и 50 🟢, досыпали 78 🟡 → <code>56, 146, 100</code> ✓.</p>
+<p class="st"><b>Ответ на задачу:</b> вначале в шкатулке было 126 красных, 102 жёлтых и 74 зелёных бусины.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <div id="a0" data-art="0"><p class="st"><b>En cada paso el total de cuentas no cambia, así que lo que vale al final tiene que valer también al principio: de ahí sale la igualdad.</b></p></div>
-<p class="st"><em>На каждом шаге общее число бусин не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></p>
+<p class="st"><em>На каждом шаге всего бусин не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>r</code>, <code>a</code>, <code>v</code> — красные, жёлтые, зелёные вначале; <code>N(всего бусин)</code> — всего бусин (не меняется); <code>N(жёлтых после раунда 1)</code> — жёлтые после раунда 1.</p>
+<p class="st">Таблица: красные, жёлтые, зелёные × вначале, после раунда 1, в конце; всего бусин — одно число во всех столбцах.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">Ответ = r, a, v</div></div></div>
-<div id="a7" data-art="7"><ul class="st"><li><code>N(всего бусин) = 56 + 146 + 100 = 302</code></li><li><code>r = 56 · 3/2 · 3/2 = 126</code>, после раунда 1 — <code>84</code></li><li>зелёные перед раундом 2: <code>100 · 3/2 = 150</code></li><li>досыпка раунда 2: <code>N(жёлтых после раунда 1) + 84/3 + 150/3 = 146</code> → <code>N(жёлтых после раунда 1) = 68</code></li><li><code>a = 68 · 3/2 = 102</code></li><li><code>v = 302 − 126 − 102 = 74</code></li></ul></div>
-<div id="a8" data-art="8"><div class="frm st">Ответ: 126, 102, 74</div></div>
+<div class="frm st">Ответ = столбец «вначале»</div></div></div>
+<div id="a4" data-art="4"><ul class="st"><li><code>N(всего бусин) = 56 + 146 + 100 = 302</code></li><li>после раунда 1: красные <code>56 · 3/2 = 84</code>, зелёные <code>100 · 3/2 = 150</code>, жёлтые <code>302 − 84 − 150 = 68</code></li><li>вначале: красные <code>84 · 3/2 = 126</code>, жёлтые <code>68 · 3/2 = 102</code>, зелёные <code>302 − 126 − 102 = 74</code></li></ul></div>
+<div id="a5" data-art="5"><div class="frm st">Ответ: 126, 102, 74</div></div>
 <p class="st">Прогон вперёд: раунд 1 → <code>84, 68, 150</code> (302 ✓); раунд 2 → <code>56, 146, 100</code> ✓</p>
 <hr>
 <div class="frm st">5.4 — ответ: 300 манго</div>
-<div class="card key st"><span class="tag">Заметь главное</span><p>Доля здесь берётся отдельно от каждого вида: четверть лимонов, четверть апельсинов, четверть манго — каждый вид уменьшается сам по себе, и число манго в ящике на судьбу лимонов и апельсинов никак не влияет. Поэтому эти два вида можно провести через оба раунда вперёд, вообще ничего не зная про манго: <code>240 → 180 → 120</code> и <code>168 → 126 → 84</code>. А манго в каждом раунде и забирают, и досыпают — его по шагам не проследить, его считает только сумма: она не менялась, а в конце теперь известна целиком.</p></div>
-<figure class='st'><div style='display:grid;grid-template-columns:100px repeat(3,1fr);gap:5px;max-width:620px'><div></div><div class='flab' style='text-align:center'>вначале</div><div class='flab' style='text-align:center'>после раунда 1</div><div class='flab' style='text-align:center'>в конце</div><div class='flab' style='align-self:center'>лимоны</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>240</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>180</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>120</div><div class='flab' style='align-self:center'>апельсины</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>168</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>126</div><div style='background:#16263a;border:1px solid #3d5a82;color:var(--blue);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>84</div><div class='flab' style='align-self:center'>манго</div><div style='background:#2a1a1d;border:1px solid #5a3540;color:var(--red);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>?</div><div style='background:#2a1a1d;border:1px solid #5a3540;color:var(--red);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>?</div><div style='background:#2a1a1d;border:1px solid #5a3540;color:var(--red);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>504</div><div class='flab' style='align-self:center'>всего</div><div style='background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>708</div><div style='background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>708</div><div style='background:#3a2f18;border:1px solid #6b5320;color:var(--gold);font:15px var(--mono);text-align:center;border-radius:7px;padding:9px 6px'>708</div></div><div class='flab' style='margin-top:14px'><span style='color:var(--blue)'>синие</span> ходят простым умножением — их видно на любом шаге; <span style='color:var(--red)'>манго</span> и забирают, и досыпают — по шагам не проследить; <span style='color:var(--gold)'>сумма не меняется вовсе</span></div><div class='frm' style='margin-top:12px'>120 + 84 + 504 = 708</div><div class='frm' style='border-color:var(--green)'>708 − 240 − 168 = 300</div><figcaption>Красную клетку нельзя пройти по шагам, но её держит золотая строка: сумма одна и та же на обоих концах, а остальное на этих концах известно.</figcaption></figure>
-<p class="step st"><b>Шаг 1 — план.</b> Манго и изымали, и досыпали в каждом раунде — по шагам его не проследить вообще. Работает только инвариант: манго досыпают ровно столько, сколько всего вынули, поэтому после каждого раунда фруктов в ящике столько же, сколько было вначале. Значит, начальное число манго достаётся вычитанием из этой суммы — начальные лимоны и апельсины даны в условии. А саму сумму посчитаю по концу истории: лимоны и апельсины ходят простым умножением, их прогоню вперёд до конца, а конечных манго дано 504.</p>
+<div class="card task st"><span class="tag">Условие</span><p>В ящике 240 лимонов, 168 апельсинов и сколько-то манго. Раунд 1: забрали четверть фруктов каждого вида, а манго досыпали, чтобы фруктов стало сколько было. Раунд 2: забрали треть фруктов каждого вида и снова досыпали манго до прежнего числа. Теперь в ящике 504 манго. Сколько манго было вначале?</p></div>
+<div class="card key st"><span class="tag">Заметь главное: всего фруктов не меняется</span><p>Манго досыпают ровно столько, сколько забрали фруктов всех видов. Значит, всего фруктов вначале, после раунда 1 и в конце — одно и то же число.</p></div>
+<div class="card key st"><span class="tag">Заметь главное: лимоны и апельсины меняются сами по себе</span><p>Долю забирают от каждого вида отдельно, а досыпают только манго. Поэтому лимоны и апельсины в каждом раунде просто теряют долю — сколько бы ни было манго.</p></div>
+<p class="step st"><b>Шаг 1 — план.</b> Все числа задачи укладываются в одну таблицу: три вида и три момента. Из условия известны лимоны и апельсины вначале и манго в конце.</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-yellow"><td>🍋 лимоны</td><td>240</td><td>?</td><td>?</td></tr>
+<tr class="t-orange"><td>🍊 апельсины</td><td>168</td><td>?</td><td>?</td></tr>
+<tr class="t-red"><td>🥭 манго</td><td>?</td><td>?</td><td>504</td></tr>
+<tr><td>всего фруктов</td><td>?</td><td>?</td><td>?</td></tr>
+</table></div></div>
+<p class="st">Пустую клетку заполняет один из двух ходов:</p>
+<ul class="st"><li><b>прогон вперёд</b> — для лимонов и апельсинов: после «забрали четверть» остаётся 3/4, после «забрали треть» — 2/3;</li><li><b>дополнение</b> — два вида в столбце уже известны: третий = всего фруктов минус эти два.</li></ul>
+<p class="st">Искомая клетка — манго вначале. Лимоны и апельсины в этом столбце даны, поэтому её закрывает дополнение — как только известно всего фруктов. А всего фруктов видно в столбце, где известны все три вида: это столбец «в конце», если прогнать туда лимоны и апельсины. Новые клетки обведены, в каждой записано, откуда число.</p>
 <div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">m = N(всего фруктов) − 240 − 168</div>
-<div class="frm st">N(всего фруктов) = N(лимонов в конце) + N(апельсинов в конце) + 504</div>
-<p class="st"><code>m</code> — сколько манго было в ящике вначале (шт.), это и есть ответ; <code>N(всего фруктов)</code> — инвариант, всего фруктов в ящике (не меняется); <code>N(лимонов в конце)</code> и <code>N(апельсинов в конце)</code> — сколько лимонов и апельсинов в ящике в конце (шт.); 240 и 168 — сколько лимонов и апельсинов было вначале, они даны в условии.</p>
+<div class="frm st">Ответ = N(всего фруктов) − 240 − 168</div>
 <p class="st">Осталось найти:</p>
-<ul class="st"><li><code>N(лимонов в конце)</code> и <code>N(апельсинов в конце)</code> — прогоном вперёд;</li><li><code>N(всего фруктов)</code> — сложением конечных количеств;</li><li><code>m</code> — из формулы плана.</li></ul></div>
-<p class="step st"><b>Шаг 2 — считаю <code>N(лимонов в конце)</code> и <code>N(апельсинов в конце)</code>.</b> Для инварианта нужен конец целиком, а эти два вида ходят простым умножением — гоню их вперёд через оба раунда:</p>
-<div class="frm st">N(лимонов в конце) = 240 · 3/4 · 2/3 = 120</div>
-<div class="frm st">N(апельсинов в конце) = 168 · 3/4 · 2/3 = 84</div>
-<p class="step st"><b>Шаг 3 — считаю <code>N(всего фруктов)</code>.</b> Нужна та сумма, которая не менялась, — теперь конец известен весь:</p>
-<div class="frm st">N(всего фруктов) = 120 + 84 + 504 = 708</div>
-<p class="st">Столько же фруктов было и вначале.</p>
-<p class="step st"><b>Шаг 4 — сборка: считаю <code>m</code>.</b> Начальные лимоны и апельсины даны в условии, значит на манго приходится всё остальное от инварианта:</p>
-<div class="frm st">m = 708 − 240 − 168 = 300</div>
-<p class="st"><b>Прогон.</b> Старт: <code>240, 168, 300</code> (всего 708). Раунд 1: забрали <code>60, 42, 75</code>, досыпали <code>177</code> манго: <code>180, 126, 402</code> (всего 708 ✓). Раунд 2: забрали <code>60, 42, 134</code>, досыпали <code>236</code> манго: <code>120, 84, 504</code> ✓.</p>
+<ul class="st"><li>лимоны и апельсины в конце — прогоном вперёд;</li><li><code>N(всего фруктов)</code> — по столбцу «в конце».</li></ul></div>
+<p class="step st"><b>Шаг 2 — лимоны и апельсины в конце.</b> Раунд 1 оставляет 3/4 каждого вида, раунд 2 — 2/3.</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-yellow"><td>🍋 лимоны</td><td>240</td><td class="new"><b>240 · 3/4 = 180</b></td><td class="new"><b>180 · 2/3 = 120</b></td></tr>
+<tr class="t-orange"><td>🍊 апельсины</td><td>168</td><td class="new"><b>168 · 3/4 = 126</b></td><td class="new"><b>126 · 2/3 = 84</b></td></tr>
+<tr class="t-red"><td>🥭 манго</td><td>?</td><td>?</td><td>504</td></tr>
+<tr><td>всего фруктов</td><td>?</td><td>?</td><td>?</td></tr>
+</table></div></div>
+<p class="step st"><b>Шаг 3 — <code>N(всего фруктов)</code>.</b> В столбце «в конце» теперь известны все три вида, а всего фруктов во всех столбцах одно и то же.</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-yellow"><td>🍋 лимоны</td><td>240</td><td>180</td><td>120</td></tr>
+<tr class="t-orange"><td>🍊 апельсины</td><td>168</td><td>126</td><td>84</td></tr>
+<tr class="t-red"><td>🥭 манго</td><td>?</td><td>?</td><td>504</td></tr>
+<tr><td>всего фруктов</td><td class="new"><b>708</b></td><td class="new"><b>708</b></td><td class="new"><b>120 + 84 + 504 = 708</b></td></tr>
+</table></div></div>
+<p class="step st"><b>Шаг 4 — сборка.</b> Подставляю в формулу плана — это дополнение в столбце «вначале».</p>
+<div class="st"><div class="tw"><table class="grow">
+<tr><th></th><th>вначале</th><th>после раунда 1</th><th>в конце</th></tr>
+<tr class="t-yellow"><td>🍋 лимоны</td><td>240</td><td>180</td><td>120</td></tr>
+<tr class="t-orange"><td>🍊 апельсины</td><td>168</td><td>126</td><td>84</td></tr>
+<tr class="t-red"><td>🥭 манго</td><td class="new"><b>708 − 240 − 168 = 300</b></td><td>?</td><td>504</td></tr>
+<tr><td>всего фруктов</td><td>708</td><td>708</td><td>708</td></tr>
+</table></div></div>
+<p class="st"><b>Прогон вперёд.</b> Старт: <code>240, 168, 300</code>, всего 708. Раунд 1: забрали <code>60, 42, 75</code>, досыпали 177 манго → <code>180, 126, 402</code>, всего 708 ✓. Раунд 2: забрали <code>60, 42, 134</code>, досыпали 236 манго → <code>120, 84, 504</code> ✓.</p>
+<p class="st"><b>Ответ на задачу:</b> вначале в ящике было 300 манго.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a9" data-art="9"><p class="st"><b>En cada paso el total de frutas no cambia, así que lo que vale al final tiene que valer también al principio: de ahí sale la igualdad.</b></p></div>
-<p class="st"><em>На каждом шаге общее число фруктов не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></p>
+<div id="a6" data-art="6"><p class="st"><b>En cada paso el total de frutas no cambia, así que lo que vale al final tiene que valer también al principio: de ahí sale la igualdad.</b></p></div>
+<p class="st"><em>На каждом шаге всего фруктов не меняется, поэтому значение в конце обязано совпасть со значением в начале — отсюда и равенство.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>m</code> — манго вначале; <code>N(лимонов в конце)</code> и <code>N(апельсинов в конце)</code> — лимоны и апельсины в конце; <code>N(всего фруктов)</code> — всего фруктов (не меняется).</p>
-<div id="a10" data-art="10"><div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">m = N(всего фруктов) − 240 − 168</div></div></div>
-<div id="a14" data-art="14"><ul class="st"><li><code>N(лимонов в конце) = 240 · 3/4 · 2/3 = 120</code></li><li><code>N(апельсинов в конце) = 168 · 3/4 · 2/3 = 84</code></li><li><code>N(всего фруктов) = 120 + 84 + 504 = 708</code></li><li><code>m = 708 − 240 − 168 = 300</code></li></ul></div>
-<div id="a15" data-art="15"><p class="st"><b>Манго было 300</b></p></div>
+<p class="st">Таблица: лимоны, апельсины, манго × вначале, после раунда 1, в конце; всего фруктов — одно число во всех столбцах.</p>
+<div id="a7" data-art="7"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">Ответ = N(всего фруктов) − 240 − 168</div></div></div>
+<div id="a11" data-art="11"><ul class="st"><li>лимоны в конце: <code>240 · 3/4 · 2/3 = 120</code></li><li>апельсины в конце: <code>168 · 3/4 · 2/3 = 84</code></li><li><code>N(всего фруктов) = 120 + 84 + 504 = 708</code></li><li>манго вначале: <code>708 − 240 − 168 = 300</code></li></ul></div>
+<div id="a12" data-art="12"><p class="st"><b>Манго было 300</b></p></div>
 <p class="st">Прогон вперёд: <code>180, 126, 402</code> (708 ✓) → <code>120, 84, 504</code> ✓</p>
 <p class="xlink"><a href="05-blok-5-invariant-vsego-stolko-zhe-glava-5.html">← Задачи блока: <b>Блок 5 — Инвариант «всего столько же»</b></a></p><div class="pager"><a href="14-blok-4-otvety-i-boevye-zapisi.html">← Блок 4 — ответы и боевые записи</a><a href="16-blok-6-otvety-i-boevye-zapisi.html">Блок 6 — ответы и боевые записи →</a></div>
 </main>

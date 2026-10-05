@@ -134,13 +134,25 @@ CARDS = [
     (r'^\*\*Шаг \d',                     'step',   None),
 ]
 
+# строка таблицы, подпись которой начинается с цветного значка, тонируется цветом
+# самого предмета (бусины, фрукта): цвет обозначает предмет и ничего больше
+ROW_TINT = {'🔴': 'red', '🟡': 'yellow', '🟢': 'green',
+            '🍋': 'yellow', '🍊': 'orange', '🥭': 'red'}
+
 def render_table(src):
     rows = [r for r in src.split('\n') if not re.match(r'^\|[\s:|-]+\|$', r)]
-    out = ['<div class="tw"><table>']
+    # таблица с тонированными строками перерисовывается от шага к шагу —
+    # столбцы держат одну ширину, чтобы это читалось как та же самая таблица
+    tinted = any(r.strip('|').strip().startswith(tuple(ROW_TINT)) for r in rows[1:])
+    out = ['<div class="tw"><table class="grow">' if tinted else '<div class="tw"><table>']
     for n, r in enumerate(rows):
         cells = [c.strip() for c in r.strip('|').split('|')]
         tag = 'th' if n == 0 else 'td'
-        out.append('<tr>' + ''.join(f'<{tag}>{inline(c)}</{tag}>' for c in cells) + '</tr>')
+        tint = next((c for m, c in ROW_TINT.items() if cells[0].startswith(m)), None)
+        tr = f'<tr class="t-{tint}">' if tint and n else '<tr>'
+        # клетка целиком жирная — новая на этом шаге таблицы
+        cls = lambda c: ' class="new"' if n and re.fullmatch(r'\*\*[^*]+\*\*', c) else ''
+        out.append(tr + ''.join(f'<{tag}{cls(c)}>{inline(c)}</{tag}>' for c in cells) + '</tr>')
     out.append('</table></div>')
     return '\n'.join(out)
 
