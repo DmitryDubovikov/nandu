@@ -1227,9 +1227,9 @@
 
 #### 💬 Фраза-объяснение (в начале)
 
-**Con 4 días todavía no alcanza y con 5 días ya se pasa, así que lo que busco queda encajado entre esos dos números.**
+**Con 5 por día todavía no alcanza y con 7 ya se pasa, así que lo que busco queda encajado entre esos dos números.**
 
-*При 4 днях ещё не хватает, а при 5 днях уже перебор, — значит искомое зажато между этими двумя числами.*
+*При 5 в день ещё не хватает, а при 7 уже перебор, — значит искомое зажато между этими двумя числами.*
 
 #### Запись
 
@@ -1400,9 +1400,9 @@
 
 #### 💬 Фраза-объяснение (в начале)
 
-**Con 2 días todavía no alcanza y con 3 días ya se pasa, así que lo que busco queda encajado entre esos dos números.**
+**Con 21 por día todavía no alcanza y con 25 ya se pasa, así que lo que busco queda encajado entre esos dos números.**
 
-*При 2 днях ещё не хватает, а при 3 днях уже перебор, — значит искомое зажато между этими двумя числами.*
+*При 21 в день ещё не хватает, а при 25 уже перебор, — значит искомое зажато между этими двумя числами.*
 
 #### Запись
 

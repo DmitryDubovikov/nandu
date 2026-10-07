@@ -1217,9 +1217,9 @@
 
 #### 💬 Фраза-объяснение (в начале)
 
-**Con 12 por día todavía no alcanza y con 19 ya se pasa, así que lo que busco queda encajado entre esos dos números.**
+**Con 16 por día todavía no alcanza y con 19 ya se pasa, así que lo que busco queda encajado entre esos dos números.**
 
-*При 12 в день ещё не хватает, а при 19 уже перебор, — значит искомое зажато между этими двумя числами.*
+*При 16 в день ещё не хватает, а при 19 уже перебор, — значит искомое зажато между этими двумя числами.*
 
 #### Запись
 

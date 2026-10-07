@@ -228,9 +228,9 @@ fig10 = 55
 
 #### 💬 Фраза-объяснение (в начале)
 
-**Con 2 días todavía no alcanza y con 3 días ya se pasa, así que lo que busco queda encajado entre esos dos números.**
+**Con 6 por día todavía no alcanza y con 10 ya se pasa, así que lo que busco queda encajado entre esos dos números.**
 
-*При двух днях ещё не хватает, а при трёх уже перебор, — значит искомое зажато между этими двумя числами.*
+*При 6 в день ещё не хватает, а при 10 уже перебор, — значит искомое зажато между этими двумя числами.*
 
 #### Запись
 
@@ -321,9 +321,9 @@ esp11 = 9 · 10 + 1 = 91
 
 #### 💬 Фраза-объяснение (в начале)
 
-**Con 3 días todavía no alcanza y con 4 días ya se pasa, así que lo que busco queda encajado entre esos dos números.**
+**Con 15 por día todavía no alcanza y con 18 ya se pasa, así que lo que busco queda encajado entre esos dos números.**
 
-*При трёх днях ещё не хватает, а при четырёх уже перебор, — значит искомое зажато между этими двумя числами.*
+*При 15 в день ещё не хватает, а при 18 уже перебор, — значит искомое зажато между этими двумя числами.*
 
 #### Запись
 

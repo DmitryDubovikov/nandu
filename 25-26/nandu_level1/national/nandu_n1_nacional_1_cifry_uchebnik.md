@@ -361,9 +361,9 @@ x ≥ 5
 
 #### 💬 Фраза-объяснение (в начале)
 
-**Con 4 días todavía no alcanza y con 5 días ya se pasa, así que lo que busco queda encajado entre esos dos números.**
+**Con 4 por día todavía no alcanza y con 6 ya se pasa, así que lo que busco queda encajado entre esos dos números.**
 
-*При четырёх днях ещё не хватает, а при пяти уже перебор, — значит искомое зажато между этими двумя числами.*
+*При 4 в день ещё не хватает, а при 6 уже перебор, — значит искомое зажато между этими двумя числами.*
 
 #### Запись
 

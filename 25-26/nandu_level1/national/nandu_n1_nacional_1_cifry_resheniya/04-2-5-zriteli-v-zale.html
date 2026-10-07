@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,11 +131,19 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
   .num{display:inline-flex;vertical-align:middle}
+  ol.num{display:block}
   .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
     color:var(--ink);background:#1a2230;border:1px solid #2c394c}
   .d+.d{border-left:none}
@@ -251,7 +266,7 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 4 из 22</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Con 3 días todavía no alcanza y con 4 días ya se pasa, así que lo que busco queda encajado entre esos dos números.<br><em>При трёх днях ещё не хватает, а при четырёх уже перебор, — значит искомое зажато между этими двумя числами.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Con 15 por día todavía no alcanza y con 18 ya se pasa, así que lo que busco queda encajado entre esos dos números.<br><em>При 15 в день ещё не хватает, а при 18 уже перебор, — значит искомое зажато между этими двумя числами.</em></span></button>
 <button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ (а) = x, проходящие обе цепочки.</span></button>
 <button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f">«заполнился» → <b>esp6 = 9 · 6 = 54</b>; 3 · x ≤ 53 → x ≤ 17; 54 ≤ 4 · x, а 4 · 13 = 52 &lt; 54 → x ≥ 14 → <b>x от 14 до 17</b></span></button>
 <button class="art cont" data-art="3"><span class="val f">«сел первый» → <b>esp11 = 9 · 10 + 1 = 91</b>; 5 · x ≤ 90 → x ≤ 18; 91 ≤ 6 · x, а 6 · 15 = 90 &lt; 91 → x ≥ 16 → <b>x от 16 до 18</b></span></button>
@@ -289,16 +304,16 @@
 <p class="step st"><b>Шаг 5 — считаю день 200-го зрителя для каждого x.</b> Ищу первый день, к концу которого расселось не меньше двухсот:</p>
 <div class="st"><div class="tw"><table>
 <tr><th>x</th><th>за 11 дней</th><th>за 12 дней</th><th>за 13 дней</th><th>200-й зритель</th></tr>
-<tr><td>16</td><td>176 — мало</td><td>192 — мало на восемь</td><td>208 ≥ 200 ✓</td><td><b>день 13</b></td></tr>
-<tr><td>17</td><td>187 — мало</td><td>204 ≥ 200 ✓</td><td>—</td><td><b>день 12</b></td></tr>
+<tr><td>16</td><td>176 — мало</td><td>192 — мало на восемь</td><td>208 ≥ 200 ✓</td><td class="new"><b>день 13</b></td></tr>
+<tr><td>17</td><td>187 — мало</td><td>204 ≥ 200 ✓</td><td>—</td><td class="new"><b>день 12</b></td></tr>
 </table></div></div>
 <p class="st">Обрати внимание: разница в одного зрителя в день сдвигает ответ на целый день — поэтому оба x надо доводить до конца отдельно, а не считать «примерно».</p>
 <p class="st"><b>Ответ:</b> а) <b>16 или 17</b> зрителей в день; б) 200-й зритель: при 16 — <b>день 13</b>, при 17 — <b>день 12</b>.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Con 3 días todavía no alcanza y con 4 días ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p></div>
-<p class="st"><em>При трёх днях ещё не хватает, а при четырёх уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Con 15 por día todavía no alcanza y con 18 ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p></div>
+<p class="st"><em>При 15 в день ещё не хватает, а при 18 уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">x — сколько зрителей приходит в день; esp6 — последний зритель ряда 6; esp11 — первый зритель ряда 11 (<em>espectadores</em>).</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>

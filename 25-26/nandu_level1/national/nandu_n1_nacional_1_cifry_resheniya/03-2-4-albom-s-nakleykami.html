@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,11 +131,19 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
   .num{display:inline-flex;vertical-align:middle}
+  ol.num{display:block}
   .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
     color:var(--ink);background:#1a2230;border:1px solid #2c394c}
   .d+.d{border-left:none}
@@ -251,7 +266,7 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 3 из 22</p>
   <p class="rtitle">Что пишешь на туре</p>
-  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Con 2 días todavía no alcanza y con 3 días ya se pasa, así que lo que busco queda encajado entre esos dos números.<br><em>При двух днях ещё не хватает, а при трёх уже перебор, — значит искомое зажато между этими двумя числами.</em></span></button>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Con 6 por día todavía no alcanza y con 10 ya se pasa, así que lo que busco queda encajado entre esos dos números.<br><em>При 6 в день ещё не хватает, а при 10 уже перебор, — значит искомое зажато между этими двумя числами.</em></span></button>
 <button class="art" data-art="1"><span class="lbl">План</span><span class="val f">Ответ (а) = все целые x из цепочки; (б) = для каждого x первый день, к концу которого счёт дошёл до fig10.</span></button>
 <button class="art" data-art="2"><span class="lbl">На туре</span><span class="val f"><b>fig4 = 6 · 3 + 1 = 19</b></span></button>
 <button class="art cont" data-art="3"><span class="val f">2 · x ≤ 18 → <b>x ≤ 9</b>; 19 ≤ 3 · x, а 3 · 6 = 18 &lt; 19 → <b>x ≥ 7</b></span></button>
@@ -290,16 +305,16 @@
 <p class="step st"><b>Шаг 5 — сборка.</b> Для каждого x ищу первый день, к концу которого счёт дошёл до наклейки fig10 = 55. Одна и та же проверка, прогнанная по трём значениям:</p>
 <div class="st"><div class="tw"><table>
 <tr><th>x</th><th>за 6 дней</th><th>за 7 дней</th><th>за 8 дней</th><th>Лист 10 начат</th></tr>
-<tr><td>7</td><td>42 — мало</td><td>49 — мало</td><td>56 ≥ 55 ✓</td><td><b>день 8</b></td></tr>
-<tr><td>8</td><td>48 — мало</td><td>56 ≥ 55 ✓</td><td>—</td><td><b>день 7</b></td></tr>
-<tr><td>9</td><td>54 — мало на одну!</td><td>63 ≥ 55 ✓</td><td>—</td><td><b>день 7</b></td></tr>
+<tr><td>7</td><td>42 — мало</td><td>49 — мало</td><td>56 ≥ 55 ✓</td><td class="new"><b>день 8</b></td></tr>
+<tr><td>8</td><td>48 — мало</td><td>56 ≥ 55 ✓</td><td>—</td><td class="new"><b>день 7</b></td></tr>
+<tr><td>9</td><td>54 — мало на одну!</td><td>63 ≥ 55 ✓</td><td>—</td><td class="new"><b>день 7</b></td></tr>
 </table></div></div>
 <p class="st"><b>Ответ:</b> а) <b>7, 8 или 9</b> наклеек в день; б) лист 10 начнёт: при 7 — в <b>день 8</b>, при 8 — в <b>день 7</b>, при 9 — в <b>день 7</b>.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<div id="a0" data-art="0"><p class="st"><b>Con 2 días todavía no alcanza y con 3 días ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p></div>
-<p class="st"><em>При двух днях ещё не хватает, а при трёх уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
+<div id="a0" data-art="0"><p class="st"><b>Con 6 por día todavía no alcanza y con 10 ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p></div>
+<p class="st"><em>При 6 в день ещё не хватает, а при 10 уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
 <h4 class="st">Запись</h4>
 <p class="st">x — сколько наклеек в день; fig4 — первая наклейка листа 4; fig10 — первая наклейка листа 10.</p>
 <div id="a1" data-art="1"><div class="plan st"><p class="st">✅ <b>План:</b></p>
