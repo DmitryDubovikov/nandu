@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,11 +131,19 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
   .num{display:inline-flex;vertical-align:middle}
+  ol.num{display:block}
   .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
     color:var(--ink);background:#1a2230;border:1px solid #2c394c}
   .d+.d{border-left:none}
@@ -251,82 +266,93 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 12 из 16</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">«Сок продают упаковками по 4 бутылки (90 песо за упаковку) и ящиками по 15 бутылок (300 песо за ящик).</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">4u + 15y = 217</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ = та пара из списка, у которой pre = min(pre)</span></button>
-<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Остатки 15y ходят по кругу длиной 4, и вот почему.</span></button>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Купить ровно столько-то штук упаковками двух размеров — это одно уравнение с двумя буквами.</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">4p + 15c = 217</span></button>
+<button class="art" data-art="2"><span class="lbl">Заметь главное</span><span class="val">Выбрал число ящиков — число упаковок уже вычисляется:</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">p = (217 − 15c) : 4</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Ответ 1 = все годные c от 0 до 14, каждое со своим p</span></button>
+<button class="art" data-art="5"><span class="lbl">Заметь главное</span><span class="val">4p делится на 4 при любом p.</span></button>
 </aside>
 <main>
   
   <h1>Глава 7. Две упаковки, точное число</h1>
   <p class="sub">Арифметика 2.0 — Учебник</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>«Сок продают упаковками по 4 бутылки (90 песо за упаковку) и ящиками по 15 бутылок (300 песо за ящик). Нужно набрать <b>ровно</b> 217 бутылок. Как это сделать? А как сделать это дешевле всего?»</p></div></div>
-<p class="st">Обозначу <code>u</code> — сколько куплено упаковок, <code>y</code> — сколько ящиков (обе величины в штуках). Перевод даёт одну строчку:</p>
-<div id="a1" data-art="1"><div class="frm st">4u + 15y = 217</div></div>
-<p class="st">Одно уравнение, <b>две</b> буквы. Ритуал перевода говорил: уравнений меньше, чем букв, — жди перебора целых чисел. Вот он. Но перебирать надо не в лоб, а <b>по остаткам</b>:</p>
-<p class="step st"><b>Шаг 1 — план.</b> Букв две, а уравнение одно — значит, попаданий в 217 может быть несколько, и, чтобы выбрать самое дешёвое, нужен их полный список (ритуал 4), а не первое подвернувшееся. Цена любой покупки считается по списку одинаково:</p>
-<div class="frm st">pre = 90 · u + 300 · y</div>
-<p class="st">Наименьшая цена по всему списку пишется <code>min(pre)</code> — «самое маленькое значение, какое <code>pre</code> может принять»; например, <code>min(120; 90; 150) = 90</code> — из трёх чисел самое маленькое девяносто.</p>
-<p class="st">Собирать список буду не в лоб: остатки отсеют почти все <code>y</code>, а граница обрубит хвост.</p>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">Ответ = та пара из списка, у которой pre = min(pre)</div>
-<div class="frm st">pre = 90 · u + 300 · y</div>
-<p class="st"><code>u</code> — сколько упаковок по 4 бутылки (шт.); <code>y</code> — сколько ящиков по 15 бутылок (шт.); список — все пары целых <code>u ≥ 0</code>, <code>y ≥ 0</code>, для которых <code>4u + 15y = 217</code>.</p>
-<p class="st">Осталось найти: сам список, а потом цену каждой его пары.</p></div></div>
-<p class="step st"><b>Шаг 2 — перебор по остаткам: в уравнении одно слагаемое делится на 4 нацело.</b> Смотрю на <code>4u + 15y = 217</code> через остатки при делении на 4 — по коэффициенту первой буквы. Слева стоит сумма двух слагаемых. Первое, <code>4u</code>, делится на 4 нацело и в остаток не приносит ничего. Значит, весь остаток левой части приносит второе слагаемое, <code>15y</code>, — а остаток левой части равен остатку правой, ведь это одно и то же число. Записываю деление правой части полной строкой:</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Купить <b>ровно</b> столько-то штук упаковками двух размеров — это одно уравнение с двумя буквами. Целых решений у него всего несколько, и находят их через <b>остатки</b>: одна упаковка всегда даёт число, кратное своему размеру, значит, весь остаток обязана дать другая.</p></div></div>
+<div class="card task st"><span class="tag">Задача</span><p>Сок продают упаковками по 4 бутылки (90 песо за упаковку) и ящиками по 15 бутылок (300 песо за ящик). Нужно купить <b>ровно</b> 217 бутылок. Какими способами это можно сделать? Какой способ самый дешёвый и сколько он стоит?</p></div>
+<p class="st"><code>p</code> — сколько упаковок (<em>paquetes</em>), <code>c</code> — сколько ящиков (<em>cajas</em>):</p>
+<div id="a1" data-art="1"><div class="frm st">4p + 15c = 217</div></div>
+<p class="st">Одно уравнение, две буквы — ответов будет несколько, ищем все.</p>
+<div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное</span><p>Выбрал число ящиков — число упаковок уже вычисляется:</p></div></div>
+<div id="a3" data-art="3"><div class="frm st">p = (217 − 15c) : 4</div></div>
+<p class="st">Значит, способ покупки задаётся одним числом <code>c</code>. Годится <code>c</code>, при котором <code>p</code> выходит целым и не меньше нуля. «Не меньше нуля» сразу даёт рамку (<code>15 · 15 = 225</code> — уже больше 217):</p>
+<p class="st"><code>15c ≤ 217</code> → <code>c ≤ 14</code></p>
+<p class="step st"><b>Шаг 1 — план.</b> Цена покупки (<em>precio</em>):</p>
+<div class="frm st">pre = 90 · p + 300 · c</div>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<p class="st">Ответ 1 = все годные <code>c</code> от 0 до 14, каждое со своим <code>p</code></p>
+<p class="st">Ответ 2 = пара из ответа 1, у которой <code>pre = min(pre)</code></p>
+<p class="st"><code>p</code> — упаковок по 4 бутылки; <code>c</code> — ящиков по 15; <code>pre</code> — цена (песо); годное <code>c</code> — при котором <code>p = (217 − 15c) : 4</code> целое; <code>min(…)</code> — наименьшее из чисел в скобках: <code>min(120; 90; 150) = 90</code>.</p>
+<p class="st">Осталось найти: годные <code>c</code>; <code>p</code> к каждому; <code>pre</code> каждой пары.</p></div></div>
+<p class="step st"><b>Шаг 2 — годные <code>c</code>.</b></p>
+<p class="st"><em>💬 Отсюда фраза-объяснение: упаковки всегда дают число, кратное 4, поэтому остаток от деления 217 на 4 обязаны дать ящики.</em></p>
+<div id="a5" data-art="5"><div class="card key st"><span class="tag">Заметь главное</span><p><code>4p</code> делится на 4 при любом <code>p</code>. Значит, остаток от деления 217 на 4 даёт только <code>15c</code>:</p></div></div>
+<figure class='st'><div class='fgrid' style='gap:22px 34px'><div class='fcol'><span class='flab'>упаковки — сколько ни возьми</span><div class='fgrid' style='gap:8px'><div class="cbox"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="clab">упаковка</span></div><div class="cbox"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="clab">упаковка</span></div><div class="cbox"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="clab">упаковка</span></div><div style="align-self:center;color:var(--dim);font:16px var(--mono)">…</div></div><span class='flab'>только целые четвёрки → остатка нет</span></div><div class='fcol'><span class='flab'>один ящик: 15 бутылок, разложенных по четыре</span><div class='fgrid' style='gap:8px'><div class="cbox"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="clab">четвёрка</span></div><div class="cbox"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="clab">четвёрка</span></div><div class="cbox"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="clab">четвёрка</span></div><div class="cbox open"><span class="dot gold"></span><span class="dot gold"></span><span class="dot gold"></span><span class="clab">не хватило</span></div></div><div class='frm' style='margin-top:4px'>15 <span style='color:var(--dim)'>=</span> 3 · 4 + <span style='color:var(--gold)'>3</span></div></div></div><div class='frm' style='margin-top:16px;border-color:var(--green)'>217 <span style='color:var(--dim)'>=</span> 54 · 4 + <span style='color:var(--gold)'>1</span></div><div class='flab' style='margin-top:8px'><span style='color:var(--gold)'>золотой остаток 1</span> — упаковки его дать не могут, значит, его дают ящики</div><figcaption>Разложи все 217 бутылок по четыре. Упаковки ложатся целыми четвёрками и золота не дают, поэтому одна золотая бутылка, которой не хватило на четвёрку, пришла из ящиков: у бутылок в ящиках, 15c, при делении на 4 тоже остаток 1.</figcaption></figure>
 <div class="frm st">217 = 54 · 4 + 1</div>
-<p class="st">Остаток 1 — столько же обязан давать и <code>15y</code>. Считаю остатки <code>15y</code> подряд:</p>
+<div class="frm st">res(15c : 4) = res(217 : 4) = 1</div>
+<p class="st">Остатки <code>15c</code> подряд:</p>
 <div class="st"><div class="tw"><table>
-<tr><th><code>y</code></th><th><code>15y</code></th><th>остаток при делении на 4</th></tr>
-<tr><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>1</td><td>15</td><td>3</td></tr>
-<tr><td>2</td><td>30</td><td>2</td></tr>
-<tr><td>3</td><td>45</td><td><b>1</b> ✓</td></tr>
-<tr><td>4</td><td>60</td><td>0 — и дальше остатки повторяются по кругу</td></tr>
+<tr><th><code>c</code></th><th><code>15c</code></th><th>деление на 4</th><th>остаток</th></tr>
+<tr><td>0</td><td>0</td><td><code>0 = 0 · 4 + 0</code></td><td>0</td></tr>
+<tr><td>1</td><td>15</td><td><code>15 = 3 · 4 + 3</code></td><td>3</td></tr>
+<tr><td>2</td><td>30</td><td><code>30 = 7 · 4 + 2</code></td><td>2</td></tr>
+<tr><td>3</td><td>45</td><td><code>45 = 11 · 4 + 1</code></td><td><b>1</b> ✓</td></tr>
+<tr><td>4</td><td>60</td><td><code>60 = 15 · 4 + 0</code></td><td>0 — круг пошёл заново</td></tr>
 </table></div></div>
-<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное</span><p>Остатки <code>15y</code> ходят по кругу длиной 4, и вот почему. Прибавь к <code>y</code> четвёрку:</p></div></div>
-<div class="frm st">15 · (y + 4) = 15y + 60</div>
-<p class="st">Прибавка 60 делится на 4 нацело, значит, остаток от неё не меняется вовсе. Сверяю на живых числах: у <code>y = 3</code> было <code>15y = 45</code>, а <code>45 = 11 · 4 + 1</code> — остаток 1; у <code>y = 7</code> будет <code>15y = 105</code>, а <code>105 = 26 · 4 + 1</code> — тот же остаток 1 ✓.</p>
-<p class="st">Поэтому годные <code>y</code> стоят не как попало: нашёл первый — дальше через каждые четыре, <code>3, 7, 11, …</code> Четвёрка здесь не случайная — это тот самый делитель, по которому мы смотрим остатки.</p>
-<p class="st">Подходит <code>y = 3</code> — и дальше каждый четвёртый: <code>y = 3, 7, 11, …</code> Осталась граница: бутылок в одних только ящиках не может быть больше, чем 217 нужных, — иначе упаковок вышло бы отрицательное число, а такого не бывает:</p>
-<div class="frm st">15y ≤ 217</div>
-<div class="frm st">y ≤ 14</div>
-<p class="st">Кандидаты: <code>y ∈ {3, 7, 11}</code> — следующий, 15, уже за границей.</p>
-<figure class='st'><div class='frm' style='margin-bottom:14px'>4u + 15y = 217</div><div class='flab'>верхняя строка — сколько ящиков <code>y</code>; нижняя — сколько упаковок <code>u</code> к ним подходит</div><div style='display:flex;gap:4px;flex-wrap:wrap;margin-top:8px'><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>0</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>1</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>2</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#12281c;border:1px solid #2b5c3d;color:var(--green);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>3</div><div class='flab' style='margin-top:3px'>43</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>4</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>5</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>6</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#12281c;border:1px solid #2b5c3d;color:var(--green);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>7</div><div class='flab' style='margin-top:3px'>28</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>8</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>9</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>10</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#12281c;border:1px solid #2b5c3d;color:var(--green);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>11</div><div class='flab' style='margin-top:3px'>13</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>12</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>13</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#131923;border:1px solid #243040;color:var(--dim);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>14</div><div class='flab' style='margin-top:3px'>·</div></div><div style='text-align:center'><div style='background:#2a1a1d;border:1px solid #5a3540;color:var(--red);font:14px var(--mono);border-radius:6px;padding:7px 0;min-width:32px'>15</div><div class='flab' style='margin-top:3px'>×</div></div></div><div class='flab' style='margin-top:12px'><span style='color:var(--green)'>зелёные</span> — годные ящики, стоят через 4 &nbsp;|&nbsp; <span style='color:var(--red)'>15</span> — уже за границей <code>15y ≤ 217</code></div><div class='frm' style='margin-top:12px'>217 = 54 · 4 + 1</div><div class='flab' style='margin-top:10px'>шаг между соседними решениями: +4 ящика и −15 упаковок — и там и там 60 бутылок</div><figcaption>Годные ящики стоят ровно через четыре, потому что прибавка 15 · 4 = 60 делится на 4 и остатка не меняет.</figcaption></figure>
-<p class="step st"><b>Шаг 3 — полный список решений</b> (ритуал 4). Кандидаты найдены — теперь у каждого нужен свой напарник <code>u</code>, и каждую пару проверяю на исходном уравнении:</p>
+<p class="st">Подходит <code>c = 3</code>. Ещё 4 ящика — это ещё 60 бутылок, а 60 делится на 4, поэтому остаток не меняется:</p>
+<div class="frm st">15 · (c + 4) = 15c + 60</div>
+<p class="st">Годные <code>c</code> идут через 4: 3, 7, 11, 15, … Рамка <code>c ≤ 14</code> обрывает ряд на 11. Других нет: в каждой четвёрке подряд идущих <code>c</code> остаток 1 ровно у одного.</p>
+<figure class='st'><div class='fgrid' style='gap:26px'><div class='fcol'><span class='flab'>ящики <code>c</code> по четыре в строке;<br>сверху — остаток <code>15c</code> при делении на 4</span><div class='shrow'><span class='sh' style='border-color:transparent;color:var(--muted);font-size:12px'>0</span><span class='sh' style='border-color:transparent;color:var(--muted);font-size:12px'>3</span><span class='sh' style='border-color:transparent;color:var(--muted);font-size:12px'>2</span><span class='sh' style='border-color:transparent;color:var(--muted);font-size:12px'>1</span></div><div class='shrow'><span class='sh' style='color:var(--dim)'>0</span><span class='sh' style='color:var(--dim)'>1</span><span class='sh' style='color:var(--dim)'>2</span><span class='sh sh2'>3</span></div><div class='shrow'><span class='sh' style='color:var(--dim)'>4</span><span class='sh' style='color:var(--dim)'>5</span><span class='sh' style='color:var(--dim)'>6</span><span class='sh sh2'>7</span></div><div class='shrow'><span class='sh' style='color:var(--dim)'>8</span><span class='sh' style='color:var(--dim)'>9</span><span class='sh' style='color:var(--dim)'>10</span><span class='sh sh2'>11</span></div><div class='shrow' style='margin-top:6px;padding-top:6px;border-top:1px dashed #5a3540'><span class='sh' style='color:var(--dim)'>12</span><span class='sh' style='color:var(--dim)'>13</span><span class='sh' style='color:var(--dim)'>14</span><span class='sh' style='background:#2a1a1d;border-color:#5a3540;color:var(--red)'>15</span></div></div><div class='fcol'><span class='flab'>столбец с остатком 1</span><div class='shelf sh2'><b>остаток 1</b> 3 · 7 · 11</div><span class='flab'>шаг вниз по столбцу — 4 ящика,<br>это 60 бутылок, целые четвёрки</span><span class='flab'><span style='color:var(--red)'>15</span> — уже 225 бутылок,<br>за рамкой <code>15c ≤ 217</code></span></div></div><figcaption>Прибавь 4 ящика — попадёшь строкой ниже, но в тот же столбец: прибавилось 60 бутылок, а это целые четвёрки, и остаток не изменился. Годные ящики стоят одним столбцом, а рамка обрывает его на 11.</figcaption></figure>
+<p class="st">→ <b>годные <code>c</code>: 3, 7, 11</b></p>
+<p class="step st"><b>Шаг 3 — <code>p</code> к каждому годному <code>c</code>.</b> Подставляю в формулу <code>p</code> и проверяю на исходном уравнении:</p>
 <div class="st"><div class="tw"><table>
-<tr><th><code>y</code> (ящики)</th><th><code>u = (217 − 15y)/4</code> (упаковки)</th><th>проверка</th></tr>
-<tr><td>3</td><td>43</td><td><code>172 + 45 = 217</code> ✓</td></tr>
-<tr><td>7</td><td>28</td><td><code>112 + 105 = 217</code> ✓</td></tr>
-<tr><td>11</td><td>13</td><td><code>52 + 165 = 217</code> ✓</td></tr>
+<tr><th><code>c</code> (ящики)</th><th><code>p = (217 − 15c) : 4</code> (упаковки)</th><th>проверка <code>4p + 15c</code></th></tr>
+<tr><td>3</td><td><code>172 : 4 = 43</code></td><td><code>172 + 45 = 217</code> ✓</td></tr>
+<tr><td>7</td><td><code>112 : 4 = 28</code></td><td><code>112 + 105 = 217</code> ✓</td></tr>
+<tr><td>11</td><td><code>52 : 4 = 13</code></td><td><code>52 + 165 = 217</code> ✓</td></tr>
 </table></div></div>
-<p class="st">Заметь шаг между соседними решениями этого уравнения: <code>+4</code> ящика (это 60 бутылок) и <code>−15</code> упаковок (ровно те же 60 бутылок). Бутылок в сумме остаётся всё те же 217 — поэтому новая пара снова годится. Найдя одно решение, остальные получаешь этим шагом, пока не упрёшься в границу, — удобная самопроверка.</p>
-<p class="step st"><b>Шаг 4 — сборка: считаю цену каждой пары.</b> Список готов — подставляю каждую пару в формулу цены из плана. Заранее видно, куда идти: одна бутылка в упаковке обходится в <code>90 : 4 = 22,5</code> песо, а в ящике <code>300 : 15 = 20</code> песо, значит, чем больше ящиков, тем дешевле. Но это подсказка, а не доказательство — считаю <b>весь список</b>:</p>
+<p class="st">→ <b>Ответ 1: 43 уп. + 3 ящ.; 28 уп. + 7 ящ.; 13 уп. + 11 ящ.</b></p>
+<p class="st">Самопроверка: соседние способы отличаются на +4 ящика и −15 упаковок — это +60 и −60 бутылок, сумма не меняется.</p>
+<p class="step st"><b>Шаг 4 — <code>pre</code> каждой пары.</b> Прикидка: в ящике бутылка дешевле (<code>300 : 15 = 20</code> песо против <code>90 : 4 = 22,5</code>), но выбираю по всему списку:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>Покупка</th><th>Цена</th></tr>
+<tr><th>Покупка</th><th><code>pre = 90 · p + 300 · c</code></th></tr>
 <tr><td>43 уп. + 3 ящ.</td><td><code>3870 + 900 = 4770</code></td></tr>
 <tr><td>28 уп. + 7 ящ.</td><td><code>2520 + 2100 = 4620</code></td></tr>
-<tr><td>13 уп. + 11 ящ.</td><td><code>1170 + 3300 = <b>4470</b></code> ✓ дешевле всего</td></tr>
+<tr><td>13 уп. + 11 ящ.</td><td><code>1170 + 3300 = 4470</code> ✓</td></tr>
 </table></div></div>
-<div class="frm st">min(pre) = 4470</div>
-<p class="st"><b>Ответ:</b> купить 13 упаковок и 11 ящиков — 4470 песо.</p>
+<div class="frm st">min(pre) = min(4770; 4620; 4470) = 4470</div>
+<p class="st">→ <b>Ответ 2: 13 упаковок и 11 ящиков, 4470 песо</b></p>
+<p class="st"><b>Ответ на задачу.</b> Купить ровно 217 бутылок можно тремя способами: 43 упаковки и 3 ящика, 28 упаковок и 7 ящиков, 13 упаковок и 11 ящиков. Самый дешёвый — 13 упаковок и 11 ящиков, он стоит 4470 песо.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<p class="st"><b>Los que dejan el mismo resto al dividir por 4 van de 4 en 4, por eso los cuento saltando de 4 en 4.</b></p>
-<p class="st"><em>Числа с одинаковым остатком при делении на 4 идут через 4, поэтому считаю их шагами по 4.</em></p>
+<p class="st"><b>Las botellas de los paquetes siempre suman un múltiplo de 4, así que el resto de 217 al dividir por 4 lo tienen que dar las cajas.</b></p>
+<p class="st"><em>Бутылки из упаковок всегда дают число, кратное 4, поэтому остаток от деления 217 на 4 обязаны дать ящики.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>u</code> — упаковок по 4 бутылки; <code>y</code> — ящиков по 15; <code>pre</code> — цена покупки (песо).</p>
+<p class="st"><code>p</code> — упаковок по 4 бутылки; <code>c</code> — ящиков по 15; <code>pre</code> — цена покупки (песо).</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">Ответ = пара из списка, у которой pre = min(pre)</div></div>
-<ul class="st"><li><code>4u + 15y = 217</code>; <code>217 = 54 · 4 + 1</code>, то есть <code>res(217 : 4) = 1</code></li><li>такой же остаток у <code>15y</code> даёт <code>y = 3</code>, дальше через 4</li><li>граница <code>15y ≤ 217</code> → <code>y ≤ 14</code></li><li>список: <code>(43; 3)</code>, <code>(28; 7)</code>, <code>(13; 11)</code></li><li><code>pre = 90u + 300y</code> → <code>4770</code>, <code>4620</code>, <code>4470</code></li></ul>
-<p class="st"><b>min(pre) = 4470</b> при <code>u = 13</code>, <code>y = 11</code></p>
+<div class="frm st">Ответ = все пары (p; c), из них — пара с pre = min(pre)</div></div>
+<ul class="st"><li><code>4p + 15c = 217</code></li><li><code>15c ≤ 217</code> → <code>c ≤ 14</code></li><li><code>217 = 54 · 4 + 1</code> → <code>res(217 : 4) = 1</code></li><li><code>res(15c : 4)</code> при <code>c = 0, 1, 2, 3</code>: <code>0, 3, 2, 1</code> → первое годное <code>c = 3</code></li><li>ещё 4 ящика = ещё 60 бутылок, <code>res(60 : 4) = 0</code> → годные через 4: <code>c = 3, 7, 11</code></li><li><code>p = (217 − 15c) : 4</code> → <code>(43; 3)</code>, <code>(28; 7)</code>, <code>(13; 11)</code></li><li><code>pre = 90p + 300c</code> → <code>4770</code>, <code>4620</code>, <code>4470</code></li></ul>
+<p class="st"><b>min(pre) = 4470</b> при <code>p = 13</code>, <code>c = 11</code></p>
 <p class="st">Проверка: <code>52 + 165 = 217</code> ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<p class="st"><b>Recorrí las posibilidades en orden, una por una, así que no puede quedar ninguna afuera.</b></p>
-<p class="st"><em>Прошёл возможности по порядку, одну за другой, — поэтому ни одна не могла остаться в стороне.</em></p>
+<p class="st"><b>Seguí la cadena hasta el último que entra: el siguiente ya se pasa de 217 botellas, así que no me salté ninguno ni conté de más.</b></p>
+<p class="st"><em>Шёл по цепочке до последнего, который влезает: следующий уже выходит за 217 бутылок, — значит ни одного не пропустил и лишнего не посчитал.</em></p>
 <p class="st"><b>Типичные ошибки:</b></p>
-<ol class="st num"><li><span class="lin">1.</span> <b>Перебор в лоб по большой букве.</b> У <code>u</code> пятьдесят с лишним кандидатов, у остатков <code>y</code> — четыре, а дальше круг. Всегда смотри уравнение по модулю одного из коэффициентов.</li><li><span class="lin">2.</span> <b>Жадность без проверки.</b> «Ящик дешевле за бутылку — беру одни ящики»: но <code>217</code> ящиками не набирается (<code>217/15</code> не целое). Точное попадание обеспечивает только список из шага 3.</li><li><span class="lin">3.</span> <b>Потерять границу.</b> Кандидаты <code>y = 3, 7, 11, 15, …</code> обрываются на <code>15y ≤ 217</code>; забудешь — получишь отрицательные упаковки.</li></ol>
+<ol class="st num"><li><span class="lin">1.</span> <b>Перебор в лоб по маленькой упаковке.</b> Перебирать <code>p</code> — значит проверить больше пятидесяти чисел. Перебирай ту букву, при которой стоит большее число (здесь ящики: их не больше 14), а годные значения ищи по остаткам при делении на размер другой упаковки: нашёл первое — остальные идут через этот размер.</li><li><span class="lin">2.</span> <b>Жадность без списка.</b> «Ящик дешевле за бутылку — беру одни ящики»: но одними ящиками 217 не набирается: 14 ящиков — это на 7 бутылок меньше, чем нужно, а 15 ящиков — уже на 8 больше.</li></ol>
+<div class="frm st">217 = 14 · 15 + 7</div>
+<p class="st">Точное попадание дают только способы из списка шага 3, и самый дешёвый выбирается из него, а не угадывается.</p>
+<ol class="st num"><li><span class="lin">1.</span> <b>Потерять рамку.</b> Ряд <code>c = 3, 7, 11, 15, …</code> обрывает рамка <code>15c ≤ 217</code>. Забудешь её — при <code>c = 15</code> получишь «минус две упаковки»:</li></ol>
+<div class="frm st">p = (217 − 225) : 4 = −2</div>
 <div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2025 №4 — альфахоры: мешки по 6 и коробки по 25, нужно ровно 380 штук без остатка, и при этом потратить меньше всего денег. Целые решения плюс оптимизация — обе половины этой главы.</p></div>
 <hr>
 <p class="xlink"><a href="../nandu_n1_nacional_4_arifmetika2_reshebnik/07-blok-7-dve-upakovki-tochnoe-chislo-glava-7.html">→ Задачи к этой главе: <b>Блок 7 — Две упаковки, точное число</b></a></p><div class="pager"><a href="11-chast-iii-celye-resheniya.html">← ЧАСТЬ III. ЦЕЛЫЕ РЕШЕНИЯ</a><a href="13-glava-8-vilka-neravenstv-i-perelomnyy-moment.html">Глава 8. Вилка неравенств и переломный момент →</a></div>

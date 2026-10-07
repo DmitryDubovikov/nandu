@@ -116,6 +116,13 @@
   .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     margin:18px 0 0;max-width:none}
   .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -124,11 +131,19 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
   .num{display:inline-flex;vertical-align:middle}
+  ol.num{display:block}
   .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
     color:var(--ink);background:#1a2230;border:1px solid #2c394c}
   .d+.d{border-left:none}
@@ -251,118 +266,165 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 13 из 16</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Два родственных хода для задач, где ответ зажимается с двух сторон.</span></button>
-<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Печенья съедаются подряд и поровну каждый день, поэтому у каждого печенья есть свой номер, и «начали пачку 10 в 3-й день» — это на самом деле про…</span></button>
-<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ 1 = все целые s, при которых верны все четыре неравенства:</span></button>
-<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Каждый день меняет разность на одну и ту же величину — на 15 вниз: 460, 445, 430, ….</span></button>
-<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Ответ а) = тот из двух соседей у перелома, у кого модуль d меньше</span></button>
+  <button class="art" data-art="0"><span class="lbl">Идея</span><span class="val">Неизвестное не находится одним равенством — условие его только зажимает.</span></button>
+<button class="art" data-art="1"><span class="lbl">Заметь главное</span><span class="val">Печенья едят подряд — пронумеруем их: в пачке 1 печенья 1–4, в пачке 2 — 5–8 и так далее.</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val">Ответ 1 = все целые s, при которых верны обе цепочки</span></button>
+<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Каждый день d уменьшается на одно и то же число 15.</span></button>
+<button class="art" data-art="4"><span class="lbl">План</span><span class="val">Ответ а) = тот из двух соседей у нуля, у кого модуль d меньше, и подписчики каждого канала в этот день</span></button>
 </aside>
 <main>
   
   <h1>Глава 8. Вилка неравенств и переломный момент</h1>
   <p class="sub">Арифметика 2.0 — Учебник</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Два родственных хода для задач, где ответ зажимается с двух сторон.</p></div></div>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Неизвестное не находится одним равенством — условие его только <b>зажимает</b>. Хода два:</p></div></div>
+<ul class="st"><li><b>вилка</b> — сюжетный факт («пачку начали в 3-й день») даёт два неравенства; ответ — все целые числа между границами;</li><li><b>перелом</b> — величина каждый день меняется на одно и то же число и проскакивает нужную отметку; ответ — один из двух дней по бокам от этого места.</li></ul>
 <h3 class="st">Ход 1 — вилка из сюжетного факта</h3>
-<p class="st">Факт вроде «пачку 10 <b>начали</b> в 3-й день» кажется расплывчатым, а на деле это <b>двусторонняя вилка</b> неравенств. Расшифровка через «какое по счёту печенье»:</p>
-<p class="exam st"><b>Пример А.</b> «Семья ест печенье из пачек по 4 штуки, каждый день одинаковое число печений. Пачку 10 начали в 3-й день. Пачку 25 закончили в 6-й день. Сколько печений в день ест семья? Дай все возможности. В запасе 40 пачек — в какой день съедят последнее печенье?»</p>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Печенья съедаются подряд и поровну каждый день, поэтому у каждого печенья есть свой номер, и «начали пачку 10 в 3-й день» — это на самом деле про <b>одно определённое печенье</b>: пачки 1–9 дают <code>9·4 = 36</code> штук, значит, речь про печенье номер 37. А слова «начали в 3-й день» запрещают сразу две вещи: к концу дня 2 печенье 37 ещё не съедено (иначе пачку начали бы раньше), к концу дня 3 — уже съедено (иначе позже). Два запрета — два неравенства, поэтому вилка получается двусторонней сама собой.</p></div></div>
-<p class="step st"><b>Шаг 1 — план.</b> Просят <b>все</b> возможности — значит, ответом будет не одно число, а список. Сюжетных фактов два, и каждый, как сказано выше, запрещает сразу две вещи, — стало быть, каждый даёт по паре неравенств, а вместе они зажимают <code>s</code> в короткий список.</p>
-<p class="st">Каждый факт говорит про одно определённое печенье, и имя ему даём по месту: <code>ini10</code> — печенье, с которого <b>начинается</b> пачка 10 (<em>inicio</em> — начало), <code>fin25</code> — печенье, которым пачка 25 <b>кончается</b> (<em>final</em> — конец).</p>
-<p class="st">Первый факт про печенье <code>ini10</code>: за 2 дня до него не добрались, за 3 дня добрались.</p>
-<div class="frm st">2 · s ≤ ini10 − 1</div>
-<div class="frm st">3 · s ≥ ini10</div>
-<p class="st">Второй факт устроен так же, только про печенье <code>fin25</code> и дни 5 и 6.</p>
-<div class="frm st">5 · s ≤ fin25 − 1</div>
-<div class="frm st">6 · s ≥ fin25</div>
-<p class="st">А день последнего печенья считается потом — для каждой уцелевшей возможности свой.</p>
+<p class="exam st"><b>Пример А.</b></p>
+<div class="card task st"><span class="tag">Задача</span><p>Семья ест печенье из пачек по 4 штуки. В 1-й день открыли пачку 1; новую пачку открывают, только когда доели предыдущую; каждый день съедают одинаковое число печений. Пачку 10 начали в 3-й день, пачку 25 закончили в 6-й день. Всего у семьи 40 пачек. Сколько печений в день съедает семья? Дай все возможности. В какой день съедят последнее печенье (для каждой возможности)?</p></div>
+<p class="st"><code>s</code> — сколько печений съедают за день.</p>
+<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное</span><p>Печенья едят подряд — пронумеруем их: в пачке 1 печенья 1–4, в пачке 2 — 5–8 и так далее. К концу дня k съедены ровно первые</p></div></div>
+<div class="frm st">k · s</div>
+<p class="st">печений. «Пачку 10 начали в 3-й день» — факт про одно печенье, первое в пачке 10. Его номер — <code>ini10</code> (<em>inicio</em> — начало).</p>
+<p class="st">К концу дня 2 оно ещё не съедено:</p>
+<div class="frm st">2 · s &lt; ini10</div>
+<p class="st">К концу дня 3 уже съедено:</p>
+<div class="frm st">ini10 ≤ 3 · s</div>
+<p class="st">Номер зажат с двух сторон — это и есть <b>вилка</b>. Маленькое <code>s</code> не дотягивает до этого печенья и за 3 дня, большое проскакивает его уже за 2.</p>
+<p class="st"><em>💬 Отсюда фраза-объяснение: при слишком малом s ещё не хватает, при слишком большом уже перебор.</em></p>
+<p class="step st"><b>Шаг 1 — план.</b> В целых числах «меньше <code>ini10</code>» — то же, что «не больше <code>ini10 − 1</code>». Обе половины вилки — одной цепочкой:</p>
+<div class="frm st">2 · s ≤ ini10 − 1 &lt; ini10 ≤ 3 · s</div>
+<p class="st">«Пачку 25 закончили в 6-й день» — то же самое про последнее печенье пачки 25, <code>fin25</code> (<em>final</em> — конец), и дни 5 и 6:</p>
+<div class="frm st">5 · s ≤ fin25 − 1 &lt; fin25 ≤ 6 · s</div>
 <div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<p class="st"><code>Ответ 1 = все целые s, при которых верны все четыре неравенства:</code></p>
-<div class="frm st">2 · s ≤ ini10 − 1</div>
-<div class="frm st">3 · s ≥ ini10</div>
-<div class="frm st">5 · s ≤ fin25 − 1</div>
-<div class="frm st">6 · s ≥ fin25</div>
-<div class="frm st">Ответ 2 = для каждого такого s — день, в который съедено печенье номер 160</div>
-<p class="st"><code>s</code> — сколько печений семья съедает за день (шт.); <code>ini10</code> — номер первого печенья пачки 10; <code>fin25</code> — номер последнего печенья пачки 25; 160 — всего печений в 40 пачках: <code>40 · 4 = 160</code>.</p>
-<p class="st">Осталось найти: <code>ini10</code> и <code>fin25</code>.</p></div></div>
-<p class="step st"><b>Шаг 2 — считаю <code>ini10</code> и вилку из первого факта.</b> До пачки 10 съедено 9 полных пачек:</p>
-<div class="frm st">9 · 4 = 36</div>
-<p class="st">Значит, первое печенье пачки 10 идёт следующим:</p>
-<div class="frm st">ini10 = 37</div>
-<p class="st">Подставляю в первую пару неравенств плана:</p>
-<p class="st"><code>2s ≤ 36</code> → <code>s ≤ 18</code></p>
-<p class="st"><code>3s ≥ 37</code> → <code>s ≥ 13</code></p>
-<p class="st">Во втором неравенстве <code>37 : 3 = 12</code> и 1 сверху, а <code>s</code> целое, поэтому 12 не годится и граница поднимается до 13. → <b>вилка <code>13…18</code></b></p>
-<p class="step st"><b>Шаг 3 — считаю <code>fin25</code> и вилку из второго факта.</b> Пачка 25 кончается последним печеньем двадцати пяти полных пачек:</p>
+<div class="frm st">2 · s ≤ ini10 − 1 &lt; ini10 ≤ 3 · s</div>
+<div class="frm st">5 · s ≤ fin25 − 1 &lt; fin25 ≤ 6 · s</div>
+<p class="st">Ответ 1 = все целые <code>s</code>, при которых верны обе цепочки</p>
+<p class="st">Ответ 2 = для каждого такого <code>s</code> — день, в который съедают печенье номер <code>N(печений)</code></p>
+<p class="st"><code>s</code> — печений в день; <code>ini10</code> — номер первого печенья пачки 10; <code>fin25</code> — номер последнего печенья пачки 25; <code>N(печений)</code> — сколько печений во всех 40 пачках.</p>
+<p class="st">Осталось найти: <code>ini10</code> и вилку из первой цепочки; <code>fin25</code> и вилку из второй; <code>s</code> в обеих вилках; <code>N(печений)</code> и день последнего печенья.</p></div></div>
+<p class="step st"><b>Шаг 2 — <code>ini10</code> и вилка из первой цепочки.</b> До пачки 10 — девять полных пачек:</p>
+<div class="frm st">ini10 = 9 · 4 + 1 = 37</div>
+<div class="frm st">2 · s ≤ 36 &lt; 37 ≤ 3 · s</div>
+<p class="st">Левый конец:</p>
+<div class="frm st">s ≤ 36 : 2 = 18</div>
+<p class="st">Правый конец — делю с остатком:</p>
+<div class="frm st">37 = 12 · 3 + 1</div>
+<p class="st">По 12 в день за 3 дня — только 36, не хватает; значит, <code>s ≥ 13</code>.</p>
+<p class="st">→ <b>13 ≤ s ≤ 18</b></p>
+<p class="step st"><b>Шаг 3 — <code>fin25</code> и вилка из второй цепочки.</b> Пачка 25 кончается вместе с 25 полными пачками:</p>
 <div class="frm st">fin25 = 25 · 4 = 100</div>
-<p class="st">Подставляю во вторую пару неравенств плана:</p>
-<p class="st"><code>5s ≤ 99</code> → <code>s ≤ 19</code></p>
-<p class="st"><code>6s ≥ 100</code> → <code>s ≥ 17</code></p>
-<p class="st">→ <b>вилка <code>17…19</code></b></p>
-<p class="step st"><b>Шаг 4 — пересечение вилок.</b> Годится только то <code>s</code>, что попало в обе: из <code>13…18</code> и <code>17…19</code> остаётся <code>s = 17</code> или <code>s = 18</code> — <b>обе возможности в ответ</b>.</p>
-<p class="step st"><b>Шаг 5 — сборка: день последнего печенья.</b> Каждую возможность считаю отдельно, деля 160 печений на дневную порцию. При <code>s = 17</code>:</p>
+<div class="frm st">5 · s ≤ 99 &lt; 100 ≤ 6 · s</div>
+<p class="st">Левый конец:</p>
+<div class="frm st">99 = 19 · 5 + 4</div>
+<p class="st">По 20 в день за 5 дней — уже 100, слишком много; значит, <code>s ≤ 19</code>.</p>
+<p class="st">Правый конец:</p>
+<div class="frm st">100 = 16 · 6 + 4</div>
+<p class="st">По 16 в день за 6 дней — только 96, не хватает; значит, <code>s ≥ 17</code>.</p>
+<p class="st">→ <b>17 ≤ s ≤ 19</b></p>
+<p class="step st"><b>Шаг 4 — <code>s</code> в обеих вилках.</b> Ниже 13 не пускает первая вилка, выше 19 — вторая. Остальных кандидатов выкладываю в ряд:</p>
+<div class="st"><div class="tw"><table>
+<tr><th><code>s</code></th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th></tr>
+<tr><td>вилка 1: от 13 до 18</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td></tr>
+<tr><td>вилка 2: от 17 до 19</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td></tr>
+</table></div></div>
+<p class="st">Две галочки — только у 17 и 18.</p>
+<p class="st">→ <b>Ответ 1: s = 17 или s = 18</b></p>
+<p class="st">Прогон (ритуал 2) — какие печенья едят в дни 3 и 6:</p>
+<div class="st"><div class="tw"><table>
+<tr><th><code>s</code></th><th>день 3</th><th>день 6</th></tr>
+<tr><td>17</td><td>35–51, среди них 37 ✓</td><td>86–102, среди них 100 ✓</td></tr>
+<tr><td>18</td><td>37–54, начинается с 37 ✓</td><td>91–108, среди них 100 ✓</td></tr>
+</table></div></div>
+<p class="step st"><b>Шаг 5 — <code>N(печений)</code> и день последнего печенья.</b></p>
+<div class="frm st">N(печений) = 40 · 4 = 160</div>
+<p class="st">При <code>s = 17</code>:</p>
 <div class="frm st">160 = 9 · 17 + 7</div>
-<p class="st">Девять дней съедены полностью, и остаётся ещё 7 печений — их доедают на следующий, <b>десятый</b> день. При <code>s = 18</code>:</p>
+<p class="st">9 полных дней и ещё 7 печений → <b>день 10</b>.</p>
+<p class="st">При <code>s = 18</code>:</p>
 <div class="frm st">160 = 8 · 18 + 16</div>
-<p class="st">Восемь полных дней и остаток 16 — последнее печенье съедено в <b>девятый</b> день.</p>
-<p class="st"><b>Ответ:</b> 17 или 18 печений в день; последнее — в 10-й день (при 17) или в 9-й (при 18).</p>
+<p class="st">8 полных дней и ещё 16 печений → <b>день 9</b>.</p>
+<p class="st"><b>Ответ на задачу.</b> Семья ест 17 или 18 печений в день, других возможностей нет. При 17 в день последнее печенье съедят в 10-й день, при 18 — в 9-й.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<p class="st"><b>Con 2 días todavía no alcanza y con 3 días ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p>
-<p class="st"><em>При 2 днях ещё не хватает, а при 3 днях уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
+<p class="st"><b>Con 12 por día todavía no alcanza y con 19 ya se pasa, así que lo que busco queda encajado entre esos dos números.</b></p>
+<p class="st"><em>При 12 в день ещё не хватает, а при 19 уже перебор, — значит искомое зажато между этими двумя числами.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>s</code> — печений в день; <code>ini10</code> — номер первого печенья пачки 10; <code>fin25</code> — номер последнего печенья пачки 25.</p>
-<ul class="st"><li><code>ini10 = 9 · 4 + 1 = 37</code>; <code>2s ≤ 36</code> → <code>s ≤ 18</code>; <code>3s ≥ 37</code> → <code>s ≥ 13</code> → вилка <code>13…18</code></li><li><code>fin25 = 25 · 4 = 100</code>; <code>5s ≤ 99</code> → <code>s ≤ 19</code>; <code>6s ≥ 100</code> → <code>s ≥ 17</code> → вилка <code>17…19</code></li><li>пересечение вилок: <b>s = 17 или s = 18</b></li><li>всего печений <code>40 · 4 = 160</code></li><li><code>160 = 9 · 17 + 7</code> → <b>день 10</b></li><li><code>160 = 8 · 18 + 16</code> → <b>день 9</b></li></ul>
+<p class="st"><code>s</code> — печений в день; <code>ini10</code> — первое печенье пачки 10; <code>fin25</code> — последнее печенье пачки 25.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">2 · s ≤ ini10 − 1 &lt; ini10 ≤ 3 · s</div>
+<div class="frm st">5 · s ≤ fin25 − 1 &lt; fin25 ≤ 6 · s</div></div>
+<ul class="st"><li><code>ini10 = 9 · 4 + 1 = 37</code></li><li><code>2 · s ≤ 36</code> → <code>s ≤ 18</code></li><li><code>37 = 12 · 3 + 1</code> → <code>s ≥ 13</code></li><li><code>fin25 = 25 · 4 = 100</code></li><li><code>99 = 19 · 5 + 4</code> → <code>s ≤ 19</code></li><li><code>100 = 16 · 6 + 4</code> → <code>s ≥ 17</code></li></ul>
+<div class="st"><div class="tw"><table>
+<tr><th><code>s</code></th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th></tr>
+<tr><td>вилка 1</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td></tr>
+<tr><td>вилка 2</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td></tr>
+</table></div></div>
+<ul class="st"><li><b>s = 17 или s = 18</b></li><li><code>N(печений) = 40 · 4 = 160</code></li><li><code>160 = 9 · 17 + 7</code> → <b>день 10</b></li><li><code>160 = 8 · 18 + 16</code> → <b>день 9</b></li></ul>
+<p class="st">Проверка: при <code>s = 17</code> в день 3 едят 35–51, в день 6 — 86–102 ✓; при <code>s = 18</code> — 37–54 и 91–108 ✓</p>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<p class="st"><b>Probé todos los s posibles y los demás no cumplen las cuatro desigualdades, por eso no hay más que estos.</b></p>
-<p class="st"><em>Проверил все возможные s, остальные не подходят под четыре неравенства, — поэтому других нет.</em></p>
+<p class="st"><b>Probé todos los s posibles, de 13 a 19, y los demás no cumplen las dos condiciones a la vez, por eso no hay más que estos.</b></p>
+<p class="st"><em>Проверил все возможные s, от 13 до 19, остальные не подходят под оба условия сразу, — поэтому других нет.</em></p>
 <h3 class="st">Ход 2 — переломный момент: проверь обоих соседей</h3>
-<p class="exam st"><b>Пример Б.</b> «У канала «Астра» 40 подписчиков, и каждый день прибавляется ровно 6. У канала «Берёза» 500 подписчиков, и каждый день уходит ровно 9. а) Через сколько дней числа подписчиков у двух каналов будут ближе всего друг к другу? Сколько подписчиков будет тогда у каждого? б) Сколько ещё дней после этого — и у двух каналов вместе станет 420 подписчиков?»</p>
-<p class="st"><b>Новое слово: модуль числа.</b> «Ближе всего друг к другу» — значит разность двух чисел самая маленькая. Но разность может уйти в минус: если «Берёза» опустилась ниже «Астры», разность выйдет, скажем, <code>−5</code>. Расстояние от этого −5 до нуля всё равно 5 — и вот это расстояние до нуля, без учёта знака, называется <b>модулем числа</b>: модуль числа −5 равен 5, модуль числа 10 равен 10. Сравнивать «кто ближе к нулю» надо именно модулями: <code>−5</code> ближе к нулю, чем <code>10</code>, хотя как число <code>−5</code> меньше и нуля, и десятки. (Не путай с «остатком по модулю 3» из книжки про цифры: там «модуль» — это число, которым меряют, то есть на которое делят. Слово в обоих случаях одно и то же, и не случайно: латинское <em>modulus</em> значит «мерка», а меряют тут в обоих случаях — только разное. В «остатке по модулю 3» тройка это мерка, которой меряют число. А модуль числа — сам размер числа, насколько оно велико, если не смотреть на знак. Так что смотри по фразе, о чём речь: «по модулю 3» — меряем тройкой, «модуль числа −5» — размер этого −5.)</p>
-<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное</span><p>Каждый день меняет разность на одну и ту же величину — на 15 вниз: <code>460, 445, 430, …</code>. Раз шаг всегда один и тот же, разность идёт только вниз, без возвратов, и ноль пересекает ровно один раз. Значит, ближе всего к нулю она может оказаться лишь в двух местах: в последний день перед пересечением и в первый после него — все остальные дальше, и проверять их незачем. Отсюда и весь ход: найти это место делением <code>460 : 15</code> и сравнить двух соседей.</p></div></div>
-<p class="step st"><b>Шаг 1 — план.</b> Вопроса два, и второй считается от ответа первого. Обозначу <code>n</code> — сколько прошло дней. Разность двух каналов падает равномерно, значит, её видно формулой при любом <code>n</code>, и то же верно про сумму:</p>
+<p class="exam st"><b>Пример Б.</b></p>
+<div class="card task st"><span class="tag">Задача</span><p>У канала «Астра» 40 подписчиков, и каждый день прибавляется ровно 6. У канала «Берёза» 500 подписчиков, и каждый день уходит ровно 9. а) Через сколько дней числа подписчиков у двух каналов будут ближе всего друг к другу? Сколько подписчиков будет тогда у каждого? б) Через сколько дней после этого у двух каналов вместе станет 420 подписчиков?</p></div>
+<p class="st"><b>Новое слово: модуль числа</b> — расстояние от числа до нуля, без знака. Модуль −5 равен 5, модуль 10 равен 10. «Ближе всего друг к другу» значит: у разности самый маленький модуль. Разность −5 ближе к нулю, чем 10.</p>
+<p class="st">(В «остатке по модулю 3» из пары «Цифры» слово то же, а смысл другой: там 3 — число, на которое делят.)</p>
+<p class="st"><code>n</code> — сколько прошло дней. Разность «Берёза минус Астра» — вычитаю каждое слагаемое скобки:</p>
 <div class="frm st">d = (500 − 9n) − (40 + 6n)</div>
-<div class="frm st">S(каналов) = (40 + 6n) + (500 − 9n)</div>
-<p class="st">Вопрос а) — про перелом: где разность проскакивает ноль. Побороться за близость к нулю могут только два дня, соседних с этим местом, и выигрывает тот, у кого модуль разности меньше. Вопрос б) — про сумму, и спрашивают не номер дня, а сколько их ещё после ответа а).</p>
-<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">d = (500 − 9n) − (40 + 6n)</div>
-<div class="frm st">S(каналов) = (40 + 6n) + (500 − 9n)</div>
-<p class="st"><code>Ответ а) = тот из двух соседей у перелома, у кого модуль d меньше</code></p>
-<div class="frm st">Ответ б) = n420 − Ответ а)</div>
-<p class="st"><code>n</code> — сколько прошло дней; <code>d</code> — разность чисел подписчиков через <code>n</code> дней; <code>S(каналов)</code> — сколько подписчиков у двух каналов вместе через <code>n</code> дней; <code>n420</code> — день, в который <code>S(каналов) = 420</code>.</p>
-<p class="st">Осталось найти:</p>
-<ul class="st"><li>вид формулы <code>d</code> после приведения — из него видно, как быстро падает разность;</li><li>двух соседей у перелома — делением с остатком по этой формуле;</li><li><code>n420</code> — из формулы <code>S(каналов)</code>.</li></ul></div></div>
-<p class="step st"><b>Шаг 2 — упрощаю формулу разности.</b> Нужно увидеть, с какого числа разность стартует и на сколько падает за день, — а в формуле плана это спрятано в двух скобках. Раскрываю их и собираю отдельно числа и отдельно дни:</p>
+<div class="frm st">d = 500 − 40 − 9n − 6n</div>
 <div class="frm st">d = 460 − 15n</div>
-<p class="st">Читается так: старт 460, и каждый день съедает 15.</p>
-<p class="step st"><b>Шаг 3 — нахожу двух соседей у перелома.</b> Разность обнулилась бы в тот день, когда 15 уместилось в 460 целиком, — делю с остатком:</p>
-<div class="frm st">460 = 15 · 30 + 10</div>
-<p class="st">Деление не нацело: за 30 дней съедено <code>15 · 30 = 450</code>, и до нуля не хватило 10; ещё один день съедает целую пятнадцатку и проскакивает ноль. Значит, перелом стоит между днями 30 и 31 — это и есть два кандидата.</p>
-<p class="step st"><b>Шаг 4 — проверяю обоих соседей.</b> Считаю разность у каждого и сравниваю модули:</p>
-<p class="st">при <code>n = 30</code>: <code>d = 460 − 450 = 10</code></p>
-<p class="st">при <code>n = 31</code>: <code>d = 460 − 465 = −5</code></p>
-<figure class='st'><div class='flab' style='margin-bottom:8px'>красная черта — ноль: там, где числа сравнялись бы</div><div style='display:grid;grid-template-columns:80px 1fr 2px 1fr 170px;align-items:center;gap:8px;margin:6px 0'><div class='flab' style='text-align:right'>n = 29</div><div style='display:flex;justify-content:flex-end'><div style='background:#243040;width:156px;height:26px;border-radius:6px 0 0 6px'></div></div><div style='background:var(--red);height:44px'></div><div></div><div class='flab'>Разность = 25</div></div><div style='display:grid;grid-template-columns:80px 1fr 2px 1fr 170px;align-items:center;gap:8px;margin:6px 0'><div class='flab' style='text-align:right'>n = 30</div><div style='display:flex;justify-content:flex-end'><div style='background:var(--gold);width:72px;height:26px;border-radius:6px 0 0 6px'></div></div><div style='background:var(--red);height:44px'></div><div></div><div class='flab'>Разность = 10 — ближний сосед</div></div><div style='display:grid;grid-template-columns:80px 1fr 2px 1fr 170px;align-items:center;gap:8px;margin:6px 0'><div class='flab' style='text-align:right'>n = 31</div><div></div><div style='background:var(--red);height:44px'></div><div><div style='background:var(--green);width:12px;height:26px;border-radius:0 6px 6px 0'></div></div><div class='flab'>Разность = −5, модуль 5 — победил</div></div><div class='frm' style='margin-top:14px'>460 = 15 · 30 + 10</div><div class='flab' style='margin-top:10px'>каждый день съедает 15, поэтому ноль пересекается ровно один раз — и ближе всего к нему могут оказаться только два соседа</div><figcaption>Слева от черты разность ещё положительна, справа уже отрицательна; выигрывает не тот, кто не перескочил, а тот, у кого модуль меньше.</figcaption></figure>
-<p class="st">Модуль 5 меньше модуля 10 → победил дальний сосед: <b>31 день</b>; подписчиков тогда <code>40 + 186 = 226</code> и <code>500 − 279 = 221</code>.</p>
-<p class="step st"><b>Шаг 5 — нахожу <code>n420</code>.</b> Упрощаю формулу суммы: за день «Астра» прибавляет 6, а «Берёза» теряет 9, вместе это <code>−3</code> за день, а старт <code>40 + 500 = 540</code>:</p>
+<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное</span><p>Каждый день <code>d</code> уменьшается на одно и то же число 15. Значит, через ноль <code>d</code> проходит один раз:</p></div></div>
+<ul class="st"><li>до этого места <code>d &gt; 0</code> и уменьшается — ближе всех к нулю последний день перед ним;</li><li>после — <code>d &lt; 0</code> и уходит от нуля — ближе всех первый день после него.</li></ul>
+<p class="st">За «ближе всего» борются только эти два соседа, остальные дальше.</p>
+<p class="st"><em>💬 Отсюда фраза-объяснение: разность падает по 15 и проходит через ноль один раз.</em></p>
+<p class="step st"><b>Шаг 1 — план.</b> Для б) — сумма (<code>+6</code> и <code>−9</code> за день — это <code>−3</code>):</p>
+<div class="frm st">S(каналов) = (40 + 6n) + (500 − 9n) = 540 − 3n</div>
+<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">d = 460 − 15n</div>
 <div class="frm st">S(каналов) = 540 − 3n</div>
+<p class="st">Ответ а) = тот из двух соседей у нуля, у кого модуль <code>d</code> меньше, и подписчики каждого канала в этот день</p>
+<p class="st">Ответ б) = <code>n420</code> − (день из ответа а)</p>
+<p class="st"><code>n</code> — дней; <code>d</code> — на сколько у «Берёзы» больше, чем у «Астры» (бывает меньше нуля); <code>S(каналов)</code> — подписчиков вместе; <code>n420</code> — день, когда <code>S(каналов) = 420</code>.</p>
+<p class="st">Осталось найти: двух соседей у нуля; кто из них ближе; подписчиков в этот день; <code>n420</code>.</p></div></div>
+<p class="step st"><b>Шаг 2 — два соседа у нуля.</b> Сколько целых пятнадцаток помещается в 460:</p>
+<div class="frm st">460 = 30 · 15 + 10</div>
+<p class="st">При <code>n = 30</code> ещё <code>d = 10</code> — больше нуля.</p>
+<p class="st">При <code>n = 31</code>:</p>
+<div class="frm st">d = 10 − 15 = −5</div>
+<p class="st">Ноль пройден → <b>соседи: n = 30 и n = 31</b></p>
+<figure class='st'><div class='flab' style='margin-bottom:8px'>красная черта — ноль; длина полосы — модуль d</div><div style='display:grid;grid-template-columns:52px minmax(0,1fr) 2px minmax(0,1fr);align-items:center;gap:6px;margin:4px 0'><div class='flab' style='text-align:right'>n = 29</div><div style='display:flex;justify-content:flex-end'><div style='background:var(--muted);width:100%;height:24px;border-radius:6px 0 0 6px'></div></div><div style='background:var(--red);height:36px'></div><div></div></div><div class='flab' style='margin:0 0 8px 58px;'>d = 25</div><div style='display:grid;grid-template-columns:52px minmax(0,1fr) 2px minmax(0,1fr);align-items:center;gap:6px;margin:4px 0'><div class='flab' style='text-align:right'>n = 30</div><div style='display:flex;justify-content:flex-end'><div style='background:var(--gold);width:40%;height:24px;border-radius:6px 0 0 6px'></div></div><div style='background:var(--red);height:36px'></div><div></div></div><div class='flab' style='margin:0 0 8px 58px;font-weight:700;'>d = 10 — сосед слева</div><div style='display:grid;grid-template-columns:52px minmax(0,1fr) 2px minmax(0,1fr);align-items:center;gap:6px;margin:4px 0'><div class='flab' style='text-align:right'>n = 31</div><div></div><div style='background:var(--red);height:36px'></div><div style='display:flex'><div style='background:var(--green);width:20%;height:24px;border-radius:0 6px 6px 0'></div></div></div><div class='flab' style='margin:0 0 8px 58px;font-weight:700;'>d = −5 — сосед справа, модуль 5</div><div style='display:grid;grid-template-columns:52px minmax(0,1fr) 2px minmax(0,1fr);align-items:center;gap:6px;margin:4px 0'><div class='flab' style='text-align:right'>n = 32</div><div></div><div style='background:var(--red);height:36px'></div><div style='display:flex'><div style='background:var(--muted);width:80%;height:24px;border-radius:0 6px 6px 0'></div></div></div><div class='flab' style='margin:0 0 8px 58px;'>d = −20 — уже уходит от нуля</div><figcaption>Каждый день d уменьшается на 15, поэтому ноль проходится один раз. Ближе всех к нему — два соседа по краям черты; из них короче полоса у n = 31.</figcaption></figure>
+<p class="step st"><b>Шаг 3 — кто ближе.</b> Модуль −5 равен 5, а 5 меньше 10 → <b>31 день</b></p>
+<p class="step st"><b>Шаг 4 — подписчики в день 31.</b></p>
+<p class="st">«Астра»: <code>40 + 6 · 31 = 40 + 186 = 226</code></p>
+<p class="st">«Берёза»: <code>500 − 9 · 31 = 500 − 279 = 221</code></p>
+<p class="st">У «Берёзы» на 5 меньше — это <code>d = −5</code> ✓</p>
+<p class="step st"><b>Шаг 5 — <code>n420</code>.</b></p>
 <div class="frm st">540 − 3n = 420</div>
 <div class="frm st">3n = 120</div>
 <p class="st">→ <b>n420 = 40</b></p>
-<p class="step st"><b>Шаг 6 — сборка.</b> Спрашивают «сколько ещё», то есть считать надо от ответа а) — подставляю в формулу плана:</p>
+<p class="st">Прогон (ритуал 2) для дня 40:</p>
+<p class="st">«Астра»: <code>40 + 6 · 40 = 40 + 240 = 280</code></p>
+<p class="st">«Берёза»: <code>500 − 9 · 40 = 500 − 360 = 140</code></p>
+<p class="st"><code>280 + 140 = 420</code> ✓</p>
+<p class="step st"><b>Шаг 6 — сборка.</b></p>
 <div class="frm st">Ответ б) = 40 − 31 = 9</div>
-<p class="st"><b>Ответ:</b> а) 31 день, подписчиков 226 и 221; б) ещё 9 дней.</p>
+<p class="st"><b>Ответ на задачу.</b> а) Ближе всего каналы будут через 31 день: у «Астры» 226 подписчиков, у «Берёзы» 221. б) Ещё через 9 дней — на 40-й день — у них вместе станет 420.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
 <p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<p class="st"><b>Menos de 5 no se puede, porque la diferencia baja de a 15 y pasa por el cero una sola vez; y con 31 días se logra, así que el mínimo es 5.</b></p>
-<p class="st"><em>Меньше 5 быть не может, потому что разность падает по 15 и через ноль проходит один-единственный раз; а 31 день этого достигает, — значит минимум равен 5.</em></p>
+<p class="st"><b>Menos de 5 no se puede, porque la diferencia baja de a 15 y pasa por el cero una sola vez, entre 10 y −5; y con 31 días se logra, así que el mínimo es 5.</b></p>
+<p class="st"><em>Меньше 5 быть не может, потому что разность падает по 15 и проходит через ноль один-единственный раз — между 10 и −5; а 31 день этого достигает, — значит минимум равен 5.</em></p>
 <h4 class="st">Запись</h4>
-<p class="st"><code>n</code> — дней; <code>d</code> — разность подписчиков; <code>S(каналов)</code> — подписчиков вместе; <code>n420</code> — день, в который <code>S(каналов) = 420</code>.</p>
-<ul class="st"><li><code>d = 460 − 15n</code></li><li><code>460 = 15 · 30 + 10</code> → соседи <code>n = 30</code> и <code>n = 31</code></li><li>при <code>n = 30</code>: <code>d = 10</code>; при <code>n = 31</code>: <code>d = −5</code> → модуль меньше у 31 → <b>31 день</b></li><li>подписчики: <code>40 + 186 = 226</code>, <code>500 − 279 = 221</code></li><li><code>S(каналов) = 540 − 3n = 420</code> → <code>3n = 120</code> → <code>n420 = 40</code></li></ul>
+<p class="st"><code>n</code> — дней; <code>d</code> — на сколько у «Берёзы» больше; <code>S(каналов)</code> — подписчиков вместе; <code>n420</code> — день, когда <code>S(каналов) = 420</code>.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">d = 460 − 15n</div>
+<div class="frm st">S(каналов) = 540 − 3n</div></div>
+<ul class="st"><li><code>460 = 30 · 15 + 10</code> → соседи <code>n = 30</code> и <code>n = 31</code></li><li><code>n = 30</code>: <code>d = 10</code></li><li><code>n = 31</code>: <code>d = −5</code> → модуль меньше → <b>31 день</b></li><li>«Астра»: <code>40 + 6 · 31 = 226</code></li><li>«Берёза»: <code>500 − 9 · 31 = 221</code></li><li><code>540 − 3n = 420</code> → <code>n420 = 40</code></li></ul>
 <div class="frm st">Ответ б) = 40 − 31 = 9</div>
-<p class="st">Побеждать может любой из соседей — поэтому ритуал: <b>посчитай обоих и сравни модули</b>.</p>
+<p class="st">Проверка: в день 40 <code>280 + 140 = 420</code> ✓</p>
 <p class="st"><b>Типичные ошибки:</b></p>
-<ol class="st num"><li><span class="lin">1.</span> <b>Односторонняя вилка.</b> Из «начали в день 3» взять только <code>3s ≥ 37</code> и потерять <code>2s ≤ 36</code> — половина возможностей лишняя.</li><li><span class="lin">2.</span> <b>Округлить и не проверить соседа.</b> Перелом — не floor и не осторожное «возьму поменьше»: только оба кандидата и сравнение.</li><li><span class="lin">3.</span> <b>Забыть модуль.</b> Разность «−2» — это расстояние 2: числа поменялись местами, но стоят близко.</li><li><span class="lin">4.</span> <b>Строгость неравенств.</b> «К концу дня 2 не съедено» — это <code>2s ≤ 36</code>, нестрого: ровно 36 значит «пачка 9 закончена, пачка 10 не начата» — и она честно начнётся в день 3.</li></ol>
+<ol class="st num"><li><span class="lin">1.</span> <b>Односторонняя вилка.</b> Взять из «начали в день 3» только <code>3 · s ≥ 37</code> и потерять <code>2 · s ≤ 36</code> — в ответ пролезет <code>s = 19</code>. А при <code>s = 19</code> за 2 дня съедено 38: печенье 37 съели уже во 2-й день.</li><li><span class="lin">2.</span> <b>Взять одного соседа.</b> «460 на 15 — это 30 с хвостиком, значит, 30» — нет: кандидатов два, 30 и 31, и здесь выиграл 31. Считай <code>d</code> у обоих и сравнивай модули.</li><li><span class="lin">3.</span> <b>Забыть модуль.</b> Разность −2 — это расстояние 2: каналы поменялись местами, но стоят близко.</li><li><span class="lin">4.</span> <b>Строгость неравенств.</b> «К концу дня 2 печенье 37 не съедено» — это <code>2 · s ≤ 36</code>, нестрого: ровно 36 значит «пачка 9 доедена, пачка 10 ещё не начата». Напишешь <code>2 · s &lt; 36</code> — потеряешь <code>s = 18</code>.</li></ol>
 <div class="card arsenal st"><span class="tag">🎯 Боевой арсенал</span><p>2020 №1а — «в какой день накоплено впервые больше $2020»: переломный момент внутри цикла, ищется вилкой. 2025 №4 — выбор между мешками и коробками: перебираешь одну упаковку, вторая досчитывается, а минимум ловится сравнением соседей.</p></div>
 <hr>
 <p class="xlink"><a href="../nandu_n1_nacional_4_arifmetika2_reshebnik/08-blok-8-vilka-neravenstv-i-perelomnyy-moment-glav.html">→ Задачи к этой главе: <b>Блок 8 — Вилка неравенств и переломный момент</b></a></p><div class="pager"><a href="12-glava-7-dve-upakovki-tochnoe-chislo.html">← Глава 7. Две упаковки, точное число</a><a href="14-dopolnenie-a-ravnye-raznosti-lesenka-s-shagom.html">Дополнение А. Равные разности — лесенка с шагом →</a></div>
