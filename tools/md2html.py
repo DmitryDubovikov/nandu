@@ -16,6 +16,12 @@ def inline(s):
     s = re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)', r'<em>\1</em>', s)
     return s
 
+def pens(s):
+    """Цветные ручки в системе: ⟦…⟧ — подставляемое, ⟪…⟫ — общее у двух уравнений."""
+    s = re.sub(r'⟦(.+?)⟧', r'<span class="pen1">\1</span>', s)
+    s = re.sub(r'⟪(.+?)⟫', r'<span class="pen2">\1</span>', s)
+    return re.sub(r'(?m)^(найдено:.*)$', r'<span class="found">\1</span>', s)
+
 def plain(s):
     """Текст заголовка без разметки — для <title>, ссылок и меток навигации.
 
@@ -93,7 +99,8 @@ def parse(md):
             j = i + 1; buf = []
             while j < len(lines) and not lines[j].strip().startswith('```'):
                 buf.append(lines[j]); j += 1
-            blocks.append(('code', '\n'.join(buf))); i = j + 1; continue
+            # ```sys — система уравнений; ⟦…⟧ и ⟪…⟫ — буквы, написанные другой ручкой
+            blocks.append(('sys' if s[3:].strip() == 'sys' else 'code', '\n'.join(buf))); i = j + 1; continue
         m = re.match(r'^(#{1,4}) (.+)$', s)
         if m:
             blocks.append(('h%d' % len(m.group(1)), m.group(2))); i += 1; continue
@@ -118,7 +125,30 @@ def parse(md):
                 r'^\s*(#|>|\||```|---|[-*] |\d+\. )', lines[i].strip()):
             buf.append(lines[i].strip()); i += 1
         blocks.append(('p', ' '.join(buf)))
-    return blocks
+    return fold_task_lists(blocks)
+
+TASK_HEAD = re.compile(r'^\*\*(Условие|Задача)[.:]')
+
+def fold_task_lists(blocks):
+    """Список условий — внутрь рамки постановки (правило 13).
+
+    «…так, чтобы выполнялись все условия:» + список + вопрос — это одна постановка.
+    Без склейки список и вопрос падают под рамку, и блок кончается не вопросом.
+    Склеенный абзац хранит части через \\n (список) и \\n\\n (вопрос): обычный
+    абзац переводов строк не содержит, так что спутать не с чем.
+    """
+    out, i = [], 0
+    while i < len(blocks):
+        k, v = blocks[i]
+        if (k == 'p' and TASK_HEAD.match(v) and v.rstrip().endswith(':')
+                and i + 1 < len(blocks) and blocks[i + 1][0] == 'list'):
+            v += '\n' + blocks[i + 1][1]; i += 2
+            if i < len(blocks) and blocks[i][0] == 'p' and '?' in blocks[i][1] \
+                    and not blocks[i][1].startswith('**'):
+                v += '\n\n' + blocks[i][1]; i += 1
+            out.append((k, v)); continue
+        out.append(blocks[i]); i += 1
+    return out
 
 # ——————————————————————————— рендер ———————————————————————————
 
@@ -167,25 +197,71 @@ def render_tldr(src, visuals=None, used=None):
     Карточки (Идея, Шаг) внутри не раскрываются: блок — сам по себе карточка,
     вложенная рамка в рамке только шумит. Иллюстрации ставятся по якорю внутрь
     блока — рисунок с буквами принадлежит конспекту, а не разбору под ним.
+
+    Если у шагов есть итоги (строки «→ …»), конспект рисуется слоями: каждый шаг
+    свёрнут в строку «название → итог», обоснование раскрывается по нажатию.
+    Верхний слой — всё решение одним взглядом, нижний — почему каждый итог верен.
     """
-    out = []
-    for k, v in parse(src):
-        if k == 'p' and TLDR_HEAD.match(v):
-            out.append('<span class="tag">⚡ Коротко</span>')
-            continue
+    blocks = parse(src)
+    layered = any(k == 'p' and v.startswith('→') for k, v in blocks)
+    out, step = [], None          # step = [заголовок, итоги, тело]
+
+    def figs(v):
+        if visuals is None:
+            return []
+        key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v)).strip()
+        hit = []
+        for anchor, figure in visuals.items():
+            if anchor in key and anchor not in used:
+                used.add(anchor)
+                hit.append(figure)
+        return hit
+
+    def one(k, v):
+        if k == 'p' and v.startswith('→'):
+            # итог шага конспекта: несгораемый артефакт, видный глазом
+            return f'<p class="res st">{inline(v)}</p>'
         if k == 'p' and re.fullmatch(r'\*[^*].*[^*]\*', v.strip()):
             # подпись-источник над уравнением: откуда в условии оно взято
-            out.append(f'<p class="src st">{inline(v)}</p>')
-        elif k == 'p' and not is_formula(v):
-            out.append(f'<p class="st">{inline(v)}</p>')
-        else:
-            out.append(render_block((k, v)))
-        if visuals is not None:
-            key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v)).strip()
-            for anchor, figure in visuals.items():
-                if anchor in key and anchor not in used:
-                    used.add(anchor)
-                    out.append(figure)
+            return f'<p class="src st">{inline(v)}</p>'
+        if k == 'p' and not is_formula(v):
+            return f'<p class="st">{inline(v)}</p>'
+        return render_block((k, v))
+
+    def close():
+        if step:
+            head, res, body = step
+            out.append('<details class="stp"><summary><span class="tl-h">' + inline(head) + '</span>'
+                       + ''.join(f'<span class="tl-r">{inline(r)}</span>' for r in res)
+                       + '</summary><div class="tl-b">' + '\n'.join(body) + '</div></details>')
+
+    for k, v in blocks:
+        if k == 'p' and TLDR_HEAD.match(v):
+            out.append('<span class="tag">⚡ Коротко</span>')
+            if layered:
+                out.append('<button class="openall" type="button" onclick="var d=this.closest(\'.tldr\')'
+                           '.querySelectorAll(\'details\'),o=![].every.call(d,function(x){return x.open});'
+                           '[].forEach.call(d,function(x){x.open=o})">раскрыть / свернуть все шаги</button>')
+            continue
+        m = re.match(r'^(\*\*\d+\. [^*]+\*\*)\s*(.*)$', v) if layered and k == 'p' else None
+        if layered and k == 'p' and re.match(r'^\*\*(Ответ|⚠)', v):
+            close(); step = None
+        if m:
+            close()
+            step = [m.group(1), [], []]
+            if m.group(2):
+                step[2].append(f'<p class="st">{inline(m.group(2))}</p>')
+            step[2] += figs(v)
+            continue
+        if step is not None:
+            if k == 'p' and v.startswith('→'):
+                step[1].append(v[1:].strip())     # копия в заголовок шага
+            step[2].append(one(k, v))
+            step[2] += figs(v)
+            continue
+        out.append(one(k, v))
+        out += figs(v)
+    close()
     return '<div class="tldr st">' + '\n'.join(out) + '</div>'
 
 def render_quote(src):
@@ -217,12 +293,21 @@ def render_block(b):
     k, v = b
     if k == 'hr':   return '<hr>'
     if k == 'code': return f'<pre class="ascii st">{html.escape(v)}</pre>'
+    if k == 'sys':  return f'<pre class="sys st">{pens(html.escape(v))}</pre>'
     if k == 'table':return f'<div class="st">{render_table(v)}</div>'
     if k == 'quote':return render_quote(v)
     if k == 'list': return render_list(v)
     if k.startswith('h'):
         n = int(k[1])
         return f'<h{n} class="st">{inline(v)}</h{n}>'
+    if '\n' in v and TASK_HEAD.match(v):     # постановка со списком условий
+        head, rest = v.split('\n', 1)
+        lst, _, q = rest.partition('\n\n')
+        body = inline(head)
+        m = re.match(r'^<b>(.+?)</b>\s*', body)
+        tag, body = m.group(1).rstrip(':.'), body[m.end():]
+        return (f'<div class="card task st"><span class="tag">{tag}</span><p>{body}</p>'
+                + render_list(lst) + (f'<p>{inline(q)}</p>' if q else '') + '</div>')
     f = is_formula(v)
     if f:
         return f'<div class="frm st">{inline(f)}</div>'
@@ -802,6 +887,8 @@ def check(md_path, html_path, minrun=3):
     raw = re.sub(r'<div class="pager">.*?</div>', ' ', raw, flags=re.S)
     nx = len(re.findall(r'<p class="xlink">', raw))
     raw = re.sub(r'<p class="xlink">.*?</p>', ' ', raw, flags=re.S)
+    # слои конспекта: итог шага в свёрнутом заголовке — копия строки «→» из тела шага
+    raw = re.sub(r'<span class="tl-r">.*?</span>|<button class="openall".*?</button>', ' ', raw, flags=re.S)
     a = words(md_text(open(md_path).read(), drop_head=True))
     b = words(visible_text(raw))
     sm = difflib.SequenceMatcher(None, a, b, autojunk=False)

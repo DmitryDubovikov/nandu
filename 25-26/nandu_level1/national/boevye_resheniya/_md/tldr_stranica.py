@@ -15,9 +15,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(B, '..', '..', '..', '..', 'tool
 import md2html as mh
 
 years = sorted((d for d in os.listdir(B) if re.fullmatch(r'\d{4}', d)), reverse=True)
-# стили — со страницы задачи (там описаны .task, .tldr, .frm); скрипт проявления не берём,
+# стили — из шаблона страниц (там описаны .task, .tldr, .frm), а не с готовой страницы:
+# страница могла быть собрана старым шаблоном. Скрипт проявления не берём,
 # поэтому всё видно сразу, а колонка одна
-page = sorted(glob.glob(os.path.join(B, years[0], '[0-9][0-9]-*.html')))[0]
+page = os.path.join(os.path.dirname(os.path.abspath(mh.__file__)), 'md2html_template.html')
 head = open(page).read().split('<body', 1)[0]
 head = re.sub(r'<title>.*?</title>', '<title>Все задачи коротко</title>', head, flags=re.S)
 head = head.replace('</head>', '<style>.col{max-width:820px;margin:0 auto;padding:40px 22px 80px}'
