@@ -88,6 +88,11 @@
   .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
     padding:16px 18px;margin:16px 0 0;overflow-x:auto}
 
+  .sys{font:clamp(16px,1.6vw,20px)/1.75 var(--mono);color:var(--ink);background:var(--bg2);border-radius:10px;
+    border-left:2px solid var(--gold);padding:12px 18px;margin:16px 0 0;overflow-x:auto}
+  .sys .pen1{color:var(--red);font-weight:700} .sys .pen2{color:var(--blue);font-weight:700}
+  .sys .found{color:var(--muted);font-size:.85em}
+
   .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
   .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
     display:block;margin-bottom:7px}
@@ -106,6 +111,7 @@
   .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
   .task .tag{color:var(--ink)}
   .task p{font-size:17.5px;color:var(--ink)}
+  .task ul{font-size:17.5px;color:var(--ink);margin:6px 0 10px}
 
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
@@ -122,6 +128,18 @@
     text-transform:uppercase;color:var(--green);margin:0 0 4px}
   .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
   .tldr figure{margin-top:14px}
+  .tldr p.res{border-left:3px solid var(--green);padding:3px 0 3px 12px;margin:10px 0 18px;background:#13261a}
+  .tldr details.stp{border-top:1px solid #1f3a29;padding:2px 0}
+  .tldr details.stp:last-of-type{border-bottom:1px solid #1f3a29}
+  .tldr summary{cursor:pointer;list-style:none;padding:9px 0 9px 22px;position:relative}
+  .tldr summary::-webkit-details-marker{display:none}
+  .tldr summary::before{content:"▸";position:absolute;left:2px;top:9px;color:var(--green)}
+  .tldr details[open]>summary::before{content:"▾"}
+  .tldr summary .tl-h{display:block;font-family:var(--serif,inherit);font-size:16.5px}
+  .tldr summary .tl-r{display:block;margin-top:4px;padding:2px 0 2px 10px;border-left:3px solid var(--green);font-size:16px}
+  .tldr summary .tl-r::before{content:"→ ";color:var(--green)}
+  .tldr .tl-b{padding:0 0 10px 22px}
+  .tldr .openall{display:block;margin:2px 0 10px;background:none;border:1px solid #2b5c3d;color:var(--green);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
   .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
@@ -131,11 +149,19 @@
   th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
     line-height:1.45;vertical-align:top}
   th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
 
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
   .num{display:inline-flex;vertical-align:middle}
+  ol.num{display:block}
   .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
     color:var(--ink);background:#1a2230;border:1px solid #2c394c}
   .d+.d{border-left:none}
@@ -283,12 +309,23 @@
 <div class="frm st">(999 − 102) : 3 + 1 = 300</div>
 <p class="st"><b>2. Миры по последней цифре.</b> Нечётность числа решает только его последнюю цифру d, поэтому нечётные числа делим на миры d = 1, 3, 5, 7, 9; у числа последняя цифра одна, миры не пересекаются. В мире d сумма цифр начала втрое больше d, то есть равна 3, 9, 15, 21 или 27.</p>
 <figure class="st"><svg viewBox="0 0 680 210" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="82" y="53" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="end">d</text><text x="82" y="89" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="end">сумма abc</text><text x="82" y="125" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="end">чисел</text><rect x="90" y="30" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="90" y="66" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="90" y="102" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><text x="122.0" y="53" fill="#5fd38d" font-size="15" font-weight="600" text-anchor="middle">1</text><text x="122.0" y="89" fill="#5fd38d" font-size="14" font-weight="400" text-anchor="middle">3</text><text x="122.0" y="125" fill="#f0a83c" font-size="15" font-weight="700" text-anchor="middle">6</text><rect x="154" y="30" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="154" y="66" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="154" y="102" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><text x="186.0" y="53" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">2</text><text x="186.0" y="89" fill="#c9d3de" font-size="14" font-weight="400" text-anchor="middle">6</text><text x="186.0" y="125" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">21</text><rect x="218" y="30" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="218" y="66" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="218" y="102" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><text x="250.0" y="53" fill="#5fd38d" font-size="15" font-weight="600" text-anchor="middle">3</text><text x="250.0" y="89" fill="#5fd38d" font-size="14" font-weight="400" text-anchor="middle">9</text><text x="250.0" y="125" fill="#f0a83c" font-size="15" font-weight="700" text-anchor="middle">45</text><rect x="282" y="30" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="282" y="66" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="282" y="102" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><text x="314.0" y="53" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">4</text><text x="314.0" y="89" fill="#c9d3de" font-size="14" font-weight="400" text-anchor="middle">12</text><text x="314.0" y="125" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">66</text><rect x="346" y="30" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="346" y="66" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="346" y="102" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><text x="378.0" y="53" fill="#5fd38d" font-size="15" font-weight="600" text-anchor="middle">5</text><text x="378.0" y="89" fill="#5fd38d" font-size="14" font-weight="400" text-anchor="middle">15</text><text x="378.0" y="125" fill="#f0a83c" font-size="15" font-weight="700" text-anchor="middle">69</text><rect x="410" y="30" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="410" y="66" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="410" y="102" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><text x="442.0" y="53" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">6</text><text x="442.0" y="89" fill="#c9d3de" font-size="14" font-weight="400" text-anchor="middle">18</text><text x="442.0" y="125" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">54</text><rect x="474" y="30" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="474" y="66" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="474" y="102" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><text x="506.0" y="53" fill="#5fd38d" font-size="15" font-weight="600" text-anchor="middle">7</text><text x="506.0" y="89" fill="#5fd38d" font-size="14" font-weight="400" text-anchor="middle">21</text><text x="506.0" y="125" fill="#f0a83c" font-size="15" font-weight="700" text-anchor="middle">28</text><rect x="538" y="30" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="538" y="66" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><rect x="538" y="102" width="64" height="36" fill="#131923" stroke="#243040" stroke-width="1" /><text x="570.0" y="53" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">8</text><text x="570.0" y="89" fill="#c9d3de" font-size="14" font-weight="400" text-anchor="middle">24</text><text x="570.0" y="125" fill="#c9d3de" font-size="15" font-weight="400" text-anchor="middle">10</text><rect x="602" y="30" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="602" y="66" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><rect x="602" y="102" width="64" height="36" fill="#12281c" stroke="#5fd38d" stroke-width="1" /><text x="634.0" y="53" fill="#5fd38d" font-size="15" font-weight="600" text-anchor="middle">9</text><text x="634.0" y="89" fill="#5fd38d" font-size="14" font-weight="400" text-anchor="middle">27</text><text x="634.0" y="125" fill="#f0a83c" font-size="15" font-weight="700" text-anchor="middle">1</text><text x="378.0" y="175" fill="#5fd38d" font-size="14" font-weight="600" text-anchor="middle">нечётные: 6 + 45 + 69 + 28 + 1 = 149</text><text x="378.0" y="198" fill="#93a1b1" font-size="14" font-weight="400" text-anchor="middle">чётные: 21 + 66 + 54 + 10 = 151;  вместе 300</text></svg><figcaption>Все числа Пабло, разложенные по мирам последней цифры d: в мире d сумма трёх первых цифр равна 3d, и под ней — сколько таких чисел. <b style="color:#5fd38d">Нечётные миры</b> дают 149. Миры неравные, поэтому «половина от 300» не годится; чётные вместе с нечётными дают те же 300, что и цепочка кратных трём.</figcaption></figure>
-<p class="st"><b>3. Начала с данной суммой.</b> Первая цифра a идёт от 1 до 9, а две другие цифры добирают остаток t. Пар цифр с суммой t:</p>
+<p class="st"><b>3. Пары цифр с суммой t.</b> Начало abc с суммой цифр s строится так: первая цифра a — любая от 1 до 9, а цифры b и c добирают остаток</p>
+<div class="frm st">t = s − a</div>
+<p class="st">Назовём <b>парой</b> цифры b и c, записанные по порядку, с суммой t. Порядок важен: пары (0, 2) и (2, 0) дают разные начала. Пару задаёт её первая цифра b, вторая дополняет b до t:</p>
+<div class="frm st">c = t − b</div>
+<p class="st">Пара годится, только если c — тоже цифра, от 0 до 9. Значит, пар столько же, сколько годных значений b.</p>
+<ul class="st"><li><b>t не больше 9.</b> Годится любое b от 0 до t: c выходит от t до 0, и всё это цифры. Значений b на одно больше, чем t, потому что счёт начинается с нуля. Пример: при t = 2 пары (0, 2), (1, 1), (2, 0) — их 3.</li><li><b>t больше 9.</b> Мешает потолок: c не больше 9, а при маленьком b оно вышло бы двузначным. Пример: при t = 14 и b = 4 пришлось бы взять c = 10 — это не цифра. Годятся b от 5 до 9: пары (5, 9), (6, 8), (7, 7), (8, 6), (9, 5) — их 5.</li><li><b>t больше 18.</b> Пар нет: даже 9 + 9 = 18.</li></ul>
+<p class="st">Во втором случае самое маленькое годное b то, при котором c = 9:</p>
+<div class="frm st">b = t − 9</div>
+<p class="st">От него b идёт до 9 с шагом 1. Чисел на одно больше, чем прыжков:</p>
+<div class="frm st">9 − (t − 9) + 1 = 19 − t</div>
+<p class="st">Итак, пар с суммой t:</p>
 <div class="frm st">t + 1, если t ≤ 9</div>
 <div class="frm st">19 − t, если t ≥ 9</div>
-<p class="st">Во второй строке давит потолок: вторая цифра пары не больше 9, и малые первые цифры пары не годятся. Складывая по a:</p>
-<ul class="st"><li>сумма 3 (a от 1 до 3): <b>6</b> начал;</li><li>сумма 9 (a от 1 до 9, пар от 9 до 1): <b>45</b>;</li><li>сумма 15 (пар 5, 6, 7, 8, 9, 10, 9, 8, 7): <b>69</b>;</li><li>сумма 21 (a от 3 до 9, пар от 1 до 7): <b>28</b>;</li><li>сумма 27: только 999, <b>1</b>.</li></ul>
-<p class="st"><b>4. Сборка.</b></p>
+<p class="st">При t = 9 обе строки дают 10.</p>
+<p class="st"><b>4. Начала с данной суммой.</b> Разные a дают разные начала, поэтому пары складываются по всем годным a. В каждой строке перечислены годные a, их остатки t и число пар при каждом a, по порядку:</p>
+<ul class="st"><li><b>сумма 3:</b> a = 1, 2, 3 (при a = 4 сумма уже больше 3), t = 2, 1, 0, пар 3, 2, 1 — всего <b>6</b> начал;</li><li><b>сумма 9:</b> a = 1, …, 9, t = 8, …, 0 — всюду не больше 9, пар на одну больше, чем t: 9, 8, …, 1 — всего <b>45</b>;</li><li><b>сумма 15:</b> a = 1, …, 9, t = 14, …, 6. При a = 1, …, 5 остаток больше 9, давит потолок: пар 5, 6, 7, 8, 9. При a = 6, …, 9 остаток не больше 9: пар 10, 9, 8, 7. Всего 45 + 24 = <b>69</b>;</li><li><b>сумма 21:</b> a = 1 и a = 2 дали бы t = 20 и t = 19, а это больше 18 — пар нет. При a = 3, …, 9 t = 18, …, 12, давит потолок: пар 1, 2, …, 7 — всего <b>28</b>;</li><li><b>сумма 27:</b> только начало 999 — <b>1</b>.</li></ul>
+<p class="st"><b>5. Сборка.</b></p>
 <div class="frm st">N(нечётных) = 6 + 45 + 69 + 28 + 1 = 149</div>
 <p class="st"><b>Ответ.</b> 300 чисел, из них 149 нечётных.</p>
 <p class="st"><b>⚠ Ловушки.</b> Пустить первую цифру с нуля: кратных 3 от 0 до 999 выйдет 334. Считать пары без потолка: при сумме 15 и a = 1 выйдет 15 пар вместо 5. Решить, что нечётных половина, и написать 150: миры по последней цифре неравные.</p></div>
