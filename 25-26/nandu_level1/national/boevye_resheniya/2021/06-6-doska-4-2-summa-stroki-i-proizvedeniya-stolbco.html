@@ -287,34 +287,31 @@
   <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">El producto es impar, así que todos los factores tienen que ser impares: eso deja pocas opciones.<br><em>Произведение нечётно — значит все сомножители нечётные, и вариантов остаётся мало.</em></span></button>
 <button class="art" data-art="1"><span class="lbl">На туре</span><span class="val f">a₁ · b₁ нечётно → a₁ и b₁ нечётные</span></button>
 <button class="art cont" data-art="2"><span class="val f">b₂, b₃: остаются 3 цифры → N(пар b₂, b₃) = 6</span></button>
-<button class="art cont" data-art="3"><span class="val f">меню 6: 1 · 6, 2 · 3 → a₄ = 1, 2, 3 или 6; в столбце всегда 1 нечётная и 1 чётная</span></button>
-<button class="art cont" data-art="4"><span class="val f">набор = {a₁, a₂, a₃}, в нём k нечётных:</span></button>
-<button class="art cont" data-art="5"><span class="val f">цена набора = k × 2 × (4 − k)</span></button>
-<button class="art cont" data-art="6"><span class="val f">1 нечётная → 6, 2 нечётные → 8</span></button>
-<button class="art cont" data-art="7"><span class="val f">a₄ нечётная → набор = 2 чётные + 1 нечётная; a₄ чётная → 1 чётная + 2 нечётные</span></button>
-<button class="art cont" data-art="8"><span class="val f">a₄ = 1, b₄ = 6, сумма 13, чётные 2, 4, 8:</span></button>
-<button class="art cont" data-art="9"><span class="val f">{2, 4} + 7 ✓</span></button>
-<button class="art cont" data-art="10"><span class="val f">{2, 8} + 3 ✓</span></button>
-<button class="art cont" data-art="11"><span class="val f">{4, 8} + 1 ✗</span></button>
-<button class="art cont" data-art="12"><span class="val f">2 × 6 = 12</span></button>
-<button class="art cont" data-art="13"><span class="val f">a₄ = 2, b₄ = 3, сумма 12, чётные 4, 6, 8:</span></button>
-<button class="art cont" data-art="14"><span class="val f">4 + 1 + 7 ✓</span></button>
-<button class="art cont" data-art="15"><span class="val f">6 + 1 + 5 ✓</span></button>
-<button class="art cont" data-art="16"><span class="val f">8 → 2 нечётным осталось 4 ✗</span></button>
-<button class="art cont" data-art="17"><span class="val f">2 × 8 = 16</span></button>
-<button class="art cont" data-art="18"><span class="val f">a₄ = 3, b₄ = 2, сумма 11, чётные 4, 6, 8:</span></button>
-<button class="art cont" data-art="19"><span class="val f">{4, 6} + 1 ✓</span></button>
-<button class="art cont" data-art="20"><span class="val f">{4, 8}, {6, 8} &gt; 11 ✗</span></button>
-<button class="art cont" data-art="21"><span class="val f">1 × 6 = 6</span></button>
-<button class="art cont" data-art="22"><span class="val f">a₄ = 6, b₄ = 1, сумма 8:</span></button>
-<button class="art cont" data-art="23"><span class="val f">2 + 3 + 5 = 10 &gt; 8 → 0</span></button>
-<button class="art cont" data-art="24"><span class="val f">N(заготовок) = 12 + 16 + 6 + 0 = 34</span></button>
-<button class="art cont" data-art="25"><span class="val f">N(досок) = 34 × 6 = 204</span></button>
-<button class="art cont" data-art="26"><span class="val f">верхняя строка 3 + 2 + 8 + 1 = 14 ✓</span></button>
-<button class="art cont" data-art="27"><span class="val f">правый столбец 1 · 6 = 6 ✓</span></button>
-<button class="art cont" data-art="28"><span class="val f">левый столбец 3 · 5 = 15, нечётно ✓</span></button>
-<button class="art cont" data-art="29"><span class="val f">цифры не повторяются ✓</span></button>
-<button class="art" data-art="30"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
+<button class="art cont" data-art="3"><span class="val f">меню 6: 1 · 6, 2 · 3 → a₄ = 1, 2, 3 или 6</span></button>
+<button class="art cont" data-art="4"><span class="val f">цена набора = N(нечётных в наборе) × 2 × N(свободных нечётных вне набора)</span></button>
+<button class="art cont" data-art="5"><span class="val f">a₄ = 1, b₄ = 6, сумма 13:</span></button>
+<button class="art cont" data-art="6"><span class="val f">{2, 3, 8} → 1 × 2 × 3 = 6</span></button>
+<button class="art cont" data-art="7"><span class="val f">{2, 4, 7} → 1 × 2 × 3 = 6</span></button>
+<button class="art cont" data-art="8"><span class="val f">меньшая 3 или больше — нет</span></button>
+<button class="art cont" data-art="9"><span class="val f">12</span></button>
+<button class="art cont" data-art="10"><span class="val f">a₄ = 2, b₄ = 3, сумма 12:</span></button>
+<button class="art cont" data-art="11"><span class="val f">{1, 4, 7} → 2 × 2 × 2 = 8</span></button>
+<button class="art cont" data-art="12"><span class="val f">{1, 5, 6} → 2 × 2 × 2 = 8</span></button>
+<button class="art cont" data-art="13"><span class="val f">меньшая 4 или больше — нет</span></button>
+<button class="art cont" data-art="14"><span class="val f">16</span></button>
+<button class="art cont" data-art="15"><span class="val f">a₄ = 3, b₄ = 2, сумма 11:</span></button>
+<button class="art cont" data-art="16"><span class="val f">{1, 4, 6} → 1 × 2 × 3 = 6</span></button>
+<button class="art cont" data-art="17"><span class="val f">меньшая 4 или больше — нет</span></button>
+<button class="art cont" data-art="18"><span class="val f">6</span></button>
+<button class="art cont" data-art="19"><span class="val f">a₄ = 6, b₄ = 1, сумма 8:</span></button>
+<button class="art cont" data-art="20"><span class="val f">2 + 3 + 4 = 9 &gt; 8 → 0</span></button>
+<button class="art cont" data-art="21"><span class="val f">N(заготовок) = 12 + 16 + 6 + 0 = 34</span></button>
+<button class="art cont" data-art="22"><span class="val f">N(досок) = 34 × 6 = 204</span></button>
+<button class="art cont" data-art="23"><span class="val f">верхняя строка 3 + 2 + 8 + 1 = 14 ✓</span></button>
+<button class="art cont" data-art="24"><span class="val f">правый столбец 1 · 6 = 6 ✓</span></button>
+<button class="art cont" data-art="25"><span class="val f">левый столбец 3 · 5 = 15, нечётно ✓</span></button>
+<button class="art cont" data-art="26"><span class="val f">цифры не повторяются ✓</span></button>
+<button class="art" data-art="27"><span class="lbl">💬 Полнота</span><span class="val ph">Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.<br><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></span></button>
 </aside>
 <main>
   
@@ -338,34 +335,26 @@
 <p class="st">⇒ в столбце стоит пара 1 и 6 или пара 2 и 3 (других пар разных цифр с произведением 6 нет). Верхняя и нижняя клетки разные, поэтому каждая пара встаёт в столбец 2 порядками. Мир задаёт цифра в a₄, цифра под ней определяется сама:</p>
 <p class="st">b₄ = 6 : a₄</p>
 <p class="res st">→ <b>N(заготовок) = N(a₄ = 1) + N(a₄ = 2) + N(a₄ = 3) + N(a₄ = 6)</b></p></div></details>
-<details class="stp"><summary><span class="tl-h"><b>4. Оставшиеся цифры.</b></span><span class="tl-r"><b>в любом мире после правого столбца оставшихся нечётных 4, оставшихся чётных 3</b></span></summary><div class="tl-b"><p class="st">В паре 1 и 6 и в паре 2 и 3 одна цифра нечётная, другая чётная ⇒ правый столбец в любом мире занимает 1 нечётную цифру и 1 чётную.</p>
-<p class="src st"><em>«ни одна цифра не повторяется»</em></p>
-<p class="st">⇒ занятую цифру больше никуда не поставить. Назовём <b>оставшимися</b> цифры от 1 до 9, которых ещё нет на доске. Нечётных цифр всего 5, чётных — 4.</p>
-<p class="res st">→ <b>в любом мире после правого столбца оставшихся нечётных 4, оставшихся чётных 3</b></p></div></details>
-<details class="stp"><summary><span class="tl-h"><b>5. Цена набора.</b></span><span class="tl-r"><b>набор с 1 нечётной стоит 6 заготовок, набор с 2 нечётными — 8</b></span></summary><div class="tl-b"><p class="st">Когда a₄ стоит, у a₁, a₂, a₃ задана только сумма:</p>
+<details class="stp"><summary><span class="tl-h"><b>4. План мира.</b></span><span class="tl-r"><b>в каждом мире N = сумма цен его наборов</b></span></summary><div class="tl-b"><p class="st">Когда a₄ стоит, у a₁, a₂, a₃ задана только сумма:</p>
 <p class="st">a₁ + a₂ + a₃ = 14 − a₄</p>
-<p class="st">Цифры a₁, a₂, a₃ без учёта порядка назовём <b>набором</b>, k — число нечётных цифр в нём. <b>Цена набора</b> — сколько заготовок даёт 1 набор:</p>
-<ul class="st"><li>a₁ — нечётная цифра набора: k выборов;</li><li>a₂ и a₃ — остальные цифры набора: 2 порядка;</li><li>b₁ — оставшаяся нечётная цифра не из набора. Оставшихся нечётных 4 (шаг 4), k из них ушли в набор.</li></ul>
-<p class="st">выборов b₁ = 4 − k</p>
-<div class="frm st">цена набора = k · 2 · (4 − k)</div>
-<p class="res st">→ <b>набор с 1 нечётной стоит 6 заготовок, набор с 2 нечётными — 8</b></p></div></details>
-<details class="stp"><summary><span class="tl-h"><b>6. Сколько нечётных в наборе.</b></span><span class="tl-r"><b>a₄ нечётная: набор = 2 чётные + 1 нечётная (цена 6); a₄ чётная: набор = 1 чётная + 2 нечётные (цена 8)</b></span></summary><div class="tl-b"><p class="st">Чётные слагаемые не меняют чётность суммы, каждое нечётное её меняет.</p>
-<ul class="st"><li>a₄ = 1 или 3 ⇒ сумма набора 13 или 11, нечётная ⇒ нечётных в наборе 1 или 3. Набор из 3 нечётных слишком велик: при a₄ = 1 наименьшие оставшиеся нечётные 3, 5, 7 дают 15 &gt; 13, при a₄ = 3 наименьшие 1, 5, 7 дают 13 &gt; 11.</li><li>a₄ = 2 или 6 ⇒ сумма набора 12 или 8, чётная ⇒ нечётных в наборе 0 или 2. Набор с 0 нечётных не годится: a₁ нечётная.</li></ul>
-<p class="res st">→ <b>a₄ нечётная: набор = 2 чётные + 1 нечётная (цена 6); a₄ чётная: набор = 1 чётная + 2 нечётные (цена 8)</b></p></div></details>
-<details class="stp"><summary><span class="tl-h"><b>7. Перебор по оставшимся чётным.</b></span><span class="tl-r"><b>N(a₄ = 1) = 2 · 6 = 12</b></span><span class="tl-r"><b>N(a₄ = 2) = 2 · 8 = 16</b></span><span class="tl-r"><b>N(a₄ = 3) = 1 · 6 = 6</b></span><span class="tl-r"><b>N(a₄ = 6) = 0</b> — мир пуст</span></summary><div class="tl-b"><p class="st">Оставшихся чётных 3 (шаг 4) ⇒ из них можно выбрать 3 разные пары или 3 разные одиночки. Перебираем все; нечётную часть набора вычисляем из суммы. Запись {2, 4} + 7: чётные 2 и 4, к ним нечётная 7. Запись 4 + {1, 7}: чётная 4, к ней нечётные 1 и 7.</p>
-<p class="st"><b>Мир a₄ = 1.</b> b₄ = 6, сумма набора 13, оставшиеся чётные 2, 4, 8, берём пару:</p>
-<ul class="st"><li>{2, 4} + 7 ✓</li><li>{2, 8} + 3 ✓</li><li>{4, 8} + 1 ✗ — единица в a₄</li></ul>
-<p class="res st">→ <b>N(a₄ = 1) = 2 · 6 = 12</b></p>
-<p class="st"><b>Мир a₄ = 2.</b> b₄ = 3, сумма набора 12, оставшиеся чётные 4, 6, 8, берём 1; оставшиеся нечётные 1, 5, 7, 9:</p>
-<ul class="st"><li>4 + {1, 7} ✓</li><li>6 + {1, 5} ✓</li><li>8 + пара нечётных с суммой 4 — такой нет (1 + 3, но 3 в b₄) ✗</li></ul>
-<p class="res st">→ <b>N(a₄ = 2) = 2 · 8 = 16</b></p>
-<p class="st"><b>Мир a₄ = 3.</b> b₄ = 2, сумма набора 11, оставшиеся чётные 4, 6, 8, берём пару:</p>
-<ul class="st"><li>{4, 6} + 1 ✓</li><li>{4, 8} и {6, 8} — уже больше 11 ✗</li></ul>
-<p class="res st">→ <b>N(a₄ = 3) = 1 · 6 = 6</b></p>
-<p class="st"><b>Мир a₄ = 6.</b> b₄ = 1, сумма набора 8. Нужны 1 чётная и 2 нечётные; наименьшие оставшиеся — чётная 2, нечётные 3 и 5 — дают 10 &gt; 8.</p>
+<p class="st">Цифры a₁, a₂, a₃ без учёта порядка назовём <b>набором</b>. <b>Цена набора</b> — сколько заготовок даёт 1 набор:</p>
+<ul class="st"><li>a₁ — нечётная цифра набора;</li><li>a₂ и a₃ — остальные цифры набора: 2 порядка;</li><li>b₁ — нечётная цифра, которой нет ни в наборе, ни в правом столбце.</li></ul>
+<p class="st">цена набора = N(выборов a₁) · 2 · N(выборов b₁)</p>
+<p class="res st">→ <b>в каждом мире N = сумма цен его наборов</b></p></div></details>
+<details class="stp"><summary><span class="tl-h"><b>5. Наборы по мирам.</b></span><span class="tl-r"><b>N(a₄ = 1) = 6 + 6 = 12</b></span><span class="tl-r"><b>N(a₄ = 2) = 8 + 8 = 16</b></span><span class="tl-r"><b>N(a₄ = 3) = 6</b></span><span class="tl-r"><b>N(a₄ = 6) = 0</b> — мир пуст</span></summary><div class="tl-b"><p class="st">Свободные цифры — все, кроме двух цифр правого столбца. Тройки свободных цифр с суммой набора перебираем по меньшей цифре.</p>
+<p class="st"><b>Мир a₄ = 1.</b> b₄ = 6, свободны 2, 3, 4, 5, 7, 8, 9, сумма набора 13:</p>
+<ul class="st"><li>меньшая 2: {2, 3, 8} ✓, {2, 4, 7} ✓, {2, 5, 6} ✗ — шестёрка в b₄</li><li>меньшая 3: пару с суммой 10 из цифр больше 3 дали бы только 4 + 6 (шестёрка занята) ✗</li><li>меньшая 4: уже 4 + 5 + 7 = 16 &gt; 13 ✗</li><li>цены: {2, 3, 8} — a₁ = 3, b₁ из 5, 7, 9: 1 · 2 · 3 = 6; {2, 4, 7} — a₁ = 7, b₁ из 3, 5, 9: тоже 6</li></ul>
+<p class="res st">→ <b>N(a₄ = 1) = 6 + 6 = 12</b></p>
+<p class="st"><b>Мир a₄ = 2.</b> b₄ = 3, свободны 1, 4, 5, 6, 7, 8, 9, сумма набора 12:</p>
+<ul class="st"><li>меньшая 1: {1, 4, 7} ✓, {1, 5, 6} ✓ (1 + 2 + 9 и 1 + 3 + 8 — двойка и тройка заняты)</li><li>меньшая 4: уже 4 + 5 + 6 = 15 &gt; 12 ✗</li><li>цены: {1, 4, 7} — a₁ из 1, 7, b₁ из 5, 9: 2 · 2 · 2 = 8; {1, 5, 6} — a₁ из 1, 5, b₁ из 7, 9: тоже 8</li></ul>
+<p class="res st">→ <b>N(a₄ = 2) = 8 + 8 = 16</b></p>
+<p class="st"><b>Мир a₄ = 3.</b> b₄ = 2, свободны 1, 4, 5, 6, 7, 8, 9, сумма набора 11:</p>
+<ul class="st"><li>меньшая 1: {1, 4, 6} ✓ (1 + 2 + 8 и 1 + 3 + 7 — двойка и тройка заняты)</li><li>меньшая 4: уже 4 + 5 + 6 = 15 &gt; 11 ✗</li><li>цена: a₁ = 1, b₁ из 5, 7, 9: 1 · 2 · 3 = 6</li></ul>
+<p class="res st">→ <b>N(a₄ = 3) = 6</b></p>
+<p class="st"><b>Мир a₄ = 6.</b> b₄ = 1, свободны 2, 3, 4, 5, 7, 8, 9, сумма набора 8. Три самые маленькие свободные цифры дают 2 + 3 + 4 = 9 &gt; 8.</p>
 <p class="res st">→ <b>N(a₄ = 6) = 0</b> — мир пуст</p>
-<figure class="st"><svg viewBox="0 0 612 276" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="12" y="14" width="138" height="216" fill="none" stroke="#5ba8f5" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="81" y="38" fill="#5ba8f5" font-size="14" font-weight="600" text-anchor="middle">a₄ = 1, b₄ = 6</text><text x="81" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 13</text><text x="81" y="78" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">чётные 2, 4, 8</text><text x="81" y="108" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{2, 4} + 7</text><text x="81" y="127" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">цена 6</text><text x="81" y="154" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{2, 8} + 3</text><text x="81" y="173" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">цена 6</text><text x="81" y="214" fill="#f0a83c" font-size="20" font-weight="700" text-anchor="middle">12</text><rect x="162" y="14" width="138" height="216" fill="none" stroke="#5ba8f5" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="231" y="38" fill="#5ba8f5" font-size="14" font-weight="600" text-anchor="middle">a₄ = 2, b₄ = 3</text><text x="231" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 12</text><text x="231" y="78" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">чётные 4, 6, 8</text><text x="231" y="108" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">4 + {1, 7}</text><text x="231" y="127" fill="#5fd38d" font-size="13" font-weight="400" text-anchor="middle">цена 8</text><text x="231" y="154" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">6 + {1, 5}</text><text x="231" y="173" fill="#5fd38d" font-size="13" font-weight="400" text-anchor="middle">цена 8</text><text x="231" y="214" fill="#f0a83c" font-size="20" font-weight="700" text-anchor="middle">16</text><rect x="312" y="14" width="138" height="216" fill="none" stroke="#5ba8f5" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="381" y="38" fill="#5ba8f5" font-size="14" font-weight="600" text-anchor="middle">a₄ = 3, b₄ = 2</text><text x="381" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 11</text><text x="381" y="78" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">чётные 4, 6, 8</text><text x="381" y="108" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{4, 6} + 1</text><text x="381" y="127" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">цена 6</text><text x="381" y="214" fill="#f0a83c" font-size="20" font-weight="700" text-anchor="middle">6</text><rect x="462" y="14" width="138" height="216" fill="none" stroke="#f2686c" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="531" y="38" fill="#f2686c" font-size="14" font-weight="600" text-anchor="middle">a₄ = 6, b₄ = 1</text><text x="531" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 8</text><text x="531" y="108" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">наименьшие:</text><text x="531" y="128" fill="#f2686c" font-size="14" font-weight="400" text-anchor="middle">2 + 3 + 5 = 10 &gt; 8</text><text x="531" y="214" fill="#f2686c" font-size="20" font-weight="700" text-anchor="middle">0</text><text x="306" y="262" fill="#e8eef6" font-size="16" font-weight="600" text-anchor="middle">(12 + 16 + 6 + 0) · 6 = 204</text></svg><figcaption>4 мира по цифре в a₄. В каждом мире оставшихся чётных цифр 3: при нечётной a₄ из них берут пару и добирают 1 нечётную (цена набора 6), при чётной a₄ берут 1 чётную и добирают пару нечётных (цена 8). <b style="color:#f0a83c">Золотое</b> число — заготовки мира; каждую заготовку достраивают 6 способов для b₂ и b₃.</figcaption></figure></div></details>
-<details class="stp"><summary><span class="tl-h"><b>8. Сборка.</b></span><span class="tl-r"><b>N = (12 + 16 + 6 + 0) · 6 = 204</b></span></summary><div class="tl-b"><p class="st">Миры — в шаг 3, заготовки — в шаг 2.</p>
+<figure class="st"><svg viewBox="0 0 612 276" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="12" y="14" width="138" height="216" fill="none" stroke="#5ba8f5" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="81" y="38" fill="#5ba8f5" font-size="14" font-weight="600" text-anchor="middle">a₄ = 1, b₄ = 6</text><text x="81" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 13</text><text x="81" y="78" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">наборы:</text><text x="81" y="108" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{2, 4, 7}</text><text x="81" y="127" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">цена 6</text><text x="81" y="154" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{2, 3, 8}</text><text x="81" y="173" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">цена 6</text><text x="81" y="214" fill="#f0a83c" font-size="20" font-weight="700" text-anchor="middle">12</text><rect x="162" y="14" width="138" height="216" fill="none" stroke="#5ba8f5" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="231" y="38" fill="#5ba8f5" font-size="14" font-weight="600" text-anchor="middle">a₄ = 2, b₄ = 3</text><text x="231" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 12</text><text x="231" y="78" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">наборы:</text><text x="231" y="108" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{1, 4, 7}</text><text x="231" y="127" fill="#5fd38d" font-size="13" font-weight="400" text-anchor="middle">цена 8</text><text x="231" y="154" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{1, 5, 6}</text><text x="231" y="173" fill="#5fd38d" font-size="13" font-weight="400" text-anchor="middle">цена 8</text><text x="231" y="214" fill="#f0a83c" font-size="20" font-weight="700" text-anchor="middle">16</text><rect x="312" y="14" width="138" height="216" fill="none" stroke="#5ba8f5" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="381" y="38" fill="#5ba8f5" font-size="14" font-weight="600" text-anchor="middle">a₄ = 3, b₄ = 2</text><text x="381" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 11</text><text x="381" y="78" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">наборы:</text><text x="381" y="108" fill="#e8eef6" font-size="14" font-weight="400" text-anchor="middle">{1, 4, 6}</text><text x="381" y="127" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">цена 6</text><text x="381" y="214" fill="#f0a83c" font-size="20" font-weight="700" text-anchor="middle">6</text><rect x="462" y="14" width="138" height="216" fill="none" stroke="#f2686c" stroke-width="1.3" stroke-dasharray="4 4" rx="8"/><text x="531" y="38" fill="#f2686c" font-size="14" font-weight="600" text-anchor="middle">a₄ = 6, b₄ = 1</text><text x="531" y="60" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">сумма 8</text><text x="531" y="108" fill="#93a1b1" font-size="13" font-weight="400" text-anchor="middle">самые маленькие:</text><text x="531" y="128" fill="#f2686c" font-size="14" font-weight="400" text-anchor="middle">2 + 3 + 4 = 9 &gt; 8</text><text x="531" y="214" fill="#f2686c" font-size="20" font-weight="700" text-anchor="middle">0</text><text x="306" y="262" fill="#e8eef6" font-size="16" font-weight="600" text-anchor="middle">(12 + 16 + 6 + 0) · 6 = 204</text></svg><figcaption>4 мира по цифре в a₄. В каждом мире наборы — тройки свободных цифр с нужной суммой; цена набора — сколько заготовок он даёт: выборы нечётной a₁, 2 порядка a₂ и a₃, выборы нечётной b₁. <b style="color:#f0a83c">Золотое</b> число — сумма цен, то есть заготовки мира; каждую заготовку достраивают 6 способов для b₂ и b₃.</figcaption></figure></div></details>
+<details class="stp"><summary><span class="tl-h"><b>6. Сборка.</b></span><span class="tl-r"><b>N = (12 + 16 + 6 + 0) · 6 = 204</b></span></summary><div class="tl-b"><p class="st">Миры — в шаг 3, заготовки — в шаг 2.</p>
 <p class="res st">→ <b>N = (12 + 16 + 6 + 0) · 6 = 204</b></p></div></details>
 <p class="st"><b>Ответ.</b> 204 способа.</p>
 <p class="st"><b>⚠ Ловушки.</b> Прочитать «произведение нечётно» как «хотя бы одна цифра нечётна» — выйдет 600. Сделать нечётной только a₁, а в b₁ ставить любую оставшуюся цифру — выйдет 336. Официальный ключ даёт 360 — это ошибка ключа: полный перебор даёт 204.</p></div>
@@ -401,65 +390,59 @@
 <figure class="st"><svg viewBox="0 0 560 92" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="20" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="44" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="68" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="92" y="30" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="104.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">1</text><text x="104.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">6</text><rect x="20" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="44" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="68" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="92" y="54" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="104.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">1</text><text x="104.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">6</text><text x="68" y="20" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="400">a₄ = 1</text><rect x="155" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="179" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="203" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="227" y="30" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="239.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">2</text><text x="239.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">3</text><rect x="155" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="179" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="203" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="227" y="54" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="239.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">2</text><text x="239.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">3</text><text x="203" y="20" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="400">a₄ = 2</text><rect x="290" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="314" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="338" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="362" y="30" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="374.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">3</text><text x="374.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">2</text><rect x="290" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="314" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="338" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="362" y="54" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="374.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">3</text><text x="374.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">2</text><text x="338" y="20" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="400">a₄ = 3</text><rect x="425" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="449" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="473" y="30" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="497" y="30" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="509.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">6</text><text x="509.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">1</text><rect x="425" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="449" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="473" y="54" width="24" height="24" fill="#161d29" stroke="#2c394c" stroke-width="1.5"/><rect x="497" y="54" width="24" height="24" fill="#16263a" stroke="var(--blue)" stroke-width="1.5"/><text x="509.0" y="47.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">6</text><text x="509.0" y="71.0" fill="var(--ink)" font-size="15" text-anchor="middle" font-weight="600">1</text><text x="473" y="20" fill="var(--blue)" font-size="14" text-anchor="middle" font-weight="400">a₄ = 6</text></svg><figcaption>4 мира по правому столбцу. Пара {2, 3} даёт 2 разных мира: двойка сверху или двойка снизу. В столбце верхняя и нижняя клетки разные, поэтому порядок в паре важен. Цифра в a₄ задаёт мир целиком — нижняя клетка под ней определяется сама.</figcaption></figure>
 <div class="plan st"><p class="st">✅ <b>План уточнён:</b></p>
 <div class="frm st">N(заготовок) = N(a₄ = 1) + N(a₄ = 2) + N(a₄ = 3) + N(a₄ = 6)</div></div>
-<div class="card key st"><span class="tag">Заметь главное</span><p>В обеих парах меню — 1 и 6, 2 и 3 — одна цифра нечётная, другая чётная. Значит, правый столбец в <b>любом</b> мире занимает ровно 1 нечётную цифру и 1 чётную.</p></div>
-<p class="st"><em>«ни одна цифра не повторяется»</em> ⇒ занятую цифру больше никуда не поставить. Цифры от 1 до 9, которых ещё нет на доске, назовём <b>оставшимися</b>.</p>
-<p class="st">После правого столбца оставшихся цифр:</p>
-<ul class="st"><li>нечётных — 4 из 5 (1, 3, 5, 7, 9);</li><li>чётных — 3 из 4 (2, 4, 6, 8).</li></ul>
-<p class="st">Какие именно цифры остались — зависит от мира, но <b>сколько</b> — нет. Поэтому все 4 мира считаются по одной схеме.</p>
-<p class="st">Чётных остаётся всего 3. Поэтому перебор в мире идёт по этим 3 чётным, а не по всем 7 оставшимся цифрам подряд.</p>
-<p class="step st"><b>Шаг 4 — когда a₄ стоит, у a₁, a₂, a₃ задана только сумма.</b></p>
-<p class="st"><em>«сумма четырёх цифр верхней строки равна 14»</em>, а a₄ уже стоит ⇒</p>
-<div class="frm st">a₁ + a₂ + a₃ = 14 − a₄</div>
-<p class="st">Сумме всё равно, в каком порядке стоят цифры. Поэтому сначала выбираем <b>набор</b> — 3 цифры без учёта порядка: {2, 3, 8} и {8, 3, 2} — один и тот же набор (взрослое имя — <b>сочетание</b>). Потом расставляем его и дописываем b₁. Пусть k — сколько нечётных цифр в наборе. Этапы соединены «И»:</p>
-<ul class="st"><li><b>a₁</b> — нечётная цифра набора (привратник!) → k выборов;</li><li><b>a₂, a₃</b> — остальные цифры набора, в любом порядке → 2 способа;</li><li><b>b₁</b> — нечётная цифра, ещё не занятая. Какая бы нечётная набора ни ушла в a₁, <b>весь набор</b> в верхней строке всё равно стоит, поэтому выборов у b₁ всегда</li></ul>
-<p class="st"><b>(всего нечётных) − (нечётных в правом столбце) − (нечётных в наборе)</b></p>
-<div class="frm st">5 − 1 − k = 4 − k</div>
-<p class="st">(1 нечётная в правом столбце — из «Заметь главное».)</p>
-<p class="st">Число заготовок, которые даёт один набор, назовём <b>ценой набора</b>:</p>
-<div class="frm st">цена набора = k × 2 × (4 − k)</div>
-<p class="st">→ цены по числу нечётных:</p>
-<ul class="st"><li>1 нечётная: <b>1 × 2 × 3 = 6</b></li><li>2 нечётные: <b>2 × 2 × 2 = 8</b></li><li>3 нечётные: <b>3 × 2 × 1 = 6</b></li></ul>
-<p class="st">Значит, в мире не нужно считать заготовки по одной: достаточно найти наборы и сложить их цены.</p>
-<p class="step st"><b>Шаг 5 — чётность суммы говорит, сколько в наборе нечётных.</b> Чётные слагаемые на чётность суммы не влияют, а каждая нечётная её переключает. Поэтому сумма набора нечётна ровно тогда, когда нечётных в наборе 1 или 3.</p>
-<ul class="st"><li>a₄ = 1 или 3 → сумма 13 или 11, нечётная → нечётных 1 или 3;</li><li>a₄ = 2 или 6 → сумма 12 или 8, чётная → нечётных 0 или 2. 0 нельзя: a₁ обязана быть нечётной цифрой набора.</li></ul>
-<p class="st">3 нечётные не помещаются. При a₄ = 1 единица занята, и 3 самые маленькие оставшиеся нечётные дают</p>
-<div class="frm st">3 + 5 + 7 = 15 &gt; 13</div>
-<p class="st">При a₄ = 3 занята тройка, и самые маленькие дают</p>
-<div class="frm st">1 + 5 + 7 = 13 &gt; 11</div>
-<p class="st">→ <b>при нечётной a₄ набор = 2 чётные + 1 нечётная (цена 6); при чётной a₄ набор = 1 чётная + 2 нечётные (цена 8)</b></p>
-<p class="st">Отсюда и рецепт перебора в мире: оставшихся чётных 3, поэтому пар из них ровно 3, а одиночек — 3. Выбрал чётные — остальная часть набора вычисляется из суммы. Ничего не потеряется: все варианты чётной части выписаны.</p>
-<p class="step st"><b>Шаг 6 — считаем N(a₄ = 1).</b> Тогда b₄ = 6, сумма набора</p>
-<div class="frm st">14 − 1 = 13</div>
-<p class="st">Оставшиеся чётные — 2, 4, 8, нужна пара из них и 1 нечётная. Перебираю все 3 пары; нечётная — это 13 минус сумма пары:</p>
-<ul class="st"><li>{2, 4} → 13 − 6 = 7 ✓ → набор {2, 4, 7}</li><li>{2, 8} → 13 − 10 = 3 ✓ → набор {2, 3, 8}</li><li>{4, 8} → 13 − 12 = 1 ✗ (единица стоит в a₄)</li></ul>
-<p class="st">Наборов 2, цена каждого 6:</p>
-<div class="frm st">N(a₄ = 1) = 2 × 6 = 12</div>
-<p class="step st"><b>Шаг 7 — считаем N(a₄ = 2).</b> Тогда b₄ = 3, сумма набора</p>
-<div class="frm st">14 − 2 = 12</div>
-<p class="st">Оставшиеся чётные — 4, 6, 8, оставшиеся нечётные — 1, 5, 7, 9. Нужна 1 чётная и пара нечётных; пара нечётных добирает 12 минус чётную:</p>
-<ul class="st"><li>4 → пара даёт 8: 1 + 7 ✓ → набор {1, 4, 7}</li><li>6 → пара даёт 6: 1 + 5 ✓ → набор {1, 5, 6}</li><li>8 → пара даёт 4: только 1 + 3, а тройка в b₄ ✗</li></ul>
-<p class="st">Пару с данной суммой ищу по меньшей цифре: меньшая — 1, иначе пара уже не меньше 5 + 7 = 12. Наборов 2, цена каждого 8:</p>
-<div class="frm st">N(a₄ = 2) = 2 × 8 = 16</div>
-<p class="step st"><b>Шаг 8 — считаем N(a₄ = 3).</b> Тогда b₄ = 2, сумма набора</p>
-<div class="frm st">14 − 3 = 11</div>
-<p class="st">Оставшиеся чётные — 4, 6, 8, нужна пара из них и 1 нечётная:</p>
-<ul class="st"><li>{4, 6} → 11 − 10 = 1 ✓ → набор {1, 4, 6}</li><li>{4, 8} → сумма пары 12, уже больше 11 ✗</li><li>{6, 8} → сумма пары 14 ✗</li></ul>
-<p class="st">Набор 1, цена 6:</p>
-<div class="frm st">N(a₄ = 3) = 1 × 6 = 6</div>
-<p class="step st"><b>Шаг 9 — считаем N(a₄ = 6).</b> Тогда b₄ = 1, сумма набора</p>
-<div class="frm st">14 − 6 = 8</div>
-<p class="st">Нужна 1 чётная и 2 нечётные. Самая маленькая оставшаяся чётная — 2, самые маленькие оставшиеся нечётные — 3 и 5 (единица в b₄):</p>
-<div class="frm st">2 + 3 + 5 = 10 &gt; 8</div>
-<p class="st">Набора нет, мир мёртв:</p>
+<p class="st">Каждое из четырёх слагаемых — сам по себе маленький счёт. Первый мир разбираю подробно и по дороге строю <b>план мира</b>; остальные три мира идут по нему же, меняются только числа.</p>
+<p class="step st"><b>Шаг 4 — считаем N(a₄ = 1), а по дороге — план мира.</b> Тогда b₄ = 6.</p>
+<p class="st"><em>«сумма четырёх цифр верхней строки равна 14»</em>, а a₄ = 1 ⇒</p>
+<div class="frm st">a₁ + a₂ + a₃ = 13</div>
+<p class="st">Сумме всё равно, в каком порядке стоят цифры. Поэтому сначала выбираем <b>набор</b> — 3 цифры для a₁, a₂, a₃ без учёта порядка: {2, 3, 8} и {8, 3, 2} — один и тот же набор (взрослое имя — <b>сочетание</b>). Потом расставляем набор и дописываем b₁. Этапы соединены «И»:</p>
+<ul class="st"><li><b>a₁</b> — нечётная цифра набора (привратник!) → столько выборов, сколько в наборе нечётных цифр;</li><li><b>a₂, a₃</b> — две остальные цифры набора, в любом порядке → 2 способа;</li><li><b>b₁</b> — тоже нечётная (привратник!) и ещё не занятая. Какая бы цифра набора ни ушла в a₁, весь набор всё равно стоит в верхней строке. Поэтому b₁ выбирается из нечётных цифр, которых нет ни в наборе, ни в правом столбце.</li></ul>
+<p class="st">Число заготовок, которые даёт один набор, назову <b>ценой набора</b>:</p>
+<div class="frm st">цена набора = N(выборов a₁) × 2 × N(выборов b₁)</div>
+<p class="st">Разные наборы дают разные заготовки: по готовой заготовке её набор виден сразу — это три левые цифры верхней строки. Значит, цены наборов складываются:</p>
+<div class="plan st"><p class="st">✅ <b>План мира:</b></p>
+<div class="frm st">N(a₄ = 1) = цена первого набора + цена второго набора + …</div>
+<p class="st">Осталось найти: все наборы с суммой 13 и цену каждого.</p></div>
+<p class="st">Ищу наборы. Цифры 1 и 6 стоят в правом столбце, <b>свободны</b> остальные: 2, 3, 4, 5, 7, 8, 9. Тройки перебираю по меньшей цифре, начиная с самой маленькой свободной — 2 (единица занята): фиксирую меньшую цифру, а две другие, обе больше неё, добирают остаток до 13.</p>
+<ul class="st"><li>меньшая 2 → две другие дают 11:</li><li>3 + 8 ✓ → набор {2, 3, 8}</li><li>4 + 7 ✓ → набор {2, 4, 7}</li><li>5 + 6 ✗ — шестёрка в b₄</li><li>меньшая 3 → две другие, обе больше 3, дают 10: только 4 + 6, а шестёрка в b₄ ✗</li><li>меньшая 4 → даже самые маленькие следующие цифры дают 4 + 5 + 7 = 16 &gt; 13 ✗. Дальше меньшая цифра только растёт — стоп.</li></ul>
+<p class="st">Цены, по плану мира. Свободные нечётные — 3, 5, 7, 9:</p>
+<ul class="st"><li>{2, 3, 8}: нечётная одна, a₁ = 3 → 1 выбор; для b₁ остаются 5, 7, 9 → 3 выбора:</li></ul>
+<div class="frm st">1 × 2 × 3 = 6</div>
+<ul class="st"><li>{2, 4, 7}: a₁ = 7 → 1 выбор; для b₁ остаются 3, 5, 9 → 3 выбора:</li></ul>
+<div class="frm st">1 × 2 × 3 = 6</div>
+<p class="st">Подставляю в план мира:</p>
+<div class="frm st">N(a₄ = 1) = 6 + 6 = 12</div>
+<p class="step st"><b>Шаг 5 — считаем N(a₄ = 2).</b> Тогда b₄ = 3, и по тому же плану мира:</p>
+<div class="frm st">a₁ + a₂ + a₃ = 12</div>
+<p class="st">Свободны 1, 4, 5, 6, 7, 8, 9. Тройки по меньшей цифре:</p>
+<ul class="st"><li>меньшая 1 → две другие дают 11:</li><li>4 + 7 ✓ → набор {1, 4, 7}</li><li>5 + 6 ✓ → набор {1, 5, 6}</li><li>2 + 9 и 3 + 8 ✗ — двойка в a₄, тройка в b₄</li><li>меньшая 4 (2 и 3 заняты) → даже 4 + 5 + 6 = 15 &gt; 12 ✗. Стоп.</li></ul>
+<p class="st">Цены. Свободные нечётные — 1, 5, 7, 9:</p>
+<ul class="st"><li>{1, 4, 7}: a₁ — 1 или 7 → 2 выбора; для b₁ остаются 5, 9 → 2 выбора:</li></ul>
+<div class="frm st">2 × 2 × 2 = 8</div>
+<ul class="st"><li>{1, 5, 6}: a₁ — 1 или 5 → 2 выбора; для b₁ остаются 7, 9 → 2 выбора:</li></ul>
+<div class="frm st">2 × 2 × 2 = 8</div>
+<div class="frm st">N(a₄ = 2) = 8 + 8 = 16</div>
+<p class="step st"><b>Шаг 6 — считаем N(a₄ = 3).</b> Тогда b₄ = 2:</p>
+<div class="frm st">a₁ + a₂ + a₃ = 11</div>
+<p class="st">Свободны 1, 4, 5, 6, 7, 8, 9. Тройки по меньшей цифре:</p>
+<ul class="st"><li>меньшая 1 → две другие дают 10:</li><li>4 + 6 ✓ → набор {1, 4, 6}</li><li>2 + 8 и 3 + 7 ✗ — двойка в b₄, тройка в a₄</li><li>меньшая 4 (2 и 3 заняты) → даже 4 + 5 + 6 = 15 &gt; 11 ✗. Стоп.</li></ul>
+<p class="st">Цена. Свободные нечётные — 1, 5, 7, 9:</p>
+<ul class="st"><li>{1, 4, 6}: a₁ = 1 → 1 выбор; для b₁ остаются 5, 7, 9 → 3 выбора:</li></ul>
+<div class="frm st">1 × 2 × 3 = 6</div>
+<div class="frm st">N(a₄ = 3) = 6</div>
+<p class="step st"><b>Шаг 7 — считаем N(a₄ = 6).</b> Тогда b₄ = 1:</p>
+<div class="frm st">a₁ + a₂ + a₃ = 8</div>
+<p class="st">Свободны 2, 3, 4, 5, 7, 8, 9. Три самые маленькие из них:</p>
+<div class="frm st">2 + 3 + 4 = 9 &gt; 8</div>
+<p class="st">Любая другая тройка ещё больше. Набора нет, мир пуст:</p>
 <div class="frm st">N(a₄ = 6) = 0</div>
-<p class="step st"><b>Шаг 10 — сборка.</b> Подставляю миры в уточнённый план:</p>
+<p class="step st"><b>Шаг 8 — сборка.</b> Подставляю миры в уточнённый план:</p>
 <div class="frm st">N(заготовок) = 12 + 16 + 6 + 0 = 34</div>
 <p class="st">и подставляю в план:</p>
 <div class="frm st">N(досок) = 34 × 6 = 204</div>
-<p class="st"><em>💬 «Это все случаи: они не повторяют друг друга и ни один не потерян» — меню произведения 6 выписано целиком; в каждом мире перебраны все пары (или все одиночки) из 3 оставшихся чётных; по готовой доске сразу видно и её мир (цифра в a₄), и её набор. Это мысль для фразы про полноту.</em></p>
+<p class="st"><em>💬 «Это все случаи: они не повторяют друг друга и ни один не потерян» — меню произведения 6 выписано целиком; в каждом мире тройки перебраны по меньшей цифре до остановки; по готовой доске сразу видно и её мир (цифра в a₄), и её набор. Это мысль для фразы про полноту.</em></p>
 <p class="st"><b>⚠ Ловушки.</b></p>
-<ul class="st"><li>Прочитать «произведение нечётно» как «одна из цифр нечётна» — наоборот, нечётными обязаны быть <b>обе</b>, и a₁, и b₁.</li><li>Забыть, что b₁ тоже нечётна, и дать ей любую оставшуюся цифру — в счёт попадут доски с чётным произведением слева.</li><li>Считать для b₁ «любая нечётная, кроме a₁» — забыть, что нечётные съели ещё правый столбец и остальной набор. Выборов у b₁ ровно 4 − k.</li><li>Взять пару {2, 3} один раз, забыв, что двойка может стоять и сверху, и снизу: миры a₄ = 2 и a₄ = 3 — разные, и в них разные суммы.</li><li>Потерять множитель 2 за порядок a₂, a₃ или множитель 6 за b₂, b₃.</li></ul>
-<p class="st"><em>Проверка вторым способом: программа перебрала все расстановки 8 разных цифр от 1 до 9 по клеткам доски и оставила те, где сумма верха 14, произведение правого столбца 6 и произведение левого нечётно, — вышло 204. Тот же перебор подтвердил раскладку по мирам (при a₄ = 1 — 72 доски, при a₄ = 2 — 96, при a₄ = 3 — 36, при a₄ = 6 — ни одной) и цены наборов: каждый набор с одной нечётной дал 36 досок (6 × 6), каждый с двумя — 48 (8 × 6). Доска сверена с оригинальным листом тура: 4 столбца, 2 строки.</em></p>
+<ul class="st"><li>Прочитать «произведение нечётно» как «одна из цифр нечётна» — наоборот, нечётными обязаны быть <b>обе</b>, и a₁, и b₁.</li><li>Забыть, что b₁ тоже нечётна, и дать ей любую оставшуюся цифру — в счёт попадут доски с чётным произведением слева.</li><li>Считать для b₁ «любая нечётная, кроме a₁» — забыть, что нечётные заняты ещё правым столбцом и остальным набором.</li><li>Искать тройки среди всех цифр, а не среди свободных: в мире a₄ = 1 «набор» {1, 4, 8} даёт 13, но единица уже стоит в a₄.</li><li>Взять пару {2, 3} один раз, забыв, что двойка может стоять и сверху, и снизу: миры a₄ = 2 и a₄ = 3 — разные, и в них разные суммы.</li><li>Потерять множитель 2 за порядок a₂, a₃ или множитель 6 за b₂, b₃.</li></ul>
+<p class="st"><em>Проверка вторым способом: программа перебрала все расстановки 8 разных цифр от 1 до 9 по клеткам доски и оставила те, где сумма верха 14, произведение правого столбца 6 и произведение левого нечётно, — вышло 204. Тот же перебор подтвердил раскладку по мирам (при a₄ = 1 — 72 доски, при a₄ = 2 — 96, при a₄ = 3 — 36, при a₄ = 6 — ни одной), те же пять наборов и их цены: каждый набор с одной нечётной дал 36 досок (6 × 6), каждый с двумя — 48 (8 × 6). Доска сверена с оригинальным листом тура: 4 столбца, 2 строки.</em></p>
 <p class="st"><b>Ответ на задачу:</b> Пабло может заполнить доску <b>204 способами</b>.</p>
 <p class="st">⚠ Ключ даёт 360, это неверно: полный перебор всех заполнений доски даёт 204. Число 360 не получается ни при одном прочтении условия, которое мы проверили (зеркальная доска — снова 204; без условия про левый столбец — 720; с чётным произведением вместо нечётного — 516). Строка 2021 в ключе вообще дефектна: в ней пропущен ответ задачи №3.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
@@ -471,18 +454,18 @@
 <p class="st">Клетки a₁ a₂ a₃ a₄ / b₁ b₂ b₃ b₄; заготовка — все клетки, кроме b₂ и b₃.</p>
 <div class="plan st"><p class="st">✅ <b>План:</b></p>
 <div class="frm st">N(досок) = N(заготовок) × N(пар b₂, b₃)</div>
-<div class="frm st">N(заготовок) = N(a₄ = 1) + N(a₄ = 2) + N(a₄ = 3) + N(a₄ = 6)</div></div>
-<div id="a4" data-art="4"><ul class="st"><li>a₁ · b₁ нечётно → a₁ и b₁ нечётные</li><li>b₂, b₃: остаются 3 цифры → N(пар b₂, b₃) = 6</li><li>меню 6: 1 · 6, 2 · 3 → a₄ = 1, 2, 3 или 6; в столбце всегда 1 нечётная и 1 чётная</li><li>набор = {a₁, a₂, a₃}, в нём k нечётных:</li></ul></div>
-<div id="a5" data-art="5"><div class="frm st">цена набора = k × 2 × (4 − k)</div></div>
-<div id="a7" data-art="7"><ul class="st"><li>1 нечётная → 6, 2 нечётные → 8</li><li>a₄ нечётная → набор = 2 чётные + 1 нечётная; a₄ чётная → 1 чётная + 2 нечётные</li></ul></div>
-<p class="st">Миры:</p>
-<div id="a23" data-art="23"><ul class="st"><li>a₄ = 1, b₄ = 6, сумма 13, чётные 2, 4, 8:</li><li>{2, 4} + 7 ✓</li><li>{2, 8} + 3 ✓</li><li>{4, 8} + 1 ✗</li><li>2 × 6 = 12</li><li>a₄ = 2, b₄ = 3, сумма 12, чётные 4, 6, 8:</li><li>4 + 1 + 7 ✓</li><li>6 + 1 + 5 ✓</li><li>8 → 2 нечётным осталось 4 ✗</li><li>2 × 8 = 16</li><li>a₄ = 3, b₄ = 2, сумма 11, чётные 4, 6, 8:</li><li>{4, 6} + 1 ✓</li><li>{4, 8}, {6, 8} &gt; 11 ✗</li><li>1 × 6 = 6</li><li>a₄ = 6, b₄ = 1, сумма 8:</li><li>2 + 3 + 5 = 10 &gt; 8 → 0</li></ul></div>
-<div id="a24" data-art="24"><div class="frm st">N(заготовок) = 12 + 16 + 6 + 0 = 34</div></div>
-<div id="a25" data-art="25"><div class="frm st">N(досок) = 34 × 6 = 204</div></div>
+<div class="frm st">N(заготовок) = N(a₄ = 1) + N(a₄ = 2) + N(a₄ = 3) + N(a₄ = 6)</div>
+<div class="frm st">N(мира) = сумма цен наборов {a₁, a₂, a₃}</div></div>
+<div id="a3" data-art="3"><ul class="st"><li>a₁ · b₁ нечётно → a₁ и b₁ нечётные</li><li>b₂, b₃: остаются 3 цифры → N(пар b₂, b₃) = 6</li><li>меню 6: 1 · 6, 2 · 3 → a₄ = 1, 2, 3 или 6</li></ul></div>
+<div id="a4" data-art="4"><div class="frm st">цена набора = N(нечётных в наборе) × 2 × N(свободных нечётных вне набора)</div></div>
+<p class="st">Миры (тройки по меньшей цифре):</p>
+<div id="a20" data-art="20"><ul class="st"><li>a₄ = 1, b₄ = 6, сумма 13:</li><li>{2, 3, 8} → 1 × 2 × 3 = 6</li><li>{2, 4, 7} → 1 × 2 × 3 = 6</li><li>меньшая 3 или больше — нет</li><li>12</li><li>a₄ = 2, b₄ = 3, сумма 12:</li><li>{1, 4, 7} → 2 × 2 × 2 = 8</li><li>{1, 5, 6} → 2 × 2 × 2 = 8</li><li>меньшая 4 или больше — нет</li><li>16</li><li>a₄ = 3, b₄ = 2, сумма 11:</li><li>{1, 4, 6} → 1 × 2 × 3 = 6</li><li>меньшая 4 или больше — нет</li><li>6</li><li>a₄ = 6, b₄ = 1, сумма 8:</li><li>2 + 3 + 4 = 9 &gt; 8 → 0</li></ul></div>
+<div id="a21" data-art="21"><div class="frm st">N(заготовок) = 12 + 16 + 6 + 0 = 34</div></div>
+<div id="a22" data-art="22"><div class="frm st">N(досок) = 34 × 6 = 204</div></div>
 <p class="st">Проверка на доске 3 2 8 1 / 5 4 7 6:</p>
-<div id="a29" data-art="29"><ul class="st"><li>верхняя строка 3 + 2 + 8 + 1 = 14 ✓</li><li>правый столбец 1 · 6 = 6 ✓</li><li>левый столбец 3 · 5 = 15, нечётно ✓</li><li>цифры не повторяются ✓</li></ul></div>
+<div id="a26" data-art="26"><ul class="st"><li>верхняя строка 3 + 2 + 8 + 1 = 14 ✓</li><li>правый столбец 1 · 6 = 6 ✓</li><li>левый столбец 3 · 5 = 15, нечётно ✓</li><li>цифры не повторяются ✓</li></ul></div>
 <h4 class="st">💬 Фраза в конце — полнота</h4>
-<div id="a30" data-art="30"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
+<div id="a27" data-art="27"><p class="st"><b>Estos son todos los casos: no se repiten entre sí y no queda ninguno afuera.</b></p></div>
 <p class="st"><em>Это все случаи: они не повторяют друг друга и ни один не потерян.</em></p>
 <div class="pager"><a href="05-5-strela-s-treugolnikom-t2-vychti-dva-kontura-pr.html">← №5 — стрела с треугольником (Т2′: вычти два контура + пропорция через мелкий кирпичик)</a></div>
 </main>

@@ -129,6 +129,18 @@ These conventions are load-bearing across all existing pairs — keep them.
    uses only what is already known (no numbers or objects from later steps, no «это проверит шаг 4»), and a plan with
    «+ …» is rewritten concretely once the cases are listed (`> ✅ **План уточнён:** …`). A world in `N(…)` carries its
    defining condition: `N(короткий = {6, 9})`. Model: `25-26/nandu_level1/national/boevye_resheniya/_md/parts/2025_3.md`.
+   **Составной операнд получает свой план** (окт 2026). The point of the whole format: a hard problem = a formula
+   over simple ones, and every step computes one operand of a formula *already on screen*. This must hold at every
+   level, not only the top. When an operand is itself composite (a world with its own перебор and расстановка),
+   the step computing it opens with its own artifact — `> ✅ **План мира:** N(a₄ = 1) = цена первого набора + …` —
+   inside that step, not in шаг 1 (the plan still sees only the first развилка). The first such operand builds the
+   sub-plan on its own numbers; sibling operands reuse it. Defects: (а) a step that computes no operand of a visible
+   formula — «подготовка для всех миров сразу», a general formula with a new letter («цена = k · 2 · (4 − k)») before
+   the first world: the fact moves into the first operand that needs it; (б) an invented object that never stands in
+   a formula — drop it (5–7 names per problem is already too many); (в) an observation that cuts the problem
+   («центр ловит все крупные окна») surfacing mid-solution — put it before шаг 1 and let it shape the plan.
+   Evidence: 2021 №6, 2023 №3, 2024 №1 were too heavy for the child even to read, while 2022 №1/№3 of the same length
+   (flat plans) went fine. Models: those three `parts/` files after the Oct 2026 rewrite.
 9. **Наблюдение, на котором держится приём, называется отдельно** (авг 2026). If a разбор works because of a specific
    property of the problem (в таблице 2×2 любые две клетки лежат в общей строке или столбце; расстановка одинаковых
    фишек = выбор дырок; островок одноцветный; условие связывает только соседние строки; одиночка тянет за собой
