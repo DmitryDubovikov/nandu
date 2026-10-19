@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>№1 — книга Лауры (Т1: деление с остатком — p − 2 кратно 20, перебор через 20)</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  /* h3 внутри разбора — переход к новой подзадаче (вопрос а), б)…, часть решения): крупно и с чертой */
+  h3{font-size:clamp(21px,2.4vw,26px);line-height:1.25;color:var(--gold);font-weight:600;
+    margin:clamp(40px,6vh,64px) 0 4px;padding-top:22px;border-top:1px solid var(--line)}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .sys{font:clamp(16px,1.6vw,20px)/1.75 var(--mono);color:var(--ink);background:var(--bg2);border-radius:10px;
+    border-left:2px solid var(--gold);padding:12px 18px;margin:16px 0 0;overflow-x:auto}
+  .sys .pen1{color:var(--red);font-weight:700} .sys .pen2{color:var(--blue);font-weight:700}
+  .sys .found{color:var(--muted);font-size:.85em}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+  .task ul{font-size:17.5px;color:var(--ink);margin:6px 0 10px}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.res{border-left:3px solid var(--green);padding:3px 0 3px 12px;margin:10px 0 18px;background:#13261a}
+  .tldr details.stp{border-top:1px solid #1f3a29;padding:2px 0}
+  .tldr details.stp:last-of-type{border-bottom:1px solid #1f3a29}
+  .tldr summary{cursor:pointer;list-style:none;padding:9px 0 9px 22px;position:relative}
+  .tldr summary::-webkit-details-marker{display:none}
+  .tldr summary::before{content:"▸";position:absolute;left:2px;top:9px;color:var(--green)}
+  .tldr details[open]>summary::before{content:"▾"}
+  .tldr summary .tl-h{display:block;font-family:var(--serif,inherit);font-size:16.5px}
+  .tldr summary .tl-r{display:block;margin-top:4px;padding:2px 0 2px 10px;border-left:3px solid var(--green);font-size:16px}
+  .tldr summary .tl-r::before{content:"→ ";color:var(--green)}
+  .tldr .tl-b{padding:0 0 10px 22px}
+  .tldr .openall{display:block;margin:2px 0 10px;background:none;border:1px solid #2b5c3d;color:var(--green);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  ol.num{display:block}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+
+  /* ——— анимированные чертежи (иллюстрации из .vis.json) ———
+     Движение оправдано только там, где показывает ход: как отрезок переезжает,
+     как змейка обходит контур. Рисунок условия рисуется сразу и статично. */
+  figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;overflow:visible}
+  figure svg.narrow{max-width:520px}
+  figure{position:relative}
+  figure text{font-family:var(--sans)}
+  .fgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 22px;
+    max-width:760px;margin:0 auto}
+  .fgrid2 .cell svg{max-width:none}
+  .ccap{font-family:var(--sans);font-size:13px;line-height:1.45;color:var(--muted);
+    margin:6px 0 0;text-align:center}
+  .ccap b{color:#e8eef6;font-weight:600}
+  .replay{position:absolute;top:10px;right:12px;background:#1a2230;border:1px solid #2c394c;
+    color:var(--dim);border-radius:7px;font-family:var(--sans);font-size:12px;padding:4px 9px;
+    cursor:pointer;line-height:1}
+  .replay:hover{color:var(--gold);border-color:#6b5320}
+  /* Куда переезжает отрезок, задаёт сама иллюстрация: --to на элементе.
+     Без анимации он сразу лежит на месте назначения. */
+  .sl{transform-box:view-box;transform-origin:0 0;transform:var(--to)}
+  @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  @keyframes fin{from{opacity:0}to{opacity:1}}
+  @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
+    html.anim figure.fx:not(.seen) .fi{opacity:0}
+    html.anim figure.fx:not(.seen) .sl{transform:none}
+    html.anim figure.fx.seen .dr{stroke-dasharray:100;animation:drw var(--dur,2.2s) ease var(--d,0s) both}
+    html.anim figure.fx.seen .fi{animation:fin .55s ease var(--d,0s) both}
+    html.anim figure.fx.seen .sl{animation:sld 1.3s cubic-bezier(.55,0,.35,1) var(--d,0s) both}
+  }
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    /* вес обязателен: иначе html.anim .st{opacity:0} перебивает и страница пуста */
+    .st,html.anim .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap battle">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 2 из 2</p>
+  <p class="rtitle">Что пишешь на туре</p>
+  <button class="art" data-art="0"><span class="lbl">💬 Фраза</span><span class="val ph">Los que dejan resto 2 al dividir por 4 y por 5 van de 20 en 20, así que pruebo solo esos.<br><em>Числа с остатком 2 при делении на 4 и на 5 идут через 20, поэтому проверяю только их.</em></span></button>
+<button class="art" data-art="1"><span class="lbl">План</span><span class="val f">p = то из чисел с (4) и (5), у которого res(p : 7) = 6</span></button>
+<button class="art" data-art="2"><span class="lbl">План</span><span class="val f">N(дней) = d8 + 1</span></button>
+<button class="art" data-art="3"><span class="lbl">План</span><span class="val f">N(страниц в последний день) = res(p : 8)</span></button>
+<button class="art" data-art="4"><span class="lbl">На туре</span><span class="val f">(1), (2): p − 2 = 4 · d4 = 5 · d5 → (5) p − 2 кратно 20</span></button>
+<button class="art cont" data-art="5"><span class="val f">(4), (5): 230 &lt; p − 2 ≤ 358 → p = 242, 262, 282, 302, 322, 342 (220 ≤ 230, 360 &gt; 358)</span></button>
+<button class="art cont" data-art="6"><span class="val f">(3): res(p : 7) = 6</span></button>
+<button class="art cont" data-art="7"><span class="val f">242 = 7 · 34 + 4</span></button>
+<button class="art cont" data-art="8"><span class="val f">20 = 7 · 3 − 1 → res(p : 7) = 4, 3, 2, 1, 0, 6 (после 0 — 6) → <b>p = 342</b></span></button>
+<button class="art cont" data-art="9"><span class="val f">342 = 8 · 42 + 6 → d8 = 42, res(342 : 8) = 6</span></button>
+<button class="art cont" data-art="10"><span class="val f">N(дней) = 42 + 1 = <b>43</b>, в последний день <b>6 страниц</b></span></button>
+<button class="art cont" data-art="11"><span class="val f">Ответ: 342 страницы; 43 дня, в последний день 6 страниц.</span></button>
+<button class="art" data-art="12"><span class="lbl">💬 Полнота</span><span class="val ph">Probé todos los números posibles y los demás no cumplen la condición de dejar resto 6 al dividir por 7, por eso no hay más que este.<br><em>Проверил все возможные числа, остальные не подходят под условие «остаток 6 при делении на 7», — поэтому других нет.</em></span></button>
+</aside>
+<main>
+  
+  <h1>№1 — книга Лауры <em>(Т1: деление с остатком — p − 2 кратно 20, перебор через 20)</em></h1>
+  <p class="sub">Региональный этап 2026 — решения</p>
+<div class="card task st"><span class="tag">Условие</span><p>Лаура каждый день читает несколько страниц книги:</p><ul class="st"><li>Если читать по 4 страницы в день, на следующий день останется прочитать 2 страницы.</li><li>Если по 5 страниц в день — на последний день останутся 2 страницы.</li><li>Если по 7 страниц в день — в последний день останется прочитать 6 страниц.</li><li>Если по 8 страниц в день — на всю книгу уйдёт от 30 до 45 дней.</li></ul><p>Вопрос 1: сколько страниц в книге? Вопрос 2: если Лаура читает по 8 страниц в день, сколько дней она будет читать книгу и сколько страниц прочитает в последний день?</p></div>
+<div class="tldr st"><span class="tag">⚡ Коротко</span>
+<button class="openall" type="button" onclick="var d=this.closest('.tldr').querySelectorAll('details'),o=![].every.call(d,function(x){return x.open});[].forEach.call(d,function(x){x.open=o})">раскрыть / свернуть все шаги</button>
+<p class="st"><b>Идея.</b> Решение стоит на трёх наблюдениях.</p>
+<p class="st"><b>①</b> «По k страниц в день, на последний день r страниц» — это деление с остатком: p − r делится на k. Так первые три данных становятся делимостью: p − 2 делится на 4, p − 2 — на 5, p − 6 — на 7.</p>
+<figure class="st"><svg viewBox="0 0 640 222" width="100%" style="max-width:640px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><text x="70" y="26" fill="var(--muted)" font-size="12" text-anchor="start" font-weight="400">по 4 страницы: p − 2 делится на 4</text><rect x="70" y="34" width="40" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="90" y="54" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">4</text><rect x="110" y="34" width="40" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="130" y="54" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">4</text><rect x="150" y="34" width="40" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="170" y="54" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">4</text><rect x="190" y="34" width="280" height="30" fill="none" stroke="var(--line)" stroke-width="1.3" stroke-dasharray="4 3"/><text x="330" y="54" fill="var(--muted)" font-size="16" text-anchor="middle" font-weight="400">…</text><rect x="470" y="34" width="40" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="490" y="54" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">4</text><rect x="510" y="34" width="40" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="530" y="54" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">4</text><rect x="550" y="34" width="20" height="30" fill="var(--gold)" fill-opacity=".22" stroke="var(--gold)" stroke-width="1.3"/><text x="560" y="54" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">2</text><text x="590" y="54" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="700">p</text><text x="70" y="90" fill="var(--muted)" font-size="12" text-anchor="start" font-weight="400">по 5 страниц: p − 2 делится на 5</text><rect x="70" y="98" width="50" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="95" y="118" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">5</text><rect x="120" y="98" width="50" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="145" y="118" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">5</text><rect x="170" y="98" width="50" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="195" y="118" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">5</text><rect x="220" y="98" width="230" height="30" fill="none" stroke="var(--line)" stroke-width="1.3" stroke-dasharray="4 3"/><text x="335" y="118" fill="var(--muted)" font-size="16" text-anchor="middle" font-weight="400">…</text><rect x="450" y="98" width="50" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="475" y="118" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">5</text><rect x="500" y="98" width="50" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="525" y="118" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">5</text><rect x="550" y="98" width="20" height="30" fill="var(--gold)" fill-opacity=".22" stroke="var(--gold)" stroke-width="1.3"/><text x="560" y="118" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">2</text><text x="590" y="118" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="700">p</text><text x="70" y="154" fill="var(--muted)" font-size="12" text-anchor="start" font-weight="400">по 7 страниц: p − 6 делится на 7</text><rect x="70" y="162" width="70" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="105" y="182" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">7</text><rect x="140" y="162" width="70" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="175" y="182" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">7</text><rect x="210" y="162" width="70" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="245" y="182" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">7</text><rect x="280" y="162" width="90" height="30" fill="none" stroke="var(--line)" stroke-width="1.3" stroke-dasharray="4 3"/><text x="325" y="182" fill="var(--muted)" font-size="16" text-anchor="middle" font-weight="400">…</text><rect x="370" y="162" width="70" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="405" y="182" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">7</text><rect x="440" y="162" width="70" height="30" fill="var(--blue)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.3"/><text x="475" y="182" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">7</text><rect x="510" y="162" width="60" height="30" fill="#c58af9" fill-opacity=".22" stroke="#c58af9" stroke-width="1.3"/><text x="540" y="182" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="600">6</text><text x="590" y="182" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="700">p</text><line x1="550" y1="24" x2="550" y2="134" stroke="var(--gold)" stroke-width="1.6" stroke-dasharray="4 3"/><text x="550" y="16" fill="var(--gold)" font-size="12" text-anchor="middle" font-weight="600">p − 2</text><line x1="510" y1="156" x2="510" y2="198" stroke="#c58af9" stroke-width="1.6" stroke-dasharray="4 3"/><text x="510" y="214" fill="#c58af9" font-size="12" text-anchor="middle" font-weight="600">p − 6</text></svg><figcaption>Каждая строка — та же книга из p страниц, разложенная по дням. Без последнего, неполного дня остаётся число, которое делится на размер дня. У раскладок по 4 и по 5 оно одно и то же — <b style="color:#f0a83c">p − 2</b>, граница стоит в одном месте; у раскладки по 7 — другое, <b style="color:#c58af9">p − 6</b>.</figcaption></figure>
+<p class="st"><b>②</b> В первых двух делится одно и то же число p − 2, значит, оно делится на 20, и подходящие p идут через 20. Границы «от 30 до 45 дней» оставляют из них всего 6 чисел.</p>
+<figure class="st"><svg viewBox="0 0 630 100" width="100%" style="max-width:630px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="152" y="40" width="435.2" height="32" fill="var(--gold)" fill-opacity=".08"/><line x1="152" y1="32" x2="152" y2="80" stroke="var(--red)" stroke-width="1.4" stroke-dasharray="4 3"/><line x1="587.2" y1="32" x2="587.2" y2="80" stroke="var(--red)" stroke-width="1.6"/><text x="152" y="26" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">232 &lt; p</text><text x="587.2" y="26" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">p ≤ 360</text><line x1="70.4" y1="56" x2="648.4" y2="56" stroke="var(--muted)" stroke-width="1.2"/><circle cx="118" cy="56" r="5.5" fill="var(--red)"/><text x="118" y="82" fill="var(--red)" font-size="14" text-anchor="middle" font-weight="400">222</text><circle cx="186" cy="56" r="5.5" fill="var(--blue)"/><text x="186" y="82" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">242</text><circle cx="254" cy="56" r="5.5" fill="var(--blue)"/><text x="254" y="82" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">262</text><circle cx="322" cy="56" r="5.5" fill="var(--blue)"/><text x="322" y="82" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">282</text><circle cx="390" cy="56" r="5.5" fill="var(--blue)"/><text x="390" y="82" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">302</text><circle cx="458" cy="56" r="5.5" fill="var(--blue)"/><text x="458" y="82" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">322</text><circle cx="526" cy="56" r="5.5" fill="var(--blue)"/><text x="526" y="82" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">342</text><circle cx="594" cy="56" r="5.5" fill="var(--red)"/><text x="594" y="82" fill="var(--red)" font-size="14" text-anchor="middle" font-weight="400">362</text><text x="220" y="48" fill="var(--muted)" font-size="11" text-anchor="middle" font-weight="400">+20</text><text x="288" y="48" fill="var(--muted)" font-size="11" text-anchor="middle" font-weight="400">+20</text><text x="356" y="48" fill="var(--muted)" font-size="11" text-anchor="middle" font-weight="400">+20</text><text x="424" y="48" fill="var(--muted)" font-size="11" text-anchor="middle" font-weight="400">+20</text><text x="492" y="48" fill="var(--muted)" font-size="11" text-anchor="middle" font-weight="400">+20</text></svg><figcaption>Числа, у которых p − 2 кратно 20, стоят через 20. Границы 232 &lt; p ≤ 360 оставляют шесть из них — от 242 до 342; соседи 222 и 362 уже снаружи.</figcaption></figure>
+<p class="st"><b>③</b> Соседние из этих чисел отличаются на 20 = 7 · 3 − 1, поэтому остаток при делении на 7 у каждого следующего на 1 меньше. Делить на 7 нужно только первое.</p>
+<figure class="st"><svg viewBox="0 0 630 160" width="100%" style="max-width:630px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><rect x="152" y="54" width="435.2" height="32" fill="var(--gold)" fill-opacity=".08"/><line x1="152" y1="46" x2="152" y2="94" stroke="var(--red)" stroke-width="1.4" stroke-dasharray="4 3"/><line x1="587.2" y1="46" x2="587.2" y2="94" stroke="var(--red)" stroke-width="1.6"/><text x="152" y="40" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">232 &lt; p</text><text x="587.2" y="40" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">p ≤ 360</text><line x1="70.4" y1="70" x2="648.4" y2="70" stroke="var(--muted)" stroke-width="1.2"/><circle cx="118" cy="70" r="5.5" fill="var(--red)"/><text x="118" y="96" fill="var(--red)" font-size="14" text-anchor="middle" font-weight="400">222</text><circle cx="186" cy="70" r="5.5" fill="var(--blue)"/><text x="186" y="96" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">242</text><rect x="166" y="112" width="40" height="34" rx="5" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="1.3"/><text x="186" y="135" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">4</text><circle cx="254" cy="70" r="5.5" fill="var(--blue)"/><text x="254" y="96" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">262</text><rect x="234" y="112" width="40" height="34" rx="5" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="1.3"/><text x="254" y="135" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">3</text><circle cx="322" cy="70" r="5.5" fill="var(--blue)"/><text x="322" y="96" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">282</text><rect x="302" y="112" width="40" height="34" rx="5" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="1.3"/><text x="322" y="135" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">2</text><circle cx="390" cy="70" r="5.5" fill="var(--blue)"/><text x="390" y="96" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">302</text><rect x="370" y="112" width="40" height="34" rx="5" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="1.3"/><text x="390" y="135" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">1</text><circle cx="458" cy="70" r="5.5" fill="var(--blue)"/><text x="458" y="96" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="400">322</text><rect x="438" y="112" width="40" height="34" rx="5" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="1.3"/><text x="458" y="135" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">0</text><circle cx="526" cy="70" r="5.5" fill="var(--green)"/><text x="526" y="96" fill="var(--ink)" font-size="14" text-anchor="middle" font-weight="700">342</text><rect x="506" y="112" width="40" height="34" rx="5" fill="var(--green)" fill-opacity="0.3" stroke="var(--green)" stroke-width="1.3"/><text x="526" y="135" fill="var(--ink)" font-size="16" text-anchor="middle" font-weight="700">6</text><circle cx="594" cy="70" r="5.5" fill="var(--red)"/><text x="594" y="96" fill="var(--red)" font-size="14" text-anchor="middle" font-weight="400">362</text><text x="220" y="134" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">−1</text><text x="288" y="134" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">−1</text><text x="356" y="134" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">−1</text><text x="424" y="134" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">−1</text><text x="492" y="134" fill="var(--gold)" font-size="12" text-anchor="middle" font-weight="600">−1</text><text x="52" y="134" fill="var(--muted)" font-size="12" text-anchor="start" font-weight="400">res(p : 7)</text></svg><figcaption>Под каждым из шести чисел — остаток при делении на 7: шаг +20 уменьшает его на 1, после 0 идёт 6. Остаток 6 только у <b style="color:#5fd38d">342</b>.</figcaption></figure>
+<details class="stp"><summary><span class="tl-h"><b>1. Границы по дням.</b></span><span class="tl-r"><b>232 &lt; p ≤ 360</b></span></summary><div class="tl-b"><p class="st">p — страниц в книге.</p>
+<p class="src st"><em>«по 8 страниц в день — на всю книгу уйдёт от 30 до 45 дней»</em></p>
+<p class="st">⇒ за 29 дней по 8 страниц книга ещё не прочитана, за 45 дней — уже прочитана:</p>
+<div class="frm st">8 · 29 &lt; p ≤ 8 · 45</div>
+<p class="res st">→ <b>232 &lt; p ≤ 360</b></p></div></details>
+<details class="stp"><summary><span class="tl-h"><b>2. Делимость p − 2.</b></span><span class="tl-r"><b>p − 2 кратно 20</b></span></summary><div class="tl-b"><p class="st">d4, d5 — полных дней по 4 и по 5 страниц.</p>
+<p class="src st"><em>«по 4 страницы в день, на следующий день останется прочитать 2 страницы»</em></p>
+<p class="st">⇒ p − 2 = 4 · d4</p>
+<p class="src st"><em>«по 5 страниц в день — на последний день останутся 2 страницы»</em></p>
+<p class="st">⇒ p − 2 = 5 · d5</p>
+<p class="st">Значит, p − 2 делится и на 4, и на 5, то есть на 20.</p>
+<p class="res st">→ <b>p − 2 кратно 20</b></p></div></details>
+<details class="stp"><summary><span class="tl-h"><b>3. Список.</b></span><span class="tl-r"><b>p = 242, 262, 282, 302, 322 или 342</b></span></summary><div class="tl-b"><p class="st">Выписываем все p, у которых p − 2 кратно 20 и верны границы шага 1. Вычитаем 2 из границ:</p>
+<div class="frm st">232 &lt; p ≤ 360</div>
+<div class="frm st">230 &lt; p − 2 ≤ 358</div>
+<p class="st">Кратные 20 между 230 и 358: 240, 260, …, 340.</p>
+<p class="st">Прибавляем 2 — получаем p:</p>
+<p class="res st">→ <b>p = 242, 262, 282, 302, 322 или 342</b></p></div></details>
+<details class="stp"><summary><span class="tl-h"><b>4. Отбор по семёрке.</b></span><span class="tl-r"><b>p = 342</b> — ответ на вопрос 1</span></summary><div class="tl-b"><p class="st">d7 — полных дней по 7 страниц; res(a : b) — остаток от деления a на b.</p>
+<p class="src st"><em>«по 7 страниц в день — в последний день останется прочитать 6 страниц»</em></p>
+<p class="st">⇒ p − 6 = 7 · d7</p>
+<p class="st">Здесь на 7 делится другое число, p − 6, а не p − 2, поэтому это условие проверяем у каждого числа списка: нужен res(p : 7) = 6.</p>
+<p class="st">Делим на 7 только первое число списка: 242 = 7 · 34 + 4.</p>
+<p class="st">Соседние числа списка отличаются на 20. Чтобы не делить каждое заново, записываем 20 через семёрки: 20 = 7 · 3 − 1.</p>
+<p class="st">Три семёрки остатка не меняют, а −1 уменьшает его на 1. Поэтому у каждого следующего числа остаток на 1 меньше, а после 0 идёт 6 (занимаем семёрку):</p>
+<p class="st">4, 3, 2, 1, 0, 6</p>
+<p class="res st">→ <b>p = 342</b> — ответ на вопрос 1</p></div></details>
+<details class="stp"><summary><span class="tl-h"><b>5. Вопрос 2: дни по 8.</b></span><span class="tl-r"><b>43 дня, в последний день 6 страниц</b></span></summary><div class="tl-b"><p class="st">Читая по 8 страниц в день, Лаура раскладывает 342 страницы на полные дни по 8 и последний, неполный день — это деление с остатком:</p>
+<div class="frm st">342 = 8 · 42 + 6</div>
+<p class="st">Это 42 полных дня и ещё один день на 6 страниц.</p>
+<p class="res st">→ <b>43 дня, в последний день 6 страниц</b></p></div></details>
+<p class="st"><b>Ответ.</b> 342 страницы; 43 дня, в последний день 6 страниц.</p>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ul class="st"><li>Взять нижнюю границу 8 · 30 = 240 вместо 8 · 29 = 232: тридцатый день может быть неполным (здесь ответ не меняется, в другой задаче теряются подходящие числа).</li><li>Отнять 1 от остатка 0 и получить «−1» вместо 6.</li><li>Ответить «42 дня», забыв последний, неполный день.</li></ul></div>
+<p class="st"><b>Жанр ответа.</b> Спрашивают три числа: сколько страниц в книге, сколько дней Лаура читает её по 8 страниц и сколько страниц в последний день.</p>
+<h3 class="st">Общее: система условий</h3>
+<p class="st">Обозначения:</p>
+<ul class="st"><li><b>p</b> (<em>páginas</em>) — сколько страниц в книге;</li><li><b>d4</b>, <b>d5</b>, <b>d7</b>, <b>d8</b> (<em>días</em>) — сколько <b>полных</b> дней Лаура читает по 4, 5, 7, 8 страниц; последний, неполный день в них не входит;</li><li><b>res(a : b)</b> — остаток от деления a на b, например:</li></ul>
+<div class="frm st">13 = 7 · 1 + 6</div>
+<div class="frm st">res(13 : 7) = 6</div>
+<div class="plan st"><p class="st">✅ <b>План общей части.</b> Найдём:</p>
+<ol class="st num"><li><span class="lin">1.</span> систему условий (1)–(4);</li><li><span class="lin">2.</span> систему в виде «число делится на …» — так условия (1) и (2) объединяются в одно.</li></ol></div>
+<p class="step st"><b>Шаг 1 — найдём систему условий.</b></p>
+<ul class="st"><li><em>«Если читать по 4 страницы в день, на следующий день останется прочитать 2 страницы»</em> ⇒</li></ul>
+<div class="frm st">(1) p = 4 · d4 + 2</div>
+<ul class="st"><li><em>«Если по 5 страниц в день — на последний день останутся 2 страницы»</em> ⇒</li></ul>
+<div class="frm st">(2) p = 5 · d5 + 2</div>
+<ul class="st"><li><em>«Если по 7 страниц в день — в последний день останется прочитать 6 страниц»</em> ⇒</li></ul>
+<div class="frm st">(3) p = 7 · d7 + 6</div>
+<ul class="st"><li><em>«Если по 8 страниц в день — на всю книгу уйдёт от 30 до 45 дней»</em> ⇒ за 29 дней по 8 страниц книга ещё не прочитана (на тридцатый день остаётся хотя бы одна страница), а за 45 дней — уже прочитана:</li></ul>
+<div class="frm st">(4) 8 · 29 &lt; p ≤ 8 · 45</div>
+<p class="st">→ <b>система:</b></p>
+<pre class="sys st">(1) p = 4 · d4 + 2
+(2) p = 5 · d5 + 2
+(3) p = 7 · d7 + 6
+(4) 8 · 29 &lt; p ≤ 8 · 45</pre>
+<p class="step st"><b>Шаг 2 — приведём (1), (2), (3) к виду «число делится на …».</b> Для этого переношу числа влево:</p>
+<div class="frm st">(1) p − 2 = 4 · d4</div>
+<div class="frm st">(2) p − 2 = 5 · d5</div>
+<div class="frm st">(3) p − 6 = 7 · d7</div>
+<div class="card key st"><span class="tag">Заметь главное</span><p>В (1) и (2) слева одно и то же число p − 2. Оно делится и на 4, и на 5, значит, на 20.</p></div>
+<p class="st"><em>💬 Эта мысль — во фразу-объяснение.</em></p>
+<p class="st">Поэтому (1) и (2) объединяются в одно условие:</p>
+<div class="frm st">(5) p − 2 кратно 20</div>
+<p class="st">В (3) на 7 делится другое число — p − 6, а не p − 2, поэтому с (5) оно не объединяется.</p>
+<p class="st">→ <b>(1) и (2) объединены в (5), (3) остаётся как есть</b></p>
+<p class="st">Система теперь:</p>
+<pre class="sys st">(3) p = 7 · d7 + 6
+(4) 8 · 29 &lt; p ≤ 8 · 45
+(5) p − 2 кратно 20</pre>
+<h3 class="st">Вопрос 1: сколько страниц в книге</h3>
+<p class="st"><em>«Сколько страниц в книге?»</em> ⇒ ищем p.</p>
+<p class="st">Числа из (5) идут через 20.</p>
+<p class="st">Числа из (3) идут через 7.</p>
+<p class="st">В границах (4) первых втрое меньше, поэтому числа с (4) и (5) выписываю все, а (3) проверяю у каждого.</p>
+<figure class="st"><svg viewBox="0 0 640 160" width="100%" style="max-width:640px" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,-apple-system,sans-serif"><line x1="60" y1="22" x2="60" y2="156" stroke="var(--red)" stroke-width="1.4" stroke-dasharray="4 3"/><line x1="597.6" y1="22" x2="597.6" y2="156" stroke="var(--red)" stroke-width="1.4"/><text x="60" y="16" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">232 &lt; p</text><text x="597.6" y="16" fill="var(--red)" font-size="12" text-anchor="middle" font-weight="400">p ≤ 360</text><line x1="60" y1="46" x2="597.6" y2="46" stroke="var(--line)" stroke-width="1.2"/><line x1="60" y1="112" x2="597.6" y2="112" stroke="var(--line)" stroke-width="1.2"/><circle cx="102" cy="46" r="6" fill="var(--blue)"/><text x="102" y="68" fill="var(--ink)" font-size="12" text-anchor="middle" font-weight="400">242</text><circle cx="186" cy="46" r="6" fill="var(--blue)"/><text x="186" y="68" fill="var(--ink)" font-size="12" text-anchor="middle" font-weight="400">262</text><circle cx="270" cy="46" r="6" fill="var(--blue)"/><text x="270" y="68" fill="var(--ink)" font-size="12" text-anchor="middle" font-weight="400">282</text><circle cx="354" cy="46" r="6" fill="var(--blue)"/><text x="354" y="68" fill="var(--ink)" font-size="12" text-anchor="middle" font-weight="400">302</text><circle cx="438" cy="46" r="6" fill="var(--blue)"/><text x="438" y="68" fill="var(--ink)" font-size="12" text-anchor="middle" font-weight="400">322</text><circle cx="522" cy="46" r="6" fill="var(--blue)"/><text x="522" y="68" fill="var(--ink)" font-size="12" text-anchor="middle" font-weight="400">342</text><circle cx="81" cy="112" r="5" fill="#c58af9"/><circle cx="110.4" cy="112" r="5" fill="#c58af9"/><circle cx="139.8" cy="112" r="5" fill="#c58af9"/><circle cx="169.2" cy="112" r="5" fill="#c58af9"/><circle cx="198.6" cy="112" r="5" fill="#c58af9"/><circle cx="228" cy="112" r="5" fill="#c58af9"/><circle cx="257.4" cy="112" r="5" fill="#c58af9"/><circle cx="286.8" cy="112" r="5" fill="#c58af9"/><circle cx="316.2" cy="112" r="5" fill="#c58af9"/><circle cx="345.6" cy="112" r="5" fill="#c58af9"/><circle cx="375" cy="112" r="5" fill="#c58af9"/><circle cx="404.4" cy="112" r="5" fill="#c58af9"/><circle cx="433.8" cy="112" r="5" fill="#c58af9"/><circle cx="463.2" cy="112" r="5" fill="#c58af9"/><circle cx="492.6" cy="112" r="5" fill="#c58af9"/><circle cx="522" cy="112" r="5" fill="#c58af9"/><circle cx="551.4" cy="112" r="5" fill="#c58af9"/><circle cx="580.8" cy="112" r="5" fill="#c58af9"/><text x="64" y="32" fill="var(--blue)" font-size="13" text-anchor="start" font-weight="600">(5): p − 2 кратно 20 — через 20</text><text x="593.6" y="32" fill="var(--blue)" font-size="13" text-anchor="end" font-weight="600">6 чисел</text><text x="64" y="98" fill="#c58af9" font-size="13" text-anchor="start" font-weight="600">(3): p − 6 кратно 7 — через 7</text><text x="593.6" y="98" fill="#c58af9" font-size="13" text-anchor="end" font-weight="600">18 чисел</text><text x="81" y="134" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">237</text><text x="580.8" y="134" fill="var(--muted)" font-size="12" text-anchor="middle" font-weight="400">356</text></svg><figcaption>Одни и те же границы (4), два ряда. Числа из (5) стоят редко — их 6. Числа из (3) стоят втрое гуще — их 18. Поэтому выписываю редкий ряд, а (3) проверяю у каждого его числа.</figcaption></figure>
+<p class="st">По (3) остаток p при делении на 7 равен 6:</p>
+<div class="frm st">(3) p = 7 · d7 + 6 ⇒ res(p : 7) = 6</div>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">p = то из чисел с (4) и (5), у которого res(p : 7) = 6</div>
+<p class="st">Осталось найти: все числа, для которых верны (4) и (5); то из них, у которого res(p : 7) = 6.</p></div>
+<p class="step st"><b>Шаг 1 — найдём все p, для которых верны (4) и (5).</b></p>
+<div class="frm st">(4) 8 · 29 &lt; p ≤ 8 · 45</div>
+<div class="frm st">232 &lt; p ≤ 360</div>
+<p class="st">Вычитаю 2, чтобы границы говорили про p − 2 из (5):</p>
+<div class="frm st">230 &lt; p − 2 ≤ 358</div>
+<p class="st">Кратные 20 между 230 и 358: 240, 260, 280, 300, 320, 340.</p>
+<p class="st">Прибавляю 2 — получаю p:</p>
+<p class="st">→ <b>p = 242, 262, 282, 302, 322, 342</b></p>
+<p class="step st"><b>Шаг 2 — найдём, у какого из этих чисел res(p : 7) = 6.</b> Делить каждое число на 7 заново не нужно: соседние числа отличаются на 20, и достаточно понять, как прибавка 20 меняет остаток при делении на 7.</p>
+<p class="st">Для этого записываю 20 через семёрки — прибавка кратного 7 остаток не меняет:</p>
+<div class="frm st">20 = 7 · 3 − 1</div>
+<p class="st">Значит, прибавить 20 — это прибавить три семёрки и отнять 1: у следующего числа частное на 3 больше, а остаток на 1 меньше.</p>
+<p class="st">Когда остаток 0, отнять 1 нельзя — занимаю одну семёрку: частное растёт на 2, остаток становится 6.</p>
+<div class="st"><div class="tw"><table>
+<tr><th>p</th><th>242</th><th>262</th><th>282</th><th>302</th><th>322</th><th>342</th></tr>
+<tr><td>деление на 7</td><td>7 · 34 + 4</td><td>7 · 37 + 3</td><td>7 · 40 + 2</td><td>7 · 43 + 1</td><td>7 · 46 + 0</td><td>7 · 48 + 6</td></tr>
+<tr><td>res(p : 7)</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td><td>6</td></tr>
+</table></div></div>
+<p class="st">Остаток 6 — только у 342.</p>
+<p class="st">→ <b>p = 342</b></p>
+<h3 class="st">Вопрос 2: сколько дней и сколько страниц в последний день</h3>
+<p class="st"><em>«Если Лаура читает по 8 страниц в день, сколько дней она будет читать книгу и сколько страниц прочитает в последний день?»</em> ⇒ Лаура раскладывает 342 страницы на полные дни по 8 страниц и то, что останется на последний день.</p>
+<div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">N(дней) = d8 + 1</div>
+<div class="frm st">N(страниц в последний день) = res(342 : 8)</div>
+<ul class="st"><li>d8 — сколько полных дней по 8 страниц, то есть частное от деления 342 на 8;</li><li>+ 1 — последний, неполный день: он есть, если остаток не ноль.</li></ul>
+<p class="st">Осталось найти: частное и остаток от деления 342 на 8.</p></div>
+<p class="step st"><b>Шаг 1 — найдём частное и остаток от деления 342 на 8.</b></p>
+<div class="frm st">342 = 8 · 42 + 6</div>
+<p class="st">→ <b>d8 = 42</b>, <b>res(342 : 8) = 6</b> — остаток не ноль, последний день есть.</p>
+<p class="step st"><b>Шаг 2 — сборка.</b></p>
+<div class="frm st">N(дней) = 42 + 1 = 43</div>
+<div class="frm st">N(страниц в последний день) = 6</div>
+<h3 class="st">Проверка и ответ</h3>
+<p class="st">Подставляю 342 в (1)–(4):</p>
+<ul class="st"><li>(1): 342 = 4 · 85 + 2 ✓</li><li>(2): 342 = 5 · 68 + 2 ✓</li><li>(3): 342 = 7 · 48 + 6 ✓</li><li>(4): 232 &lt; 342 ≤ 360 ✓</li></ul>
+<p class="st"><em>Проверка вторым способом: компьютерный перебор всех p от 1 до 10 000 по всем четырём данным даёт только 342.</em></p>
+<p class="st"><em>Без условия «от 30 до 45 дней» подошли бы ещё 62, 202, 482 и дальше — это условие оставляет одно число.</em></p>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ul class="st"><li>Нижняя граница — 29 полных дней, а не 30: тридцатый день может быть неполным (здесь ответ не меняется, но в другой задаче так теряют подходящие числа).</li><li>Остаток после нуля: у 342 не «минус 1», а 6 — отнимая 1 от нуля, занимаешь семёрку.</li><li>42 — это полные дни, а последний, неполный день — тоже день. Ответ — 43, а не 42.</li></ul>
+<p class="st"><b>Ответ на задачу:</b> в книге 342 страницы; по 8 страниц в день Лаура читает её 43 дня и в последний день читает 6 страниц.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение и фраза про полноту входят в образец наравне с числами.</em></p>
+<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
+<div id="a0" data-art="0"><p class="st"><b>Los que dejan resto 2 al dividir por 4 y por 5 van de 20 en 20, así que pruebo solo esos.</b></p></div>
+<p class="st"><em>Числа с остатком 2 при делении на 4 и на 5 идут через 20, поэтому проверяю только их.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">p — страниц в книге; d4, d5, d7, d8 — полных дней по 4, 5, 7, 8 страниц.</p>
+<pre class="sys st">(1) p = 4 · d4 + 2
+(2) p = 5 · d5 + 2
+(3) p = 7 · d7 + 6
+(4) 8 · 29 &lt; p ≤ 8 · 45</pre>
+<div id="a3" data-art="3"><div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">p = то из чисел с (4) и (5), у которого res(p : 7) = 6</div>
+<div class="frm st">N(дней) = d8 + 1</div>
+<div class="frm st">N(страниц в последний день) = res(p : 8)</div>
+<p class="st">(5) — p − 2 кратно 20 (из (1) и (2)); d8 — частное от деления p на 8.</p></div></div>
+<div id="a10" data-art="10"><ul class="st"><li>(1), (2): p − 2 = 4 · d4 = 5 · d5 → (5) p − 2 кратно 20</li><li>(4), (5): 230 &lt; p − 2 ≤ 358 → p = 242, 262, 282, 302, 322, 342 (220 ≤ 230, 360 &gt; 358)</li><li>(3): res(p : 7) = 6</li><li>242 = 7 · 34 + 4</li><li>20 = 7 · 3 − 1 → res(p : 7) = 4, 3, 2, 1, 0, 6 (после 0 — 6) → <b>p = 342</b></li><li>342 = 8 · 42 + 6 → d8 = 42, res(342 : 8) = 6</li><li>N(дней) = 42 + 1 = <b>43</b>, в последний день <b>6 страниц</b></li></ul></div>
+<p class="st">Проверка: 342 = 4 · 85 + 2 ✓; 342 = 5 · 68 + 2 ✓; 342 = 7 · 48 + 6 ✓</p>
+<div id="a11" data-art="11"><p class="st"><b>Ответ: 342 страницы; 43 дня, в последний день 6 страниц.</b></p></div>
+<h4 class="st">💬 Фраза в конце — полнота</h4>
+<div id="a12" data-art="12"><p class="st"><b>Probé todos los números posibles y los demás no cumplen la condición de dejar resto 6 al dividir por 7, por eso no hay más que este.</b></p></div>
+<p class="st"><em>Проверил все возможные числа, остальные не подходят под условие «остаток 6 при делении на 7», — поэтому других нет.</em></p>
+<div class="pager"><a href="01-usloviya-korotko.html">← Условия — коротко</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // кнопка перезапуска — только у иллюстраций, где движение что-то показывает
+    document.querySelectorAll('figure.fx').forEach(function(f){
+      var b=document.createElement('button');
+      b.className='replay';b.type='button';b.textContent='↻ ещё раз';
+      b.addEventListener('click',function(){
+        f.classList.remove('seen');void f.offsetWidth;f.classList.add('seen');
+      });
+      f.appendChild(b);
+    });
+
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>
