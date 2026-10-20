@@ -175,14 +175,12 @@ def render_table(src):
     # столбцы держат одну ширину, чтобы это читалось как та же самая таблица
     tinted = any(r.strip('|').strip().startswith(tuple(ROW_TINT)) for r in rows[1:])
     out = ['<div class="tw"><table class="grow">' if tinted else '<div class="tw"><table>']
-    # колонка, чей заголовок взят в ⟦…⟧, — выбранное значение (вход строки):
-    # остальные колонки из неё следуют, поэтому она красится целиком
-    head = [c.strip() for c in rows[0].strip('|').split('|')]
-    inp = {i for i, c in enumerate(head) if re.fullmatch(r'⟦.+⟧', c)}
     for n, r in enumerate(rows):
         cells = [c.strip() for c in r.strip('|').split('|')]
-        if n == 0:
-            cells = [c[1:-1] if i in inp else c for i, c in enumerate(cells)]
+        # клетка в ⟦…⟧ — выбранное значение (вход перебора); остальные клетки
+        # из него следуют, поэтому вход красится отдельно
+        inp = {i for i, c in enumerate(cells) if re.fullmatch(r'⟦.+⟧', c)}
+        cells = [c[1:-1] if i in inp else c for i, c in enumerate(cells)]
         tag = 'th' if n == 0 else 'td'
         tint = next((c for m, c in ROW_TINT.items() if cells[0].startswith(m)), None)
         tr = f'<tr class="t-{tint}">' if tint and n else '<tr>'
