@@ -48,7 +48,19 @@ os.makedirs(out, exist_ok=True)
 for f in os.listdir(out):
     if f.endswith('.html'):
         os.remove(os.path.join(out, f))
-r = subprocess.run([sys.executable, TOOL, md, out], capture_output=True, text=True)
+# иллюстрации: _md/<образец>.vis.json (якорь — фраза из абзаца → <figure>) сливаются в один словарь фазы
+import json
+vis = {}
+for f, *_ in items:
+    j = os.path.join(M, f + '.vis.json')
+    if os.path.exists(j):
+        vis.update(json.load(open(j)))
+vp = md[:-3] + '.vis.json'
+json.dump(vis, open(vp, 'w'), ensure_ascii=False, indent=1)
+r = subprocess.run([sys.executable, TOOL, md, out, vp], capture_output=True, text=True)
+for line in (r.stdout + r.stderr).splitlines():
+    if 'без якоря' in line or 'Traceback' in line:
+        print('  ⚠', line)
 print('сборка:', (r.stdout + r.stderr).strip().splitlines()[-3:])
 c = subprocess.run([sys.executable, TOOL, '--check', md, out], capture_output=True, text=True)
 print('check rc =', c.returncode, [l for l in c.stdout.splitlines() if 'потеряно' in l or 'дописано' in l])
