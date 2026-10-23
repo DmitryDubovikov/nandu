@@ -46,7 +46,7 @@ The model solutions are the parent's working material for writing textbooks — 
 model does not take it out of the corpus.
 
 **Before writing anything in `26-27/nandu_level2/`, read its `README.md`** (method, 2027 tours, what counts as learned
-at level 1, the level-1 audit gaps) and `nandu_n2_obraztsy.md`. Inputs: per-stage typologies and corpora
+at level 1, the level-1 audit gaps), `nandu_n2_roadmap.md` and `nandu_n2_obraztsy.md`. Inputs: per-stage typologies and corpora
 `26-27/nandu_level2/{interescolar,zonal,provincial,regional,national}/nandu_n2_*_{tipologia,korpus}.md`, summary
 `nandu_n2_tipologia_svodnaya.md`. Of 2026, Interescolar and Zonal are in the corpus; Provincial, Regional and Nacional 2026 the user
 adds when the organisers publish them. Stages: Interescolar → Zonal → Provincial → Regional → Nacional.
@@ -145,7 +145,7 @@ These conventions are load-bearing across all materials — keep them.
    use; (г) textbooks covering exactly those moves, in the solutions' form and notation; (д) solutions of the whole
    corpus. Steps (а)–(г) run phase by phase, a phase = the tour it prepares for (subtypes that first appear there).
    No chapter is planned from the typology alone, and no textbook is written before its moves exist in
-   accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_obraztsy.md`.
+   accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_roadmap.md`.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
    Structure: **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
    subtasks. That artifact may be an algebraic combination of blocks («Ответ = Д × М»), a reduction
