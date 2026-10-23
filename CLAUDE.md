@@ -26,8 +26,10 @@ The 2026 result was weak (about 1.5 problems a day), and the way the course is b
 (23 Oct 2026). **Solutions come first, textbooks are derived from them** — this is hard rule 7, the only course-building
 method in the repo:
 
-1. **Model problems** — one real corpus problem per typology subtype, 17 in all: `26-27/nandu_level2/nandu_n2_obraztsy.md`
-   (entry point: the phases, the models, their backups, solution status, corpus moves the models miss, the moves registry).
+1. **Model problems** — one real corpus problem per typology subtype, 17 in all. **Entry point and progress tracker:
+   `26-27/nandu_level2/nandu_n2_roadmap.md`** (the list by phase, the work order, checkboxes — the only place status is
+   kept). Details per model (backup, expected moves, frequency, corpus moves the models miss, the moves registry):
+   `26-27/nandu_level2/nandu_n2_obraztsy.md`.
 2. **Ideal solutions** — the parent and Claude solve each model and polish it until the parent accepts it as
    optimal; sources in `26-27/nandu_level2/idealnye_resheniya/`.
 3. **Moves** — every move, notion and technique of an accepted solution goes into the registry (`nandu_n2_obraztsy.md`
