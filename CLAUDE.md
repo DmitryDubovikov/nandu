@@ -27,13 +27,18 @@ The 2026 result was weak (about 1.5 problems a day), and the way the course is b
 method in the repo:
 
 1. **Model problems** — one real corpus problem per typology subtype, 17 in all: `26-27/nandu_level2/nandu_n2_obraztsy.md`
-   (entry point: the models, their backups, solution status, corpus moves the models miss, the moves registry).
+   (entry point: the phases, the models, their backups, solution status, corpus moves the models miss, the moves registry).
 2. **Ideal solutions** — the parent and Claude solve each model and polish it until the parent accepts it as
    optimal; sources in `26-27/nandu_level2/idealnye_resheniya/`.
 3. **Moves** — every move, notion and technique of an accepted solution goes into the registry (`nandu_n2_obraztsy.md`
-   §3) under the name and notation it has in the solution.
+   §5) under the name and notation it has in the solution.
 4. **Textbooks** — written for exactly those moves, introduced and written the way the ideal solutions use them.
 5. **Whole-corpus solutions** — last.
+
+Steps 1–4 run **in phases by tour**, not over all 17 models at once: **1. Zonal** (ready by 7 May — the Interescolar
+needs the same subtypes): Т1, Т1′, Т1″, Т2, Т2‴, Т3, Т3′, Т3″, Т3‴ · **2. Provincial + regional** (by 19 Aug, started
+before the zonal): Т2′ first, then Т5, Т6, Т1‴, Т4, Т2″, Т1⁗ · **3. National — depth**: Т4′ plus deepening Т2′, Т1, Т3′.
+The Interescolar is not a phase of its own. Basis: the subtype × stage matrix in `nandu_n2_tipologia_svodnaya.md`.
 
 The model solutions are the parent's working material for writing textbooks — not the child's practice. Solving a
 model does not take it out of the corpus.
@@ -136,7 +141,8 @@ These conventions are load-bearing across all materials — keep them.
    now in `arhiv/`). A course is built in this order: (а) one model corpus problem per typology subtype;
    (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of moves those solutions
    use; (г) textbooks covering exactly those moves, in the solutions' form and notation; (д) solutions of the whole
-   corpus. No chapter is planned from the typology alone, and no textbook is written before its moves exist in
+   corpus. Steps (а)–(г) run phase by phase, a phase = the tour it prepares for (subtypes that first appear there).
+   No chapter is planned from the typology alone, and no textbook is written before its moves exist in
    accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_obraztsy.md`.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
    Structure: **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
