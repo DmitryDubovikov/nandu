@@ -19,6 +19,7 @@
   /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
   .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
   .wrap.single{display:block} .wrap.single aside{display:none} .wrap.single main{margin:0 auto}
+  .wrap.single figure>svg{max-width:460px}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -237,6 +238,9 @@
   figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;overflow:visible}
   figure svg.narrow{max-width:520px}
   figure{position:relative}
+  .taskfig{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start;margin-top:14px}
+  .taskfig>.card,.taskfig>div>.card{margin-top:0} .taskfig .tf-fig figure{margin-top:0}
+  @media (max-width:900px){.taskfig{display:block} .taskfig .tf-fig figure{margin-top:20px}}
   figure text{font-family:var(--sans)}
   .fgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 22px;
     max-width:760px;margin:0 auto}

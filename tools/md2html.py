@@ -758,12 +758,18 @@ def build_pages(md, visuals=None, src_path=None):
             h = render_block((k, v))
             if idx in at:
                 h = f'<div id="a{at[idx]}" data-art="{at[idx]}">{h}</div>'
-            body.append(h)
             key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v)).strip()
+            figs = []
             for anchor, figure in visuals.items():
                 if anchor in key and anchor not in used:
                     used.add(anchor)
-                    body.append(figure)
+                    figs.append(figure)
+            if figs and k == 'p' and TASK_HEAD.match(v):
+                # рисунок условия встаёт справа от рамки постановки, а не под ней
+                body.append(f'<div class="taskfig">{h}<div class="tf-fig">{"".join(figs)}</div></div>')
+            else:
+                body.append(h)
+                body.extend(figs)
 
         # ярлык печатается только когда он сменился: подряд идущие строки боевой
         # записи — одна группа, и семь раз «На туре» ничего не сообщают
