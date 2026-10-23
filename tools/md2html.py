@@ -371,6 +371,8 @@ def doc_kind(src_path):
     Полезна там боевая запись — план и то, что ребёнок пишет на туре.
     """
     name = os.path.basename(src_path or '')
+    if '_idealnye' in name:
+        return 'idealnye'   # идеальные решения образцов: одна колонка, без остатка и без боевой записи
     if '_uchebnik' in name:
         return 'uchebnik'
     if re.search(r'_(resheniya|reshebnik|klyuch|podskazki)', name):
@@ -784,13 +786,13 @@ def build_pages(md, visuals=None, src_path=None):
             .replace('{{PARTLAB}}', partlab)
             .replace('{{SUB}}', '')
             .replace('{{CHAPNAV}}', chapnav)
-            .replace('{{RTITLE_TAG}}', '' if not spec else
+            .replace('{{RTITLE_TAG}}', '' if (not spec or kind == 'idealnye') else
                      '<p class="rtitle">%s</p>' %
                      ('Что пишешь на туре' if is_battle else 'Сухой остаток главы'))
             # ширину задаёт факт боевой записи, а не имя файла: у вводных
             # разделов документа-решения колонка обычная, и растягивать её незачем
-            .replace('{{WRAPCLASS}}', ' battle' if is_battle else '')
-            .replace('{{NAV}}', nav)
+            .replace('{{WRAPCLASS}}', ' single' if kind == 'idealnye' else ' battle' if is_battle else '')
+            .replace('{{NAV}}', '' if kind == 'idealnye' else nav)
             .replace('{{BODY}}', '\n'.join(body))
             .replace('{{FOOT}}', ''.join(xlink_html(x) for x in xmap.get(n, [])) +
                      f'<div class="pager">{prev}{nxt}</div>'))

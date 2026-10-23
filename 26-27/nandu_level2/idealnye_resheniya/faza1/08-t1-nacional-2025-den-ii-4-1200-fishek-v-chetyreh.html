@@ -18,6 +18,7 @@
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
   /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
   .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+  .wrap.single{display:block} .wrap.single aside{display:none} .wrap.single main{margin:0 auto}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -284,17 +285,11 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap single">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 8 из 9</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">r = a</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">v = b + 30</span></button>
-<button class="art" data-art="2"><span class="lbl">Заметь главное</span><span class="val">А в этот момент в белой столько же, сколько в зелёной, — так сказано в только что записанном «теперь».</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">v : 2</span></button>
-<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">v = r + v : 2 + 60</span></button>
-<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">a + b + r + v = 1200</span></button>
-<button class="art" data-art="6"><span class="lbl">План</span><span class="val">синяя = a<br><br>белая = v − 30<br><br>красная = a<br><br>зелёная = v<br><br>- a — сколько фишек сначала в синей;<br>- v — сколько фишек в зелёной (это число не…</span></button>
+  
+  
 </aside>
 <main>
   
@@ -305,7 +300,6 @@
 <p class="st"><b>Перевод условия.</b> Начальные числа фишек называем первыми буквами испанских цветов:</p>
 <ul class="st"><li>a — в синей (azul);</li><li>b — в белой (blanco);</li><li>r — в красной (rojo);</li><li>v — в зелёной (verde).</li></ul>
 <p class="st">Дальше после каждого действия пишем, сколько фишек в каждой коробке. Каждое «теперь» условия говорит про свой момент и даёт своё равенство.</p>
-<p class="st"><em>💬 «Называю буквами то, чего не знаю, и каждое данное записываю равенством» — это мысль для первой половины фразы-объяснения.</em></p>
 <p class="st"><em>«Сначала в синей коробке столько же фишек, сколько в красной»</em> ⇒</p>
 <div id="a0" data-art="0"><div class="frm st">r = a</div></div>
 <p class="st">После переноса 30 фишек из синей в белую:</p>
@@ -315,7 +309,6 @@
 <div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное — половину берут от того, что лежит в белой в этот момент</span><p>А в этот момент в белой столько же, сколько в зелёной, — так сказано в только что записанном «теперь». Значит, в красную уходит половина зелёной, и столько же остаётся в белой:</p></div></div>
 <div id="a3" data-art="3"><div class="frm st">v : 2</div></div>
 <p class="st">Зелёную коробку не трогает ни одно действие — в ней всё время v.</p>
-<p class="st"><em>💬 «Половину берут от того, что лежит в белой в этот момент, а это столько же, сколько в зелёной» — это мысль для второй половины фразы-объяснения.</em></p>
 <p class="st">Все три момента — таблицей состояний:</p>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>синяя</th><th>белая</th><th>красная</th><th>зелёная</th></tr>
@@ -398,35 +391,6 @@ a + v = 615</pre>
 <p class="st">Синяя и красная 225 − 60 = 165, зелёная 2 · 225 = 450, белая сначала 450 − 30 = 420 — то же.</p>
 <p class="st">Компьютерный прогон: все 361 201 начальный расклад с синей = красной и суммой 1200 проведены через оба действия условия; оба «теперь» выполняются ровно в одном — 165, 420, 165, 450.</p>
 <p class="st"><b>Ответ на задачу:</b> сначала в синей коробке было <b>165</b> фишек, в белой — <b>420</b>, в красной — <b>165</b>, в зелёной — <b>450</b>.</p>
-<h3 class="st">✍ Что достаточно написать на туре</h3>
-<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение входит в образец наравне с числами.</em></p>
-<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<p class="st"><b>Llamo a, b, r y v a lo que no sé y escribo cada dato como una igualdad. La mitad se saca de lo que tiene la blanca en ese momento, que es lo mismo que tiene la verde.</b> <em>🆕 Новая фраза — кандидат в словарь уровня 2.</em></p>
-<p class="st"><em>Называю буквами a, b, r и v то, чего не знаю, и каждое данное записываю равенством. Половину берут от того, что лежит в белой в этот момент, а это столько же, сколько в зелёной.</em></p>
-<h4 class="st">Запись</h4>
-<div class="st"><div class="tw"><table>
-<tr><th></th><th>синяя</th><th>белая</th><th>красная</th><th>зелёная</th></tr>
-<tr><td>сначала</td><td>a</td><td>b</td><td>r</td><td>v</td></tr>
-<tr><td>30 из синей в белую</td><td>a − 30</td><td>b + 30</td><td>r</td><td>v</td></tr>
-<tr><td>половина белой в красную</td><td>a − 30</td><td>v : 2</td><td>r + v : 2</td><td>v</td></tr>
-</table></div></div>
-<pre class="sys st">r = a
-v = b + 30
-v = r + v : 2 + 60
-a + b + r + v = 1200</pre>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<ul class="st"><li>синяя = a</li><li>белая = v − 30</li><li>красная = a</li><li>зелёная = v</li></ul></div>
-<div class="frm st">v = a + v : 2 + 60</div>
-<div class="frm st">v : 2 = a + 60</div>
-<div class="frm st">v = 2a + 120</div>
-<div class="frm st">a + (v − 30) + a + v = 1200</div>
-<div class="frm st">a + v = 615</div>
-<div class="frm st">a + 2a + 120 = 615</div>
-<div class="frm st">a = 165</div>
-<div class="frm st">v = 450</div>
-<p class="st"><b>Синяя 165, белая 420, красная 165, зелёная 450</b></p>
-<p class="st">Проверка:</p>
-<ul class="st"><li>30 из синей в белую: 135, 450, 165, 450 — белая = зелёная ✓</li><li>половина белой в красную: 135, 225, 390, 450 — 450 − 390 = 60 ✓</li></ul>
 <div class="pager"><a href="07-t2-nacional-2017-den-i-2-kvadrat-iz-trapeciy-zak.html">← Т2‴ — национал 2017, день I, №2 — квадрат из трапеций, закрашено 416 см²</a><a href="09-t3-nacional-2017-den-ii-6-chisla-iz-cifr-4-5-6-s.html">Т3‴ — национал 2017, день II, №6 — числа из цифр 4, 5, 6 с суммой цифр 30 →</a></div>
 </main>
 </div>

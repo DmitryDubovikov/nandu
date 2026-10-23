@@ -18,6 +18,7 @@
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
   /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
   .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+  .wrap.single{display:block} .wrap.single aside{display:none} .wrap.single main{margin:0 auto}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -284,19 +285,11 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap single">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 4 из 9</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Обозначения</span><span class="val">N(…) — сколько учеников, про которых сказано в скобках:</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">N(утро) = (3/5) · N(всех)</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">1 − 3/5 = 2/5</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">N(утро, волейбол) = (2/3) · N(волейбол)</span></button>
-<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">1 − 2/3 = 1/3</span></button>
-<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">N(день, хоккей) = (2/5) · N(день)</span></button>
-<button class="art" data-art="6"><span class="lbl">Формула</span><span class="val f">1 − 2/5 = 3/5</span></button>
-<button class="art" data-art="7"><span class="lbl">Заметь главное</span><span class="val">Клетка «день, волейбол» стоит и в столбце «волейбол», и в строке «день».</span></button>
-<button class="art" data-art="8"><span class="lbl">План</span><span class="val">Ответ = N(волейбол), N(день), N(всех), N(хоккей).</span></button>
+  
+  
 </aside>
 <main>
   
@@ -337,7 +330,6 @@
 <div id="a7" data-art="7"><div class="card key st"><span class="tag">Заметь главное — 372 лежит сразу в двух целых</span><p>Клетка «день, волейбол» стоит и в столбце «волейбол», и в строке «день».</p></div></div>
 <p class="st">Для обоих этих целых известно, какую долю от них составляет клетка: треть столбца и три пятых строки.</p>
 <p class="st">Значит, одно число 372 даёт сразу оба целых — каждое из своего равенства, без системы.</p>
-<p class="st"><em>💬 «Каждая доля — от своего целого. 372 — это 1/3 волейболистов (остальные учатся утром) и 3/5 дневной смены (остальные играют в хоккей): по этому числу нахожу оба целых» — это мысль для фразы-объяснения.</em></p>
 <p class="step st"><b>Шаг 1 — план.</b> Спрашивают N(волейбол), N(день), N(всех) и N(хоккей). Клетка 372 стоит в двух равенствах перевода — в каждое ставим 372 вместо N(день, волейбол).</p>
 <p class="st">Столбец «волейбол»:</p>
 <div class="frm st">N(день, волейбол) = (1/3) · N(волейбол)</div>
@@ -398,32 +390,6 @@
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ol class="st num"><li><span class="lin">1.</span> Взять саму долю вместо дополнения: счесть 372 двумя третями волейболистов — выйдет 558. Днём играет не 2/3, а оставшаяся 1/3.</li><li><span class="lin">2.</span> Отнести 2/3 не к тому целому — прочесть «2/3 утренней смены играют в волейбол»: выйдет 992 волейболиста. В условии целое — волейболисты: «из учеников, которые играют в волейбол».</li><li><span class="lin">3.</span> На последний вопрос ответить 248 — это хоккеисты только дневной смены, а спрашивают про всю школу.</li></ol>
 <p class="st"><b>Ответ на задачу:</b> в волейбол играют <b>1116</b> учеников; в дневной смене учатся <b>620</b>; в школе <b>1550</b> учеников; в хоккей играют <b>434</b>.</p>
-<h3 class="st">✍ Что достаточно написать на туре</h3>
-<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение входит в образец наравне с числами.</em></p>
-<h4 class="st">💬 Фраза-объяснение (в начале)</h4>
-<p class="st"><b>Cada fracción es de un total distinto. Los 372 son 1/3 de los de vóley (el resto va a la mañana) y 3/5 de los de la tarde (el resto juega hockey): con eso saco los dos totales.</b> <em>🆕 Новая фраза — кандидат в словарь уровня 2.</em></p>
-<p class="st"><em>Каждая доля — от своего целого. 372 — это 1/3 волейболистов (остальные учатся утром) и 3/5 дневной смены (остальные играют в хоккей): по этому числу нахожу оба целых.</em></p>
-<h4 class="st">Запись</h4>
-<div class="st"><div class="tw"><table>
-<tr><th></th><th>волейбол</th><th>хоккей</th><th>вся смена</th></tr>
-<tr><td class="new"><b>утро</b></td><td>2/3 волейболистов</td><td></td><td>3/5 школы</td></tr>
-<tr><td class="new"><b>день</b></td><td class="new"><b>372</b></td><td>2/5 дневной смены</td><td>2/5 школы</td></tr>
-</table></div></div>
-<ul class="st"><li>N(день, волейбол) = (1/3) · N(волейбол)</li><li>N(день, волейбол) = (3/5) · N(день)</li><li>N(день) = (2/5) · N(всех)</li></ul>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">(1/3) · N(волейбол) = 372</div>
-<div class="frm st">(3/5) · N(день) = 372</div>
-<div class="frm st">(2/5) · N(всех) = N(день)</div>
-<div class="frm st">N(хоккей) = N(всех) − N(волейбол)</div></div>
-<ul class="st"><li>N(волейбол) = 3 · 372 = 1116</li><li>N(день): 372 : 3 = 124, 5 · 124 = 620</li><li>N(всех): 620 : 2 = 310, 5 · 310 = 1550</li><li>N(хоккей) = 1550 − 1116 = 434</li></ul>
-<p class="st">Проверка — вся таблица:</p>
-<div class="st"><div class="tw"><table>
-<tr><th></th><th>волейбол</th><th>хоккей</th><th>вся смена</th></tr>
-<tr><td class="new"><b>утро</b></td><td>744 = (2/3) · 1116 ✓</td><td>186</td><td>930 = (3/5) · 1550 ✓</td></tr>
-<tr><td class="new"><b>день</b></td><td>372</td><td>248 = (2/5) · 620 ✓</td><td>620</td></tr>
-<tr><td class="new"><b>вся школа</b></td><td>1116</td><td>186 + 248 = 434 ✓</td><td>1550</td></tr>
-</table></div></div>
-<p class="st"><b>Ответ:</b> волейбол — 1116; дневная смена — 620; вся школа — 1550; хоккей — 434.</p>
 <div class="pager"><a href="03-t3-nacional-2019-den-ii-6-poloska-1-6-proizveden.html">← Т3′ — национал 2019, день II, №6 — полоска 1×6: произведение 24 и «4 левее 7»</a><a href="05-t3-provincial-2025-3-parol-s-semerkoy.html">Т3 — провинциал 2025, №3 — пароль с семёркой →</a></div>
 </main>
 </div>

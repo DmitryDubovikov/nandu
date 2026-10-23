@@ -18,6 +18,7 @@
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
   /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
   .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+  .wrap.single{display:block} .wrap.single aside{display:none} .wrap.single main{margin:0 auto}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -284,15 +285,11 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap single">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 9</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">(1) m1 + m2 + m5 + m10 = 419</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">(3) m1 + m2 + 2 · m5 + m10 : 2 = 416</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">m1 + 2 · m2 + 5 · (2 · m5) + 10 · (m10 : 2)<br>= 1668</span></button>
-<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</span></button>
+  
+  
 </aside>
 <main>
   
@@ -357,16 +354,6 @@ m10 = 136</pre>
 <ul class="st"><li>(3): 98 + 120 + 130 + 68 = 416 ✓</li><li>(4): 98 + 240 + 650 + 680 = 1668 ✓</li><li>136 : 2 = 68 ✓</li></ul>
 <p class="st"><em>Проверено перебором программой: из всех наборов 419 монет на $2023 условию отвечает только 98, 120, 65, 136.</em></p>
 <p class="st"><b>Ответ на задачу:</b> в коробке 98 монет по $1, 120 монет по $2, 65 монет по $5 и 136 монет по $10.</p>
-<h3 class="st">✍ Что достаточно написать на туре</h3>
-<h4 class="st">Запись</h4>
-<p class="st">m1, m2, m5, m10 — монет по $1, $2, $5, $10.</p>
-<pre class="sys st">(1) m1 + m2 + m5 + m10 = 419
-(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023
-(3) m1 + m2 + 2 · m5 + m10 : 2 = 416
-(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</pre>
-<ul class="st"><li>(1) − (3), · 2: (5) m10 − 2 · m5 = 6</li><li>(2) − (4), : 5: (6) m10 − m5 = 71</li><li>(6) − (5): <b>m5 = 65</b></li><li>(6): <b>m10 = 136</b></li><li>(1), (2): (7) m1 + m2 = 218, (8) m1 + 2 · m2 = 338</li><li>(8) − (7): <b>m2 = 120</b></li><li>(7): <b>m1 = 98</b></li></ul>
-<p class="st">Проверка: (3) 416 ✓, (4) 1668 ✓, 136 : 2 = 68 ✓</p>
-<p class="st"><b>Ответ: 98 монет по $1, 120 по $2, 65 по $5, 136 по $10.</b></p>
 <div class="pager"><a href="02-t2-provincial-2022-2-abdef-i-bcd-iz-pyati-perime.html">Т2 — провинциал 2022, №2 — ABDEF и BCD: из пяти периметров два периметра и две площади (кирпичик + склейка → площади) →</a></div>
 </main>
 </div>

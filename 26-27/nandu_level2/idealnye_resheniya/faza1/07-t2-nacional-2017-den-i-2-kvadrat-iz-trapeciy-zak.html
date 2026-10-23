@@ -18,6 +18,7 @@
   .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
   /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
   .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+  .wrap.single{display:block} .wrap.single aside{display:none} .wrap.single main{margin:0 auto}
 
   /* ——— левая четверть: оглавление + сухой остаток главы ——— */
   aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
@@ -284,17 +285,11 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap single">
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 7 из 9</p>
-  <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">DE = EF = FG = d</span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">DF = 2d</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">DC = 4 · DF = 8d</span></button>
-<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Белый треугольничек в углу D — это половина клетки d × d: угол прямой, а обе стороны при нём (катеты) равны d.</span></button>
-<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">1 + 3 = 4</span></button>
-<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">1 + 3 + 5 = 9</span></button>
-<button class="art" data-art="6"><span class="lbl">План</span><span class="val">площадь закрашенного квадрата = N(закрашенного квадрата) · a<br><br>площадь незакрашенной части = 8d · 8d − 416<br><br>площадь MNPQ = N(MNPQ) · a<br><br>P(ABCD) = 4 ·…</span></button>
+  
+  
 </aside>
 <main>
   
@@ -380,15 +375,6 @@
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>DC = 4 · DF, а не 4 · DE: сторона ABCD — 8d, а не 4d.</li><li>416 см² — это трапеции <b>и</b> закрашенный квадрат вместе. Без квадрата 416 : 36 не делится нацело — сигнал, что что-то забыто.</li><li>Площадь закрашенного квадрата и периметр ABCD — оба 128, но первое в см², второе в см.</li></ul>
 <p class="st"><b>Ответ на задачу:</b> площадь закрашенного квадрата — <b>128 см²</b>; площадь незакрашенной части — <b>608 см²</b>; площадь MNPQ — <b>288 см²</b>; периметр ABCD — <b>128 см</b>.</p>
-<h3 class="st">✍ Что достаточно написать на туре</h3>
-<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
-<h4 class="st">Запись</h4>
-<p class="st">d = DE, DF = 2d, DC = 8d. Сетка с шагом d: 8 × 8 клеток. Единица площади — треугольничек = половина клетки d × d, a — его площадь. N(X) — сколько треугольничков в фигуре X.</p>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<div class="frm st">(12 · N(трапеции) + N(закрашенного квадрата)) · a = 416</div>
-<div class="frm st">d · d = 2 · a</div></div>
-<ul class="st"><li>трапеция + белый треугольничек = треугольник с катетами 2d, в нём 4 треугольничка → N(трапеции) = 4 − 1 = 3</li><li>закрашенный квадрат = 4 треугольника с катетами 2d → N(закрашенного квадрата) = 4 · 4 = 16</li><li>(12 · 3 + 16) · a = 416 → 52 · a = 416 → a = 8 см²</li><li>d · d = 16 → d = 4 см, сторона ABCD = 32 см</li><li>закрашенный квадрат: 16 · 8 = <b>128 см²</b></li><li>незакрашенная часть: 32 · 32 − 416 = <b>608 см²</b></li><li>MNPQ = 4 треугольника с катетами 3d → N(MNPQ) = 4 · 9 = 36 → 36 · 8 = <b>288 см²</b></li><li>P(ABCD) = 4 · 32 = <b>128 см</b></li></ul>
-<p class="st">Проверка: незакрашенное = 4 · 16 + 4 · 1 + 4 · 2 = 76 треугольничков, 76 · 8 = 608 ✓</p>
 <div class="pager"><a href="06-t3-regional-2018-3-chetyrehznachnye-menshe-2018-.html">← Т3″ — регионал 2018, №3 — четырёхзначные меньше 2018 с одной семёркой, кратные 3</a><a href="08-t1-nacional-2025-den-ii-4-1200-fishek-v-chetyreh.html">Т1″ — национал 2025, день II, №4 — 1200 фишек в четырёх коробках →</a></div>
 </main>
 </div>
