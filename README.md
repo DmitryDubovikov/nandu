@@ -47,7 +47,8 @@ tools/                     скрипты скачивания и разбора
 
 - **Ñandú = `omn_*`** (Olimpíada Matemática Ñandú) — начальная школа, на неё и нацелен курс.
   По годам `<этап>_<год>.{pdf,md}` в `omn_regional`, `omn_zonal`, `omn_nacional`, `omn_provincial`
-  (в каждом `.md` все три nivel'я Ñandú; курс использует Primer Nivel).
+  (в каждом `.md` все три nivel'я Ñandú; курс 25-26 использовал Primer Nivel, курс 26-27 — Segundo Nivel,
+  выборка которого лежит в `26-27/nandu_level2/<этап>/nandu_n2_*_korpus.md`).
   Плюс `historico/*_N1.md` — многолетние компиляции Nivel 1, используются как ключи ответов.
 - **OMA = `oma/`** (Olimpíada Matemática Argentina) — **отдельная, более трудная олимпиада средней школы**,
   возможный следующий шаг после Ñandú. Ни один материал курса на неё не нацелен;
@@ -71,6 +72,8 @@ tools/                     скрипты скачивания и разбора
 
 ## Архив — `arhiv/`
 
-- `schet_v1/` — первая версия материалов по счёту (uchebnik, reshebnik, spravochnik, opredelitel,
-  session_prompt); в курсе не используется. Живой из неё остаётся только методичка
-  `arhiv/schet_v1/nandu_n1_regional_schet_session_prompt.md` — поэтапный workflow создания новой пары (hard rule 7).
+Всё в `arhiv/` — история, **не инструкция**. Как строится курс сейчас — hard rule 7 в `CLAUDE.md`.
+
+- `schet_v1/` — первая версия материалов по счёту первого уровня (uchebnik, reshebnik, spravochnik, opredelitel,
+  session_prompt со старым поэтапным workflow).
+- `n2_v1/` — отменённый первый подход ко второму уровню: план курса с лестницами глав, промпты сессий, пары 1–3.

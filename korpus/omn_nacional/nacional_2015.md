@@ -48,7 +48,7 @@ El área de CDO es 5/4 del área de AOB.
 ¿Cuál es el área de ADE?
 ¿Cuál es el área de ABCD?
 ¿Cuál es el área de BCEO?
-[Figura: figura con vértice E arriba a la derecha; A, O, D alineados horizontalmente en el medio; B, C abajo. Se trazan segmentos formando los triángulos AOB, AOE, CDO, ODE, CEO, etc.]
+[Figura: A a la izquierda; O y D a la derecha de A, con A, O, D alineados en una recta horizontal (O sobre el segmento AD, entre A y D). B y C abajo, en una recta horizontal (BC paralelo a AD); B queda un poco a la derecha de O; C justo debajo de D. E arriba, justo encima de D: E, D, C están alineados en una recta vertical, con D entre C y E (CE perpendicular a BC). Segmentos trazados: AE, AB, BC, CE (pasa por D), AD (pasa por O), OE, OB y OC. Así el contorno A-B-C-E queda partido en cinco triángulos: AOE, ODE, AOB, OBC y OCD; ABCD es un trapecio con bases AD (arriba) y BC (abajo). Sin sombreado.]
 
 ### Problema 3
 Un número es ascendente si cumple estas dos condiciones:

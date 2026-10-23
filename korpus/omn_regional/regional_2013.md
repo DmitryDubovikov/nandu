@@ -47,7 +47,7 @@ Perímetro de R2 = 122 cm
 ¿Cuál es el área del rectángulo R2?
 ¿Cuál es el área del triángulo ABC?
 ¿Cuál es el área del triángulo ABD?
-[Figura: triángulo rectángulo grande con D arriba, A abajo izquierda, B abajo derecha, C sobre el lado derecho; el interior se divide en los triángulos T1 y T2 (arriba) y los rectángulos R1 y R2 (abajo, sobre la base AB).]
+[Figura: trapecio rectángulo ABCD: A abajo a la izquierda, B abajo a la derecha (AB horizontal); D arriba, justo encima de A (AD vertical); C justo encima de B (BC vertical, mucho más corto que AD); DC oblicuo, baja de D hacia C. Puntos sin letra en la figura (aquí X, Y, Z): X sobre AD, a la altura de C; XC es un segmento horizontal; Y sobre XC, más cerca de X que de C; Z sobre AB, justo debajo de Y (YZ vertical). Segmentos trazados: AB, BC, CD, DA, XC, DY y YZ. Partes: R1 = rectángulo AZYX (abajo a la izquierda), R2 = rectángulo ZBCY (abajo a la derecha), los dos con la altura BC; T1 = triángulo DXY (arriba a la izquierda, ángulo recto en X); T2 = triángulo DYC (arriba a la derecha). No están trazados AC ni BD.]
 
 ### Problema 3
 En cada tarjeta, Diego escribe un número de 2 cifras y un número de 3 cifras que cumplen estas condiciones:

@@ -81,7 +81,7 @@ Las baldosas blancas miden 25 cm de lado.
 ¿Cuántas baldosas blancas usa en total?
 ¿Cuánto mide el lado de las baldosas grises?
 ¿Cuántas baldosas grises usa en total?
-[Figura: terreno cuadrado con dos hileras de baldosas en el borde (exterior blanca, interior gris) y un jardín central.]
+[Figura: tres cuadrados concéntricos de lados paralelos. El exterior es el borde del terreno; entre él y el segundo hay una franja blanca de ancho uniforme (hilera de baldosas blancas); entre el segundo y el tercero, una franja gris de ancho uniforme (hilera de baldosas grises); el cuadrado interior, con textura, es el jardín. Las baldosas no están dibujadas una por una: cada hilera aparece como una franja continua.]
 
 ### Primer Día — Problema 3
 Usando los dígitos 2, 3, 4, 6, 8 y 9, Ema quiere completar este tablero de 2x2 escribiendo un dígito en cada casilla, de manera que al multiplicar los cuatro dígitos que escribió, se obtenga un número al cuadrado. En el tablero puede haber dígitos repetidos.

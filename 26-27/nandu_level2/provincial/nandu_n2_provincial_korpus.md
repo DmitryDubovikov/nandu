@@ -2,7 +2,7 @@
 
 > Корпус задач **Segundo Nivel** по тем годам, для которых в репозитории есть официальные PDF.
 > Источник текста: `korpus/omn_provincial/provincial_*.pdf` — распознано со страницы Segundo Nivel каждого PDF (текстовый слой + рендер страницы для чертежей). Рисунки переданы пометками `[Figura: …]`.
-> Ответы сюда намеренно не включены — банк для боевой фазы.
+> Ответы сюда намеренно не включены. Идеальные решения образцов — `26-27/nandu_level2/idealnye_resheniya/`; в материалы для ребёнка условия не копируются (hard rule 1).
 >
 > **Чего нет:** 2012, 2017, 2018 — PDF в репозитории отсутствуют (для Primer Nivel текст берётся из компиляции `korpus/historico/Provinciales_N1.md`, но она не содержит Segundo Nivel). 2020 и 2021 — этап не проводился (пандемия).
 > **Варианты:** в 2014 комплекты Provincia de Buenos Aires и Metropolitano/otras provincias — *разные наборы задач*; в 2015 и 2016 варианты отличаются только числами и числом вопросов.
@@ -377,7 +377,7 @@ Perímetro de BCD =144cm.
 ¿Cuál es el perímetro de ACDEF?
 ¿Cuál es el área de ABDEF?
 ¿Cuál es el área de BCD?
-[Figura: фигура из трёх частей, стоящих на общей нижней горизонтали. Нижняя горизонталь слева направо: A (левый нижний угол), B, C (правый конец, дальше всех справа). Над A и B — второй горизонтальный уровень с тремя точками слева направо: F (над A), G (посередине), H (над B); ABHF — невысокий прямоугольник в основании (A, B внизу; H, F вверху), G — середина отрезка FH. Над этим прямоугольником — высокий прямоугольник DEGH: G (левый нижний угол) и H (правый нижний), над ними E (над G) и D (над H), сторона ED — верхняя горизонталь всей фигуры. Слева от него треугольник EFG: вершины E (вверху), F (слева внизу) и G (внизу справа), прямой угол при G; сторона FE — наклонная слева. Справа треугольник BCD: вершины B (внизу слева), C (внизу справа) и D (вверху), прямой угол при B; сторона DC — длинная наклонная справа вниз. Итоговый контур — трапециевидная фигура A–B–C–D–E–F. Подписи букв: E и D над верхними точками, F слева и H справа на среднем уровне, G под средней точкой, A, B, C под нижними точками. Все вершины — чёрные точки, чертёж без штриховки.]
+[Figura: A, B, C en una recta horizontal abajo, en ese orden. F justo encima de A y H justo encima de B; F, G, H en una recta horizontal, G punto medio de FH. E justo encima de G y D justo encima de H: ED horizontal arriba; D, H, B en una misma recta vertical (H entre D y B). Segmentos trazados: AC (pasa por B), AF, FH (pasa por G), FE, ED, EG, DB (pasa por H) y DC. Sin sombreado. Partes: rectángulo ABHF (bajo, abajo a la izquierda); rectángulo DEGH (alto, encima de GH); triángulo EFG con ángulo recto en G (a la izquierda de EG, FE oblicuo); triángulo BCD con ángulo recto en B (a la derecha de DB, DC oblicuo largo). El contorno de toda la figura es ACDEF.]
 
 #### Problema 3
 Magda quiere armar bolsitas con monedas de chocolate
@@ -419,7 +419,7 @@ En la figura hay 8 círculos que están conectados mediante segmentos.
 Pablo tiene lápices de colores: rojo, azul y verde.
 Quiere pintar cada uno de los círculos de uno de estos colores de modo que dos círculos conectados sean siempre de distinto color.
 ¿De cuántas maneras distintas puede Pablo pintar los 8 círculos? Explica cómo los contaste.
-[Figura: 8 пустых кружков (контур, без заливки), соединённых отрезками. Расположение по трём уровням. Верхний ряд, слева направо: кружок 1 (слева), кружок 2 (в середине), кружок 3 (справа) — все три на одной горизонтали, соединены отрезками 1–2 и 2–3. Средний уровень: кружок 4 у левого края (левее и ниже кружка 1), кружок 5 в центре фигуры, кружок 6 справа (под серединой между 2 и 3). Нижний ряд: кружок 7 (слева, под кружком 1) и кружок 8 (в середине, под кружком 2), соединены отрезком 7–8. Остальные отрезки: 1–4 (наклон влево вниз), 4–7 (наклон вправо вниз), 2–6 (наклон вправо вниз), 3–6 (наклон влево вниз), 6–8 (наклон влево вниз), 5–8 (короткий наклон вправо вниз от центрального кружка к нижнему среднему). Итого 9 отрезков. Структура: шестиугольный цикл 1–2–6–8–7–4–1, треугольник 2–3–6 наверху справа и «висячий» центральный кружок 5, соединённый только с кружком 8.]
+[Figura: 8 círculos vacíos unidos por 9 segmentos. Seis círculos son los vértices de un hexágono: dos arriba, uno a la izquierda, uno a la derecha, dos abajo. Numerados aquí (los círculos no tienen nombre en la figura): 1 = arriba izquierda, 2 = arriba derecha, 3 = derecha, 4 = abajo derecha, 5 = abajo izquierda, 6 = izquierda. Los seis lados del hexágono están trazados: 1–2, 2–3, 3–4, 4–5, 5–6, 6–1. Círculo 7: a la derecha del 2, a la misma altura, fuera del hexágono; unido al 2 y al 3 (triángulo 2–7–3). Círculo 8: en el centro del hexágono, unido solo al 4. Lista completa de segmentos: 1–2, 2–3, 3–4, 4–5, 5–6, 6–1, 2–7, 3–7, 4–8.]
 
 ---
 

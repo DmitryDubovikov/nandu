@@ -22,22 +22,30 @@ it season 25-26. **From now on the target is Ñandú Segundo Nivel** — the cou
 2027 tours: Interescolar 7 May, Zonal 25 Jun, Provincial 19–21 Aug, Regional 27 Aug, **Nacional 20–23 Oct 2027**
 (the 2026 calendar carried over — a user assumption, no official 2027 calendar yet).
 
-**Before writing anything in `26-27/nandu_level2/`, read its `README.md` and then
-`26-27/nandu_level2/kurs/nandu_n2_plan_kursa.md`** — the single planning document of the level: the course is cut
-by **family** (Т1 numbers, Т2 figures, Т3 counting), not by stage; two pairs per family (ступень 1 = zonal base,
-ступень 2 = regional/provincial/national depth) plus pair 7 for Т4/Т5/Т6; 103 chapters, 22 of them «широкие»;
-§3 lists what counts as learned at level 1 and is not re-taught; §7 is the calendar by windows (window A from
-2 Nov 2026, **zero time reserve** at three sessions a week); §10 is the writing queue.
+The 2026 result was weak (about 1.5 problems a day), and the way the course is built changed with it
+(23 Oct 2026). **Solutions come first, textbooks are derived from them** — this is hard rule 7, the only course-building
+method in the repo:
 
-- `kurs/nandu_n2_promty.md` — one block = one writing session (textbook, then reshebnik); a reshebnik block is
-  **3 problems with distinct roles**; sessions run to a finished file without an approval stop (July 2026 decision —
-  for level 2 this replaces hard rule 7's staged workflow).
-- Written so far: pairs 1–3, ступень 1 (`nandu_n2_{figury,chisla,schet}_1_{uchebnik,reshebnik}.md`). Next in the
-  queue: pair 4, figury ступень 2.
-- Bank: `26-27/nandu_level2/{zonal,provincial,regional,national}/nandu_n2_*_korpus.md` — untouchable (rule 1);
-  per-stage typologies next to them, summary `nandu_n2_tipologia_svodnaya.md`.
-- ⚠ Plan §4 item 7 and promty §2 item 7 still prescribe разборы as «что делаем | что получается» tables —
-  **superseded by hard rule 8**; the hard rules below apply to level 2 in full.
+1. **Model problems** — one real corpus problem per typology subtype, 17 in all: `26-27/nandu_level2/nandu_n2_obraztsy.md`
+   (entry point: the models, their backups, solution status, corpus moves the models miss, the moves registry).
+2. **Ideal solutions** — the parent and Claude solve each model and polish it until the parent accepts it as
+   optimal; sources in `26-27/nandu_level2/idealnye_resheniya/`.
+3. **Moves** — every move, notion and technique of an accepted solution goes into the registry (`nandu_n2_obraztsy.md`
+   §3) under the name and notation it has in the solution.
+4. **Textbooks** — written for exactly those moves, introduced and written the way the ideal solutions use them.
+5. **Whole-corpus solutions** — last.
+
+The model solutions are the parent's working material for writing textbooks — not the child's practice. Solving a
+model does not take it out of the corpus.
+
+**Before writing anything in `26-27/nandu_level2/`, read its `README.md`** (method, 2027 tours, what counts as learned
+at level 1, the level-1 audit gaps) and `nandu_n2_obraztsy.md`. Inputs: per-stage typologies and corpora
+`26-27/nandu_level2/{zonal,provincial,regional,national}/nandu_n2_*_{tipologia,korpus}.md`, summary
+`nandu_n2_tipologia_svodnaya.md`. Segundo Nivel 2026 statements are not in the corpus yet — the user adds them when
+the organisers publish them.
+
+`arhiv/n2_v1/` holds the abandoned first level-2 approach (chapter ladders planned from the typology, textbooks
+written before solutions, session prompts, pairs 1–3). **It is not an instruction**; its live parts were moved out.
 
 ## Primer Nivel, season 25-26 — finished
 
@@ -57,12 +65,14 @@ verification and the PDF figure corrections are in `25-26/nandu_level1/national/
 - `korpus/` — original statements. ⚠ Two different olympiads live here: **Ñandú = `omn_*`** (this course)
   and **OMA = `oma/`** (a separate, harder secundaria olympiad, no course material targets it).
   `korpus/2025/` is OMA, not Ñandú. Details in `README.md`.
-- `26-27/{school5,school6,nandu_level2,tinkov}` — the current season (school tracks run alongside level 2,
-  plan §8); `27-28/{tinkov,school7,nandu_level3}` — the next one. A season's work never requires hopping between directories.
+- `26-27/{school5,school6,nandu_level2,tinkov}` — the current season (school tracks run alongside level 2 —
+  `26-27/nandu_level2/rezhim_sezona.md`); `27-28/{tinkov,school7,nandu_level3}` — the next one. A season's work never
+  requires hopping between directories.
   Each has its own `README.md` — read it before writing there. Two standing prohibitions:
   the `tinkov/` folders are a **карман, not a schedule** (no dates, no ☐-days in any tracker), and
   **no briefs or roadmaps in `27-28/`** — either write the concrete pair or drop the idea.
-- `arhiv/schet_v1/` — the superseded first счёт version; only its `session_prompt` is still live (hard rule 7).
+- `arhiv/` — superseded material, never an instruction: `schet_v1/` (first level-1 счёт version, incl. the old
+  staged-workflow `session_prompt`), `n2_v1/` (first level-2 approach).
 
 **No PDF builds, and nothing is printed at all.** `build_pdf.py` and the `/pdf` slash command were removed
 (Aug 2026); since 29 Aug 2026 **all material is read from the screen** — paper is out of the workflow entirely.
@@ -87,22 +97,31 @@ the national paper has 6 over two days. Per-stage типологии hold the fu
 
 **Segundo Nivel** keeps the positions on all four stages (№1 numbers, №2 lettered figure, №3 counting; national
 №4–№6 repeat them) and adds **Т4** доски-головоломки (⚠ sits in slot №1/№4, where a text problem is expected),
-**Т5** числа как предмет (делимость, остатки, инвариант), **Т6** графы — these three occur only at the provincial
-and national stages. Geometry is **areas**, not perimeters. Stages are not
-ordered by difficulty: the provincial needs Т4–Т6, the regional does not. Glossary:
+**Т5** числа как предмет (делимость, остатки, инвариант), **Т6** графы — these live at the provincial and national
+stages (zonal and regional see Т5 only as a tool). Geometry is **areas**, not perimeters. Stages are not ordered by
+difficulty: the provincial needs Т4–Т6, the regional hardly any. Glossary and counts:
 `26-27/nandu_level2/nandu_n2_tipologia_svodnaya.md`.
 
 ## Hard rules when authoring or editing materials
 
-These conventions are load-bearing across all existing pairs — keep them.
+These conventions are load-bearing across all materials — keep them.
 
-1. **The roadmap's problem bank is untouchable.** Real problems from the bank are reserved for the боевая фаза;
-   never copy them (numbers or plots) into textbook examples or reshebnik problems.
+1. **Corpus problems are never copied into child material.** Real problems (numbers or plots) do not go into
+   textbook examples or reshebnik problems — they stay unseen for the child's battle practice. The parent's ideal
+   solutions of corpus problems (rule 7) are not child material and do not use them up.
 2. Textbook examples must not duplicate reshebnik problems, and vice versa — neither in numbers nor in plot.
-3. One chapter = one new technique; a problem block's difficulty comes only from that chapter's titular skill;
-   tools only from already-covered chapters.
-4. Every reshebnik answer must be computed and **independently re-verified** (e.g. brute-force enumeration vs.
-   the technique). No unchecked answers. The user does not proofread — quality rests on verification done inside the work.
+   **A reshebnik block is 3 problems** with distinct roles: the move in pure form · the move with a trap or in
+   unfamiliar dress · the move in the corpus's battle format (2–3 questions, «explica», real difficulty). A fourth only
+   when the move has a third genuinely different face. Tests: **дубль** — two problems solved by the same sequence of
+   moves → drop the second, don't re-number it; **выпуклость** — solvable without the chapter's move → unfit.
+   (User decision, July 2026.)
+3. One chapter = one new move — a move taken from the ideal solutions' registry (rule 7); a problem block's difficulty
+   comes only from that chapter's titular move; tools only from already-covered chapters. No «см. главу 5» in child
+   text: every «делай так» is justified on the spot, on the numbers of the example.
+4. Every answer must be computed and **independently re-verified**: a separate agent sees only the statement (no
+   answer, no technique), solves it and, where possible, runs a brute-force program; a mismatch or an ambiguity
+   complaint means the problem is rewritten, not patched in brackets. No unchecked answers. The user does not
+   proofread — quality rests on verification done inside the work.
 5. Language is Russian. **Real mathematical terminology is allowed and expected** (July 2026 decision, reversing the
    earlier ban): «сочетания», «размещения», «перестановки», «факториал», «остаток по модулю», «делимость», «инвариант»
    and the like are working vocabulary, not just 🔎 footnotes. The requirement is pedagogical, not lexical:
@@ -112,11 +131,13 @@ These conventions are load-bearing across all existing pairs — keep them.
    the nickname «вычти сценарий» was retired (Aug 2026) and purged. «Сценарий» stays legitimate only where it names a
    *situation in the statement* («если бы…»), i.e. at the translation stage, never as the name of a solving move.
 6. Each textbook opens with «ритуалы» (standing habits) and each chapter includes typical mistakes; worked examples
-   follow the step format of rule 8. Match the tone and structure of the existing pairs.
-7. When adding a new topic pair, follow the staged workflow from
-   `arhiv/schet_v1/nandu_n1_regional_schet_session_prompt.md`: research corpus → derive techniques from the corpus
-   (not from textbooks) → propose chapter ladder + coverage map → **stop for approval** → write the pair;
-   then update the plan/tracker files.
+   follow the step format of rule 8. A move is named and written exactly as in the ideal solution it came from.
+7. **Solutions first, textbooks from them** (Oct 2026 — replaces the old «corpus → chapter ladder → textbook» workflow,
+   now in `arhiv/`). A course is built in this order: (а) one model corpus problem per typology subtype;
+   (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of moves those solutions
+   use; (г) textbooks covering exactly those moves, in the solutions' form and notation; (д) solutions of the whole
+   corpus. No chapter is planned from the typology alone, and no textbook is written before its moves exist in
+   accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_obraztsy.md`.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
    Structure: **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
    subtasks. That artifact may be an algebraic combination of blocks («Ответ = Д × М»), a reduction

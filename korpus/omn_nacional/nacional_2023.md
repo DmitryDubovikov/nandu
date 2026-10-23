@@ -74,7 +74,7 @@ Los números 1, 2, 3 y 10 ya están ubicados.
 No puede haber números repetidos.
 ¿De cuántas maneras puede completar los seis triangulitos que faltan?
 Dar todas las posibilidades.
-[Figura: tres triángulos divididos en cuatro triangulitos cada uno; ya colocados 2, R, 1 arriba, 10 en el centro-izquierda, 3 abajo-derecha; vértices A, D, B, E, P, Q, C, F.]
+[Figura: retícula de triangulitos equiláteros iguales. Tres triángulos equiláteros grandes, cada uno de lado igual a dos lados de triangulito y partido en 4 triangulitos por los segmentos que unen los puntos medios de sus lados: ABC (A abajo a la izquierda, B abajo a la derecha, C arriba), DEF (D abajo a la izquierda, E abajo a la derecha, F arriba) y PQR (P abajo a la izquierda, Q abajo a la derecha, R arriba). A, D, B, E están en una misma recta horizontal, en ese orden: D es el punto medio de AB y B es el punto medio de DE. R es el punto medio de BC y también de DF. D es el punto medio de PR y B es el punto medio de QR; P y Q están más abajo, en otra recta horizontal. Puntos sin letra en la figura (aquí X, Y, Z): X = punto medio de AC, Y = punto medio de EF, Z = punto medio de PQ. En total hay 10 triangulitos: C-X-R (tiene el 2; solo en ABC); A-X-D (tiene el 10; solo en ABC); X-R-D (invertido, centro de ABC; vacío); R-D-B (vacío; es el triangulito común a los tres triángulos: es la esquina de abajo a la derecha de ABC, la de abajo a la izquierda de DEF y la de arriba de PQR); F-R-Y (tiene el 1; solo en DEF); R-Y-B (invertido, centro de DEF; vacío); Y-B-E (solo en DEF; vacío); D-P-Z (solo en PQR; vacío); D-B-Z (invertido, centro de PQR; vacío); B-Z-Q (tiene el 3; solo en PQR). Así ABC = {C-X-R, A-X-D, X-R-D, R-D-B}, DEF = {R-D-B, F-R-Y, R-Y-B, Y-B-E}, PQR = {R-D-B, D-P-Z, D-B-Z, B-Z-Q}.]
 
 ### Primer Día — Problema 2
 En la figura:
@@ -87,7 +87,7 @@ Perímetro de ABCD = 196cm
 ¿Cuál es el área de BFH?
 ¿Cuál es el área de ABCDEF?
 ¿Cuál es el área de ACF?
-[Figura: F, E arriba; A, G, H, D en el medio; B, C abajo.]
+[Figura: rectángulo ABCD con A arriba a la izquierda, D arriba a la derecha, B abajo a la izquierda, C abajo a la derecha (AD y BC horizontales y largos; AB y DC verticales y cortos). G y H están sobre el lado AD, en el orden A, G, H, D. Encima de AD está el cuadrado EFGH: F justo encima de G, E justo encima de H (FG y EH verticales, FE horizontal). Segmentos trazados: AB, BC, CD, el lado A-G-H-D, FG, EH, FE, AF y ED; el contorno es el hexágono ABCDEF. No están trazados BH, BF, FH, AC, CF ni ninguna diagonal.]
 
 ### Primer Día — Problema 3
 En este tablero hay 43 casillas.

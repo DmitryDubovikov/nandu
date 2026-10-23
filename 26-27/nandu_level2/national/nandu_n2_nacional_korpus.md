@@ -2,7 +2,7 @@
 
 > Корпус задач **Segundo Nivel** по всем годам, которые есть в репозитории.
 > Источник текста: `omn_nacional/nacional_<год>.md (транскрипции официальных PDF)`. Рисунки переданы пометками `[Figura: …]`.
-> Ответы сюда намеренно не включены — банк для боевой фазы.
+> Ответы сюда намеренно не включены. Идеальные решения образцов — `26-27/nandu_level2/idealnye_resheniya/`; в материалы для ребёнка условия не копируются (hard rule 1).
 
 ## Содержание
 
@@ -94,7 +94,7 @@ El área de CDO es 5/4 del área de AOB.
 ¿Cuál es el área de ADE?
 ¿Cuál es el área de ABCD?
 ¿Cuál es el área de BCEO?
-[Figura: figura con vértice E arriba a la derecha; A, O, D alineados horizontalmente en el medio; B, C abajo. Se trazan segmentos formando los triángulos AOB, AOE, CDO, ODE, CEO, etc.]
+[Figura: A a la izquierda; O y D a la derecha de A, con A, O, D alineados en una recta horizontal (O sobre el segmento AD, entre A y D). B y C abajo, en una recta horizontal (BC paralelo a AD); B queda un poco a la derecha de O; C justo debajo de D. E arriba, justo encima de D: E, D, C están alineados en una recta vertical, con D entre C y E (CE perpendicular a BC). Segmentos trazados: AE, AB, BC, CE (pasa por D), AD (pasa por O), OE, OB y OC. Así el contorno A-B-C-E queda partido en cinco triángulos: AOE, ODE, AOB, OBC y OCD; ABCD es un trapecio con bases AD (arriba) y BC (abajo). Sin sombreado.]
 
 #### Problema 3
 Un número es ascendente si cumple estas dos condiciones:
@@ -163,7 +163,7 @@ El área de la parte sombreada es de 416cm².
 ¿Cuál es el área de la parte no sombreada?
 ¿Cuál es el área de MNPQ?
 ¿Cuál es el perímetro de ABCD?
-[Figura: cuadrado ABCD con vértices D, E, F, G, H en el lado superior, C arriba a la derecha, A abajo a la izquierda, B abajo a la derecha; en el interior los puntos M, N, P, Q y partes sombreadas.]
+[Figura: cuadrado ABCD con D arriba a la izquierda, C arriba a la derecha, A abajo a la izquierda, B abajo a la derecha. Sobre el lado DC, de izquierda a derecha: D, E, F, G, H, C. Para ubicar todo, en esta descripción se usan coordenadas en unidades de DE (DE = EF = FG = 1 y DC = 4·DF = 8): A = (0, 0), B = (8, 0), C = (8, 8), D = (0, 8), E = (1, 8), F = (2, 8), G = (3, 8), y en el dibujo H = (5, 8). Todos los segmentos interiores van a 45° de los lados, salvo cuatro segmentos cortos perpendiculares a los lados. Cinco cuadrados iguales, girados 45° (diagonales paralelas a los lados de ABCD), forman una X: el central, sombreado, de vértices (4, 6), (2, 4), (4, 2), (6, 4); y cuatro blancos, cada uno con un lado común con el central: F(2, 8)-(0, 6)-(2, 4)-(4, 6), (6, 8)-(4, 6)-(6, 4)-(8, 6), (0, 2)-(2, 4)-(4, 2)-(2, 0) y (6, 0)-(4, 2)-(6, 4)-(8, 2). Lo que queda son 4 triángulos rectángulos isósceles en las esquinas y 4 triángulos en el medio de los lados, cada uno partido en franjas: Esquinas: en el triángulo D-F-(0, 6) está el segmento E-(0, 7): el triangulito D-E-(0, 7) es blanco y el trapecio E-F-(0, 6)-(0, 7) está sombreado; lo mismo en las otras tres esquinas, con los segmentos (7, 8)-(8, 7), (8, 1)-(7, 0) y (1, 0)-(0, 1) (triangulito blanco junto al vértice C, B o A; trapecio sombreado). Lado de arriba: en el triángulo F-(6, 8)-(4, 6) están Q = (4, 7) y los segmentos GQ, HQ y Q-(4, 6) (este último vertical); el triangulito G-H-Q es blanco y los trapecios F-G-Q-(4, 6) y H-(6, 8)-(4, 6)-Q están sombreados. Lo mismo en los otros tres lados: a la derecha P = (7, 4) con los segmentos (8, 5)-P, (8, 3)-P y P-(6, 4) (horizontal); abajo N = (4, 1) con (3, 0)-N, (5, 0)-N y N-(4, 2) (vertical); a la izquierda M = (1, 4) con (0, 5)-M, (0, 3)-M y M-(2, 4) (horizontal); en cada caso el triangulito junto al lado es blanco y los dos trapecios están sombreados. Total: 12 trapecios sombreados, el cuadrado central sombreado, 4 cuadrados blancos y 8 triangulitos blancos. El cuadrilátero MNPQ no está trazado.]
 
 #### Primer Día — Problema 3
 En una bolsa hay fichas blancas, negras, azules y verdes.
@@ -445,14 +445,15 @@ En cada caso, si tu respuesta es sí, muestra cómo y si tu respuesta es no, exp
 
 #### Segundo Día — Problema 4
 En un tablero de 7 filas se escriben los números impares siguiendo el esquema de la figura:
+[Figura: tablero de 7 filas; se ven 14 columnas con números y, a la derecha, una columna con «…» en cada fila. Las casillas en blanco están vacías en la figura. Transcripción fila por fila, de arriba hacia abajo:]
 ```
-1  23 25 47 49 71      95  97 119 121 143 145     ...
-3  21 27 45 51    73 93  99 117 123 141     167 ...
-5  19 29 43    69 75 91 101 115 125     147 165 ...
-7  17 31    53 67 77 89 103 113     139 149 163 ...
-9  15    41 55 65 79 87 105     127 137 151 161 ...
-11    33 39 57 63 81 85     111 129 135 153 159 ...
-   13 35 37 59 61 83     107 109 131 133 155 157 ...
+|   1|  23|  25|  47|  49|  71|    |  95|  97| 119| 121| 143| 145|    | …
+|   3|  21|  27|  45|  51|    |  73|  93|  99| 117| 123| 141|    | 167| …
+|   5|  19|  29|  43|    |  69|  75|  91| 101| 115| 125|    | 147| 165| …
+|   7|  17|  31|    |  53|  67|  77|  89| 103| 113|    | 139| 149| 163| …
+|   9|  15|    |  41|  55|  65|  79|  87| 105|    | 127| 137| 151| 161| …
+|  11|    |  33|  39|  57|  63|  81|  85|    | 111| 129| 135| 153| 159| …
+|    |  13|  35|  37|  59|  61|  83|    | 107| 109| 131| 133| 155| 157| …
 ```
 a) ¿Cuáles son los números que se escriben en la columna 26?
 b) ¿En qué fila y columna se escribe el 631?
@@ -471,7 +472,7 @@ DE = DP, AE = CF
 ¿Cuál es el área de ADE?
 ¿Cuál es el perímetro de ABCE?
 ¿Cuál es el área de AMNE?
-[Figura: rectángulo ABCD con E a la izquierda; puntos D, P, C arriba; R, N a los lados; A, M, B abajo; F abajo a la derecha.]
+[Figura: rectángulo ABCD con A abajo a la izquierda, B abajo a la derecha, C arriba a la derecha, D arriba a la izquierda (AB horizontal, más largo que BC). M sobre AB, N sobre BC, P sobre DC, R sobre AD. E está sobre la prolongación de CD más allá de D: E, D, P, C están en una misma recta horizontal, en ese orden de izquierda a derecha. F está sobre la prolongación de CB más allá de B: C, N, B, F están en una misma recta vertical, en ese orden de arriba hacia abajo (F debajo de B). Segmentos trazados: EC (pasa por D y P), CF (pasa por N y B), AB (pasa por M), AD (pasa por R), AE, AF, RP y PB. Sombreado: el cuadrilátero ABPR. No están trazados AC, AN, MN, NE ni otros segmentos.]
 
 #### Segundo Día — Problema 6
 Martín quiere formar la palabra ERRE eligiendo letras de este tablero.
@@ -566,7 +567,7 @@ Los números 1, 2, 3 y 10 ya están ubicados.
 No puede haber números repetidos.
 ¿De cuántas maneras puede completar los seis triangulitos que faltan?
 Dar todas las posibilidades.
-[Figura: tres triángulos divididos en cuatro triangulitos cada uno; ya colocados 2, R, 1 arriba, 10 en el centro-izquierda, 3 abajo-derecha; vértices A, D, B, E, P, Q, C, F.]
+[Figura: retícula de triangulitos equiláteros iguales. Tres triángulos equiláteros grandes, cada uno de lado igual a dos lados de triangulito y partido en 4 triangulitos por los segmentos que unen los puntos medios de sus lados: ABC (A abajo a la izquierda, B abajo a la derecha, C arriba), DEF (D abajo a la izquierda, E abajo a la derecha, F arriba) y PQR (P abajo a la izquierda, Q abajo a la derecha, R arriba). A, D, B, E están en una misma recta horizontal, en ese orden: D es el punto medio de AB y B es el punto medio de DE. R es el punto medio de BC y también de DF. D es el punto medio de PR y B es el punto medio de QR; P y Q están más abajo, en otra recta horizontal. Puntos sin letra en la figura (aquí X, Y, Z): X = punto medio de AC, Y = punto medio de EF, Z = punto medio de PQ. En total hay 10 triangulitos: C-X-R (tiene el 2; solo en ABC); A-X-D (tiene el 10; solo en ABC); X-R-D (invertido, centro de ABC; vacío); R-D-B (vacío; es el triangulito común a los tres triángulos: es la esquina de abajo a la derecha de ABC, la de abajo a la izquierda de DEF y la de arriba de PQR); F-R-Y (tiene el 1; solo en DEF); R-Y-B (invertido, centro de DEF; vacío); Y-B-E (solo en DEF; vacío); D-P-Z (solo en PQR; vacío); D-B-Z (invertido, centro de PQR; vacío); B-Z-Q (tiene el 3; solo en PQR). Así ABC = {C-X-R, A-X-D, X-R-D, R-D-B}, DEF = {R-D-B, F-R-Y, R-Y-B, Y-B-E}, PQR = {R-D-B, D-P-Z, D-B-Z, B-Z-Q}.]
 
 #### Primer Día — Problema 2
 En la figura:
@@ -579,7 +580,7 @@ Perímetro de ABCD = 196cm
 ¿Cuál es el área de BFH?
 ¿Cuál es el área de ABCDEF?
 ¿Cuál es el área de ACF?
-[Figura: F, E arriba; A, G, H, D en el medio; B, C abajo.]
+[Figura: rectángulo ABCD con A arriba a la izquierda, D arriba a la derecha, B abajo a la izquierda, C abajo a la derecha (AD y BC horizontales y largos; AB y DC verticales y cortos). G y H están sobre el lado AD, en el orden A, G, H, D. Encima de AD está el cuadrado EFGH: F justo encima de G, E justo encima de H (FG y EH verticales, FE horizontal). Segmentos trazados: AB, BC, CD, el lado A-G-H-D, FG, EH, FE, AF y ED; el contorno es el hexágono ABCDEF. No están trazados BH, BF, FH, AC, CF ni ninguna diagonal.]
 
 #### Primer Día — Problema 3
 En este tablero hay 43 casillas.
@@ -645,7 +646,7 @@ Las baldosas blancas miden 25 cm de lado.
 ¿Cuántas baldosas blancas usa en total?
 ¿Cuánto mide el lado de las baldosas grises?
 ¿Cuántas baldosas grises usa en total?
-[Figura: terreno cuadrado con dos hileras de baldosas en el borde (exterior blanca, interior gris) y un jardín central.]
+[Figura: tres cuadrados concéntricos de lados paralelos. El exterior es el borde del terreno; entre él y el segundo hay una franja blanca de ancho uniforme (hilera de baldosas blancas); entre el segundo y el tercero, una franja gris de ancho uniforme (hilera de baldosas grises); el cuadrado interior, con textura, es el jardín. Las baldosas no están dibujadas una por una: cada hilera aparece como una franja continua.]
 
 #### Primer Día — Problema 3
 Usando los dígitos 2, 3, 4, 6, 8 y 9, Ema quiere completar este tablero de 2x2 escribiendo un dígito en cada casilla, de manera que al multiplicar los cuatro dígitos que escribió, se obtenga un número al cuadrado. En el tablero puede haber dígitos repetidos.
