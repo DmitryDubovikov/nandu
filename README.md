@@ -46,7 +46,8 @@ tools/                     скрипты скачивания и разбора
 ⚠ **Здесь живут две разные олимпиады, различай их по префиксу папки:**
 
 - **Ñandú = `omn_*`** (Olimpíada Matemática Ñandú) — начальная школа, на неё и нацелен курс.
-  По годам `<этап>_<год>.{pdf,md}` в `omn_regional`, `omn_zonal`, `omn_nacional`, `omn_provincial`
+  По годам `<этап>_<год>.{pdf,md}` в `omn_interescolar` (с окт 2026, 2013–2026), `omn_zonal`, `omn_provincial`,
+  `omn_regional`, `omn_nacional`
   (в каждом `.md` все три nivel'я Ñandú; курс 25-26 использовал Primer Nivel, курс 26-27 — Segundo Nivel,
   выборка которого лежит в `26-27/nandu_level2/<этап>/nandu_n2_*_korpus.md`).
   Плюс `historico/*_N1.md` — многолетние компиляции Nivel 1, используются как ключи ответов.
@@ -64,8 +65,9 @@ tools/                     скрипты скачивания и разбора
 
 `download.sh` — загрузка PDF через gdown (сначала `source tools/venv/bin/activate`).
 `oma_index.json`, `oma_page.html`, `enunciados.js`, `zonal_list.txt` — производное от www.oma.org.ar.
-В `tools/venv/` стоит инструментарий извлечения PDF (pypdf, pymupdf, pdfplumber), используется
-однострочниками и скриптами `python3` для превращения PDF в `.md`.
+⚠ `tools/venv/` в репозитории **нет** (проверено окт 2026). Свежие PDF берутся напрямую с oma.org.ar: живой индекс —
+`https://www.oma.org.ar/contents/enunciados/index.json`, файлы — `…/contents/enunciados/pdf/nandu/<год>/…`.
+Текст и рисунки PDF в окт 2026 снимались через PDFKit (macOS) из временных скриптов.
 
 Сборки печатных PDF из материалов курса **больше нет** (август 2026): скрипт `build_pdf.py` и
 слэш-команда `/pdf` удалены. Материалы читаются и печатаются из markdown как есть.

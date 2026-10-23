@@ -19,6 +19,7 @@
 - [2023](#2023)
 - [2024](#2024)
 - [2025](#2025)
+- [2026](#2026)
 ---
 
 ## 2013
@@ -399,4 +400,36 @@ Josefina escribe una letra A, B o C en cada una de las casillas del tablero, de 
 • En casillas vecinas hay letras distintas.
 Dos casillas son vecinas si tienen un lado en común.
 [Figura: tablero de una fila con 6 casillas.]
+¿De cuántas maneras puede hacerlo? Explica cómo las contaste.
+
+---
+
+## 2026
+
+> XXXV Olimpíada Matemática Ñandú — Certamen Zonal · источник: `zonal_2026.md`
+
+#### Problema 1
+Jaz, Luli y Sofi coleccionan figuritas.
+Sofi tiene 19 figuritas más que Jaz.
+Luli tiene 27 figuritas menos que las que tienen, en total, Jaz y Sofi.
+Entre las tres, tienen 151 figuritas.
+¿Cuántas figuritas tiene cada una?
+
+#### Problema 2
+En la figura:
+AD = CE y CD = BE
+AFBE es un rectángulo
+AC = BC = 25cm
+Perímetro de ABC = 80cm
+CD = 4/5 de AB
+AE = 3/5 de AB
+¿Cuál es el perímetro de ABCD?
+¿Cuál es el área de AFBE?
+¿Cuál es el área de BCE?
+[Figura: rectángulo AFBE con A (abajo izq.), F (abajo der.), B (arriba der.), E (arriba izq.); lados AF y EB horizontales, AE y FB verticales; diagonal AB trazada. C está arriba de E, sobre la prolongación del lado AE: A, E y C alineados en una vertical. Triángulo ABC con lados AC (pasa por E), CB y la diagonal AB. D está a la izquierda de A y apenas más arriba que A; segmentos DA y DC, de modo que ABCD es el cuadrilátero A-B-C-D. Segmentos trazados: AF, FB, BE, EA, AB, EC, CB, CD, DA.]
+
+#### Problema 3
+En el siguiente tablero de dos filas
+[Figura: tablero de dos filas: arriba, una fila de 5 casillas; abajo, una fila de 3 casillas ubicada debajo de las tres casillas centrales de la fila de arriba (8 casillas en total).]
+Joaqui quiere ubicar 4 fichas rojas y 4 fichas verdes, una en cada casilla, de modo que en cada fila haya por lo menos una ficha de cada color.
 ¿De cuántas maneras puede hacerlo? Explica cómo las contaste.

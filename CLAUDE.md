@@ -10,7 +10,7 @@ documents; the "data" is the corpus of original problem statements in `korpus/`.
 **Layout.** Top level is the season (`25-26/`, `26-27/`, `27-28/`) — a season runs **late October to late
 October**, by the Ñandú calendar: the national tour closes one and opens the next. Inside a season the unit is
 the **whole course**, not the stage: `<season>/<course>/<stage>/files`. Outside the seasons: `korpus/` (raw
-statements), `arhiv/` (superseded material), `tools/` (corpus download/extraction scripts, venv).
+statements), `arhiv/` (superseded material), `tools/` (corpus download scripts, md→html build).
 The repo map is `README.md`.
 
 **Every path written in a document is relative to the repo root**, never to the containing file.
@@ -40,9 +40,9 @@ model does not take it out of the corpus.
 
 **Before writing anything in `26-27/nandu_level2/`, read its `README.md`** (method, 2027 tours, what counts as learned
 at level 1, the level-1 audit gaps) and `nandu_n2_obraztsy.md`. Inputs: per-stage typologies and corpora
-`26-27/nandu_level2/{zonal,provincial,regional,national}/nandu_n2_*_{tipologia,korpus}.md`, summary
-`nandu_n2_tipologia_svodnaya.md`. Segundo Nivel 2026 statements are not in the corpus yet — the user adds them when
-the organisers publish them.
+`26-27/nandu_level2/{interescolar,zonal,provincial,regional,national}/nandu_n2_*_{tipologia,korpus}.md`, summary
+`nandu_n2_tipologia_svodnaya.md`. Of 2026, Interescolar and Zonal are in the corpus; Provincial, Regional and Nacional 2026 the user
+adds when the organisers publish them. Stages: Interescolar → Zonal → Provincial → Regional → Nacional.
 
 `arhiv/n2_v1/` holds the abandoned first level-2 approach (chapter ladders planned from the typology, textbooks
 written before solutions, session prompts, pairs 1–3). **It is not an instruction**; its live parts were moved out.

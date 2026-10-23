@@ -197,7 +197,7 @@ Dani llevaba $117. Compró una lapicera y 4 cuadernos iguales. Después de pagar
 ABEF es un cuadrado, BCDE es un rectángulo, Perímetro de ABEF = 112cm, AB = 2BC. ¿Cuál es el perímetro de BCDE?
 [Figura: cuadrado ABEF y rectángulo BCDE]
 ### Problema 3
-Ximena quiere pintar este tablero de cuatro casilleros con lápices de color rojo, verde y azul. Puede usar uno, dos o tres de estos colores. Si cada casillero es de un solo color y pinta el primer casillero de igual color que el último, ¿cuántos tableros distintos puede pintar? Explica cómo las contaste.
+Ximena quiere pintar este tablero de cuatro casilleros con lápices de color rojo, verde y azul. Puede usar uno, dos o tres de estos colores. Si cada casillero es de un solo color y pinta el primer casillero de igual color que el último, ¿cuántos tableros distintos puede pintar? Explica cómo los contaste.
 [Figura: tablero 1x4]
 
 ## Año 2017
@@ -268,7 +268,7 @@ La figura está formada por 3 cuadrados iguales y 3 triángulos equiláteros igu
 [Figura: 3 cuadrados con 3 triángulos equiláteros encima (forma de casas)]
 ### Problema 3
 ¿Cuántos rectángulos formados por dos cuadraditos hay en la figura? Explica cómo los contaste.
-[Figura: cuadrícula 2x6]
+[Figura: cuadrícula 2x7 (corregido según el PDF oficial `korpus/omn_interescolar/interescolar_2022.pdf`)]
 
 ## Año 2023
 ### Problema 1
