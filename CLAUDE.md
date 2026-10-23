@@ -17,6 +17,11 @@ The repo map is `README.md`.
 
 ## Current focus — Segundo Nivel, season 26-27
 
+> ⭐ **The main file of the season (Oct 2026 – Oct 2027): `26-27/nandu_level2/nandu_n2_roadmap.md`.** It is the plan
+> and the progress tracker in one: the 17 problems to solve ideally, by phase, the work order, dates and checkboxes.
+> Read it first in every level-2 session; after any step that changes the status (a draft verified, a solution accepted
+> by the parent, textbooks written, a battle window done) tick it there in the same session. Status lives nowhere else.
+
 **Primer Nivel is over**: the national tour 20–23 Oct 2026 finished with its second day on 23 Oct 2026, and with
 it season 25-26. **From now on the target is Ñandú Segundo Nivel** — the course `26-27/nandu_level2/`, aimed at the
 2027 tours: Interescolar 7 May, Zonal 25 Jun, Provincial 19–21 Aug, Regional 27 Aug, **Nacional 20–23 Oct 2027**
