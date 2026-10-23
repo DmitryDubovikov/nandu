@@ -287,113 +287,69 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 9</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Обозначения</span><span class="val"></span></button>
-<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">(1) m1 + m2 + m5 + m10 = 419</span></button>
-<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023</span></button>
-<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">(3) m1 + m2 + 2 · m5 + m10 : 2 = 416</span></button>
-<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">m1 + 2 · m2 + 5 · (2 · m5) + 10 · (m10 : 2)<br>= 1668</span></button>
-<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</span></button>
-<button class="art" data-art="6"><span class="lbl">Заметь главное</span><span class="val">В таблице их столбцы одинаковые в обеих строках.</span></button>
-<button class="art" data-art="7"><span class="lbl">Формула</span><span class="val f">m1 + m2</span></button>
-<button class="art" data-art="8"><span class="lbl">Формула</span><span class="val f">m1 + 2 · m2</span></button>
-<button class="art" data-art="9"><span class="lbl">План</span><span class="val">Ответ = m1, m2, m5, m10</span></button>
+  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">(1) m1 + m2 + m5 + m10 = 419</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">(3) m1 + m2 + 2 · m5 + m10 : 2 = 416</span></button>
+<button class="art" data-art="3"><span class="lbl">Формула</span><span class="val f">m1 + 2 · m2 + 5 · (2 · m5) + 10 · (m10 : 2)<br>= 1668</span></button>
+<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</span></button>
 </aside>
 <main>
   
   <h1>Т1 — национал 2023, день II, №4 — монеты Лусии</h1>
   <p class="sub">Фаза 1 — Зональ — идеальные решения образцов</p>
 <div class="card task st"><span class="tag">Условие</span><p>В коробке Лусия хранит монеты по $1, $2, $5 и $10. Всего в коробке 419 монет на общую сумму $2023. Если бы в коробке было вдвое больше монет по $5 и вдвое меньше монет по $10, то всего было бы 416 монет на общую сумму $1668. Сколько в коробке монет каждого достоинства?</p></div>
-<p class="st"><b>Жанр ответа.</b> Спрашивают четыре числа: сколько монет по $1, по $2, по $5 и по $10.</p>
-<div id="a0" data-art="0"><p class="st"><b>Обозначения.</b></p></div>
-<ul class="st"><li><b>m1</b>, <b>m2</b>, <b>m5</b>, <b>m10</b> (<em>monedas</em>) — сколько в коробке монет по $1, $2, $5, $10.</li></ul>
-<p class="st">В условии две коробки: настоящая и коробка «если бы». Сколько в них монет каждого достоинства:</p>
+<h3 class="st">Часть 1 — запись системы</h3>
+<p class="st">m1, m2, m5, m10 — сколько в коробке монет по $1, $2, $5, $10.</p>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>$1</th><th>$2</th><th>$5</th><th>$10</th></tr>
 <tr><td>настоящая</td><td>m1</td><td>m2</td><td>m5</td><td>m10</td></tr>
 <tr><td>«если бы»</td><td>m1</td><td>m2</td><td>2 · m5</td><td>m10 : 2</td></tr>
 </table></div></div>
-<p class="st"><b>Перевод в систему.</b> Каждое данное — равенство:</p>
 <p class="st"><em>«Всего в коробке 419 монет»</em> ⇒</p>
-<div id="a1" data-art="1"><div class="frm st">(1) m1 + m2 + m5 + m10 = 419</div></div>
+<div id="a0" data-art="0"><div class="frm st">(1) m1 + m2 + m5 + m10 = 419</div></div>
 <p class="st"><em>«…на общую сумму $2023»</em> ⇒</p>
-<div id="a2" data-art="2"><div class="frm st">(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023</div></div>
-<p class="st"><em>«…то всего было бы 416 монет»</em> — считаю по строке «если бы» ⇒</p>
-<div id="a3" data-art="3"><div class="frm st">(3) m1 + m2 + 2 · m5 + m10 : 2 = 416</div></div>
-<p class="st"><em>«…на общую сумму $1668»</em> — по той же строке ⇒</p>
-<div id="a4" data-art="4"><div class="frm st">m1 + 2 · m2 + 5 · (2 · m5) + 10 · (m10 : 2) = 1668</div></div>
-<p class="st">Раскрываю скобки:</p>
-<div id="a5" data-art="5"><div class="frm st">(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</div></div>
-<p class="st">→ <b>система:</b></p>
-<pre class="sys st">(1) m1 + m2 + m5 + m10 = 419
-(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023
-(3) m1 + m2 + 2 · m5 + m10 : 2 = 416
-(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</pre>
-<div id="a6" data-art="6"><div class="card key st"><span class="tag">Заметь главное — монеты по $1 и по $2 в «если бы» не меняются</span><p>В таблице их столбцы одинаковые в обеих строках.</p></div></div>
-<p class="st">Поэтому в равенствах про число монет, (1) и (3), стоит одна и та же часть:</p>
-<div id="a7" data-art="7"><div class="frm st">m1 + m2</div></div>
-<p class="st">А в равенствах про сумму, (2) и (4), — одна и та же часть:</p>
-<div id="a8" data-art="8"><div class="frm st">m1 + 2 · m2</div></div>
-<p class="st">Вычтешь из равенства для настоящей коробки равенство для коробки «если бы» — эта часть уйдёт целиком, останутся одни m5 и m10.</p>
-<p class="st"><em>💬 «Две ситуации различаются только монетами по $5 и по $10, поэтому вычитаю одну из другой» — это мысль для фразы-объяснения.</em></p>
-<p class="step st"><b>Шаг 1 — план.</b></p>
-<p class="st">Спрашивают все четыре числа.</p>
-<div id="a9" data-art="9"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">Ответ = m1, m2, m5, m10</div>
-<ul class="st"><li>m5, m10 — из системы 2×2 двух разностей (1) − (3) и (2) − (4): в них m1 и m2 уходят;</li><li>m1, m2 — из системы 2×2 (1), (2), когда m5 и m10 уже известны.</li></ul>
-<p class="st">Осталось найти: m5 и m10; затем m1 и m2.</p></div></div>
-<p class="step st"><b>Шаг 2 — найдём m5 и m10.</b></p>
-<p class="st"><b>Разность (1) − (3) — по числу монет.</b></p>
-<div class="frm st">(1) m1 + m2 + m5 + m10 = 419</div>
-<div class="frm st">(3) m1 + m2 + 2 · m5 + m10 : 2 = 416</div>
-<p class="st">Вычитаю, m1 и m2 уходят:</p>
-<div class="frm st">m5 − 2 · m5 + m10 − m10 : 2 = 419 − 416</div>
-<div class="frm st">m10 : 2 − m5 = 3</div>
-<p class="st">Умножаю обе части на 2, чтобы не осталось половины:</p>
-<p class="st">→ <b>(5) m10 − 2 · m5 = 6</b></p>
-<p class="st"><b>Разность (2) − (4) — по сумме.</b></p>
-<div class="frm st">(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023</div>
-<div class="frm st">(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</div>
-<p class="st">Вычитаю, m1 и m2 уходят:</p>
-<div class="frm st">5 · m5 − 10 · m5 + 10 · m10 − 5 · m10 = 2023 − 1668</div>
-<div class="frm st">5 · m10 − 5 · m5 = 355</div>
-<p class="st">Все три числа делятся на 5 — сокращаю:</p>
-<p class="st">→ <b>(6) m10 − m5 = 71</b></p>
-<p class="st"><b>Решаем систему из (5) и (6).</b></p>
-<pre class="sys st">(5) m10 − 2 · m5 = 6
+<div id="a1" data-art="1"><div class="frm st">(2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023</div></div>
+<p class="st"><em>«…то всего было бы 416 монет»</em> — по строке «если бы» ⇒</p>
+<div id="a2" data-art="2"><div class="frm st">(3) m1 + m2 + 2 · m5 + m10 : 2 = 416</div></div>
+<p class="st"><em>«…на общую сумму $1668»</em> — по строке «если бы» ⇒</p>
+<div id="a3" data-art="3"><div class="frm st">m1 + 2 · m2 + 5 · (2 · m5) + 10 · (m10 : 2) = 1668</div></div>
+<div id="a4" data-art="4"><div class="frm st">(4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</div></div>
+<p class="st">⚠ В (4) количества монет по $5 и по $10 — из строки «если бы», а не настоящие.</p>
+<h3 class="st">Часть 2 — решение системы</h3>
+<pre class="sys st">(1) <span class="pen2">m1 + m2</span> + m5 + m10 = 419
+(2) <span class="pen2">m1 + 2 · m2</span> + 5 · m5 + 10 · m10 = 2023
+(3) <span class="pen2">m1 + m2</span> + 2 · m5 + m10 : 2 = 416
+(4) <span class="pen2">m1 + 2 · m2</span> + 10 · m5 + 5 · m10 = 1668</pre>
+<p class="st">(1) − (3):</p>
+<pre class="sys st">m10 : 2 − m5 = 3          | · 2
+(5) m10 − 2 · m5 = 6</pre>
+<p class="st">(2) − (4):</p>
+<pre class="sys st">5 · m10 − 5 · m5 = 355    | : 5
 (6) m10 − m5 = 71</pre>
-<p class="st">В обоих уравнениях m10 стоит без множителя — вычитаю (5) из (6), и m10 уходит (исключение неизвестной):</p>
-<div class="frm st">−m5 + 2 · m5 = 71 − 6</div>
-<p class="st">→ <b>m5 = 65</b></p>
-<p class="st">Подставляю m5 = 65 в (6):</p>
-<div class="frm st">m10 = 71 + 65</div>
-<p class="st">→ <b>m10 = 136</b></p>
-<p class="step st"><b>Шаг 3 — найдём m1 и m2.</b> Подставляю m5 = 65 и m10 = 136 в (1) и (2).</p>
-<p class="st">Из (1):</p>
-<div class="frm st">m1 + m2 + 65 + 136 = 419</div>
-<div class="frm st">(7) m1 + m2 = 218</div>
-<p class="st">Из (2), где 5 · 65 = 325 и 10 · 136 = 1360:</p>
-<div class="frm st">m1 + 2 · m2 + 325 + 1360 = 2023</div>
-<div class="frm st">(8) m1 + 2 · m2 = 338</div>
-<p class="st">В (7) и (8) m1 стоит без множителя — вычитаю (7) из (8):</p>
-<div class="frm st">2 · m2 − m2 = 338 − 218</div>
-<p class="st">→ <b>m2 = 120</b></p>
-<p class="st">Подставляю m2 = 120 в (7):</p>
-<div class="frm st">m1 = 218 − 120</div>
-<p class="st">→ <b>m1 = 98</b></p>
-<p class="st"><b>Проверка.</b> Равенства (3) и (4) работали только через разности — подставляю ответ во все четыре:</p>
-<ul class="st"><li>(1): 98 + 120 + 65 + 136 = 419 ✓</li><li>(2): 98 + 240 + 325 + 1360 = 2023 ✓</li><li>(3): 98 + 120 + 130 + 68 = 416 ✓</li><li>(4): 98 + 240 + 650 + 680 = 1668 ✓</li></ul>
-<p class="st">В коробке «если бы» монет по $10 — половина от m10, и она обязана быть целым числом:</p>
-<p class="st">136 : 2 = 68 ✓</p>
-<p class="st"><em>Проверка вторым способом — метод подстановки для (5) и (6). Из (6):</em></p>
-<div class="frm st">m10 = m5 + 71</div>
-<p class="st"><em>Подставляю в (5):</em></p>
-<div class="frm st">m5 + 71 − 2 · m5 = 6</div>
-<p class="st"><em>Отсюда m5 = 65 — то же, что в шаге 2. Компьютерный перебор всех наборов из 419 монет на $2023 (половина монет по $10 считалась точно, без предположения о чётности) оставляет ровно один: 98, 120, 65, 136.</em></p>
-<p class="st"><b>⚠ Ловушки.</b></p>
-<ol class="st num"><li><span class="lin">1.</span> В сумме «если бы» взять старые количества монет по $5 и по $10. Тогда левая часть (4) совпадёт с левой частью (2), а правые части разные, 2023 и 1668, — система противоречива.</li><li><span class="lin">2.</span> Остановиться на m5 и m10: спрашивают все четыре числа.</li></ol>
+<p class="st">(6) − (5):</p>
+<pre class="sys st">(6) <span class="pen2">m10</span> − m5 = 71
+(5) <span class="pen2">m10</span> − 2 · m5 = 6
+<span class="found">найдено: m5 = 65</span></pre>
+<p class="st">(6), m5 = 65:</p>
+<pre class="sys st">m10 − <span class="pen1">65</span> = 71
+<span class="found">найдено: m10 = 136</span></pre>
+<p class="st">(1) и (2), m5 = 65, m10 = 136:</p>
+<pre class="sys st">m1 + m2 + <span class="pen1">65</span> + <span class="pen1">136</span> = 419
+(7) m1 + m2 = 218
+m1 + 2 · m2 + 5 · <span class="pen1">65</span> + 10 · <span class="pen1">136</span> = 2023
+(8) m1 + 2 · m2 = 338</pre>
+<p class="st">(8) − (7):</p>
+<pre class="sys st">(8) <span class="pen2">m1</span> + 2 · m2 = 338
+(7) <span class="pen2">m1</span> + m2 = 218
+<span class="found">найдено: m2 = 120</span></pre>
+<p class="st">(7), m2 = 120:</p>
+<pre class="sys st">m1 + <span class="pen1">120</span> = 218
+<span class="found">найдено: m1 = 98</span></pre>
+<p class="st"><b>Проверка</b> — подстановка в (3), (4) и целая половина:</p>
+<ul class="st"><li>(3): 98 + 120 + 130 + 68 = 416 ✓</li><li>(4): 98 + 240 + 650 + 680 = 1668 ✓</li><li>136 : 2 = 68 ✓</li></ul>
+<p class="st"><em>Проверено перебором программой: из всех наборов 419 монет на $2023 условию отвечает только 98, 120, 65, 136.</em></p>
 <p class="st"><b>Ответ на задачу:</b> в коробке 98 монет по $1, 120 монет по $2, 65 монет по $5 и 136 монет по $10.</p>
 <h3 class="st">✍ Что достаточно написать на туре</h3>
-<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится. Фраза-объяснение входит в образец наравне с числами.</em></p>
 <h4 class="st">💬 Фраза-объяснение (в начале)</h4>
 <p class="st"><b>Las dos situaciones se diferencian solo en las monedas de $5 y de $10, por eso las resto.</b></p>
 <p class="st"><em>Две ситуации различаются только монетами по $5 и по $10, поэтому вычитаю одну из другой.</em></p>
@@ -403,12 +359,8 @@
 (2) m1 + 2 · m2 + 5 · m5 + 10 · m10 = 2023
 (3) m1 + m2 + 2 · m5 + m10 : 2 = 416
 (4) m1 + 2 · m2 + 10 · m5 + 5 · m10 = 1668</pre>
-<div class="plan st"><p class="st">✅ <b>План:</b></p>
-<p class="st"><b>m5, m10 — из (1) − (3) и (2) − (4)</b></p>
-<p class="st"><b>m1, m2 — из (1) и (2)</b></p></div>
-<ul class="st"><li>(1) − (3): m10 : 2 − m5 = 3</li><li>умножаю на 2: (5) m10 − 2 · m5 = 6</li><li>(2) − (4): 5 · m10 − 5 · m5 = 355</li><li>сокращаю на 5: (6) m10 − m5 = 71</li><li>(6) − (5): <b>m5 = 65</b></li><li>(6): <b>m10 = 136</b></li><li>(1): (7) m1 + m2 = 218</li><li>(2): (8) m1 + 2 · m2 = 338</li><li>(8) − (7): <b>m2 = 120</b></li><li>(7): <b>m1 = 98</b></li></ul>
-<p class="st">Проверка:</p>
-<ul class="st"><li>(3): 98 + 120 + 130 + 68 = 416 ✓</li><li>(4): 98 + 240 + 650 + 680 = 1668 ✓</li><li>136 : 2 = 68 — целое ✓</li></ul>
+<ul class="st"><li>(1) − (3), · 2: (5) m10 − 2 · m5 = 6</li><li>(2) − (4), : 5: (6) m10 − m5 = 71</li><li>(6) − (5): <b>m5 = 65</b></li><li>(6): <b>m10 = 136</b></li><li>(1), (2): (7) m1 + m2 = 218, (8) m1 + 2 · m2 = 338</li><li>(8) − (7): <b>m2 = 120</b></li><li>(7): <b>m1 = 98</b></li></ul>
+<p class="st">Проверка: (3) 416 ✓, (4) 1668 ✓, 136 : 2 = 68 ✓</p>
 <p class="st"><b>Ответ: 98 монет по $1, 120 по $2, 65 по $5, 136 по $10.</b></p>
 <div class="pager"><a href="02-t2-provincial-2022-2-abdef-i-bcd-iz-pyati-perime.html">Т2 — провинциал 2022, №2 — ABDEF и BCD: из пяти периметров два периметра и две площади (кирпичик + склейка → площади) →</a></div>
 </main>

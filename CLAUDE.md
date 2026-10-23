@@ -179,6 +179,14 @@ These conventions are load-bearing across all materials — keep them.
    («центр ловит все крупные окна») surfacing mid-solution — put it before шаг 1 and let it shape the plan.
    Evidence: 2021 №6, 2023 №3, 2024 №1 were too heavy for the child even to read, while 2022 №1/№3 of the same length
    (flat plans) went fine. Models: those three `parts/` files after the Oct 2026 rewrite.
+   **Exception — linear systems are not разборы with a plan** (окт 2026). A problem that reduces to a system of linear
+   equations is written in two parts: **«Часть 1 — запись системы»** (each datum quoted → its equation) and
+   **«Часть 2 — решение системы»** — pure mechanics by the standard methods, with **no plan, no step goals, no «Заметь
+   главное», no explanations and no reference to what the letters mean** («по числу монет» is a defect). The system is
+   first rewritten with colour pens marking what catches the eye — `⟪…⟫` common part of two equations, `⟦…⟧` substituted
+   value, a `найдено: x = …` line for a found unknown (in ```sys blocks) — and each move is labelled only by the
+   operation: `(1) − (3):`, `| · 2`, `(6), m5 = 65:`. Applies to every Т1 and to the system-solving part of any other
+   problem; rules 8/9/14 do not apply inside part 2. Model: `26-27/nandu_level2/idealnye_resheniya/_md/T1_nac_2023_4.md`.
 9. **Наблюдение, на котором держится приём, называется отдельно** (авг 2026). If a разбор works because of a specific
    property of the problem (в таблице 2×2 любые две клетки лежат в общей строке или столбце; расстановка одинаковых
    фишек = выбор дырок; островок одноцветный; условие связывает только соседние строки; одиночка тянет за собой
