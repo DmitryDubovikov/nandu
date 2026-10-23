@@ -2,8 +2,9 @@
 
 ## What this repository is
 
-Not a software project. It is a set of **Russian-language study materials** preparing a child (10–11 y.o.)
-for the Argentine math olympiad **Olimpíada Matemática Ñandú, Primer Nivel**. The "source code" is markdown
+Not a software project. It is a set of **Russian-language study materials** preparing a child
+for the Argentine math olympiad **Olimpíada Matemática Ñandú** — Primer Nivel in season 25-26 (finished),
+**Segundo Nivel in season 26-27 (the current target)**. The "source code" is markdown
 documents; the "data" is the corpus of original problem statements in `korpus/`.
 
 **Layout.** Top level is the season (`25-26/`, `26-27/`, `27-28/`) — a season runs **late October to late
@@ -14,54 +15,50 @@ The repo map is `README.md`.
 
 **Every path written in a document is relative to the repo root**, never to the containing file.
 
-## Current focus — the national stage (Nacional, Primer Nivel)
+## Current focus — Segundo Nivel, season 26-27
 
-Regional and provincial tours are **behind us** (20 and 27 Aug 2026). The live work is the **national branch**
-in `25-26/nandu_level1/national/`, aimed at the **national tour, 20–23 Oct 2026** (a two-day tour inside that window;
-holiday 26 Sep – 3 Oct, no sessions).
+**Primer Nivel is over**: the national tour 20–23 Oct 2026 finished with its second day on 23 Oct 2026, and with
+it season 25-26. **From now on the target is Ñandú Segundo Nivel** — the course `26-27/nandu_level2/`, aimed at the
+2027 tours: Interescolar 7 May, Zonal 25 Jun, Provincial 19–21 Aug, Regional 27 Aug, **Nacional 20–23 Oct 2027**
+(the 2026 calendar carried over — a user assumption, no official 2027 calendar yet).
 
-**Before writing or editing anything in `25-26/nandu_level1/national/`, read that folder's `README.md`** — it is the
-branch registry: what exists, the cross-branch rituals Ч1–Ч5, terms already introduced (later pairs use them
-without re-introducing), each pair's debts, the corpus-key errors and the pace decisions. Start any new
-national topic from `nandu_n1_nacional_brief.md` (the reconnaissance brief: corpus classification 2013–2025,
-regional→national delta, block plan).
+**Before writing anything in `26-27/nandu_level2/`, read its `README.md` and then
+`26-27/nandu_level2/kurs/nandu_n2_plan_kursa.md`** — the single planning document of the level: the course is cut
+by **family** (Т1 numbers, Т2 figures, Т3 counting), not by stage; two pairs per family (ступень 1 = zonal base,
+ступень 2 = regional/provincial/national depth) plus pair 7 for Т4/Т5/Т6; 103 chapters, 22 of them «широкие»;
+§3 lists what counts as learned at level 1 and is not re-taught; §7 is the calendar by windows (window A from
+2 Nov 2026, **zero time reserve** at three sessions a week); §10 is the writing queue.
 
-What the branch holds today, in study order:
+- `kurs/nandu_n2_promty.md` — one block = one writing session (textbook, then reshebnik); a reshebnik block is
+  **3 problems with distinct roles**; sessions run to a finished file without an approval stop (July 2026 decision —
+  for level 2 this replaces hard rule 7's staged workflow).
+- Written so far: pairs 1–3, ступень 1 (`nandu_n2_{figury,chisla,schet}_1_{uchebnik,reshebnik}.md`). Next in the
+  queue: pair 4, figury ступень 2.
+- Bank: `26-27/nandu_level2/{zonal,provincial,regional,national}/nandu_n2_*_korpus.md` — untouchable (rule 1);
+  per-stage typologies next to them, summary `nandu_n2_tipologia_svodnaya.md`.
+- ⚠ Plan §4 item 7 and promty §2 item 7 still prescribe разборы as «что делаем | что получается» tables —
+  **superseded by hard rule 8**; the hard rules below apply to level 2 in full.
 
-1. `nandu_n1_nacional_1_cifry_*` — остатки/делимость → числа/цифры. Introduces rituals **Ч1–Ч5**
-   (Ч5 «полнота письменно» answers the national «Explica cómo las contaste» and is reused by every later pair).
-   Pairs 3 and 4 stand on its remainders.
-2. `nandu_n1_nacional_2_figury2_*` — сетка равных деталей; textbook + parent's key, no reshebnik.
-3. `nandu_n1_nacional_3_doski2_*` — delta over the provincial `doski` pair; adds ritual **Д6 «сначала жанр ответа»**.
-4. `nandu_n1_nacional_4_arifmetika2_*` — доли от неизвестных, процессы/циклы, целые решения и оптимизация.
+## Primer Nivel, season 25-26 — finished
 
-Plus `nandu_n1_nacional_tipologia.md` (parent-facing determiner for the whole branch, incl. the two-day tour
-order derived from the window data), the practice trio `nandu_n1_nacional_praktika{,_podskazki,_resheniya}.md`
-(21 generated problems over 12 types, rebalanced by real frequency), and `resheniya/` — per-year battle keys
-(2025 written).
+`25-26/nandu_level1/` is the whole Primer Nivel course: `regional/` and `provincial/` (linsys, perevod, figury,
+the счёт suite 1–5, the doski pair, типологии, тренировка, per-year keys, памятка, `!!!_*.md` cheat sheets),
+`national/` (pairs cifry, figury2, doski2, arifmetika2, tipologia, praktika trio, per-year battle keys; its own
+`README.md` is the branch registry), `zonal/`, `obshchee/`, `animacii/`. Detailed map:
+**`25-26/nandu_level1/README.md`**. It is now **reference and foundation** for level 2 — no new level-1 work unasked;
+the national branch's open debts (keys 2017/2024, national памятка) are not pursued unless the user asks.
 
 ⚠ **Corpus key `korpus/historico/Nacionales_N1.md` has three confirmed errors** — 2020 №5, 2021 №6
 (that row also drops №3) and 2025 №6. Never quote the key without checking these: the corrected values, their
 verification and the PDF figure corrections are in `25-26/nandu_level1/national/README.md`.
 
-⚠ **There is no day-by-day plan for the national branch.** `nandu_n1_nacional_plan{,_short,_szhatyy}.md` were
-written and then **deleted by the user (28 July 2026)** — dating the branch was judged premature. Do not
-re-create them unasked. Branch debts: `resheniya/nandu_n1_nacional_resheniya_{2017,2024}.md` and a national
-памятка (analogue of `25-26/nandu_level1/provincial/nandu_n1_provincial_pamyatka.md`, which must carry the branch's own phrase-book — see rule 11).
-
 ## Where everything else lives
 
-- `25-26/nandu_level1/` — the whole Primer Nivel course of this season. `regional/` and `provincial/` hold the
-  finished materials (linsys, perevod, figury, the счёт suite 1–5, the provincial doski pair, типологии,
-  тренировка, per-year keys, памятка, `!!!_*.md` cheat sheets); `national/` is the branch above;
-  `zonal/`, `obshchee/` (plans, observation sheet), `animacii/` (html visualisations).
-  Detailed map: **`25-26/nandu_level1/README.md`**. The regional and provincial materials are the foundation
-  the national pairs build on and reference — read there before touching them.
 - `korpus/` — original statements. ⚠ Two different olympiads live here: **Ñandú = `omn_*`** (this course)
   and **OMA = `oma/`** (a separate, harder secundaria olympiad, no course material targets it).
   `korpus/2025/` is OMA, not Ñandú. Details in `README.md`.
-- `26-27/{school5,school6,nandu_level2,tinkov}`, `27-28/{tinkov,school7,nandu_level3}` — later seasons, so a
-  season's work never requires hopping between directories.
+- `26-27/{school5,school6,nandu_level2,tinkov}` — the current season (school tracks run alongside level 2,
+  plan §8); `27-28/{tinkov,school7,nandu_level3}` — the next one. A season's work never requires hopping between directories.
   Each has its own `README.md` — read it before writing there. Two standing prohibitions:
   the `tinkov/` folders are a **карман, not a schedule** (no dates, no ☐-days in any tracker), and
   **no briefs or roadmaps in `27-28/`** — either write the concrete pair or drop the idea.
@@ -87,6 +84,13 @@ At the regional stage each paper is exactly 3 problems with the type fixed by po
 the national paper has 6 over two days. Per-stage типологии hold the full breakdown:
 `25-26/nandu_level1/national/nandu_n1_nacional_tipologia.md` and
 `25-26/nandu_level1/provincial/nandu_n1_provincial_tipologia.md`.
+
+**Segundo Nivel** keeps the positions on all four stages (№1 numbers, №2 lettered figure, №3 counting; national
+№4–№6 repeat them) and adds **Т4** доски-головоломки (⚠ sits in slot №1/№4, where a text problem is expected),
+**Т5** числа как предмет (делимость, остатки, инвариант), **Т6** графы — these three occur only at the provincial
+and national stages. Geometry is **areas**, not perimeters. Stages are not
+ordered by difficulty: the provincial needs Т4–Т6, the regional does not. Glossary:
+`26-27/nandu_level2/nandu_n2_tipologia_svodnaya.md`.
 
 ## Hard rules when authoring or editing materials
 
