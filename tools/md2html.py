@@ -135,6 +135,16 @@ def parse(md):
 
 TASK_HEAD = re.compile(r'^\*\*(Условие|Задача)[.:]')
 
+def task_question(q):
+    """Вопрос постановки: абзац или «Вопросы:» + список вопросов."""
+    if not q:
+        return ''
+    if '\n' in q:
+        head, lst = q.split('\n', 1)
+        return f'<p>{inline(head)}</p>' + render_list(lst)
+    return f'<p>{inline(q)}</p>'
+
+
 def fold_task_lists(blocks):
     """Список условий — внутрь рамки постановки (правило 13).
 
@@ -152,6 +162,11 @@ def fold_task_lists(blocks):
             if i < len(blocks) and blocks[i][0] == 'p' and '?' in blocks[i][1] \
                     and not blocks[i][1].startswith('**'):
                 v += '\n\n' + blocks[i][1]; i += 1
+            # вопросы списком: «Вопросы:» + список, где в пунктах стоит «?»
+            elif (i + 1 < len(blocks) and blocks[i][0] == 'p' and blocks[i][1].rstrip().endswith(':')
+                    and not blocks[i][1].startswith('**') and blocks[i + 1][0] == 'list'
+                    and '?' in blocks[i + 1][1]):
+                v += '\n\n' + blocks[i][1] + '\n' + blocks[i + 1][1]; i += 2
             out.append((k, v)); continue
         out.append(blocks[i]); i += 1
     return out
@@ -319,7 +334,7 @@ def render_block(b):
         m = re.match(r'^<b>(.+?)</b>\s*', body)
         tag, body = m.group(1).rstrip(':.'), body[m.end():]
         return (f'<div class="card task st"><span class="tag">{tag}</span><p>{body}</p>'
-                + render_list(lst) + (f'<p>{inline(q)}</p>' if q else '') + '</div>')
+                + render_list(lst) + task_question(q) + '</div>')
     f = is_formula(v)
     if f:
         return f'<div class="frm st">{inline(f)}</div>'
