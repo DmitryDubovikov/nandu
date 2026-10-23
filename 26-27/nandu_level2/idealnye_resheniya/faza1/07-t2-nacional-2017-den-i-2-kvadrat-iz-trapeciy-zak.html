@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Т2‴ — национал 2017, день I, №2 — квадрат из трапеций, закрашено 416 см²</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
+    --blue:#5ba8f5; --gold:#f0a83c; --green:#5fd38d; --red:#f2686c; --line:#243040;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{display:grid;grid-template-columns:minmax(300px,340px) 1fr;align-items:start}
+  /* колонка боевой записи шире учебниковой: там формулы, а не короткие фразы остатка */
+  .wrap.battle{grid-template-columns:minmax(400px,470px) 1fr}
+
+  /* ——— левая четверть: оглавление + сухой остаток главы ——— */
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 20px 40px;
+    border-right:1px solid var(--line);background:#0b0f16}
+  .rtitle{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 16px}
+  .chapnav{font-family:var(--sans);font-size:12px;color:var(--dim);margin:0 0 20px}
+  .chapnav a{color:var(--blue);text-decoration:none}
+  .chapnav a:hover{text-decoration:underline}
+  .xlink{margin:52px 0 0;font-family:var(--sans);font-size:15.5px;
+    border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    display:inline-block}
+  .xlink a{color:var(--blue);text-decoration:none}
+  .xlink a:hover{text-decoration:underline}
+  .xlink b{color:var(--ink);font-weight:600}
+  .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
+    border-top:1px solid var(--line);padding-top:20px;font-family:var(--sans);font-size:15px}
+  .pager a{color:var(--blue);text-decoration:none;max-width:45%}
+  .pager a:hover{text-decoration:underline}
+  .art{display:block;width:100%;text-align:left;background:transparent;color:inherit;border:none;
+    border-left:2px solid var(--line);padding:9px 0 11px 14px;margin:0 0 7px;cursor:pointer;
+    transition:border-color .3s ease}
+  /* Боевая колонка. Ярлык не повторяется, поэтому подряд идущие строки записи
+     сливались бы в один поток: группы разводим воздухом, а пункты внутри группы
+     прижимаем друг к другу и метим точкой — иначе перенос длинной формулы
+     не отличить от начала следующей строки. */
+  .wrap.battle .art{margin:0 0 15px}
+  .wrap.battle .art.cont{margin-top:-13px;padding-top:3px}
+  /* Маркера у продолжения нет намеренно: «·» уже занят умножением
+     (`4 · 1 = 4`), и третий смысл того же значка сделал строки нечитаемыми.
+     Границу пункта показывает висячий отступ .val.f — первая строка стоит
+     у левого края, перенос сдвинут вправо. */
+  .wrap.battle .art .val.ph{font-size:12.5px;line-height:1.45}
+  .wrap.battle .art .val.ph em{color:var(--dim);font-style:normal}
+  .art.cur{border-left-color:var(--gold)}
+  .art .lbl{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--dim);display:block;margin-bottom:4px}
+  .art.cur .lbl{color:var(--gold)}
+  .art .val{font-family:var(--sans);font-size:13.5px;color:#cfdae6;line-height:1.5;display:block}
+  .art .val code,.art .val b{color:#fff}
+  .art .val.f{font:13px/1.65 var(--mono);color:var(--green);
+    padding-left:1.2em;text-indent:-1.2em}
+
+  /* ——— правая часть ——— */
+  main{padding:28px 60px 60vh;max-width:1200px}
+  h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{font-family:var(--sans);font-size:14px;color:var(--dim);margin:0 0 8px}
+  .partlab{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 10px}
+  .part{margin:clamp(50px,8vh,90px) 0 30px;border-top:1px solid var(--line);padding-top:26px}
+  .part h1{font-size:clamp(22px,2.6vw,28px);color:var(--gold)}
+  section{margin:0 0 clamp(44px,6vh,80px);scroll-margin-top:20px}
+  h2{font-size:clamp(21px,2.6vw,28px);line-height:1.25;margin:0 0 14px}
+  /* h3 внутри разбора — переход к новой подзадаче (вопрос а), б)…, часть решения): крупно и с чертой */
+  h3{font-size:clamp(21px,2.4vw,26px);line-height:1.25;color:var(--gold);font-weight:600;
+    margin:clamp(40px,6vh,64px) 0 4px;padding-top:22px;border-top:1px solid var(--line)}
+  h4{font-size:18px;margin:22px 0 0}
+  p{font-size:18px;line-height:1.62;color:#cfdae6;margin:14px 0 0;max-width:none}
+  b{color:#fff;font-weight:600} em{color:var(--muted)}
+  code{font:14.5px var(--mono);color:var(--blue);background:#151c27;padding:1px 5px;border-radius:4px}
+  ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
+  ol.num{list-style:none;padding-left:0}
+  ol.num>li{padding-left:2em;text-indent:-2em}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
+
+  .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
+    padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
+    padding:16px 18px;margin:16px 0 0;overflow-x:auto}
+
+  .sys{font:clamp(16px,1.6vw,20px)/1.75 var(--mono);color:var(--ink);background:var(--bg2);border-radius:10px;
+    border-left:2px solid var(--gold);padding:12px 18px;margin:16px 0 0;overflow-x:auto}
+  .sys .pen1{color:var(--red);font-weight:700} .sys .pen2{color:var(--blue);font-weight:700}
+  .sys .found{color:var(--muted);font-size:.85em}
+
+  .card{border-radius:0 12px 12px 0;padding:15px 20px;margin:18px 0 0;max-width:none}
+  .card .tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    display:block;margin-bottom:7px}
+  .card p{margin:0}
+  .key{border-left:3px solid var(--gold);background:#1a1408}
+  .key .tag{color:var(--gold)}
+  .wrong{border-left:3px solid var(--red);background:#1c1114}
+  .wrong .tag{color:var(--red)}
+  .idea{border-left:3px solid var(--blue);background:#0f1725}
+  .idea .tag{color:var(--blue)}
+  .arsenal{border-left:3px solid var(--green);background:#0f1a14}
+  .arsenal .tag{color:var(--green)}
+
+  /* Постановка задачи примера: замкнутая рамка со всех сторон — у условия
+     должны быть видимые начало и конец, иначе оно растворяется в потоке. */
+  .task{border:1px solid #4a5a70;border-radius:12px;background:#141a24;padding:15px 20px}
+  .task .tag{color:var(--ink)}
+  .task p{font-size:17.5px;color:var(--ink)}
+  .task ul{font-size:17.5px;color:var(--ink);margin:6px 0 10px}
+
+  p.exam{font-size:19px;color:#fff;margin-top:30px}
+  p.step{font-size:17.5px;margin-top:22px}
+  p.step b:first-child{color:var(--gold)}
+  p.ritual{margin-top:20px}
+  p.ritual b:first-child{color:var(--gold)}
+
+  .plan{border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
+    margin:18px 0 0;max-width:none}
+  .plan p{font-size:16.5px} .plan .frm{border-left-color:var(--blue)}
+  .tldr{border:1px solid #2b5c3d;border-radius:12px;background:#0e1712;padding:14px 20px 16px;
+    margin:22px 0 0;max-width:none}
+  .tldr .tag{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--green);margin:0 0 4px}
+  .tldr p{font-size:16.5px} .tldr .frm{border-left-color:var(--green)}
+  .tldr figure{margin-top:14px}
+  .tldr p.res{border-left:3px solid var(--green);padding:3px 0 3px 12px;margin:10px 0 18px;background:#13261a}
+  .tldr details.stp{border-top:1px solid #1f3a29;padding:2px 0}
+  .tldr details.stp:last-of-type{border-bottom:1px solid #1f3a29}
+  .tldr summary{cursor:pointer;list-style:none;padding:9px 0 9px 22px;position:relative}
+  .tldr summary::-webkit-details-marker{display:none}
+  .tldr summary::before{content:"▸";position:absolute;left:2px;top:9px;color:var(--green)}
+  .tldr details[open]>summary::before{content:"▾"}
+  .tldr summary .tl-h{display:block;font-family:var(--serif,inherit);font-size:16.5px}
+  .tldr summary .tl-r{display:block;margin-top:4px;padding:2px 0 2px 10px;border-left:3px solid var(--green);font-size:16px}
+  .tldr summary .tl-r::before{content:"→ ";color:var(--green)}
+  .tldr .tl-b{padding:0 0 10px 22px}
+  .tldr .openall{display:block;margin:2px 0 10px;background:none;border:1px solid #2b5c3d;color:var(--green);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
+  .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
+  .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
+  .note p{color:var(--muted);font-size:16px}
+
+  .tw{overflow-x:auto;margin:18px 0 0}
+  table{border-collapse:collapse;font-family:var(--sans);font-size:15.5px}
+  th,td{border:1px solid var(--line);padding:9px 14px;text-align:left;color:#cfdae6;
+    line-height:1.45;vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13.5px;background:#101620}
+  tr.t-red td{background:#24161a} tr.t-red td:first-child{color:var(--red)}
+  tr.t-yellow td{background:#221e10} tr.t-yellow td:first-child{color:#f2d24b}
+  tr.t-green td{background:#122019} tr.t-green td:first-child{color:var(--green)}
+  tr.t-orange td{background:#251a10} tr.t-orange td:first-child{color:#f39a4a}
+  table.grow th:not(:first-child),table.grow td:not(:first-child){width:190px}
+  table.grow th:first-child,table.grow td:first-child{width:140px}
+  td.new{outline:2px solid var(--ink);outline-offset:-2px} td.new b{color:var(--ink)}
+  th.inp,td.inp{background:#2a2312;color:var(--gold);font-weight:600}
+
+  /* ——— визуальный слой ——— */
+  figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
+  figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .num{display:inline-flex;vertical-align:middle}
+  ol.num{display:block}
+  .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
+    color:var(--ink);background:#1a2230;border:1px solid #2c394c}
+  .d+.d{border-left:none}
+  .d:first-child{border-radius:6px 0 0 6px} .d:last-child{border-radius:0 6px 6px 0}
+  .d.sp{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .d.zr{background:#3a2228;border-color:#5a3540;color:var(--red)}
+  .d.dm{color:var(--dim)}
+  .d.gr{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .fgrid{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+  .fcol{display:flex;flex-direction:column;gap:8px}
+  .flab{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5}
+
+
+  /* ——— примитивы иллюстраций ——— */
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);display:inline-block;margin:2px}
+  .dot.gold{background:var(--gold)}
+  .cbox{border:1px solid #2c394c;border-radius:10px;padding:12px 10px 8px;background:#151d29;
+    display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px}
+  .cbox.open{border-style:dashed;border-color:#6b5320;background:#1d1810}
+  .clab{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .prow{display:flex;gap:7px;align-items:center;margin:5px 0}
+  .pair{width:30px;height:15px;border-radius:8px;background:#24405e;border:1px solid #37587c}
+  .dot.solo{width:15px;height:15px;box-shadow:0 0 0 3px #3a2f18}
+  .packrow{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+  .pack{width:30px;height:38px;border:1px solid #2c394c;border-radius:6px;background:#151d29;
+    display:flex;align-items:center;justify-content:center;font:13px var(--mono);color:var(--muted);
+    position:relative}
+  .pack.full{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .pack.cur{width:auto;padding:6px 9px;flex-direction:column;gap:6px;border-color:var(--gold);
+    color:var(--gold);height:auto}
+  .inpack{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+  .slot{width:11px;height:11px;border:1px solid #2c394c;border-radius:2px}
+  .slot.pre{background:#3a2f18;border-color:#6b5320}
+  .slot.hit{background:var(--gold);border-color:var(--gold)}
+  .shrow{display:flex;gap:4px}
+  .sh{width:34px;height:30px;line-height:28px;text-align:center;font:14px var(--mono);
+    border:1px solid #2c394c;border-radius:5px}
+  .sh0{background:#16263a;border-color:#3d5a82;color:var(--blue)}
+  .sh1{background:#3a2f18;border-color:#6b5320;color:var(--gold)}
+  .sh2{background:#12281c;border-color:#2b5c3d;color:var(--green)}
+  .shelf{font-family:var(--sans);font-size:14px;padding:7px 12px;border-radius:7px;margin:3px 0;
+    border:1px solid #2c394c}
+  .shelf b{font-size:12px;letter-spacing:.04em;margin-right:8px}
+  .shelf.sh0{color:var(--blue)} .shelf.sh0 b{color:var(--blue)}
+  .shelf.sh1{color:var(--gold)} .shelf.sh1 b{color:var(--gold)}
+  .shelf.sh2{color:var(--green)} .shelf.sh2 b{color:var(--green)}
+  .rcol{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .rcol .d.big{width:44px;height:54px;line-height:52px;font-size:28px;border-radius:8px}
+  .wgt{font-family:var(--sans);font-size:12px;color:var(--muted)}
+  .rcol .val{font:16px var(--mono);color:var(--green)}
+  .rcol .val.tot{font-size:22px} .eq{font:26px var(--mono);color:var(--muted)}
+  .stolb{display:inline-block;font:22px var(--mono);line-height:1.35;text-align:right}
+  .stolb .srow,.stolb .carry{display:grid;grid-template-columns:repeat(3,32px)}
+  .stolb .carry{font-size:13px;color:var(--gold);height:18px;line-height:18px}
+  .stolb .sum{border-top:1px solid var(--muted);padding-top:4px;color:var(--green)}
+  .ruler{display:flex;gap:4px;align-items:stretch;flex-wrap:wrap}
+  .seg{border:1px solid #2c394c;border-radius:8px;padding:11px 14px;position:relative;
+    font-family:var(--sans);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .seg.one{background:#151d29}
+  .seg.two{background:#16263a;border-color:#3d5a82;flex:1;min-width:260px}
+  .segn{color:var(--gold);font-size:13px}
+  .mark{position:absolute;right:16px;top:0;bottom:0;width:2px;background:var(--gold)}
+
+
+  /* ——— анимированные чертежи (иллюстрации из .vis.json) ———
+     Движение оправдано только там, где показывает ход: как отрезок переезжает,
+     как змейка обходит контур. Рисунок условия рисуется сразу и статично. */
+  figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;overflow:visible}
+  figure svg.narrow{max-width:520px}
+  figure{position:relative}
+  figure text{font-family:var(--sans)}
+  .fgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 22px;
+    max-width:760px;margin:0 auto}
+  .fgrid2 .cell svg{max-width:none}
+  .ccap{font-family:var(--sans);font-size:13px;line-height:1.45;color:var(--muted);
+    margin:6px 0 0;text-align:center}
+  .ccap b{color:#e8eef6;font-weight:600}
+  .replay{position:absolute;top:10px;right:12px;background:#1a2230;border:1px solid #2c394c;
+    color:var(--dim);border-radius:7px;font-family:var(--sans);font-size:12px;padding:4px 9px;
+    cursor:pointer;line-height:1}
+  .replay:hover{color:var(--gold);border-color:#6b5320}
+  /* Куда переезжает отрезок, задаёт сама иллюстрация: --to на элементе.
+     Без анимации он сразу лежит на месте назначения. */
+  .sl{transform-box:view-box;transform-origin:0 0;transform:var(--to)}
+  @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  @keyframes fin{from{opacity:0}to{opacity:1}}
+  @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
+    html.anim figure.fx:not(.seen) .fi{opacity:0}
+    html.anim figure.fx:not(.seen) .sl{transform:none}
+    html.anim figure.fx.seen .dr{stroke-dasharray:100;animation:drw var(--dur,2.2s) ease var(--d,0s) both}
+    html.anim figure.fx.seen .fi{animation:fin .55s ease var(--d,0s) both}
+    html.anim figure.fx.seen .sl{animation:sld 1.3s cubic-bezier(.55,0,.35,1) var(--d,0s) both}
+  }
+
+  html.anim .st{opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  html.anim .st.seen,html.anim .seen .st{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .art .val{display:block}
+    main{padding:20px 18px 40vh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    /* вес обязателен: иначе html.anim .st{opacity:0} перебивает и страница пуста */
+    .st,html.anim .st{opacity:1;transform:none}
+  }
+  @media print{
+    aside{display:none} .wrap{display:block} main{max-width:none;padding:0}
+    body{background:#fff;color:#000} .st{opacity:1;transform:none}
+    p,li,td,th{color:#000} b{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="chapnav"><a href="index.html">все главы</a> · 7 из 9</p>
+  <p class="rtitle">Сухой остаток главы</p>
+  <button class="art" data-art="0"><span class="lbl">Формула</span><span class="val f">DE = EF = FG = d</span></button>
+<button class="art" data-art="1"><span class="lbl">Формула</span><span class="val f">DF = 2d</span></button>
+<button class="art" data-art="2"><span class="lbl">Формула</span><span class="val f">DC = 4 · DF = 8d</span></button>
+<button class="art" data-art="3"><span class="lbl">Заметь главное</span><span class="val">Белый треугольничек в углу D — это половина клетки d × d: угол прямой, а обе стороны при нём (катеты) равны d.</span></button>
+<button class="art" data-art="4"><span class="lbl">Формула</span><span class="val f">1 + 3 = 4</span></button>
+<button class="art" data-art="5"><span class="lbl">Формула</span><span class="val f">1 + 3 + 5 = 9</span></button>
+<button class="art" data-art="6"><span class="lbl">План</span><span class="val">площадь закрашенного квадрата = N(закрашенного квадрата) · a<br><br>площадь незакрашенной части = 8d · 8d − 416<br><br>площадь MNPQ = N(MNPQ) · a<br><br>P(ABCD) = 4 ·…</span></button>
+</aside>
+<main>
+  
+  <h1>Т2‴ — национал 2017, день I, №2 — квадрат из трапеций, закрашено 416 см²</h1>
+  <p class="sub">Фаза 1 — Зональ — идеальные решения образцов</p>
+<div class="card task st"><span class="tag">Условие</span><p>Квадрат ABCD разрезан на 12 равнобедренных трапеций, 5 квадратов и несколько равнобедренных треугольников. DE = EF = FG, DC = 4 · DF. Площадь закрашенной части равна 416 см². Чему равна площадь закрашенного квадрата? Чему равна площадь незакрашенной части? Чему равна площадь MNPQ? Чему равен периметр ABCD?</p></div>
+<p class="st"><em>Рисунок.</em> D — левый верхний угол, C — правый верхний, A — левый нижний, B — правый нижний. На стороне DC слева направо: D, E, F, G, H, C. Пять квадратов повёрнуты «ромбом» и сложены косым крестом: закрашенный — в центре, четыре белых — по одному у каждой его стороны. Между белыми квадратами и сторонами ABCD остаются треугольники: по одному в каждом углу ABCD и по одному у середины каждой стороны. Каждый такой треугольник разрезан: у стороны ABCD — белый треугольничек, остальное — закрашенные трапеции (в углу одна, у середины стороны две). У верхней стороны две трапеции и белый треугольник GHQ сходятся в точке Q, и от Q вниз до закрашенного квадрата идёт вертикальный отрезок. Так же устроены M (у левой стороны), N (у нижней), P (у правой). Четырёхугольник MNPQ на рисунке не проведён.</p>
+<p class="st"><b>Как устроен рисунок.</b> Длину DE назову d (в см, пока неизвестна). По условию</p>
+<div id="a0" data-art="0"><div class="frm st">DE = EF = FG = d</div></div>
+<div id="a1" data-art="1"><div class="frm st">DF = 2d</div></div>
+<div id="a2" data-art="2"><div class="frm st">DC = 4 · DF = 8d</div></div>
+<p class="st">(2d — это 2 · d: знак умножения перед буквой пропускают.)</p>
+<p class="st">Разрежу ABCD сеткой с шагом d: выйдет 8 × 8 клеток d × d.</p>
+<p class="st"><b>Средние линии</b> ABCD — два отрезка сетки через центр квадрата, параллельные сторонам; каждая на 4d от сторон.</p>
+<p class="st">Рисунок одинаков со всех четырёх сторон: поверни его на четверть оборота — совпадёт. Поэтому достаточно прочитать угол D и верхнюю сторону.</p>
+<ul class="st"><li><b>Угол D.</b> Белый треугольничек у D равнобедренный, угол при D прямой ⇒ его сторона на DA тоже d. Трапеция под ним равнобедренная ⇒ её боковая сторона на DA равна EF = d, и нижнее основание идёт от F к точке DA на d + d = 2d ниже D. Обе наклонные здесь — диагонали клеток.</li><li><b>Середина DC.</b> Вертикаль из Q идёт по средней линии, на 2d правее F. Из F вниз-вправо идёт сторона белого квадрата — перпендикулярно его стороне из F к DA, то есть тоже по диагоналям клеток; она упирается в эту вертикаль на 2d ниже DC — там верхняя вершина закрашенного квадрата. Трапеция с вершинами F и G равнобедренная ⇒ её боковая сторона на вертикали равна FG = d ⇒ Q стоит на d ниже DC, то есть на 4d − d = 3d выше центра ABCD.</li><li><b>Закрашенный квадрат.</b> Верхняя вершина — на средней линии, на 4d − 2d = 2d выше центра; остальные три — так же, на средних линиях в 2d от центра.</li></ul>
+<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное — всё складывается из одного треугольничка</span><p>Белый треугольничек в углу D — это половина клетки d × d: угол прямой, а обе стороны при нём (<b>катеты</b>) равны d. Любой прямоугольный равнобедренный треугольник, у которого катеты лежат на линиях сетки и равны 2d или 3d, режется сеткой на такие же треугольнички. Режу полосами шириной d, начиная от острого угла: в каждой следующей полосе на одну клетку (2 треугольничка) больше.</p></div></div>
+<p class="st">Катеты 2d:</p>
+<div id="a4" data-art="4"><div class="frm st">1 + 3 = 4</div></div>
+<p class="st">Катеты 3d:</p>
+<div id="a5" data-art="5"><div class="frm st">1 + 3 + 5 = 9</div></div>
+<p class="st">Катеты в 3 раза длиннее, чем у треугольничка, — и треугольничков 3 · 3 = 9. Поэтому площадь меряю не в см², а <b>в треугольничках</b>: сколько их укладывается в фигуру. В см² перевожу в самом конце, один раз.</p>
+<p class="step st"><b>Шаг 1 — план.</b> Спрошены три площади и периметр. Площадь фигуры — это сколько треугольничков в ней укладывается, умноженное на площадь одного.</p>
+<p class="st">Обозначения:</p>
+<ul class="st"><li>N(X) — сколько треугольничков укладывается в фигуру X;</li><li>a — площадь одного треугольничка, см².</li></ul>
+<p class="st">Закрашенный квадрат:</p>
+<div class="frm st">площадь закрашенного квадрата = N(закрашенного квадрата) · a</div>
+<p class="st">Закрашены 12 трапеций и закрашенный квадрат, вместе — 416 см²:</p>
+<div class="frm st">(12 · N(трапеции) + N(закрашенного квадрата)) · a = 416</div>
+<p class="st">Незакрашенная часть — весь ABCD без закрашенной. Площадь квадрата — сторона, умноженная на сторону (столько квадратиков 1 см × 1 см в него укладывается); у ABCD сторона 8d:</p>
+<div class="frm st">площадь незакрашенной части = 8d · 8d − 416</div>
+<p class="st">MNPQ:</p>
+<div class="frm st">площадь MNPQ = N(MNPQ) · a</div>
+<p class="st">Периметр — четыре стороны по 8d:</p>
+<div class="frm st">P(ABCD) = 4 · 8d</div>
+<p class="st">Длину d достаю из a: клетка d × d — это квадрат площадью d · d и в то же время два треугольничка:</p>
+<div class="frm st">d · d = 2 · a</div>
+<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
+<div class="frm st">площадь закрашенного квадрата = N(закрашенного квадрата) · a</div>
+<div class="frm st">площадь незакрашенной части = 8d · 8d − 416</div>
+<div class="frm st">площадь MNPQ = N(MNPQ) · a</div>
+<div class="frm st">P(ABCD) = 4 · 8d</div>
+<div class="frm st">(12 · N(трапеции) + N(закрашенного квадрата)) · a = 416</div>
+<div class="frm st">d · d = 2 · a</div>
+<p class="st">Осталось найти: N(трапеции), N(закрашенного квадрата), a, d, N(MNPQ).</p></div></div>
+<p class="step st"><b>Шаг 2 — найдём N(трапеции).</b> Трапеция в углу D вместе с белым треугольничком над ней составляет треугольник с прямым углом при D и катетами DF = 2d. В нём 4 треугольничка, один из них белый:</p>
+<div class="frm st">4 − 1 = 3</div>
+<p class="st">Остальные 11 трапеций такие же. В углах — по повороту рисунка. У середины DC вертикаль из Q режет треугольник у стороны на две половины. Каждая половина — прямоугольный треугольник с катетами 2d (по DC от F до середины DC и по вертикали вниз до закрашенного квадрата) и с белым треугольничком у прямого угла — та же картинка, что в углу D.</p>
+<p class="st">→ <b>N(трапеции) = 3</b></p>
+<p class="step st"><b>Шаг 3 — найдём N(закрашенного квадрата).</b> Диагонали закрашенного квадрата идут по средним линиям ABCD и режут его на 4 треугольника. У каждого прямой угол в центре ABCD и катеты 2d — по 4 треугольничка:</p>
+<div class="frm st">4 · 4 = 16</div>
+<p class="st">→ <b>N(закрашенного квадрата) = 16</b></p>
+<p class="step st"><b>Шаг 4 — найдём a.</b> Подставляю шаги 2 и 3 в равенство плана:</p>
+<div class="frm st">(12 · 3 + 16) · a = 416</div>
+<div class="frm st">52 · a = 416</div>
+<div class="frm st">a = 416 : 52 = 8</div>
+<p class="st">→ <b>a = 8 см²</b></p>
+<p class="step st"><b>Шаг 5 — найдём d.</b> Равенство плана:</p>
+<div class="frm st">d · d = 2 · 8 = 16</div>
+<p class="st">Нужно число, которое, умноженное само на себя, даёт 16 (<b>корень</b> из 16):</p>
+<div class="frm st">4 · 4 = 16</div>
+<p class="st">→ <b>d = 4 см</b></p>
+<p class="step st"><b>Шаг 6 — найдём N(MNPQ).</b> Q стоит на средней линии, на 3d выше центра ABCD. M, N, P — так же, на 3d от центра (рисунок одинаков со всех сторон). Соединю M, N, P, Q. Диагонали MP и NQ идут по средним линиям и режут MNPQ на 4 треугольника с прямым углом в центре и катетами 3d — по 9 треугольничков:</p>
+<div class="frm st">4 · 9 = 36</div>
+<p class="st">→ <b>N(MNPQ) = 36</b></p>
+<p class="step st"><b>Шаг 7 — сборка.</b> Подставляю в формулы плана: a = 8, d = 4, сторона ABCD</p>
+<div class="frm st">8d = 8 · 4 = 32</div>
+<p class="st">Площадь закрашенного квадрата:</p>
+<div class="frm st">16 · 8 = 128</div>
+<p class="st">Площадь незакрашенной части:</p>
+<div class="frm st">32 · 32 − 416 = 1024 − 416 = 608</div>
+<p class="st">Площадь MNPQ:</p>
+<div class="frm st">36 · 8 = 288</div>
+<p class="st">Периметр ABCD:</p>
+<div class="frm st">4 · 32 = 128</div>
+<p class="st"><b>Проверка вторым способом.</b></p>
+<ul class="st"><li>Незакрашенное — в треугольничках. Каждый белый квадрат с вершинами в узлах сетки, как и закрашенный, режется диагоналями на 4 треугольника с катетами 2d. Белые треугольнички в углах — по 1. Белый треугольник у середины стороны (как GHQ) вертикаль из Q режет на два треугольничка (шаг 2) — по 2:</li></ul>
+<div class="frm st">4 · 16 + 4 · 1 + 4 · 2 = 76</div>
+<p class="st">76 · 8 = 608 ✓</p>
+<ul class="st"><li>Весь ABCD: 64 клетки по 2 треугольничка, 64 · 2 = 128, и закрашенное с незакрашенным дают столько же: 52 + 76 = 128 ✓</li><li>MNPQ — ровно половина квадрата 6d × 6d, описанного вокруг него (каждая четверть MNPQ — половина квадрата 3d × 3d). Сторона 6d = 6 · 4 = 24:</li></ul>
+<p class="st">24 · 24 : 2 = 288 ✓</p>
+<ul class="st"><li>Программа по координатам вершин всех 25 деталей проверила: детали покрывают ABCD без дыр и наложений, 12 трапеций равны, площади — 128, 608, 288 см², периметр — 128 см.</li></ul>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ul class="st"><li>DC = 4 · DF, а не 4 · DE: сторона ABCD — 8d, а не 4d.</li><li>416 см² — это трапеции <b>и</b> закрашенный квадрат вместе. Без квадрата 416 : 36 не делится нацело — сигнал, что что-то забыто.</li><li>Площадь закрашенного квадрата и периметр ABCD — оба 128, но первое в см², второе в см.</li></ul>
+<p class="st"><b>Ответ на задачу:</b> площадь закрашенного квадрата — <b>128 см²</b>; площадь незакрашенной части — <b>608 см²</b>; площадь MNPQ — <b>288 см²</b>; периметр ABCD — <b>128 см</b>.</p>
+<h3 class="st">✍ Что достаточно написать на туре</h3>
+<p class="st"><em>Образец записи для сравнения с работой ребёнка: разбор выше объясняет, почему так можно считать, — на бумагу это не выносится.</em></p>
+<h4 class="st">Запись</h4>
+<p class="st">d = DE, DF = 2d, DC = 8d. Сетка с шагом d: 8 × 8 клеток. Единица площади — треугольничек = половина клетки d × d, a — его площадь. N(X) — сколько треугольничков в фигуре X.</p>
+<div class="plan st"><p class="st">✅ <b>План:</b></p>
+<div class="frm st">(12 · N(трапеции) + N(закрашенного квадрата)) · a = 416</div>
+<div class="frm st">d · d = 2 · a</div></div>
+<ul class="st"><li>трапеция + белый треугольничек = треугольник с катетами 2d, в нём 4 треугольничка → N(трапеции) = 4 − 1 = 3</li><li>закрашенный квадрат = 4 треугольника с катетами 2d → N(закрашенного квадрата) = 4 · 4 = 16</li><li>(12 · 3 + 16) · a = 416 → 52 · a = 416 → a = 8 см²</li><li>d · d = 16 → d = 4 см, сторона ABCD = 32 см</li><li>закрашенный квадрат: 16 · 8 = <b>128 см²</b></li><li>незакрашенная часть: 32 · 32 − 416 = <b>608 см²</b></li><li>MNPQ = 4 треугольника с катетами 3d → N(MNPQ) = 4 · 9 = 36 → 36 · 8 = <b>288 см²</b></li><li>P(ABCD) = 4 · 32 = <b>128 см</b></li></ul>
+<p class="st">Проверка: незакрашенное = 4 · 16 + 4 · 1 + 4 · 2 = 76 треугольничков, 76 · 8 = 608 ✓</p>
+<div class="pager"><a href="06-t3-regional-2018-3-chetyrehznachnye-menshe-2018-.html">← Т3″ — регионал 2018, №3 — четырёхзначные меньше 2018 с одной семёркой, кратные 3</a><a href="08-t1-nacional-2025-den-ii-4-1200-fishek-v-chetyreh.html">Т1″ — национал 2025, день II, №4 — 1200 фишек в четырёх коробках →</a></div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target);}
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+
+    var arts=[].slice.call(document.querySelectorAll('.art'));
+    var secs=[].slice.call(document.querySelectorAll('[data-art]'));
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var n=+e.target.dataset.art;
+        arts.forEach(function(a){
+          var i=+a.dataset.art;
+          a.classList.toggle('cur',i===n);
+          if(i<=n)a.classList.add('on');
+        });
+        var cur=arts.filter(function(a){return a.classList.contains('cur');})[0];
+        if(cur)cur.scrollIntoView({block:'nearest'});
+      });
+    },{rootMargin:'-20% 0px -55% 0px'});
+    secs.forEach(function(s){io2.observe(s);});
+
+    arts.forEach(function(a){
+      a.addEventListener('click',function(){
+        var t=document.getElementById('a'+a.dataset.art);
+        if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // кнопка перезапуска — только у иллюстраций, где движение что-то показывает
+    document.querySelectorAll('figure.fx').forEach(function(f){
+      var b=document.createElement('button');
+      b.className='replay';b.type='button';b.textContent='↻ ещё раз';
+      b.addEventListener('click',function(){
+        f.classList.remove('seen');void f.offsetWidth;f.classList.add('seen');
+      });
+      f.appendChild(b);
+    });
+
+    root.classList.add('anim');          // проявление включаем, только если всё живо
+  }catch(err){
+    root.classList.remove('anim');       // JS сломался — текст всё равно виден
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>
