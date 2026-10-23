@@ -17,9 +17,15 @@ def inline(s):
     return s
 
 def pens(s):
-    """Цветные ручки в системе: ⟦…⟧ — подставляемое, ⟪…⟫ — общее у двух уравнений."""
+    """Цветные ручки в системе: ⟦…⟧ — подставляемое, ⟪…⟫ — общее у двух уравнений.
+
+    Ещё три ручки для разных идей в одной системе: ⦃…⦄ — золотая, ⦅…⦆ — зелёная, ⟬…⟭ — фиолетовая.
+    """
     s = re.sub(r'⟦(.+?)⟧', r'<span class="pen1">\1</span>', s)
     s = re.sub(r'⟪(.+?)⟫', r'<span class="pen2">\1</span>', s)
+    s = re.sub(r'⦃(.+?)⦄', r'<span class="pen3">\1</span>', s)
+    s = re.sub(r'⦅(.+?)⦆', r'<span class="pen4">\1</span>', s)
+    s = re.sub(r'⟬(.+?)⟭', r'<span class="pen5">\1</span>', s)
     return re.sub(r'(?m)^(найдено:.*)$', r'<span class="found">\1</span>', s)
 
 def plain(s):
