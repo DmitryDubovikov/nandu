@@ -210,6 +210,9 @@ These conventions are load-bearing across all materials — keep them.
       («случаи не пересекаются», «общая сторона ушла внутрь», «конец известен точно»). A phrase that retells the
       arithmetic already visible in the record is a defect.
     - **Perimeters (Т2) get none — deliberate user decision.** There the record speaks for itself.
+    - **Linear systems (Т1) get none either** (окт 2026): the record is the system with every datum as an equation plus
+      mechanical moves; a phrase would only retell it. Problems where a system is only one part (Т1′, Т1″) keep their phrase
+      when it carries a real justification (whose fraction, from which state).
     - **The phrases are instances of one closed phrase-book, not per-problem texts.** Thirty separate texts are thirty
       memorised strings; a dozen constructions transfer to an unseen problem. The provincial book lives in
       `25-26/nandu_level1/provincial/nandu_n1_provincial_pamyatka.md`, section «💬 Что писать словами». New material reuses those wordings verbatim
