@@ -216,6 +216,9 @@ These conventions are load-bearing across all materials — keep them.
    when the answer is a chain (known number → whole → next whole), the plan is an SVG scheme right after «Идея» — nodes are
    the asked N(…), each arrow labelled with its datum — read off the statement, not announced in hindsight; every section =
    one arrow, opens with the same scheme with that arrow highlighted, headings = target nodes.
+   **A section heading names what the section finds** (окт 2026): the plan formula is written through named operands
+   — N(паролей) = N(букв на месте 1) · N(мест для 7) · N(заполнений свободных мест) — and each heading is one of them
+   («2. N(заполнений свободных мест).»), never a description («2. Два свободных места»); the section ends «N(…) = число».
    **Digits only for numbers, words only for counts and sets** (окт 2026): a number standing in a cell or an equation is
    written in digits — «3 уже стоит», never «тройка уже стоит»; words name a count or a group — «три места», «четыре
    числа», «тройка» = a tuple of three. Formulas are exempt (4 · 3 = 12). Applies to every ideal solution.

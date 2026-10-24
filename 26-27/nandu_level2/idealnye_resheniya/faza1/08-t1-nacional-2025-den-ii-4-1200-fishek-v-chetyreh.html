@@ -304,102 +304,63 @@
   
   <h1>Т1″ — национал 2025, день II, №4 — 1200 фишек в четырёх коробках</h1>
   <p class="sub">Фаза 1 — Зональ — идеальные решения образцов</p>
-<div class="card task st"><span class="tag">Условие</span><p>У Ману 1200 одинаковых фишек, он хранит их в 4 коробках разных цветов: синей, белой, красной и зелёной. Сначала в синей коробке столько же фишек, сколько в красной. Ману вынимает 30 фишек из синей коробки и кладёт их в белую; теперь в зелёной и в белой коробках фишек поровну. Наконец, Ману перекладывает половину фишек белой коробки в красную; теперь в зелёной коробке на 60 фишек больше, чем в красной. Сколько фишек было сначала в каждой коробке?</p></div>
-<p class="st"><b>Жанр ответа (Д6).</b> Четыре числа — сколько фишек было в каждой коробке <b>сначала</b>, до обоих перекладываний.</p>
-<p class="st"><b>Перевод условия.</b> Начальные числа фишек называем первыми буквами испанских цветов:</p>
-<ul class="st"><li>a — в синей (azul);</li><li>b — в белой (blanco);</li><li>r — в красной (rojo);</li><li>v — в зелёной (verde).</li></ul>
-<p class="st">Дальше после каждого действия пишем, сколько фишек в каждой коробке. Каждое «теперь» условия говорит про свой момент и даёт своё равенство.</p>
-<p class="st"><em>«Сначала в синей коробке столько же фишек, сколько в красной»</em> ⇒</p>
-<div id="a0" data-art="0"><div class="frm st">r = a</div></div>
-<p class="st">После переноса 30 фишек из синей в белую:</p>
-<ul class="st"><li>в синей a − 30;</li><li>в белой b + 30.</li></ul>
+<div class="card task st"><span class="tag">Условие</span><p>Ману хранит одинаковые фишки в четырёх коробках: синей, белой, красной и зелёной. Известно:</p><ul class="st"><li>всего фишек 1200;</li><li>сначала в синей коробке столько же фишек, сколько в красной;</li><li>Ману вынимает 30 фишек из синей коробки и кладёт их в белую;</li><li>теперь в зелёной и в белой коробках фишек поровну;</li><li>наконец, Ману перекладывает половину фишек белой коробки в красную;</li><li>теперь в зелёной коробке на 60 фишек больше, чем в красной.</li></ul><p>Сколько фишек было сначала в каждой коробке?</p></div>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Каждое «теперь» — равенство про свой момент. Половину белой берут, когда в белой столько же фишек, сколько в зелёной, — значит, в красную уходит половина зелёной.</p></div></div>
+<figure class='st'><svg viewBox='0 2 192 22' role='img' aria-label='Схема решения'><defs><marker id='ahNone' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='context-stroke'/></marker></defs><path d='M30 11H80' fill='none' stroke='#cfdae6' stroke-width='0.6' marker-end='url(#ahNone)'/><text x='55.0' y='8' fill='#cfdae6' font-size='3.2' text-anchor='middle' font-weight='600'>30 из синей в белую</text><path d='M110 11H160' fill='none' stroke='#cfdae6' stroke-width='0.6' marker-end='url(#ahNone)'/><text x='135.0' y='8' fill='#cfdae6' font-size='3.2' text-anchor='middle' font-weight='600'>половина белой в красную</text><rect x='2' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#cfdae6' stroke-width='0.6'/><text x='16' y='12.3' fill='#cfdae6' font-size='3.6' text-anchor='middle' font-weight='600'>сначала</text><text x='16' y='21.5' fill='#cfdae6' font-size='3.4' text-anchor='middle' font-weight='600'>(1)</text><rect x='82' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#cfdae6' stroke-width='0.6'/><text x='96' y='12.3' fill='#cfdae6' font-size='3.6' text-anchor='middle' font-weight='600'>после 30</text><text x='96' y='21.5' fill='#cfdae6' font-size='3.4' text-anchor='middle' font-weight='600'>(2)</text><rect x='162' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#cfdae6' stroke-width='0.6'/><text x='176' y='12.3' fill='#cfdae6' font-size='3.6' text-anchor='middle' font-weight='600'>в конце</text><text x='176' y='21.5' fill='#cfdae6' font-size='3.4' text-anchor='middle' font-weight='600'>(3)</text></svg><figcaption>План: стрелка — перенос из условия, под моментом — его уравнение.</figcaption></figure>
+<h3 class="st">Часть 1 — запись системы</h3>
+<p class="st"><b>1. Коробки сначала.</b></p>
+<figure class='st'><svg viewBox='0 2 192 22' role='img' aria-label='Схема решения'><defs><marker id='ah1' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='context-stroke'/></marker></defs><path d='M30 11H80' fill='none' stroke='#4a5866' stroke-width='0.6' marker-end='url(#ah1)'/><text x='55.0' y='8' fill='#4a5866' font-size='3.2' text-anchor='middle' font-weight='600'>30 из синей в белую</text><path d='M110 11H160' fill='none' stroke='#4a5866' stroke-width='0.6' marker-end='url(#ah1)'/><text x='135.0' y='8' fill='#4a5866' font-size='3.2' text-anchor='middle' font-weight='600'>половина белой в красную</text><rect x='2' y='6' width='28' height='10' rx='2' fill='#f0a83c' fill-opacity='0.22' stroke='#f0a83c' stroke-width='1.0'/><text x='16' y='12.3' fill='#f0a83c' font-size='3.6' text-anchor='middle' font-weight='600'>сначала</text><text x='16' y='21.5' fill='#f0a83c' font-size='3.4' text-anchor='middle' font-weight='600'>(1)</text><rect x='82' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#4a5866' stroke-width='0.6'/><text x='96' y='12.3' fill='#4a5866' font-size='3.6' text-anchor='middle' font-weight='600'>после 30</text><text x='96' y='21.5' fill='#4a5866' font-size='3.4' text-anchor='middle' font-weight='600'>(2)</text><rect x='162' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#4a5866' stroke-width='0.6'/><text x='176' y='12.3' fill='#4a5866' font-size='3.6' text-anchor='middle' font-weight='600'>в конце</text><text x='176' y='21.5' fill='#4a5866' font-size='3.4' text-anchor='middle' font-weight='600'>(3)</text></svg></figure>
+<p class="st"><em>«сначала в синей коробке столько же фишек, сколько в красной»</em> ⇒ в синей и в красной по a фишек:</p>
+<figure class='st'><svg viewBox='0 0 116 53' role='img' aria-label='Коробки сначала' style='max-width:460px'><defs><marker id='bx' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='#f0a83c'/></marker></defs><line x1='4' y1='50' x2='100' y2='50' stroke='#4a5866' stroke-width='0.5'/><rect x='8' y='35.33333333333333' width='16' height='14.666666666666668' fill='#5ba8f5' fill-opacity='0.28' stroke='#5ba8f5' stroke-width='0.7'/><text x='16.0' y='43.96666666666666' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>a</text><rect x='32' y='12.666666666666664' width='16' height='37.333333333333336' fill='#dfe6ee' fill-opacity='0.28' stroke='#dfe6ee' stroke-width='0.7'/><text x='40.0' y='32.63333333333333' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>b</text><rect x='56' y='35.33333333333333' width='16' height='14.666666666666668' fill='#f2686c' fill-opacity='0.28' stroke='#f2686c' stroke-width='0.7'/><text x='64.0' y='43.96666666666666' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>a</text><rect x='80' y='10.0' width='16' height='40.0' fill='#5fd38d' fill-opacity='0.28' stroke='#5fd38d' stroke-width='0.7'/><text x='88.0' y='31.3' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>v</text></svg><figcaption>Коробки сначала: a — azul, b — blanco, v — verde.</figcaption></figure>
+<p class="st"><em>«всего фишек 1200»</em> ⇒</p>
+<div id="a1" data-art="1"><div class="frm st">(1) a + b + a + v = 1200</div></div>
+<p class="st"><b>2. Коробки после 30.</b></p>
+<figure class='st'><svg viewBox='0 2 192 22' role='img' aria-label='Схема решения'><defs><marker id='ah2' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='context-stroke'/></marker></defs><path d='M30 11H80' fill='none' stroke='#f0a83c' stroke-width='1.0' marker-end='url(#ah2)'/><text x='55.0' y='8' fill='#f0a83c' font-size='3.2' text-anchor='middle' font-weight='600'>30 из синей в белую</text><path d='M110 11H160' fill='none' stroke='#4a5866' stroke-width='0.6' marker-end='url(#ah2)'/><text x='135.0' y='8' fill='#4a5866' font-size='3.2' text-anchor='middle' font-weight='600'>половина белой в красную</text><rect x='2' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#cfdae6' stroke-width='0.6'/><text x='16' y='12.3' fill='#cfdae6' font-size='3.6' text-anchor='middle' font-weight='600'>сначала</text><text x='16' y='21.5' fill='#cfdae6' font-size='3.4' text-anchor='middle' font-weight='600'>(1)</text><rect x='82' y='6' width='28' height='10' rx='2' fill='#f0a83c' fill-opacity='0.22' stroke='#f0a83c' stroke-width='1.0'/><text x='96' y='12.3' fill='#f0a83c' font-size='3.6' text-anchor='middle' font-weight='600'>после 30</text><text x='96' y='21.5' fill='#f0a83c' font-size='3.4' text-anchor='middle' font-weight='600'>(2)</text><rect x='162' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#4a5866' stroke-width='0.6'/><text x='176' y='12.3' fill='#4a5866' font-size='3.6' text-anchor='middle' font-weight='600'>в конце</text><text x='176' y='21.5' fill='#4a5866' font-size='3.4' text-anchor='middle' font-weight='600'>(3)</text></svg></figure>
+<p class="st"><em>«вынимает 30 фишек из синей коробки и кладёт их в белую»</em> ⇒ в синей стало на 30 меньше, в белой — на 30 больше:</p>
+<figure class='st'><svg viewBox='0 0 116 53' role='img' aria-label='Коробки после 30' style='max-width:460px'><defs><marker id='bx' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='#f0a83c'/></marker></defs><line x1='4' y1='50' x2='100' y2='50' stroke='#4a5866' stroke-width='0.5'/><rect x='8' y='38.0' width='16' height='12.0' fill='#5ba8f5' fill-opacity='0.28' stroke='#5ba8f5' stroke-width='0.7'/><text x='16.0' y='45.3' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>a − 30</text><rect x='8' y='35.33333333333333' width='16' height='2.666666666666668' fill='none' stroke='#5ba8f5' stroke-width='0.5' stroke-dasharray='1.2 1'/><rect x='32' y='12.666666666666664' width='16' height='37.333333333333336' fill='#dfe6ee' fill-opacity='0.28' stroke='#dfe6ee' stroke-width='0.7'/><text x='40.0' y='32.63333333333333' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>b</text><rect x='32' y='10.0' width='16' height='2.6666666666666643' fill='#f0a83c' fill-opacity='0.45' stroke='#f0a83c' stroke-width='0.7'/><rect x='56' y='35.33333333333333' width='16' height='14.666666666666668' fill='#f2686c' fill-opacity='0.28' stroke='#f2686c' stroke-width='0.7'/><text x='64.0' y='43.96666666666666' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>a</text><rect x='80' y='10.0' width='16' height='40.0' fill='#5fd38d' fill-opacity='0.28' stroke='#5fd38d' stroke-width='0.7'/><text x='88.0' y='31.3' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>v</text><line x1='32' y1='10.0' x2='96' y2='10.0' stroke='#f0a83c' stroke-width='0.5' stroke-dasharray='1.5 1'/><path d='M16.0 34.33333333333333 C16.0 4.0 37.0 4.0 37.0 9.0' fill='none' stroke='#f0a83c' stroke-width='0.7' marker-end='url(#bx)'/><text x='26.5' y='5.2' fill='#f0a83c' font-size='3.4' text-anchor='middle' font-weight='600'>30</text></svg><figcaption>Коробки после 30.</figcaption></figure>
 <p class="st"><em>«теперь в зелёной и в белой коробках фишек поровну»</em> ⇒</p>
-<div id="a1" data-art="1"><div class="frm st">v = b + 30</div></div>
-<div id="a2" data-art="2"><div class="card key st"><span class="tag">Заметь главное — половину берут от того, что лежит в белой в этот момент</span><p>А в этот момент в белой столько же, сколько в зелёной, — так сказано в только что записанном «теперь». Значит, в красную уходит половина зелёной, и столько же остаётся в белой:</p></div></div>
-<div id="a3" data-art="3"><div class="frm st">v : 2</div></div>
-<p class="st">Зелёную коробку не трогает ни одно действие — в ней всё время v.</p>
-<p class="st">Все три момента — таблицей состояний:</p>
-<div class="st"><div class="tw"><table>
-<tr><th></th><th>синяя</th><th>белая</th><th>красная</th><th>зелёная</th></tr>
-<tr><td>сначала</td><td>a</td><td>b</td><td>r</td><td>v</td></tr>
-<tr><td>30 из синей в белую</td><td>a − 30</td><td>b + 30</td><td>r</td><td>v</td></tr>
-<tr><td>половина белой в красную</td><td>a − 30</td><td>v : 2</td><td>r + v : 2</td><td>v</td></tr>
-</table></div></div>
-<p class="st"><em>«теперь в зелёной коробке на 60 фишек больше, чем в красной»</em> — про последнюю строку ⇒</p>
-<div id="a4" data-art="4"><div class="frm st">v = r + v : 2 + 60</div></div>
-<p class="st">Перекладывание не добавляет фишек и не убирает их: в каждой строке вместе 1200. Берём самую простую строку — «сначала»:</p>
-<div id="a5" data-art="5"><div class="frm st">a + b + r + v = 1200</div></div>
-<p class="st">Вся система:</p>
-<pre class="sys st">r = a
-v = b + 30
-v = r + v : 2 + 60
-a + b + r + v = 1200</pre>
-<p class="step st"><b>Шаг 1 — план.</b></p>
-<p class="st">Спрашивают a, b, r и v. Буквы r и b выражаются через a и v:</p>
-<div class="frm st">r = a</div>
-<div class="frm st">v = b + 30 ⇒ b = v − 30</div>
-<div id="a6" data-art="6"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<div class="frm st">синяя = a</div>
-<div class="frm st">белая = v − 30</div>
-<div class="frm st">красная = a</div>
-<div class="frm st">зелёная = v</div>
-<ul class="st"><li>a — сколько фишек сначала в синей;</li><li>v — сколько фишек в зелёной (это число не меняется).</li></ul>
-<p class="st">Осталось найти: a и v.</p></div></div>
-<p class="step st"><b>Шаг 2 — найдём a и v.</b></p>
-<p class="st">Не использованы ещё два равенства: про «на 60 больше» и про 1200. Подставляем в них красную и белую из плана — остаются только a и v.</p>
-<p class="st"><b>Из «на 60 больше».</b></p>
-<div class="frm st">v = r + v : 2 + 60</div>
-<p class="st">Красная сначала — a:</p>
-<div class="frm st">v = a + v : 2 + 60</div>
-<p class="st">Слева вся зелёная, справа среди слагаемых — её половина. Вычитаем эту половину из обеих частей:</p>
-<div class="frm st">v : 2 = a + 60</div>
-<p class="st">Вся зелёная вдвое больше своей половины:</p>
-<p class="st">→ <b>v = 2a + 120</b></p>
-<p class="st"><b>Из 1200.</b></p>
-<div class="frm st">a + b + r + v = 1200</div>
-<p class="st">Белая сначала — v − 30, красная — a:</p>
-<div class="frm st">a + (v − 30) + a + v = 1200</div>
-<div class="frm st">2a + 2v = 1230</div>
-<p class="st">Делим обе части на 2:</p>
-<p class="st">→ <b>a + v = 615</b></p>
-<p class="st"><b>Решаем систему методом подстановки.</b></p>
-<pre class="sys st">v = 2a + 120
-a + v = 615</pre>
-<p class="st">v из верхнего равенства подставляем в нижнее:</p>
-<div class="frm st">a + (2a + 120) = 615</div>
-<div class="frm st">3a = 495</div>
-<p class="st">→ <b>a = 165</b></p>
-<div class="frm st">v = 2 · 165 + 120</div>
-<p class="st">→ <b>v = 450</b></p>
-<p class="step st"><b>Шаг 3 — сборка.</b></p>
-<p class="st">Подставляем a = 165 и v = 450 в план:</p>
-<ul class="st"><li>синяя = a = <b>165</b></li><li>белая = v − 30 = 450 − 30 = <b>420</b></li><li>красная = a = <b>165</b></li><li>зелёная = v = <b>450</b></li></ul>
-<p class="st"><b>⚠ Ловушки.</b></p>
-<ol class="st num"><li><span class="lin">1.</span> Взять половину от начальной белой b, а не от того, что лежит в белой после переноса. Выйдет 175, 410, 175, 440 — вместе тоже 1200, так что сумма ошибку не ловит. Ловит прогон: после переноса в белой 440, половина — 220, в красной становится 175 + 220 = 395, и зелёная 440 больше неё на 45, а не на 60.</li><li><span class="lin">2.</span> Перевернуть «на 60 больше» — решить, что в красной на 60 больше, чем в зелёной. Выйдет 245, 340, 245, 370: в прогоне в конце красная больше зелёной.</li><li><span class="lin">3.</span> Ответить последней строкой таблицы — 135, 225, 390, 450. Спрашивают, сколько было <b>сначала</b>.</li></ol>
-<p class="st"><b>Проверка.</b></p>
-<p class="st">Прогон вперёд с найденными числами:</p>
-<div class="st"><div class="tw"><table>
-<tr><th></th><th>синяя</th><th>белая</th><th>красная</th><th>зелёная</th><th>вместе</th></tr>
-<tr><td>сначала</td><td>165</td><td>420</td><td>165</td><td>450</td><td>1200 ✓</td></tr>
-<tr><td>30 из синей в белую</td><td>135</td><td>450</td><td>165</td><td>450</td><td>1200</td></tr>
-<tr><td>половина белой в красную</td><td>135</td><td>225</td><td>390</td><td>450</td><td>1200</td></tr>
-</table></div></div>
-<ul class="st"><li>сначала синяя = красная = 165 ✓</li><li>после переноса белая = зелёная = 450 ✓</li><li>половина белой 450 : 2 = 225 — целое число фишек ✓</li><li>в конце 450 − 390 = 60 ✓</li></ul>
-<p class="st"><b>Вторым способом — одна буква, от половины.</b> Назовём m (mitad) половину белой перед последним действием. Тогда перед ним в белой две такие половины, а в зелёной столько же; зелёная не меняется, так что в ней всё время</p>
-<p class="st"><b>2m</b></p>
-<p class="st">В конце в красной на 60 меньше, чем в зелёной:</p>
-<div class="frm st">2m − 60</div>
-<p class="st">Из них m пришли из белой. Без них — красная до последнего действия. Первое действие красную не трогало, так что это и начальная красная, и начальная синяя:</p>
-<div class="frm st">2m − 60 − m = m − 60</div>
-<p class="st">Строка после переноса 30:</p>
-<ul class="st"><li>синяя: m − 60 − 30 = m − 90</li><li>белая: 2m</li><li>красная: m − 60</li><li>зелёная: 2m</li></ul>
-<p class="st">Перекладывание общего числа не меняет — в этой строке тоже вместе 1200:</p>
-<div class="frm st">(m − 90) + 2m + (m − 60) + 2m = 1200</div>
-<div class="frm st">6m − 150 = 1200</div>
-<p class="st">→ <b>m = 225</b></p>
-<p class="st">Синяя и красная 225 − 60 = 165, зелёная 2 · 225 = 450, белая сначала 450 − 30 = 420 — то же.</p>
-<p class="st">Компьютерный прогон: все 361 201 начальный расклад с синей = красной и суммой 1200 проведены через оба действия условия; оба «теперь» выполняются ровно в одном — 165, 420, 165, 450.</p>
+<div id="a2" data-art="2"><div class="frm st">(2) b + 30 = v</div></div>
+<p class="st"><b>3. Коробки в конце.</b></p>
+<figure class='st'><svg viewBox='0 2 192 22' role='img' aria-label='Схема решения'><defs><marker id='ah3' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='context-stroke'/></marker></defs><path d='M30 11H80' fill='none' stroke='#cfdae6' stroke-width='0.6' marker-end='url(#ah3)'/><text x='55.0' y='8' fill='#cfdae6' font-size='3.2' text-anchor='middle' font-weight='600'>30 из синей в белую</text><path d='M110 11H160' fill='none' stroke='#f0a83c' stroke-width='1.0' marker-end='url(#ah3)'/><text x='135.0' y='8' fill='#f0a83c' font-size='3.2' text-anchor='middle' font-weight='600'>половина белой в красную</text><rect x='2' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#cfdae6' stroke-width='0.6'/><text x='16' y='12.3' fill='#cfdae6' font-size='3.6' text-anchor='middle' font-weight='600'>сначала</text><text x='16' y='21.5' fill='#cfdae6' font-size='3.4' text-anchor='middle' font-weight='600'>(1)</text><rect x='82' y='6' width='28' height='10' rx='2' fill='#121821' fill-opacity='1' stroke='#cfdae6' stroke-width='0.6'/><text x='96' y='12.3' fill='#cfdae6' font-size='3.6' text-anchor='middle' font-weight='600'>после 30</text><text x='96' y='21.5' fill='#cfdae6' font-size='3.4' text-anchor='middle' font-weight='600'>(2)</text><rect x='162' y='6' width='28' height='10' rx='2' fill='#f0a83c' fill-opacity='0.22' stroke='#f0a83c' stroke-width='1.0'/><text x='176' y='12.3' fill='#f0a83c' font-size='3.6' text-anchor='middle' font-weight='600'>в конце</text><text x='176' y='21.5' fill='#f0a83c' font-size='3.4' text-anchor='middle' font-weight='600'>(3)</text></svg></figure>
+<p class="st"><em>«теперь в зелёной и в белой коробках фишек поровну»</em> ⇒ перед вторым переносом в белой v фишек.</p>
+<p class="st"><em>«перекладывает половину фишек белой коробки в красную»</em> ⇒ в красную уходит половина зелёной, и столько же остаётся в белой:</p>
+<figure class='st'><svg viewBox='0 0 116 53' role='img' aria-label='Коробки в конце' style='max-width:460px'><defs><marker id='bx' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='#f0a83c'/></marker></defs><line x1='4' y1='50' x2='100' y2='50' stroke='#4a5866' stroke-width='0.5'/><rect x='8' y='38.0' width='16' height='12.0' fill='#5ba8f5' fill-opacity='0.28' stroke='#5ba8f5' stroke-width='0.7'/><text x='16.0' y='45.3' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>a − 30</text><rect x='32' y='30.0' width='16' height='20.0' fill='#dfe6ee' fill-opacity='0.28' stroke='#dfe6ee' stroke-width='0.7'/><text x='40.0' y='41.3' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>v : 2</text><rect x='32' y='10.0' width='16' height='20.0' fill='none' stroke='#dfe6ee' stroke-width='0.5' stroke-dasharray='1.2 1'/><rect x='56' y='35.33333333333333' width='16' height='14.666666666666668' fill='#f2686c' fill-opacity='0.28' stroke='#f2686c' stroke-width='0.7'/><text x='64.0' y='43.96666666666666' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>a</text><rect x='56' y='15.333333333333329' width='16' height='20.000000000000004' fill='#f0a83c' fill-opacity='0.45' stroke='#f0a83c' stroke-width='0.7'/><text x='64.0' y='26.63333333333333' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>v : 2</text><rect x='80' y='10.0' width='16' height='40.0' fill='#5fd38d' fill-opacity='0.28' stroke='#5fd38d' stroke-width='0.7'/><text x='88.0' y='31.3' fill='#e8eef6' font-size='3.8' text-anchor='middle' font-weight='700' stroke='#1a2230' stroke-width='1.4' paint-order='stroke'>v</text><line x1='56' y1='15.333333333333329' x2='99' y2='15.333333333333329' stroke='#f0a83c' stroke-width='0.5' stroke-dasharray='1.5 1'/><path d='M97.5 10.0H99V15.333333333333329H97.5' fill='none' stroke='#f0a83c' stroke-width='0.6'/><text x='100.5' y='13.866666666666664' fill='#f0a83c' font-size='3.6' text-anchor='start' font-weight='600'>60</text><path d='M40.0 9.0 C40.0 4.0 64.0 4.0 64.0 14.333333333333329' fill='none' stroke='#f0a83c' stroke-width='0.7' marker-end='url(#bx)'/><text x='52.0' y='5.2' fill='#f0a83c' font-size='3.4' text-anchor='middle' font-weight='600'>половина</text></svg><figcaption>Коробки в конце.</figcaption></figure>
+<p class="st"><em>«теперь в зелёной коробке на 60 фишек больше, чем в красной»</em> ⇒</p>
+<div id="a3" data-art="3"><div class="frm st">(3) v = a + v : 2 + 60</div></div>
+<h3 class="st">Часть 2 — решение системы</h3>
+<p class="st"><b>Система:</b></p>
+<pre class="sys st">(1) a + b + a + v = 1200
+(2) b + 30 = v
+(3) v = a + v : 2 + 60      | · 2</pre>
+<p class="st"><b>Причёсанная система:</b></p>
+<pre class="sys st">(1) 2a + <span class="pen2">b</span> + v = 1200
+(2) v − <span class="pen2">b</span> = 30
+(3) v − 2a = 120</pre>
+<p class="st"><b>Ходы:</b></p>
+<pre class="sys st"><span class="pen2">(1) + (2)</span>   2a + 2v = 1230    | : 2
+              (4) v + a = 615</pre>
+<p class="st"><b>Система:</b> (4) встаёт на место (1).</p>
+<pre class="sys st">(2) v − b = 30
+(3) <span class="pen3">v</span> − 2a = 120
+(4) <span class="pen3">v</span> + a = 615</pre>
+<p class="st"><b>Ходы:</b></p>
+<pre class="sys st"><span class="pen3">(4) − (3)</span>   3a = 495    | : 3
+              a = 165
+(4)           v = 615 − <span class="pen1">165</span> = 450</pre>
+<p class="st"><b>Система:</b> a и v найдены, v подставляется в (2).</p>
+<pre class="sys st">(2) <span class="pen1">450</span> − b = 30
+a = 165
+v = 450</pre>
+<p class="st"><b>Ходы:</b></p>
+<pre class="sys st">(2)   b = 450 − 30 = 420</pre>
+<p class="st"><b>Система решена:</b></p>
+<pre class="sys st">a = 165
+b = 420
+v = 450</pre>
 <p class="st"><b>Ответ на задачу:</b> сначала в синей коробке было <b>165</b> фишек, в белой — <b>420</b>, в красной — <b>165</b>, в зелёной — <b>450</b>.</p>
+<p class="st"><b>⚠ Ловушки.</b></p>
+<ul class="st"><li>Взять половину от начальной белой, а не от белой после переноса — выйдет 175, 410, 175, 440, и сумма 1200 ошибку не ловит.</li><li>Прочесть «на 60 больше» наоборот, будто в красной на 60 больше, чем в зелёной, — выйдет 245, 340, 245, 370.</li><li>Ответить числами конца — 135, 225, 390, 450, а спрашивают про «сначала».</li></ul>
+<p class="st"><em>Проверено прогоном вперёд: после 30 в коробках 135, 450, 165, 450, в конце 135, 225, 390, 450 — оба «теперь» сходятся; перебор программой всех 361 201 начальных раскладов, где в синей столько же, сколько в красной, а всего 1200, находит только этот.</em></p>
 <div class="pager"><a href="07-t2-nacional-2017-den-i-2-kvadrat-iz-trapeciy-zak.html">← Т2‴ — национал 2017, день I, №2 — квадрат из трапеций, закрашено 416 см²</a><a href="09-t3-nacional-2017-den-ii-6-chisla-iz-cifr-4-5-6-s.html">Т3‴ — национал 2017, день II, №6 — числа из цифр 4, 5, 6 с суммой цифр 30 →</a></div>
 </main>
 </div>
