@@ -166,6 +166,11 @@
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  p small{font-family:var(--sans);font-size:13.5px;color:var(--muted);line-height:1.5}
+  p:has(>small)+p:has(>small){margin-top:2px}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:14px}
+  .cols2>.col>:first-child{margin-top:0}
+  @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
   .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);

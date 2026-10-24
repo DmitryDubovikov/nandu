@@ -166,6 +166,11 @@
   /* ——— визуальный слой ——— */
   figure{margin:20px 0 0;background:var(--bg2);border-radius:12px;padding:20px}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+  p small{font-family:var(--sans);font-size:13.5px;color:var(--muted);line-height:1.5}
+  p:has(>small)+p:has(>small){margin-top:2px}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:14px}
+  .cols2>.col>:first-child{margin-top:0}
+  @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
   .d{width:28px;height:36px;line-height:34px;text-align:center;font:18px var(--mono);
@@ -299,104 +304,42 @@
   
   <h1>Т3′ — национал 2019, день II, №6 — полоска 1×6: произведение 24 и «4 левее 7»</h1>
   <p class="sub">Фаза 1 — Зональ — идеальные решения образцов</p>
-<div class="card task st"><span class="tag">Условие</span><p>Клетки этой полоски хотят заполнить числами от 1 до 8 так, чтобы:</p><ul class="st"><li>в каждой клетке стояло число;</li><li>числа не повторялись;</li><li>произведение чисел во 2-й и в 4-й клетках равнялось 24;</li><li>число в 1-й клетке было не равно 3;</li><li>числа 4 и 7 стояли на полоске, и номер клетки, где стоит 4, был меньше номера клетки, где стоит 7.</li></ul><p>Сколькими различными способами можно заполнить полоску? Объясни, как ты их считал.</p></div>
-<p class="st">Рисунок: полоска из 6 клеток в один ряд, над клетками подписи 1-я, 2-я, 3-я, 4-я, 5-я, 6-я — слева направо.</p>
-<p class="st"><b>Жанр ответа.</b> Спрашивают <b>число</b> и объяснение, как считал. Один способ — вся полоска целиком: шесть разных чисел в шести клетках. Полоски, которые отличаются хотя бы одной клеткой, — разные способы.</p>
-<p class="st">Число в i-й клетке назовём <b>cᵢ</b> (c — casilla):</p>
-<pre class="ascii st">┌────┬────┬────┬────┬────┬────┐
-│ c₁ │ c₂ │ c₃ │ c₄ │ c₅ │ c₆ │
-└────┴────┴────┴────┴────┴────┘</pre>
-<p class="st">Условия читаются так:</p>
-<ul class="st"><li><em>«произведение чисел во 2-й и в 4-й клетках равно 24»</em> ⇒</li></ul>
-<div id="a0" data-art="0"><div class="frm st">c₂ · c₄ = 24</div></div>
-<ul class="st"><li><em>«число в 1-й клетке не равно 3»</em> ⇒</li></ul>
-<p class="st"><b>c₁ ≠ 3</b></p>
-<ul class="st"><li><em>«номер клетки, где стоит 4, меньше номера клетки, где стоит 7»</em> ⇒ <b>4 стоит левее 7</b>.</li></ul>
-<ul class="st"><li><em>«числа не повторяются»</em>, а клеток 6 при 8 числах ⇒ два числа на полоску не попадают. Поэтому <em>«4 и 7 стоят на полоске»</em> — настоящее требование, а не само собой разумеющееся.</li></ul>
-<div id="a1" data-art="1"><div class="card key st"><span class="tag">Заметь главное — c₂ и c₄ связаны произведением, и вариантов у них мало</span><p>Делители 24 среди чисел от 1 до 8 — 1, 2, 3, 4, 6, 8. Пары с произведением 24:</p></div></div>
-<ul class="st"><li>1 · 24 и 2 · 12 — второй множитель больше 8 ✗</li><li>3 · 8 ✓</li><li>4 · 6 ✓</li></ul>
-<p class="st">Каждую пару можно поставить в c₂ и c₄ двумя порядками ⇒ заполнений пары (c₂, c₄) ровно 4:</p>
-<ul class="st"><li>c₂ = 3, c₄ = 8</li><li>c₂ = 8, c₄ = 3</li><li>c₂ = 4, c₄ = 6</li><li>c₂ = 6, c₄ = 4</li></ul>
-<p class="st">Остальные условия говорят про c₁ и про места чисел 4 и 7 — там вариантов гораздо больше. Поэтому c₂ и c₄ — <b>якорь</b>: начинаем с них.</p>
-<p class="step st"><b>Шаг 1 — план.</b> Нужно число заполнений полоски.</p>
-<p class="st">Все заполнения с одной и той же парой (c₂, c₄) назовём <b>миром</b>. <code>N(c₂ = 3, c₄ = 8)</code> — сколько заполнений, в которых c₂ = 3 и c₄ = 8. Миров 4 — по списку выше.</p>
-<p class="st">У каждого заполнения пара (c₂, c₄) одна ⇒ каждое заполнение лежит ровно в одном мире ⇒ миры складываются.</p>
-<div id="a2" data-art="2"><div class="plan st"><p class="st">✅ <b>План готов:</b></p>
-<p class="st"><b>N(заполнений) = N(c₂ = 3, c₄ = 8) + N(c₂ = 8, c₄ = 3) + N(c₂ = 4, c₄ = 6) + N(c₂ = 6, c₄ = 4)</b></p>
-<p class="st">Осталось найти каждое слагаемое.</p></div></div>
-<p class="step st"><b>Шаг 2 — найдём N(c₂ = 3, c₄ = 8).</b></p>
-<pre class="ascii st">┌────┬────┬────┬────┬────┬────┐
-│ c₁ │ 3  │ c₃ │ 8  │ c₅ │ c₆ │
-└────┴────┴────┴────┴────┴────┘</pre>
-<p class="st">Незанятые клетки c₁, c₃, c₅, c₆ назовём <b>свободными</b>. Числа, которых ещё нет на полоске, назовём <b>оставшимися</b>: 1, 2, 4, 5, 6, 7.</p>
-<p class="st"><b>Заметь: c₁ ≠ 3 здесь выполнено само.</b> Число 3 уже стоит в c₂, а числа не повторяются ⇒ в c₁ его быть не может. В этом мире об условии c₁ ≠ 3 можно забыть.</p>
-<p class="st">Числа 4 и 7 обязаны стоять на полоске, а c₂ и c₄ заняты ⇒ 4 и 7 занимают две свободные клетки.</p>
-<div id="a3" data-art="3"><div class="card key st"><span class="tag">Заметь главное — «4 левее 7» превращает расстановку в выбор пары клеток</span><p>Выбрали две свободные клетки под 4 и 7 — в левую обязано встать 4, в правую 7: обратного порядка условие не допускает. Значит, расстановок чисел 4 и 7 ровно столько же, сколько пар свободных клеток.</p></div></div>
-<div id="a4" data-art="4"><div class="plan st"><p class="st">✅ <b>План мира:</b></p>
-<div class="frm st">N(c₂ = 3, c₄ = 8) = N(пар клеток для 4 и 7) · N(заполнений двух других свободных клеток)</div></div></div>
-<p class="st"><b>Сколько пар клеток для 4 и 7.</b> Пары из c₁, c₃, c₅, c₆ — по левой клетке пары:</p>
-<ul class="st"><li>левая c₁: правая c₃, c₅ или c₆ → 3</li><li>левая c₃: правая c₅ или c₆ → 2</li><li>левая c₅: правая c₆ → 1</li></ul>
-<div class="frm st">3 + 2 + 1 = 6</div>
-<p class="st">Выбор двух клеток из четырёх <b>без порядка</b> называется <b>сочетанием из 4 по 2</b>. Его число получается и умножением: первую клетку выбираем 4 способами, вторую 3, но каждая пара при этом выбрана дважды (c₁ потом c₃ и c₃ потом c₁):</p>
-<div class="frm st">4 · 3 : 2 = 6</div>
-<p class="st">→ <b>N(пар клеток для 4 и 7) = 6</b></p>
-<p class="st"><b>Сколько заполнений двух других свободных клеток.</b> Без 4 и 7 оставшихся чисел четыре: 1, 2, 5, 6. В левую из двух клеток — любое из 4, в правую — любое из 3 других. Выбор двух чисел из четырёх <b>с порядком</b> называется <b>размещением из 4 по 2</b>:</p>
+<div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Клетки этой полоски хотят заполнить числами от 1 до 8 так, чтобы:</p><ul class="st"><li>в каждой клетке стояло число;</li><li>числа не повторялись;</li><li>произведение чисел во 2-й и в 4-й клетках равнялось 24;</li><li>число в 1-й клетке было не равно 3;</li><li>числа 4 и 7 стояли на полоске, и номер клетки, где стоит 4, был меньше номера клетки, где стоит 7.</li></ul><p>Сколькими различными способами можно заполнить полоску? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска' style='max-width:460px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><figcaption>cᵢ — число в i-й клетке.</figcaption></figure></div></div>
+<p class="st"><b>Способ</b> — размещение шести из чисел 1–8 по клеткам c₁, …, c₆.</p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p></p></div></div>
+<p class="st">c₂ · c₄ = 24, а числа не больше 8 — вариантов всего четыре:</p>
+<p class="st">(c₂, c₄) = (3, 8), (8, 3), (4, 6), (6, 4)</p>
+<div id="a1" data-art="1"><div class="frm st">N = N(3, 8) + N(8, 3) + N(4, 6) + N(6, 4)</div></div>
+<p class="st"><b>1. Миры N(3, 8) и N(8, 3).</b></p>
+<figure class='st'><div class='fgrid2'><div class='cell'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>3</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>8</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><p class='ccap'>N(3, 8)</p></div><div class='cell'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>8</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>3</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><p class='ccap'>N(8, 3)</p></div></div></figure>
+<p class="st">3 уже стоит на полоске, поэтому c₁ ≠ 3 выполнено само.</p>
+<p class="st">4 и 7 обязаны стоять на полоске — значит, они занимают две из свободных клеток c₁, c₃, c₅, c₆.</p>
+<p class="st">В более левую из этих двух клеток встаёт 4, в более правую 7.</p>
+<p class="st">Значит, расставить 4 и 7 — это только выбрать две клетки из четырёх: порядок внутри пары уже задан условием «4 левее 7», переставлять нечего.</p>
+<div id="a2" data-art="2"><div class="frm st">C(4, 2) = 3 + 2 + 1 = 6</div></div>
+<p class="st"><small>3: (c₁, c₃), (c₁, c₅), (c₁, c₆)   2: (c₃, c₅), (c₃, c₆)   1: (c₅, c₆)</small></p>
+<p class="st">В две оставшиеся клетки идут два из чисел 1, 2, 5, 6, порядок важен:</p>
+<div id="a3" data-art="3"><div class="frm st">4 · 3 = 12</div></div>
+<p class="st"><small>1 в более левой клетке: (1, 2), (1, 5), (1, 6)</small></p>
+<p class="st"><small>2 в более левой клетке: (2, 1), (2, 5), (2, 6)</small></p>
+<p class="st"><small>5 в более левой клетке: (5, 1), (5, 2), (5, 6)</small></p>
+<p class="st"><small>6 в более левой клетке: (6, 1), (6, 2), (6, 5)</small></p>
+<div id="a4" data-art="4"><div class="frm st">N(3, 8) = N(8, 3) = 6 · 12 = 72</div></div>
+<p class="st"><b>2. Миры N(4, 6) и N(6, 4).</b></p>
+<p class="st">3 на полоске нет, поэтому c₁ ≠ 3 работает.</p>
+<p class="st">4 уже стоит, поэтому 7 встаёт в свободную клетку правее 4.</p>
+<p class="st">c₁ левее 4, поэтому 7 её никогда не занимает.</p>
+<p class="st">В c₁ годятся четыре числа: 1, 2, 5, 8 — все оставшиеся, кроме 3.</p>
+<p class="st">В две оставшиеся клетки идут два из четырёх оставшихся чисел, порядок важен:</p>
 <div class="frm st">4 · 3 = 12</div>
-<p class="st">→ <b>N(заполнений двух других свободных клеток) = 12</b></p>
-<p class="st"><b>Почему умножаем.</b> Пара клеток под 4 и 7 меняет только, <b>какие</b> клетки остались свободными, но не числа для них:</p>
-<ul class="st"><li>4 и 7 в c₁ и c₃ → свободны c₅ и c₆, в них идут 1, 2, 5, 6</li><li>4 и 7 в c₅ и c₆ → свободны c₁ и c₃, в них идут 1, 2, 5, 6</li></ul>
-<p class="st">При любой паре клеток — две клетки и те же четыре числа, 12 способов ⇒ перемножаем:</p>
-<div class="frm st">N(c₂ = 3, c₄ = 8) = 6 · 12 = 72</div>
-<p class="step st"><b>Шаг 3 — найдём N(c₂ = 8, c₄ = 3).</b></p>
-<pre class="ascii st">┌────┬────┬────┬────┬────┬────┐
-│ c₁ │ 8  │ c₃ │ 3  │ c₅ │ c₆ │
-└────┴────┴────┴────┴────┴────┘</pre>
-<p class="st">3 и 8 поменялись местами, а всё, на чём держался план мира шага 2, осталось:</p>
-<ul class="st"><li>свободные клетки те же — c₁, c₃, c₅, c₆;</li><li>оставшиеся числа те же — 1, 2, 4, 5, 6, 7;</li><li>3 стоит на полоске (в c₄) ⇒ c₁ ≠ 3 снова выполнено само.</li></ul>
-<div class="frm st">N(c₂ = 8, c₄ = 3) = 6 · 12 = 72</div>
-<p class="step st"><b>Шаг 4 — найдём N(c₂ = 4, c₄ = 6).</b></p>
-<pre class="ascii st">┌────┬────┬────┬────┬────┬────┐
-│ c₁ │ 4  │ c₃ │ 6  │ c₅ │ c₆ │
-└────┴────┴────┴────┴────┴────┘</pre>
-<p class="st">Свободные клетки — c₁, c₃, c₅, c₆; оставшиеся числа — 1, 2, 3, 5, 7, 8. Здесь мир устроен иначе, чем в шаге 2:</p>
-<ul class="st"><li>4 уже стоит в c₂ ⇒ <em>«4 левее 7»</em> значит: 7 — в свободной клетке правее c₂, то есть в c₃, c₅ или c₆;</li><li>3 на полоске нет ⇒ c₁ ≠ 3 теперь работает.</li></ul>
-<p class="st">Заполняем по очереди: 7, потом c₁ (только на ней запрет), потом две другие свободные клетки.</p>
-<p class="st">Когда 7 поставлено, c₁ всегда ещё свободна: 7 стоит правее c₂, а c₁ — левее.</p>
-<div id="a5" data-art="5"><div class="plan st"><p class="st">✅ <b>План мира:</b></p>
-<p class="st"><b>N(c₂ = 4, c₄ = 6) = N(клеток для 7) · N(чисел для c₁) · N(заполнений двух других свободных клеток)</b></p></div></div>
-<ul class="st"><li><b>клетки для 7</b> — c₃, c₅ или c₆ → 3</li><li><b>числа для c₁</b> — оставшиеся без 7: 1, 2, 3, 5, 8; без 3 → 1, 2, 5 или 8 → 4</li><li><b>две другие свободные клетки</b> — после 7 и c₁ остаются 4 числа, размещение из 4 по 2:</li></ul>
-<div class="frm st">4 · 3 = 12</div>
-<p class="st"><b>Почему умножаем.</b> Клетка для 7 не меняет выбор для c₁: c₁ свободна всегда, и в неё всегда идут 1, 2, 5 или 8. Выбор c₁ меняет, <b>какие</b> числа остались для двух других клеток, но не <b>сколько</b>:</p>
-<ul class="st"><li>c₁ = 1 → остаются 2, 3, 5, 8</li><li>c₁ = 8 → остаются 1, 2, 3, 5</li></ul>
-<p class="st">(3 в эти клетки ставить можно: запрет стоит только на c₁.) При любом выборе — 4 числа на 2 клетки, 12 способов ⇒ перемножаем:</p>
-<div class="frm st">N(c₂ = 4, c₄ = 6) = 3 · 4 · 12 = 144</div>
-<p class="step st"><b>Шаг 5 — найдём N(c₂ = 6, c₄ = 4).</b></p>
-<pre class="ascii st">┌────┬────┬────┬────┬────┬────┐
-│ c₁ │ 6  │ c₃ │ 4  │ c₅ │ c₆ │
-└────┴────┴────┴────┴────┴────┘</pre>
-<p class="st">План мира шага 4 подходит: свободные клетки и оставшиеся числа те же, 3 на полоске нет. Меняется одно — 4 стоит в c₄, а правее c₄ свободны только c₅ и c₆:</p>
-<ul class="st"><li>клетки для 7 — c₅ или c₆ → 2</li><li>числа для c₁ — 1, 2, 5 или 8 → 4 (c₁ снова левее 4 и всегда свободна)</li><li>две другие свободные клетки — 4 числа на 2 клетки → 12</li></ul>
-<div class="frm st">N(c₂ = 6, c₄ = 4) = 2 · 4 · 12 = 96</div>
-<p class="step st"><b>Шаг 6 — сборка.</b> Подставляю миры в план:</p>
-<div class="frm st">N(заполнений) = 72 + 72 + 144 + 96 = 384</div>
+<p class="st"><small>при c₁ = 1 остаются 2, 3, 5, 8; при c₁ = 8 остаются 1, 2, 3, 5 — при любом c₁ остаются четыре числа</small></p>
+<div class="cols2"><div class="col"><p class="st"><b>N(4, 6) — 4 в c₂</b></p><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>4</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>6</text><rect x='56' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg></figure><p class="st">Правее 4 свободны c₃, c₅, c₆ — три места для 7.</p><div class="frm st">N(4, 6) = 3 · 4 · 12 = 144</div></div><div class="col"><p class="st"><b>N(6, 4) — 4 в c₄</b></p><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>6</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>4</text><rect x='56' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg></figure><p class="st">Правее 4 свободны c₅, c₆ — два места для 7.</p><div class="frm st">N(6, 4) = 2 · 4 · 12 = 96</div></div></div>
+<p class="st"><b>Сборка.</b></p>
+<div id="a5" data-art="5"><div class="frm st">N = 72 + 72 + 144 + 96 = 384</div></div>
+<p class="st"><b>Ответ на задачу:</b> полоску можно заполнить <b>384 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
-<ol class="st num"><li><span class="lin">1.</span> Прочитать <em>«номер клетки, где стоит 4, меньше…»</em> как «число 4 меньше числа 7» — это верно всегда, условие сведётся к «4 и 7 есть на полоске», и выйдет 696. Номер клетки — это подпись 1-я … 6-я над ней.</li><li><span class="lin">2.</span> Забыть второй порядок в якоре: c₂ = 3, c₄ = 8 и c₂ = 8, c₄ = 3 — разные заполнения. Взять только 3, 8 и 4, 6 — выйдет 72 + 144 = 216.</li><li><span class="lin">3.</span> Ставить 4 и 7 в пару клеток двумя порядками (4 · 3 = 12 вместо 6) — мир c₂ = 3, c₄ = 8 выйдет 144 вместо 72: половина этих полосок нарушает «4 левее 7».</li><li><span class="lin">4.</span> Применять c₁ ≠ 3 там, где оно выполнено само: в мирах с 3 в якоре ничего вычитать не надо. И наоборот — забыть c₁ ≠ 3 в мирах c₂ = 4, c₄ = 6 и c₂ = 6, c₄ = 4: выйдет 444.</li><li><span class="lin">5.</span> Решить, что на полоске стоят все числа от 1 до 8: клеток 6, два числа всегда лишние.</li></ol>
-<p class="st"><b>Проверка.</b></p>
-<p class="st">Полоска 4 3 7 8 1 2:</p>
-<ul class="st"><li>c₂ · c₄ = 3 · 8 = 24 ✓</li><li>c₁ = 4, не 3 ✓</li><li>4 в 1-й клетке, 7 в 3-й ✓</li><li>числа 4, 3, 7, 8, 1, 2 разные ✓</li></ul>
-<p class="st"><b>Вторым способом — «всё минус плохие» по условию c₁ ≠ 3.</b> В мире c₂ = 4, c₄ = 6 сначала забываем про c₁ ≠ 3: 7 — в одну из 3 клеток, на три другие свободные клетки 5 оставшихся чисел с порядком:</p>
-<div class="frm st">3 · 5 · 4 · 3 = 180</div>
-<p class="st">Плохие — с c₁ = 3: 7 — в одну из 3 клеток, на две другие клетки 4 числа:</p>
-<div class="frm st">3 · 4 · 3 = 36</div>
-<div class="frm st">N(c₂ = 4, c₄ = 6) = 180 − 36 = 144 ✓</div>
-<p class="st">В мире c₂ = 6, c₄ = 4 так же, только клеток для 7 две:</p>
-<div class="frm st">N(c₂ = 6, c₄ = 4) = 2 · 5 · 4 · 3 − 2 · 4 · 3 = 120 − 24 = 96 ✓</div>
-<p class="st">В мирах с 3 и 8 пару клеток проверяет обмен: расставить 4 и 7 по двум свободным клеткам с порядком можно</p>
-<div class="frm st">4 · 3 = 12</div>
-<p class="st">способами. Обмен 4 ↔ 7 разбивает их на пары расстановок, и в каждой паре 4 левее 7 ровно в одной ⇒ расстановок с 4 левее 7:</p>
-<div class="frm st">12 : 2 = 6 ✓</div>
-<p class="st">Компьютерный перебор всех расстановок шести разных чисел от 1 до 8 по шести клеткам (20 160 вариантов) даёт <b>384</b> заполнения: по мирам 72, 72, 144 и 96; в мире c₂ = 4, c₄ = 6 — по 48 на каждую клетку для 7.</p>
-<p class="st"><b>Ответ на задачу:</b> полоску можно заполнить <b>384 способами</b>. Как считал: разрезал на 4 мира по паре чисел во 2-й и 4-й клетках (3 и 8 или 4 и 6, в двух порядках) и в каждом мире перемножил выборы: где 4 и 7, что в 1-й клетке, что в двух других.</p>
+<ul class="st"><li>«Номер клетки 4 меньше номера клетки 7» прочитать как «4 меньше 7» — выйдет 696.</li><li>Ставить 4 и 7 в пару клеток двумя порядками — 144 вместо 72 в мирах 3 и 8.</li><li>Забыть c₁ ≠ 3 в мирах 4 и 6 — выйдет 444.</li></ul>
+<p class="st"><em>Проверено перебором программой всех 20 160 размещений: 384, по мирам 72, 72, 144, 96.</em></p>
 <div class="pager"><a href="02-t2-provincial-2022-2-abdef-i-bcd-perimetry-i-plo.html">← Т2 — провинциал 2022, №2 — ABDEF и BCD: периметры и площади</a><a href="04-t1-nacional-2024-den-ii-4-smeny-i-sport.html">Т1′ — национал 2024, день II, №4 — смены и спорт →</a></div>
 </main>
 </div>
