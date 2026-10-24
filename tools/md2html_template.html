@@ -265,7 +265,12 @@
   @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
   @keyframes fin{from{opacity:0}to{opacity:1}}
   @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  /* Гаснет то, что выбыло: --o — с какой яркостью остаётся (0 — исчезает совсем) */
+  .fo{opacity:var(--o,0)}
+  @keyframes fout{from{opacity:1}to{opacity:var(--o,0)}}
   @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .fo{opacity:1}
+    html.anim figure.fx.seen .fo{animation:fout .6s ease var(--d,0s) both}
     html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
     html.anim figure.fx:not(.seen) .fi{opacity:0}
     html.anim figure.fx:not(.seen) .sl{transform:none}
