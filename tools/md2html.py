@@ -458,6 +458,8 @@ def doc_kind(src_path):
     name = os.path.basename(src_path or '')
     if '_idealnye' in name:
         return 'idealnye'   # идеальные решения образцов: одна колонка, без остатка и без боевой записи
+    if '_kombinatorika_' in name:
+        return 'single'     # учебник комбинаторики: одна колонка, без сухого остатка (решение родителя 24.10.2026)
     if '_uchebnik' in name:
         return 'uchebnik'
     if re.search(r'_(resheniya|reshebnik|klyuch|podskazki)', name):
@@ -869,11 +871,11 @@ def build_pages(md, visuals=None, src_path=None):
         prev = f'<a href="{names[n-1]}">← {html.escape(plain(chapters[n-1]["title"]))}</a>' if n else ''
         nxt = f'<a href="{names[n+1]}">{html.escape(plain(chapters[n+1]["title"]))} →</a>' if n < len(chapters) - 1 else ''
         chapnav = (f'<a href="index.html">все главы</a> · {n+1} из {len(chapters)}')
-        partlab = ''
+        partlab = f'<p class="chapnav">{chapnav}</p>' if kind == 'single' else ''
         if c.get('ispart'):
             shown_part = c['title']   # заголовок части уже стоит титулом страницы
         if c['part'] and c['part'] != shown_part:
-            partlab = f'<p class="partlab">{inline(c["part"])}</p>'
+            partlab += f'<p class="partlab">{inline(c["part"])}</p>'
             shown_part = c['part']
 
         files[names[n]] = (TEMPLATE
@@ -883,13 +885,13 @@ def build_pages(md, visuals=None, src_path=None):
             .replace('{{PARTLAB}}', partlab)
             .replace('{{SUB}}', '')
             .replace('{{CHAPNAV}}', chapnav)
-            .replace('{{RTITLE_TAG}}', '' if (not spec or kind == 'idealnye') else
+            .replace('{{RTITLE_TAG}}', '' if (not spec or kind in ('idealnye', 'single')) else
                      '<p class="rtitle">%s</p>' %
                      ('Что пишешь на туре' if is_battle else 'Сухой остаток главы'))
             # ширину задаёт факт боевой записи, а не имя файла: у вводных
             # разделов документа-решения колонка обычная, и растягивать её незачем
-            .replace('{{WRAPCLASS}}', ' single' if kind == 'idealnye' else ' battle' if is_battle else '')
-            .replace('{{NAV}}', '' if kind == 'idealnye' else nav)
+            .replace('{{WRAPCLASS}}', ' single' if kind in ('idealnye', 'single') else ' battle' if is_battle else '')
+            .replace('{{NAV}}', '' if kind in ('idealnye', 'single') else nav)
             .replace('{{BODY}}', '\n'.join(body))
             .replace('{{FOOT}}', ''.join(xlink_html(x) for x in xmap.get(n, [])) +
                      f'<div class="pager">{prev}{nxt}</div>'))
