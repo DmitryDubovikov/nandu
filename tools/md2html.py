@@ -191,6 +191,11 @@ def fold_task_lists(blocks):
         if (k == 'p' and TASK_HEAD.match(v) and v.rstrip().endswith(':')
                 and i + 1 < len(blocks) and blocks[i + 1][0] == 'list'):
             v += '\n' + blocks[i + 1][1]; i += 2
+            # ещё одна часть данных: «Беня считал так:» + список без вопросов
+            while (i + 1 < len(blocks) and blocks[i][0] == 'p' and blocks[i][1].rstrip().endswith(':')
+                    and not blocks[i][1].startswith('**') and blocks[i + 1][0] == 'list'
+                    and '?' not in blocks[i + 1][1]):
+                v += '\n\n' + blocks[i][1] + '\n' + blocks[i + 1][1]; i += 2
             if i < len(blocks) and blocks[i][0] == 'p' and '?' in blocks[i][1] \
                     and not blocks[i][1].startswith('**'):
                 v += '\n\n' + blocks[i][1]; i += 1
