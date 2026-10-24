@@ -193,7 +193,8 @@ def clubs():
             x, y = x0 + j * c, y0 + r * c
             b.append(f"<rect x='{x}' y='{y}' width='{c}' height='{c}' fill='none' stroke='var(--line)'/>")
             if r in member[j]:
-                b.append(f"<circle cx='{x+c/2}' cy='{y+c/2}' r='6' fill='var(--ink)'/>")
+                b.append(f"<path d='M{x+5} {y+11.5} l4.5 5 l8 -10' fill='none' stroke='var(--ink)' "
+                         f"stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/>")
     yb = y0 + 10 * c
     b.append(g('fi', 0.5, f"<rect x='{x0}' y='{y0}' width='{c}' height='{10*c}' fill='none' stroke='{GOLD}' stroke-width='2.5'/>"))
     b.append(g('fi', 0.9, ''.join(t(x0 + j * c + c / 2, yb + 18, '3', GOLD, 14, weight=700) for j in range(20))))
