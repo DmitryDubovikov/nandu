@@ -57,6 +57,29 @@ for f, *_ in items:
         vis.update(json.load(open(j)))
 vp = md[:-3] + '.vis.json'
 json.dump(vis, open(vp, 'w'), ensure_ascii=False, indent=1)
+# ⛔ артефакт первой идеи (CLAUDE.md, верхний блок; _md/CHECKLIST.md): ловим запаздывающий артефакт и заголовки-темы.
+# Геометрия (Т2…) и системы (Т1, Т1″) — исключения; Т1′ — цепочка со схемой-стрелками вместо формулы.
+LINT_SKIP = ('Т2', 'Т1')
+# «Способ — …» (что считается одним способом) — законная предпосылка, родитель сам её потребовал в №3
+BANNED = ('Жанр ответа', 'Заметь главное', '**Обозначения', 'С чего начать', 'План готов')
+for f, typ, *_ in items:
+    if typ.startswith(LINT_SKIP):
+        continue
+    paras = [x.strip() for x in open(os.path.join(M, f + '.md')).read().split('\n\n') if x.strip()]
+    q = next((i for i, x in enumerate(paras) if '?' in x and not x.startswith('**Условие')), 0)
+    k = next((i for i, x in enumerate(paras) if re.match(r'^N(\([^)]*\))?\s*=', x)), None)
+    if k is None:
+        print(f'  ⚠ артефакт: {f} — нет формулы «N = …»'); continue
+    pre = [x for x in paras[q + 1:k] if not x.startswith('<small>')]
+    if len(pre) > 9:
+        print(f'  ⚠ артефакт: {f} — до «N = …» {len(pre)} абзацев (больше 9)')
+    for w in BANNED:
+        if any(w in x for x in paras[:k]):
+            print(f'  ⚠ артефакт: {f} — до «N = …» стоит «{w.strip("*")}»')
+    for x in paras[k:]:
+        m = re.match(r'^\*\*(\d+)\. (.+?)\*\*', x)
+        if m and 'N(' not in m.group(2):
+            print(f'  ⚠ артефакт: {f} — заголовок «{m.group(1)}. {m.group(2)}» не называет операнд')
 r = subprocess.run([sys.executable, TOOL, md, out, vp], capture_output=True, text=True)
 for line in (r.stdout + r.stderr).splitlines():
     if 'без якоря' in line or 'Traceback' in line:

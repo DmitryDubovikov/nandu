@@ -1,5 +1,26 @@
 # CLAUDE.md
 
+> ## ⛔ ЖЁСТКОЕ ТРЕБОВАНИЕ К РЕШЕНИЯМ ЗАДАЧ: ПЕРВАЯ ИДЕЯ → СРАЗУ НЕСГОРАЕМЫЙ АРТЕФАКТ
+>
+> **НАРУШЕНИЕ = РЕШЕНИЕ НЕ ПРИНИМАЕТСЯ.** Действует для **любого решения задачи**: идеальные решения образцов, разборы,
+> решённые примеры и решения в решебниках/ключах. **На теорию учебника без задачи не распространяется** — в объяснение
+> понятия или приёма, где задачи нет, артефакты не подмешиваются.
+>
+> **ПЕРВАЯ ИДЕЯ СРАЗУ ДАЁТ ФОРМУЛУ «ОТВЕТ = ОПЕРАНДЫ». ДАЛЬШЕ КАЖДЫЙ РАЗДЕЛ СЧИТАЕТ РОВНО ОДИН ОПЕРАНД.**
+>
+> - До артефакта — **только** то, без чего его не выписать: что считается одним способом («Способ — …») и *цитата условия* ⇒ вывод. Никаких «Жанр ответа»,
+>   «Обозначения», «Заметь главное»-эссе, «как будем считать дальше» — то, как найдётся операнд (кратность, остатки, перебор),
+>   появляется в разделе этого операнда.
+> - Операнды названы так, что видно, что они считают: `N = N(17bc) + N(1a7c) + N(1ab7) + N(2000–2017)`; искомое — просто `N`.
+> - Заголовок раздела = операнд (`**1. N(17bc).**`); раздел кончается «операнд = число»; последний раздел — сборка.
+> - Исключения: геометрия (рисунки, правило 8) и задачи, сводящиеся к системе уравнений (запись + механика, правило 8).
+>   Цепочка (известное → целое → следующее целое) — артефакт-схема из стрелок (правило 8, «North Star»).
+> - Полный список дефектов, найденных родителем: `26-27/nandu_level2/idealnye_resheniya/_md/CHECKLIST.md`.
+>   `sobrat.py` печатает ⚠ по образцам, где артефакт запаздывает или заголовок не операнд, — ⚠ чинится до показа родителю.
+>
+> Решение родителя 24.10.2026: «сплошной текст, сплошная неструктурированная болтовня… первая идея должна приводить сразу к
+> несгораемому артефакту… Не нужно забегать вперёд».
+
 ## What this repository is
 
 Not a software project. It is a set of **Russian-language study materials** preparing a child
@@ -152,7 +173,8 @@ These conventions are load-bearing across all materials — keep them.
    No chapter is planned from the typology alone, and no textbook is written before its moves exist in
    accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_roadmap.md`.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
-   Structure: **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
+   Structure (in problem solutions the plan IS the first-idea artifact of the ⛔ block at the top of this file):
+   **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
    subtasks. That artifact may be an algebraic combination of blocks («Ответ = Д × М»), a reduction
    («Ответ = все a, при которых …»), or, for the «какие значения возможны?» genre, **«оценка плюс пример»**.
    Then each subtask is its own bold «Шаг N — …» ending with its result (`→ **Д = 10**`); the last step is сборка —
@@ -216,6 +238,11 @@ These conventions are load-bearing across all materials — keep them.
    when the answer is a chain (known number → whole → next whole), the plan is an SVG scheme right after «Идея» — nodes are
    the asked N(…), each arrow labelled with its datum — read off the statement, not announced in hindsight; every section =
    one arrow, opens with the same scheme with that arrow highlighted, headings = target nodes.
+   A sum-decomposition tree is different: its lower levels (worlds, «= как …») are not in the statement, so it goes **at
+   the end** as «Обзор решения» with values in the nodes, never on top (окт 2026, «на графе мы уже забегаем вперёд»).
+   **A general fact used inside a solution goes in an inset** (окт 2026): md `:::box <ярлык>` … `:::` — the fact for
+   any case, its picture on numbers labelled «пример на числах, не из задачи»; right after the box, «В частности, …» applies it
+   to the problem's own expression. Never mix the general fact and the application in one run of text.
    **A section heading names what the section finds** (окт 2026): the plan formula is written through named operands
    — N(паролей) = N(букв на месте 1) · N(мест для 7) · N(заполнений свободных мест) — and each heading is one of them
    («2. N(заполнений свободных мест).»), never a description («2. Два свободных места»); the section ends «N(…) = число».

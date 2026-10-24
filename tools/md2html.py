@@ -16,6 +16,9 @@ def inline(s):
     s = re.sub(r'`([^`]+)`', r'<code>\1</code>', s)
     s = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', s)
     s = re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)', r'<em>\1</em>', s)
+    # цветные ручки работают и в строках-формулах: операнд одного цвета в формуле и там, где его считают
+    if any(c in s for c in '⟦⟪⦃⦅⟬'):
+        s = pens(s)
     return s
 
 def pens(s):
@@ -42,7 +45,7 @@ def plain(s):
     return s
 
 
-FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−·×÷:=,.…\'’≠≤≥<>/√²³|]+$')
+FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−–·×÷:=,.…\'’≠≤≥<>/√²³|⋮⇔⇒⟦⟧⟪⟫⦃⦄⦅⦆⟬⟭]+$')
 
 def is_formula(line):
     """Строка-формула (правило 10: формула стоит на своей строке).
@@ -65,14 +68,14 @@ def is_formula(line):
     if len(t) > 90 or len(t.split()) > 30:
         return None
     if marked:
-        if re.search(r'[=≤≥<>·→]', t):
+        if re.search(r'[=≤≥<>·→⋮⇔]', t):
             return t + tail
         # выражение без знака отношения: «100a + 10b + c»
         if re.search(r'[+−:]', t) and re.search(r'\d', t) and len(t.split()) <= 10:
             return t + tail
         return None
     # голая строка без разметки — требования строже
-    if not re.search(r'[=≤≥]', t) or '. ' in t or '—' in t:
+    if not re.search(r'[=≤≥⋮⇔]', t) or '. ' in t or '—' in t:
         return None
     return t + tail if FORMULA.match(t) else None
 
@@ -103,6 +106,12 @@ def parse(md):
             i += 1; continue
         if s == '---':
             blocks.append(('hr', '')); i += 1; continue
+        if s.startswith(':::box'):
+            # врезка: :::box <ярлык> … ::: — общий приём, не относящийся к задаче, внутри решения
+            j = i + 1; buf = []
+            while j < len(lines) and lines[j].strip() != ':::':
+                buf.append(lines[j]); j += 1
+            blocks.append(('box', s[6:].strip() + '\x1f' + '\n'.join(buf))); i = j + 1; continue
         if s == ':::cols':
             # две колонки рядом: :::cols … :::col … ::: — там, где два случая расходятся
             j = i + 1; cols, buf = [], []
@@ -329,6 +338,22 @@ def render_list(src):
         return f'<ol class="st num">{li}</ol>'
     return '<ul class="st">' + ''.join(f'<li>{inline(x)}</li>' for x in items) + '</ul>'
 
+def render_inner(md, visuals=None, used=None):
+    parts = []
+    for k2, v2 in parse(md):
+        parts.append(render_block((k2, v2)))
+        if visuals is not None:
+            key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v2)).strip()
+            for anchor, figure in visuals.items():
+                if anchor in key and anchor not in used:
+                    used.add(anchor); parts.append(figure)
+    return ''.join(parts)
+
+def render_box(v, visuals=None, used=None):
+    tag, body = v.split('\x1f', 1)
+    return (f'<div class="card box st"><span class="tag">{inline(tag)}</span>'
+            f'{render_inner(body, visuals, used)}</div>')
+
 def render_cols(v, visuals=None, used=None):
     out = []
     for col in v.split('\x1e'):
@@ -348,6 +373,8 @@ def render_block(b):
     if k == 'hr':   return '<hr>'
     if k == 'cols':
         return render_cols(v)
+    if k == 'box':
+        return render_box(v)
     if k == 'code': return f'<pre class="ascii st">{html.escape(v)}</pre>'
     if k == 'sys':  return f'<pre class="sys st">{pens(html.escape(v))}</pre>'
     if k == 'table':return f'<div class="st">{render_table(v)}</div>'
@@ -787,6 +814,9 @@ def build_pages(md, visuals=None, src_path=None):
             if k == 'cols':
                 body.append(render_cols(v, visuals, used))
                 continue
+            if k == 'box':
+                body.append(render_box(v, visuals, used))
+                continue
             h = render_block((k, v))
             if idx in at:
                 h = f'<div id="a{at[idx]}" data-art="{at[idx]}">{h}</div>'
@@ -911,6 +941,9 @@ def md_text(md, drop_head=False, drop_h2=False):
             out.append(md_text(v))
         elif k == 'cols':
             out.extend(md_text(c) for c in v.split('\x1e'))
+        elif k == 'box':
+            t_, b_ = v.split('\x1f', 1)
+            out.extend([t_, md_text(b_)])
         else:
             out.append(v)
     return ' '.join(out)
