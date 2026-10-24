@@ -208,6 +208,14 @@ These conventions are load-bearing across all materials — keep them.
    одновременно»): md block `:::cols` … `:::col` … `:::` (md2html renders it side by side, figures anchor inside
    columns); each column = world heading, its strip, the line where it differs, its formula. Small-print breakdowns
    under a count are `<small>…</small>` lines, every case written out when it fits.
+   **Fractions (Т1′ family) are bars, not prose** (окт 2026): each whole = a bar of equal bricks, parts named in words
+   above and fractions below, the complement written as «1/3 = 1 − 2/3», the known number inside its part; a cell shared by
+   two wholes is a small table figure with its row and column outlined. No «Обозначения», «Перевод», «Заметь главное»
+   paragraphs; each section = one sentence «X — доля целого, и это 372» + formulas. Model: `idealnye_resheniya/_md/T1p_nac_2024_4.md`.
+   **A chain solution gets its North Star as an arrow scheme** (окт 2026, «не видно North Star… разрозненные уравнения»):
+   when the answer is a chain (known number → whole → next whole), the plan is an SVG scheme right after «Идея» — nodes are
+   the asked N(…), each arrow labelled with its datum — read off the statement, not announced in hindsight; every section =
+   one arrow, opens with the same scheme with that arrow highlighted, headings = target nodes.
    **Digits only for numbers, words only for counts and sets** (окт 2026): a number standing in a cell or an equation is
    written in digits — «3 уже стоит», never «тройка уже стоит»; words name a count or a group — «три места», «четыре
    числа», «тройка» = a tuple of three. Formulas are exempt (4 · 3 = 12). Applies to every ideal solution.
