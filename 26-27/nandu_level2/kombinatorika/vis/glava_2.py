@@ -90,22 +90,23 @@ def roles():
 # ——— 2. ⚠ Почему n − k + 1: серых в строке на одну меньше её номера ———
 
 def grid():
-    rows = [('1-й выбор — ведущий', []), ('2-й выбор — 1-й помощник', [1]),
-            ('3-й выбор — 2-й помощник', [1, 5]), ('4-й выбор — лишний', [1, 5, 2])]
+    order = [1, 5, 2, 0, 3, 4, 6, 7]          # выбранные Б, Е, В — слева, остальные по алфавиту
+    rows = [('1-й выбор — ведущий', 0), ('2-й выбор — 1-й помощник', 1), ('3-й выбор — 2-й помощник', 2)]
     b = []
-    for r, (lab, taken) in enumerate(rows):
+    for r, (lab, n) in enumerate(rows):
         y = 34 + r * 54
-        bad = r == 3
-        b.append(t(14, y + 6, lab, RED if bad else 'var(--ink)', 17, anchor='start'))
-        for j in range(8):
-            b.append(kid(262 + j * 40, y, j, r=15, grey=j in taken))
-        b.append(t(590, y + 6, f'занято {len(taken)}', GREY, 16, anchor='start'))
-        b.append(t(680, y + 6, f'осталось {8-len(taken)}', RED if bad else GOLD, 17, anchor='start', weight=700))
-    y3 = 34 + 3 * 54
-    b.append(f"<rect x='6' y='{y3-24}' width='790' height='48' rx='8' fill='none' stroke='{RED}' "
-             f"stroke-dasharray='6 4' stroke-width='1.5'/>")
-    b.append(t(400, y3 + 50, '8 − 3 = 5 — это уже четвёртый выбор: четыре роли, а не три', RED, 17))
-    return fig(svg(800, 270, ''.join(b)))
+        b.append(t(14, y + 6, lab, 'var(--ink)', 17, anchor='start'))
+        for j, i in enumerate(order):
+            b.append(kid(262 + j * 40, y, i, r=15, grey=j < n))
+        b.append(t(590, y + 6, f'занято {n}', GREY, 16, anchor='start'))
+        b.append(t(680, y + 6, f'осталось {8-n}', GOLD, 17, anchor='start', weight=700))
+    y = 34 + 2 * 54 + 24
+    def brace(x1, x2, col, text):
+        return (f"<path d='M{x1} {y} v8 H{x2} v-8' fill='none' stroke='{col}' stroke-width='1.6'/>"
+                + t((x1 + x2) / 2, y + 30, text, col, 16, weight=700))
+    b.append(brace(246, 318, 'var(--muted)', 'заняты 2 = 3 − 1'))
+    b.append(brace(326, 558, GOLD, 'свободны 8 − 2 = 6'))
+    return fig(svg(800, 200, ''.join(b)))
 
 
 # ——— 3. 8 · 7 · 6 → умножить и разделить на 5! → 8! / 5! ———
