@@ -19,8 +19,8 @@ MD = os.path.join(HERE, '..', 'nandu_n2_kombinatorika_uchebnik.md')
 VIS = os.path.join(HERE, '..', 'nandu_n2_kombinatorika_uchebnik.vis.json')
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
-ZAPRET = (r'как в примере|в примере [0-9]|примера [0-9]|пока нечего|не помещается|Идея главы|'
-          r'что здесь произошло|\(Р[1-4]\)|Бен[яиюе]\b')
+ZAPRET = re.compile(r'как в примере|в примере [0-9]|примера [0-9]|\(пример [0-9]\)|справа выше|слева выше|'
+                    r'пока нечего|не помещается|Идея главы|что здесь произошло|\(Р[1-4]\)|Бен[яиюе]\b', re.I)
 
 
 def chapter(md, n):
@@ -44,7 +44,7 @@ def main():
         print('✗', msg)
 
     for i, ln in enumerate(lines):
-        if re.search(ZAPRET, ln):
+        if ZAPRET.search(ln):
             err(f'стр. {start+i}: отсылка / персонаж образца: {ln.strip()[:90]}')
 
     # абзац из нескольких мыслей: обычный абзац, где после точки начинается новое предложение
@@ -52,10 +52,11 @@ def main():
     for i, ln in enumerate(lines + ['']):
         if ln.strip():
             if not para:
-                p0 = i
+                p0, raw = i, ln
             para.append(ln.strip())
             continue
-        if para and not re.match(r'^(#|\||- |\d+\. |>|:::|<|```)', para[0]):
+        # абзац с отступом — продолжение пункта списка, он проверяется вместе со списком не здесь
+        if para and not raw.startswith(' ') and not re.match(r'^(#|\||- |\d+\. |>|:::|<|```)', para[0]):
             s = ' '.join(para)
             s = re.sub(r'\*\*[^*]+\*\*', '', s)          # жирный ярлык «**Почему …**» — не предложение
             if re.search(r'[.!?] [А-ЯЁA-Z«]', s):
