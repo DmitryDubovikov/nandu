@@ -1,3 +1,6 @@
 tools/venv/
 *.zip
 .DS_Store
+
+# Источники учебника комбинаторики: чужие тексты, в публичный репозиторий не коммитим
+26-27/nandu_level2/kombinatorika/istochniki/
