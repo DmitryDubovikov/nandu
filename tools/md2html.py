@@ -1006,6 +1006,7 @@ def check(md_path, html_path, minrun=3):
     raw = re.sub(r'<figure.*?</figure>|<title>.*?</title>', ' ', raw, flags=re.S)
     raw = re.sub(r'<p class="sub">.*?</p>', ' ', raw, flags=re.S)
     raw = re.sub(r'<div class="pager">.*?</div>', ' ', raw, flags=re.S)
+    raw = re.sub(r'<p class="chapnav">.*?</p>', ' ', raw, flags=re.S)   # одноколоночный учебник: навигация в main
     nx = len(re.findall(r'<p class="xlink">', raw))
     raw = re.sub(r'<p class="xlink">.*?</p>', ' ', raw, flags=re.S)
     # слои конспекта: итог шага в свёрнутом заголовке — копия строки «→» из тела шага
