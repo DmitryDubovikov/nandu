@@ -45,7 +45,7 @@ def plain(s):
     return s
 
 
-FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−–·×÷:=,.…\'’≠≤≥<>/√²³|⋮⇔⇒⟦⟧⟪⟫⦃⦄⦅⦆⟬⟭]+$')
+FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−–·×÷:=,.…\'’≠≤≥<>/√²³⁰¹⁴⁵⁶⁷⁸⁹ⁿ₀₁₂₃₄₅₆₇₈₉ₖ^_|⋮⇔⇒⟦⟧⟪⟫⦃⦄⦅⦆⟬⟭]+$')
 
 def is_formula(line):
     """Строка-формула (правило 10: формула стоит на своей строке).
@@ -123,6 +123,16 @@ def parse(md):
                 j += 1
             cols.append('\n'.join(buf))
             blocks.append(('cols', '\x1e'.join(cols))); i = j + 1; continue
+        if s.startswith('<details'):
+            # спойлер: <details><summary>Ответ</summary> … </details> — ответ «Проверь себя» в учебнике
+            j = i + 1; buf = []
+            while j < len(lines) and lines[j].strip() != '</details>':
+                buf.append(lines[j]); j += 1
+            body = '\n'.join(buf)
+            m = re.search(r'<summary>(.*?)</summary>', body, re.S)
+            head = m.group(1).strip() if m else 'Ответ'
+            body = re.sub(r'<summary>.*?</summary>', '', body, count=1, flags=re.S)
+            blocks.append(('spoiler', head + '\x1f' + body)); i = j + 1; continue
         if s.startswith('```'):
             j = i + 1; buf = []
             while j < len(lines) and not lines[j].strip().startswith('```'):
@@ -375,6 +385,10 @@ def render_block(b):
         return render_cols(v)
     if k == 'box':
         return render_box(v)
+    if k == 'spoiler':
+        head, body = v.split('\x1f', 1)
+        inner = ''.join(render_block(b) for b in parse(body))
+        return f'<details class="card spoiler st"><summary>{inline(head)}</summary>{inner}</details>'
     if k == 'code': return f'<pre class="ascii st">{html.escape(v)}</pre>'
     if k == 'sys':  return f'<pre class="sys st">{pens(html.escape(v))}</pre>'
     if k == 'table':return f'<div class="st">{render_table(v)}</div>'
@@ -942,6 +956,9 @@ def md_text(md, drop_head=False, drop_h2=False):
         elif k == 'cols':
             out.extend(md_text(c) for c in v.split('\x1e'))
         elif k == 'box':
+            t_, b_ = v.split('\x1f', 1)
+            out.extend([t_, md_text(b_)])
+        elif k == 'spoiler':
             t_, b_ = v.split('\x1f', 1)
             out.extend([t_, md_text(b_)])
         else:
