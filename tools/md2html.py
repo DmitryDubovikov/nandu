@@ -154,9 +154,14 @@ def parse(md):
             blocks.append(('table', '\n'.join(buf))); continue
         if re.match(r'^([-*]|\d+\.) ', s):
             buf = []
-            while i < len(lines) and (re.match(r'^\s*([-*]|\d+\.) ', lines[i]) or
-                                      (lines[i].startswith('  ') and lines[i].strip())):
-                buf.append(lines[i].rstrip()); i += 1
+            while i < len(lines):
+                if re.match(r'^\s*([-*]|\d+\.) ', lines[i]) or (lines[i].startswith('  ') and lines[i].strip()):
+                    buf.append(lines[i].rstrip()); i += 1; continue
+                # пустая строка, за которой идёт отступ, — новый абзац того же пункта (формула под пунктом)
+                if not lines[i].strip() and i + 1 < len(lines) and lines[i + 1].startswith('   ') \
+                        and lines[i + 1].strip():
+                    buf.append(''); i += 1; continue
+                break
             blocks.append(('list', '\n'.join(buf))); continue
         buf = []
         while i < len(lines) and lines[i].strip() and not re.match(
@@ -338,20 +343,28 @@ def render_quote(src):
     return f'<div class="{cls} st">' + '\n'.join(inner) + '</div>'
 
 def render_list(src):
-    items, cur = [], None
+    items, nums, cur = [], [], None
     for ln in src.split('\n'):
         m = re.match(r'^\s*([-*]|\d+\.) (.*)$', ln)
         if m:
             if cur is not None: items.append(cur)
-            cur = m.group(2)
+            cur = m.group(2); nums.append(m.group(1))
         elif cur is not None:
-            cur += ' ' + ln.strip()
+            cur += '\n\n' if not ln.strip() else ('' if cur.endswith('\n\n') else ' ') + ln.strip()
     if cur is not None: items.append(cur)
+    items = [render_item(x) for x in items]
     if re.match(r'^\s*\d+\.', src):
-        li = ''.join(f'<li><span class="lin">{n+1}.</span> {inline(x)}</li>'
-                     for n, x in enumerate(items))
+        # номер — из исходника: пункт с формулой на отдельной строке рвёт список на куски,
+        # и счёт с единицы в каждом куске давал «1. 1. 1.»
+        li = ''.join(f'<li><span class="lin">{num}</span> {x}</li>'
+                     for num, x in zip(nums, items))
         return f'<ol class="st num">{li}</ol>'
-    return '<ul class="st">' + ''.join(f'<li>{inline(x)}</li>' for x in items) + '</ul>'
+    return '<ul class="st">' + ''.join(f'<li>{x}</li>' for x in items) + '</ul>'
+
+def render_item(x):
+    """Пункт списка: первый абзац строкой, следующие — своими абзацами внутри пункта."""
+    head, *rest = x.split('\n\n')
+    return inline(head) + ''.join(f'<span class="lip">{inline(r)}</span>' for r in rest)
 
 def render_inner(md, visuals=None, used=None):
     parts = []
