@@ -156,19 +156,31 @@ def strips():
     return fig(svg(640, 410, ''.join(b)))
 
 
-# ——— 5. Пример 4: шесть слов, в каждом все три цвета ———
+# ——— 5. Пример 4: из 27 слов оба условия оставляют одни и те же шесть ———
 
-def tiles():
-    words = ['АБВ', 'АВБ', 'БАВ', 'БВА', 'ВАБ', 'ВБА']
-    idx = {l: c for l, c in LETTERS}
+def filters():
+    from itertools import product
+    col = {l: c for l, c in LETTERS}
+    words = [''.join(w) for w in product('АБВ', repeat=3)]
+    conds = [('не более одного раза: гаснут слова с повтором', lambda w: len(set(w)) < 3),
+             ('не менее одного раза: гаснут слова, где какой-то буквы нет', lambda w: set(w) != set('АБВ'))]
     b = []
-    for w, word in enumerate(words):
-        x0 = 10 + w * 104
-        for k, ch in enumerate(word):
-            x = x0 + k * 30
-            b.append(f"<rect x='{x}' y='10' width='27' height='27' rx='5' fill='{idx[ch]}'/>")
-            b.append(t(x + 13.5, 29, ch, '#0d1117', 15, weight=700))
-    return fig(svg(624, 46, ''.join(b)))
+    for k, (title, bad) in enumerate(conds):
+        y0 = 10 + k * 150
+        a = 0.6 + 2.4 * k
+        b.append(t(10, y0 + 14, title, 'var(--ink)', 15, anchor='start'))
+        for n, w in enumerate(words):
+            x, y = 10 + (n % 9) * 64, y0 + 30 + (n // 9) * 36
+            tiles = ''.join(f"<rect x='{x+m*18}' y='{y}' width='17' height='24' rx='3' fill='{col[ch]}'/>"
+                            + t(x + m * 18 + 8.5, y + 17, ch, '#0d1117', 13, weight=700) for m, ch in enumerate(w))
+            if bad(w):
+                b.append(g('fo', a, tiles, ';--o:.15'))
+            else:
+                b.append(tiles)
+                b.append(f"<rect x='{x-4}' y='{y-4}' width='61' height='32' rx='6' fill='none' stroke='{GOLD}' "
+                         f"stroke-width='2' class='fi' style='--d:{a+0.8}s'/>")
+        b.append(t(586, y0 + 14, 'осталось 6', GOLD, 15, anchor='end', weight=700, cls='fi', d=a + 0.8))
+    return fig(svg(590, 300, ''.join(b)), fx=True)
 
 
 # ——— доски 4 × 4 ———
@@ -290,7 +302,7 @@ FIGS = {
     'Например, три роли из восьми ребят': grid,
     'Например, для трёх ролей из восьми ребят': fraction,
     'Составляем слово длины k из алфавита в n букв': strips,
-    'В обоих случаях получаются ровно те же слова': tiles,
+    'В обоих случаях получаются ровно те же слова': filters,
     'ставят 4 одинаковые ладьи': board_task,
     'вертикали d — одна': columns,
     'В его цепочке ладьи пронумерованы': benya,
