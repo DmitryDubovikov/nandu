@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Иллюстрации главы 4 «Сочетания» → nandu_n2_kombinatorika_uchebnik.vis.json.
 
-Язык глав 2–3 продолжается: у каждого ребёнка свой цвет, склеенное гаснет, m — синей плашкой,
+Язык глав 2–3 продолжается: у каждого ребёнка свой цвет, склеенное гаснет,
 цепочки (посчитанные) — золотом; П — золотая клетка, М — серая; сокращаемый факториал — фиолетовый.
 Анимируется только переход (правило 15): нижний треугольник таблицы гаснет — пары склеились;
 шесть цепочек съезжаются в одну тройку; 6! уходит сверху и снизу; рамка переезжает с мест П на места М.
@@ -12,7 +12,7 @@ import json, os, re
 from itertools import permutations
 
 from glava_2 import svg, fig, t, g, GOLD, BLUE, GREEN, VIOLET, GREY
-from glava_3 import kid, pill, KIDS, DARK
+from glava_3 import kid, KIDS, DARK
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 VIS = os.path.join(HERE, '..', 'nandu_n2_kombinatorika_uchebnik.vis.json')
@@ -52,8 +52,7 @@ def pairs_table():
     b.append(t(tx, y0 + 130, 'один человек дважды', 'var(--muted)', 13, anchor='start'))
     b.append(t(tx, y0 + 172, 'нижний треугольник —', 'var(--muted)', 14, anchor='start', cls='fi', d=2.4))
     b.append(t(tx, y0 + 192, 'те же пары наоборот', 'var(--muted)', 14, anchor='start', cls='fi', d=2.4))
-    b.append(pill(tx, y0 + 232, 'm = 2', 3.0, anchor='start'))
-    b.append(t(tx, y0 + 266, '30 : 2 = 15 пар', 'var(--ink)', 17, anchor='start', weight=700, cls='fi', d=3.4))
+    b.append(t(tx, y0 + 236, '30 : 2 = 15 пар', 'var(--ink)', 17, anchor='start', weight=700, cls='fi', d=3.4))
     return fig(svg(tx + 190, max(y0 + N * c + 10, y0 + 280), ''.join(b), maxw=tx + 190), fx=True)
 
 
@@ -72,8 +71,7 @@ def triples():
                           f"stroke='var(--ink)' stroke-width='2'/>"
                + ''.join(kid(tx + k * 40, ty, i, r=15, size=13) for k, i in enumerate([0, 1, 2]))))
     b.append(t(tx + 40, ty + 46, 'одна тройка {А, Б, В}', 'var(--ink)', 15, weight=700, cls='fi', d=2.5))
-    b.append(pill(tx + 40, ty + 84, 'm = 3! = 6', 2.9))
-    b.append(t(tx + 40, ty + 116, '120 : 6 = 20', 'var(--ink)', 17, weight=700, cls='fi', d=3.3))
+    b.append(t(tx + 40, ty + 84, '120 : 3! = 20', 'var(--ink)', 17, weight=700, cls='fi', d=3.3))
     return fig(svg(620, 260, ''.join(b), maxw=620), fx=True)
 
 
@@ -176,8 +174,8 @@ def code():
 
 
 FIGS = {
-    'N(пар дежурных) = 6 · 5 : 2': pairs_table,
-    'N(троек дежурных) = 6 · 5 · 4 : 3!': triples,
+    'N(пар дежурных) = 30 : 2': pairs_table,
+    'N(троек дежурных) = 120 : 3!': triples,
     'C(6, 2) = 6 · 5 · 4! / (2! · 4!)': cancel,
     'Например, слово МППММПМ означает': record,
     'Как видишь, C(7, 3) = C(7, 4)': complement,
