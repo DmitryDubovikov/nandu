@@ -173,9 +173,30 @@ def code():
     return fig(svg(430, 172, ''.join(b), maxw=430))
 
 
+# ——— 2б. Пример 2, лесенка: двадцать троек столбцами по первой букве ———
+
+def ladder3():
+    from itertools import combinations
+    b = []
+    heads = ['есть А', 'А нет, есть Б', 'нет А и Б, есть В', 'нет А, Б и В']
+    for col, first in enumerate(range(4)):
+        x = 34 + col * 140
+        trip = [c for c in combinations(range(6), 3) if c[0] == first]
+        b.append(t(x + 42, 18, heads[col], 'var(--ink)', 13, weight=700))
+        for r, c in enumerate(trip):
+            y = 40 + r * 28
+            b.append(f"<rect x='{x}' y='{y}' width='84' height='24' rx='12' fill='none' stroke='var(--line)'/>")
+            b.append(''.join(kid(x + 16 + k * 26, y + 12, i, r=10, size=11) for k, i in enumerate(c)))
+        b.append(t(x + 40, 40 + len(trip) * 28 + 18, str(len(trip)), GOLD, 17, weight=700))
+    b.append(t(570, 330, '10 + 6 + 3 + 1 = 20', 'var(--ink)', 17, anchor='end', weight=700))
+    return fig(svg(580, 342, ''.join(b), maxw=580),
+               'тройки по первому по алфавиту дежурному: столбцы не пересекаются и вместе — все тройки')
+
+
 FIGS = {
     'N(пар дежурных) = N(цепочек) : 2': pairs_table,
     'N(троек дежурных) = N(цепочек) : 3!': triples,
+    'N(троек дежурных) = 10 + 6 + 3 + 1': ladder3,
     'C(6, 2) = 6 · 5 · 4! / (2! · 4!)': cancel,
     'Например, слово МППММПМ означает': record,
     'Как видишь, C(7, 3) = C(7, 4)': complement,
