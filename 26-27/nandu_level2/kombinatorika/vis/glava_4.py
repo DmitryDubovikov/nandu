@@ -21,15 +21,15 @@ VIS = os.path.join(HERE, '..', 'nandu_n2_kombinatorika_uchebnik.vis.json')
 # ——— 1. Пример 1: 72 клетки «капитан × помощник», пара дежурных — две клетки ———
 
 def pairs_table():
-    c, x0, y0 = 30, 70, 64
-    b = [t(x0 + 4.5 * c, 18, 'помощник', size=14), t(18, y0 + 4.5 * c, 'капитан', size=14,
-                                                     extra=f" transform='rotate(-90 18 {y0 + 4.5 * c})'")]
-    for i in range(9):
-        b.append(kid(x0 + i * c + c / 2, 40, i, r=12, size=12))
-        b.append(kid(46, y0 + i * c + c / 2, i, r=12, size=12))
+    c, x0, y0, N = 40, 70, 64, 6
+    b = [t(x0 + N / 2 * c, 18, 'помощник', size=14), t(18, y0 + N / 2 * c, 'ведущий', size=14,
+                                                       extra=f" transform='rotate(-90 18 {y0 + N / 2 * c})'")]
+    for i in range(N):
+        b.append(kid(x0 + i * c + c / 2, 40, i, r=13, size=13))
+        b.append(kid(46, y0 + i * c + c / 2, i, r=13, size=13))
     upper, lower = [], []
-    for r in range(9):
-        for j in range(9):
+    for r in range(N):
+        for j in range(N):
             x, y = x0 + j * c, y0 + r * c
             if r == j:
                 b.append(f"<rect x='{x}' y='{y}' width='{c}' height='{c}' fill='var(--bg)' stroke='var(--line)'/>"
@@ -44,17 +44,17 @@ def pairs_table():
     ab = f"<rect x='{x0+c}' y='{y0}' width='{c}' height='{c}' fill='none' stroke='{GOLD}' stroke-width='3'/>"
     ba = f"<rect x='{x0}' y='{y0+c}' width='{c}' height='{c}' fill='none' stroke='{GOLD}' stroke-width='3'/>"
     b.append(g('fi', 0.6, ab + ba))
-    tx = x0 + 9 * c + 26
+    tx = x0 + N * c + 26
     b.append(t(tx, y0 + 14, '(А, Б) и (Б, А) —', GOLD, 15, anchor='start', weight=700, cls='fi', d=0.6))
     b.append(t(tx, y0 + 36, 'одна пара {А, Б}', 'var(--ink)', 15, anchor='start', weight=700, cls='fi', d=1.2))
-    b.append(t(tx, y0 + 90, '9 · 8 = 72 цепочки', GOLD, 15, anchor='start', weight=700))
+    b.append(t(tx, y0 + 90, '6 · 5 = 30 цепочек', GOLD, 15, anchor='start', weight=700))
     b.append(t(tx, y0 + 112, 'на диагонали — никого:', 'var(--muted)', 13, anchor='start'))
     b.append(t(tx, y0 + 130, 'один человек дважды', 'var(--muted)', 13, anchor='start'))
     b.append(t(tx, y0 + 172, 'нижний треугольник —', 'var(--muted)', 14, anchor='start', cls='fi', d=2.4))
     b.append(t(tx, y0 + 192, 'те же пары наоборот', 'var(--muted)', 14, anchor='start', cls='fi', d=2.4))
     b.append(pill(tx, y0 + 232, 'm = 2', 3.0, anchor='start'))
-    b.append(t(tx, y0 + 266, '72 : 2 = 36 пар', 'var(--ink)', 17, anchor='start', weight=700, cls='fi', d=3.4))
-    return fig(svg(tx + 190, y0 + 9 * c + 10, ''.join(b), maxw=tx + 190), fx=True)
+    b.append(t(tx, y0 + 266, '30 : 2 = 15 пар', 'var(--ink)', 17, anchor='start', weight=700, cls='fi', d=3.4))
+    return fig(svg(tx + 190, max(y0 + N * c + 10, y0 + 280), ''.join(b), maxw=tx + 190), fx=True)
 
 
 # ——— 2. Пример 2: шесть цепочек склеиваются в одну тройку ———
@@ -73,38 +73,38 @@ def triples():
                + ''.join(kid(tx + k * 40, ty, i, r=15, size=13) for k, i in enumerate([0, 1, 2]))))
     b.append(t(tx + 40, ty + 46, 'одна тройка {А, Б, В}', 'var(--ink)', 15, weight=700, cls='fi', d=2.5))
     b.append(pill(tx + 40, ty + 84, 'm = 3! = 6', 2.9))
-    b.append(t(tx + 40, ty + 116, '504 : 6 = 84', 'var(--ink)', 17, weight=700, cls='fi', d=3.3))
+    b.append(t(tx + 40, ty + 116, '120 : 6 = 20', 'var(--ink)', 17, weight=700, cls='fi', d=3.3))
     return fig(svg(620, 260, ''.join(b), maxw=620), fx=True)
 
 
 # ——— 3. ⚠ сокращение: 9! расписан до 6!, 6! уходит сверху и снизу ———
 
 def cancel():
-    b = [t(16, 78, 'C(9, 3) =', 'var(--ink)', 20, anchor='start')]
-    b.append(g('fo', 0.8, t(214, 56, '9!', 'var(--ink)', 22, weight=600)))
-    top = (t(140, 56, '9 · 8 · 7 ·', GOLD, 22, anchor='start', weight=600)
-           + t(244, 56, '6!', VIOLET, 22, anchor='start', weight=700))
+    b = [t(16, 78, 'C(6, 2) =', 'var(--ink)', 20, anchor='start')]
+    b.append(g('fo', 0.8, t(214, 56, '6!', 'var(--ink)', 22, weight=600)))
+    top = (t(160, 56, '6 · 5 ·', GOLD, 22, anchor='start', weight=600)
+           + t(232, 56, '4!', VIOLET, 22, anchor='start', weight=700))
     b.append(g('fi', 1.0, top))
-    b.append("<line x1='130' y1='70' x2='296' y2='70' stroke='var(--ink)' stroke-width='2'/>")
-    b.append(t(170, 98, '3! ·', 'var(--ink)', 22, anchor='start', weight=600)
-             + t(214, 98, '6!', VIOLET, 22, anchor='start', weight=700))
-    b.append(f"<line x1='240' y1='60' x2='272' y2='38' stroke='{VIOLET}' stroke-width='2.5' "
+    b.append("<line x1='140' y1='70' x2='280' y2='70' stroke='var(--ink)' stroke-width='2'/>")
+    b.append(t(166, 98, '2! ·', 'var(--ink)', 22, anchor='start', weight=600)
+             + t(210, 98, '4!', VIOLET, 22, anchor='start', weight=700))
+    b.append(f"<line x1='228' y1='60' x2='260' y2='38' stroke='{VIOLET}' stroke-width='2.5' "
              f"pathLength='100' class='dr' style='--d:2.0s;--dur:.5s'/>")
-    b.append(f"<line x1='210' y1='102' x2='242' y2='80' stroke='{VIOLET}' stroke-width='2.5' "
+    b.append(f"<line x1='206' y1='102' x2='238' y2='80' stroke='{VIOLET}' stroke-width='2.5' "
              f"pathLength='100' class='dr' style='--d:2.4s;--dur:.5s'/>")
-    rest = (t(316, 78, '=', 'var(--ink)', 22)
-            + t(390, 56, '9 · 8 · 7', GOLD, 22, weight=600)
-            + "<line x1='340' y1='70' x2='440' y2='70' stroke='var(--ink)' stroke-width='2'/>"
-            + t(390, 98, '3!', 'var(--ink)', 22, weight=600)
-            + t(460, 78, '=', 'var(--ink)', 22)
-            + t(510, 56, '504', 'var(--ink)', 22, weight=600)
-            + "<line x1='482' y1='70' x2='538' y2='70' stroke='var(--ink)' stroke-width='2'/>"
-            + t(510, 98, '6', 'var(--ink)', 22, weight=600)
-            + t(560, 78, '= 84', 'var(--ink)', 22, anchor='start', weight=700))
+    rest = (t(304, 78, '=', 'var(--ink)', 22)
+            + t(360, 56, '6 · 5', GOLD, 22, weight=600)
+            + "<line x1='326' y1='70' x2='394' y2='70' stroke='var(--ink)' stroke-width='2'/>"
+            + t(360, 98, '2!', 'var(--ink)', 22, weight=600)
+            + t(416, 78, '=', 'var(--ink)', 22)
+            + t(460, 56, '30', 'var(--ink)', 22, weight=600)
+            + "<line x1='438' y1='70' x2='482' y2='70' stroke='var(--ink)' stroke-width='2'/>"
+            + t(460, 98, '2', 'var(--ink)', 22, weight=600)
+            + t(500, 78, '= 15', 'var(--ink)', 22, anchor='start', weight=700))
     b.append(g('fi', 3.0, rest))
-    b.append(t(16, 136, 'сократили больший факториал снизу — сверху остались три множителя', size=13,
+    b.append(t(16, 136, 'сократили больший факториал снизу — сверху остались два множителя', size=13,
                anchor='start', cls='fi', d=3.0))
-    return fig(svg(640, 148, ''.join(b), maxw=640), fx=True)
+    return fig(svg(600, 148, ''.join(b), maxw=600), fx=True)
 
 
 # ——— плитки записи бросков ———
@@ -155,8 +155,8 @@ def complement():
 # ——— 6. Второе доказательство: набор ↔ код из 1 и 0 ———
 
 def code():
-    letters = 'АБВГДЕ'
-    rows = [('{А, В, Д}', '101010'), ('{Б, В, Е}', '011001')]
+    letters = 'АБВГД'
+    rows = [('{А, В}', '10100'), ('{Б, Д}', '01001')]
     b = []
     for k, ch in enumerate(letters):
         b.append(t(150 + k * 44 + 18, 22, ch, 'var(--muted)', 15, weight=700))
@@ -170,15 +170,15 @@ def code():
             fill = KIDS[k][1] if on else 'var(--bg2)'
             b.append(f"<rect x='{x}' y='{y}' width='36' height='36' rx='6' fill='{fill}' stroke='var(--line)'/>")
             b.append(t(x + 18, y + 25, bit, DARK if on else 'var(--muted)', 18, weight=700))
-    b.append(t(14, 160, 'три единицы и три нуля: набор из трёх букв ↔ анаграмма слова 111000', size=13,
+    b.append(t(14, 160, 'две единицы и три нуля: набор из двух букв ↔ анаграмма слова 11000', size=13,
                anchor='start'))
     return fig(svg(430, 172, ''.join(b), maxw=430))
 
 
 FIGS = {
-    'N(пар дежурных) = 9 · 8 : 2': pairs_table,
-    'N(троек дежурных) = 9 · 8 · 7 : 3!': triples,
-    'C(9, 3) = 9 · 8 · 7 · 6! / (3! · 6!)': cancel,
+    'N(пар дежурных) = 6 · 5 : 2': pairs_table,
+    'N(троек дежурных) = 6 · 5 · 4 : 3!': triples,
+    'C(6, 2) = 6 · 5 · 4! / (2! · 4!)': cancel,
     'Например, слово МППММПМ означает': record,
     'Как видишь, C(7, 3) = C(7, 4)': complement,
     'Каждый набор из k элементов даёт код': code,
