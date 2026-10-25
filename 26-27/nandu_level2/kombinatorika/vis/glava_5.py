@@ -1,0 +1,272 @@
+#!/usr/bin/env python3
+"""Иллюстрации главы 5 «Соответствие» → nandu_n2_kombinatorika_uchebnik.vis.json.
+
+Цветовой язык: шар (ракушка, пирожок, день отдыха) и его 0 — золотой, перегородка и её 1 — синяя,
+пустое — серое; у вида мороженого свой цвет; тренировка — зелёная; в маршруте Г — синие звенья, В — зелёные.
+Анимируется только переход (правило 15): шкатулки съезжаются и стенки становятся перегородками;
+перегородки опускаются в промежутки между пирожками; маршрут идёт звено за звеном и дописывает слово.
+
+Запуск: python3 26-27/nandu_level2/kombinatorika/vis/glava_5.py
+"""
+import json, os, re
+
+from glava_2 import svg, fig, t, g, GOLD, BLUE, GREEN, VIOLET, RED, GREY
+from glava_3 import DARK
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+VIS = os.path.join(HERE, '..', 'nandu_n2_kombinatorika_uchebnik.vis.json')
+
+S = 40          # ширина одной позиции кода
+
+
+def ball(cx, cy, r=13):
+    return f"<circle cx='{cx}' cy='{cy}' r='{r}' fill='{GOLD}'/>"
+
+
+def bar(cx, y0, y1, w=7):
+    return f"<rect x='{cx - w / 2}' y='{y0}' width='{w}' height='{y1 - y0}' rx='3' fill='{BLUE}'/>"
+
+
+def tile(x, y, ch, w=32):
+    one = ch == '1'
+    fill = BLUE if one else GOLD
+    return (f"<rect x='{x}' y='{y}' width='{w}' height='{w}' rx='6' fill='{fill}'/>"
+            + t(x + w / 2, y + w * 0.7, ch, DARK, 17, weight=700))
+
+
+def code_row(x0, y0, code, w=32, gap=8):
+    return ''.join(tile(x0 + k * (w + gap), y0, ch, w) for k, ch in enumerate(code))
+
+
+# ——— 1. Пример 1: шкатулки съезжаются, стенки на стыках — перегородки, раскладка → код ———
+
+def shells():
+    x0, y0, h = 30, 40, 52
+    counts = [2, 1, 1]
+    # итог: шкатулки вплотную, стык первой и второй — на месте 3 кода, второй и третьей — на месте 5
+    edges = [(0, 2.5), (2.5, 4.5), (4.5, 6)]
+    balls = [[0, 1], [3], [5]]
+    shift = [0, 60, 120]           # в начале шкатулки стоят врозь
+    b = [t(x0, 20, 'три шкатулки, раскладка 2, 1, 1', 'var(--ink)', 14, anchor='start', weight=700)]
+    for i, ((a, z), bs) in enumerate(zip(edges, balls)):
+        x = x0 + a * S + shift[i]
+        body = (f"<rect x='{x}' y='{y0}' width='{(z - a) * S}' height='{h}' rx='4' fill='none' "
+                f"stroke='var(--muted)' stroke-width='2'/>"
+                + ''.join(ball(x0 + k * S + S / 2 + shift[i], y0 + h / 2) for k in bs)
+                + t(x + (z - a) * S / 2, y0 + h + 18, f'{i + 1}-я', 'var(--muted)', 13))
+        b.append(g('sl', 0.6, body, f';--to:translate({-shift[i]}px,0)') if shift[i] else body)
+    for s in (2, 4):
+        b.append(g('fi', 2.1, bar(x0 + s * S + S / 2, y0 - 8, y0 + h + 8)))
+    b.append(t(x0 + 6 * S + 28, y0 + h / 2 - 4, 'стыки шкатулок —', BLUE, 14, anchor='start', cls='fi', d=2.1))
+    b.append(t(x0 + 6 * S + 28, y0 + h / 2 + 14, 'две перегородки', BLUE, 14, anchor='start', weight=700,
+               cls='fi', d=2.1))
+    cy = y0 + h + 44
+    b.append(g('fi', 3.0, ''.join(tile(x0 + k * S + 4, cy, ch) for k, ch in enumerate('001010'))))
+    b.append(t(x0 + 6 * S + 28, cy + 22, 'код 001010', 'var(--ink)', 16, anchor='start', weight=700,
+               cls='fi', d=3.0))
+    b.append(t(x0, cy + 66, 'ракушка — 0, перегородка — 1', size=13, anchor='start', cls='fi', d=3.0))
+    return fig(svg(560, cy + 78, ''.join(b), maxw=560), fx=True)
+
+
+# ——— 2. Пример 1: коды с единицей в начале и с единицами рядом — тоже раскладки ———
+
+def mini_boxes(x, y, counts):
+    b, w = [], 66
+    for i, c in enumerate(counts):
+        bx = x + i * (w + 6)
+        empty = c == 0
+        dash = " stroke-dasharray='4 3'" if empty else ''
+        stroke = GREY if empty else 'var(--muted)'
+        b.append(f"<rect x='{bx}' y='{y}' width='{w}' height='32' rx='5' fill='none' "
+                 f"stroke='{stroke}' stroke-width='1.5'{dash}/>")
+        b.append(''.join(ball(bx + 10 + k * 15, y + 16, r=6) for k in range(c)))
+        if empty:
+            b.append(t(bx + w / 2, y + 21, 'пусто', GREY, 12))
+    return ''.join(b)
+
+
+def codes():
+    rows = [('000011', [4, 0, 0]), ('100001', [0, 4, 0]), ('110000', [0, 0, 4])]
+    b = []
+    for r, (cd, cnt) in enumerate(rows):
+        y = 12 + r * 50
+        b.append(code_row(14, y, cd, w=28, gap=6))
+        b.append(t(232, y + 20, '→', 'var(--muted)', 18))
+        b.append(mini_boxes(254, y - 2, cnt))
+    return fig(svg(480, 162, ''.join(b), maxw=480),
+               'единица в начале, в конце или рядом с другой единицей — пустая шкатулка')
+
+
+# ——— 3. Пример 3: виды мороженого — ящики, код 011001 ———
+
+def icecream():
+    kinds = [('шоколадное', '#c58b5c'), ('ванильное', '#e9d9a6'), ('клубничное', '#f78fb3'), ('фисташковое', GREEN)]
+    code = '011001'
+    x0, y0 = 20, 92
+    b = [code_row(x0 + 4, y0, code)]
+    # отрезки кода между единицами: вид → какие позиции его
+    segs, cur, start = [], 0, 0
+    for k, ch in enumerate(code + '1'):
+        if ch == '1':
+            segs.append((start, k))
+            start = k + 1
+    for i, ((a, z), (name, col)) in enumerate(zip(segs, kinds)):
+        if z > a:
+            xa, xb = x0 + a * S, x0 + z * S
+            cx = (xa + xb) / 2
+            b.append(f"<path d='M{xa+6} {y0-10} V{y0-16} H{xb-2} V{y0-10}' fill='none' stroke='{col}' "
+                     f"stroke-width='2.5'/>")
+            n = z - a
+        else:
+            cx = x0 + a * S - 2
+            n = 0
+        ly = 24 if i % 2 == 0 else 52
+        b.append(t(cx, ly, name, col, 13, weight=700))
+        b.append(t(cx, ly + 16, f'{n} шт.' if n else 'пусто', col if n else GREY, 12))
+    b.append(t(x0 + 6 * S + 20, y0 + 22, 'три 0 — стаканчики, три 1 — перегородки', size=13, anchor='start'))
+    return fig(svg(620, 136, ''.join(b), maxw=620))
+
+
+# ——— 4. Пример 4: перегородки опускаются в два из пяти промежутков ———
+
+def pies():
+    x0, y0 = 40, 108
+    b = []
+    for k in range(6):
+        b.append(ball(x0 + k * S * 1.5 + 20, y0, r=15))
+    gaps = [x0 + k * S * 1.5 + 20 + S * 0.75 for k in range(5)]
+    for k, gx in enumerate(gaps):
+        b.append(f"<rect x='{gx-6}' y='{y0+22}' width='12' height='6' rx='2' fill='{GREY}'/>")
+        b.append(t(gx, y0 + 46, str(k + 1), 'var(--muted)', 12))
+    ex = [x0 - 6, x0 + 5 * S * 1.5 + 46]
+    for x in ex:
+        b.append(t(x, y0 + 6, '✕', GREY, 16))
+    b.append(t(20, 18, 'шесть пирожков в ряд, промежутков пять', 'var(--ink)', 14, anchor='start', weight=700))
+    for gi, d in ((1, 0.6), (2, 1.0)):
+        gx = gaps[gi]
+        b.append(g('sl', d, bar(gx, y0 - 80, y0 - 44), ';--to:translate(0px,58px)'))
+    groups = [(0, 2, 'Аня — 2'), (2, 3, 'Боря — 1'), (3, 6, 'Вика — 3')]
+    for a, z, s in groups:
+        xa = x0 + a * S * 1.5 + 4
+        xb = x0 + (z - 1) * S * 1.5 + 36
+        b.append(g('fi', 2.6, f"<path d='M{xa} {y0+60} V{y0+66} H{xb} V{y0+60}' fill='none' stroke='{GOLD}' "
+                              f"stroke-width='2'/>" + t((xa + xb) / 2, y0 + 86, s, 'var(--ink)', 14, weight=700)))
+    b.append(t(20, y0 + 116, 'ни с краю, ни рядом с другой перегородке не встать — пустых тарелок нет', size=13,
+               anchor='start', cls='fi', d=2.6))
+    return fig(svg(560, y0 + 128, ''.join(b), maxw=560), fx=True)
+
+
+# ——— 5. Пример 5: пять дней отдыха, шесть мест для тренировок ———
+
+def trainings():
+    x0, y0 = 20, 40
+    b = [t(x0, 18, 'дни отдыха и шесть мест между ними и по краям', 'var(--ink)', 14, anchor='start', weight=700)]
+    chosen = {0, 2, 5}
+    x = x0
+    for p in range(6):
+        on = p in chosen
+        b.append(f"<rect x='{x}' y='{y0}' width='30' height='34' rx='6' "
+                 + (f"fill='{GREEN}'/>" if on else f"fill='none' stroke='{GREY}' stroke-dasharray='4 3'/>"))
+        if on:
+            b.append(t(x + 15, y0 + 23, 'Т', DARK, 14, weight=700))
+        x += 36
+        if p < 5:
+            b.append(f"<rect x='{x}' y='{y0}' width='34' height='34' rx='6' fill='var(--bg2)' stroke='var(--line)'/>")
+            b.append(t(x + 17, y0 + 23, 'о', 'var(--muted)', 14))
+            x += 40
+    y1 = y0 + 76
+    b.append(t(x0, y1 - 10, 'дни каникул', size=13, anchor='start'))
+    days = 'ТооТоооТ'
+    for k, ch in enumerate(days):
+        xx = x0 + k * 44
+        on = ch == 'Т'
+        b.append(f"<rect x='{xx}' y='{y1}' width='38' height='34' rx='6' fill='{GREEN if on else 'var(--bg2)'}' "
+                 f"stroke='var(--line)'/>")
+        b.append(t(xx + 19, y1 + 23, 'Т' if on else 'о', DARK if on else 'var(--muted)', 14, weight=700 if on else None))
+        b.append(t(xx + 19, y1 + 52, str(k + 1), 'var(--muted)', 12))
+    b.append(t(x0, y1 + 80, 'левый край, 2-й промежуток, правый край → 1-й, 4-й и 8-й дни', 'var(--ink)', 14,
+               anchor='start'))
+    return fig(svg(440, y1 + 92, ''.join(b), maxw=440), 'Т — тренировка, о — отдых')
+
+
+# ——— 6. Пример 6: сетка, маршрут, части через M ———
+
+C6, W6, H6 = 56, 5, 2
+
+
+def grid(x0, y0, labels=True, m=True):
+    b = []
+    for i in range(W6 + 1):
+        b.append(f"<line x1='{x0+i*C6}' y1='{y0}' x2='{x0+i*C6}' y2='{y0+H6*C6}' stroke='var(--line)'/>")
+    for j in range(H6 + 1):
+        b.append(f"<line x1='{x0}' y1='{y0+j*C6}' x2='{x0+W6*C6}' y2='{y0+j*C6}' stroke='var(--line)'/>")
+    if labels:
+        b.append(f"<circle cx='{x0}' cy='{y0+H6*C6}' r='5' fill='var(--ink)'/>"
+                 + t(x0 - 14, y0 + H6 * C6 + 18, 'A', 'var(--ink)', 16, weight=700))
+        b.append(f"<circle cx='{x0+W6*C6}' cy='{y0}' r='5' fill='var(--ink)'/>"
+                 + t(x0 + W6 * C6 + 14, y0 - 6, 'D', 'var(--ink)', 16, weight=700))
+    if m:
+        mx, my = x0 + 2 * C6, y0 + (H6 - 1) * C6
+        b.append(f"<circle cx='{mx}' cy='{my}' r='5' fill='{RED}'/>"
+                 + t(mx - 12, my - 8, 'M', RED, 16, weight=700))
+    return ''.join(b)
+
+
+def route_task():
+    return fig(svg(W6 * C6 + 60, H6 * C6 + 50, grid(26, 22), maxw=W6 * C6 + 60), 'сетка 5 × 2, узел M')
+
+
+def route():
+    x0, y0 = 26, 22
+    word = 'ГГВГГВГ'
+    b = [grid(x0, y0, m=False)]
+    x, y = x0, y0 + H6 * C6
+    for k, ch in enumerate(word):
+        nx, ny = (x + C6, y) if ch == 'Г' else (x, y - C6)
+        col = BLUE if ch == 'Г' else GREEN
+        d = 0.4 + 0.45 * k
+        b.append(f"<line x1='{x}' y1='{y}' x2='{nx}' y2='{ny}' stroke='{col}' stroke-width='5' stroke-linecap='round' "
+                 f"pathLength='100' class='dr' style='--d:{d}s;--dur:.4s'/>")
+        b.append(t(x0 + 14 + k * 30, y0 + H6 * C6 + 52, ch, col, 20, weight=700, cls='fi', d=d))
+        x, y = nx, ny
+    b.append(t(x0 + 7 * 30 + 24, y0 + H6 * C6 + 52, '— 5 букв Г, 2 буквы В', 'var(--muted)', 14,
+               anchor='start', cls='fi', d=3.6))
+    return fig(svg(W6 * C6 + 80, H6 * C6 + 90, ''.join(b), maxw=W6 * C6 + 80), fx=True)
+
+
+def route_m():
+    x0, y0 = 26, 22
+    mx, my = x0 + 2 * C6, y0 + (H6 - 1) * C6
+    b = [f"<rect x='{x0}' y='{my}' width='{2*C6}' height='{C6}' fill='{GOLD}' fill-opacity='.22'/>",
+         f"<rect x='{mx}' y='{y0}' width='{3*C6}' height='{C6}' fill='{VIOLET}' fill-opacity='.22'/>",
+         grid(x0, y0)]
+    ty = y0 + H6 * C6 + 40
+    b.append(t(x0, ty, 'из A в M: 2 Г и 1 В — C(3, 1) = 3', GOLD, 14, anchor='start', weight=700))
+    b.append(t(x0, ty + 22, 'из M в D: 3 Г и 1 В — C(4, 1) = 4', VIOLET, 14, anchor='start', weight=700))
+    b.append(t(x0, ty + 48, 'любая первая часть И любая вторая: 3 · 4 = 12', 'var(--ink)', 14, anchor='start'))
+    return fig(svg(W6 * C6 + 80, ty + 60, ''.join(b), maxw=W6 * C6 + 80))
+
+
+FIGS = {
+    'Например, код 001010 означает': shells,
+    '110000 — первая и вторая пусты': codes,
+    'Например, код 011001 означает': icecream,
+    'Промежутков пять, перегородок две': pies,
+    'Например, тренировки с левого края': trainings,
+    'Маршруты идут по сетке 5 × 2 клетки': route_task,
+    'Возможный маршрут из A в D показан на рисунке': route,
+    'Каждый маршрут через M состоит из двух частей': route_m,
+}
+
+if __name__ == '__main__':
+    d = json.load(open(VIS))
+    md = open(os.path.join(HERE, '..', 'nandu_n2_kombinatorika_uchebnik.md')).read()
+    plain = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', md))
+    new = {anchor: f() for anchor, f in FIGS.items()}
+    missing = [a for a in new if a not in plain]
+    if missing:
+        raise SystemExit(f'якоря не найдены в тексте: {missing}')
+    d = {k: v for k, v in d.items() if k in plain and (k in new or v not in new.values())}
+    d.update(new)
+    json.dump(d, open(VIS, 'w'), ensure_ascii=False, indent=2)
+    print(len(FIGS), 'рисунков →', os.path.relpath(VIS))
