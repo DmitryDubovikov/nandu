@@ -64,9 +64,11 @@ method in the repo:
 3. **Moves** — every move, notion and technique of an accepted solution goes into the registry (`nandu_n2_obraztsy.md`
    §5) under the name and notation it has in the solution.
 4. **Textbooks** — written for exactly those moves, introduced and written the way the ideal solutions use them.
-5. **Whole-corpus solutions** — last.
+5. **Move maps** — one per family where choosing the move is the difficulty (counting, process, Т4, Т5, Т6…),
+   learned by heart; see rule 7.
+6. **Whole-corpus solutions** — last.
 
-Steps 1–4 run **in phases by tour**, not over all 17 models at once: **1. Zonal** (ready by 7 May — the Interescolar
+Steps 1–5 run **in phases by tour**, not over all 17 models at once: **1. Zonal** (ready by 7 May — the Interescolar
 needs the same subtypes): Т1, Т1′, Т1″, Т2, Т2‴, Т3, Т3′, Т3″, Т3‴ · **2. Provincial + regional** (by 19 Aug, started
 before the zonal): Т2′ first, then Т5, Т6, Т1‴, Т4, Т2″, Т1⁗ · **3. National — depth**: Т4′ plus deepening Т2′, Т1, Т3′.
 The Interescolar is not a phase of its own. Basis: the subtype × stage matrix in `nandu_n2_tipologia_svodnaya.md`.
@@ -123,16 +125,16 @@ printed-page-width wording in rule 10 stands only as a proxy for a narrow readin
 
 ## Domain model
 
-Problem types are stable across stages and largely fixed by position:
+Problem types are stable across stages and are **recognised by content only** — what is given and what is asked.
+Slot order is not a signal: the 2026 national did not follow it, and no forecasts by problem number are made
+(user decision, 25 Oct 2026). Level-1 types:
 **Т1** — arithmetic / linear systems, **Т2** — perimeter geometry from a lettered figure,
 **Т3** — systematic counting, **Т4** — the national branch's own harder mixed genre.
-At the regional stage each paper is exactly 3 problems with the type fixed by position (№1 = Т1, №2 = Т2, №3 = Т3);
-the national paper has 6 over two days. Per-stage типологии hold the full breakdown:
+A regional paper has 3 problems, the national 6 over two days. Per-stage типологии hold the full breakdown:
 `25-26/nandu_level1/national/nandu_n1_nacional_tipologia.md` and
 `25-26/nandu_level1/provincial/nandu_n1_provincial_tipologia.md`.
 
-**Segundo Nivel** keeps the positions on all four stages (№1 numbers, №2 lettered figure, №3 counting; national
-№4–№6 repeat them) and adds **Т4** доски-головоломки (⚠ sits in slot №1/№4, where a text problem is expected),
+**Segundo Nivel** keeps Т1–Т3 (numbers, lettered figure, counting) and adds **Т4** доски-головоломки,
 **Т5** числа как предмет (делимость, остатки, инвариант), **Т6** графы — these live at the provincial and national
 stages (zonal and regional see Т5 only as a tool). Geometry is **areas**, not perimeters. Stages are not ordered by
 difficulty: the provincial needs Т4–Т6, the regional hardly any. Glossary and counts:
@@ -171,10 +173,20 @@ These conventions are load-bearing across all materials — keep them.
 7. **Solutions first, textbooks from them** (Oct 2026 — replaces the old «corpus → chapter ladder → textbook» workflow,
    now in `arhiv/`). A course is built in this order: (а) one model corpus problem per typology subtype;
    (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of moves those solutions
-   use; (г) textbooks covering exactly those moves, in the solutions' form and notation; (д) solutions of the whole
-   corpus. Steps (а)–(г) run phase by phase, a phase = the tour it prepares for (subtypes that first appear there).
+   use; (г) textbooks covering exactly those moves, in the solutions' form and notation; (д) **move maps** of the phase;
+   (е) solutions of the whole corpus. Steps (а)–(д) run phase by phase, a phase = the tour it prepares for
+   (subtypes that first appear there).
    No chapter is planned from the typology alone, and no textbook is written before its moves exist in
    accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_roadmap.md`.
+   **Move maps** (25 Oct 2026, «ревизия приёмов»): the closed set of keys a family can need at the stage, so an unseen
+   problem built from known moves does not scare. **Nothing can be opened on a tour** — a sheet is an illegal crib; the
+   map is learned by heart at home. Form: one screen, ≤7 keys, each line «триггер в условии → первая формула · имя хода»
+   (names from the registry §5, as in the solutions), no prose — the level-1 determiners were too big and were never
+   read. Maps exist **only for families where the move is not obvious** (counting, process/«с конца», Т4, Т4′, Т5, Т6,
+   Т1‴); Т1 systems, Т1′ and the whole Т2 family get none — there the record of the system and its mechanics is the method.
+   One entry line for all: «каждое данное записывается уравнением → система, карты нет». Checks: an agent seeing only a
+   statement and the map names the key for every corpus problem of the family at the phase's stages (misses → new key);
+   the child names the key from memory before every battle problem. Files: `26-27/nandu_level2/karty_priemov/<семейство>.md`.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
    Structure (in problem solutions the plan IS the first-idea artifact of the ⛔ block at the top of this file):
    **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
