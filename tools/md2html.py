@@ -14,12 +14,47 @@ def inline(s):
     # <small>…</small> — мелкая расшифровка под формулой (какие именно варианты стоят за слагаемыми)
     s = re.sub(r'&lt;small&gt;(.+?)&lt;/small&gt;', r'<small>\1</small>', s)
     s = re.sub(r'`([^`]+)`', r'<code>\1</code>', s)
+    if STACK_FRACTIONS:
+        s = stack_fractions(s)
     s = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', s)
     s = re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)', r'<em>\1</em>', s)
     # цветные ручки работают и в строках-формулах: операнд одного цвета в формуле и там, где его считают
     if any(c in s for c in '⟦⟪⦃⦅⟬'):
         s = pens(s)
     return s
+
+STACK_FRACTIONS = False     # включается для учебников 5 класса (math5_*): см. build_pages
+VULGAR = {'½': '1/2', '⅓': '1/3', '⅔': '2/3', '¼': '1/4', '¾': '3/4', '⅕': '1/5', '⅖': '2/5', '⅗': '3/5',
+          '⅘': '4/5', '⅙': '1/6', '⅚': '5/6', '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8'}
+
+FRAC_CSS = '''  /* учебники 5 класса: формула в строке — шрифтом текста, дробь столбиком, цифры не мельче цифр текста */
+  code{font:500 17px var(--sans);padding:1px 6px}
+  code .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font:600 16px/1.08 var(--sans);margin:0 2px}
+  code .fn{border-bottom:1.8px solid currentColor;padding:0 3px 1px} code .fd{padding:1px 3px 0}
+  code .fw{font:600 18px var(--sans);margin-right:1px}
+'''
+
+def stack_fractions(s):
+    """Дробь в строке текста — столбиком, как в тетради (решение родителя 25.10.2026).
+
+    Значок «½» в моноширинном шрифте выходил вдвое мельче цифр, а «3/5» в коде — мелким наклонным
+    рядом. Внутри <code> каждая дробь a/b и каждый значок ½ становятся числителем над чертой;
+    смешанное число «2½» или «2 3/100» — целой частью и дробью рядом. Числа и их порядок те же,
+    поэтому сверка текста (слова) не меняется.
+    """
+    def fr(n, d):
+        return f'<span class="fr"><span class="fn">{n}</span><span class="fd">{d}</span></span>'
+
+    def code(m):
+        c = m.group(1)
+        c = re.sub('([0-9]*)([' + ''.join(VULGAR) + '])',
+                   lambda v: (f'<span class="fw">{v.group(1)}</span>' if v.group(1) else '')
+                   + fr(*VULGAR[v.group(2)].split('/')), c)
+        c = re.sub(r'(?<![0-9/,])([0-9]+) ([0-9]+)/([0-9]+)(?![0-9/])',
+                   lambda v: f'<span class="fw">{v.group(1)}</span>' + fr(v.group(2), v.group(3)), c)
+        c = re.sub(r'(?<![0-9/,])([0-9]+)/([0-9]+)(?![0-9/,])', lambda v: fr(v.group(1), v.group(2)), c)
+        return f'<code>{c}</code>'
+    return re.sub(r'<code>(.*?)</code>', code, s)
 
 def pens(s):
     """Цветные ручки в системе: ⟦…⟧ — подставляемое, ⟪…⟫ — общее у двух уравнений.
@@ -478,6 +513,8 @@ def doc_kind(src_path):
         return 'idealnye'   # идеальные решения образцов: одна колонка, без остатка и без боевой записи
     if '_kombinatorika_' in name:
         return 'single'     # учебник комбинаторики: одна колонка, без сухого остатка (решение родителя 24.10.2026)
+    if name.startswith('math5_') and '_uchebnik' in name:
+        return 'single'     # школьные учебники 5 класса: одна колонка, как учебник комбинаторики (решение родителя 25.10.2026)
     if '_uchebnik' in name:
         return 'uchebnik'
     if re.search(r'_(resheniya|reshebnik|klyuch|podskazki)', name):
@@ -814,8 +851,11 @@ def answer_links(chapters, names):
 
 
 def build_pages(md, visuals=None, src_path=None):
+    global STACK_FRACTIONS
     visuals = visuals or {}
     kind = doc_kind(src_path)
+    STACK_FRACTIONS = os.path.basename(src_path or '').startswith('math5_')
+    page_tpl = TEMPLATE.replace('</style>', FRAC_CSS + '</style>', 1) if STACK_FRACTIONS else TEMPLATE
     title, sub, chapters, pre = split_chapters(md)
     files, used, shown_part = {}, set(), None
     names = page_names(chapters)
@@ -896,7 +936,7 @@ def build_pages(md, visuals=None, src_path=None):
             partlab += f'<p class="partlab">{inline(c["part"])}</p>'
             shown_part = c['part']
 
-        files[names[n]] = (TEMPLATE
+        files[names[n]] = (page_tpl
             .replace('{{TITLE}}', inline(c['title']))
             .replace('{{TITLE_TXT}}', html.escape(plain(c['title'])))
             .replace('{{DOC}}', inline(title))
@@ -988,6 +1028,7 @@ def md_text(md, drop_head=False, drop_h2=False):
 WORD = re.compile(r"[0-9a-zA-Zа-яёА-ЯЁ]+", re.U)
 
 def words(t):
+    t = re.sub('[' + ''.join(VULGAR) + ']', lambda v: ' ' + VULGAR[v.group(0)], t)
     t = unicodedata.normalize('NFKC', t)
     return WORD.findall(t.lower())
 
