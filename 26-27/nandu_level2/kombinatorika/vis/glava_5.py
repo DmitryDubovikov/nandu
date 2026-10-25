@@ -31,7 +31,7 @@ def tile(x, y, ch, w=32):
     one = ch == '1'
     fill = BLUE if one else GOLD
     return (f"<rect x='{x}' y='{y}' width='{w}' height='{w}' rx='6' fill='{fill}'/>"
-            + t(x + w / 2, y + w * 0.7, ch, DARK, 17, weight=700))
+            + t(x + w / 2, y + w * 0.7, ch, DARK, min(17, round(w * 0.6)), weight=700))
 
 
 def code_row(x0, y0, code, w=32, gap=8):
@@ -247,7 +247,261 @@ def route_m():
     return fig(svg(W6 * C6 + 80, ty + 60, ''.join(b), maxw=W6 * C6 + 80))
 
 
+
+# ——— добавлено после чтения родителем: рисунки на каждую трудную мысль примера 1 и раздела ———
+
+def counts_of(code):
+    return [len(part) for part in code.split('1')]
+
+
+def nball(cx, cy, num, col=GOLD, r=13, cls=None, d=None):
+    """Шар с номером; номер — отдельным текстом, чтобы его можно было стереть."""
+    return (f"<circle cx='{cx}' cy='{cy}' r='{r}' fill='{col}'/>"
+            + t(cx, cy + 5, str(num), DARK, 14, weight=700, cls=cls, d=d))
+
+
+def distinct():
+    """Вступление: 2 разных шара по 3 ящикам — все 3² = 9 раскладок."""
+    cw, ch, x0, y0 = 128, 46, 92, 46
+    b = [t(x0 + 1.5 * cw, 18, 'ящик шара 2', 'var(--ink)', 13, weight=700),
+         t(22, y0 + 1.5 * ch, 'ящик шара 1', 'var(--ink)', 13, weight=700,
+           extra=f" transform='rotate(-90 22 {y0 + 1.5 * ch})'")]
+    for j in range(3):
+        b.append(t(x0 + j * cw + cw / 2, 38, f'{j + 1}-й', 'var(--muted)', 12))
+        b.append(t(x0 - 16, y0 + j * ch + ch / 2 + 4, f'{j + 1}-й', 'var(--muted)', 12))
+    for i in range(3):
+        for j in range(3):
+            cx, cy = x0 + j * cw, y0 + i * ch
+            b.append(f"<rect x='{cx}' y='{cy}' width='{cw}' height='{ch}' fill='none' stroke='var(--line)'/>")
+            for k in range(3):
+                bx = cx + 8 + k * 38
+                b.append(f"<rect x='{bx}' y='{cy+9}' width='34' height='28' rx='4' fill='none' "
+                         f"stroke='var(--muted)'/>")
+                inside = [n for n, box in ((1, i), (2, j)) if box == k]
+                for q, n in enumerate(inside):
+                    b.append(nball(bx + 17 + (q - (len(inside) - 1) / 2) * 15, cy + 23, n,
+                                   BLUE if n == 1 else RED, r=7.5).replace("font-size='14'", "font-size='10'")
+                             .replace(f"y='{cy + 28}'", f"y='{cy + 26.5}'"))
+    b.append(t(x0, y0 + 3 * ch + 26, 'у каждого шара 3 варианта ящика: 3 · 3 = 3² = 9 раскладок', 'var(--ink)', 14,
+               anchor='start', weight=700))
+    return fig(svg(x0 + 3 * cw + 16, y0 + 3 * ch + 38, ''.join(b), maxw=x0 + 3 * cw + 16),
+               'пример на числах, не из задачи: 2 разных шара, 3 ящика')
+
+
+def glue():
+    """⚠ 81: два способа с номерами ракушек — номера стираются, картинки совпадают."""
+    sets = [([1, 2, 3], [4], []), ([2, 3, 4], [1], [])]
+    b = []
+    for side, boxes in enumerate(sets):
+        x0 = 20 + side * 300
+        b.append(t(x0 + 126, 18, f'способ {side + 1} из 81', GOLD, 14, weight=700))
+        for k, content in enumerate(boxes):
+            bx = x0 + k * 86
+            b.append(f"<rect x='{bx}' y='34' width='80' height='44' rx='6' fill='none' stroke='var(--muted)' "
+                     f"stroke-width='2'/>")
+            b.append(t(bx + 40, 96, f'{k + 1}-я', 'var(--muted)', 12))
+            for q, n in enumerate(content):
+                b.append(nball(bx + 16 + q * 24, 56, n, r=11, cls='fo', d=1.2))
+    b.append(t(285, 62, '≠', 'var(--muted)', 24, cls='fo', d=1.2))
+    b.append(t(285, 62, '=', 'var(--ink)', 24, weight=700, cls='fi', d=1.9))
+    b.append(t(20, 126, 'номера у ракушек — способы разные', 'var(--muted)', 14, anchor='start', cls='fo', d=1.2))
+    b.append(t(20, 126, 'ракушки одинаковые: номеров нет — это одна раскладка 3, 1, 0', 'var(--ink)', 14,
+               anchor='start', weight=700, cls='fi', d=1.9))
+    return fig(svg(580, 138, ''.join(b), maxw=580), fx=True)
+
+
+def slide_ones():
+    """Шесть мест неподвижны, две единицы переезжают — раскладка под ними меняется."""
+    frames = ['001010', '000011', '100001', '110000', '010100']
+    x0, y0, w, gap = 24, 34, 34, 8
+    b = [t(x0 + k * (w + gap) + w / 2, 22, str(k + 1), 'var(--muted)', 12) for k in range(6)]
+    for k in range(6):
+        b.append(f"<rect x='{x0 + k*(w+gap) - 3}' y='{y0-3}' width='{w+6}' height='{w+6}' rx='8' fill='none' "
+                 f"stroke='var(--line)'/>")
+    step = 1.4
+    for f, cd in enumerate(frames):
+        d = 0.2 + f * step
+        places = [str(k + 1) for k, ch in enumerate(cd) if ch == '1']
+        body = (code_row(x0, y0, cd, w=w, gap=gap)
+                + t(x0 + 6 * (w + gap) + 14, y0 + 23, f'единицы на местах {places[0]} и {places[1]}', BLUE, 14,
+                    anchor='start', weight=700)
+                + mini_boxes(x0, y0 + 56, counts_of(cd)))
+        last = f == len(frames) - 1
+        b.append(g('fi', d, body if last else g('fo', d + step - 0.1, body)))
+    b.append(t(x0, y0 + 128, 'мест всегда шесть; раскладку задаёт только то, где стоят две единицы', 'var(--ink)', 14,
+               anchor='start'))
+    return fig(svg(560, y0 + 140, ''.join(b), maxw=560), fx=True)
+
+
+def all15():
+    """Все 15 кодов столбцами по числу ракушек в первой шкатулке — те же 5 + 4 + 3 + 2 + 1."""
+    cw, rh, x0, y0 = 132, 64, 10, 40
+    b = []
+    for c1 in range(5):
+        x = x0 + c1 * cw
+        b.append(t(x + cw / 2 - 6, 20, f'в первой {c1}', 'var(--ink)', 13, weight=700))
+        col = [('0' * c1) + '1' + ('0' * c2) + '1' + ('0' * (4 - c1 - c2)) for c2 in range(4 - c1, -1, -1)]
+        for r, cd in enumerate(col):
+            y = y0 + r * rh
+            b.append(code_row(x + 4, y, cd, w=16, gap=3))
+            for k, c in enumerate(counts_of(cd)):
+                bx = x + 4 + k * 38
+                b.append(f"<rect x='{bx}' y='{y+22}' width='34' height='22' rx='4' fill='none' stroke='var(--muted)'/>")
+                b.append(''.join(ball(bx + 6 + q * 7.5, y + 33, r=3.2) for q in range(c)))
+        b.append(t(x + cw / 2 - 6, y0 + len(col) * rh + 10, str(len(col)), GOLD, 17, weight=700))
+    return fig(svg(x0 + 5 * cw, y0 + 5 * rh + 24, ''.join(b), maxw=x0 + 5 * cw),
+               'все 15 кодов: столбец — сколько ракушек в первой шкатулке')
+
+
+def equation():
+    """Пример 2: решение (1, 0, 5) → шары в ящиках x, y, z → код."""
+    x0, y0, h = 30, 36, 46
+    edges = [(0, 1.5), (1.5, 2.5), (2.5, 8)]
+    balls = [[0], [], [3, 4, 5, 6, 7]]
+    names = ['x = 1', 'y = 0', 'z = 5']
+    b = []
+    for (a, z), bs, nm in zip(edges, balls, names):
+        b.append(f"<rect x='{x0 + a*S}' y='{y0}' width='{(z-a)*S}' height='{h}' rx='4' fill='none' "
+                 f"stroke='var(--muted)' stroke-width='2'/>")
+        b.append(''.join(ball(x0 + k * S + S / 2, y0 + h / 2) for k in bs))
+        b.append(t(x0 + (a + z) / 2 * S, 22, nm, 'var(--ink)', 14, weight=700))
+    for s_ in (1, 2):
+        b.append(bar(x0 + s_ * S + S / 2, y0 - 6, y0 + h + 6))
+    b.append(''.join(tile(x0 + k * S + 4, y0 + h + 22, ch) for k, ch in enumerate('01100000')))
+    b.append(t(x0 + 8 * S + 16, y0 + h + 44, 'код 01100000', 'var(--ink)', 15, anchor='start', weight=700))
+    return fig(svg(x0 + 8 * S + 150, y0 + h + 66, ''.join(b), maxw=x0 + 8 * S + 150))
+
+
+def general():
+    """Общий вид кода: k нулей, n − 1 единиц, всего k + n − 1 мест."""
+    seq = ['0', '0', '…', '1', '0', '…', '1', '…', '1', '0', '…']
+    x0, y0, w = 20, 40, 32
+    b = []
+    for k, ch in enumerate(seq):
+        x = x0 + k * 40
+        if ch == '…':
+            b.append(t(x + w / 2, y0 + 22, '…', 'var(--muted)', 20, weight=700))
+        else:
+            b.append(tile(x, y0, ch, w))
+    xe = x0 + len(seq) * 40 - 8
+    b.append(f"<path d='M{x0} {y0-8} V{y0-14} H{xe} V{y0-8}' fill='none' stroke='var(--ink)' stroke-width='1.5'/>")
+    b.append(t((x0 + xe) / 2, y0 - 20, 'всего k + n − 1 мест', 'var(--ink)', 14, weight=700))
+    b.append(t(x0, y0 + 62, 'нулей k — по одному на шар', GOLD, 14, anchor='start', weight=700))
+    b.append(t(x0, y0 + 84, 'единиц n − 1 — по одной на стык соседних ящиков', BLUE, 14, anchor='start', weight=700))
+    return fig(svg(xe + 20, y0 + 96, ''.join(b), maxw=xe + 20), 'общий вид кода')
+
+
+def wrong_bars():
+    """⚠ n − 1: две перегородки — три части; три перегородки — четыре части."""
+    rows = [('001010', 'две перегородки — три шкатулки', None), ('0010101', 'три перегородки — четыре части', 3)]
+    b = []
+    for r, (cd, lbl, extra) in enumerate(rows):
+        y = 34 + r * 92
+        b.append(t(20, y - 12, lbl, 'var(--ink)' if extra is None else RED, 14, anchor='start', weight=700))
+        b.append(code_row(20, y, cd, w=30, gap=6))
+        parts, start = [], 0
+        for k, ch in enumerate(cd + '1'):
+            if ch == '1':
+                parts.append((start, k))
+                start = k + 1
+        for i, (a, z) in enumerate(parts):
+            xa = 20 + a * 36
+            xb = 20 + z * 36 - 6 if z > a else xa + 24
+            col = RED if i == extra else 'var(--muted)'
+            b.append(f"<path d='M{xa} {y+38} V{y+44} H{xb} V{y+38}' fill='none' stroke='{col}' stroke-width='1.5'/>")
+            b.append(t((xa + xb) / 2, y + 60, f'{i + 1}-я' if i != extra else '4-я?', col, 12,
+                       weight=700 if i == extra else None))
+    return fig(svg(300, 200, ''.join(b), maxw=300), 'шкатулок три — перегородок две')
+
+
+def pies_first():
+    """Пример 4, способ 1: сначала по одному пирожку на тарелку, остаток — как угодно."""
+    names, rest = ['Аня', 'Боря', 'Вика'], [2, 1, 0]
+    b = []
+    for i, nm in enumerate(names):
+        cx = 90 + i * 170
+        b.append(f"<ellipse cx='{cx}' cy='112' rx='70' ry='18' fill='none' stroke='var(--muted)' stroke-width='2'/>")
+        b.append(t(cx, 150, nm, 'var(--ink)', 14, weight=700))
+        b.append(g('fi', 0.4, f"<circle cx='{cx - 36}' cy='104' r='12' fill='{GOLD}' fill-opacity='.45' "
+                              f"stroke='{GOLD}' stroke-width='2'/>"))
+        for q in range(rest[i]):
+            x = cx - 6 + q * 28
+            b.append(g('sl', 1.6 + 0.2 * q, ball(x, 40), ';--to:translate(0px,64px)'))
+        b.append(t(cx, 178, f'остаток {rest[i]} → всего {rest[i] + 1}', 'var(--muted)', 13, cls='fi', d=3.0))
+    b.append(t(20, 20, 'сначала по одному (бледные), потом остаток три — как угодно', 'var(--ink)', 14,
+               anchor='start', cls='fi', d=0.4))
+    return fig(svg(520, 192, ''.join(b), maxw=520), fx=True)
+
+
+
+def arrow_defs():
+    return ("<defs><marker id='ar5' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' "
+            "orient='auto'><path d='M0 0 L10 5 L0 10 z' fill='var(--ink)'/></marker>"
+            f"<marker id='ar5r' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' "
+            f"orient='auto'><path d='M0 0 L10 5 L0 10 z' fill='{RED}'/></marker></defs>")
+
+
+def chairs():
+    """Правило соответствия: стрелки «человек → стул»; две вещи, которые проверяет взаимная однозначность."""
+    panels = [('каждому — свой стул', [0, 2, 1, 3], 4, True),
+              ('двое на одном стуле', [0, 1, 1, 2], 3, False),
+              ('стул пустой', [0, 1, 2], 4, False)]
+    b = [arrow_defs()]
+    for p_, (title, to, nchairs, ok) in enumerate(panels):
+        x0 = 14 + p_ * 196
+        col = GREEN if ok else RED
+        b.append(t(x0 + 84, 20, ('✓ ' if ok else '✗ ') + title, col, 13, weight=700))
+        b.append(t(x0 + 22, 44, 'люди', 'var(--muted)', 12))
+        b.append(t(x0 + 146, 44, 'стулья', 'var(--muted)', 12))
+        for i in range(len(to)):
+            b.append(f"<circle cx='{x0+22}' cy='{64+i*36}' r='11' fill='{BLUE}'/>")
+        for j in range(nchairs):
+            used = j in to
+            bad = (not ok) and (not used or to.count(j) > 1)
+            stroke = RED if bad else 'var(--muted)'
+            b.append(f"<rect x='{x0+136}' y='{53+j*36}' width='22' height='22' rx='3' fill='none' "
+                     f"stroke='{stroke}' stroke-width='2'/>")
+        for i, j in enumerate(to):
+            bad = (not ok) and to.count(j) > 1
+            b.append(f"<line x1='{x0+36}' y1='{64+i*36}' x2='{x0+130}' y2='{64+j*36}' "
+                     f"stroke='{RED if bad else 'var(--ink)'}' stroke-width='1.6' "
+                     f"marker-end='url(#{'ar5r' if bad else 'ar5'})'/>")
+    return fig(svg(600, 200, ''.join(b), maxw=600), 'пример на числах, не из задачи')
+
+
+def shells_codes():
+    """Ракушки: стрелки «способ → код»; коды справа стоят по порядку, поэтому стрелки перекрещиваются."""
+    left = [[0, 0, 4], [0, 4, 0], [4, 0, 0], [2, 1, 1], [1, 1, 2], [0, 2, 2]]
+    code = lambda c: '1'.join('0' * x for x in c)
+    right = sorted(code(c) for c in left)
+    b = [arrow_defs(), t(120, 18, 'способы', 'var(--ink)', 14, weight=700),
+         t(470, 18, 'коды', 'var(--ink)', 14, weight=700)]
+    rh, y0 = 46, 34
+    for i, c in enumerate(left):
+        b.append(mini_boxes(14, y0 + i * rh, c).replace("width='66'", "width='66'"))
+    for j, cd in enumerate(right):
+        b.append(code_row(380, y0 + i * 0 + j * rh + 2, cd, w=26, gap=4))
+    for i, c in enumerate(left):
+        j = right.index(code(c))
+        b.append(f"<line x1='{240}' y1='{y0+16+i*rh}' x2='{372}' y2='{y0+15+j*rh}' stroke='var(--ink)' "
+                 f"stroke-width='1.6' marker-end='url(#ar5)' pathLength='100' class='dr' "
+                 f"style='--d:{0.4 + 0.5*i}s;--dur:.5s'/>")
+    b.append(t(14, y0 + 6 * rh + 14, '… и так все 15: от каждого способа одна стрелка, к каждому коду одна стрелка',
+               'var(--ink)', 13, anchor='start', cls='fi', d=3.6))
+    return fig(svg(580, y0 + 6 * rh + 26, ''.join(b), maxw=580), fx=True)
+
+
 FIGS = {
+    'ни один стул не пустой': chairs,
+    'каждый код — какой-то способ, даже 100001 и 110000': shells_codes,
+    'способами: у каждого шара n вариантов ящика': distinct,
+    'Оба способа входят в 81': glue,
+    'Код задаётся выбором двух мест из шести для единиц': slide_ones,
+    'N(способов) = 5 + 4 + 3 + 2 + 1 = 15': all15,
+    'Например, решению (1, 0, 5) соответствует код 01100000': equation,
+    'Шаров k, перегородок n − 1 — получается код': general,
+    'Получилось 35 вместо 15': wrong_bars,
+    'Например, раскладка «Ане 3, Боре 2, Вике 1»': pies_first,
     'Например, код 001010 означает': shells,
     '110000 — первая и вторая пусты': codes,
     'Например, код 011001 означает': icecream,
