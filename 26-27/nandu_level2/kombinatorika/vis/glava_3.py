@@ -27,6 +27,14 @@ def kid(cx, cy, i, r=17, size=15):
     return f"<circle cx='{cx}' cy='{cy}' r='{r}' fill='{col}'/>" + t(cx, cy + size * 0.33, letter, DARK, size, weight=700)
 
 
+def pill(x, y, s, d, anchor='middle', w=None):
+    """m правила деления — всегда синей плашкой: посчитанные золотые, нужные — цветом текста."""
+    w = w or 11 + 9.2 * len(s)
+    x0 = x - w / 2 if anchor == 'middle' else x
+    return g('fi', d, f"<rect x='{x0}' y='{y-19}' width='{w}' height='27' rx='13' fill='none' stroke='{BLUE}' "
+                      f"stroke-width='2'/>" + t(x0 + w / 2, y, s, BLUE, 16, weight=700))
+
+
 def arrow_defs(cols):
     return '<defs>' + ''.join(
         f"<marker id='ah{k}' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'>"
@@ -55,6 +63,7 @@ def letters():
                           f"stroke-width='4'/>" + t(cx, cy - 10, 'одно рукопожатие', 'var(--ink)', 16, weight=700)))
     for i, (x, y) in pos.items():
         b.append(kid(x, y, i))
+    b.append(pill(cx, cy + 46, 'm = 2', 2.7))
     b.append(t(300, 330, '90 писем : 2 = 45 рукопожатий', 'var(--ink)', 18, weight=600, cls='fi', d=3.2))
     return fig(svg(600, 344, ''.join(b), maxw=520), fx=True)
 
@@ -127,8 +136,9 @@ def lava():
                    f';--to:translate({-(ww+gap)}px,0px)'))
         b.append(f"<rect x='{x-6}' y='{y-6}' width='{ww+8}' height='{TH+12}' rx='8' fill='none' "
                  f"stroke='{GOLD}' stroke-width='2' class='fi' style='--d:3.9s'/>")
-    b.append(t(12, 14 + 4 * 50 + 14, 'было 24 записи с номерами', 'var(--muted)', 15, anchor='start'))
-    b.append(t(12, 14 + 4 * 50 + 38, 'стало 12 слов: 24 : 2 = 12', GOLD, 17, anchor='start', weight=700,
+    b.append(t(12, 14 + 4 * 50 + 14, 'было 24 записи с номерами', GOLD, 15, anchor='start'))
+    b.append(pill(12, 14 + 4 * 50 + 40, 'm = 2', 3.9, anchor='start'))
+    b.append(t(100, 14 + 4 * 50 + 38, 'стало 12 слов: 24 : 2 = 12', 'var(--ink)', 17, anchor='start', weight=700,
                cls='fi', d=4.0))
     return fig(svg(3 * colw, 270, ''.join(b), maxw=3 * colw), fx=True)
 
@@ -152,11 +162,10 @@ def ananas():
             b.append(body)
     lx = x0 + 2 * dx + 6
     b.append(t(lx, y0 + 20, 'стёрли номера у А:', 'var(--muted)', 15, anchor='start', cls='fi', d=0.8))
-    b.append(t(lx, y0 + 44, 'склеились 3! = 6 записей', GOLD, 16, anchor='start', weight=700, cls='fi', d=3.1))
+    b.append(t(lx, y0 + 44, 'склеились 3! = 6 записей', 'var(--ink)', 16, anchor='start', weight=700, cls='fi', d=3.1))
     b.append(t(lx, y0 + 84, 'стёрли номера у Н:', 'var(--muted)', 15, anchor='start', cls='fi', d=4.0))
-    b.append(t(lx, y0 + 108, 'склеились 2! = 2 слова', GOLD, 16, anchor='start', weight=700, cls='fi', d=6.3))
-    b.append(t(lx, y0 + 152, 'в одно слово — 3! · 2! = 12', 'var(--ink)', 17, anchor='start', weight=600,
-               cls='fi', d=6.8))
+    b.append(t(lx, y0 + 108, 'склеились 2! = 2 слова', 'var(--ink)', 16, anchor='start', weight=700, cls='fi', d=6.3))
+    b.append(pill(lx, y0 + 152, 'm = 3! · 2! = 12', 6.8, anchor='start'))
     return fig(svg(lx + 250, y0 + 6 * dy, ''.join(b), maxw=lx + 250), fx=True)
 
 
@@ -173,11 +182,11 @@ def sums():
             y = base - (m + 1) * (H + 2)
             b.append(f"<rect x='{x}' y='{y}' width='{W-8}' height='{H}' rx='5' fill='var(--bg2)' stroke='var(--line)'/>")
             b.append(t(x + (W - 8) / 2, y + 18, f'{a} + {c}', 'var(--ink)', 14))
-        b.append(t(x + (W - 8) / 2, base - len(chains) * (H + 2) - 10, str(len(chains)), GOLD, 17, weight=700))
+        b.append(t(x + (W - 8) / 2, base - len(chains) * (H + 2) - 10, str(len(chains)), BLUE, 17, weight=700))
         b.append(t(x + (W - 8) / 2, base + 22, str(s), 'var(--ink)', 18, weight=700))
     b.append(t(20, base + 50, 'сумма', size=13, anchor='start'))
     return fig(svg(20 + 7 * W, base + 60, ''.join(b), maxw=20 + 7 * W),
-               '20 цепочек: у суммы 3 их две, у суммы 5 — четыре; одного m нет')
+               'над суммой — из скольких цепочек она получена: у суммы 3 — из двух, у суммы 5 — из четырёх; одного m нет')
 
 
 # ——— 6. Пример 3: одни и те же галочки — по столбцам и по строкам ———
@@ -201,7 +210,7 @@ def clubs():
     b.append(t(x0, yb + 44, 'по столбцам: 20 · 3 = 60 галочек', GOLD, 16, anchor='start', weight=700, cls='fi', d=1.5))
     b.append(g('fi', 2.6, f"<rect x='{x0}' y='{y0}' width='{20*c}' height='{c}' fill='none' stroke='{BLUE}' stroke-width='2.5'/>"))
     b.append(g('fi', 3.0, ''.join(t(x0 + 20 * c + 14, y0 + r * c + 16, '6', BLUE, 14, weight=700) for r in range(10))))
-    b.append(t(x0, yb + 70, 'по строкам: по 6 в каждой → 60 : 6 = 10 кружков', BLUE, 16, anchor='start', weight=700,
+    b.append(t(x0, yb + 70, 'каждый кружок — 6 раз, m = 6 → 60 : 6 = 10 кружков', BLUE, 16, anchor='start', weight=700,
                cls='fi', d=3.6))
     return fig(svg(x0 + 20 * c + 34, yb + 82, ''.join(b), maxw=x0 + 20 * c + 34), fx=True)
 
@@ -223,7 +232,7 @@ def pairs_triples():
         y = 34 + k * 34
         b.append(f"<line x1='64' y1='123' x2='150' y2='{y+13}' stroke='var(--muted)'/>")
         b.append(cards(160, y, [1, 2]) + cards(160 + 2 * 21, y, [extra]))
-    b.append(t(130, 256, 'пар: N(двоек) · 6', GOLD, 15, weight=700))
+    b.append(t(130, 256, 'N(пар) = N(двоек) · 6', GOLD, 15, weight=700))
     ox = 330
     b.append(t(ox + 120, 18, 'в тройке — 3 двойки', 'var(--ink)', 14))
     b.append(cards(ox + 10, 110, [1, 2, 3]))
@@ -231,7 +240,7 @@ def pairs_triples():
         y = 68 + k * 42
         b.append(f"<line x1='{ox+78}' y1='123' x2='{ox+160}' y2='{y+13}' stroke='var(--muted)'/>")
         b.append(cards(ox + 170, y, list(pr)))
-    b.append(t(ox + 120, 256, 'пар: N(троек) · 3', GOLD, 15, weight=700))
+    b.append(t(ox + 120, 256, 'каждая тройка — в 3 парах: m = 3', BLUE, 15, weight=700))
     return fig(svg(600, 268, ''.join(b), maxw=600))
 
 
@@ -241,8 +250,8 @@ FIGS = {
     'Каждые две анаграммы, которые отличались лишь перестановкой букв А₁ и А₂': lava,
     '6! / (3! · 2!) = 720 / 12 = 60': ananas,
     'Одного m нет': sums,
-    'N(кружков) = 60 : 6 = 10': clubs,
-    'N(троек) = N(двоек) · 2': pairs_triples,
+    'N(кружков) = N(пар) : 6 = 60 : 6 = 10': clubs,
+    'N(троек) = N(пар) : 3': pairs_triples,
 }
 
 if __name__ == '__main__':
