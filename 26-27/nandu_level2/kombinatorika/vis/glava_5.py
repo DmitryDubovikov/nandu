@@ -529,7 +529,69 @@ def pies_codes():
     return fig(svg(590, yb + 38, ''.join(b), maxw=590))
 
 
+
+def trainings_codes():
+    """Пример 5: выбор трёх мест из шести → расписание. Выборы по порядку {1, 2, 3}, {1, 2, 4}, …"""
+    from itertools import combinations
+    choices = list(combinations(range(6), 3))[:5]
+    x1, x2, y0, rh = 14, 330, 40, 40
+    b = [arrow_defs(), t(x1 + 140, 18, 'выбраны три места из шести', 'var(--ink)', 13, weight=700),
+         t(x2 + 130, 18, 'дни каникул 1–8', 'var(--ink)', 13, weight=700)]
+    for i, ch in enumerate(choices):
+        y = y0 + i * rh
+        seq, x = [], x1
+        for p_ in range(6):
+            on = p_ in ch
+            b.append(f"<rect x='{x}' y='{y}' width='18' height='26' rx='4' "
+                     + (f"fill='{GREEN}'/>" if on else f"fill='none' stroke='{GREY}' stroke-dasharray='3 3'/>"))
+            if on:
+                seq.append('Т')
+            x += 22
+            if p_ < 5:
+                b.append(f"<rect x='{x}' y='{y}' width='24' height='26' rx='4' fill='var(--bg2)' stroke='var(--line)'/>")
+                b.append(t(x + 12, y + 18, 'о', 'var(--muted)', 12))
+                seq.append('о')
+                x += 28
+        b.append(f"<line x1='{x+4}' y1='{y+13}' x2='{x2-8}' y2='{y+13}' stroke='var(--ink)' stroke-width='1.6' "
+                 f"marker-end='url(#ar5)'/>")
+        for d_, c_ in enumerate(seq):
+            on = c_ == 'Т'
+            xx = x2 + d_ * 30
+            b.append(f"<rect x='{xx}' y='{y}' width='26' height='26' rx='4' "
+                     f"fill='{GREEN if on else 'var(--bg2)'}' stroke='var(--line)'/>")
+            b.append(t(xx + 13, y + 18, str(d_ + 1), DARK if on else 'var(--muted)', 12, weight=700 if on else None))
+    yd = y0 + 5 * rh
+    b.append(t(x1 + 140, yd + 6, '⋮', 'var(--muted)', 20, weight=700))
+    b.append(t(x2 + 120, yd + 6, '⋮', 'var(--muted)', 20, weight=700))
+    b.append(t(x1, yd + 32, 'дальше по порядку — всего C(6, 3) = 20 выборов и 20 расписаний;', 'var(--ink)', 13,
+               anchor='start'))
+    b.append(t(x1, yd + 52, 'между выбранными местами всегда есть день отдыха — тренировки не рядом', 'var(--ink)', 13,
+               anchor='start'))
+    return fig(svg(580, yd + 64, ''.join(b), maxw=580), 'зелёное — тренировка, о — отдых, пунктир — свободное место')
+
+
+def same_boxes():
+    """Ошибка 3: одинаковые коробки — разные коды дают одну раскладку; все четыре раскладки списком."""
+    b = [t(14, 18, 'коробки разные: два разных кода', 'var(--ink)', 13, anchor='start', weight=700)]
+    for r, cd in enumerate(['001010', '010100']):
+        y = 32 + r * 40
+        b.append(code_row(14, y, cd, w=24, gap=4))
+        b.append(t(190, y + 18, '→', 'var(--muted)', 16))
+        b.append(mini_boxes(208, y - 2, counts_of(cd), w=50, h=28, r=5, step=12, label=False))
+    b.append(t(380, 66, 'коробки одинаковые:', 'var(--ink)', 13, anchor='start'))
+    b.append(t(380, 86, 'одна раскладка 2 + 1 + 1', RED, 14, anchor='start', weight=700))
+    b.append(t(14, 136, 'все раскладки 4 ракушек по 3 одинаковым коробкам — списком', 'var(--ink)', 13, anchor='start',
+               weight=700))
+    for i, c in enumerate([[4, 0, 0], [3, 1, 0], [2, 2, 0], [2, 1, 1]]):
+        x = 14 + i * 140
+        b.append(mini_boxes(x, 150, c, w=40, h=26, r=4.5, step=9.5, label=False))
+        b.append(t(x + 60, 196, ' + '.join(str(v) for v in c if v), 'var(--ink)', 13, weight=700))
+    return fig(svg(580, 208, ''.join(b), maxw=580), 'одинаковые коробки: формулы нет, считаем списком')
+
+
 FIGS = {
+    'Каждый выбор трёх мест из шести даёт расписание': trainings_codes,
+    'коды 001010 и 010100 дают одну и ту же раскладку': same_boxes,
     'остатку «Ане 2, Боре 1, Вике 0» соответствует код 00101': pies_codes,
     'ни один стул не пустой': chairs,
     'каждый код — какой-то способ, даже 100001 и 110000': shells_codes,
