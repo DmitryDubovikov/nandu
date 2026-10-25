@@ -22,7 +22,7 @@ VIS = os.path.join(HERE, '..', 'nandu_n2_kombinatorika_uchebnik.vis.json')
 
 def pairs_table():
     c, x0, y0, N = 40, 70, 64, 6
-    b = [t(x0 + N / 2 * c, 18, 'помощник', size=14), t(18, y0 + N / 2 * c, 'ведущий', size=14,
+    b = [t(x0 + N / 2 * c, 18, 'второй выбранный', size=14), t(18, y0 + N / 2 * c, 'первый выбранный', size=14,
                                                        extra=f" transform='rotate(-90 18 {y0 + N / 2 * c})'")]
     for i in range(N):
         b.append(kid(x0 + i * c + c / 2, 40, i, r=13, size=13))
