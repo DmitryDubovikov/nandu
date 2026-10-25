@@ -193,10 +193,34 @@ def ladder3():
                'тройки по первому по алфавиту дежурному: столбцы не пересекаются и вместе — все тройки')
 
 
+# ——— 2в. Определение: сочетание — подсвеченная часть всего множества ———
+
+def subsets():
+    from itertools import combinations
+    L = 'АБВГ'
+    pos = [(0, 0), (1, 0), (0, 1), (1, 1)]
+    b = []
+    for n, st in enumerate(combinations(range(4), 2)):
+        x0 = 16 + n * 92
+        b.append(f"<rect x='{x0}' y='10' width='76' height='76' rx='10' fill='none' stroke='var(--line)'/>")
+        for i, (cx, cy) in enumerate(pos):
+            x, y = x0 + 20 + cx * 36, 30 + cy * 36
+            if i in st:
+                b.append(kid(x, y, i, r=13, size=13))
+            else:
+                b.append(f"<circle cx='{x}' cy='{y}' r='13' fill='none' stroke='{GREY}' stroke-dasharray='3 3'/>"
+                         + t(x, y + 4.5, L[i], GREY, 13))
+        b.append(t(x0 + 38, 108, '{' + ', '.join(L[i] for i in st) + '}', 'var(--ink)', 14, weight=700))
+    b.append(t(16, 140, 'n = 4 — все кружки, k = 2 — подсвеченные; порядка у подсветки нет', size=13, anchor='start'))
+    b.append(t(16, 162, 'все сочетания из 4 по 2: C(4, 2) = 6', 'var(--ink)', 15, anchor='start', weight=700))
+    return fig(svg(568, 174, ''.join(b), maxw=568), 'пример на числах, не из задачи')
+
+
 FIGS = {
     'N(пар дежурных) = N(цепочек) : 2': pairs_table,
     'N(троек дежурных) = N(цепочек) : 3!': triples,
     'N(троек дежурных) = 10 + 6 + 3 + 1': ladder3,
+    'Число сочетаний из n по k обозначают C(n, k)': subsets,
     'C(6, 2) = 6 · 5 · 4! / (2! · 4!)': cancel,
     'Например, слово МППММПМ означает': record,
     'Как видишь, C(7, 3) = C(7, 4)': complement,
