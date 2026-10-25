@@ -312,23 +312,26 @@ def glue():
 
 def slide_ones():
     """Шесть мест неподвижны, две единицы переезжают — раскладка под ними меняется."""
-    frames = ['001010', '000011', '100001', '110000', '010100']
+    from itertools import combinations
+    # по порядку: первая единица на месте 1, вторая едет вправо; потом первая на месте 2, …
+    frames = [''.join('1' if k in pl else '0' for k in range(6)) for pl in combinations(range(6), 2)]
     x0, y0, w, gap = 24, 34, 34, 8
     b = [t(x0 + k * (w + gap) + w / 2, 22, str(k + 1), 'var(--muted)', 12) for k in range(6)]
     for k in range(6):
         b.append(f"<rect x='{x0 + k*(w+gap) - 3}' y='{y0-3}' width='{w+6}' height='{w+6}' rx='8' fill='none' "
                  f"stroke='var(--line)'/>")
-    step = 1.4
+    step = 0.75
     for f, cd in enumerate(frames):
         d = 0.2 + f * step
         places = [str(k + 1) for k, ch in enumerate(cd) if ch == '1']
         body = (code_row(x0, y0, cd, w=w, gap=gap)
-                + t(x0 + 6 * (w + gap) + 14, y0 + 23, f'единицы на местах {places[0]} и {places[1]}', BLUE, 14,
+                + t(x0 + 6 * (w + gap) + 14, y0 + 14, f'единицы на местах {places[0]} и {places[1]}', BLUE, 14,
                     anchor='start', weight=700)
+                + t(x0 + 6 * (w + gap) + 14, y0 + 34, f'№ {f + 1} из 15', 'var(--muted)', 13, anchor='start')
                 + mini_boxes(x0, y0 + 56, counts_of(cd)))
         last = f == len(frames) - 1
         b.append(g('fi', d, body if last else g('fo', d + step - 0.1, body)))
-    b.append(t(x0, y0 + 128, 'мест всегда шесть; раскладку задаёт только то, где стоят две единицы', 'var(--ink)', 14,
+    b.append(t(x0, y0 + 128, 'мест всегда шесть; по порядку перебираем, где стоят две единицы', 'var(--ink)', 14,
                anchor='start'))
     return fig(svg(560, y0 + 140, ''.join(b), maxw=560), fx=True)
 
@@ -340,7 +343,7 @@ def all15():
     for c1 in range(5):
         x = x0 + c1 * cw
         b.append(t(x + cw / 2 - 6, 20, f'в первой {c1}', 'var(--ink)', 13, weight=700))
-        col = [('0' * c1) + '1' + ('0' * c2) + '1' + ('0' * (4 - c1 - c2)) for c2 in range(4 - c1, -1, -1)]
+        col = [('0' * c1) + '1' + ('0' * c2) + '1' + ('0' * (4 - c1 - c2)) for c2 in range(4 - c1 + 1)]
         for r, cd in enumerate(col):
             y = y0 + r * rh
             b.append(code_row(x + 4, y, cd, w=16, gap=3))
@@ -470,25 +473,29 @@ def chairs():
 
 
 def shells_codes():
-    """Ракушки: стрелки «способ → код»; коды справа стоят по порядку, поэтому стрелки перекрещиваются."""
-    left = [[0, 0, 4], [0, 4, 0], [4, 0, 0], [2, 1, 1], [1, 1, 2], [0, 2, 2]]
+    """Ракушки: стрелки «способ → код». Способы по порядку: в первой 0, во второй 0, 1, 2, …; коды — следом."""
+    left = [[0, c2, 4 - c2] for c2 in range(5)]
     code = lambda c: '1'.join('0' * x for x in c)
-    right = sorted(code(c) for c in left)
     b = [arrow_defs(), t(120, 18, 'способы', 'var(--ink)', 14, weight=700),
-         t(470, 18, 'коды', 'var(--ink)', 14, weight=700)]
+         t(458, 18, 'коды', 'var(--ink)', 14, weight=700)]
     rh, y0 = 46, 34
     for i, c in enumerate(left):
-        b.append(mini_boxes(14, y0 + i * rh, c).replace("width='66'", "width='66'"))
-    for j, cd in enumerate(right):
-        b.append(code_row(380, y0 + i * 0 + j * rh + 2, cd, w=26, gap=4))
-    for i, c in enumerate(left):
-        j = right.index(code(c))
-        b.append(f"<line x1='{240}' y1='{y0+16+i*rh}' x2='{372}' y2='{y0+15+j*rh}' stroke='var(--ink)' "
-                 f"stroke-width='1.6' marker-end='url(#ar5)' pathLength='100' class='dr' "
-                 f"style='--d:{0.4 + 0.5*i}s;--dur:.5s'/>")
-    b.append(t(14, y0 + 6 * rh + 14, '… и так все 15: от каждого способа одна стрелка, к каждому коду одна стрелка',
-               'var(--ink)', 13, anchor='start', cls='fi', d=3.6))
-    return fig(svg(580, y0 + 6 * rh + 26, ''.join(b), maxw=580), fx=True)
+        y = y0 + i * rh
+        cd = code(c)
+        b.append(mini_boxes(14, y, c))
+        b.append(code_row(370, y + 2, cd, w=26, gap=4))
+        pl = [str(k + 1) for k, ch in enumerate(cd) if ch == '1']
+        b.append(t(556, y + 21, f'места {pl[0]} и {pl[1]}', BLUE, 12, anchor='start'))
+        b.append(f"<line x1='240' y1='{y+16}' x2='362' y2='{y+16}' stroke='var(--ink)' stroke-width='1.6' "
+                 f"marker-end='url(#ar5)' pathLength='100' class='dr' style='--d:{0.4 + 0.5*i}s;--dur:.5s'/>")
+    yd = y0 + 5 * rh
+    b.append(t(120, yd + 8, '⋮', 'var(--muted)', 20, weight=700))
+    b.append(t(458, yd + 8, '⋮', 'var(--muted)', 20, weight=700))
+    b.append(t(14, yd + 36, 'дальше по порядку: в первой 1, 2, 3, 4 — всего 15 стрелок;', 'var(--ink)', 13,
+               anchor='start', cls='fi', d=3.0))
+    b.append(t(14, yd + 56, 'от каждого способа одна стрелка, к каждому коду одна', 'var(--ink)', 13,
+               anchor='start', cls='fi', d=3.0))
+    return fig(svg(640, yd + 68, ''.join(b), maxw=640), fx=True)
 
 
 FIGS = {
