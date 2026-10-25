@@ -193,49 +193,10 @@ def ladder3():
                'тройки по первому по алфавиту дежурному: столбцы не пересекаются и вместе — все тройки')
 
 
-# ——— 2в. Вывод C(n, k): все цепочки раскладываются в пачки по k! ———
-
-def regroup():
-    from itertools import permutations, combinations
-    L = 'АБВГД'
-    sets = list(combinations(range(5), 3))
-    chains = list(permutations(range(5), 3))
-    W, H = 14, 16
-    b = []
-    for c in range(5):
-        b.append(g('fo', 0.8, t(20 + 2 * c * 68 + 55, 22, f'первая {L[c]}', 'var(--muted)', 13)
-                   + f"<line x1='{20+2*c*68}' y1='28' x2='{20+2*c*68+110}' y2='28' stroke='var(--line)'/>"))
-    for s, st in enumerate(sets):
-        b.append(t(20 + s * 68 + 21, 22, '{' + ', '.join(L[i] for i in st) + '}', 'var(--ink)', 11,
-                   weight=700, cls='fi', d=2.6))
-    seen = {}
-    for n, ch in enumerate(chains):
-        c, r = ch[0], n % 12
-        x0, y0 = 20 + (2 * c + r // 6) * 68, 34 + (r % 6) * 22
-        s = sets.index(tuple(sorted(ch)))
-        j = seen.get(s, 0); seen[s] = j + 1
-        x1, y1 = 20 + s * 68, 34 + j * 22
-        tiles = ''.join(f"<rect x='{x0+k*W}' y='{y0}' width='{W-1}' height='{H}' rx='2' fill='{KIDS[i][1]}'/>"
-                        + t(x0 + k * W + (W - 1) / 2, y0 + 12, L[i], DARK, 10, weight=700)
-                        for k, i in enumerate(ch))
-        b.append(g('sl', 1.0 + 0.08 * s, tiles, f';--to:translate({x1-x0}px,{y1-y0}px)'))
-    for s in range(10):
-        b.append(g('fi', 2.6, f"<rect x='{20+s*68-4}' y='30' width='{3*W+7}' height='{6*22}' rx='6' fill='none' "
-                              f"stroke='{GOLD}' stroke-width='1.5'/>"
-                   + t(20 + s * 68 + 21, 34 + 6 * 22 + 14, '6', GOLD, 14, weight=700)))
-    b.append(t(20, 220, 'по первой букве: 5 · 4 · 3 = 60 цепочек', GOLD, 15, anchor='start', weight=700))
-    b.append(t(20, 244, 'по наборам: 10 пачек по 3! = 6 — наборов 60 : 3! = 10', 'var(--ink)', 15,
-               anchor='start', weight=700, cls='fi', d=3.0))
-    return fig(svg(700, 256, ''.join(b), maxw=700),
-               'пример на числах, не из задачи: пять букв, цепочки по три — считаем по первой букве, а делим по наборам',
-               fx=True)
-
-
 FIGS = {
     'N(пар дежурных) = N(цепочек) : 2': pairs_table,
     'N(троек дежурных) = N(цепочек) : 3!': triples,
     'N(троек дежурных) = 10 + 6 + 3 + 1': ladder3,
-    'В каждый набор склеиваются k! цепочек': regroup,
     'C(6, 2) = 6 · 5 · 4! / (2! · 4!)': cancel,
     'Например, слово МППММПМ означает': record,
     'Как видишь, C(7, 3) = C(7, 4)': complement,
