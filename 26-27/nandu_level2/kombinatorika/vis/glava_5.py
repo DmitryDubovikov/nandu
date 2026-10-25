@@ -70,18 +70,18 @@ def shells():
 
 # ——— 2. Пример 1: коды с единицей в начале и с единицами рядом — тоже раскладки ———
 
-def mini_boxes(x, y, counts):
-    b, w = [], 66
+def mini_boxes(x, y, counts, w=66, h=32, r=6, step=15, label=True):
+    """Шкатулки вплотную: общий контур, на стыках синие перегородки — как единицы кода."""
+    n = len(counts)
+    b = [f"<rect x='{x}' y='{y}' width='{n * w}' height='{h}' rx='4' fill='none' stroke='var(--muted)' "
+         f"stroke-width='1.5'/>"]
     for i, c in enumerate(counts):
-        bx = x + i * (w + 6)
-        empty = c == 0
-        dash = " stroke-dasharray='4 3'" if empty else ''
-        stroke = GREY if empty else 'var(--muted)'
-        b.append(f"<rect x='{bx}' y='{y}' width='{w}' height='32' rx='5' fill='none' "
-                 f"stroke='{stroke}' stroke-width='1.5'{dash}/>")
-        b.append(''.join(ball(bx + 10 + k * 15, y + 16, r=6) for k in range(c)))
-        if empty:
-            b.append(t(bx + w / 2, y + 21, 'пусто', GREY, 12))
+        bx = x + i * w
+        b.append(''.join(ball(bx + (w - (c - 1) * step) / 2 + k * step, y + h / 2, r=r) for k in range(c)))
+        if c == 0 and label:
+            b.append(t(bx + w / 2, y + h / 2 + 4, 'пусто', GREY, 12))
+    for i in range(1, n):
+        b.append(bar(x + i * w, y - 4, y + h + 4, w=max(3, round(w / 14))))
     return ''.join(b)
 
 
@@ -347,10 +347,7 @@ def all15():
         for r, cd in enumerate(col):
             y = y0 + r * rh
             b.append(code_row(x + 4, y, cd, w=16, gap=3))
-            for k, c in enumerate(counts_of(cd)):
-                bx = x + 4 + k * 38
-                b.append(f"<rect x='{bx}' y='{y+22}' width='34' height='22' rx='4' fill='none' stroke='var(--muted)'/>")
-                b.append(''.join(ball(bx + 6 + q * 7.5, y + 33, r=3.2) for q in range(c)))
+            b.append(mini_boxes(x + 4, y + 23, counts_of(cd), w=38, h=20, r=3.2, step=7.5, label=False))
         b.append(t(x + cw / 2 - 6, y0 + len(col) * rh + 10, str(len(col)), GOLD, 17, weight=700))
     return fig(svg(x0 + 5 * cw, y0 + 5 * rh + 24, ''.join(b), maxw=x0 + 5 * cw),
                'все 15 кодов: столбец — сколько ракушек в первой шкатулке')
