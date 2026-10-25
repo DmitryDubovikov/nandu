@@ -495,7 +495,42 @@ def shells_codes():
     return fig(svg(640, yd + 68, ''.join(b), maxw=640), fx=True)
 
 
+
+def pies_codes():
+    """Пример 4, способ 1: раскладка всех пирожков → остаток (убрали по одному) → код. Все 10 по порядку."""
+    rows = [(a, b, 6 - a - b) for a in range(1, 5) for b in range(1, 6 - a) if 6 - a - b >= 1]
+    w, h, rh, y0 = 50, 26, 36, 52
+    x1, x2, x3 = 14, 240, 436
+    b = [arrow_defs(),
+         t(x1 + 75, 18, 'все 6 пирожков', 'var(--ink)', 13, weight=700),
+         t(x2 + 75, 18, 'остаток 3', 'var(--ink)', 13, weight=700),
+         t(x3 + 60, 18, 'код остатка', 'var(--ink)', 13, weight=700)]
+    for k, nm in enumerate(['Аня', 'Боря', 'Вика']):
+        b.append(t(x1 + k * w + w / 2, 38, nm, 'var(--muted)', 11))
+        b.append(t(x2 + k * w + w / 2, 38, nm, 'var(--muted)', 11))
+    for i, c in enumerate(rows):
+        y = y0 + i * rh
+        rest = [x - 1 for x in c]
+        # все пирожки: первый в каждом отделении бледный — его убираем
+        b.append(mini_boxes(x1, y, c, w=w, h=h, r=5, step=11, label=False))
+        for k in range(3):
+            first = x1 + k * w + (w - (c[k] - 1) * 11) / 2
+            b.append(f"<circle cx='{first}' cy='{y + h / 2}' r='5' fill='var(--bg)' stroke='{GOLD}' stroke-width='1.5'/>")
+        b.append(f"<line x1='{x1+3*w+8}' y1='{y+h/2}' x2='{x2-8}' y2='{y+h/2}' stroke='var(--muted)' "
+                 f"stroke-width='1.4' marker-end='url(#ar5)'/>")
+        b.append(mini_boxes(x2, y, rest, w=w, h=h, r=5, step=11, label=False))
+        b.append(f"<line x1='{x2+3*w+8}' y1='{y+h/2}' x2='{x3-8}' y2='{y+h/2}' stroke='var(--ink)' "
+                 f"stroke-width='1.6' marker-end='url(#ar5)'/>")
+        b.append(code_row(x3, y + 1, '1'.join('0' * x for x in rest), w=24, gap=4))
+    yb = y0 + len(rows) * rh + 20
+    b.append(t(x1, yb, 'кружок без заливки — пирожок, который убрали: по одному с каждой тарелки', 'var(--muted)', 12, anchor='start'))
+    b.append(t(x1, yb + 26, '10 раскладок ↔ 10 остатков ↔ 10 кодов из трёх 0 и двух 1', 'var(--ink)', 14,
+               anchor='start', weight=700))
+    return fig(svg(590, yb + 38, ''.join(b), maxw=590))
+
+
 FIGS = {
+    'остатку «Ане 2, Боре 1, Вике 0» соответствует код 00101': pies_codes,
     'ни один стул не пустой': chairs,
     'каждый код — какой-то способ, даже 100001 и 110000': shells_codes,
     'способами: у каждого шара n вариантов ящика': distinct,
