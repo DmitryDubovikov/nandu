@@ -328,6 +328,9 @@ def city_task():
 
 def city_fill():
     b = [defs(), city(3, 3, 40, 200, lbl=False)]
+    x0_, y0_ = gp(0, 0)
+    b.append(f"<path d='M{x0_ + 3 * CC} {y0_} H{x0_} V{y0_ - 3 * CC}' fill='none' stroke='{VIOLET}' stroke-width='7' "
+             f"stroke-opacity='.45' stroke-linejoin='round'/>")
     b.append(road(gp(2, 3), gp(3, 3), BLUE, 'b', 4, 13))
     b.append(road(gp(3, 2), gp(3, 3), GREEN, 'z', 4, 13))
     for i in range(4):
@@ -343,7 +346,9 @@ def city_fill():
     b.append(t(x + 22, y + 26, '10 + 10 = 20', GOLD, 15, anchor='start', weight=700))
     b.append(t(x + 22, y + 50, 'слева — синее', BLUE, 13, anchor='start'))
     b.append(t(x + 22, y + 70, 'снизу — зелёное', GREEN, 13, anchor='start'))
-    return fig(svg(380, 232, ''.join(b), maxw=380), 'число в перекрёстке — число слева плюс число снизу')
+    b.append(t(x + 22, y + 120, 'нижняя и левая улицы:', VIOLET, 13, anchor='start', weight=700))
+    b.append(t(x + 22, y + 138, 'путь из A один', VIOLET, 13, anchor='start', weight=700))
+    return fig(svg(380, 232, ''.join(b), maxw=380), 'число путей из A в перекрёсток — сумма чисел в соседних перекрёстках слева и снизу')
 
 
 # ——— Треугольник: сетка поворачивается, A сверху; дорисовываются строки до 6 ———
@@ -414,6 +419,44 @@ def tri_numbered():
         b.append(t(x, y + 32, f'место {k}', BLUE if k == 2 else 'var(--muted)', 11, weight=700 if k == 2 else None))
     b.append(t(18, 340, 'C(6, 2) = 15: строка 6, место 2', BLUE, 14, anchor='start', weight=700))
     return fig(svg(600, 352, ''.join(lines_first(b)), maxw=560))
+
+
+def tri_steps():
+    """✦ Путь из 4 шагов: шагов вниз-вправо по очереди 0, 1, 2, 3, 4 — конец переезжает на место 0, 1, 2, 3, 4."""
+    h, x0, y0 = 40, 230, 34
+    P = lambda n, k: tri_pos(n, k, x0=x0, y0=y0, h=h)
+    b = []
+    for n in range(5):
+        for k in range(n + 1):
+            x, y = P(n, k)
+            if n:
+                for pk in (k - 1, k):
+                    if 0 <= pk <= n - 1:
+                        px, py = P(n - 1, pk)
+                        b.append(f"<line x1='{px}' y1='{py}' x2='{x}' y2='{y}' stroke='var(--line)'/>")
+            b.append(dot(x, y, 4, 'var(--muted)'))
+    b.append(t(x0 - 22, y0 + 5, 'A', 'var(--ink)', 15, weight=700))
+    step = 1.2
+    for kk in range(5):
+        d = 0.3 + step * kk
+        pts, n, k = [P(0, 0)], 0, 0
+        for s_ in ['R'] * kk + ['L'] * (4 - kk):
+            n += 1
+            k += 1 if s_ == 'R' else 0
+            pts.append(P(n, k))
+        path = (f"<polyline points='{' '.join('%.1f,%.1f' % q for q in pts)}' fill='none' stroke='{GOLD}' "
+                f"stroke-width='4' stroke-linejoin='round' stroke-linecap='round'/>"
+                + f"<circle cx='{pts[-1][0]:.1f}' cy='{pts[-1][1]:.1f}' r='9' fill='none' stroke='{GOLD}' stroke-width='2.5'/>"
+                + t(x0 + 190, y0 + 30, f'шагов вниз-вправо: {kk} из 4', GOLD, 14, anchor='start', weight=700)
+                + t(x0 + 190, y0 + 52, f'конец пути — место {kk}', GOLD, 14, anchor='start', weight=700))
+        b.append(g('fi', d, path if kk == 4 else g('fo', d + step - 0.15, path)))
+        x, y = P(4, kk)
+        b.append(t(x, y + 28, str(kk), BLUE, 14, weight=700, cls='fi', d=d))
+    x, y = P(4, 0)
+    b.append(t(x - 26, y + 28, 'место', BLUE, 12, anchor='end', cls='fi', d=0.3))
+    b.append(t(14, y0 + 4 * h + 62, 'шаг вниз-вправо вместо шага вниз-влево сдвигает конец пути на одно место вправо',
+               'var(--ink)', 13, anchor='start'))
+    return fig(svg(560, y0 + 4 * h + 74, ''.join(b), maxw=560), fx=True)
 
 
 def tri_c():
@@ -560,6 +603,7 @@ FIGS = {
     'Поэтому число путей из A в перекрёсток — сумма чисел путей из A в соседний перекрёсток слева': city_fill,
     'Допишем ниже ещё несколько строк': rotate,
     'Строки треугольника нумеруются сверху, начиная с нуля': tri_numbered,
+    'сдвигает конец пути на одно место вправо, поэтому в перекрёсток на k-м месте': tri_steps,
     'Путь задаётся тем, какие k шагов из n идут вниз-вправо': tri_c,
     'N(троек) = N(троек с А) + N(троек без А) = 6 + 4 = 10': games_sort,
     'тройки {В, Г, Д} нет ни в одной группе': games_trap,
