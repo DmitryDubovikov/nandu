@@ -267,6 +267,25 @@ def sled(filled=False):
     return fig(svg(440, 372, ''.join(b), maxw=440), 'схема трасс; ехать можно только по стрелкам, вниз')
 
 
+def sled_fill():
+    """✦ Числа появляются сверху вниз; у каждой точки на миг вспыхивают трассы, по которым в неё приезжают."""
+    levels = [['A', 'B', 'C'], ['D', 'E'], ['G', 'H']]
+    b = [defs()]
+    for p, q in SLED_E:
+        b.append(road(SLED[p], SLED[q], 'var(--muted)', 'g', 2, 9))
+    for k, (x, y) in SLED.items():
+        b.append(dot(x, y, 5))
+        dx, dy, an = SLED_LBL[k]
+        b.append(t(x + dx * 1.3, y + dy, k, 'var(--ink)', 15, anchor=an, weight=700))
+    for lev, ks in enumerate(levels):
+        d = 0.4 + 1.3 * lev
+        for k in ks:
+            inc = [road(SLED[p], SLED[q], GOLD, 'o', 3.5, 9) for p, q in SLED_E if q == k]
+            b.append(g('fi', d, g('fo', d + 0.9, ''.join(inc))))
+            b.append(g('fi', d + 0.45, num(*SLED[k], SLED_N[k], GOLD, 14, 12)))
+    return fig(svg(440, 372, ''.join(b), maxw=440), fx=True)
+
+
 def sled_task():
     return sled(False)
 
@@ -536,6 +555,7 @@ FIGS = {
     'ни один способ не остался вне групп — вместе группы дают все способы': sum_rule,
     'Томас катается на санках с горы': sled_task,
     'N(путей от старта к финишу) = 3 + 4 + 2 = 9': sled_filled,
+    'H D и E 2 + 2 = 4': sled_fill,
     'Аня идёт по улицам из точки A в точку D': city_task,
     'Поэтому число путей из A в перекрёсток — сумма чисел путей из A в соседний перекрёсток слева': city_fill,
     'Допишем ниже ещё несколько строк': rotate,
