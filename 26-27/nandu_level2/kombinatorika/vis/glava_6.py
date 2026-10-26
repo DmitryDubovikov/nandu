@@ -58,7 +58,7 @@ def pp(i, j, x0=150, y0=300):
 
 
 PARK_LBL = {(0, 0): ('O', 0, 22), (4, 2): ('F', 0, -14), (1, 0): ('A', 16, 6), (0, 1): ('B', -16, 6),
-            (1, 1): ('C', 0, 24), (3, 2): ('P', -16, 4), (4, 1): ('Q', 16, 4)}
+            (1, 1): ('C', 0, 24), (2, 0): ('D', 16, 6), (2, 1): ('M', 16, 6), (3, 2): ('P', -16, 4), (4, 1): ('Q', 16, 4)}
 
 
 def park_edges(hi=None):
@@ -105,6 +105,50 @@ def park_small():
     b.append(t(250, 84, 'через B — 1 путь', GREEN, 14, anchor='start', weight=700))
     b.append(t(250, 116, 'в C: 1 + 1 = 2', GOLD, 15, anchor='start', weight=700))
     return fig(svg(420, 190, ''.join(b), maxw=420), 'последний шаг в C — либо из A, либо из B')
+
+
+def paths_m():
+    """✦ Все пути от входа в M по группам: через C (2) и через D (1); в каждой схеме сначала путь до C или D,
+    потом дорисовывается единственная дорожка в M."""
+    s_ = 40
+
+    def mp(i, j, ox, oy):
+        return ox + s_ * (i - j), oy - s_ * (i + j)
+
+    nodes = [(i, j) for i in range(3) for j in range(2)]
+    paths = [((0, 0), (1, 0), (1, 1), BLUE, 'b', 'C'), ((0, 0), (0, 1), (1, 1), BLUE, 'b', 'C'),
+             ((0, 0), (1, 0), (2, 0), GREEN, 'z', 'D')]
+    oxs = [100, 270, 510]
+    oy = 196
+    b = [defs()]
+    b.append(f"<rect x='14' y='34' width='346' height='190' rx='12' fill='none' stroke='{BLUE}' stroke-width='1.5'/>")
+    b.append(f"<rect x='410' y='34' width='216' height='190' rx='12' fill='none' stroke='{GREEN}' stroke-width='1.5'/>")
+    b.append(t(187, 24, 'через C', BLUE, 14, weight=700))
+    b.append(t(518, 24, 'через D', GREEN, 14, weight=700))
+    for n_, (p0, p1, p2, col, mk, via) in enumerate(paths):
+        ox = oxs[n_]
+        for (i, j) in nodes:
+            if i < 2:
+                b.append(road(mp(i, j, ox, oy), mp(i + 1, j, ox, oy), 'var(--line)', 'g', 1.4, 5))
+            if j < 1:
+                b.append(road(mp(i, j, ox, oy), mp(i, j + 1, ox, oy), 'var(--line)', 'g', 1.4, 5))
+            b.append(dot(*mp(i, j, ox, oy), 3.5))
+        d = 0.4 + 1.3 * n_
+        pre = (f"<polyline points='{' '.join('%.1f,%.1f' % mp(*q, ox, oy) for q in (p0, p1, p2))}' fill='none' "
+               f"stroke='{col}' stroke-width='3' stroke-linejoin='round' stroke-opacity='.75'/>")
+        b.append(g('fi', d, pre))
+        b.append(g('fi', d + 0.6, road(mp(*p2, ox, oy), mp(2, 1, ox, oy), col, mk, 3.5, 4)))
+        x, y = mp(*p2, ox, oy)
+        b.append(t(x + (14 if via == 'D' else -14), y + 5, via, col, 13, anchor='start' if via == 'D' else 'end',
+                   weight=700))
+        x, y = mp(2, 1, ox, oy)
+        b.append(t(x + 10, y - 6, 'M', 'var(--ink)', 13, anchor='start', weight=700))
+        x, y = mp(0, 0, ox, oy)
+        b.append(t(x, y + 18, 'O', 'var(--muted)', 12))
+    b.append(t(187, 250, 'путей от входа в C — 2: каждый + дорожка C → M', BLUE, 13, weight=700, cls='fi', d=3.2))
+    b.append(t(518, 250, 'путей от входа в D — 1: + дорожка D → M', GREEN, 13, weight=700, cls='fi', d=4.4))
+    b.append(t(304, 284, 'путей от входа в M: 2 + 1 = 3', GOLD, 15, weight=700, cls='fi', d=4.8))
+    return fig(svg(640, 298, ''.join(b), maxw=640), fx=True)
 
 
 def park_fill():
@@ -485,7 +529,8 @@ def check_task():
 
 FIGS = {
     'Лусия идёт по парку от входа O к фонтану F': park_task,
-    'N(путей от входа в C) = 1 + 1 = 2': park_small,
+    'В C ведут две дорожки: из A и из B.': park_small,
+    'N(путей от входа в M) = 2 + 1 = 3': paths_m,
     'Заполняем перекрёстки снизу вверх.': park_fill,
     'N(путей к фонтану) = 10 + 5 = 15': park_last,
     'ни один способ не остался вне групп — вместе группы дают все способы': sum_rule,
