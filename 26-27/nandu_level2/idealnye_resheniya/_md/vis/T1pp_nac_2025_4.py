@@ -16,19 +16,19 @@ def fig(inner, cap=''):
     return f"<figure class='st'>{inner}{c}</figure>"
 
 BOXES = [('синяя', BLUE), ('белая', WHITE), ('красная', RED), ('зелёная', GREEN)]
-CW, CH, GAP = 32, 10, 14            # ширина клетки, высота строки, высота полосы переноса
-X0 = 32                              # левый край первой коробки
+CW, CH, GAP = 32, 12, 14            # ширина клетки, высота строки, высота полосы переноса
+X0 = 54                              # левый край первой коробки
 def cx(i): return X0 + i * (CW + 2)
 EQX = cx(4) + 12                     # центр столбца уравнений
 HEAD = 7                             # базовая линия заголовков
 ROW0 = 10                            # верх первой строки
 def rowy(r): return ROW0 + r * (CH + GAP)
 
-MOMENTS = ['сначала', 'после 30', 'в конце']
+MOMENTS = [('момент 1', 'до переносов'), ('момент 2', 'после переноса 30'), ('момент 3', 'после переноса половины')]
 CELLS = [['a', 'b', 'a', 'v'],
          ['a − 30', 'b + 30', 'a', 'v'],
          ['a − 30', 'v : 2', 'a + v : 2', 'v']]
-MOVES = [(0, 1, '30'), (1, 2, 'половина')]   # из какой коробки в какую, подпись
+MOVES = [(0, 1, 'перенос 30'), (1, 2, 'перенос половины')]   # из какой коробки в какую, подпись
 
 def table(step=None):
     s = (f"<defs><marker id='mv{step}' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'>"
@@ -39,10 +39,11 @@ def table(step=None):
         y = rowy(r)
         filled = step is not None and r < step
         cur = step is not None and r == step - 1
-        lc = GOLD if cur else (INK if filled else DIM)
+        lc = GOLD if cur else (INK if filled or step is None else DIM)
         if cur:
             s += f"<rect x='1' y='{y - 1.2}' width='{EQX + 9}' height='{CH + 2.4}' rx='2' fill='{GOLD}' fill-opacity='0.10' stroke='{GOLD}' stroke-width='0.8'/>"
-        s += txt(29, y + CH / 2 + 1.4, mom, lc, 3.8, anchor='end')
+        s += txt(51, y + CH / 2 - 1.0, mom[0], lc, 3.8, '700', anchor='end')
+        s += txt(51, y + CH / 2 + 3.6, mom[1], lc, 3.5, anchor='end')
         s += txt(EQX, y + CH / 2 + 1.3, f'({r + 1})', lc, 3.8)
         for i, (_, c) in enumerate(BOXES):
             if filled:
@@ -62,9 +63,9 @@ def table(step=None):
     return f"<svg viewBox='0 0 {EQX + 12} {h}' role='img' aria-label='Таблица моментов' style='max-width:760px'>{s}</svg>"
 
 V = {}
-V['Про каждый момент условие говорит'] = fig(table(), 'Коробки по моментам.')
-V['Запишем уравнение момента «сначала»'] = fig(table(1))
-V['Запишем уравнение момента «после 30»'] = fig(table(2))
-V['Запишем уравнение момента «в конце»'] = fig(table(3))
+V['после переноса половины белой в красную: в зелёной'] = fig(table(), 'Три момента.')
+V['Запишем уравнение момента 1'] = fig(table(1))
+V['Запишем уравнение момента 2'] = fig(table(2))
+V['Запишем уравнение момента 3'] = fig(table(3))
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
