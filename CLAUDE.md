@@ -66,7 +66,7 @@ method in the repo:
 4. **Move list** — replaces textbooks and move maps (parent's decision 2 Nov 2026, see rule 7): one line per move
    «what the written-out examples show → first formula · move name», first line «выпиши 3–5 примеров».
 5. **Problem bank + recognition drill** — 10–15 problems per move in different plots, mixed; drill = write examples
-   and name the move (~3 min, no solving), then timed mixed sets.
+   and name the move (~5 min, no solving), then timed mixed sets.
 6. **Whole-corpus solutions** — last.
 
 Steps 1–5 run **in phases by tour**, not over all 17 models at once: **1. Zonal** (ready by 7 May — the Interescolar
@@ -189,7 +189,7 @@ These conventions are load-bearing across all materials — keep them.
    only enumeration families (Т3…Т3‴, Т1‴, Т1″, Т4, Т4′, Т5, Т6) — geometry and systems get none; (3) a **bank** of
    10–15 problems per move in different plots — level-1 corpus of all stages plus generated variants, every answer
    brute-force checked; the level-2 corpus stays for battle (rule 1); (4) **drill**, mixed not by move:
-   recognition (~3 min: write examples, name the move and the way of solving — the «ответ = операнды» first-idea
+   recognition (~5 min: write examples, name the move and the way of solving — the «ответ = операнды» first-idea
    formula of the ⛔ block — and stop before the mechanics; this is the main volume of practice, parent: «набить руку,
    не тратя время на механику»), then timed mixed sets;
    (5) battle problems of the phase, each preceded by examples + naming the move. **Nothing can be opened on a tour** —
