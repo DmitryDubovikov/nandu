@@ -94,27 +94,12 @@ s += names()
 V['ABPR — это прямоугольник ABCD без'] = fig(svg(s, 'ABPR внутри ABCD', '-9 -7 90 58'),
   "<b style='color:#f2686c'>ABPR</b> = <b style='color:#f0a83c'>ABCD</b> без <b style='color:#5ba8f5'>BCP</b> и <b style='color:#5fd38d'>PDR</b>.")
 
-# 7. врезка «общая высота»: пример на числах, не из задачи
-W = 6
-def ex(x, y): return 4 + W*x, 4 + W*(4-y)
-def expoly(pts, col, op):
-    return f"<polygon points='{' '.join('%s,%s' % ex(*p) for p in pts)}' fill='{col}' fill-opacity='{op}' stroke='{col}' stroke-width='0.8' stroke-linejoin='round'/>"
-def exline(a, b, col, w=0.6, dash=False):
-    (x1,y1),(x2,y2) = ex(*a), ex(*b); d = " stroke-dasharray='1.6 1.2'" if dash else ''
-    return f"<line x1='{x1}' y1='{y1}' x2='{x2}' y2='{y2}' stroke='{col}' stroke-width='{w}'{d}/>"
-T, Z, X, Y = (0,3), (0,0), (2,0), (6,0)
-s = expoly([T,Z,Y], GOLD, 0.3) + expoly([T,Z,X], BLUE, 0.55) + exline(T, Z, LAB, 0.8, True)
-s += txt(ex(1,0)[0], ex(1,0)[1]+5, '2', BLUE, 3.4) + txt(ex(4,0)[0], ex(4,0)[1]+5, '6', GOLD, 3.4) + txt(ex(0,1.5)[0]-3.6, ex(0,1.5)[1]+1.2, '3', LAB, 3.4)
-s += txt(68, 12, '2 · 3 : 2 = 3', BLUE, 3.6) + txt(68, 19, '6 · 3 : 2 = 9', GOLD, 3.6) + txt(68, 26, '6 = 3 · 2,  9 = 3 · 3', LAB, 3.6)
-V['Поэтому площадь одного треугольника'] = fig(svg(s, 'Общая высота: пример', '-2 -2 96 36'), 'Пример на числах, не из задачи.')
-
-# 8. раздел «Найдём CF»: CAF и BAF, общая высота AB
-s = poly([PT['A'],PT['C'],PT['F']], GOLD, 0.8, GOLD, 0.25) + poly([PT['A'],PT['B'],PT['F']], BLUE, 0.9, BLUE, 0.55)
-s = grid() + full() + s + line(PT['A'],PT['B'],LAB,1.0,True)
-s += at((6,3.1), '4x', 4.4, 1.0, GOLD) + at((6,-0.5), 'BF', -4.0, 1.2, BLUE, 2.8)
+# 7. раздел «Найдём CF»: CAF = ABC + BAF, общий катет AB
+s = grid() + full() + tri([PT['A'],PT['B'],PT['C']], GOLD, 0.35) + tri([PT['A'],PT['B'],PT['F']], BLUE, 0.55)
+s += dimAB() + at((6,3.1), '4x', 4.4, 1.0, GOLD) + at((6,-0.5), 'BF', -4.0, 1.2, BLUE, 2.8)
 s += names()
-V['В частности, у CAF и BAF'] = fig(svg(s, 'CAF и BAF', '-9 -7 90 58'),
-  "<b style='color:#f0a83c'>CAF</b> и <b style='color:#5ba8f5'>BAF</b>: основания CF и BF на прямой BC, высота AB общая.")
+V['Заметим, что CAF разбивается'] = fig(svg(s, 'CAF = ABC + BAF', '-9 -7 90 66'),
+  "<b style='color:#f0a83c'>ABC</b> и <b style='color:#5ba8f5'>BAF</b> вместе — CAF; катет AB у них общий.")
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
