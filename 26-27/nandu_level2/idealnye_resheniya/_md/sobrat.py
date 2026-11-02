@@ -107,6 +107,13 @@ for f, typ, *_ in items:
         parts = [x for x in SENT.split(t) if x.strip()]
         if len(parts) > 1:
             print(f'  ⚠ склейка: {f} — {len(parts)} мысли в строке: «{t[:70]}…»')
+# Тире перед числом читается как минус («каждая цифра — 6» = «−6»; родитель 2.11.2026): «равна 6», «:», скобки
+for f, *_ in items:
+    incode = False
+    for ln in open(os.path.join(M, f + '.md')).read().split('\n'):
+        if ln.strip().startswith('```'): incode = not incode; continue
+        if not incode and re.search(r' — [0-9]', ln):
+            print(f'  ⚠ тире-минус: {f} — «{ln.strip()[:70]}»')
 r = subprocess.run([sys.executable, TOOL, md, out, vp], capture_output=True, text=True)
 for line in (r.stdout + r.stderr).splitlines():
     if 'без якоря' in line or 'Traceback' in line:

@@ -121,6 +121,7 @@
 
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
+  p.sec{font-size:clamp(24px,2.3vw,29px);line-height:1.3;margin-top:38px;color:var(--ink)}
   p.step b:first-child{color:var(--gold)}
   p.ritual{margin-top:20px}
   p.ritual b:first-child{color:var(--gold)}
@@ -319,12 +320,12 @@
 <p class="st">Каждая цифра не меньше 4, а 8 · 4 = 32 &gt; 30 ⇒ цифр не больше семи.</p>
 <p class="st">У каждого числа одна длина, поэтому:</p>
 <div id="a1" data-art="1"><div class="plan st"><div class="frm st">N = <span class="pen2">N(5 цифр)</span> + <span class="pen3">N(6 цифр)</span> + <span class="pen4">N(7 цифр)</span></div></div></div>
-<p class="st"><b>1. N(5 цифр).</b></p>
-<p class="st">5 · 6 = 30 ⇒ каждая из пяти цифр — 6.</p>
+<p class="sec st"><b>1. N(5 цифр).</b></p>
+<p class="st">5 · 6 = 30 ⇒ каждая из пяти цифр равна 6.</p>
 <p class="st"><small>66666</small></p>
 <div id="a2" data-art="2"><div class="frm st"><span class="pen2">N(5 цифр)</span> = <span class="pen2">1</span></div></div>
-<p class="st"><b>2. N(6 цифр).</b></p>
-<p class="st">30 = 6 · 5 ⇒ в среднем каждая цифра — 5.</p>
+<p class="sec st"><b>2. N(6 цифр).</b></p>
+<p class="st">30 = 6 · 5 ⇒ в среднем каждая цифра равна 5.</p>
 <p class="st">Каждая 4 на 1 меньше 5, каждая 6 на 1 больше ⇒ 4 стоит столько же раз, сколько 6.</p>
 <p class="st">4 стоит 0, 1, 2 или 3 раза:</p>
 <div id="a3" data-art="3"><div class="plan st"><div class="frm st"><span class="pen3">N(6 цифр)</span> = N(555555) + N(455556) + N(445566) + N(444666)</div></div></div>
@@ -350,7 +351,7 @@
 <p class="st"><small>первая 4 на месте 3: 664446    664464    664644</small></p>
 <p class="st"><small>первая 4 на месте 4: 666444</small></p>
 <div id="a10" data-art="10"><div class="frm st"><span class="pen3">N(6 цифр)</span> = 1 + 30 + 90 + 20 = <span class="pen3">141</span></div></div>
-<p class="st"><b>3. N(7 цифр).</b></p>
+<p class="sec st"><b>3. N(7 цифр).</b></p>
 <p class="st">7 · 4 = 28 ⇒ до 30 не хватает 2.</p>
 <p class="st">Каждая 5 добавляет к 4 единицу, каждая 6 — две ⇒ в числе либо одна 6, либо две 5:</p>
 <div id="a11" data-art="11"><div class="plan st"><div class="frm st"><span class="pen4">N(7 цифр)</span> = N(4444446) + N(4444455)</div></div></div>
@@ -366,13 +367,13 @@
 <p class="st"><small>первая 5 на месте 5: 4444554    4444545</small></p>
 <p class="st"><small>первая 5 на месте 6: 4444455</small></p>
 <div id="a14" data-art="14"><div class="frm st"><span class="pen4">N(7 цифр)</span> = 7 + 21 = <span class="pen4">28</span></div></div>
-<p class="st"><b>Сборка.</b></p>
+<p class="sec st"><b>Сборка.</b></p>
 <div id="a15" data-art="15"><div class="frm st">N = <span class="pen2">1</span> + <span class="pen3">141</span> + <span class="pen4">28</span> = 170</div></div>
 <p class="st"><b>Ответ на задачу:</b> можно составить <b>170 чисел</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Решить, что цифр всегда шесть («30 : 5 = 6»): потеряются 66666 и все семизначные числа, выйдет 141.</li><li>Не считать 66666 и 555555, хотя условие разрешает одну цифру, — выйдет 168.</li><li>Переставлять одинаковые цифры как разные: для 445566 выйдет 6 · 5 · 4 · 3 · 2 · 1 = 720 вместо 90.</li></ul>
 <p class="st"><em>Проверено перебором программой всех чисел из цифр 4, 5, 6 длиной до восьми цифр: 170, по длинам 1, 141, 28.</em></p>
-<div class="pager"><a href="08-t1-nacional-2025-den-ii-4-1200-fishek-v-chetyreh.html">← Т1″ — национал 2025, день II, №4 — 1200 фишек в четырёх коробках</a></div>
+<div class="pager"><a href="08-t1-nacional-2025-den-ii-4-1200-fishek-v-chetyreh.html">← Т1″ — национал 2025, день II, №4: 1200 фишек в четырёх коробках</a></div>
 </main>
 </div>
 <script>

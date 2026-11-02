@@ -83,7 +83,8 @@
   ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
   ol.num{list-style:none;padding-left:0}
   ol.num>li{padding-left:2em;text-indent:-2em}
-  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li .lip{display:block;margin-top:8px;text-indent:0}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em;text-indent:0}
   li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
   hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
 
@@ -120,6 +121,7 @@
 
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
+  p.sec{font-size:clamp(24px,2.3vw,29px);line-height:1.3;margin-top:38px;color:var(--ink)}
   p.step b:first-child{color:var(--gold)}
   p.ritual{margin-top:20px}
   p.ritual b:first-child{color:var(--gold)}
@@ -170,6 +172,7 @@
   p:has(>small)+p:has(>small){margin-top:2px}
   .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:14px}
   .cols2>.col>:first-child{margin-top:0}
+  details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
@@ -264,7 +267,12 @@
   @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
   @keyframes fin{from{opacity:0}to{opacity:1}}
   @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  /* Гаснет то, что выбыло: --o — с какой яркостью остаётся (0 — исчезает совсем) */
+  .fo{opacity:var(--o,0)}
+  @keyframes fout{from{opacity:1}to{opacity:var(--o,0)}}
   @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .fo{opacity:1}
+    html.anim figure.fx.seen .fo{animation:fout .6s ease var(--d,0s) both}
     html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
     html.anim figure.fx:not(.seen) .fi{opacity:0}
     html.anim figure.fx:not(.seen) .sl{transform:none}
@@ -308,24 +316,24 @@
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Клетки этой полоски хотят заполнить числами от 1 до 8 так, чтобы:</p><ul class="st"><li>в каждой клетке стояло число;</li><li>числа не повторялись;</li><li>произведение чисел во 2-й и в 4-й клетках равнялось 24;</li><li>число в 1-й клетке было не равно 3;</li><li>числа 4 и 7 стояли на полоске, и номер клетки, где стоит 4, был меньше номера клетки, где стоит 7.</li></ul><p>Сколькими различными способами можно заполнить полоску? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска' style='max-width:460px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><figcaption>cᵢ — число в i-й клетке.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — размещение шести из чисел 1–8 по клеткам c₁, …, c₆.</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>c₂ · c₄ = 24, а числа не больше 8 — вариантов всего четыре:</p></div></div>
-<p class="st">(c₂, c₄) = (3, 8), (8, 3), (4, 6), (6, 4)</p>
-<div id="a1" data-art="1"><div class="frm st">N = N(3, 8) + N(8, 3) + N(4, 6) + N(6, 4)</div></div>
-<p class="st"><b>1. Миры N(3, 8) и N(8, 3).</b></p>
+<div id="a1" data-art="1"><div class="frm st">(c₂, c₄) = (3, 8), (8, 3), (4, 6), (6, 4)</div></div>
+<div id="a2" data-art="2"><div class="frm st">N = N(3, 8) + N(8, 3) + N(4, 6) + N(6, 4)</div></div>
+<p class="sec st"><b>1. Миры N(3, 8) и N(8, 3).</b></p>
 <figure class='st'><div class='fgrid2'><div class='cell'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>3</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>8</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><p class='ccap'>N(3, 8)</p></div><div class='cell'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>8</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>3</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><p class='ccap'>N(8, 3)</p></div></div></figure>
 <p class="st">3 уже стоит на полоске, поэтому c₁ ≠ 3 выполнено само.</p>
 <p class="st">4 и 7 обязаны стоять на полоске — значит, они занимают две из свободных клеток c₁, c₃, c₅, c₆.</p>
 <p class="st">В более левую из этих двух клеток встаёт 4, в более правую 7.</p>
 <p class="st">Значит, расставить 4 и 7 — это только выбрать две клетки из четырёх: порядок внутри пары уже задан условием «4 левее 7», переставлять нечего.</p>
-<div id="a2" data-art="2"><div class="frm st">C(4, 2) = 3 + 2 + 1 = 6</div></div>
+<div id="a3" data-art="3"><div class="frm st">C(4, 2) = 3 + 2 + 1 = 6</div></div>
 <p class="st"><small>3: {c₁, c₃}, {c₁, c₅}, {c₁, c₆}   2: {c₃, c₅}, {c₃, c₆}   1: {c₅, c₆}</small></p>
 <p class="st">В две оставшиеся клетки идут два из чисел 1, 2, 5, 6, порядок важен:</p>
-<div id="a3" data-art="3"><div class="frm st">4 · 3 = 12</div></div>
+<div id="a4" data-art="4"><div class="frm st">4 · 3 = 12</div></div>
 <p class="st"><small>1 в более левой клетке: (1, 2), (1, 5), (1, 6)</small></p>
 <p class="st"><small>2 в более левой клетке: (2, 1), (2, 5), (2, 6)</small></p>
 <p class="st"><small>5 в более левой клетке: (5, 1), (5, 2), (5, 6)</small></p>
 <p class="st"><small>6 в более левой клетке: (6, 1), (6, 2), (6, 5)</small></p>
-<div id="a4" data-art="4"><div class="frm st">N(3, 8) = N(8, 3) = 6 · 12 = 72</div></div>
-<p class="st"><b>2. Миры N(4, 6) и N(6, 4).</b></p>
+<div id="a5" data-art="5"><div class="frm st">N(3, 8) = N(8, 3) = 6 · 12 = 72</div></div>
+<p class="sec st"><b>2. Миры N(4, 6) и N(6, 4).</b></p>
 <p class="st">3 на полоске нет, поэтому c₁ ≠ 3 работает.</p>
 <p class="st">4 уже стоит, поэтому 7 встаёт в свободную клетку правее 4.</p>
 <p class="st">c₁ левее 4, поэтому 7 её никогда не занимает.</p>
@@ -333,12 +341,12 @@
 <p class="st">В две оставшиеся клетки идут два из четырёх оставшихся чисел, порядок важен:</p>
 <div class="frm st">4 · 3 = 12</div>
 <p class="st"><small>при c₁ = 1 остаются 2, 3, 5, 8; при c₁ = 8 остаются 1, 2, 3, 5 — при любом c₁ остаются четыре числа</small></p>
-<div class="cols2"><div class="col"><p class="st"><b>N(4, 6) — 4 в c₂</b></p><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>4</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>6</text><rect x='56' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg></figure><p class="st">Правее 4 свободны c₃, c₅, c₆ — три места для 7.</p><div class="frm st">N(4, 6) = 3 · 4 · 12 = 144</div></div><div class="col"><p class="st"><b>N(6, 4) — 4 в c₄</b></p><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>6</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>4</text><rect x='56' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg></figure><p class="st">Правее 4 свободны c₅, c₆ — два места для 7.</p><div class="frm st">N(6, 4) = 2 · 4 · 12 = 96</div></div></div>
-<p class="st"><b>Сборка.</b></p>
-<div id="a5" data-art="5"><div class="frm st">N = 72 + 72 + 144 + 96 = 384</div></div>
+<div class="cols2"><div class="col"><div class="frm st">N(4, 6): 4 в c₂</div><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>4</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>6</text><rect x='56' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg></figure><p class="st">Правее 4 свободны c₃, c₅, c₆ — три места для 7.</p><div class="frm st">N(4, 6) = 3 · 4 · 12 = 144</div></div><div class="col"><div class="frm st">N(6, 4): 4 в c₄</div><figure class='st'><svg viewBox='-1 -1 86 16' role='img' aria-label='Полоска'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>6</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>4</text><rect x='56' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='70' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='77.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg></figure><p class="st">Правее 4 свободны c₅, c₆ — два места для 7.</p><div class="frm st">N(6, 4) = 2 · 4 · 12 = 96</div></div></div>
+<p class="sec st"><b>Сборка.</b></p>
+<div id="a6" data-art="6"><div class="frm st">N = 72 + 72 + 144 + 96 = 384</div></div>
 <p class="st"><b>Ответ на задачу:</b> полоску можно заполнить <b>384 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
-<ul class="st"><li>«Номер клетки 4 меньше номера клетки 7» прочитать как «4 меньше 7» — выйдет 696.</li><li>Ставить 4 и 7 в пару клеток двумя порядками — 144 вместо 72 в мирах 3 и 8.</li><li>Забыть c₁ ≠ 3 в мирах 4 и 6 — выйдет 444.</li></ul>
+<ul class="st"><li>«Номер клетки 4 меньше номера клетки 7» прочитать как «4 меньше 7» — выйдет 696.</li><li>Ставить 4 и 7 в пару клеток двумя порядками: выйдет 144 вместо 72 в мирах 3 и 8.</li><li>Забыть c₁ ≠ 3 в мирах 4 и 6 — выйдет 444.</li></ul>
 <p class="st"><em>Проверено перебором программой всех 20 160 размещений: 384, по мирам 72, 72, 144, 96.</em></p>
 <div class="pager"><a href="02-t2-provincial-2022-2-abdef-i-bcd-perimetry-i-plo.html">← Т2 — провинциал 2022, №2 — ABDEF и BCD: периметры и площади</a><a href="04-t1-nacional-2024-den-ii-4-smeny-i-sport.html">Т1′ — национал 2024, день II, №4 — смены и спорт →</a></div>
 </main>

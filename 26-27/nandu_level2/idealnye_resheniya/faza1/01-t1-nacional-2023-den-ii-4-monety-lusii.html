@@ -83,7 +83,8 @@
   ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
   ol.num{list-style:none;padding-left:0}
   ol.num>li{padding-left:2em;text-indent:-2em}
-  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li .lip{display:block;margin-top:8px;text-indent:0}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em;text-indent:0}
   li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
   hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
 
@@ -120,6 +121,7 @@
 
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
+  p.sec{font-size:clamp(24px,2.3vw,29px);line-height:1.3;margin-top:38px;color:var(--ink)}
   p.step b:first-child{color:var(--gold)}
   p.ritual{margin-top:20px}
   p.ritual b:first-child{color:var(--gold)}
@@ -170,6 +172,7 @@
   p:has(>small)+p:has(>small){margin-top:2px}
   .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:14px}
   .cols2>.col>:first-child{margin-top:0}
+  details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
@@ -264,7 +267,12 @@
   @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
   @keyframes fin{from{opacity:0}to{opacity:1}}
   @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  /* Гаснет то, что выбыло: --o — с какой яркостью остаётся (0 — исчезает совсем) */
+  .fo{opacity:var(--o,0)}
+  @keyframes fout{from{opacity:1}to{opacity:var(--o,0)}}
   @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .fo{opacity:1}
+    html.anim figure.fx.seen .fo{animation:fout .6s ease var(--d,0s) both}
     html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
     html.anim figure.fx:not(.seen) .fi{opacity:0}
     html.anim figure.fx:not(.seen) .sl{transform:none}

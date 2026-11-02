@@ -83,7 +83,8 @@
   ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
   ol.num{list-style:none;padding-left:0}
   ol.num>li{padding-left:2em;text-indent:-2em}
-  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li .lip{display:block;margin-top:8px;text-indent:0}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em;text-indent:0}
   li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
   hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
 
@@ -120,6 +121,7 @@
 
   p.exam{font-size:19px;color:#fff;margin-top:30px}
   p.step{font-size:17.5px;margin-top:22px}
+  p.sec{font-size:clamp(24px,2.3vw,29px);line-height:1.3;margin-top:38px;color:var(--ink)}
   p.step b:first-child{color:var(--gold)}
   p.ritual{margin-top:20px}
   p.ritual b:first-child{color:var(--gold)}
@@ -170,6 +172,7 @@
   p:has(>small)+p:has(>small){margin-top:2px}
   .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:14px}
   .cols2>.col>:first-child{margin-top:0}
+  details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
@@ -264,7 +267,12 @@
   @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
   @keyframes fin{from{opacity:0}to{opacity:1}}
   @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  /* Гаснет то, что выбыло: --o — с какой яркостью остаётся (0 — исчезает совсем) */
+  .fo{opacity:var(--o,0)}
+  @keyframes fout{from{opacity:1}to{opacity:var(--o,0)}}
   @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .fo{opacity:1}
+    html.anim figure.fx.seen .fo{animation:fout .6s ease var(--d,0s) both}
     html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
     html.anim figure.fx:not(.seen) .fi{opacity:0}
     html.anim figure.fx:not(.seen) .sl{transform:none}
@@ -305,11 +313,11 @@
   
   <h1>Т3 — провинциал 2025, №3 — пароль с семёркой</h1>
   <p class="sub">Идеальные решения образцов. Группа 1 — подтипы, которые встречаются уже на интересколяре и зонале</p>
-<div class="card task st"><span class="tag">Условие</span><p>Габи придумывает пароль из 4 знаков:</p><ul class="st"><li>можно использовать заглавные гласные буквы A, E, I, O, U, нечётные цифры и три специальных символа: <code>*</code>, #, @;</li><li>пароль должен содержать одну или больше букв;</li><li>содержать одну или больше цифр;</li><li>содержать один или больше специальных символов;</li><li>начинаться с буквы;</li><li>не иметь повторяющихся знаков;</li><li>Габи забыла пароль, но помнит, что в нём было её любимое число — 7.</li></ul><p>Сколько всего возможных паролей у Габи? Объясни, как ты их считал.</p></div>
+<div class="card task st"><span class="tag">Условие</span><p>Габи придумывает пароль из 4 знаков:</p><ul class="st"><li>можно использовать заглавные гласные буквы A, E, I, O, U, нечётные цифры и три специальных символа: <code>*</code>, #, @;</li><li>пароль должен содержать одну или больше букв;</li><li>содержать одну или больше цифр;</li><li>содержать один или больше специальных символов;</li><li>начинаться с буквы;</li><li>не иметь повторяющихся знаков;</li><li>Габи забыла пароль, но помнит, что в нём было её любимое число 7.</li></ul><p>Сколько всего возможных паролей у Габи? Объясни, как ты их считал.</p></div>
 <p class="st"><b>Способ</b> — размещение четырёх разных знаков по местам 1–4. Знаков тринадцать: пять букв, цифры 1, 3, 5, 7, 9 и три символа.</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Из трёх правил «одну или больше» два выполнены сами — следить остаётся только за символом.</p></div></div>
 <p class="st"><em>«начинаться с буквы»</em> ⇒ на месте 1 буква, поэтому <em>«одну или больше букв»</em> выполнено само.</p>
-<p class="st"><em>«в нём было её любимое число — 7»</em> ⇒ <em>«одну или больше цифр»</em> выполнено само.</p>
+<p class="st"><em>«в нём было её любимое число 7»</em> ⇒ <em>«одну или больше цифр»</em> выполнено само.</p>
 <p class="st">Пароль собирается в три хода: буква на место 1, 7 на одно из мест 2, 3, 4, затем два свободных места.</p>
 <figure class='st'><div class='fgrid'><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Пароль' style='max-width:190px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.2' fill='#5ba8f5' font-size='3.4' text-anchor='middle' font-weight='700'>буква</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></div><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Пароль' style='max-width:190px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.2' fill='#5ba8f5' font-size='3.4' text-anchor='middle' font-weight='700'>буква</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text><rect x='42' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></div><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Пароль' style='max-width:190px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.2' fill='#5ba8f5' font-size='3.4' text-anchor='middle' font-weight='700'>буква</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text></svg></div></div></figure>
 <p class="st">После буквы и 7 остаются одиннадцать знаков: четыре буквы, цифры 1, 3, 5, 9 и три символа.</p>
@@ -318,20 +326,20 @@
 <p class="st">Ни одно правило пароля не говорит о местах 2, 3 и 4 по отдельности, поэтому у этой задачи один и тот же ответ при любом месте 7.</p>
 <p class="st">Ни один ход не меняет число вариантов следующего, поэтому три хода перемножаются:</p>
 <div id="a1" data-art="1"><div class="frm st">N(паролей) = N(букв на месте 1) · N(мест для 7) · N(заполнений свободных мест)</div></div>
-<p class="st"><b>1. N(букв на месте 1) и N(мест для 7).</b></p>
+<p class="sec st"><b>1. N(букв на месте 1) и N(мест для 7).</b></p>
 <div id="a2" data-art="2"><div class="frm st">N(букв на месте 1) = 5</div></div>
 <div id="a3" data-art="3"><div class="frm st">N(мест для 7) = 3</div></div>
-<p class="st"><b>2. N(заполнений свободных мест).</b></p>
+<p class="sec st"><b>2. N(заполнений свободных мест).</b></p>
 <p class="st"><em>«один или больше специальных символов»</em>, а мест два ⇒ символов один или два.</p>
 <div id="a4" data-art="4"><div class="frm st">N(заполнений свободных мест) = N(один символ) + N(два символа)</div></div>
 <div class="cols2"><div class="col"><p class="st"><b>N(один символ)</b></p><p class="st">Место символа — два варианта, сам символ — три.</p><p class="st">На другом месте — буква или цифра: четыре буквы и четыре цифры.</p><div class="frm st">N(один символ) = 2 · 3 · 8 = 48</div><p class="st"><small>при E на месте 1: A, I, O, U, 1, 3, 5, 9</small></p></div><div class="col"><p class="st"><b>N(два символа)</b></p><p class="st">Три символа на два места, порядок важен:</p><div class="frm st">N(два символа) = 3 · 2 = 6</div><p class="st"><small>#@, @#, #✱, ✱#, @✱, ✱@</small></p></div></div>
 <div id="a5" data-art="5"><div class="frm st">N(заполнений свободных мест) = 48 + 6 = 54</div></div>
-<p class="st"><b>Сборка.</b></p>
+<p class="sec st"><b>Сборка.</b></p>
 <div id="a6" data-art="6"><div class="frm st">N(паролей) = 5 · 3 · 54 = 810</div></div>
 <p class="st"><b>Ответ на задачу:</b> у Габи <b>810</b> возможных паролей.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Поставить символ на одно место, а на другое — любой из десяти оставшихся знаков: пароли с двумя символами посчитаны дважды, выйдет 900.</li><li>Решить, что 7 — единственная цифра пароля: потеряются пароли вроде E7#3, выйдет 450.</li><li>Поставить 7 на одно определённое место — выйдет 270.</li></ul>
-<p class="st"><em>Проверено: «всё минус плохие» 5 · 3 · (11 · 10 − 8 · 7) = 810; перебор программой всех 17 160 четвёрок разных знаков — 810.</em></p>
+<p class="st"><em>Проверено: «всё минус плохие» 5 · 3 · (11 · 10 − 8 · 7) = 810; перебор программой всех 17 160 четвёрок разных знаков даёт 810.</em></p>
 <div class="pager"><a href="04-t1-nacional-2024-den-ii-4-smeny-i-sport.html">← Т1′ — национал 2024, день II, №4 — смены и спорт</a><a href="06-t3-regional-2018-3-chetyrehznachnye-menshe-2018-.html">Т3″ — регионал 2018, №3 — четырёхзначные меньше 2018 с одной 7, кратные 3 →</a></div>
 </main>
 </div>

@@ -24,7 +24,7 @@ N=None
 V={}
 V['Сколькими различными способами можно заполнить полоску?']=fig(strip([N]*6,True),'cᵢ — число в i-й клетке.')
 V['1. Миры N(3, 8) и N(8, 3).']=grid([(strip([N,3,N,8,N,N],False),'N(3, 8)'),(strip([N,8,N,3,N,N],False),'N(8, 3)')])
-V['N(4, 6) — 4 в c₂']=fig(strip([N,4,N,6,N,N],False,(3,5,6)))
-V['N(6, 4) — 4 в c₄']=fig(strip([N,6,N,4,N,N],False,(5,6)))
+V['N(4, 6): 4 в c₂']=fig(strip([N,4,N,6,N,N],False,(3,5,6)))
+V['N(6, 4): 4 в c₄']=fig(strip([N,6,N,4,N,N],False,(5,6)))
 json.dump(V,open(sys.argv[1],'w'),ensure_ascii=False,indent=1)
 print(len(V),'figures')
