@@ -28,7 +28,7 @@ MOMENTS = [('момент 1', 'синяя = красная'), ('момент 2',
 CELLS = [['b', 'w', 'b', 'g'],
          ['b − 30', 'w + 30', 'b', 'g'],
          ['b − 30', 'g : 2', 'b + g : 2', 'g']]
-MOVES = [(0, 1, '30 из синей в белую'), (1, 2, 'половина белой в красную')]   # из какой коробки в какую, подпись
+MOVES = [(0, 1, '30', '30 из синей в белую'), (1, 2, 'половина', 'половина белой в красную')]   # откуда, куда, подпись стрелки, действие в первой колонке
 
 def table(step=None):
     s = (f"<defs><marker id='mv{step}' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'>"
@@ -52,13 +52,15 @@ def table(step=None):
                 s += txt(cx(i) + CW / 2, y + CH / 2 + 1.3, CELLS[r][i], GOLD if changed else LAB, 4.2, '700')
             else:
                 s += f"<rect x='{cx(i)}' y='{y}' width='{CW}' height='{CH}' rx='1' fill='none' stroke='{DIM}' stroke-width='0.4' stroke-dasharray='1.2 1'/>"
-    for r, (a, b, lbl) in enumerate(MOVES):
+    for r, (a, b, lbl, act) in enumerate(MOVES):
         y = rowy(r) + CH
         hot = step is not None and step == r + 2
         c = GOLD if hot else (INK if step is not None and step > r + 2 else DIM if step is not None else INK)
         x1, x2 = cx(a) + CW / 2 + 2, cx(b) + CW / 2 - 2
         s += f"<path d='M{x1} {y + GAP / 2 + 2.6}H{x2}' fill='none' stroke='{c}' stroke-width='{1.0 if hot else 0.6}' marker-end='url(#mv{step})'/>"
         s += txt((x1 + x2) / 2, y + GAP / 2 - 0.6, lbl, c, 3.8)
+        s += txt(51, y + GAP / 2 - 0.4, f'действие {r + 1} → {r + 2}', c, 3.8, '700', anchor='end')
+        s += txt(51, y + GAP / 2 + 3.8, act, c, 3.5, anchor='end')
     h = rowy(2) + CH + 2
     return f"<svg viewBox='0 0 {EQX + 12} {h}' role='img' aria-label='Таблица моментов' style='max-width:760px'>{s}</svg>"
 
