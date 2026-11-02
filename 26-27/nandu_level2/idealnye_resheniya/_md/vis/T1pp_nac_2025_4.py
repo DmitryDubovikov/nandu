@@ -1,8 +1,8 @@
 """Рисунки образца №8 (Т1″, национал 2025 II №4): таблица моментов.
 
 Строка — момент процесса, столбец — коробка, между строками — стрелка переноса из условия, справа — номер уравнения.
-План — пустая таблица; в разделе k заполнены строки 1…k, в строке k золотом обведены только коробки её уравнения,
-под ними дуга с равенством момента.
+План — пустая таблица. Раздел k: «заполним строку» — строки 1…k, новые клетки строки k золотом;
+«запишем уравнение» — в строке k золотом обведены только коробки уравнения, под ними дуга с равенством момента.
 Запуск: python3 vis/T1pp_nac_2025_4.py T1pp_nac_2025_4.vis.json
 """
 import json, sys
@@ -54,8 +54,9 @@ def eq_marks(r, y):
     s += txt((x1 + x2) / 2, yb + 0.75 * d + 4.0, lbl, GOLD, 4.0, '700')
     return s
 
-def table(step=None):
-    s = (f"<defs><marker id='mv{step}' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'>"
+def table(step=None, eq=False):
+    mid = f'{step}{"e" if eq else "f"}'
+    s = (f"<defs><marker id='mv{mid}' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'>"
          f"<path d='M0 0L6 3L0 6z' fill='context-stroke'/></marker>"
          f"<marker id='arc' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'>"
          f"<path d='M0 0L6 3L0 6z' fill='{GOLD}'/></marker></defs>")
@@ -72,27 +73,31 @@ def table(step=None):
         for i, (_, c) in enumerate(BOXES):
             if filled:
                 s += f"<rect x='{cx(i)}' y='{y}' width='{CW}' height='{CH}' rx='1' fill='{c}' fill-opacity='0.12' stroke='{c}' stroke-width='0.5'/>"
-                s += txt(cx(i) + CW / 2, y + CH / 2 + 1.3, CELLS[r][i], LAB, 4.2, '700')
+                new = cur and not eq and (r == 0 or CELLS[r][i] != CELLS[r - 1][i])
+                s += txt(cx(i) + CW / 2, y + CH / 2 + 1.3, CELLS[r][i], GOLD if new else LAB, 4.2, '700')
             else:
                 s += f"<rect x='{cx(i)}' y='{y}' width='{CW}' height='{CH}' rx='1' fill='none' stroke='{DIM}' stroke-width='0.4' stroke-dasharray='1.2 1'/>"
-        if cur:
+        if cur and eq:
             s += eq_marks(r, y)
     for r, (a, b, lbl, act) in enumerate(MOVES):
         y = rowy(r) + CH
-        hot = step is not None and step == r + 2
-        c = GOLD if hot else (INK if step is not None and step > r + 2 else DIM if step is not None else INK)
+        hot = step is not None and step == r + 2 and not eq
+        c = GOLD if hot else (INK if step is not None and step >= r + 2 else DIM if step is not None else INK)
         x1, x2 = cx(a) + CW / 2 + 2, cx(b) + CW / 2 - 2
-        s += f"<path d='M{x1} {y + GAP / 2 + 2.6}H{x2}' fill='none' stroke='{c}' stroke-width='{1.0 if hot else 0.6}' marker-end='url(#mv{step})'/>"
+        s += f"<path d='M{x1} {y + GAP / 2 + 2.6}H{x2}' fill='none' stroke='{c}' stroke-width='{1.0 if hot else 0.6}' marker-end='url(#mv{mid})'/>"
         s += txt((x1 + x2) / 2, y + GAP / 2 - 0.6, lbl, c, 3.8)
         s += txt(51, y + GAP / 2 - 0.4, f'действие {r + 1} → {r + 2}', c, 3.8, '700', anchor='end')
         s += txt(51, y + GAP / 2 + 3.8, act, c, 3.5, anchor='end')
-    h = rowy(2) + CH + (12 if step == 3 else 2)
+    h = rowy(2) + CH + (12 if step == 3 and eq else 2)
     return f"<svg viewBox='0 0 {EQX + 12} {h}' role='img' aria-label='Таблица моментов' style='max-width:760px'>{s}</svg>"
 
 V = {}
 V['Ману переложил половину фишек белой в красную'] = fig(table(), 'Три момента.')
-V['Запишем уравнение момента 1'] = fig(table(1))
-V['Запишем уравнение момента 2'] = fig(table(2))
-V['Запишем уравнение момента 3'] = fig(table(3))
+V['в красной тоже b фишек'] = fig(table(1))
+V['Запишем уравнение момента 1'] = fig(table(1, eq=True))
+V['В красной и в зелёной всё как в момент 1'] = fig(table(2))
+V['Запишем уравнение момента 2'] = fig(table(2, eq=True))
+V['В синей и в зелёной всё как в момент 2'] = fig(table(3))
+V['Запишем уравнение момента 3'] = fig(table(3, eq=True))
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
