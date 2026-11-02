@@ -24,16 +24,43 @@ def fig(inner, cap=''):
 
 V = {}
 
-# 1. первый круг (золото) и начало второго (синие)
-s = ring()
-lap1 = [1+35*k for k in range(29)]          # 1 … 981
-lap2 = [16, 51, 86]
-for n in lap1: s += dot(n, GOLD)
-for n in lap2: s += dot(n, BLUE)
-for n in (1, 36, 71, 106): s += lab(n, n, GOLD, R+6.5)
-s += lab(970, 981, GOLD, R+6.5)   # подпись чуть левее точки 981, чтобы не слипалась с 1
-for n in lap2: s += lab(n, n, BLUE, R-5.5, 3.3)
-V['после 981 кузнечик встаёт на 16'] = fig(svg(s, 'Первый круг'),
+# 1. схема первого круга и начала второго — не в масштабе, как рисуют от руки:
+# пять золотых клеток первого круга, многоточие внизу, прыжки — дуги; синие 16 и 51 встают между 1, 36 и 71
+def apt(ang, r=R):
+    a = math.radians(ang); return CX + r*math.sin(a), CY - r*math.cos(a)
+def adot(ang, col, rad=1.5):
+    x, y = apt(ang); return f"<circle cx='{x:.2f}' cy='{y:.2f}' r='{rad}' fill='{col}'/>"
+def alab(ang, t, col, r, size=4.2):
+    x, y = apt(ang, r)
+    return f"<text x='{x:.2f}' y='{y+size*0.35:.2f}' fill='{col}' font-size='{size}' text-anchor='middle' font-weight='700'>{t}</text>"
+def jump(a1, a2, col, mid):
+    # mid > 0 — дуга снаружи круга, mid < 0 — внутри
+    e = 1.8 if mid > 0 else -1.8
+    (x1, y1), (x2, y2) = apt(a1, R+e), apt(a2, R+e)
+    cx, cy = apt((a1+a2)/2, R+mid)
+    return (f"<path d='M{x1:.2f} {y1:.2f} Q {cx:.2f} {cy:.2f} {x2:.2f} {y2:.2f}' fill='none' stroke='{col}' "
+            f"stroke-width='0.6' marker-end='url(#j{col[1:]})'/>")
+def mk(col):
+    return (f"<marker id='j{col[1:]}' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='3.5' markerHeight='3.5' orient='auto'>"
+            f"<path d='M0 0L6 3L0 6z' fill='{col}'/></marker>")
+G = {1: 0, 36: 44, 71: 88, 946: -88, 981: -44}     # углы золотых клеток на схеме
+Bl = {16: 22, 51: 66}                              # синие — между ними
+s = f"<defs>{mk(GOLD)}{mk(BLUE)}</defs>"
+# верх круга сплошной, низ — пунктир с многоточием: там пропущенные прыжки первого круга
+x1, y1 = apt(100); x2, y2 = apt(-100)
+s += f"<path d='M{x1:.2f} {y1:.2f} A {R} {R} 0 1 0 {x2:.2f} {y2:.2f}' fill='none' stroke='{DIM}' stroke-width='0.7'/>"
+s += f"<path d='M{x1:.2f} {y1:.2f} A {R} {R} 0 0 1 {x2:.2f} {y2:.2f}' fill='none' stroke='{DIM}' stroke-width='0.7' stroke-dasharray='1.5 1.5'/>"
+s += f"<text x='{CX}' y='{CY+R-4}' fill='{MUT}' font-size='6' text-anchor='middle' font-weight='700'>…</text>"
+# граница 1000 | 1
+s += alab(-12, 1000, MUT, R+6, 3.2)
+x, y = apt(-5.5, R-2.5); X, Y = apt(-5.5, R+2.5)
+s += f"<line x1='{x:.2f}' y1='{y:.2f}' x2='{X:.2f}' y2='{Y:.2f}' stroke='{MUT}' stroke-width='0.5'/>"
+s += jump(0, 44, GOLD, 9) + jump(44, 88, GOLD, 9) + jump(-88, -44, GOLD, 9)
+s += jump(-44, 22, BLUE, -16) + jump(22, 66, BLUE, -9)
+for n, a_ in G.items(): s += adot(a_, GOLD) + alab(a_, n, GOLD, R+(13 if a_ in (0, -44, 44) else 10))
+for n, a_ in Bl.items(): s += adot(a_, BLUE) + alab(a_, n, BLUE, R+7)
+s += alab(-12, '+35', BLUE, R-14, 3.4)
+V['после 981 кузнечик встаёт на 16'] = fig(svg(s, 'Первый круг', '0 -8 100 104', 440),
   "<b style='color:#f0a83c'>Первый круг</b> и <b style='color:#5ba8f5'>начало второго</b>.")
 
 # 2. разложение: 35 · k ⋮ 1000
@@ -71,7 +98,7 @@ for i in range(10):
         n = 100*i + 1 + 5*j; L = lap[n]; c = COL[L-1]; x = X0 + j*Q
         s += f"<rect x='{x+0.3}' y='{y+0.3}' width='{Q-0.6}' height='{Q-0.6}' rx='0.8' fill='{c}' fill-opacity='0.25' stroke='{c}' stroke-width='0.3'/>"
         s += f"<text x='{x+Q/2}' y='{y+Q/2+1.1}' fill='{c}' font-size='3' text-anchor='middle' font-weight='700'>{L}</text>"
-V['кузнечик побывал на каждой'] = fig(svg(s, 'Клетки на 1 и на 6', '0 0 124 58', 640),
+V['кузнечик побывал на каждой клетке'] = fig(svg(s, 'Клетки на 1 и на 6', '0 0 124 58', 640),
   'Все клетки с номерами на 1 и на 6; в клетке — номер круга, на котором кузнечик на неё наступил.')
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
