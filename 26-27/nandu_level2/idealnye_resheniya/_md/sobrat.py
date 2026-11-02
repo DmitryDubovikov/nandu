@@ -76,6 +76,16 @@ for f, typ, *_ in items:
     for w in BANNED:
         if any(w in x for x in paras[:k]):
             print(f'  ⚠ артефакт: {f} — до «N = …» стоит «{w.strip("*")}»')
+    # заглушка — не артефакт (CHECKLIST «Заглушка — не артефакт», №9 2.11.2026): операнды конкретны,
+    # и каждый операнд первой формулы назван в заголовке раздела
+    art = re.sub(r'[⟪⟫⦃⦄⦅⦆⟬⟭]', '', paras[k])
+    for w in ('сумма', 'по всем', '…', '...', 'для каждого'):
+        if w in art:
+            print(f'  ⚠ артефакт: {f} — первая формула — заглушка («{w}»): операнды должны быть названы сразу')
+    heads = ' '.join(re.sub(r'[⟪⟫⦃⦄⦅⦆⟬⟭]', '', x) for x in paras[k:] if re.match(r'^\*\*\d+\.', x))
+    for op in re.findall(r'N\([^)]*\)', art.split('=', 1)[1]):
+        if op not in heads:
+            print(f'  ⚠ артефакт: {f} — операнд {op} первой формулы не стоит в заголовке раздела')
     for x in paras[k:]:
         m = re.match(r'^\*\*(\d+)\. (.+?)\*\*', x)
         if m and 'N(' not in m.group(2):
