@@ -95,17 +95,29 @@ V['двенадцать трапеций по три половинки клет
 # 4–7. артефакт: каждое спрошенное на сетке d — видно, что оно меряется клетками d × d
 def dmark():   # одна клетка d у D
     return line((0,8),(1,8),GOLD,1.4) + txt(4,-2.4,'d',GOLD,3.2)
+def hticks(y, x0, x1, below=False):   # отметки d подряд вдоль горизонтали y, от x0 до x1
+    out = ''
+    for i in range(x0, x1):
+        out += line((i+0.1, y), (i+0.9, y), GOLD, 1.3)
+        X, Y = xy((i+0.5, y)); out += txt(X, Y + (3.6 if below else -1.3), 'd', GOLD, 2.6)
+    return out
+def vticks(x, y0, y1, left=False):    # отметки d подряд вдоль вертикали x, от y0 до y1
+    out = ''
+    for j in range(y0, y1):
+        out += line((x, j+0.1), (x, j+0.9), GOLD, 1.3)
+        X, Y = xy((x, j+0.5)); out += txt(X + (-2.2 if left else 2.2), Y + 0.9, 'd', GOLD, 2.6)
+    return out
 G = grid('#3e4b58', 0.3)
 s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly(SQ_CENTER, BLUE, 0.9, BLUE, 0.3)
-s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_SQ) + dmark()
-V['а) площадь закрашенного квадрата'] = fig(svg(s, 'Закрашенный квадрат на сетке', '-8 -9 80 81'), '')
-s = G + ''.join(poly(p, DIM, 0.5, GREEN if not sh else 'none', 0.3 if not sh else 1) for p, sh in PIECES) + stubs(DIM, 0.5) + dmark()
-V['б) площадь незакрашенной части'] = fig(svg(s, 'Незакрашенная часть на сетке', '-8 -9 80 81'), '')
+s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_SQ) + hticks(4, 2, 6) + vticks(4, 2, 6)
+V['а) площадь закрашенного квадрата'] = fig(svg(s, 'Закрашенный квадрат на сетке', '-9 -9 82 82'), '')
+s = G + ''.join(poly(p, DIM, 0.5, GREEN if not sh else 'none', 0.3 if not sh else 1) for p, sh in PIECES) + stubs(DIM, 0.5) + hticks(0, 0, 8, True) + vticks(0, 0, 8, True)
+V['б) площадь незакрашенной части'] = fig(svg(s, 'Незакрашенная часть на сетке', '-9 -9 82 82'), '')
 s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([PT['M'],PT['N'],PT['P'],PT['Q']], VIO, 1.0, VIO, 0.3)
-s += labels(['M','N','P','Q'], MUT) + dmark()
-V['в) площадь MNPQ'] = fig(svg(s, 'MNPQ на сетке', '-8 -9 80 81'), '')
-s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([(0,0),(8,0),(8,8),(0,8)], GOLD, 1.0) + dmark()
-V['г) периметр ABCD'] = fig(svg(s, 'Контур ABCD на сетке', '-8 -9 80 81'), '')
+s += labels(['M','N','P','Q'], MUT) + hticks(4, 1, 7) + vticks(4, 1, 7)
+V['в) площадь MNPQ'] = fig(svg(s, 'MNPQ на сетке', '-9 -9 82 82'), '')
+s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([(0,0),(8,0),(8,8),(0,8)], DIM, 0.8) + hticks(0, 0, 8, True) + hticks(8, 0, 8) + vticks(0, 0, 8, True) + vticks(8, 0, 8)
+V['г) периметр ABCD'] = fig(svg(s, 'Контур ABCD на сетке', '-9 -9 82 82'), '')
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
