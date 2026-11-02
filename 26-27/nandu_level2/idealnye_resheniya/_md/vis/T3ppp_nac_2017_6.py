@@ -18,7 +18,7 @@ def fig(inner,cap=''):
 V={}
 def strip(vals,green):
     return f"<svg viewBox='-1 -1 {6*W+2} {W+2}' role='img' aria-label='Места числа' style='max-width:220px'>{cells(vals,0,0,green)}</svg>"
-V['N(мест для двух 6) = C(4, 2)']=fig(strip(['4','4',None,None,None,None],(3,4,5,6)))
-V['N(мест для 6) = 5']=fig(strip(['4',None,None,None,None,None],(2,3,4,5,6)))
+V['N(мест для двух 4) = C(4, 2)']=fig(strip(['6','6',None,None,None,None],(3,4,5,6)))
+V['N(мест для 4) = 5']=fig(strip(['6',None,None,None,None,None],(2,3,4,5,6)))
 json.dump(V,open(sys.argv[1],'w'),ensure_ascii=False,indent=1)
 print(len(V),'figures')
