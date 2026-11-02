@@ -16,7 +16,7 @@ def fig(inner, cap=''):
     return f"<figure class='st'>{inner}{c}</figure>"
 
 BOXES = [('синяя', BLUE), ('белая', WHITE), ('красная', RED), ('зелёная', GREEN)]
-CW, CH, GAP = 32, 12, 14            # ширина клетки, высота строки, высота полосы переноса
+CW, CH, GAP = 32, 12, 26            # ширина клетки, высота строки, высота полосы переноса
 X0 = 54                              # левый край первой коробки
 def cx(i): return X0 + i * (CW + 2)
 EQX = cx(4) + 12                     # центр столбца уравнений
@@ -57,8 +57,8 @@ def table(step=None):
         hot = step is not None and step == r + 2
         c = GOLD if hot else (INK if step is not None and step > r + 2 else DIM if step is not None else INK)
         x1, x2 = cx(a) + CW / 2 + 2, cx(b) + CW / 2 - 2
-        s += f"<path d='M{x1} {y + 9.8}H{x2}' fill='none' stroke='{c}' stroke-width='{1.0 if hot else 0.6}' marker-end='url(#mv{step})'/>"
-        s += txt((x1 + x2) / 2, y + 6.4, lbl, c, 3.8)
+        s += f"<path d='M{x1} {y + GAP / 2 + 2.6}H{x2}' fill='none' stroke='{c}' stroke-width='{1.0 if hot else 0.6}' marker-end='url(#mv{step})'/>"
+        s += txt((x1 + x2) / 2, y + GAP / 2 - 0.6, lbl, c, 3.8)
     h = rowy(2) + CH + 2
     return f"<svg viewBox='0 0 {EQX + 12} {h}' role='img' aria-label='Таблица моментов' style='max-width:760px'>{s}</svg>"
 
