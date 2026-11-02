@@ -90,7 +90,7 @@ def lab(p, s, dx=0, dy=0, col=GOLD, size=2.8):
 s = grid('#3e4b58', 0.3) + stubs(DIM, 0.5)
 s += ''.join(poly(p, GOLD, 0.6, GOLD, 0.55) for p in TRAPS) + poly(SQ_CENTER, BLUE, 0.8, BLUE, 0.55)
 s += ''.join(poly(p, DIM, 0.5) for p in WHITE)
-V['12 · площадь трапеции + площадь квадрата = 416'] = fig(svg(s, 'Закрашенное: трапеции и квадрат'),
+V['12 · S(трапеции) + S(квадрата) = 416'] = fig(svg(s, 'Закрашенное: трапеции и квадрат'),
   "<b style='color:#f0a83c'>12 трапеций</b> и <b style='color:#5ba8f5'>1 квадрат</b>.")
 s = grid('#3e4b58', 0.3) + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5)
 for tris in [[[(1,8),(2,8),(1,7)], [(1,8),(1,7),(0,7)], [(0,7),(1,7),(0,6)]],
