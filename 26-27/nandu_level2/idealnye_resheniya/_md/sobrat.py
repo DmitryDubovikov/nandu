@@ -110,6 +110,12 @@ for f, typ, *_ in items:
         parts = [x for x in SENT.split(t) if x.strip()]
         if len(parts) > 1:
             print(f'  ⚠ склейка: {f} — {len(parts)} мысли в строке: «{t[:70]}…»')
+# «Артефакт» — внутренняя кухня, в тексте решения не пишется (родитель 2.11.2026: «в математике так не принято»)
+for f, *_ in items:
+    t = re.sub(r'(?s)<!--.*?-->', '', open(os.path.join(M, f + '.md')).read())
+    for ln in t.split('\n'):
+        if re.search(r'артефакт', ln, re.I):
+            print(f'  ⚠ артефакт в тексте: {f} — «{ln.strip()[:70]}»')
 # Тире перед числом читается как минус («каждая цифра — 6» = «−6»; родитель 2.11.2026): «равна 6», «:», скобки
 for f, *_ in items:
     incode = False
