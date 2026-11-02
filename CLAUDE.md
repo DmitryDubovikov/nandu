@@ -14,8 +14,8 @@
 > - Операнды названы так, что видно, что они считают: `N = N(17bc) + N(1a7c) + N(1ab7) + N(2000–2017)`; искомое — просто `N`.
 > - Заголовок раздела = операнд (`**1. N(17bc).**`); раздел кончается «операнд = число»; последний раздел — сборка.
 > - **Геометрия — не исключение** (решение родителя 2.11.2026). Артефакт там менее явный — через меры, **без формул**:
->   под каждым спрошенным (а, б, в…) рисунок, на котором видно, что оно меряется буквами (кирпичом d, отрезками), и строка
->   «осталось найти d». Точные формулы — не в артефакте (это уже забегание вперёд), а в сборке. Дальше: d из данных →
+>   под каждым спрошенным (а, б, в…) рисунок, на котором видно, что оно меряется буквами (кирпичом x, отрезками), и строка
+>   «осталось найти x». Точные формулы — не в артефакте (это уже забегание вперёд), а в сборке. Дальше: x из данных →
 >   система (СЛАУ или нет), решаемая чистой алгеброй, забыв про геометрию → сборка. Исключение одно: задачи, сводящиеся
 >   к системе уравнений (запись + механика, правило 8).
 >   Цепочка (известное → целое → следующее целое) — артефакт-схема из стрелок (правило 8, «North Star»).
@@ -245,11 +245,11 @@ These conventions are load-bearing across all materials — keep them.
    **Geometry (Т2 family) is pictures, not words, and starts with the artifact** (окт–нояб 2026): ten times fewer words,
    ten times more figures. Order: premises (*цитата* ⇒ вывод, the brick justified) → «Буквы на рисунке.» → artifact
    **without formulas**: one line per question saying what it is («а) — четыре одинаковых прямоугольных треугольника»,
-   «б) — весь ABCD минус закрашенное; закрашенное дано»), last line «осталось найти d», one figure per question
-   (label + the whole asked quantity, d-tick at its source, lengths as one «4d» mark) → «1. Найдём d.»: quote →
+   «б) — весь ABCD минус закрашенное; закрашенное дано»), last line «осталось найти x», one figure per question
+   (label + the whole asked quantity, x-tick at its source, lengths as one «4x» mark) → «1. Найдём x.»: quote →
    «Заметим, что … разбивается на …» → two-colour figure, counts via symmetry → section artifact
-   `12 · S(трапеции) + S(квадрата) = 416` → piece areas as sums of the largest equal pieces → algebra in ```sys with d²
-   → «2. Сборка: подставим d = 4.» one line per question `а) S(…) = формула = числа`. Area S(…), perimeter P(…).
+   `12 · S(трапеции) + S(квадрата) = 416` → piece areas as sums of the largest equal pieces → algebra in ```sys with x²
+   → «2. Сборка: подставим x = 4.» one line per question `а) S(…) = формула = числа`. Area S(…), perimeter P(…).
    Several unknown lengths → запись системы + механика inside the same frame. Full list: `idealnye_resheniya/_md/CHECKLIST.md`,
    section «Геометрия». Models: `idealnye_resheniya/_md/T2ppp_nac_2017_2.md` (one brick), `T2_prov_2022_2.md` (system).
    **Counting (Т3 family) ideal solutions take the level-1 «⚡ Коротко» shape** (окт 2026, «ужасно написано… огромный
