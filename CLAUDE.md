@@ -56,23 +56,26 @@ The 2026 result was weak (about 1.5 problems a day), and the way the course is b
 method in the repo:
 
 1. **Model problems** — one real corpus problem per typology subtype, 17 in all. **Entry point and progress tracker:
-   `26-27/nandu_level2/nandu_n2_roadmap.md`** (the list by phase, the work order, checkboxes — the only place status is
-   kept). Details per model (backup, expected moves, frequency, corpus moves the models miss, the moves registry):
+   `26-27/nandu_level2/nandu_n2_roadmap.md`** (stages А–Е, checkboxes — the only place status is kept). Details per
+   model (backup, expected moves, frequency, corpus moves the models miss, the moves registry):
    `26-27/nandu_level2/nandu_n2_obraztsy.md`.
-2. **Ideal solutions** — the parent and Claude solve each model and polish it until the parent accepts it as
-   optimal; sources in `26-27/nandu_level2/idealnye_resheniya/`.
-3. **Moves** — every move, notion and technique of an accepted solution goes into the registry (`nandu_n2_obraztsy.md`
-   §5) under the name and notation it has in the solution.
-4. **Move list** — replaces textbooks and move maps (parent's decision 2 Nov 2026, see rule 7): one line per move
-   «what the written-out examples show → first formula · move name», first line «выпиши 3–5 примеров».
-5. **Problem bank + recognition drill** — 10–15 problems per move in different plots, mixed; drill = write examples
-   and name the move (5–10 min, no solving), then timed mixed sets.
-6. **Whole-corpus solutions** — last.
+2. **А. Ideal solutions of all 17 models** — the parent and Claude solve each and polish it until the parent accepts it
+   as optimal; sources in `26-27/nandu_level2/idealnye_resheniya/`.
+3. **Б. Moves registry as a dictionary** — every move of an accepted solution goes into `nandu_n2_obraztsy.md` §5
+   under its name and notation, **before** the corpus is solved, so agents name one move one way.
+4. **В. Corpus solutions of the three upper stages** — national 72, regional 42, provincial 30 = 144 problems, solved by
+   agents with reference to the model of the same subtype and the registry; answers blind-checked and brute-forced;
+   the parent spot-checks. Interescolar and zonal are not solved (everything there recurs higher, except pure
+   perimeters, covered at level 1); the regional is required (only there Т1⁗).
+5. **Г. Move list + bank of non-battle problems**, derived from the solved corpus; the move list is checked on the
+   93 interescolar and zonal problems.
+6. **Д. Recognition drill, Е. battle problems** — see rule 7.
 
-Steps 1–5 run **in phases by tour**, not over all 17 models at once: **1. Zonal** (ready by 7 May — the Interescolar
-needs the same subtypes): Т1, Т1′, Т1″, Т2, Т2‴, Т3, Т3′, Т3″, Т3‴ · **2. Provincial + regional** (by 19 Aug, started
-before the zonal): Т2′ first, then Т5, Т6, Т1‴, Т4, Т2″, Т1⁗ · **3. National — depth**: Т4′ plus deepening Т2′, Т1, Т3′.
-The Interescolar is not a phase of its own. Basis: the subtype × stage matrix in `nandu_n2_tipologia_svodnaya.md`.
+А–Г are the parent's work while the child does school maths (`26-27/school5/`, `school6/`); the drill must start before
+the Interescolar, 7 May 2027 — if В is late, Г–Д start on the part that is ready.
+Models are grouped by the tour where the subtype first matters: **1. Interescolar + zonal**: Т1, Т1′, Т1″, Т2, Т2‴, Т3,
+Т3′, Т3″, Т3‴ · **2. Provincial + regional**: Т2′, Т5, Т6, Т1‴, Т4, Т2″, Т1⁗ · **3. National**: Т4′.
+Basis: the subtype × stage matrix in `nandu_n2_tipologia_svodnaya.md`.
 
 The model solutions are the parent's working material for deriving moves — not the child's practice. Solving a
 model does not take it out of the corpus.
@@ -172,18 +175,18 @@ These conventions are load-bearing across all materials — keep them.
 6. Each textbook opens with «ритуалы» (standing habits) and each chapter includes typical mistakes; worked examples
    follow the step format of rule 8. A move is named and written exactly as in the ideal solution it came from.
 7. **Solutions first, moves from them** (Oct 2026 — replaces the old «corpus → chapter ladder → textbook» workflow,
-   now in `arhiv/`). A course is built in this order: (а) one model corpus problem per typology subtype;
-   (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of moves those solutions
-   use; (г) the **move list** of the phase; (д) the **problem bank and recognition drill**;
-   (е) solutions of the whole corpus. Steps (а)–(д) run phase by phase, a phase = the tour it prepares for
-   (subtypes that first appear there).
+   now in `arhiv/`; order fixed by the parent 2 Nov 2026). A course is built in this order: (а) one model corpus problem
+   per typology subtype; (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of
+   moves those solutions use — the naming dictionary; (г) solutions of the corpus of the upper stages (level 2:
+   national, regional, provincial — 144 problems) with reference to the models; (д) the **move list** and the
+   **bank** of non-battle problems, derived from the solved corpus; (е) the **recognition drill**, then battle problems.
    No chapter is planned from the typology alone, and no textbook is written before its moves exist in
    accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_roadmap.md`.
    **Move list, bank, drill instead of textbooks and maps** (parent's decision 2 Nov 2026, after the 2026 tours). Diagnosis:
    the child lost the enumeration problems (counting, «все возможности», boards) on **recognition** — the problem
    looked completely new and the move was not recognised, although every type was familiar; geometry and systems
    were never the trouble. So: (1) ideal solutions stay the base — moves come only from accepted solutions; (2) the
-   phase gets a **move list**, not textbooks or maps: one line per move «что видно в выписанных примерах → первая
+   course gets a **move list**, not textbooks or maps: one line per move «что видно в выписанных примерах → первая
    формула · имя хода» (names and notation as in the solutions), the sign describes the problem's **structure**, not
    its plot; the first line for every enumeration family is **«выпиши 3–5 примеров и посмотри, что повторяется»**;
    only enumeration families (Т3…Т3‴, Т1‴, Т1″, Т4, Т4′, Т5, Т6) — geometry and systems get none; (3) a **bank** of
