@@ -40,54 +40,58 @@ def frame(col=DIM, w=0.5):   # отрезки чертежа условия бе
     P_ = PT
     return (line(P_['E'],P_['C'],col,w) + line(P_['C'],P_['B'],col,w) + line(P_['A'],P_['B'],col,w) +
             line(P_['A'],P_['D'],col,w) + line(P_['A'],P_['E'],col,w) + line(P_['R'],P_['P'],col,w) + line(P_['P'],P_['B'],col,w))
-ALL = ['A','B','C','D','M','N','P','R','E']
+ALL = ['A','B','C','D','M','N','P','R','E','F']
+def dimAB():   # размер AB = 6d — выноской ниже F, чтобы не пересекать AF
+    return (line((0,-1.8),(6,-1.8),GOLD,0.5) + line((0,-1.6),(0,-2.0),GOLD,0.5) + line((6,-1.6),(6,-2.0),GOLD,0.5)
+            + at((3,-1.8), '6d', 0, 4.4))
+def full(col=DIM, w=0.45):   # весь чертёж условия тусклым — фон каждого рисунка
+    return frame(col, w) + line(PT['B'],PT['F'],col,w) + line(PT['A'],PT['F'],col,w)
+def names(): return labels(ALL, MUT)
 
 V = {}
 # 1. рисунок условия
-s = poly([PT['A'],PT['B'],PT['P'],PT['R']], '#c87a55', 0.7, '#c87a55', 0.25) + frame(INK, 0.55)
-s += line(PT['B'],PT['F'],INK,0.55) + line(PT['A'],PT['F'],INK,0.55) + labels(ALL + ['F'])
+s = poly([PT['A'],PT['B'],PT['P'],PT['R']], '#c87a55', 0.7, '#c87a55', 0.25) + full(INK, 0.55) + labels(ALL)
 V['Чему равна площадь AMNE?'] = fig(svg(s, 'Рисунок условия', '-9 -7 90 58'), 'Рисунок из условия.')
 
 # 2. буквы: сетка, d — четверть BC
-s = grid() + frame(DIM, 0.5) + dmark()
-s += line((0,0),(6,0),GOLD,1.0) + at((3,0), '6d', 0, 5.2, GOLD, 3.2)
-s += line((6,0),(6,4),GOLD,1.0) + at((6,2.4), '4d', 4.6, 1.0, GOLD, 3.2)
-s += labels(['A','B','C','D','E'], MUT, False)
-V['сетка с шагом d.'] = fig(svg(s, 'Буквы'), "<b style='color:#f0a83c'>d</b> = BC : 4; все точки, кроме F, — в узлах сетки.")
+s = grid() + full() + dmark()
+s += line((0,0),(6,0),GOLD,1.0) + dimAB()
+s += line((6,0),(6,4),GOLD,1.0) + at((6,3.1), '4d', 4.6, 1.0, GOLD, 3.2)
+s += names()
+V['сетка с шагом d.'] = fig(svg(s, 'Буквы', '-9 -7 90 66'), "<b style='color:#f0a83c'>d</b> = BC : 4; все точки, кроме F, — в узлах сетки.")
 
 # 3–5. артефакт: каждое спрошенное на сетке d
-G = grid() + frame(DIM, 0.45)
+G = grid() + full()
 def tri(pts, col, op=0.45): return poly(pts, col, 1.0, col, op)
 # а) ADE: катеты AD = 4d, DE = 3d
 s = G + tri([PT['A'],PT['D'],PT['E']], GOLD) + at((0,1.1), '4d', 3.6, 1.0) + at((-1.5,4), '3d', 0, -1.8) + dmark()
-s += labels(['A','D','E'], MUT)
+s += names()
 V['а) площадь ADE'] = fig(svg(s, 'ADE на сетке'), '')
 # б) ABCE: три стороны по сетке, AE = CF
 s = G + line(PT['A'],PT['B'],GOLD,1.2) + line(PT['B'],PT['C'],GOLD,1.2) + line(PT['C'],PT['E'],GOLD,1.2)
 s += line(PT['E'],PT['A'],RED,1.2,True)
-s += at((3,0), '6d', 0, 5.0) + at((6,2.4), '4d', 4.6, 1.0) + at((1.5,4), '9d', 0, -1.8) + at((-1.6,2), 'AE = CF', -7.5, 1.0, RED, 3.0)
-s += dmark() + labels(['A','B','C','E'], MUT)
-V['б) периметр ABCE'] = fig(svg(s, 'Контур ABCE на сетке'), '')
+s += dimAB() + at((6,3.1), '4d', 4.6, 1.0) + at((1.5,4), '9d', 0, -1.8) + at((-1.6,2), 'AE = CF', -7.5, 1.0, RED, 3.0)
+s += dmark() + names()
+V['б) периметр ABCE'] = fig(svg(s, 'Контур ABCE на сетке', '-9 -7 90 66'), '')
 # в) AMNE = трапеция ABCE без MBN и NCE
 s = G + poly([PT['A'],PT['B'],PT['C'],PT['E']], GOLD, 1.0)
 s += poly([PT['A'],PT['M'],PT['N'],PT['E']], VIO, 1.0, VIO, 0.35)
 s += tri([PT['M'],PT['B'],PT['N']], BLUE, 0.35) + tri([PT['N'],PT['C'],PT['E']], GREEN, 0.35)
-s += line((0,-0.9),(6,-0.9),GOLD,0.5) + line((0,-0.7),(0,-1.1),GOLD,0.5) + line((6,-0.7),(6,-1.1),GOLD,0.5)
-s += at((3,-0.9), '6d', 0, 4.4) + at((4.5,0), '3d', 0, 4.4, BLUE) + at((6,1.3), '2d', 4.4, 1.0, BLUE)
+s += dimAB() + at((4.5,0), '3d', 0, 4.4, BLUE) + at((6,1.3), '2d', 4.4, 1.0, BLUE)
 s += at((6,3), '2d', 4.4, 1.0, GREEN) + at((1.5,4), '9d', 0, -1.8, GREEN) + at((-3,2), '4d', -4.0, 1.0)
 s += line((-3,4),(-3,0),GOLD,0.6,True) + line((-3,0),(0,0),GOLD,0.6,True)
-s += line((6,0),(6,1),GOLD,1.4) + at((6,0.5), 'd', -2.6, 1.0, GOLD, 3.2) + labels(['A','M','N','E'], MUT)
-V['в) площадь AMNE'] = fig(svg(s, 'AMNE на сетке', '-9 -7 90 62'),
+s += line((6,0),(6,1),GOLD,1.4) + at((6,0.5), 'd', -2.6, 1.0, GOLD, 3.2) + names()
+V['в) площадь AMNE'] = fig(svg(s, 'AMNE на сетке', '-9 -7 90 66'),
   "<b style='color:#f0a83c'>Трапеция ABCE</b> без <b style='color:#5ba8f5'>MBN</b> и <b style='color:#5fd38d'>NCE</b>; высота трапеции 4d.")
 
 # 6. раздел «Найдём d»: ABPR = ABCD без BCP и PDR
-s = grid() + poly([PT['A'],PT['B'],PT['C'],PT['D']], GOLD, 1.0)
+s = grid() + full() + poly([PT['A'],PT['B'],PT['C'],PT['D']], GOLD, 1.0)
 s += poly([PT['A'],PT['B'],PT['P'],PT['R']], RED, 0.8, RED, 0.35)
 s += tri([PT['B'],PT['C'],PT['P']], BLUE, 0.35) + tri([PT['P'],PT['D'],PT['R']], GREEN, 0.35)
-s += at((6,2), '4d', 4.4, 1.0, BLUE) + at((4.5,4), '3d', 0, -1.8, BLUE)
+s += at((6,3.1), '4d', 4.4, 1.0, BLUE) + at((4.5,4), '3d', 0, -1.8, BLUE)
 s += at((1.5,4), '3d', 0, -1.8, GREEN) + at((0,3), '2d', -4.2, 1.0, GREEN) + dmark()
-s += labels(['A','B','C','D','P','R'], MUT)
-V['ABPR — это прямоугольник ABCD без'] = fig(svg(s, 'ABPR внутри ABCD', '15 -7 68 46'),
+s += names()
+V['ABPR — это прямоугольник ABCD без'] = fig(svg(s, 'ABPR внутри ABCD', '-9 -7 90 58'),
   "<b style='color:#f2686c'>ABPR</b> = <b style='color:#f0a83c'>ABCD</b> без <b style='color:#5ba8f5'>BCP</b> и <b style='color:#5fd38d'>PDR</b>.")
 
 # 7. врезка «общая высота»: пример на числах, не из задачи
@@ -106,9 +110,9 @@ V['Поэтому площадь одного треугольника'] = fig(s
 
 # 8. раздел «Найдём CF»: CAF и BAF, общая высота AB
 s = poly([PT['A'],PT['C'],PT['F']], GOLD, 0.8, GOLD, 0.25) + poly([PT['A'],PT['B'],PT['F']], BLUE, 0.9, BLUE, 0.55)
-s += frame(DIM, 0.45) + line(PT['A'],PT['B'],LAB,1.0,True)
-s += at((3,0), 'общая высота', 0, -1.8, LAB, 2.8) + at((6,2), '4d', 4.4, 1.0, GOLD) + at((6,-0.5), 'BF', -4.0, 1.2, BLUE, 2.8)
-s += labels(['A','B','C','F'], MUT)
+s = grid() + full() + s + line(PT['A'],PT['B'],LAB,1.0,True)
+s += at((6,3.1), '4d', 4.4, 1.0, GOLD) + at((6,-0.5), 'BF', -4.0, 1.2, BLUE, 2.8)
+s += names()
 V['В частности, у CAF и BAF'] = fig(svg(s, 'CAF и BAF', '-9 -7 90 58'),
   "<b style='color:#f0a83c'>CAF</b> и <b style='color:#5ba8f5'>BAF</b>: основания CF и BF на прямой BC, высота AB общая.")
 
