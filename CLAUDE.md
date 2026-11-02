@@ -13,7 +13,10 @@
 >   появляется в разделе этого операнда.
 > - Операнды названы так, что видно, что они считают: `N = N(17bc) + N(1a7c) + N(1ab7) + N(2000–2017)`; искомое — просто `N`.
 > - Заголовок раздела = операнд (`**1. N(17bc).**`); раздел кончается «операнд = число»; последний раздел — сборка.
-> - Исключения: геометрия (рисунки, правило 8) и задачи, сводящиеся к системе уравнений (запись + механика, правило 8).
+> - **Геометрия — не исключение** (решение родителя 2.11.2026). Артефакт там менее явный — через меры: «ответы через d»,
+>   площадь каждой спрошенной фигуры — формулой от букв-мер (клеток, отрезков), — но подход тот же: посылки → артефакт
+>   «спрошенное = формулы от операндов» → разделы по операндам → сборка. Рисунки не отменяют артефакт, слепо копировать
+>   форму счёта не нужно. Исключение одно: задачи, сводящиеся к системе уравнений (запись + механика, правило 8).
 >   Цепочка (известное → целое → следующее целое) — артефакт-схема из стрелок (правило 8, «North Star»).
 >   **Примеры учебника, написанного по образцу** (учебник комбинаторики, `26-27/nandu_level2/kombinatorika/`), повторяют
 >   ход образца (Яковлев, Шень): ⛔-блок и правило 8 к ним не применяются, если у образца нет плана и операндов
@@ -240,6 +243,8 @@ These conventions are load-bearing across all materials — keep them.
    problem; rules 8/9/14 do not apply inside part 2. Model: `26-27/nandu_level2/idealnye_resheniya/_md/T1_nac_2023_4.md`.
    **Geometry (Т2 family) is pictures, not words** (окт 2026): ten times fewer words, ten times more figures — the style of
    the level-1 Т2 «⚡ Коротко» blocks (`25-26/nandu_level1/national/boevye_resheniya/_md/TLDR_SPEC.md`, section Т2).
+   **The ⛔ artifact comes first here too** (2 Nov 2026): after the letters, every asked quantity is written as a
+   formula of the letter-measures (`> ✅ **Ответы через d:**` …), then sections find the letters, then сборка.
    Condition figure → «Буквы на рисунке.» (label + colour-letter figure, no text repeating it) → запись системы: per
    equation an italic source caption, the observation's figure under it, the equation (no observation paragraph or
    free-floating general formula before Часть 1; caption, figure cells and equation name the pieces in one and the
