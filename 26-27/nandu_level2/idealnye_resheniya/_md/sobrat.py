@@ -67,7 +67,7 @@ for f, typ, *_ in items:
         continue
     paras = [x.strip() for x in open(os.path.join(M, f + '.md')).read().split('\n\n') if x.strip()]
     q = next((i for i, x in enumerate(paras) if '?' in x and not x.startswith('**Условие')), 0)
-    k = next((i for i, x in enumerate(paras) if re.match(r'^N(\([^)]*\))?\s*=', x)), None)
+    k = next((i for i, x in enumerate(paras) if re.match(r'^(>\s*✅\s*)?N(\([^)]*\))?\s*=', x)), None)
     if k is None:
         print(f'  ⚠ артефакт: {f} — нет формулы «N = …»'); continue
     pre = [x for x in paras[q + 1:k] if not x.startswith('<small>')]

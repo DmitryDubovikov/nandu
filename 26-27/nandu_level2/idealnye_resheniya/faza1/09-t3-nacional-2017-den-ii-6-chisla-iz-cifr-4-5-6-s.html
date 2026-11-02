@@ -83,7 +83,8 @@
   ul,ol{max-width:none;padding-left:1.3em;margin:12px 0 0}
   ol.num{list-style:none;padding-left:0}
   ol.num>li{padding-left:2em;text-indent:-2em}
-  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em}
+  li .lip{display:block;margin-top:8px;text-indent:0}
+  ol.num .lin{color:var(--gold);font-family:var(--sans);font-size:14px;margin-right:8px;display:inline-block;width:1.2em;text-indent:0}
   li{font-size:17.5px;line-height:1.62;color:#cfdae6;margin:9px 0}
   hr{border:none;border-top:1px solid var(--line);margin:34px 0 0;max-width:none}
 
@@ -170,6 +171,7 @@
   p:has(>small)+p:has(>small){margin-top:2px}
   .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:14px}
   .cols2>.col>:first-child{margin-top:0}
+  details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
@@ -264,7 +266,12 @@
   @keyframes drw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
   @keyframes fin{from{opacity:0}to{opacity:1}}
   @keyframes sld{from{transform:none}to{transform:var(--to)}}
+  /* Гаснет то, что выбыло: --o — с какой яркостью остаётся (0 — исчезает совсем) */
+  .fo{opacity:var(--o,0)}
+  @keyframes fout{from{opacity:1}to{opacity:var(--o,0)}}
   @media (prefers-reduced-motion:no-preference){
+    html.anim figure.fx:not(.seen) .fo{opacity:1}
+    html.anim figure.fx.seen .fo{animation:fout .6s ease var(--d,0s) both}
     html.anim figure.fx:not(.seen) .dr{stroke-dasharray:100;stroke-dashoffset:100}
     html.anim figure.fx:not(.seen) .fi{opacity:0}
     html.anim figure.fx:not(.seen) .sl{transform:none}
@@ -306,20 +313,21 @@
   <h1>Т3‴ — национал 2017, день II, №6 — числа из цифр 4, 5, 6 с суммой цифр 30</h1>
   <p class="sub">Идеальные решения образцов. Группа 1 — подтипы, которые встречаются уже на интересколяре и зонале</p>
 <div class="card task st"><span class="tag">Условие</span><p>Составляют числа так, чтобы:</p><ul class="st"><li>в числе стояли только цифры 4, 5 и 6;</li><li>в числе можно было использовать одну, две или все три из этих цифр;</li><li>сумма цифр числа была равна 30.</li></ul><p>Сколько чисел можно составить? Объясни, как ты их считал.</p></div>
-<p class="st"><b>Число</b> — цифры 4, 5, 6, выписанные в ряд по местам 1, 2, 3, …: 456 и 654 — разные числа.</p>
+<p class="st"><b>Способ</b> — расстановка цифр 4, 5, 6 по местам 1, 2, 3, … числа: 456 и 654 — разные числа.</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Сумма цифр не зависит от их порядка — только от того, сколько раз стоит каждая цифра.</p></div></div>
-<p class="st">Поэтому сначала из уравнения находим все наборы количеств, потом для каждого набора считаем расстановки по местам.</p>
 <p class="st">n₄, n₅, n₆ — сколько раз в числе стоит 4, 5, 6.</p>
-<p class="st"><em>«одну, две или все три из этих цифр»</em> ⇒ любое из n₄, n₅, n₆ может быть равно 0.</p>
 <p class="st"><em>«сумма цифр числа была равна 30»</em> ⇒</p>
-<p class="st">4 · n₄ + 5 · n₅ + 6 · n₆ = 30</p>
-<p class="st"><b>Все наборы (n₄, n₅, n₆).</b></p>
+<div id="a1" data-art="1"><div class="frm st">4 · n₄ + 5 · n₅ + 6 · n₆ = 30</div></div>
+<p class="st">У каждого числа ровно один набор (n₄, n₅, n₆), поэтому числа разных наборов складываются:</p>
+<div id="a2" data-art="2"><div class="plan st"><p class="st">N = сумма N(n₄, n₅, n₆) по всем решениям уравнения</p></div></div>
+<p class="st"><b>1. Найдём все слагаемые N(n₄, n₅, n₆).</b></p>
+<p class="st"><em>«одну, две или все три из этих цифр»</em> ⇒ любое из n₄, n₅, n₆ может быть равно 0.</p>
 <pre class="sys st"><span class="pen2">4 · n₄</span> + 5 · n₅ + <span class="pen2">6 · n₆</span> = <span class="pen2">30</span>
 5 · n₅ = <span class="pen2">30 − 4 · n₄ − 6 · n₆</span></pre>
 <p class="st">Синее — чётное, поэтому:</p>
 <p class="st">5 · n₅ чётное ⇒ n₅ чётное</p>
-<p class="st">5 · n₅ ≤ 30 ⇒ n₅ ≤ 6</p>
-<p class="st">n₅ = 0, 2, 4, 6</p>
+<div id="a3" data-art="3"><div class="frm st">5 · n₅ ≤ 30 ⇒ n₅ ≤ 6</div></div>
+<div id="a4" data-art="4"><div class="frm st">n₅ = 0, 2, 4, 6</div></div>
 <pre class="sys st">n₅ = 0   4 · n₄ + 6 · n₆ = 30   | : 2
          2 · n₄ + 3 · n₆ = 15
 n₅ = 2   4 · n₄ + 6 · n₆ = 20   | : 2
@@ -328,52 +336,51 @@ n₅ = 4   4 · n₄ + 6 · n₆ = 10   | : 2
          2 · n₄ + 3 · n₆ = 5
 n₅ = 6   4 · n₄ + 6 · n₆ = 0</pre>
 <p class="st">2 · n₄ чётное, поэтому n₆ той же чётности, что правая часть.</p>
-<p class="st">n₅ = 0, n₆ нечётное: (6, 0, 1), (3, 0, 3), (0, 0, 5)</p>
-<p class="st">n₅ = 2, n₆ чётное: (5, 2, 0), (2, 2, 2)</p>
-<p class="st">n₅ = 4, n₆ нечётное: (1, 4, 1)</p>
-<p class="st">n₅ = 6: (0, 6, 0)</p>
+<div id="a5" data-art="5"><div class="frm st">n₅ = 0, n₆ нечётное: (6, 0, 1), (3, 0, 3), (0, 0, 5)</div></div>
+<div id="a6" data-art="6"><div class="frm st">n₅ = 2, n₆ чётное: (5, 2, 0), (2, 2, 2)</div></div>
+<div id="a7" data-art="7"><div class="frm st">n₅ = 4, n₆ нечётное: (1, 4, 1)</div></div>
+<div id="a8" data-art="8"><div class="frm st">n₅ = 6: (0, 6, 0)</div></div>
 <figure class='st'><svg viewBox='-1 -1 116 105' role='img' aria-label='Наборы цифр' style='max-width:400px'><text x='27' y='7.8' fill='#e8eef6' font-size='4.6' text-anchor='end'>(6, 0, 1)</text><rect x='30' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='36.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='42' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='48.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='54' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='60.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='66' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='72.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='78' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='84.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='90' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='96.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='102' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='108.0' y='7.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><text x='27' y='22.8' fill='#e8eef6' font-size='4.6' text-anchor='end'>(3, 0, 3)</text><rect x='30' y='15' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='36.0' y='22.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='42' y='15' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='48.0' y='22.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='54' y='15' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='60.0' y='22.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='66' y='15' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='72.0' y='22.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='78' y='15' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='84.0' y='22.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='90' y='15' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='96.0' y='22.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><text x='27' y='37.8' fill='#e8eef6' font-size='4.6' text-anchor='end'>(0, 0, 5)</text><rect x='30' y='30' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='36.0' y='37.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='42' y='30' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='48.0' y='37.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='54' y='30' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='60.0' y='37.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='66' y='30' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='72.0' y='37.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='78' y='30' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='84.0' y='37.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><text x='27' y='52.8' fill='#e8eef6' font-size='4.6' text-anchor='end'>(5, 2, 0)</text><rect x='30' y='45' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='36.0' y='52.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='42' y='45' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='48.0' y='52.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='54' y='45' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='60.0' y='52.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='66' y='45' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='72.0' y='52.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='78' y='45' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='84.0' y='52.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='90' y='45' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='96.0' y='52.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='102' y='45' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='108.0' y='52.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><text x='27' y='67.8' fill='#e8eef6' font-size='4.6' text-anchor='end'>(2, 2, 2)</text><rect x='30' y='60' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='36.0' y='67.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='42' y='60' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='48.0' y='67.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='54' y='60' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='60.0' y='67.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='66' y='60' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='72.0' y='67.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='78' y='60' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='84.0' y='67.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='90' y='60' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='96.0' y='67.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><text x='27' y='82.8' fill='#e8eef6' font-size='4.6' text-anchor='end'>(1, 4, 1)</text><rect x='30' y='75' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='36.0' y='82.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='42' y='75' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='48.0' y='82.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='54' y='75' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='60.0' y='82.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='66' y='75' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='72.0' y='82.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='78' y='75' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='84.0' y='82.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='90' y='75' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='96.0' y='82.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><text x='27' y='97.8' fill='#e8eef6' font-size='4.6' text-anchor='end'>(0, 6, 0)</text><rect x='30' y='90' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='36.0' y='97.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='42' y='90' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='48.0' y='97.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='54' y='90' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='60.0' y='97.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='66' y='90' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='72.0' y='97.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='78' y='90' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='84.0' y='97.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text><rect x='90' y='90' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='96.0' y='97.8' fill='#f0a83c' font-size='5.2' text-anchor='middle' font-weight='700'>5</text></svg><figcaption>Цифры каждого набора.</figcaption></figure>
-<p class="st">У каждого числа ровно один набор, поэтому числа разных наборов складываются.</p>
-<p class="st">Наборы делятся по тому, сколько разных цифр стоит в числе:</p>
-<div id="a1" data-art="1"><div class="frm st">N(чисел) = N(одна цифра) + N(две разные цифры) + N(три разные цифры)</div></div>
-<p class="st"><b>1. N(одна цифра).</b></p>
-<div id="a2" data-art="2"><div class="frm st">N(одна цифра) = N(0, 0, 5) + N(0, 6, 0)</div></div>
+<p class="st">Наборы делятся по тому, сколько разных цифр стоит в числе, — от этого зависит, как расставлять цифры по местам:</p>
+<div id="a9" data-art="9"><div class="frm st">N = <span class="pen2">N(одна цифра)</span> + <span class="pen3">N(две разные цифры)</span> + <span class="pen4">N(три разные цифры)</span></div></div>
+<p class="st"><b>2. N(одна цифра).</b></p>
+<div id="a10" data-art="10"><div class="frm st"><span class="pen2">N(одна цифра)</span> = N(0, 0, 5) + N(0, 6, 0)</div></div>
 <p class="st">В числе стоит только одна цифра — число одно.</p>
-<div id="a3" data-art="3"><div class="frm st">N(0, 0, 5) = 1</div></div>
+<div id="a11" data-art="11"><div class="frm st">N(0, 0, 5) = 1</div></div>
 <p class="st"><small>66666</small></p>
-<div id="a4" data-art="4"><div class="frm st">N(0, 6, 0) = 1</div></div>
+<div id="a12" data-art="12"><div class="frm st">N(0, 6, 0) = 1</div></div>
 <p class="st"><small>555555</small></p>
-<div id="a5" data-art="5"><div class="frm st">N(одна цифра) = 1 + 1 = 2</div></div>
-<p class="st"><b>2. N(две разные цифры).</b></p>
-<div id="a6" data-art="6"><div class="frm st">N(две разные цифры) = N(6, 0, 1) + N(3, 0, 3) + N(5, 2, 0)</div></div>
+<div id="a13" data-art="13"><div class="frm st"><span class="pen2">N(одна цифра)</span> = 1 + 1 = <span class="pen2">2</span></div></div>
+<p class="st"><b>3. N(две разные цифры).</b></p>
+<div id="a14" data-art="14"><div class="frm st"><span class="pen3">N(две разные цифры)</span> = N(6, 0, 1) + N(3, 0, 3) + N(5, 2, 0)</div></div>
 <p class="st">В числе стоят две цифры: выбираем места одной из них, на остальных местах стоит другая.</p>
 <p class="st">Место 6 — любое из семи:</p>
-<div id="a7" data-art="7"><div class="frm st">N(6, 0, 1) = 7</div></div>
+<div id="a15" data-art="15"><div class="frm st">N(6, 0, 1) = 7</div></div>
 <p class="st"><small>6444444  4644444  4464444  4446444  4444644  4444464  4444446</small></p>
 <p class="st">Места трёх 4 — любые три из шести:</p>
-<div id="a8" data-art="8"><div class="frm st">N(3, 0, 3) = C(6, 3) = 10 + 6 + 3 + 1 = 20</div></div>
+<div id="a16" data-art="16"><div class="frm st">N(3, 0, 3) = C(6, 3) = 10 + 6 + 3 + 1 = 20</div></div>
 <p class="st"><small>первая 4 на месте 1: 444666  446466  446646  446664  464466</small></p>
 <p class="st"><small>464646  464664  466446  466464  466644</small></p>
 <p class="st"><small>первая 4 на месте 2: 644466  644646  644664  646446  646464  646644</small></p>
 <p class="st"><small>первая 4 на месте 3: 664446  664464  664644</small></p>
 <p class="st"><small>первая 4 на месте 4: 666444</small></p>
 <p class="st">Места двух 5 — любые два из семи:</p>
-<div id="a9" data-art="9"><div class="frm st">N(5, 2, 0) = C(7, 2) = 6 + 5 + 4 + 3 + 2 + 1 = 21</div></div>
+<div id="a17" data-art="17"><div class="frm st">N(5, 2, 0) = C(7, 2) = 6 + 5 + 4 + 3 + 2 + 1 = 21</div></div>
 <p class="st"><small>первая 5 на месте 1: 5544444  5454444  5445444  5444544  5444454  5444445</small></p>
 <p class="st"><small>первая 5 на месте 2: 4554444  4545444  4544544  4544454  4544445</small></p>
 <p class="st"><small>первая 5 на месте 3: 4455444  4454544  4454454  4454445</small></p>
 <p class="st"><small>первая 5 на месте 4: 4445544  4445454  4445445</small></p>
 <p class="st"><small>первая 5 на месте 5: 4444554  4444545</small></p>
 <p class="st"><small>первая 5 на месте 6: 4444455</small></p>
-<div id="a10" data-art="10"><div class="frm st">N(две разные цифры) = 7 + 20 + 21 = 48</div></div>
-<p class="st"><b>3. N(три разные цифры).</b></p>
-<div id="a11" data-art="11"><div class="frm st">N(три разные цифры) = N(2, 2, 2) + N(1, 4, 1)</div></div>
+<div id="a18" data-art="18"><div class="frm st"><span class="pen3">N(две разные цифры)</span> = 7 + 20 + 21 = <span class="pen3">48</span></div></div>
+<p class="st"><b>4. N(три разные цифры).</b></p>
+<div id="a19" data-art="19"><div class="frm st"><span class="pen4">N(три разные цифры)</span> = N(2, 2, 2) + N(1, 4, 1)</div></div>
 <p class="st">В числе стоят все три цифры: выбираем места для 4, затем из оставшихся мест — места для 6, на остальных местах стоит 5.</p>
 <p class="st">При любых местах 4 для 6 остаётся столько же мест, поэтому два выбора перемножаются.</p>
 <div class="cols2"><div class="col"><p class="st"><b>N(2, 2, 2)</b></p><p class="st">Места двух 4 — любые два из шести:</p><div class="frm st">C(6, 2) = 5 + 4 + 3 + 2 + 1 = 15</div><p class="st">Места двух 6 — любые два из четырёх оставшихся:</p><figure class='st'><svg viewBox='-1 -1 74 14' role='img' aria-label='Места числа' style='max-width:220px'><rect x='0' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='6.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='12' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='18.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='24' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='24' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='36' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='36' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='48' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='48' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='60' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='60' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></figure><div class="frm st">C(4, 2) = 3 + 2 + 1 = 6</div><p class="st"><small>при 4 на местах 1, 2: 6 на местах {3, 4}, {3, 5}, {3, 6}, {4, 5}, {4, 6}, {5, 6}</small></p><div class="frm st">N(2, 2, 2) = 15 · 6 = 90</div></div><div class="col"><p class="st"><b>N(1, 4, 1)</b></p><p class="st">Место 4 — любое из шести.</p><p class="st">Место 6 — любое из пяти оставшихся.</p><figure class='st'><svg viewBox='-1 -1 74 14' role='img' aria-label='Места числа' style='max-width:220px'><rect x='0' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='6.0' y='7.8' fill='#5ba8f5' font-size='5.2' text-anchor='middle' font-weight='700'>4</text><rect x='12' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='12' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='24' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='24' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='36' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='36' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='48' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='48' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='60' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='60' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></figure><p class="st"><small>при 4 на месте 1: 6 на месте 2, 3, 4, 5 или 6</small></p><div class="frm st">N(1, 4, 1) = 6 · 5 = 30</div></div></div>
-<div id="a12" data-art="12"><div class="frm st">N(три разные цифры) = 90 + 30 = 120</div></div>
+<div id="a20" data-art="20"><div class="frm st"><span class="pen4">N(три разные цифры)</span> = 90 + 30 = <span class="pen4">120</span></div></div>
 <p class="st"><b>Сборка.</b></p>
-<div id="a13" data-art="13"><div class="frm st">N(чисел) = 2 + 48 + 120 = 170</div></div>
+<div id="a21" data-art="21"><div class="frm st">N = <span class="pen2">2</span> + <span class="pen3">48</span> + <span class="pen4">120</span> = 170</div></div>
 <p class="st"><b>Ответ на задачу:</b> можно составить <b>170 чисел</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Решить, что цифр всегда шесть («30 : 5 = 6»): потеряются 66666 и все семизначные числа, выйдет 141.</li><li>Не считать 66666 и 555555, хотя условие разрешает одну цифру, — выйдет 168.</li><li>Переставлять одинаковые цифры как разные: для набора (2, 2, 2) выйдет 6 · 5 · 4 · 3 · 2 · 1 = 720 вместо 90.</li></ul>
