@@ -68,7 +68,7 @@ def labels(names=None, col=LAB, dots=True):
     return s
 def svg(inner, label, vb='-8 -8 80 80'):
     return f"<svg viewBox='{vb}' role='img' aria-label='{label}'>{inner}</svg>"
-def fig(inner, cap): return f"<figure class='st'>{inner}<figcaption>{cap}</figcaption></figure>"
+def fig(inner, cap): return f"<figure class='st'>{inner}" + (f"<figcaption>{cap}</figcaption>" if cap else "") + "</figure>"
 
 V = {}
 # 1. рисунок условия — как в оригинале, MNPQ не проведён
@@ -92,24 +92,20 @@ V['двенадцать трапеций по три половинки клет
   "Закрашенное, разрезанное сеткой на половинки клеток: <b style='color:#f0a83c'>трапеции</b> "
   "(угловая и боковая равны) и <b style='color:#5ba8f5'>закрашенный квадрат</b>.")
 
-# 4. а) закрашенный квадрат
-s = pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly(SQ_CENTER, BLUE, 0.9, BLUE, 0.3)
-s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_SQ)
-V['шестнадцать половинок клетки'] = fig(svg(s, 'Закрашенный квадрат'), 'Закрашенный квадрат.')
-
-# 5. б) незакрашенное: весь ABCD со стороной 32 без закрашенного
-s = ''.join(poly(p, DIM, 0.5, GREEN if not sh else 'none', 0.3 if not sh else 1) for p, sh in PIECES) + stubs(DIM, 0.5)
-s += poly([(0,0),(8,0),(8,8),(0,8)], GOLD, 1.0)
-s += txt(32,-2.4,'32',GOLD) + txt(-4.4,33.2,'32',GOLD)
-V['весь ABCD без закрашенного'] = fig(svg(s, 'Незакрашенная часть'), 'Незакрашенная часть.')
-
-# 6. в) MNPQ — половина квадрата 6d × 6d
-s = pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5)
-s += poly([(1,1),(7,1),(7,7),(1,7)], GOLD, 0.8)
-s += line((1,4),(7,4),VIO,0.5,True) + line((4,1),(4,7),VIO,0.5,True)
-s += poly([PT['M'],PT['N'],PT['P'],PT['Q']], VIO, 1.0, VIO, 0.3)
-s += txt(20, 6.4, '24', GOLD, 3.2) + txt(4.6, 18, '24', GOLD, 3.2) + labels(['M','N','P','Q'], MUT)
-V['половина квадрата 6d × 6d'] = fig(svg(s, 'MNPQ'), 'MNPQ.')
+# 4–7. артефакт: каждое спрошенное на сетке d — видно, что оно меряется клетками d × d
+def dmark():   # одна клетка d у D
+    return line((0,8),(1,8),GOLD,1.4) + txt(4,-2.4,'d',GOLD,3.2)
+G = grid('#3e4b58', 0.3)
+s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly(SQ_CENTER, BLUE, 0.9, BLUE, 0.3)
+s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_SQ) + dmark()
+V['а) закрашенный квадрат на сетке'] = fig(svg(s, 'Закрашенный квадрат на сетке', '-8 -9 80 81'), '')
+s = G + ''.join(poly(p, DIM, 0.5, GREEN if not sh else 'none', 0.3 if not sh else 1) for p, sh in PIECES) + stubs(DIM, 0.5) + dmark()
+V['б) незакрашенная часть на сетке'] = fig(svg(s, 'Незакрашенная часть на сетке', '-8 -9 80 81'), '')
+s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([PT['M'],PT['N'],PT['P'],PT['Q']], VIO, 1.0, VIO, 0.3)
+s += labels(['M','N','P','Q'], MUT) + dmark()
+V['в) MNPQ на сетке'] = fig(svg(s, 'MNPQ на сетке', '-8 -9 80 81'), '')
+s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([(0,0),(8,0),(8,8),(0,8)], GOLD, 1.0) + dmark()
+V['г) контур ABCD на сетке'] = fig(svg(s, 'Контур ABCD на сетке', '-8 -9 80 81'), '')
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
