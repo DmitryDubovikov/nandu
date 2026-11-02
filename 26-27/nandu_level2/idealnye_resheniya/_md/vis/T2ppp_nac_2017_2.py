@@ -84,13 +84,22 @@ s += ''.join(txt(x, y, n, MUT) for n, (x, y) in
 V['DE = d — шаг сетки.'] = fig(svg(s, 'Буквы', '-9 -11 81 83'),
   "<b style='color:#f0a83c'>d</b> = DE = EF = FG; DC = 8d.")
 
-# 3. закрашенное в треугольничках
-s = grid(DIM, 0.25) + pieces(DIM, 0.5, RED, 0.5) + stubs(DIM, 0.5)
-s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_TRAPS + CUTS_SQ)
-s += ''.join(poly(p, GOLD, 0.9) for p in [TRAP_CORNER, [(8,3),(8,2),(6,4),(7,4)]]) + poly(SQ_CENTER, BLUE, 0.9)
-V['двенадцать трапеций по три половинки клетки'] = fig(svg(s, 'Закрашенное в половинках клетки'),
-  "Закрашенное, разрезанное сеткой на треугольники с катетами d и d: <b style='color:#f0a83c'>трапеции</b> "
-  "(угловая и боковая равны) и <b style='color:#5ba8f5'>закрашенный квадрат</b>.")
+# 3. закрашенное: трапеция = треугольник с катетами 2d без треугольника с катетами d; квадрат — 4 треугольника с катетами 2d
+def lab(p, s, dx=0, dy=0, col=GOLD, size=2.8):
+    X, Y = xy(p); return txt(X+dx, Y+dy, s, col, size)
+s = grid('#3e4b58', 0.3) + pieces(DIM, 0.5, RED, 0.45) + stubs(DIM, 0.5)
+# угловая трапеция у D
+s += poly([(0,8),(2,8),(0,6)], GOLD, 1.0) + poly([(0,8),(1,8),(0,7)], INK, 0.6, '#0e1116', 0.95)
+s += lab((1,8), '2d', 0, -1.6) + lab((0,7), '2d', -4.0, 1.0) + lab((0.33,7.6), 'd', 0, 1.0, INK, 2.4)
+# боковая трапеция у P
+s += poly([(8,2),(8,4),(6,4)], GOLD, 1.0) + poly([(8,3),(8,4),(7,4)], INK, 0.6, '#0e1116', 0.95)
+s += lab((7,4), '2d', 0, -1.6) + lab((8,3), '2d', 4.2, 1.0) + lab((7.7,3.67), 'd', 0, 1.0, INK, 2.4)
+# закрашенный квадрат: диагонали, один треугольник с катетами 2d
+s += poly(SQ_CENTER, BLUE, 0.9) + line((2,4),(6,4),BLUE,0.5,True) + line((4,2),(4,6),BLUE,0.5,True)
+s += poly([(4,4),(4,6),(2,4)], BLUE, 0.9, BLUE, 0.35) + lab((3,4), '2d', 0, 3.6, BLUE) + lab((4,5), '2d', 3.6, 1.0, BLUE)
+V['угловая трапеция — треугольник с катетами 2d'] = fig(svg(s, 'Закрашенное: трапеции и квадрат'),
+  "<b style='color:#f0a83c'>Трапеция</b> — треугольник с катетами 2d без тёмного треугольника с катетами d; угловая и боковая устроены одинаково. "
+  "<b style='color:#5ba8f5'>Закрашенный квадрат</b> — четыре треугольника с катетами 2d.")
 
 # 4–7. артефакт: каждое спрошенное на сетке d — видно, что оно меряется клетками d × d
 def dmark():   # одна клетка d у D
@@ -101,23 +110,26 @@ def hspan(y, x0, x1, lab, below=False):   # один отрезок длины (
 def vspan(x, y0, y1, lab, left=False):
     X, Y = xy((x, (y0+y1)/2))
     return line((x, y0), (x, y1), GOLD, 1.3) + txt(X + (-4.2 if left else 4.2), Y + 1.0, lab, GOLD, 3.0)
-def tri(pts, leg1, leg2):   # один треугольник с катетами d и d: заливка + подписи катетов
-    out = poly(pts, GOLD, 0.9, GOLD, 0.55)
-    for (p1, p2), off in [(leg1[0], leg1[1]), (leg2[0], leg2[1])]:
-        X, Y = xy(((p1[0]+p2[0])/2, (p1[1]+p2[1])/2)); out += txt(X + off[0], Y + off[1], 'd', GOLD, 2.8)
+def tri2(pts, labs, col):   # один прямоугольный треугольник: заливка + подписи катетов
+    out = poly(pts, col, 1.0, col, 0.45)
+    for p, s_, dx, dy in labs: out += lab(p, s_, dx, dy, col, 3.0)
     return out
 G = grid('#3e4b58', 0.3)
-s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly(SQ_CENTER, BLUE, 0.9, BLUE, 0.3)
-s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_SQ) + hspan(4, 2, 6, '4d', True)
-s += tri([(4,6),(4,5),(3,5)], (((4,5),(4,6)), (2.2, 1.0)), (((3,5),(4,5)), (0, 3.4))) + dmark()
+# а) закрашенный квадрат = 4 треугольника с катетами 2d
+s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly(SQ_CENTER, BLUE, 0.9, BLUE, 0.15)
+s += line((2,4),(6,4),BLUE,0.6,True) + line((4,2),(4,6),BLUE,0.6,True)
+s += tri2([(4,4),(4,6),(2,4)], [((3,4),'2d',0,4.0), ((4,5),'2d',4.0,1.0)], GOLD) + dmark()
 V['а) площадь закрашенного квадрата'] = fig(svg(s, 'Закрашенный квадрат на сетке', '-9 -9 82 82'), '')
-s = G + ''.join(poly(p, DIM, 0.5, GREEN if not sh else 'none', 0.3 if not sh else 1) for p, sh in PIECES) + stubs(DIM, 0.5) + hspan(0, 0, 8, '8d', True) + vspan(0, 0, 8, '8d', True)
-s += tri([(2,6),(2,7),(1,6)], (((2,6),(2,7)), (2.2, 1.0)), (((1,6),(2,6)), (0, 3.4))) + dmark()
+# б) незакрашенное = ABCD 8d × 8d без закрашенного
+s = G + pieces(DIM, 0.5, RED, 0.45) + stubs(DIM, 0.5) + poly([(0,0),(8,0),(8,8),(0,8)], GOLD, 1.0)
+s += hspan(0, 0, 8, '8d', True) + vspan(0, 0, 8, '8d', True) + dmark()
 V['б) площадь незакрашенной части'] = fig(svg(s, 'Незакрашенная часть на сетке', '-9 -9 82 82'), '')
-s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([PT['M'],PT['N'],PT['P'],PT['Q']], VIO, 1.0, VIO, 0.3)
-s += labels(['M','N','P','Q'], MUT) + hspan(4, 1, 7, '6d', True)
-s += tri([(4,7),(4,6),(3,6)], (((4,6),(4,7)), (2.2, 1.0)), (((3,6),(4,6)), (0, 3.4))) + dmark()
+# в) MNPQ = 4 треугольника с катетами 3d
+s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([PT['M'],PT['N'],PT['P'],PT['Q']], VIO, 1.0, VIO, 0.15)
+s += line((1,4),(7,4),VIO,0.6,True) + line((4,1),(4,7),VIO,0.6,True) + labels(['M','N','P','Q'], MUT)
+s += tri2([(4,4),(4,7),(1,4)], [((2.5,4),'3d',0,4.0), ((4,5.5),'3d',4.0,1.0)], GOLD) + dmark()
 V['в) площадь MNPQ'] = fig(svg(s, 'MNPQ на сетке', '-9 -9 82 82'), '')
+# г) периметр — четыре стороны по 8d
 s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([(0,0),(8,0),(8,8),(0,8)], GOLD, 1.0) + hspan(0, 0, 8, '8d', True) + vspan(0, 0, 8, '8d', True) + dmark()
 V['г) периметр ABCD'] = fig(svg(s, 'Контур ABCD на сетке', '-9 -9 82 82'), '')
 
