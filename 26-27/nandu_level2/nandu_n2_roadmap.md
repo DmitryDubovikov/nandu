@@ -58,6 +58,7 @@
 Читать: `26-27/nandu_level2/idealnye_resheniya/faza1/index.html`; исходники — `idealnye_resheniya/_md/`;
 вопросы к шлифовке — `idealnye_resheniya/_md/voprosy_k_shlifovke.md`.
 Перед показом родителю каждое решение проходит `idealnye_resheniya/_md/CHECKLIST.md` (⛔ первая идея → сразу артефакт).
+Промпт на следующий образец (номер находит сама сессия) — `idealnye_resheniya/_md/PROMPT_sleduyushchee_reshenie.md`.
 
 ### Группа 1 — подтипы интересколяра и зоналя
 
