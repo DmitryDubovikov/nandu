@@ -112,6 +112,16 @@ for f, typ, *_ in items:
         parts = [x for x in SENT.split(t) if x.strip()]
         if len(parts) > 1:
             print(f'  ⚠ склейка: {f} — {len(parts)} мысли в строке: «{t[:70]}…»')
+# Формула без левой части (родитель 2.11.2026, №12: «формула без левой части… чем мы тут считаем?»): строка
+# «3 · 3 · 2 = 18» вне кода в образцах счёта — ⚠; левая часть называет, что считается: N(раскрасок 1, 3, 5 в два цвета) = …
+for f, typ, *_ in items:
+    if typ.startswith(LINT_SKIP):
+        continue
+    incode = False
+    for ln in open(os.path.join(M, f + '.md')).read().split('\n'):
+        if ln.strip().startswith('```'): incode = not incode; continue
+        if not incode and re.fullmatch(r'[0-9][0-9 ·+−×:()]*= *[0-9]+', ln.strip()):
+            print(f'  ⚠ формула без левой части: {f} — «{ln.strip()[:70]}»')
 # «Артефакт» — внутренняя кухня, в тексте решения не пишется (родитель 2.11.2026: «в математике так не принято»)
 for f, *_ in items:
     t = re.sub(r'(?s)<!--.*?-->', '', open(os.path.join(M, f + '.md')).read())
