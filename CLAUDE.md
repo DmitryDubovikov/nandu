@@ -52,7 +52,7 @@ it season 25-26. **From now on the target is Ñandú Segundo Nivel** — the cou
 (the 2026 calendar carried over — a user assumption, no official 2027 calendar yet).
 
 The 2026 result was weak (about 1.5 problems a day), and the way the course is built changed with it
-(23 Oct 2026). **Solutions come first, textbooks are derived from them** — this is hard rule 7, the only course-building
+(23 Oct 2026). **Solutions come first; the move list, bank and drill are derived from them** (2 Nov 2026) — hard rule 7, the only course-building
 method in the repo:
 
 1. **Model problems** — one real corpus problem per typology subtype, 17 in all. **Entry point and progress tracker:
@@ -63,9 +63,10 @@ method in the repo:
    optimal; sources in `26-27/nandu_level2/idealnye_resheniya/`.
 3. **Moves** — every move, notion and technique of an accepted solution goes into the registry (`nandu_n2_obraztsy.md`
    §5) under the name and notation it has in the solution.
-4. **Textbooks** — written for exactly those moves, introduced and written the way the ideal solutions use them.
-5. **Move maps** — one per family where choosing the move is the difficulty (counting, process, Т4, Т5, Т6…),
-   learned by heart; see rule 7.
+4. **Move list** — replaces textbooks and move maps (parent's decision 2 Nov 2026, see rule 7): one line per move
+   «what the written-out examples show → first formula · move name», first line «выпиши 3–5 примеров».
+5. **Problem bank + recognition drill** — 10–15 problems per move in different plots, mixed; drill = write examples
+   and name the move (~3 min, no solving), then timed mixed sets.
 6. **Whole-corpus solutions** — last.
 
 Steps 1–5 run **in phases by tour**, not over all 17 models at once: **1. Zonal** (ready by 7 May — the Interescolar
@@ -73,13 +74,13 @@ needs the same subtypes): Т1, Т1′, Т1″, Т2, Т2‴, Т3, Т3′, Т3″,
 before the zonal): Т2′ first, then Т5, Т6, Т1‴, Т4, Т2″, Т1⁗ · **3. National — depth**: Т4′ plus deepening Т2′, Т1, Т3′.
 The Interescolar is not a phase of its own. Basis: the subtype × stage matrix in `nandu_n2_tipologia_svodnaya.md`.
 
-The model solutions are the parent's working material for writing textbooks — not the child's practice. Solving a
+The model solutions are the parent's working material for deriving moves — not the child's practice. Solving a
 model does not take it out of the corpus.
 
 **Before writing anything in `26-27/nandu_level2/`, read its `README.md`** (method, 2027 tours, what counts as learned
 at level 1, the level-1 audit gaps), `nandu_n2_roadmap.md` and `nandu_n2_obraztsy.md`. Inputs: per-stage typologies and corpora
 `26-27/nandu_level2/{interescolar,zonal,provincial,regional,national}/nandu_n2_*_{tipologia,korpus}.md`, summary
-`nandu_n2_tipologia_svodnaya.md`. Of 2026, Interescolar and Zonal are in the corpus; Provincial, Regional and Nacional 2026 the user
+`nandu_n2_tipologia_svodnaya.md`. Of 2026, Interescolar, Zonal and Nacional (from photos of the papers) are in the corpus; Provincial and Regional 2026 the user
 adds when the organisers publish them. Stages: Interescolar → Zonal → Provincial → Regional → Nacional.
 
 `arhiv/n2_v1/` holds the abandoned first level-2 approach (chapter ladders planned from the typology, textbooks
@@ -170,23 +171,30 @@ These conventions are load-bearing across all materials — keep them.
    *situation in the statement* («если бы…»), i.e. at the translation stage, never as the name of a solving move.
 6. Each textbook opens with «ритуалы» (standing habits) and each chapter includes typical mistakes; worked examples
    follow the step format of rule 8. A move is named and written exactly as in the ideal solution it came from.
-7. **Solutions first, textbooks from them** (Oct 2026 — replaces the old «corpus → chapter ladder → textbook» workflow,
+7. **Solutions first, moves from them** (Oct 2026 — replaces the old «corpus → chapter ladder → textbook» workflow,
    now in `arhiv/`). A course is built in this order: (а) one model corpus problem per typology subtype;
    (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of moves those solutions
-   use; (г) textbooks covering exactly those moves, in the solutions' form and notation; (д) **move maps** of the phase;
+   use; (г) the **move list** of the phase; (д) the **problem bank and recognition drill**;
    (е) solutions of the whole corpus. Steps (а)–(д) run phase by phase, a phase = the tour it prepares for
    (subtypes that first appear there).
    No chapter is planned from the typology alone, and no textbook is written before its moves exist in
    accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_roadmap.md`.
-   **Move maps** (25 Oct 2026, «ревизия приёмов»): the closed set of keys a family can need at the stage, so an unseen
-   problem built from known moves does not scare. **Nothing can be opened on a tour** — a sheet is an illegal crib; the
-   map is learned by heart at home. Form: one screen, ≤7 keys, each line «триггер в условии → первая формула · имя хода»
-   (names from the registry §5, as in the solutions), no prose — the level-1 determiners were too big and were never
-   read. Maps exist **only for families where the move is not obvious** (counting, process/«с конца», Т4, Т4′, Т5, Т6,
-   Т1‴); Т1 systems, Т1′ and the whole Т2 family get none — there the record of the system and its mechanics is the method.
-   One entry line for all: «каждое данное записывается уравнением → система, карты нет». Checks: an agent seeing only a
-   statement and the map names the key for every corpus problem of the family at the phase's stages (misses → new key);
-   the child names the key from memory before every battle problem. Files: `26-27/nandu_level2/karty_priemov/<семейство>.md`.
+   **Move list, bank, drill instead of textbooks and maps** (parent's decision 2 Nov 2026, after the 2026 tours). Diagnosis:
+   the child lost the enumeration problems (counting, «все возможности», boards) on **recognition** — the problem
+   looked completely new and the move was not recognised, although every type was familiar; geometry and systems
+   were never the trouble. So: (1) ideal solutions stay the base — moves come only from accepted solutions; (2) the
+   phase gets a **move list**, not textbooks or maps: one line per move «что видно в выписанных примерах → первая
+   формула · имя хода» (names and notation as in the solutions), the sign describes the problem's **structure**, not
+   its plot; the first line for every enumeration family is **«выпиши 3–5 примеров и посмотри, что повторяется»**;
+   only enumeration families (Т3…Т3‴, Т1‴, Т1″, Т4, Т4′, Т5, Т6) — geometry and systems get none; (3) a **bank** of
+   10–15 problems per move in different plots — level-1 corpus of all stages plus generated variants, every answer
+   brute-force checked; the level-2 corpus stays for battle (rule 1); (4) **drill**, mixed not by move:
+   recognition (~3 min: write examples, name the move and the way of solving — the «ответ = операнды» first-idea
+   formula of the ⛔ block — and stop before the mechanics; this is the main volume of practice, parent: «набить руку,
+   не тратя время на механику»), then timed mixed sets;
+   (5) battle problems of the phase, each preceded by examples + naming the move. **Nothing can be opened on a tour** —
+   the list is learned by heart. The combinatorics textbook (`26-27/nandu_level2/kombinatorika/`) is a separate
+   project and stays. Rules 2, 3, 6 below apply to textbooks and reshebniks already written or explicitly requested.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
    Structure (in problem solutions the plan IS the first-idea artifact of the ⛔ block at the top of this file):
    **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
