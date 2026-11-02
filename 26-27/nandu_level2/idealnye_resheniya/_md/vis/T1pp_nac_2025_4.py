@@ -1,7 +1,8 @@
 """Рисунки образца №8 (Т1″, национал 2025 II №4): таблица моментов.
 
 Строка — момент процесса, столбец — коробка, между строками — стрелка переноса из условия, справа — номер уравнения.
-План — пустая таблица; в разделе k заполнены строки 1…k, строка k выделена, изменившиеся в ней клетки — золотом.
+План — пустая таблица; в разделе k заполнены строки 1…k, в строке k золотом обведены только коробки её уравнения,
+под ними дуга с равенством момента.
 Запуск: python3 vis/T1pp_nac_2025_4.py T1pp_nac_2025_4.vis.json
 """
 import json, sys
@@ -16,10 +17,10 @@ def fig(inner, cap=''):
     return f"<figure class='st'>{inner}{c}</figure>"
 
 BOXES = [('синяя', BLUE), ('белая', WHITE), ('красная', RED), ('зелёная', GREEN)]
-CW, CH, GAP = 32, 12, 26            # ширина клетки, высота строки, высота полосы переноса
+CW, CH, GAP = 32, 12, 30            # ширина клетки, высота строки, высота полосы переноса
 X0 = 54                              # левый край первой коробки
 def cx(i): return X0 + i * (CW + 2)
-EQX = cx(4) + 12                     # центр столбца уравнений
+EQX = cx(4) + 26                     # центр столбца уравнений
 HEAD = 7                             # базовая линия заголовков
 ROW0 = 10                            # верх первой строки
 def rowy(r): return ROW0 + r * (CH + GAP)
@@ -28,11 +29,33 @@ MOMENTS = [('момент 1', 'синяя = красная'), ('момент 2',
 CELLS = [['b', 'w', 'b', 'g'],
          ['b − 30', 'w + 30', 'b', 'g'],
          ['b − 30', 'g : 2', 'b + g : 2', 'g']]
+# уравнение момента: какие коробки обвести ('all' — весь ряд), дуга (откуда, куда, подпись, стрелка?), подпись справа
+EQ = [('all', (0, 2, '=', False), 'всего 1200'),
+      ([1, 3], (1, 3, '=', False), ''),
+      ([2, 3], (2, 3, '+ 60', True), '')]
 MOVES = [(0, 1, '30', '30 из синей в белую'), (1, 2, 'половина', 'половина белой в красную')]   # откуда, куда, подпись стрелки, действие в первой колонке
+
+def eq_marks(r, y):
+    boxes, (i, j, lbl, head), right = EQ[r]
+    s = ''
+    if boxes == 'all':
+        s += f"<rect x='{cx(0) - 1.2}' y='{y - 1.2}' width='{cx(3) + CW - cx(0) + 2.4}' height='{CH + 2.4}' rx='2' fill='none' stroke='{GOLD}' stroke-width='0.9'/>"
+    else:
+        for k in boxes:
+            s += f"<rect x='{cx(k) - 1.2}' y='{y - 1.2}' width='{CW + 2.4}' height='{CH + 2.4}' rx='2' fill='none' stroke='{GOLD}' stroke-width='0.9'/>"
+    if right:
+        s += txt(cx(3) + CW + 3, y + CH / 2 + 1.3, right, GOLD, 3.8, '700', anchor='start')
+    x1, x2, yb, d = cx(i) + CW / 2, cx(j) + CW / 2, y + CH + 1.4, 7
+    mk = " marker-end='url(#arc)'" if head else ''
+    s += f"<path d='M{x1} {yb} C{x1} {yb + d} {x2} {yb + d} {x2} {yb + 0.6}' fill='none' stroke='{GOLD}' stroke-width='0.8'{mk}/>"
+    s += txt((x1 + x2) / 2, yb + 0.75 * d + 4.0, lbl, GOLD, 4.0, '700')
+    return s
 
 def table(step=None):
     s = (f"<defs><marker id='mv{step}' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'>"
-         f"<path d='M0 0L6 3L0 6z' fill='context-stroke'/></marker></defs>")
+         f"<path d='M0 0L6 3L0 6z' fill='context-stroke'/></marker>"
+         f"<marker id='arc' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'>"
+         f"<path d='M0 0L6 3L0 6z' fill='{GOLD}'/></marker></defs>")
     for i, (name, c) in enumerate(BOXES):
         s += txt(cx(i) + CW / 2, HEAD, name, c, 4.0)
     for r, mom in enumerate(MOMENTS):
@@ -40,18 +63,17 @@ def table(step=None):
         filled = step is not None and r < step
         cur = step is not None and r == step - 1
         lc = GOLD if cur else (INK if filled or step is None else DIM)
-        if cur:
-            s += f"<rect x='1' y='{y - 1.2}' width='{EQX + 9}' height='{CH + 2.4}' rx='2' fill='{GOLD}' fill-opacity='0.10' stroke='{GOLD}' stroke-width='0.8'/>"
         s += txt(51, y + CH / 2 - 1.0, mom[0], lc, 3.8, '700', anchor='end')
         s += txt(51, y + CH / 2 + 3.6, mom[1], lc, 3.5, anchor='end')
         s += txt(EQX, y + CH / 2 + 1.3, f'({r + 1})', lc, 3.8)
         for i, (_, c) in enumerate(BOXES):
             if filled:
                 s += f"<rect x='{cx(i)}' y='{y}' width='{CW}' height='{CH}' rx='1' fill='{c}' fill-opacity='0.12' stroke='{c}' stroke-width='0.5'/>"
-                changed = cur and r > 0 and CELLS[r][i] != CELLS[r - 1][i]
-                s += txt(cx(i) + CW / 2, y + CH / 2 + 1.3, CELLS[r][i], GOLD if changed else LAB, 4.2, '700')
+                s += txt(cx(i) + CW / 2, y + CH / 2 + 1.3, CELLS[r][i], LAB, 4.2, '700')
             else:
                 s += f"<rect x='{cx(i)}' y='{y}' width='{CW}' height='{CH}' rx='1' fill='none' stroke='{DIM}' stroke-width='0.4' stroke-dasharray='1.2 1'/>"
+        if cur:
+            s += eq_marks(r, y)
     for r, (a, b, lbl, act) in enumerate(MOVES):
         y = rowy(r) + CH
         hot = step is not None and step == r + 2
@@ -61,7 +83,7 @@ def table(step=None):
         s += txt((x1 + x2) / 2, y + GAP / 2 - 0.6, lbl, c, 3.8)
         s += txt(51, y + GAP / 2 - 0.4, f'действие {r + 1} → {r + 2}', c, 3.8, '700', anchor='end')
         s += txt(51, y + GAP / 2 + 3.8, act, c, 3.5, anchor='end')
-    h = rowy(2) + CH + 2
+    h = rowy(2) + CH + (12 if step == 3 else 2)
     return f"<svg viewBox='0 0 {EQX + 12} {h}' role='img' aria-label='Таблица моментов' style='max-width:760px'>{s}</svg>"
 
 V = {}
