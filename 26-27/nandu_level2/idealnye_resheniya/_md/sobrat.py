@@ -80,6 +80,23 @@ for f, typ, *_ in items:
         m = re.match(r'^\*\*(\d+)\. (.+?)\*\*', x)
         if m and 'N(' not in m.group(2):
             print(f'  ⚠ артефакт: {f} — заголовок «{m.group(1)}. {m.group(2)}» не называет операнд')
+# Одна мысль — одна строка (родитель 2.11.2026: «разные мысли разными абзацами»): ловим строки из двух и более предложений
+# во всех образцах, включая геометрию; условие, код, списки, «Ответ на задачу» и строку проверки не трогаем.
+SENT = re.compile(r'(?<=[.!?])\s+(?=[«*(]?[А-ЯЁA-Z])')
+for f, typ, *_ in items:
+    txt_ = open(os.path.join(M, f + '.md')).read()
+    body = txt_.split('Вопросы:', 1)[-1] if 'Вопросы:' in txt_ else txt_
+    incode = False
+    for ln in body.split('\n'):
+        t = ln.strip()
+        if t.startswith('```'): incode = not incode; continue
+        if incode or not t or t.startswith(('- ', '|', '<small>', '**Ответ на задачу', '*Проверено', ':::', '#')): continue
+        t = t.lstrip('> ').strip()
+        if t.startswith('**Условие') or '?' in t or re.match(r'^\*\*\d+\.', t): continue
+        t = re.sub(r'^\*\*[^*]+\*\*\s*', '', t)      # ярлык «**Идея.**», «**⚠ Ловушки.**» — не предложение
+        parts = [x for x in SENT.split(t) if x.strip()]
+        if len(parts) > 1:
+            print(f'  ⚠ склейка: {f} — {len(parts)} мысли в строке: «{t[:70]}…»')
 r = subprocess.run([sys.executable, TOOL, md, out, vp], capture_output=True, text=True)
 for line in (r.stdout + r.stderr).splitlines():
     if 'без якоря' in line or 'Traceback' in line:
