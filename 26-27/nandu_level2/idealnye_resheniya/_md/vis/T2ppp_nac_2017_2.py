@@ -90,10 +90,11 @@ def lab(p, s, dx=0, dy=0, col=GOLD, size=2.8):
 s = grid('#3e4b58', 0.3) + stubs(DIM, 0.5)
 s += ''.join(poly(p, GOLD, 0.6, GOLD, 0.55) for p in TRAPS) + poly(SQ_CENTER, BLUE, 0.8, BLUE, 0.55)
 s += ''.join(poly(p, DIM, 0.5) for p in WHITE)
-for n, c in [('1', (0.75,7.25)), ('2', (3,7.25)), ('3', (5,7.25))]:
+s += line((4,0),(4,8),LAB,0.7,True) + line((0,4),(8,4),LAB,0.7,True)
+for n, c in [('1', (0.75,7.25)), ('2', (3,7.25)), ('3', (0.75,4.9))]:
     X, Y = xy(c); s += f"<circle cx='{X}' cy='{Y}' r='2.6' fill='#0e1116' stroke='{GOLD}' stroke-width='0.5'/>" + txt(X, Y+1.2, n, LAB, 3.2)
 V['закрасим их разными цветами'] = fig(svg(s, 'Закрашенное: трапеции и квадрат'),
-  "<b style='color:#f0a83c'>Трапеции</b> (1, 2, 3 и их повороты) и <b style='color:#5ba8f5'>квадрат</b>.")
+  "<b style='color:#f0a83c'>Трапеции</b> и <b style='color:#5ba8f5'>квадрат</b>; пунктир — средние линии ABCD.")
 s = grid('#3e4b58', 0.3) + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5)
 for tris in [[[(1,8),(2,8),(1,7)], [(1,8),(1,7),(0,7)], [(0,7),(1,7),(0,6)]],
              [[(8,2),(8,3),(7,3)], [(8,3),(7,3),(7,4)], [(7,3),(7,4),(6,4)]]]:
