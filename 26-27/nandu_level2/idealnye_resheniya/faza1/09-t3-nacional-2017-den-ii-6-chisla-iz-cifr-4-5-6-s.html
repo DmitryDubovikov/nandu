@@ -321,7 +321,7 @@
 <p class="st">Каждая цифра не больше 6, а 4 · 6 = 24 &lt; 30 ⇒ цифр не меньше пяти.</p>
 <p class="st">Каждая цифра не меньше 4, а 8 · 4 = 32 &gt; 30 ⇒ цифр не больше семи.</p>
 <div id="a1" data-art="1"><div class="plan st"><div class="frm st">N = <span class="pen2">N(5 цифр)</span> + <span class="pen3">N(6 цифр)</span> + <span class="pen4">N(7 цифр)</span></div></div></div>
-<div class="card box st"><span class="tag">Приём — отклонение от 5</span><p class="st">L — сколько в числе цифр.</p><p class="st">n₄ и n₆ — сколько раз в нём стоит 4 и 6.</p><p class="st">Если бы все цифры были равны 5, сумма была бы 5 · L.</p><p class="st">Каждая 4 уменьшает эту сумму на 1, каждая 6 увеличивает на 1:</p><div class="frm st">сумма цифр = 5 · L + n₆ − n₄</div><p class="st">Пример на числах, не из задачи: в 4556 L = 4, n₆ = 1, n₄ = 1.</p><div class="frm st">5 · 4 + 1 − 1 = 20 = 4 + 5 + 5 + 6</div></div>
+<div class="card box st"><span class="tag">Приём — отклонение от 5</span><p class="st">L — сколько в числе цифр.</p><p class="st">n₄ и n₆ — сколько раз в нём встречаются 4 и 6.</p><p class="st">Если бы все цифры были равны 5, сумма была бы 5 · L.</p><p class="st">Каждая 4 уменьшает эту сумму на 1, каждая 6 увеличивает на 1:</p><div class="frm st">сумма цифр = 5 · L + n₆ − n₄</div><p class="st">Пример на числах, не из задачи: в 4556 L = 4, n₆ = 1, n₄ = 1.</p><div class="frm st">5 · 4 + 1 − 1 = 20 = 4 + 5 + 5 + 6</div></div>
 <p class="st">В частности, <em>«сумма цифр числа была равна 30»</em> ⇒</p>
 <div id="a2" data-art="2"><div class="frm st">n₆ − n₄ = 30 − 5 · L</div></div>
 <p class="sec st"><b>1. N(5 цифр).</b></p>
@@ -332,8 +332,8 @@
 <div id="a4" data-art="4"><div class="frm st"><span class="pen2">N(5 цифр)</span> = <span class="pen2">1</span></div></div>
 <p class="sec st"><b>2. N(6 цифр).</b></p>
 <div id="a5" data-art="5"><div class="frm st">L = 6<span class="imp">⇒</span>n₆ − n₄ = 30 − 30 = 0</div></div>
-<p class="st">6 стоит столько же раз, сколько 4, а вместе их не больше шести ⇒ n₆ от 0 до 3.</p>
-<p class="st">Мир задаёт, сколько раз стоит 6 (4 стоит столько же раз, на остальных местах 5):</p>
+<p class="st">6 встречается столько же раз, сколько 4, а вместе их не больше шести ⇒ n₆ от 0 до 3.</p>
+<p class="st">Мир задаёт, сколько раз встречается 6 (4 встречается столько же раз, на остальных местах 5):</p>
 <div id="a6" data-art="6"><div class="plan st"><div class="frm st"><span class="pen3">N(6 цифр)</span> = N(без 6) + N(одна 6) + N(две 6) + N(три 6)</div></div></div>
 <p class="subsec st"><b>2.1. N(без 6).</b></p>
 <p class="st">4 тоже нет ⇒ все шесть цифр равны 5, число одно.</p>
@@ -366,11 +366,11 @@
 <div id="a17" data-art="17"><div class="frm st"><span class="pen3">N(6 цифр)</span> = 1 + 30 + 90 + 20 = <span class="pen3">141</span></div></div>
 <p class="sec st"><b>3. N(7 цифр).</b></p>
 <div id="a18" data-art="18"><div class="frm st">L = 7<span class="imp">⇒</span>n₆ − n₄ = 30 − 35 = −5</div></div>
-<p class="st">4 стоит на пять раз больше, чем 6.</p>
+<p class="st">4 встречается на пять раз больше, чем 6.</p>
 <p class="st">n₆ = 0 ⇒ n₄ = 5, на двух оставшихся местах стоит 5.</p>
 <p class="st">n₆ = 1 ⇒ n₄ = 6, мест для 5 не остаётся.</p>
 <p class="st">n₆ = 2 ⇒ n₄ = 7, а цифр всего семь ✗</p>
-<p class="st">Мир задаёт, сколько раз стоит 6:</p>
+<p class="st">Мир задаёт, сколько раз встречается 6:</p>
 <div id="a19" data-art="19"><div class="plan st"><div class="frm st"><span class="pen4">N(7 цифр)</span> = N(без 6) + N(одна 6)</div></div></div>
 <p class="subsec st"><b>3.1. N(без 6).</b></p>
 <p class="st">Места двух 5 — любые два из семи, на остальных местах стоит 4:</p>
