@@ -89,34 +89,36 @@ s = grid(DIM, 0.25) + pieces(DIM, 0.5, RED, 0.5) + stubs(DIM, 0.5)
 s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_TRAPS + CUTS_SQ)
 s += ''.join(poly(p, GOLD, 0.9) for p in [TRAP_CORNER, [(8,3),(8,2),(6,4),(7,4)]]) + poly(SQ_CENTER, BLUE, 0.9)
 V['двенадцать трапеций по три половинки клетки'] = fig(svg(s, 'Закрашенное в половинках клетки'),
-  "Закрашенное, разрезанное сеткой на половинки клеток: <b style='color:#f0a83c'>трапеции</b> "
+  "Закрашенное, разрезанное сеткой на треугольники с катетами d и d: <b style='color:#f0a83c'>трапеции</b> "
   "(угловая и боковая равны) и <b style='color:#5ba8f5'>закрашенный квадрат</b>.")
 
 # 4–7. артефакт: каждое спрошенное на сетке d — видно, что оно меряется клетками d × d
 def dmark():   # одна клетка d у D
     return line((0,8),(1,8),GOLD,1.4) + txt(4,-2.4,'d',GOLD,3.2)
-def hticks(y, x0, x1, below=False):   # отметки d подряд вдоль горизонтали y, от x0 до x1
-    out = ''
-    for i in range(x0, x1):
-        out += line((i+0.1, y), (i+0.9, y), GOLD, 1.3)
-        X, Y = xy((i+0.5, y)); out += txt(X, Y + (3.6 if below else -1.3), 'd', GOLD, 2.6)
-    return out
-def vticks(x, y0, y1, left=False):    # отметки d подряд вдоль вертикали x, от y0 до y1
-    out = ''
-    for j in range(y0, y1):
-        out += line((x, j+0.1), (x, j+0.9), GOLD, 1.3)
-        X, Y = xy((x, j+0.5)); out += txt(X + (-2.2 if left else 2.2), Y + 0.9, 'd', GOLD, 2.6)
+def hspan(y, x0, x1, lab, below=False):   # один отрезок длины (x1 − x0)d с подписью
+    X, Y = xy(((x0+x1)/2, y))
+    return line((x0, y), (x1, y), GOLD, 1.3) + txt(X, Y + (4.0 if below else -1.6), lab, GOLD, 3.0)
+def vspan(x, y0, y1, lab, left=False):
+    X, Y = xy((x, (y0+y1)/2))
+    return line((x, y0), (x, y1), GOLD, 1.3) + txt(X + (-4.2 if left else 4.2), Y + 1.0, lab, GOLD, 3.0)
+def tri(pts, leg1, leg2):   # один треугольник с катетами d и d: заливка + подписи катетов
+    out = poly(pts, GOLD, 0.9, GOLD, 0.55)
+    for (p1, p2), off in [(leg1[0], leg1[1]), (leg2[0], leg2[1])]:
+        X, Y = xy(((p1[0]+p2[0])/2, (p1[1]+p2[1])/2)); out += txt(X + off[0], Y + off[1], 'd', GOLD, 2.8)
     return out
 G = grid('#3e4b58', 0.3)
 s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly(SQ_CENTER, BLUE, 0.9, BLUE, 0.3)
-s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_SQ) + hticks(4, 2, 6) + vticks(4, 2, 6)
+s += ''.join(line(a, b, INK, 0.35) for a, b in CUTS_SQ) + hspan(4, 2, 6, '4d', True)
+s += tri([(4,6),(4,5),(3,5)], (((4,5),(4,6)), (2.2, 1.0)), (((3,5),(4,5)), (0, 3.4))) + dmark()
 V['а) площадь закрашенного квадрата'] = fig(svg(s, 'Закрашенный квадрат на сетке', '-9 -9 82 82'), '')
-s = G + ''.join(poly(p, DIM, 0.5, GREEN if not sh else 'none', 0.3 if not sh else 1) for p, sh in PIECES) + stubs(DIM, 0.5) + hticks(0, 0, 8, True) + vticks(0, 0, 8, True)
+s = G + ''.join(poly(p, DIM, 0.5, GREEN if not sh else 'none', 0.3 if not sh else 1) for p, sh in PIECES) + stubs(DIM, 0.5) + hspan(0, 0, 8, '8d', True) + vspan(0, 0, 8, '8d', True)
+s += tri([(2,6),(2,7),(1,6)], (((2,6),(2,7)), (2.2, 1.0)), (((1,6),(2,6)), (0, 3.4))) + dmark()
 V['б) площадь незакрашенной части'] = fig(svg(s, 'Незакрашенная часть на сетке', '-9 -9 82 82'), '')
 s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([PT['M'],PT['N'],PT['P'],PT['Q']], VIO, 1.0, VIO, 0.3)
-s += labels(['M','N','P','Q'], MUT) + hticks(4, 1, 7) + vticks(4, 1, 7)
+s += labels(['M','N','P','Q'], MUT) + hspan(4, 1, 7, '6d', True)
+s += tri([(4,7),(4,6),(3,6)], (((4,6),(4,7)), (2.2, 1.0)), (((3,6),(4,6)), (0, 3.4))) + dmark()
 V['в) площадь MNPQ'] = fig(svg(s, 'MNPQ на сетке', '-9 -9 82 82'), '')
-s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([(0,0),(8,0),(8,8),(0,8)], DIM, 0.8) + hticks(0, 0, 8, True) + hticks(8, 0, 8) + vticks(0, 0, 8, True) + vticks(8, 0, 8)
+s = G + pieces(DIM, 0.5, 'none', 1) + stubs(DIM, 0.5) + poly([(0,0),(8,0),(8,8),(0,8)], GOLD, 1.0) + hspan(0, 0, 8, '8d', True) + vspan(0, 0, 8, '8d', True) + dmark()
 V['г) периметр ABCD'] = fig(svg(s, 'Контур ABCD на сетке', '-9 -9 82 82'), '')
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
