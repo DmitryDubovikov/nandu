@@ -63,24 +63,24 @@ s += alab(-12, '+35', BLUE, R-14, 3.4)
 V['после 981 кузнечик встаёт на 16'] = fig(svg(s, 'Первый круг', '0 -8 100 104', 440),
   "<b style='color:#f0a83c'>Первый круг</b> и <b style='color:#5ba8f5'>начало второго</b>.")
 
-# 3. все клетки на 1 и на 6: строка — сотня, в квадрате — номер круга, на котором кузнечик туда наступил
-COL = [GOLD, BLUE, GREEN, RED, VIO, TEAL, PINK]
-lap = {}
-for k in range(200):
-    lap.setdefault(1+(35*k) % 1000, (35*k)//1000 + 1)
-Q, X0, Y0 = 5, 22, 7
-s = ''
-for j in range(20):
-    s += f"<text x='{X0+j*Q+Q/2}' y='{Y0-1.6}' fill='{MUT}' font-size='2.3' text-anchor='middle'>{1+5*j}</text>"
-for i in range(10):
-    y = Y0 + i*Q
-    s += f"<text x='{X0-1.5}' y='{y+Q/2+1}' fill='{MUT}' font-size='2.6' text-anchor='end'>{100*i+1}–{100*i+96}</text>"
-    for j in range(20):
-        n = 100*i + 1 + 5*j; L = lap[n]; c = COL[L-1]; x = X0 + j*Q
-        s += f"<rect x='{x+0.3}' y='{y+0.3}' width='{Q-0.6}' height='{Q-0.6}' rx='0.8' fill='{c}' fill-opacity='0.25' stroke='{c}' stroke-width='0.3'/>"
-        s += f"<text x='{x+Q/2}' y='{y+Q/2+1.1}' fill='{c}' font-size='3' text-anchor='middle' font-weight='700'>{L}</text>"
-V['29 + 29 + 28 + 29 + 28 + 29 + 28 = 200'] = fig(svg(s, 'Клетки на 1 и на 6', '0 0 124 58', 640),
-  'Все посещённые клетки; в клетке — номер круга, на котором кузнечик на неё наступил.')
+# 2. разложение: 35 · k ⋮ 1000
+def chip(x, y, d, col, struck=False):
+    r = f"<rect x='{x}' y='{y}' width='8' height='8' rx='1.5' fill='none' stroke='{col}' stroke-width='0.5'/>"
+    r += f"<text x='{x+4}' y='{y+5.7}' fill='{col}' font-size='4.6' text-anchor='middle' font-weight='700'>{d}</text>"
+    if struck: r += f"<line x1='{x+1}' y1='{y+7}' x2='{x+7}' y2='{y+1}' stroke='{RED}' stroke-width='0.7'/>"
+    return r
+s = f"<text x='2' y='9.6' fill='{LAB}' font-size='4.2' font-weight='700'>35 · k</text>"
+s += f"<text x='2' y='29.6' fill='{LAB}' font-size='4.2' font-weight='700'>1000</text>"
+s += chip(24, 4, '5', MUT, True) + chip(34, 4, '7', MUT)
+s += f"<rect x='44' y='4' width='52' height='8' rx='1.5' fill='{GOLD}' fill-opacity='0.12' stroke='{GOLD}' stroke-width='0.6'/>"
+s += f"<text x='70' y='9.8' fill='{GOLD}' font-size='4.6' text-anchor='middle' font-style='italic' font-weight='700'>k</text>"
+s += chip(24, 24, '5', MUT, True)
+for i, d in enumerate('22255'): s += chip(46+10*i, 24, d, GOLD)
+s += f"<rect x='44.5' y='22.5' width='51' height='11' rx='2' fill='none' stroke='{GOLD}' stroke-width='0.5' stroke-dasharray='1.4 1'/>"
+s += f"<line x1='70' y1='22' x2='70' y2='13.6' stroke='{GOLD}' stroke-width='0.6' marker-end='url(#upT5)'/>"
+mk = f"<defs><marker id='upT5' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0 0L6 3L0 6z' fill='{GOLD}'/></marker></defs>"
+V['в 7 нет ни 2, ни 5'] = fig(svg(mk+s, 'Разложение на простые множители', '0 0 100 36', 420),
+  'Простые множители 35 · k и 1000.')
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
