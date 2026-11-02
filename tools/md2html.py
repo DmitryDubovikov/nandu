@@ -466,7 +466,9 @@ def render_block(b):
                 + render_list(lst) + task_question(q) + '</div>')
     f = is_formula(v)
     if f:
-        return f'<div class="frm st">{inline(f)}</div>'
+        # ⇒ разделяет мысли, = и + внутри них: вокруг ⇒ шире пробел, чем вокруг знаков (родитель 2.11.2026)
+        body = re.sub(r' ?⇒ ?', '<span class="imp">⇒</span>', inline(f))
+        return f'<div class="frm st">{body}</div>'
     for pat, cls, tag in CARDS:
         if re.match(pat, v):
             body = inline(v)
