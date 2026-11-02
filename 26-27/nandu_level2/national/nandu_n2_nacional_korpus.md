@@ -19,6 +19,7 @@
 - [2023](#2023)
 - [2024](#2024)
 - [2025](#2025)
+- [2026](#2026)
 ---
 
 ## 2013
@@ -747,3 +748,65 @@ Tiene tres fichas rectangulares iguales y una ficha cuadrada.
 Cada ficha rectangular cubre tres casillas del tablero y la ficha cuadrada cubre una casilla.
 ¿De cuántas maneras distintas puede colocar las cuatro fichas sobre el tablero? Explica cómo las contaste.
 Aclaración: Una ficha rectangular puede colocarse en forma horizontal o vertical.
+
+---
+
+## 2026
+
+> XXXV Olimpíada Matemática Ñandú — Certamen Nacional · источник: `nacional_2026.md` (фото листов, PDF ещё нет)
+
+#### Primer Día — Problema 1
+Pablo escribe la lista de todos los números de 6 cifras que se forman reordenando las cifras de 345123. En la lista de Pablo, los números están ordenados de menor a mayor.
+¿Cuántos números tiene la lista de Pablo?
+¿Qué número está en el lugar 200 de la lista de Pablo?
+¿En qué lugar de la lista de Pablo está el número 423513?
+
+
+#### Primer Día — Problema 2
+En la figura,
+ABCD es un cuadrado que está partido en cuatro rectángulos y un cuadrado central.
+El área del rectángulo AELH es 48cm2.
+El área del rectángulo JFCG es 133cm2.
+Los dos rectángulos tienen lados de longitudes enteras y mayores que 1cm.
+La longitud de AE es mayor que la de AH y la longitud de CF es mayor que la de GC.
+¿Cuál es el área de IJKL?
+¿Cuál es el área de ABCD?
+¿Cuál es el perímetro de HKGD?
+¿Hay una única respuesta posible?
+[Figura: cuadrado ABCD (A abajo a la izquierda, B abajo a la derecha, C arriba a la derecha, D arriba a la izquierda), partido en molinete. E en AB, F en BC, G en DC, H en AD. AELH abajo a la izquierda; EBFI abajo a la derecha; JFCG arriba a la derecha; HKGD arriba a la izquierda; cuadrado central IJKL (I abajo a la izquierda, J abajo a la derecha, K arriba a la derecha, L arriba a la izquierda). E, I, L en una vertical; G, K, J en otra; H, L, K en una horizontal; I, J, F en otra.]
+
+
+#### Primer Día — Problema 3
+La figura muestra una cuadrícula de 6x7 en la que se dibujó un segmento oblicuo.
+Seba cuenta rectángulos con todos sus lados en las líneas de la cuadrícula.
+¿Cuántos de estos rectángulos no tienen ningún punto en común con el segmento oblicuo dibujado?
+Explica cómo los contaste.
+Aclaración: No te olvides de contar los cuadrados (también son rectángulos).
+[Figura: cuadrícula de 7 columnas y 6 filas de cuadrados iguales. El segmento va desde el vértice inferior izquierdo hasta el punto de la línea superior que está a 6 cuadrados del borde izquierdo: es la diagonal de los 6 cuadrados de la izquierda en cada fila hacia arriba, y pasa por los nodos (k, k), k = 0…6.]
+
+
+#### Segundo Día — Problema 4
+ABC es un número de tres cifras y ADBC es un número de cuatro cifras.
+Hallar los dígitos A, B, C y D que verifican:
+ABC x 9 = ADBC
+Dar todas las posibilidades.
+
+
+#### Segundo Día — Problema 5
+En la figura, un cuadrado grande está partido en 5 octógonos iguales, 4 trapecios isósceles iguales, 4 triángulos isósceles iguales y 4 cuadraditos iguales.
+En cada trapecio, la longitud de la base mayor es el triple de la longitud de la base menor.
+El área de cada octógono es 252 cm2.
+¿Cuánto mide el lado de cada cuadradito?
+¿Cuál es el área de la parte sombreada? ¿Cuál es el área del cuadrilátero ABCD?
+[Figura (dos copias del mismo cuadrado): un octógono en el centro y uno en cada esquina; un cuadradito pegado a cada lado del octógono central; en el medio de cada lado del cuadrado grande, un trapecio con la base menor pegada al cuadradito y la base mayor sobre el lado del cuadrado; en cada esquina, un triángulo rectángulo isósceles. Sombreado: octógono central, 4 cuadraditos y 4 trapecios. A en el lado izquierdo, extremo superior de la base mayor del trapecio izquierdo; B en el lado inferior, vértice del triángulo de la esquina inferior izquierda; C en el lado derecho, extremo inferior de la base mayor del trapecio derecho; D vértice superior derecho del cuadradito de arriba.]
+
+
+#### Segundo Día — Problema 6
+Martín tiene 36 fichas: 18 rojas y 18 azules.
+Quiere ubicarlas formando una hilera de modo que se cumplan estas condiciones:
+- hay 4 bloques de fichas rojas y 4 bloques de fichas azules, con los colores intercalados, empezando con rojo,
+- los bloques de fichas de un mismo color tienen distintas cantidades de fichas,
+- la cantidad de fichas de los bloques de un mismo color va siempre en aumento.
+¿De cuántas maneras puede hacerlo? Explica cómo las contaste.
+¿En cuántos casos los 8 bloques tienen distintas cantidades de fichas?
+
