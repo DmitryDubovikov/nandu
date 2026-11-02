@@ -81,8 +81,8 @@ s += txt(4,-2.4,'d',GOLD) + txt(12,-2.4,'d',GOLD) + txt(20,-2.4,'d',GOLD)
 s += line((0,0),(0,8),GOLD,1.0) + txt(-4.4,33.2,'8d',GOLD,3.2)
 s += ''.join(txt(x, y, n, MUT) for n, (x, y) in
             {'D':(-3,-6.6),'E':(8,-6.6),'F':(16,-6.6),'G':(24,-6.6),'H':(40,-6.6),'C':(67,-2.4),'A':(-3,67.5),'B':(67,67.5)}.items())
-V['DE = EF = FG = d.'] = fig(svg(s, 'Буквы', '-9 -11 81 83'),
-  "<b style='color:#f0a83c'>d</b> — DE = EF = FG и шаг сетки.")
+V['DE = d — шаг сетки.'] = fig(svg(s, 'Буквы', '-9 -11 81 83'),
+  "<b style='color:#f0a83c'>d</b> = DE = EF = FG; DC = 8d.")
 
 # 3. закрашенное в треугольничках
 s = grid(DIM, 0.25) + pieces(DIM, 0.5, RED, 0.5) + stubs(DIM, 0.5)
