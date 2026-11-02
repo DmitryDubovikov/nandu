@@ -204,7 +204,9 @@ These conventions are load-bearing across all materials — keep them.
    brute-force checked; the level-2 corpus stays for battle (rule 1); (4) **drill**, mixed not by move:
    recognition (5–10 min, never more than 10: write examples, name the move and the way of solving — the «ответ = операнды» first-idea
    formula of the ⛔ block — and stop before the mechanics; this is the main volume of practice, parent: «набить руку,
-   не тратя время на механику»), then timed mixed sets;
+   не тратя время на механику»), then **мини-задачи целиком** (2 Nov 2026: same move, little counting, 10–15 min to the
+   answer, checked by hand enumeration; 3–5 per move inside the bank, each with a full solution in the model's shape),
+   then timed mixed sets;
    (5) battle problems of the phase, each preceded by examples + naming the move. **Nothing can be opened on a tour** —
    the list is learned by heart. The combinatorics textbook (`26-27/nandu_level2/kombinatorika/`) is a separate
    project and stays. Rules 2, 3, 6 below apply to textbooks and reshebniks already written or explicitly requested.
