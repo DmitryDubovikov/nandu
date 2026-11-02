@@ -372,6 +372,8 @@ def render_quote(src):
     if is_tldr(src):
         return render_tldr(src)
     cls = 'plan' if '✅' in src else 'note'
+    if cls == 'plan':   # ✅ — только метка для конвертера; на странице артефакт выделен рамкой, галка не рисуется
+        src = re.sub(r'✅\s*', '', src)
     inner = []
     for blk in parse(src):
         inner.append(render_block(blk))
