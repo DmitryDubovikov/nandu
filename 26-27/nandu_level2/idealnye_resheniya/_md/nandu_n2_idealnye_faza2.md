@@ -25,7 +25,9 @@ Olimpíada Ñandú · Segundo Nivel · сезон 26-27 · статус кажд
 
 *«2AB = 3BC»* ⇒ AB : BC = 3 : 2.
 
-*«M, N, P, R — середины»* ⇒ берём кирпич d = BC : 4: тогда AB = 6d, AM = MB = DP = PC = 3d, BN = NC = AR = RD = 2d.
+*«M, N, P, R — середины»* ⇒ чтобы стороны и их половины AM, MB, DP, PC, BN, NC, AR, RD были целыми кирпичами, берём маленький кирпич d = BC : 4.
+
+Тогда AB = 6d, AM = MB = DP = PC = 3d, BN = NC = AR = RD = 2d.
 
 *«C, D, E лежат на одной прямой», «DE = DP»* ⇒ E лежит на прямой CD, DE = 3d и CE = ED + DC = 9d.
 
