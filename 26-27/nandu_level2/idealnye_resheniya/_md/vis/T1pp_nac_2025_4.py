@@ -30,13 +30,13 @@ CELLS = [['b', 'w', 'b', 'g'],
          ['b − 30', 'w + 30', 'b', 'g'],
          ['b − 30', 'g : 2', 'b + g : 2', 'g']]
 # уравнение момента: какие коробки обвести ('all' — весь ряд), дуга (откуда, куда, подпись, стрелка?), подпись справа
-EQ = [('all', (0, 2, '=', False), 'всего 1200'),
+EQ = [('all', None, 'всего 1200'),
       ([1, 3], (1, 3, '=', False), ''),
       ([2, 3], (2, 3, '+ 60', True), '')]
 MOVES = [(0, 1, '30', '30 из синей в белую'), (1, 2, 'половина', 'половина белой в красную')]   # откуда, куда, подпись стрелки, действие в первой колонке
 
 def eq_marks(r, y):
-    boxes, (i, j, lbl, head), right = EQ[r]
+    boxes, arc, right = EQ[r]
     s = ''
     if boxes == 'all':
         s += f"<rect x='{cx(0) - 1.2}' y='{y - 1.2}' width='{cx(3) + CW - cx(0) + 2.4}' height='{CH + 2.4}' rx='2' fill='none' stroke='{GOLD}' stroke-width='0.9'/>"
@@ -45,6 +45,9 @@ def eq_marks(r, y):
             s += f"<rect x='{cx(k) - 1.2}' y='{y - 1.2}' width='{CW + 2.4}' height='{CH + 2.4}' rx='2' fill='none' stroke='{GOLD}' stroke-width='0.9'/>"
     if right:
         s += txt(cx(3) + CW + 3, y + CH / 2 + 1.3, right, GOLD, 3.8, '700', anchor='start')
+    if not arc:
+        return s
+    i, j, lbl, head = arc
     x1, x2, yb, d = cx(i) + CW / 2, cx(j) + CW / 2, y + CH + 1.4, 7
     mk = " marker-end='url(#arc)'" if head else ''
     s += f"<path d='M{x1} {yb} C{x1} {yb + d} {x2} {yb + d} {x2} {yb + 0.6}' fill='none' stroke='{GOLD}' stroke-width='0.8'{mk}/>"
