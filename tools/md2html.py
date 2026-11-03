@@ -19,6 +19,8 @@ def inline(s):
     s = re.sub(r'&lt;small&gt;(.+?)&lt;/small&gt;', r'<small>\1</small>', s)
     s = subs(s)
     s = re.sub(r'`([^`]+)`', r'<code>\1</code>', s)
+    # ссылка [текст](файл.html) — на соседнюю страницу или другой собранный HTML (пакеты этапа Г → образец типа)
+    s = re.sub(r'\[([^\]]+)\]\(([^)\s]+\.html(?:#[^)\s]*)?)\)', r'<a href="\2">\1</a>', s)
     if STACK_FRACTIONS:
         s = stack_fractions(s)
     s = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', s)
@@ -1051,7 +1053,8 @@ def md_text(md, drop_head=False, drop_h2=False):
             out.extend([t_, md_text(b_)])
         else:
             out.append(v)
-    return ' '.join(out)
+    # адрес ссылки [текст](файл.html) на странице не виден — в сверку идёт только текст ссылки
+    return re.sub(r'\]\([^)\s]+\.html(?:#[^)\s]*)?\)', ']', ' '.join(out))
 
 WORD = re.compile(r"[0-9a-zA-Zа-яёА-ЯЁ]+", re.U)
 

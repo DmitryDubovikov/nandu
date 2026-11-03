@@ -97,6 +97,8 @@ for k, t in src.items():
         if not incode and re.search(r' — [0-9]', ln):
             print(f'  ⚠ тире-минус: {k} — «{ln.strip()[:70]}»')
 for k, t in src.items():
+    if k == 'stranica':
+        continue   # страница приёмов ссылается на образец типа нарочно (решение родителя 3.11.2026)
     if re.search(r'образц|образе?ц', re.sub(r'(?s)<!--.*?-->', '', t), re.I):
         print(f'  ⚠ ссылка на образец в тексте: {k}')
 # Сюжеты пакета не повторяются (промпт, п. 9): заголовок «## <номер> — <сюжет>»
@@ -113,6 +115,10 @@ for line in (r.stdout + r.stderr).splitlines():
     if 'без якоря' in line or 'Traceback' in line:
         print('  ⚠', line)
 print('сборка:', (r.stdout + r.stderr).strip().splitlines()[-3:])
+# Ссылки страницы приёмов ведут на существующие страницы (имена файлов md2html строит из заголовков)
+for href in re.findall(r'\]\(([^)\s]+\.html)', src['stranica']):
+    if not os.path.exists(os.path.join(P, href)):
+        print(f'  ⚠ битая ссылка на странице приёмов: {href}')
 c = subprocess.run([sys.executable, TOOL, '--check', md, P], capture_output=True, text=True)
 print('check rc =', c.returncode, [l for l in c.stdout.splitlines() if 'потеряно' in l or 'дописано' in l])
 sys.exit(c.returncode | r.returncode)

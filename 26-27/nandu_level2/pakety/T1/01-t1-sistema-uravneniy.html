@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Т1 — система уравнений · страница приёмов</title>
+<title>Т1 — система уравнений</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -33,6 +33,7 @@
     border:1px solid #3d5a82;border-radius:12px;background:#0f1725;padding:14px 20px;
     display:inline-block}
   .xlink a{color:var(--blue);text-decoration:none}
+  p a,li a{color:var(--blue);text-decoration:none} p a:hover,li a:hover{text-decoration:underline}
   .xlink a:hover{text-decoration:underline}
   .xlink b{color:var(--ink);font-weight:600}
   .pager{display:flex;justify-content:space-between;gap:20px;margin:34px 0 0;
@@ -311,22 +312,39 @@
 <aside>
   <p class="chapnav"><a href="index.html">все главы</a> · 1 из 8</p>
   <p class="rtitle">Сухой остаток главы</p>
-  <button class="art" data-art="0"><span class="lbl">Раздел</span><span class="val">Запись системы</span></button>
-<button class="art" data-art="1"><span class="lbl">Раздел</span><span class="val">Решение системы</span></button>
+  <button class="art" data-art="0"><span class="lbl">Раздел</span><span class="val">Приёмы записи системы</span></button>
+<button class="art" data-art="1"><span class="lbl">Раздел</span><span class="val">1. Данное → уравнение</span></button>
+<button class="art" data-art="2"><span class="lbl">Раздел</span><span class="val">2. Строка «если бы»</span></button>
+<button class="art" data-art="3"><span class="lbl">Раздел</span><span class="val">3. Приравнять два выражения одной суммы · новый</span></button>
+<button class="art" data-art="4"><span class="lbl">Раздел</span><span class="val">4. Доля · N = число одним ходом</span></button>
+<button class="art" data-art="5"><span class="lbl">Раздел</span><span class="val">5. Таблица параметров · новый</span></button>
+<button class="art" data-art="6"><span class="lbl">Раздел</span><span class="val">6. Доля другой части = 1 − данная</span></button>
+<button class="art" data-art="7"><span class="lbl">Раздел</span><span class="val">7. Покупка парами · новый</span></button>
+<button class="art" data-art="8"><span class="lbl">Раздел</span><span class="val">8. Спрошенная сумма — уравнением с x · новый</span></button>
+<button class="art" data-art="9"><span class="lbl">Раздел</span><span class="val">9. Одна неизвестная — запись уравнения · новый</span></button>
+<button class="art" data-art="10"><span class="lbl">Раздел</span><span class="val">Приёмы решения системы</span></button>
+<button class="art" data-art="11"><span class="lbl">Раздел</span><span class="val">10. Причесать систему</span></button>
+<button class="art" data-art="12"><span class="lbl">Раздел</span><span class="val">11. Сложение или вычитание, гасящее общую группу букв</span></button>
+<button class="art" data-art="13"><span class="lbl">Раздел</span><span class="val">12. Найденное — в остальные уравнения</span></button>
+<button class="art" data-art="14"><span class="lbl">Раздел</span><span class="val">13. Метод подстановки · новый</span></button>
+<button class="art" data-art="15"><span class="lbl">Раздел</span><span class="val">Задачи пакета</span></button>
 </aside>
 <main>
   
-  <h1>Т1 — система уравнений · страница приёмов</h1>
+  <h1>Т1 — система уравнений</h1>
   <p class="sub">Пакет T1</p>
-<p class="st"><b>Узнать тип:</b> несколько чисел-данных про одни и те же неизвестные (количества, цены, веса), спрошены сами неизвестные. Решение — две части: «запись системы» и «решение системы».</p>
-<p class="st">Справа у приёма — в скольких из 19 задач корпуса (национал, регионал, провинциал) он работает. Примеры на числах — не из задач.</p>
-<div id="a0" data-art="0"><h3 class="st">Запись системы</h3></div>
-<p class="st"><b>1. Данное → уравнение</b> · 19 из 19</p>
+<p class="st"><b>Т1 — задачи, где неизвестных несколько и про них дано несколько чисел.</b></p>
+<p class="st">Каждое число говорит про все неизвестные сразу: «всего 120 предметов», «вместе стоят $630», «если бы предметов по $5 было вдвое больше, то стоили бы $730».</p>
+<p class="st">Спрошены сами неизвестные: сколько предметов каждого вида, сколько стоит каждый товар.</p>
+<p class="st">Решение всегда из двух частей: <b>запись системы</b> (каждое число условия ⇒ своё уравнение) и <b>решение системы</b> (ходы над уравнениями, без смысла букв).</p>
+<p class="st"><b>Образец решения:</b> <a href="../../idealnye_resheniya/faza1/01-t1-nacional-2023-den-ii-4-monety-lusii.html">национал 2023, день II, №4 — монеты Лусии</a></p>
+<div id="a0" data-art="0"><h3 class="st">Приёмы записи системы</h3></div>
+<div id="a1" data-art="1"><h4 class="st">1. Данное → уравнение</h4></div>
 <p class="st">Видно: числа про все предметы сразу — «всего …», «вместе стоят …», «понадобилось …».</p>
 <p class="st">→ буквы — то, что спрошено; каждое число ⇒ своё уравнение, слагаемое со смыслом — в скобках:</p>
 <pre class="sys st">(1) m2 + m5 + m10 = 120
 (2) (2 · m2) + (5 · m5) + (10 · m10) = 630</pre>
-<p class="st"><b>2. Строка «если бы»</b> · 12 из 19</p>
+<div id="a2" data-art="2"><h4 class="st">2. Строка «если бы»</h4></div>
 <p class="st">Видно: рядом с настоящим набором воображаемый — «если бы … было вдвое больше / на 10 больше / вынуть все …, то …».</p>
 <p class="st">→ таблица «настоящая / «если бы»», уравнение — по строке «если бы»:</p>
 <div class="st"><div class="tw"><table>
@@ -335,66 +353,74 @@
 <tr><td>«если бы»</td><td>m2</td><td>2 · m5</td><td>m10 : 2</td></tr>
 </table></div></div>
 <pre class="sys st">(3) (2 · m2) + (5 · (2 · m5)) + (10 · (m10 : 2)) = 730</pre>
-<p class="st"><small>Меняются количества (8 задач): воображаемых строк бывает несколько, по строке на действие; убранный вид стоит нулём.</small> <small>Меняется цена, а количества те же (5 задач): скидка, акция, другой день, «за полцены» ⇒ таблица цен по ситуациям.</small></p>
-<p class="st"><b>3. Приравнять два выражения одной суммы</b> · 7 из 19 · новый</p>
+<p class="st"><small>Меняются количества: воображаемых строк бывает несколько, по строке на действие; убранный вид стоит нулём.</small></p>
+<p class="st"><small>Меняется цена, а количества те же: скидка, акция, другой день, «за полцены» ⇒ таблица цен по ситуациям.</small></p>
+<div id="a3" data-art="3"><h4 class="st">3. Приравнять два выражения одной суммы · новый</h4></div>
 <p class="st">Видно: данное без числа — «столько же, сколько …», «заплатит столько же, сколько за …», «втрое больше, чем …», «2/3 того, что …».</p>
 <p class="st">→ уравнение «выражение = выражение», справа не число:</p>
 <pre class="sys st">(4) x1 + x3 = x2
 (5) x1 + x2 = 3 · (x2 + x3)</pre>
-<p class="st"><b>4. Доля · N = число одним ходом</b> · 6 из 19</p>
+<div id="a4" data-art="4"><h4 class="st">4. Доля · N = число одним ходом</h4></div>
 <p class="st">Видно: «треть … — …», «две трети всех …», «2/3 того, что осталось бы, если …» — доля от буквы или от суммы букв.</p>
 <p class="st">→ доля пишется после целого:</p>
 <pre class="sys st">(x1 · 1/3) + (x2 · 1/4) = 60
 r + b + g = (b + g + w) · 2/3</pre>
 <p class="st"><small>Одна неизвестная и одно уравнение — решается одним ходом: x · 90/100 = 540 | · 100/90.</small></p>
-<p class="st"><b>5. Таблица параметров</b> · 5 из 19 · новый</p>
+<div id="a5" data-art="5"><h4 class="st">5. Таблица параметров · новый</h4></div>
 <p class="st">Видно: у каждого вида свой множитель — «в пакете 8 штук», «в каждом 2 ракушки», «по 1/2 литра в день, 4 дня»; цена за килограмм, а куплено в граммах.</p>
 <p class="st">→ таблица «вид | буква | параметры»; слагаемое = (параметр · буква), единицы переведены в единицы буквы:</p>
 <pre class="sys st">300 г = 3/10 кг   ⇒   (x1 · 3/10)
 (8 · p8) + (4 · p4) = 1200</pre>
-<p class="st"><b>6. Доля другой части = 1 − данная</b> · 4 из 19</p>
+<div id="a6" data-art="6"><h4 class="st">6. Доля другой части = 1 − данная</h4></div>
 <p class="st">Видно: «скидка 20 %», «60 % потратил» — дана одна часть, а работает другая.</p>
 <p class="st">→ платят 100 − 20 = 80 % цены:</p>
 <pre class="sys st">p · 80/100</pre>
-<p class="st"><b>7. Покупка парами</b> · 1 из 19 · новый</p>
+<div id="a7" data-art="7"><h4 class="st">7. Покупка парами · новый</h4></div>
 <p class="st">Видно: «скидка на вторую единицу», количество каждого товара чётное.</p>
 <p class="st">→ покупка делится на пары; цена пары = полная + со скидкой; в день без скидки — две полные:</p>
 <pre class="sys st">(3 · (p + p · 30/100)) + (2 · (2 · q)) = 1060</pre>
-<p class="st"><b>8. Спрошенная сумма — уравнением с x</b> · 1 из 19 · новый</p>
+<div id="a8" data-art="8"><h4 class="st">8. Спрошенная сумма — уравнением с x · новый</h4></div>
 <p class="st">Видно: спрошена сумма набора («сколько весит пакет 4»), неизвестных больше, чем данных уравнений.</p>
 <p class="st">→ спрошенная сумма — своё уравнение с x; сложением и вычитанием данных получается уравнение, где кроме x ничего нет:</p>
 <pre class="sys st">(4) (2 · w1) + (2 · w2) + w3 = x</pre>
-<p class="st"><b>9. Одна неизвестная — запись уравнения</b> · 1 из 19 · новый</p>
+<div id="a9" data-art="9"><h4 class="st">9. Одна неизвестная — запись уравнения · новый</h4></div>
 <p class="st">Видно: одна неизвестная, части берутся долями «от остатка», «от потраченного».</p>
 <p class="st">→ x — целое; каждая часть через x своей строкой; сумма частей = данное:</p>
 <pre class="sys st">S<sub>остатка</sub> = x · 70/100
 S<sub>остатка</sub> + S<sub>остатка</sub> · 10/100 = 770</pre>
-<div id="a1" data-art="1"><h3 class="st">Решение системы</h3></div>
+<div id="a10" data-art="10"><h3 class="st">Приёмы решения системы</h3></div>
 <p class="st">Цикл: «Система:» → «Причёсанная система:» → ручкой то, что бросается в глаза → «Ходы:» → снова «Система:» … → «Система решена».</p>
-<p class="st"><b>10. Причесать систему</b> · 16 из 19</p>
+<div id="a11" data-art="11"><h4 class="st">10. Причесать систему</h4></div>
 <p class="st">Видно: скобки, общие множители, дроби.</p>
 <p class="st">→ скобки раскрыты, общие множители поделены до конца, дроби сняты:</p>
 <pre class="sys st">(2) 50 · b1 + 75 · b2 + 100 · b3 = 7500     | : 25
 (3) x · 1/3 = y · 1/5 + z · 1/6              | · 30</pre>
-<p class="st"><b>11. Сложение или вычитание, гасящее общую группу букв</b> · 16 из 19</p>
+<div id="a12" data-art="12"><h4 class="st">11. Сложение или вычитание, гасящее общую группу букв</h4></div>
 <p class="st">Видно: в двух уравнениях одна и та же группа букв.</p>
-<p class="st">→ с теми же множителями — вычитаем, с противоположными знаками — складываем, с множителями 1 и 3 — утроенное уравнение (10 из 19):</p>
+<p class="st">→ с теми же множителями — вычитаем, с противоположными знаками — складываем, с множителями 1 и 3 — утроенное уравнение:</p>
 <pre class="sys st">(1) <span class="pen2">m2 + m5</span> + m10 = 120
 (3) <span class="pen2">m2 + m5</span> + m10 : 2 = 105
 <span class="pen2">(1) − (3)</span>   m10 : 2 = 15</pre>
 <pre class="sys st">(4) <span class="pen3">3 · x</span> + y = 50
 (5) <span class="pen3">x</span> + 3 · y = 70
 <span class="pen3">3 · (5) − (4)</span>   8 · y = 160</pre>
-<p class="st"><b>12. Найденное — в остальные уравнения</b> · 17 из 19</p>
+<div id="a13" data-art="13"><h4 class="st">12. Найденное — в остальные уравнения</h4></div>
 <p class="st">Видно: одна-две буквы найдены и стоят в других уравнениях.</p>
 <p class="st">→ «m10 = 30 найдено, подставляется в (1) и (2)»:</p>
 <pre class="sys st">(1) m2 + m5 + <span class="pen1">30</span> = 120</pre>
-<p class="st"><b>13. Метод подстановки</b> · 2 из 19 · новый</p>
+<div id="a14" data-art="14"><h4 class="st">13. Метод подстановки · новый</h4></div>
 <p class="st">Видно: одно уравнение уже выражает букву или группу — «x = y : 2», «группа = группа».</p>
 <p class="st">→ выражение встаёт на место буквы в другом уравнении:</p>
 <pre class="sys st">(1) x = y : 2
 (2) y + 3 · x = 750
 <span class="pen2">(1) в (2)</span>   y + 3 · (y : 2) = 750</pre>
+<div id="a15" data-art="15"><h3 class="st">Задачи пакета</h3></div>
+<p class="st"><b>Круг 1: задачи 30 и 50 %.</b></p>
+<ul class="st"><li><a href="02-t1-30-1-lodochnaya-stanciya.html">T1-30-1 — лодочная станция</a>: строка «если бы», вычитание общей группы.</li><li><a href="03-t1-30-2-akvarium.html">T1-30-2 — аквариум</a>: приравнять два выражения, метод подстановки.</li><li><a href="04-t1-50-1-sportivnyy-magazin.html">T1-50-1 — спортивный магазин</a>: меняется цена, доля другой части = 1 − данная, вычитание с множителем.</li></ul>
+<p class="st"><b>Круг 2: задачи 70 %.</b></p>
+<ul class="st"><li><a href="05-t1-70-1-bakaleya.html">T1-70-1 — бакалея</a>: таблица параметров (граммы при цене за килограмм), приравнять две покупки.</li><li><a href="06-t1-70-2-pticy-na-prudu.html">T1-70-2 — птицы на пруду</a>: несколько строк «если бы», доля от суммы.</li></ul>
+<p class="st"><b>Опознание: назвать приём и первую запись, систему не решать.</b></p>
+<ul class="st"><li><a href="07-t1-o-1-magazin-igrushek.html">T1-O-1 — магазин игрушек</a></li><li><a href="08-t1-o-2-sadovyy-magazin.html">T1-O-2 — садовый магазин</a></li></ul>
 <div class="pager"><a href="02-t1-30-1-lodochnaya-stanciya.html">T1-30-1 — лодочная станция →</a></div>
 </main>
 </div>
