@@ -84,30 +84,25 @@ s += at((9,-2), '4x', 4.4, 1.0) + at((7,-4), '4x', 0, 4.6) + labels(ALL)
 V['В кирпичах: AO = BC = CD = 4x'] = fig(svg(s, 'Длины в кирпичах x', '-9 -7 82 86'),
   "<b style='color:#f0a83c'>x</b> = AO : 4; все точки — в узлах сетки с шагом x.")
 
-# 10–13. North Star: три данных — три уравнения на AO, OD, DE. Лента из трёх панелей в порядке разделов;
-# в панели — треугольники данного (сравниваемый красным, AOB синим) и искомые AO, OD, DE золотом.
-# Анимация: панели появляются по очереди — разделы идут по данным одно за другим.
-PAN = [(['A','O','E'], True, '1. S(AOE) = 3/2 · S(AOB)'), (['C','D','O'], True, '2. S(CDO) = 5/4 · S(AOB)'), (['O','D','E'], False, '3. S(ODE) = 735')]
-def panel(k, on=True):
-    tri, withAOB, cap = PAN[k]
-    g = full(DIM, 0.4)
-    if withAOB: g += fill(['A','O','B'], BLUE, 0.35)
-    g += fill(tri, RED, 0.45)
-    g += line(PT['A'],PT['O'],GOLD,1.1) + line(PT['O'],PT['D'],GOLD,1.1) + line(PT['D'],PT['E'],GOLD,1.1)
-    g += labels(ALL, MUT) + txt(31.5, 84, cap, LAB if on else MUT, 4.2)
-    op = '' if on else " opacity='0.3'"
-    return f"<g transform='translate({k*82},0)'{op}>{g}</g>"
-def strip(hi=None, anim=False):
-    out = ''
-    for k in range(3):
-        p = panel(k, hi is None or hi == k)
-        out += f"<g class='fi' style='--d:{0.3 + 1.4*k}s'>{p}</g>" if anim else p
-    return f"<svg viewBox='-8 -7 236 96' style='max-width:none' role='img' aria-label='Три данных — три уравнения'>{out}</svg>"
-V['запишем каждое данное через отрезки и получим три уравнения'] = fig(strip(anim=True),
-  "Красным — треугольник из данного, синим — AOB, золотом — искомые AO, OD и DE; номер — номер раздела.", True)
-V['1. Запишем первое данное через отрезки.'] = fig(strip(0), '')
-V['2. Запишем второе данное через отрезки.'] = fig(strip(1), '')
-V['3. Запишем третье данное и найдём длину AO.'] = fig(strip(2), '')
+# 10. North Star (анимация): E скользит вдоль прямой через E параллельно AD к точке над O, B — вдоль BC к точке под O.
+# Сдвиг вершины вдоль прямой, параллельной основанию, — skewX вокруг прямой AD (Y = 42).
+# Итог — «крест» из четырёх прямоугольных треугольников: горизонтальные катеты AO, OD, вертикальные DE, CD.
+def sheared(pts, col, deg, d):
+    return (f"<g class='sl' style='--to:translate(0px,42px) skewX({deg:.2f}deg) translate(0px,-42px);--d:{d}s'>"
+            f"{fill(pts, col, 0.5)}</g>")
+def ghost(pts, col): return poly([PT[n] for n in pts], col, 0.5, 'none', 1).replace("/>", " stroke-dasharray='1.4 1.2'/>")
+s = full(DIM, 0.4)
+s += fill(['O','D','E'], GREEN, 0.45) + fill(['C','D','O'], VIO, 0.45)
+s += ghost(['A','O','E'], RED) + ghost(['A','O','B'], BLUE)
+s += sheared(['A','O','E'], RED, 39.81, 0.6) + sheared(['A','O','B'], BLUE, -14.04, 2.2)
+lab = (line((4,0),(4,6),GOLD,0.9) + line((4,0),(4,-4),GOLD,0.9)
+       + at((2,0), 'AO', 0, -1.5, GOLD, 3.0) + at((6.5,0), 'OD', 0, -1.5, GOLD, 3.0)
+       + at((9,3), 'DE', 4.6, 1.0, GOLD, 3.0) + at((9,-2), 'CD', 4.6, 1.0, GOLD, 3.0)
+       + at((4,3), 'DE', -3.6, 1.0, GOLD, 2.6) + at((4,-2), 'CD', -3.6, 1.0, GOLD, 2.6))
+s += f"<g class='fi' style='--d:3.6s'>{lab}</g>" + names()
+V['заменим AOE и AOB прямоугольными треугольниками'] = fig(svg(s, 'AOE и AOB становятся прямоугольными', '-9 -7 82 84'),
+  "<b style='color:#f2686c'>AOE</b> и <b style='color:#5ba8f5'>AOB</b> (пунктир — как в условии) становятся прямоугольными рядом с "
+  "<b style='color:#5fd38d'>ODE</b> и <b style='color:#c58af9'>CDO</b>: катеты по горизонтали AO и OD, по вертикали DE и CD.", True)
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
