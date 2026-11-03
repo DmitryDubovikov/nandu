@@ -88,7 +88,7 @@ V['Пример на числах, не из задачи: основания 4 
 # 9. раздел 1: CDO и AOB — одна высота CD
 s = full() + tri_('AOB', 0.5) + tri_('CDO', 0.5) + hgt(PT['B'], (5,0), 'CD', 3.4, 1.0)
 s += line(PT['C'],PT['D'],GOLD,1.1) + at((9,-2), 'CD', 4.4, 1.0) + at((2,0), 'AO', 0, -1.5, BLUE) + at((6.5,0), 'OD', 0, -1.5, VIO) + names()
-V['основания OD и AO есть ещё у треугольников CDO и AOB'] = fig(svg(s, 'CDO и AOB, высота CD'),
+V['у треугольников CDO и AOB общая высота CD'] = fig(svg(s, 'CDO и AOB, высота CD'),
   f"{cname('CDO')} и {cname('AOB')}: высота у обоих CD, основания OD и AO.")
 # 10. порядок поиска площадей: известна S(ODE); ① AOE, ② AOB, ③ CDO, ④ OBC — номера разделов
 s = full() + ''.join(tri_(n, 0.45) for n in TC)
