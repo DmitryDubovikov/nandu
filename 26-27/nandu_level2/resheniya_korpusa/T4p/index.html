@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Решения корпуса. Т4′ — узор и период</title>
+<style>
+ :root{--bg:#0d1117;--ink:#e8eef6;--muted:#93a1b1;--dim:#5d6b7c;--blue:#5ba8f5;--gold:#f0a83c;--line:#243040;
+   --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif}
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--bg);color:var(--ink);padding:50px 26px 90px;
+   font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+ .col{max-width:760px;margin:0 auto}
+ h1{font-size:clamp(26px,3.4vw,36px);margin:0 0 6px}
+ .sub{font-family:var(--sans);font-size:14.5px;color:var(--dim);margin:0 0 40px}
+ .navpart{font-family:var(--sans);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+   color:var(--gold);margin:34px 0 12px}
+ a.ix{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;
+   padding:16px 20px;margin:0 0 10px;background:#111823;transition:border-color .2s}
+ a.ix:hover{border-color:var(--blue)}
+ a.ix b{display:block;font-size:18.5px;color:var(--ink);font-weight:600;margin-bottom:5px}
+ a.ix span{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.5}
+.pre{margin:0 0 34px}
+ .pre p,.pre .note p{font-size:16px;line-height:1.6;color:var(--muted);margin:12px 0 0}
+ .pre .note{border-left:2px solid var(--line);padding-left:18px}
+ .pre b{color:var(--ink)} .pre code{font-size:13.5px;color:var(--blue)}
+ @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><div class="col">
+<h1>Решения корпуса. Т4′ — узор и период</h1><p class="sub"></p>
+<div class="pre"><p class="st">Olimpíada Ñandú · Segundo Nivel · этап В · 1 задач национала, регионала и провинциала (образец <code>T4p_nac_2021_4</code> решён идеально и сюда не входит) · статус — <code>26-27/nandu_level2/nandu_n2_roadmap.md</code></p>
+<p class="st"><b>Прочитать родителю.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>задача</th><th>почему в списке</th></tr>
+<tr><td>нац 2014 I №1</td><td>🆕 период вычитанием соседних окон · первая задача вида: повтор выведен из равенств соседних четвёрок (без схемы признаков и НОК); данные перенесены в первую четвёрку вычитанием 4; ✅ — полоса через буквы и «осталось найти v₁ и v₃»; отдельный раздел сборки</td></tr>
+</table></div></div>
+<p class="st"><b>Все задачи.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>№</th><th>задача</th><th>сюжет</th><th>ответ</th></tr>
+<tr><td>1</td><td>нац 2014 I №1</td><td>полоса 13 клеток, четвёрки по 49</td><td>по порядку 19, 3, 16, 11, 19, 3, 16, 11, 19, 3, 16, 11, 19</td></tr>
+</table></div></div>
+<p class="st"><b>Все отступления от образца.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>задача</th><th>отступления</th></tr>
+<tr><td>нац 2014 I №1</td><td>1) клетки пронумерованы 1–13 в условии — в оригинале номеров нет (по рисунку 3 во второй клетке, 11 в восьмой), а без номеров клетки не назвать 2) признаки клеток не выписываются со схемы — рисунок почти пуст; повтор выписывается из равенств соседних четвёрок (приём §4 «период вычитанием соседних окон») 3) признак один, без НОК двух периодов, и числа за период не растут (сдвиг 0) ⇒ нет раздела «через сколько повторяется и на сколько растут числа», правило (◆ «через 4») — сразу вывод из выписанных равенств 4) вместо «сведём вопросы к рисунку делением с остатком» — данные клеток 2 и 8 переносятся в первую четвёрку по (◆ «через 4»); номера малы, хватает одного вычитания 4 5) вопрос один — «заполни полосу», поэтому ✅ — полоса через две буквы и «осталось найти v₁ и v₃», как «спрошенное через x» 6) разделы 1 и 2 находят буквы, а не отвечают на вопросы ⇒ сборка — отдельный раздел «подставим в полосу», как сборка в геометрии</td></tr>
+</table></div></div></div>
+<a class="ix" href="01-t4-nacional-2014-den-i-1-polosa-iz-13-kletok-sum.html"><b>Т4′ — национал 2014, день I, №1 — полоса из 13 клеток, суммы четвёрок по 49</b><span>«сумма чисел любых четырёх клеток подряд равна 49»: четвёрки 1–4 и 2–5 дают по 49 и отличаются только крайними клетками ⇒ выпишем, что дают соседние…</span></a>
+</div></body></html>

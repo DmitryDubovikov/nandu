@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Решения корпуса. Т5 — делимость и остатки</title>
+<style>
+ :root{--bg:#0d1117;--ink:#e8eef6;--muted:#93a1b1;--dim:#5d6b7c;--blue:#5ba8f5;--gold:#f0a83c;--line:#243040;
+   --sans:ui-sans-serif,-apple-system,"Helvetica Neue",sans-serif}
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--bg);color:var(--ink);padding:50px 26px 90px;
+   font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+ .col{max-width:760px;margin:0 auto}
+ h1{font-size:clamp(26px,3.4vw,36px);margin:0 0 6px}
+ .sub{font-family:var(--sans);font-size:14.5px;color:var(--dim);margin:0 0 40px}
+ .navpart{font-family:var(--sans);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+   color:var(--gold);margin:34px 0 12px}
+ a.ix{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;
+   padding:16px 20px;margin:0 0 10px;background:#111823;transition:border-color .2s}
+ a.ix:hover{border-color:var(--blue)}
+ a.ix b{display:block;font-size:18.5px;color:var(--ink);font-weight:600;margin-bottom:5px}
+ a.ix span{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.5}
+.pre{margin:0 0 34px}
+ .pre p,.pre .note p{font-size:16px;line-height:1.6;color:var(--muted);margin:12px 0 0}
+ .pre .note{border-left:2px solid var(--line);padding-left:18px}
+ .pre b{color:var(--ink)} .pre code{font-size:13.5px;color:var(--blue)}
+ @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><div class="col">
+<h1>Решения корпуса. Т5 — делимость и остатки</h1><p class="sub"></p>
+<div class="pre"><p class="st">Olimpíada Ñandú · Segundo Nivel · этап В · 2 задач национала, регионала и провинциала (образец <code>T5_nac_2018_3</code> решён идеально и сюда не входит) · статус — <code>26-27/nandu_level2/nandu_n2_roadmap.md</code></p>
+<p class="st"><b>Прочитать родителю.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>задача</th><th>почему в списке</th></tr>
+<tr><td>пров 2022 №1</td><td>🆕 оценка плюс пример — каждая граница искомой величины доказывается оценкой и квадратом на самой границе, каждое значение между границами — своим квадратом; сторона из одной палочки — не больше одной, поэтому остальные три стороны требуют не меньше шести палочек короче x · первая задача вида: спрошены все возможные значения: первая формула — оценка плюс пример вместо N = …; рисунки хода — стороны квадрата в ряд</td></tr>
+<tr><td>нац 2021 I №3</td><td>🆕 «докажи, что невозможно» по пунктам — у частного «целевое : начальное» есть простой множитель, которого кнопки не дают · первая задача вида: вопросы «можно ли»: первая формула — условие выигрыша, разделы по вопросам а), б), в) без сборки</td></tr>
+</table></div></div>
+<p class="st"><b>Все задачи.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>№</th><th>задача</th><th>сюжет</th><th>ответ</th></tr>
+<tr><td>1</td><td>пров 2022 №1</td><td>квадрат из палочек 1–11 см</td><td>а) периметры 28, 32, 36, 40, 44, 48, 52, 56, 60 и 64 см (сторона от 7 до 16), всего 10; б) x = 7…11: (x), (1 + (x − 1)), (2 + (x − 2)), (3 + (x − 3)); x = 12…15: (8 + (x − 8)), (9 + (x − 9)), (10 + (x − 10)), (11 + (x − 11)); x = 16: (11 + 5), (10 + 6), (9 + 7), (8 + 1 + 3 + 4), палочка 2 лишняя</td></tr>
+<tr><td>2</td><td>нац 2021 I №3</td><td>кнопки ×2 и ×5 до целевого</td><td>а) да: 840000 : 21 = 40000 = 2·2·2·2·2·2·5·5·5·5, шесть раз красная, потом четыре раза синяя: 21→42→84→168→336→672→1344→6720→33600→168000→840000; б) нет: 1434375 : 17 = 84375 = 3·3·3·5·5·5·5·5, множителя 3 кнопки не дают; в) нет: 284750 = 2·5·5·5·1139, наименьшее начальное число 1139 &gt; 1000</td></tr>
+</table></div></div>
+<p class="st"><b>Все отступления от образца.</b></p>
+<div class="st"><div class="tw"><table>
+<tr><th>задача</th><th>отступления</th></tr>
+<tr><td>пров 2022 №1</td><td>1) в условии два вопроса (все периметры и палочки каждого) — метки а), б) поставлены в условии 2) спрошены все возможные значения, а не число мест, поэтому первая формула — «оценка плюс пример» (правило 8), а не N = 1000 − N(…); ходов образца (дополнение, повтор неизбежен, делимость произведения) задача не использует 3) рисунки хода — стороны квадрата, вытянутые в ряд, вместо круга с прыжками; рисунка в условии нет</td></tr>
+<tr><td>нац 2021 I №3</td><td>1) в образце один вопрос «сколько», здесь три вопроса «можно ли» ⇒ вместо формулы N = … первая формула — условие выигрыша, а разделы — по вопросам а), б), в) с метками в условии; сборки нет — каждый раздел кончается ответом «выигрывает / не выигрывает» на свой вопрос</td></tr>
+</table></div></div></div>
+<a class="ix" href="01-t5-provincial-2022-1-kvadrat-iz-palochek-ot-1-do.html"><b>Т5 — провинциал 2022, №1 — квадрат из палочек от 1 до 11 см</b><span>«каждая сторона квадрата состоит из одной палочки или из нескольких» ⇒ палочки каждой стороны вместе дают x ⇒ выпишем несколько квадратов и…</span></a>
+<a class="ix" href="02-t5-nacional-2021-den-i-3-krasnaya-knopka-2-sinya.html"><b>Т5 — национал 2021, день I, №3 — красная кнопка ×2, синяя ×5</b><span>«умножает число на экране на 2», «на 5» ⇒ выпишем несколько нажатий и посмотрим, что стоит на экране.</span></a>
+</div></body></html>
