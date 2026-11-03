@@ -62,7 +62,7 @@ it season 25-26. **From now on the target is Ñandú Segundo Nivel** — the cou
 (the 2026 calendar carried over — a user assumption, no official 2027 calendar yet).
 
 The 2026 result was weak (about 1.5 problems a day), and the way the course is built changed with it
-(23 Oct 2026). **Solutions come first; the move list, bank and drill are derived from them** (2 Nov 2026) — hard rule 7, the only course-building
+(23 Oct 2026). **Solutions come first; the per-type packages and the rounds are derived from them** (2–3 Nov 2026) — hard rule 7, the only course-building
 method in the repo:
 
 1. **Model problems** — one real corpus problem per typology subtype, 17 in all. **Entry point and progress tracker:
@@ -77,12 +77,14 @@ method in the repo:
    agents with reference to the model of the same subtype and the registry; answers blind-checked and brute-forced;
    the parent spot-checks. Interescolar and zonal are not solved (everything there recurs higher, except pure
    perimeters, covered at level 1); the regional is required (only there Т1⁗).
-5. **Г. Move list + bank of non-battle problems**, derived from the solved corpus; the move list is checked on the
-   93 interescolar and zonal problems.
-6. **Д. Recognition drill, Е. battle problems** — see rule 7.
+5. **Г. A package per type** (17), built as soon as the type is solved in the corpus: an A4 page, scaled problems,
+   recognition statements — see rule 7.
+6. **Д. Three rounds** (1–2 by type, 3 mixed), **Е. battle** in two windows — before provincial + regional and before
+   national — see rule 7.
 
-А–Г are the parent's work while the child does school maths (`26-27/school5/`, `school6/`); the drill must start before
-the Interescolar, 7 May 2027 — if В is late, Г–Д start on the part that is ready.
+А–Г are the parent's work while the child does school maths (`26-27/school5/`, `school6/`). The windows have no
+deadlines (3 Nov 2026): only the order and the tour dates are fixed; the pace is read from the time journal
+`26-27/nandu_level2/zhurnal.md`.
 Models are grouped by the tour where the subtype first matters: **1. Interescolar + zonal**: Т1, Т1′, Т1″, Т2, Т2‴, Т3,
 Т3′, Т3″, Т3‴ · **2. Provincial + regional**: Т2′, Т5, Т6, Т1‴, Т4, Т2″, Т1⁗ · **3. National**: Т4′.
 Basis: the subtype × stage matrix in `nandu_n2_tipologia_svodnaya.md`.
@@ -188,28 +190,35 @@ These conventions are load-bearing across all materials — keep them.
    now in `arhiv/`; order fixed by the parent 2 Nov 2026). A course is built in this order: (а) one model corpus problem
    per typology subtype; (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of
    moves those solutions use — the naming dictionary; (г) solutions of the corpus of the upper stages (level 2:
-   national, regional, provincial — 144 problems) with reference to the models; (д) the **move list** and the
-   **bank** of non-battle problems, derived from the solved corpus; (е) the **recognition drill**, then battle problems.
+   national, regional, provincial — 144 problems) with reference to the models; (д) a **package per type**,
+   derived from the solved corpus; (е) **three rounds**, then battle problems.
    No chapter is planned from the typology alone, and no textbook is written before its moves exist in
    accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_roadmap.md`.
-   **Move list, bank, drill instead of textbooks and maps** (parent's decision 2 Nov 2026, after the 2026 tours). Diagnosis:
-   the child lost the enumeration problems (counting, «все возможности», boards) on **recognition** — the problem
-   looked completely new and the move was not recognised, although every type was familiar; geometry and systems
-   were never the trouble. So: (1) ideal solutions stay the base — moves come only from accepted solutions; (2) the
-   course gets a **move list**, not textbooks or maps: one line per move «что видно в выписанных примерах → первая
-   формула · имя хода» (names and notation as in the solutions), the sign describes the problem's **structure**, not
-   its plot; the first line for every enumeration family is **«выпиши 3–5 примеров и посмотри, что повторяется»**;
-   only enumeration families (Т3…Т3‴, Т1‴, Т1″, Т4, Т4′, Т5, Т6) — geometry and systems get none; (3) a **bank** of
-   10–15 problems per move in different plots — level-1 corpus of all stages plus generated variants, every answer
-   brute-force checked; the level-2 corpus stays for battle (rule 1); (4) **drill**, mixed not by move:
-   recognition (5–10 min, never more than 10: write examples, name the move and the way of solving — the «ответ = операнды» first-idea
-   formula of the ⛔ block — and stop before the mechanics; this is the main volume of practice, parent: «набить руку,
-   не тратя время на механику»), then **мини-задачи целиком** (2 Nov 2026: same move, little counting, 10–15 min to the
-   answer, checked by hand enumeration; 3–5 per move inside the bank, each with a full solution in the model's shape),
-   then timed mixed sets;
-   (5) battle problems of the phase, each preceded by examples + naming the move. **Nothing can be opened on a tour** —
-   the list is learned by heart. The combinatorics textbook (`26-27/nandu_level2/kombinatorika/`) is a separate
-   project and stays. Rules 2, 3, 6 below apply to textbooks and reshebniks already written or explicitly requested.
+   **Packages by type and three rounds instead of textbooks and maps** (parent's decisions 2–3 Nov 2026, after the
+   2026 tours). Diagnosis: the child lost the enumeration problems (counting, «все возможности», boards) on
+   **recognition** — the problem looked completely new, although every type was familiar; the parent's hypothesis
+   (3 Nov): the move was not recognised because it was **not consolidated** — not repeated in many plots. Geometry and
+   systems were never the trouble. So: (1) ideal solutions stay the base — moves come only from accepted solutions;
+   (2) a **package per type** (17): an **A4 page** — the type's moves (from the corpus solutions, not only the model),
+   one line each «что видно в выписанных примерах → первая формула · имя хода», names and notation as in the
+   solutions, the sign describes the problem's **structure**, not its plot, and for enumeration types the first line is
+   **«выпиши 3–5 примеров и посмотри, что повторяется»**; **scaled problems** at 30/50 % of a battle problem (round 1)
+   and 70 % (round 2) — same move, only the counting cut, new plots, each with a full solution in the model's shape and
+   a brute-force-checked answer, unfit if brute force beats the move; **recognition statements** in **separate new
+   plots** (a round problem shown again would be remembered; the level-1 corpus is not new to the child either), each
+   with the move and the «ответ = операнды» formula, checked by a blind agent naming the same move. Counts per type:
+   enumeration types (Т3…Т3‴, Т1″, Т1‴, Т4, Т4′, Т5, Т6) 4–5 / 2–3 / 6–8, the other seven 1 / 1 / 2 — weight by
+   trouble, nobody dropped; (3) **rounds 1 and 2 by type**, in tour order, one session = one type (the parent: focused
+   load on one muscle consolidates the move; no mixed warm-ups inside them); each type of round 2 closes with one
+   battle corpus problem; **round 3 mixed and unlabelled**: the recognition statements (write examples, name the move
+   and formula, stop before the mechanics, ≤ 10 min) plus 100 % new-plot problems on time — its size is set from the
+   journal of rounds 1–2; (4) **battle** in two separate windows, before provincial + regional and before national
+   (longer than a month); the level-2 corpus is kept for it (rule 1); (5) every problem has a through number
+   `<тип>-<уровень>-<№>` (`T3pp-30-2`, level O/30/50/70/100/B, battle by source `T6-B-prov23-3`) and every attempt of
+   the child is timed in `26-27/nandu_level2/zhurnal.md`. **Nothing can be opened on a tour** — the pages are learned
+   by heart. The A4 page is not a textbook: rule 1 applies to it, rules 2, 3, 6 do not. The combinatorics textbook
+   (`26-27/nandu_level2/kombinatorika/`) is a separate project and stays. Rules 2, 3, 6 below apply to textbooks and
+   reshebniks already written or explicitly requested.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
    Structure (in problem solutions the plan IS the first-idea artifact of the ⛔ block at the top of this file):
    **шаг 1 — план**, ending with a `> ✅ **План готов:** Ответ = …` block — the answer expressed through
