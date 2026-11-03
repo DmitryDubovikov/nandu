@@ -321,60 +321,61 @@
 <p class="st">Каждая цифра не больше 6, а 4 · 6 = 24 &lt; 30 ⇒ цифр не меньше пяти.</p>
 <p class="st">Каждая цифра не меньше 4, а 8 · 4 = 32 &gt; 30 ⇒ цифр не больше семи.</p>
 <div id="a1" data-art="1"><div class="plan st"><div class="frm st">N = <span class="pen2">N(5 цифр)</span> + <span class="pen3">N(6 цифр)</span> + <span class="pen4">N(7 цифр)</span></div></div></div>
-<div class="card box st"><span class="tag">Приём — отклонение от 5</span><p class="st">L — сколько в числе цифр.</p><p class="st">n₄ и n₆ — сколько раз в нём встречаются 4 и 6.</p><p class="st">Если бы все цифры были равны 5, сумма была бы 5 · L.</p><p class="st">Каждая 4 уменьшает эту сумму на 1, каждая 6 увеличивает на 1:</p><div class="frm st">сумма цифр = 5 · L + n₆ − n₄</div><p class="st">Пример на числах, не из задачи: в 4556 L = 4, n₆ = 1, n₄ = 1.</p><div class="frm st">5 · 4 + 1 − 1 = 20 = 4 + 5 + 5 + 6</div></div>
+<div class="card box st"><span class="tag">Приём — отклонение от 5</span><p class="st">L — сколько в числе цифр.</p><p class="st">N₄ и N₆ — сколько раз в нём встречаются 4 и 6.</p><p class="st">Если бы все цифры были равны 5, сумма цифр была бы (5 · L).</p><p class="st">Каждая 4 уменьшает эту сумму на 1, каждая 6 увеличивает на 1:</p><div class="frm st">S<sub>цифр</sub> = (5 · L) + (1 · N₆) − (1 · N₄)</div><p class="st">Пример на числах, не из задачи: в 4556 L = 4, N₆ = 1, N₄ = 1.</p><div class="frm st">S<sub>цф</sub> = (5 · 4) + (1 · 1) − (1 · 1) = 20</div><p class="st">S<sub>цф</sub> = 4 + 5 + 5 + 6 = 20 ✓</p></div>
 <p class="st">В частности, <em>«сумма цифр числа была равна 30»</em> ⇒</p>
-<div id="a2" data-art="2"><div class="frm st">n₆ − n₄ = 30 − 5 · L</div></div>
+<pre class="sys st">(5 · L) + (1 · N₆) − (1 · N₄) = 30        | − 5 · L
+N₆ − N₄ = 30 − 5 · L</pre>
 <p class="sec st"><b>1. N(5 цифр).</b></p>
-<div id="a3" data-art="3"><div class="frm st">L = 5<span class="imp">⇒</span>n₆ − n₄ = 30 − 25 = 5</div></div>
-<p class="st">Разность 5, а цифр всего пять ⇒ n₆ = 5, запаса нет.</p>
+<div id="a2" data-art="2"><div class="frm st">L = 5<span class="imp">⇒</span>N₆ − N₄ = 30 − 25 = 5</div></div>
+<p class="st">Разность 5, а цифр всего пять ⇒ N₆ = 5, запаса нет.</p>
 <p class="st">Все пять цифр равны 6.</p>
 <p class="st"><small>66666</small></p>
-<div id="a4" data-art="4"><div class="frm st"><span class="pen2">N(5 цифр)</span> = <span class="pen2">1</span></div></div>
+<div id="a3" data-art="3"><div class="frm st"><span class="pen2">N(5 цифр)</span> = <span class="pen2">1</span></div></div>
 <p class="sec st"><b>2. N(6 цифр).</b></p>
-<div id="a5" data-art="5"><div class="frm st">L = 6<span class="imp">⇒</span>n₆ − n₄ = 30 − 30 = 0</div></div>
-<p class="st">6 встречается столько же раз, сколько 4, а вместе их не больше шести ⇒ n₆ от 0 до 3.</p>
+<div id="a4" data-art="4"><div class="frm st">L = 6<span class="imp">⇒</span>N₆ − N₄ = 30 − 30 = 0</div></div>
+<p class="st">6 встречается столько же раз, сколько 4, а вместе их не больше шести ⇒ N₆ от 0 до 3.</p>
 <p class="st">Мир задаёт, сколько раз встречается 6 (4 встречается столько же раз, на остальных местах 5):</p>
-<div id="a6" data-art="6"><div class="plan st"><div class="frm st"><span class="pen3">N(6 цифр)</span> = N(без 6) + N(одна 6) + N(две 6) + N(три 6)</div></div></div>
+<div id="a5" data-art="5"><div class="plan st"><div class="frm st"><span class="pen3">N(6 цифр)</span> = N(без 6) + N(одна 6) + N(две 6) + N(три 6)</div></div></div>
 <p class="subsec st"><b>2.1. N(без 6).</b></p>
 <p class="st">4 тоже нет ⇒ все шесть цифр равны 5, число одно.</p>
 <p class="st"><small>555555</small></p>
-<div id="a7" data-art="7"><div class="frm st">N(без 6) = 1</div></div>
+<div id="a6" data-art="6"><div class="frm st">N(без 6) = 1</div></div>
 <p class="subsec st"><b>2.2. N(одна 6).</b></p>
 <p class="st">При любом месте 6 для 4 остаются пять мест, поэтому выборы перемножаются:</p>
-<div id="a8" data-art="8"><div class="plan st"><div class="frm st">N(одна 6) = N(мест для 6) · N(мест для 4)</div></div></div>
-<div id="a9" data-art="9"><div class="frm st">N(мест для 6) = 6</div></div>
-<div id="a10" data-art="10"><div class="frm st">N(мест для 4) = 5</div></div>
+<div id="a7" data-art="7"><div class="plan st"><div class="frm st">N(одна 6) = N(мест для 6) · N(мест для 4)</div></div></div>
+<div id="a8" data-art="8"><div class="frm st">N(мест для 6) = 6</div></div>
+<div id="a9" data-art="9"><div class="frm st">N(мест для 4) = 5</div></div>
 <figure class='st'><svg viewBox='-1 -1 74 14' role='img' aria-label='Места числа' style='max-width:220px'><rect x='0' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='6.0' y='7.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='12' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='12' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='24' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='24' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='36' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='36' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='48' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='48' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='60' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='60' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></figure>
 <p class="st"><small>при 6 на месте 1: 4 на месте 2, 3, 4, 5 или 6</small></p>
-<div id="a11" data-art="11"><div class="frm st">N(одна 6) = 6 · 5 = 30</div></div>
+<div id="a10" data-art="10"><div class="frm st">N(одна 6) = 6 · 5 = 30</div></div>
 <p class="subsec st"><b>2.3. N(две 6).</b></p>
 <p class="st">При любых местах двух 6 для 4 остаются четыре места, поэтому выборы перемножаются:</p>
-<div id="a12" data-art="12"><div class="plan st"><div class="frm st">N(две 6) = N(мест для двух 6) · N(мест для двух 4)</div></div></div>
-<div id="a13" data-art="13"><div class="frm st">N(мест для двух 6) = C(6, 2) = 5 + 4 + 3 + 2 + 1 = 15</div></div>
-<div id="a14" data-art="14"><div class="frm st">N(мест для двух 4) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
+<div id="a11" data-art="11"><div class="plan st"><div class="frm st">N(две 6) = N(мест для двух 6) · N(мест для двух 4)</div></div></div>
+<div id="a12" data-art="12"><div class="frm st">N(мест для двух 6) = C(6, 2) = 5 + 4 + 3 + 2 + 1 = 15</div></div>
+<div id="a13" data-art="13"><div class="frm st">N(мест для двух 4) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
 <figure class='st'><svg viewBox='-1 -1 74 14' role='img' aria-label='Места числа' style='max-width:220px'><rect x='0' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='6.0' y='7.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='12' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='18.0' y='7.8' fill='#c58af9' font-size='5.2' text-anchor='middle' font-weight='700'>6</text><rect x='24' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='24' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='36' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='36' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='48' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='48' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='60' y='0' width='12' height='12' fill='#5fd38d' fill-opacity='0.22'/><rect x='60' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></figure>
 <p class="st"><small>при 6 на местах 1, 2: 4 на местах {3, 4}, {3, 5}, {3, 6}, {4, 5}, {4, 6}, {5, 6}</small></p>
-<div id="a15" data-art="15"><div class="frm st">N(две 6) = 15 · 6 = 90</div></div>
+<div id="a14" data-art="14"><div class="frm st">N(две 6) = 15 · 6 = 90</div></div>
 <p class="subsec st"><b>2.4. N(три 6).</b></p>
 <p class="st">Места трёх 6 — любые три из шести, на остальных местах стоит 4:</p>
-<div id="a16" data-art="16"><div class="frm st">N(три 6) = C(6, 3) = 10 + 6 + 3 + 1 = 20</div></div>
+<div id="a15" data-art="15"><div class="frm st">N(три 6) = C(6, 3) = 10 + 6 + 3 + 1 = 20</div></div>
 <p class="st"><small>первая 6 на месте 1: 666444    664644    664464    664446    646644</small></p>
 <p class="st"><small>646464    646446    644664    644646    644466</small></p>
 <p class="st"><small>первая 6 на месте 2: 466644    466464    466446    464664    464646    464466</small></p>
 <p class="st"><small>первая 6 на месте 3: 446664    446646    446466</small></p>
 <p class="st"><small>первая 6 на месте 4: 444666</small></p>
-<div id="a17" data-art="17"><div class="frm st"><span class="pen3">N(6 цифр)</span> = 1 + 30 + 90 + 20 = <span class="pen3">141</span></div></div>
+<div id="a16" data-art="16"><div class="frm st"><span class="pen3">N(6 цифр)</span> = 1 + 30 + 90 + 20 = <span class="pen3">141</span></div></div>
 <p class="sec st"><b>3. N(7 цифр).</b></p>
-<div id="a18" data-art="18"><div class="frm st">L = 7<span class="imp">⇒</span>n₆ − n₄ = 30 − 35 = −5</div></div>
+<div id="a17" data-art="17"><div class="frm st">L = 7<span class="imp">⇒</span>N₆ − N₄ = 30 − 35 = −5</div></div>
 <p class="st">4 встречается на пять раз больше, чем 6.</p>
-<p class="st">n₆ = 0 ⇒ n₄ = 5, на двух оставшихся местах стоит 5.</p>
-<p class="st">n₆ = 1 ⇒ n₄ = 6, мест для 5 не остаётся.</p>
-<p class="st">n₆ = 2 ⇒ n₄ = 7, а цифр всего семь ✗</p>
+<p class="st">N₆ = 0 ⇒ N₄ = 5, на двух оставшихся местах стоит 5.</p>
+<p class="st">N₆ = 1 ⇒ N₄ = 6, мест для 5 не остаётся.</p>
+<p class="st">N₆ = 2 ⇒ N₄ = 7, а цифр всего семь ✗</p>
 <p class="st">Мир задаёт, сколько раз встречается 6:</p>
-<div id="a19" data-art="19"><div class="plan st"><div class="frm st"><span class="pen4">N(7 цифр)</span> = N(без 6) + N(одна 6)</div></div></div>
+<div id="a18" data-art="18"><div class="plan st"><div class="frm st"><span class="pen4">N(7 цифр)</span> = N(без 6) + N(одна 6)</div></div></div>
 <p class="subsec st"><b>3.1. N(без 6).</b></p>
 <p class="st">Места двух 5 — любые два из семи, на остальных местах стоит 4:</p>
-<div id="a20" data-art="20"><div class="frm st">N(без 6) = C(7, 2) = 6 + 5 + 4 + 3 + 2 + 1 = 21</div></div>
+<div id="a19" data-art="19"><div class="frm st">N(без 6) = C(7, 2) = 6 + 5 + 4 + 3 + 2 + 1 = 21</div></div>
 <p class="st"><small>первая 5 на месте 1: 5544444    5454444    5445444    5444544    5444454    5444445</small></p>
 <p class="st"><small>первая 5 на месте 2: 4554444    4545444    4544544    4544454    4544445</small></p>
 <p class="st"><small>первая 5 на месте 3: 4455444    4454544    4454454    4454445</small></p>
@@ -383,11 +384,11 @@
 <p class="st"><small>первая 5 на месте 6: 4444455</small></p>
 <p class="subsec st"><b>3.2. N(одна 6).</b></p>
 <p class="st">Место 6 — любое из семи, на остальных местах стоит 4:</p>
-<div id="a21" data-art="21"><div class="frm st">N(одна 6) = 7</div></div>
+<div id="a20" data-art="20"><div class="frm st">N(одна 6) = 7</div></div>
 <p class="st"><small>6444444    4644444    4464444    4446444    4444644    4444464    4444446</small></p>
-<div id="a22" data-art="22"><div class="frm st"><span class="pen4">N(7 цифр)</span> = 21 + 7 = <span class="pen4">28</span></div></div>
+<div id="a21" data-art="21"><div class="frm st"><span class="pen4">N(7 цифр)</span> = 21 + 7 = <span class="pen4">28</span></div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a23" data-art="23"><div class="frm st">N = <span class="pen2">1</span> + <span class="pen3">141</span> + <span class="pen4">28</span> = 170</div></div>
+<div id="a22" data-art="22"><div class="frm st">N = <span class="pen2">1</span> + <span class="pen3">141</span> + <span class="pen4">28</span> = 170</div></div>
 <p class="st"><b>Ответ на задачу:</b> можно составить <b>170 чисел</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Решить, что цифр всегда шесть («30 : 5 = 6»): потеряются 66666 и все семизначные числа, выйдет 141.</li><li>Не считать 66666 и 555555, хотя условие разрешает одну цифру, — выйдет 168.</li><li>Переставлять одинаковые цифры как разные: для двух 4, двух 5 и двух 6 выйдет 6 · 5 · 4 · 3 · 2 · 1 = 720 вместо 90.</li></ul>
