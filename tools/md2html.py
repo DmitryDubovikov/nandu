@@ -9,10 +9,15 @@ import re, sys, os, html, json, unicodedata
 
 # ——————————————————————————— разбор markdown ———————————————————————————
 
+def subs(s):
+    """Нижний индекс словом: S_{оценок}, N_{учеников} → <sub> (решение родителя 3.11.2026)."""
+    return re.sub(r'_\{([а-яёА-ЯЁ]+)\}', r'<sub>\1</sub>', s)
+
 def inline(s):
     s = html.escape(s, quote=False)
     # <small>…</small> — мелкая расшифровка под формулой (какие именно варианты стоят за слагаемыми)
     s = re.sub(r'&lt;small&gt;(.+?)&lt;/small&gt;', r'<small>\1</small>', s)
+    s = subs(s)
     s = re.sub(r'`([^`]+)`', r'<code>\1</code>', s)
     if STACK_FRACTIONS:
         s = stack_fractions(s)
@@ -80,7 +85,7 @@ def plain(s):
     return s
 
 
-FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−–·×÷:=,.…\'’≠≤≥<>/√²³⁰¹⁴⁵⁶⁷⁸⁹ⁿ₀₁₂₃₄₅₆₇₈₉ₖ^_|⋮⇔⇒⟦⟧⟪⟫⦃⦄⦅⦆⟬⟭]+$')
+FORMULA = re.compile(r'^[0-9A-Za-zА-Яа-яЁё\s()+\-−–·×÷:=,.…\'’≠≤≥<>/√²³⁰¹⁴⁵⁶⁷⁸⁹ⁿ₀₁₂₃₄₅₆₇₈₉ₖ^_{}|⋮⇔⇒⟦⟧⟪⟫⦃⦄⦅⦆⟬⟭]+$')
 
 def is_formula(line):
     """Строка-формула (правило 10: формула стоит на своей строке).
@@ -449,7 +454,7 @@ def render_block(b):
         inner = ''.join(render_block(b) for b in parse(body))
         return f'<details class="card spoiler st"><summary>{inline(head)}</summary>{inner}</details>'
     if k == 'code': return f'<pre class="ascii st">{html.escape(v)}</pre>'
-    if k == 'sys':  return f'<pre class="sys st">{pens(html.escape(v))}</pre>'
+    if k == 'sys':  return f'<pre class="sys st">{pens(subs(html.escape(v)))}</pre>'
     if k == 'table':return f'<div class="st">{render_table(v)}</div>'
     if k == 'quote':return render_quote(v)
     if k == 'list': return render_list(v)
