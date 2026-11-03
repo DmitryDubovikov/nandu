@@ -150,9 +150,14 @@ A regional paper has 3 problems, the national 6 over two days. Per-stage тип�
 `25-26/nandu_level1/national/nandu_n1_nacional_tipologia.md` and
 `25-26/nandu_level1/provincial/nandu_n1_provincial_tipologia.md`.
 
-**Segundo Nivel** keeps Т1–Т3 (numbers, lettered figure, counting) and adds **Т4** доски-головоломки,
-**Т5** числа как предмет (делимость, остатки, инвариант), **Т6** графы — these live at the provincial and national
-stages (zonal and regional see Т5 only as a tool). Geometry is **areas**, not perimeters. Stages are not ordered by
+**Segundo Nivel** has 17 types (names accepted by the parent 3 Nov 2026; one-line definitions live only in the
+«Названия типов» section of `26-27/nandu_level2/nandu_n2_tipologia_svodnaya.md` and in the head of each type's page):
+Т1 неизвестные из линейных соотношений · Т1′ доли целого · Т1″ процесс по шагам · Т1‴ целые решения ·
+Т1⁗ пересекающиеся множества · Т2 периметры буквенной фигуры · Т2′ площади буквенной фигуры · Т2″ отношения площадей ·
+Т2‴ равные детали и вложенные контуры · Т3 счёт выборок и расстановок · Т3′ счёт на доске · Т3″ счёт по цифрам чисел ·
+Т3‴ счёт с уравнением на входе · Т4 числовая схема · Т4′ узор и период · Т5 делимость и остатки ·
+Т6 раскраски и обходы графа. Number = subject, prime = same subject, other tool. Т4–Т6 live at the provincial and
+national stages (zonal and regional see Т5 only as a tool). Geometry is **areas**, not perimeters. Stages are not ordered by
 difficulty: the provincial needs Т4–Т6, the regional hardly any. Glossary and counts:
 `26-27/nandu_level2/nandu_n2_tipologia_svodnaya.md`.
 
