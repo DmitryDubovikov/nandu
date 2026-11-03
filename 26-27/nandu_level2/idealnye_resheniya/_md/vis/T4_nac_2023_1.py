@@ -99,8 +99,42 @@ V['Треугольничек RDB входит во все три треугол
     row([board(letters={'RDB': 'x'}, tint=(n, BIGCOL[n]), gold=('RDB',), letters_on=True) for n in BIG],
         ['ABC', 'DEF', 'PQR'], 640, 'RDB в трёх треугольниках'),
     f"<b style='color:{GOLD}'>RDB</b> входит в каждый из треугольников ABC, DEF и PQR.")
+# мир x = 4: куда идут оставшиеся числа — одно в ABC, пара в DEF, пара в PQR; внутри пары числа меняются местами
+def swap(c1, c2, col):
+    (x1, y1), (x2, y2) = cen(c1), cen(c2)
+    dx, dy = x2 - x1, y2 - y1; d = math.hypot(dx, dy); ux, uy = dx / d, dy / d
+    a, b = (x1 - ux * 1.2, y1 - uy * 1.2), (x2 + ux * 1.2, y2 + uy * 1.2)
+    s = f"<line x1='{a[0]:.2f}' y1='{a[1]:.2f}' x2='{b[0]:.2f}' y2='{b[1]:.2f}' stroke='{col}' stroke-width='1.1'/>"
+    for (px, py), sg in ((a, -1), (b, 1)):   # наконечники с обеих сторон
+        bx, by = px - sg * ux * 3.0, py - sg * uy * 3.0
+        s += (f"<polygon points='{px:.2f},{py:.2f} {bx - uy * 1.8:.2f},{by + ux * 1.8:.2f} "
+              f"{bx + uy * 1.8:.2f},{by - ux * 1.8:.2f}' fill='{col}'/>")
+    return s
+
+def chips(nums, x0, y0):
+    s = (f"<text x='{x0 + 2:.2f}' y='{y0 - 3:.2f}' fill='{MUTED}' font-size='4.2'>остались</text>")
+    for i, n in enumerate(nums):
+        y = y0 + i * 9
+        s += (f"<rect x='{x0:.2f}' y='{y:.2f}' width='9' height='7' rx='1.6' fill='none' stroke='{GOLD}' stroke-width='0.6'/>"
+              f"<text x='{x0 + 4.5:.2f}' y='{y + 5.2:.2f}' fill='{GOLD}' font-size='5' text-anchor='middle' font-weight='700'>{n}</text>")
+    return s
+
+def places(xv, rest):
+    s = ''
+    for c, col in (('XRD', BLUE), ('RYB', GREEN), ('YBE', GREEN), ('DPZ', VIOLET), ('DZB', VIOLET)):
+        s += tri(c, col, 0.30, 'none', 0)
+    s += board({'RDB': xv}, letters={'XRD': 'y'})
+    s += swap('RYB', 'YBE', LAB) + swap('DPZ', 'DZB', LAB)
+    s += chips(rest, 72, 6)
+    x, y, w, h = VB
+    return (f"<svg viewBox='{x} {y:.2f} {w + 18} {h:.2f}' role='img' aria-label='Куда идут оставшиеся числа' "
+            f"style='max-width:360px'>{s}</svg>")
+
+V['Остались числа 5, 6, 7, 8, 9: одно встаёт в ABC'] = fig(places(4, (5, 6, 7, 8, 9)),
+    f"<b style='color:{BLUE}'>y</b> — одно число в ABC, "
+    f"<b style='color:{GREEN}'>пара в DEF</b>, <b style='color:{VIOLET}'>пара в PQR</b>; стрелка: числа пары меняются местами.")
 # миры: раскладка по треугольникам
-W4 = {'RDB': 4, 'XRD': 5, 'RYB': 7, 'YBE': 9, 'DPZ': 6, 'DZB': 8}
+W4 ={'RDB': 4, 'XRD': 5, 'RYB': 7, 'YBE': 9, 'DPZ': 6, 'DZB': 8}
 W7 = {'RDB': 7, 'XRD': 4, 'RYB': 6, 'YBE': 9, 'DPZ': 5, 'DZB': 8}
 V['S_{PQR} = 3 + 4 + 6 + 8 = 21 ✓'] = fig(svg(board(W4), 280),
     'Раскладка при x = 4: в каждом треугольнике сумма 21.')
