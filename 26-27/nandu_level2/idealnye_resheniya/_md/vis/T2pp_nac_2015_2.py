@@ -83,5 +83,25 @@ s += at((9,-2), '4x', 4.4, 1.0) + at((7,-4), '4x', 0, 4.6) + labels(ALL)
 V['В кирпичах: AO = BC = CD = 4x'] = fig(svg(s, 'Длины в кирпичах x', '-9 -7 82 86'),
   "<b style='color:#f0a83c'>x</b> = AO : 4; все точки — в узлах сетки с шагом x.")
 
+# 10–13. схема-стрелки (North Star): данное → искомое, номер стрелки = номер раздела
+ROWS = [('S(CDO) = 5/4 · S(AOB)', 'OD через AO'), ('S(AOE) = 3/2 · S(AOB)', 'DE через AO'), ('S(ODE) = 735', 'длина AO')]
+def scheme(hi=None):
+    out = ''
+    for i, (l, r) in enumerate(ROWS):
+        y = 2 + 13*i; on = hi is None or hi == i
+        col = GOLD if (hi == i) else (INK if on else DIM); tc = LAB if on else MUT
+        out += f"<rect x='2' y='{y}' width='52' height='9' rx='1.6' fill='none' stroke='{col}' stroke-width='{0.8 if hi == i else 0.5}'/>"
+        out += txt(28, y+6.1, l, tc, 3.3)
+        out += f"<rect x='72' y='{y}' width='36' height='9' rx='1.6' fill='none' stroke='{col}' stroke-width='{0.8 if hi == i else 0.5}'/>"
+        out += txt(90, y+6.1, r, tc, 3.3)
+        out += f"<line x1='55' y1='{y+4.5}' x2='70' y2='{y+4.5}' stroke='{col}' stroke-width='{0.8 if hi == i else 0.5}'/>"
+        out += f"<polygon points='70.6,{y+4.5} 68,{y+3.2} 68,{y+5.8}' fill='{col}'/>"
+        out += f"<circle cx='62.5' cy='{y+4.5}' r='2.6' fill='#121821' stroke='{col}' stroke-width='0.5'/>" + txt(62.5, y+5.7, str(i+1), col, 3.0)
+    return f"<svg viewBox='0 0 110 39' role='img' aria-label='Порядок разделов'>{out}</svg>"
+V['сначала выразим OD и DE через AO'] = fig(scheme(), 'Слева — данное, справа — что оно даёт; номер стрелки — номер раздела.')
+V['1. Выразим OD через AO.'] = fig(scheme(0), '')
+V['2. Выразим DE через AO.'] = fig(scheme(1), '')
+V['3. Найдём длину AO.'] = fig(scheme(2), '')
+
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(len(V), 'figures')
