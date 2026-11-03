@@ -330,15 +330,28 @@ N₃ + 2 · N₄ + 3 · N₅ = 33</pre>
 <tr><td>N₄</td><td>хотя бы один ученик и <em>«число учеников с оценкой 4 кратно 5»</em></td><td>5</td></tr>
 <tr><td>N₅</td><td>хотя бы один ученик и <em>«число учеников с оценкой 5 чётное»</em></td><td>2</td></tr>
 </table></div></div>
-<p class="st">Все слагаемые уравнения положительные ⇒ если два из них взять наименьшими, третье станет наибольшим:</p>
-<div class="cols2"><div class="col"><p class="st"><b>Значения N₄</b></p><div class="frm st">2 · N₄ ≤ 33 − 1 − 3 · 2 = 26</div><div class="frm st">2 · N₄ ≤ 26<span class="imp">⇒</span>N₄ ≤ 13</div><p class="st"><b>От 5 до 13 кратны 5 только 5 и 10.</b></p></div><div class="col"><p class="st"><b>Значения N₅</b></p><div class="frm st">3 · N₅ ≤ 33 − 1 − 2 · 5 = 22</div><div class="frm st">3 · N₅ ≤ 22<span class="imp">⇒</span>N₅ ≤ 7</div><p class="st"><b>От 2 до 7 чётные только 2, 4 и 6.</b></p></div></div>
+<p class="st">Выразим из уравнения по очереди 2 · N₄ и 3 · N₅:</p>
+<p class="st"><b>Значения N₄</b></p>
+<pre class="sys st">N₃ + 2 · N₄ + 3 · N₅ = 33   | − N₃ − 3 · N₅
+2 · N₄ = 33 − N₃ − 3 · N₅</pre>
+<p class="st">Вычитаемые N₃ и 3 · N₅ не меньше 1 и 3 · 2, а чем больше вычитаем, тем меньше остаётся:</p>
+<div id="a1" data-art="1"><div class="frm st">2 · N₄ ≤ 33 − 1 − 3 · 2 = 26</div></div>
+<div id="a2" data-art="2"><div class="frm st">2 · N₄ ≤ 26<span class="imp">⇒</span>N₄ ≤ 13</div></div>
+<p class="st"><b>От 5 до 13 кратны 5 только 5 и 10.</b></p>
+<p class="st"><b>Значения N₅</b></p>
+<pre class="sys st">N₃ + 2 · N₄ + 3 · N₅ = 33   | − N₃ − 2 · N₄
+3 · N₅ = 33 − N₃ − 2 · N₄</pre>
+<p class="st">Вычитаемые N₃ и 2 · N₄ не меньше 1 и 2 · 5, а чем больше вычитаем, тем меньше остаётся:</p>
+<div id="a3" data-art="3"><div class="frm st">3 · N₅ ≤ 33 − 1 − 2 · 5 = 22</div></div>
+<div id="a4" data-art="4"><div class="frm st">3 · N₅ ≤ 22<span class="imp">⇒</span>N₅ ≤ 7</div></div>
+<p class="st"><b>От 2 до 7 чётные только 2, 4 и 6.</b></p>
 <p class="st"><b>У N₄ два значения, у N₅ три ⇒ разбиваем на миры по N₄.</b></p>
-<div id="a1" data-art="1"><div class="plan st"><div class="frm st">Все возможности = <span class="pen2">возможности с N₄ = 5</span> и <span class="pen3">возможности с N₄ = 10</span></div></div></div>
+<div id="a5" data-art="5"><div class="plan st"><div class="frm st">Все возможности = <span class="pen2">возможности с N₄ = 5</span> и <span class="pen3">возможности с N₄ = 10</span></div></div></div>
 <p class="sec st"><b>1. Возможности с N₄ = 5.</b></p>
 <pre class="sys st">N₃ + 2 · 5 + 3 · N₅ = 33        | − 2 · 5
 N₃ + 3 · N₅ = 23</pre>
-<div id="a2" data-art="2"><div class="frm st">N₃ ≥ 1<span class="imp">⇒</span>3 · N₅ ≤ 22<span class="imp">⇒</span>N₅ ≤ 7</div></div>
-<div id="a3" data-art="3"><div class="frm st">N₅ чётное<span class="imp">⇒</span>N₅ = 2, 4 или 6</div></div>
+<div id="a6" data-art="6"><div class="frm st">N₃ ≥ 1<span class="imp">⇒</span>3 · N₅ ≤ 22<span class="imp">⇒</span>N₅ ≤ 7</div></div>
+<div id="a7" data-art="7"><div class="frm st">N₅ чётное<span class="imp">⇒</span>N₅ = 2, 4 или 6</div></div>
 <p class="st"><em>«30 учеников»</em> ⇒</p>
 <pre class="sys st">N₂ + N₃ + 5 + N₅ = 30        | − N₃ − 5 − N₅
 N₂ = 25 − N₃ − N₅</pre>
@@ -353,8 +366,8 @@ N₂ = 25 − N₃ − N₅</pre>
 <p class="sec st"><b>2. Возможности с N₄ = 10.</b></p>
 <pre class="sys st">N₃ + 2 · 10 + 3 · N₅ = 33        | − 2 · 10
 N₃ + 3 · N₅ = 13</pre>
-<div id="a4" data-art="4"><div class="frm st">N₃ ≥ 1<span class="imp">⇒</span>3 · N₅ ≤ 12<span class="imp">⇒</span>N₅ ≤ 4</div></div>
-<div id="a5" data-art="5"><div class="frm st">N₅ чётное<span class="imp">⇒</span>N₅ = 2 или 4</div></div>
+<div id="a8" data-art="8"><div class="frm st">N₃ ≥ 1<span class="imp">⇒</span>3 · N₅ ≤ 12<span class="imp">⇒</span>N₅ ≤ 4</div></div>
+<div id="a9" data-art="9"><div class="frm st">N₅ чётное<span class="imp">⇒</span>N₅ = 2 или 4</div></div>
 <p class="st"><em>«30 учеников»</em> ⇒</p>
 <pre class="sys st">N₂ + N₃ + 10 + N₅ = 30        | − N₃ − 10 − N₅
 N₂ = 20 − N₃ − N₅</pre>
