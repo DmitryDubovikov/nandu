@@ -88,17 +88,26 @@ V['Пример на числах, не из задачи: основания 4 
 # 9. раздел 1: CDO и AOB — одна высота CD
 s = full() + tri_('AOB', 0.5) + tri_('CDO', 0.5) + hgt(PT['B'], (5,0), 'CD', 3.4, 1.0)
 s += line(PT['C'],PT['D'],GOLD,1.1) + at((9,-2), 'CD', 4.4, 1.0) + at((2,0), 'AO', 0, -1.5, BLUE) + at((6.5,0), 'OD', 0, -1.5, VIO) + names()
-V['у CDO и AOB одна высота CD'] = fig(svg(s, 'CDO и AOB, высота CD'),
+V['у треугольников CDO и AOB одна высота CD'] = fig(svg(s, 'CDO и AOB, высота CD'),
   f"{cname('CDO')} и {cname('AOB')}: высота у обоих CD, основания OD и AO.")
-# 10. раздел 1: AOE и ODE — общая высота ED
-s = full() + tri_('AOE', 0.5) + tri_('ODE', 0.5) + line(PT['D'],PT['E'],GOLD,1.1) + at((9,3), 'ED', 4.4, 1.0)
-s += at((2,0), 'AO', 0, 4.2, RED) + at((6.5,0), 'OD', 0, 4.2, GREEN) + names()
-V['у AOE и ODE общая высота ED'] = fig(svg(s, 'AOE и ODE, высота ED'),
-  f"{cname('AOE')} и {cname('ODE')}: общая высота ED, основания AO и OD.")
+# 10. путь ODE → AOE → AOB: одна высота ED, потом «3/2»
+def arrow(a, b, col=LAB):
+    (x1,y1),(x2,y2) = xy(a), xy(b)
+    import math
+    L = math.hypot(x2-x1, y2-y1); ux, uy = (x2-x1)/L, (y2-y1)/L
+    hx, hy = x2 - 2.2*ux, y2 - 2.2*uy
+    return (f"<line x1='{x1}' y1='{y1}' x2='{round(hx,2)}' y2='{round(hy,2)}' stroke='{col}' stroke-width='0.8'/>"
+            f"<polygon points='{x2},{y2} {round(hx-1.1*uy,2)},{round(hy+1.1*ux,2)} {round(hx+1.1*uy,2)},{round(hy-1.1*ux,2)}' fill='{col}'/>")
+s = full() + tri_('AOE', 0.45) + tri_('ODE', 0.45) + tri_('AOB', 0.45) + line(PT['D'],PT['E'],GOLD,1.2) + at((9,3), 'ED', 4.4, 1.0)
+s += arrow((8.2,1.6), (4.9,1.6)) + at((7.0,1.6), 'одна высота ED', 0, 3.6, LAB, 2.4)
+s += arrow((3.4,1.0), (3.0,-1.6)) + at((3.2,-0.8), '3/2', -3.6, 1.0, LAB, 2.8) + names()
+V['пойдём через AOE: ODE → AOE → AOB'] = fig(svg(s, 'Путь ODE → AOE → AOB'),
+  f"{cname('ODE')} → {cname('AOE')}: одна и та же высота ED; {cname('AOE')} → {cname('AOB')}: «площадь AOE равна 3/2 площади AOB».")
+
 # 11. раздел 4: OBC и AOB — равные основания, одна высота
 s = full() + tri_('AOB', 0.5) + tri_('OBC', 0.5) + hgt(PT['B'], (5,0), 'CD', 3.4, 1.0) + hgt(PT['O'], (4,-4), 'CD', -3.6, 1.0)
 s += line(PT['A'],PT['O'],GOLD,1.0) + line(PT['B'],PT['C'],GOLD,1.0) + tick((2,0), True) + tick((7,-4), True) + names()
-V['у OBC и AOB одна высота CD'] = fig(svg(s, 'OBC и AOB'),
+V['у треугольников OBC и AOB одна высота CD'] = fig(svg(s, 'OBC и AOB'),
   f"{cname('AOB')} и {cname('OBC')}: основания AO = BC, высота у обоих CD.")
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
