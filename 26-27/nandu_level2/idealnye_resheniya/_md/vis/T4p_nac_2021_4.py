@@ -63,28 +63,42 @@ V = {}
 V['В какой строке и каком столбце стоит 2021?'] = fig(
     svg(table(), 'Таблица из условия', cx(15) + 10, 560), 'Таблица из условия; строки и столбцы пронумерованы.')
 
-# выписанные признаки столбцов 1–14: схема без чисел, как от руки — пустая клетка золотом, стрелка направления
-def features():
-    w, h, gap, y0 = 5, 3.2, 3.2, 6                # мини-клетка, промежуток между столбцами, верх клеток
-    s = ARR.format('f').replace("markerWidth='4' markerHeight='4'", "markerWidth='3' markerHeight='3'")
+# выписанные признаки столбцов: схема без чисел, как от руки — пустая клетка золотом, стрелка направления.
+# n — сколько столбцов; same — столбцы, которые обводятся как одинаковые (остальные тусклые);
+# столбцы правее 14 продолжены по правилам и рисуются пунктиром.
+def features(n=14, same=()):
+    w, h, gap, y0 = 5, 3.2, 3.2, 12 if same else 6
+    s = ARR.format(f'f{n}').replace("markerWidth='4' markerHeight='4'", "markerWidth='3' markerHeight='3'")
     def lab(y, t, col):
         return f"<text x='4' y='{y:.1f}' fill='{col}' font-size='2.6' text-anchor='end' font-weight='600'>{t}</text>"
-    for c in range(1, 15):
-        x = 8 + (c - 1) * (w + gap)
-        s += txt(x + w / 2, y0 - 2, c, MUT, 2.6)
+    X = lambda c: 8 + (c - 1) * (w + gap)
+    for c in range(1, n + 1):
+        x, on_c = X(c), (not same) or c in same
+        g, bl, ink = (GOLD, BLUE, MUT) if on_c else (DIM, DIM, DIM)
+        dash = " stroke-dasharray='0.8 0.6'" if c > 14 else ''
+        s += txt(x + w / 2, y0 - 2, c, GOLD if c in same else ink, 2.6, '700' if c in same else '600')
         blank = 7 - (c - 1) % 7
         for r in range(1, 8):
             on = r == blank
             s += (f"<rect x='{x}' y='{y0 + (r - 1) * h:.1f}' width='{w}' height='{h}' "
-                  f"fill='{GOLD if on else 'none'}' fill-opacity='0.55' stroke='{GOLD if on else DIM}' stroke-width='{0.6 if on else 0.3}'/>")
+                  f"fill='{g if on else 'none'}' fill-opacity='{0.55 if on_c else 0.3}' stroke='{g if on else DIM}' stroke-width='{0.6 if on else 0.3}'{dash}/>")
         a, b = (y0 + 0.8, y0 + 7 * h - 0.8) if c % 2 else (y0 + 7 * h - 0.8, y0 + 0.8)
-        s += f"<path d='M{x + w / 2} {a:.1f}V{b:.1f}' stroke='{BLUE}' stroke-width='0.7' marker-end='url(#ahf)'/>"
-        s += txt(x + w / 2, y0 + 7 * h + 4.4, blank, GOLD, 3, '700')
-        s += txt(x + w / 2, y0 + 7 * h + 9, '↓' if c % 2 else '↑', BLUE, 3.4, '700')
+        s += f"<path d='M{x + w / 2} {a:.1f}V{b:.1f}' stroke='{bl}' stroke-width='0.7' marker-end='url(#ahf{n})'/>"
+        s += txt(x + w / 2, y0 + 7 * h + 4.4, blank, g, 3, '700')
+        s += txt(x + w / 2, y0 + 7 * h + 9, '↓' if c % 2 else '↑', bl, 3.4, '700')
+        if c in same:
+            s += f"<rect x='{x - 1.2}' y='{y0 - 5.2:.1f}' width='{w + 2.4}' height='{7 * h + 16.6:.1f}' rx='1.2' fill='none' stroke='{GOLD}' stroke-width='0.8'/>"
+    if same:
+        c1, c2 = same
+        xa, xb, y = X(c1) + w / 2, X(c2) + w / 2, y0 - 6.5
+        s += f"<path d='M{xa} {y0 - 5.2:.1f}V{y}H{xb}V{y0 - 5.2:.1f}' fill='none' stroke='{GOLD}' stroke-width='0.7'/>"
+        s += f"<text x='{(xa + xb) / 2}' y='{y - 1.2:.1f}' fill='{GOLD}' font-size='3' text-anchor='middle' font-weight='700'>через 14 столбцов: одинаковые</text>"
     s += lab(y0 - 2, 'столбец', MUT) + lab(y0 + 7 * h + 4.4, 'пустая клетка', GOLD) + lab(y0 + 7 * h + 9, 'направление', BLUE)
-    vb = f"-20 0 {8 + 14 * (w + gap) + 22:.0f} {y0 + 7 * h + 12:.0f}"
-    return f"<svg viewBox='{vb}' role='img' aria-label='Столбцы 1–14' style='max-width:520px'>{s}</svg>"
+    vb = f"-20 0 {8 + n * (w + gap) + 22:.0f} {y0 + 7 * h + 12:.0f}"
+    return f"<svg viewBox='{vb}' role='img' aria-label='Столбцы 1–{n}' style='max-width:{520 if n == 14 else 556}px'>{s}</svg>"
 V['Выпишем строку пустой клетки и направление для столбцов 1–14'] = fig(features(), 'Столбцы 1–14: строка пустой клетки и направление.')
+V['строка пустой клетки и направление повторяются вместе через 14 столбцов'] = fig(
+    features(15, (1, 15)), 'Столбец 15 продолжен по правилам: пустая клетка в строке 7, направление вниз, как у столбца 1.')
 
 # правило (*): копия столбца 1 переезжает на место столбца 15, числа становятся на 168 больше
 def rule():
