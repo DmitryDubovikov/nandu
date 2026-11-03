@@ -129,7 +129,8 @@ for f, typ, *_ in items:
     incode = False
     for ln in open(os.path.join(M, f + '.md')).read().split('\n'):
         if ln.strip().startswith('```'): incode = not incode; continue
-        if not incode and re.fullmatch(r'[0-9][0-9 ·+−×:()]*= *[0-9]+', ln.strip()):
+        # и разложения «631 = 127 + 3 · 168» (№17, 3.11.2026): строка из одних чисел и знаков с «=» где угодно
+        if not incode and '=' in ln and re.fullmatch(r'[0-9][0-9 ·+−×:()=]*', ln.strip()):
             print(f'  ⚠ формула без левой части: {f} — «{ln.strip()[:70]}»')
 # «Артефакт» — внутренняя кухня, в тексте решения не пишется (родитель 2.11.2026: «в математике так не принято»)
 for f, *_ in items:
