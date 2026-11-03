@@ -320,19 +320,20 @@
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Каждая оценка не меньше 2 ⇒ считаем, сколько каждый ученик набрал сверх 2.</p></div></div>
 <div class="card box st"><span class="tag">Приём — сколько сверх 2</span><p class="st">Если бы все ученики получили 2, сумма была бы 2 · (число учеников).</p><p class="st">Каждая 3 добавляет к ней 1, каждая 4 добавляет 2, каждая 5 добавляет 3:</p><div class="frm st">сумма оценок = 2 · (число учеников) + n₃ + 2 · n₄ + 3 · n₅</div><p class="st">Пример на числах, не из задачи: четыре ученика получили 2, 3, 5 и 5, то есть n₃ = 1, n₄ = 0, n₅ = 2.</p><div class="frm st">2 · 4 + 1 + 2 · 0 + 3 · 2 = 15 = 2 + 3 + 5 + 5</div></div>
 <p class="st">В частности, <em>«30 учеников»</em> и <em>«сумма оценок всех учеников равна 93»</em> ⇒</p>
-<div id="a1" data-art="1"><div class="frm st">(1) n₃ + 2 · n₄ + 3 · n₅ = 93 − 2 · 30 = 33</div></div>
+<pre class="sys st">2 · 30 + n₃ + 2 · n₄ + 3 · n₅ = 93        | − 2 · 30
+(1) n₃ + 2 · n₄ + 3 · n₅ = 33</pre>
 <p class="st"><em>«каждую из оценок получил хотя бы один ученик»</em> ⇒ n₃ ≥ 1</p>
 <p class="st"><em>«число учеников с оценкой 4 кратно 5»</em>, а n₄ ≥ 1 ⇒ n₄ ≥ 5</p>
 <p class="st"><em>«число учеников с оценкой 5 чётное»</em>, а n₅ ≥ 1 ⇒ n₅ ≥ 2</p>
 <p class="st">В (1) два слагаемых из трёх не меньше своих наименьших значений ⇒</p>
-<div id="a2" data-art="2"><div class="frm st">2 · n₄ ≤ 33 − 1 − 3 · 2 = 26<span class="imp">⇒</span>n₄ ≤ 13<span class="imp">⇒</span>n₄ = 5 или 10</div></div>
-<div id="a3" data-art="3"><div class="frm st">3 · n₅ ≤ 33 − 1 − 2 · 5 = 22<span class="imp">⇒</span>n₅ ≤ 7<span class="imp">⇒</span>n₅ = 2, 4 или 6</div></div>
+<div id="a1" data-art="1"><div class="frm st">2 · n₄ ≤ 33 − 1 − 3 · 2 = 26<span class="imp">⇒</span>n₄ ≤ 13<span class="imp">⇒</span>n₄ = 5 или 10</div></div>
+<div id="a2" data-art="2"><div class="frm st">3 · n₅ ≤ 33 − 1 − 2 · 5 = 22<span class="imp">⇒</span>n₅ ≤ 7<span class="imp">⇒</span>n₅ = 2, 4 или 6</div></div>
 <p class="st">У n₄ два значения, у n₅ три ⇒ разбиваем на миры по n₄.</p>
-<div id="a4" data-art="4"><div class="plan st"><div class="frm st">Все возможности = <span class="pen2">возможности с n₄ = 5</span> и <span class="pen3">возможности с n₄ = 10</span></div></div></div>
+<div id="a3" data-art="3"><div class="plan st"><div class="frm st">Все возможности = <span class="pen2">возможности с n₄ = 5</span> и <span class="pen3">возможности с n₄ = 10</span></div></div></div>
 <p class="sec st"><b>1. Возможности с n₄ = 5.</b></p>
-<div id="a5" data-art="5"><div class="frm st">n₄ = 5<span class="imp">⇒</span>(1): n₃ + 3 · n₅ = 23</div></div>
-<div id="a6" data-art="6"><div class="frm st">n₃ ≥ 1<span class="imp">⇒</span>3 · n₅ ≤ 22<span class="imp">⇒</span>n₅ ≤ 7</div></div>
-<div id="a7" data-art="7"><div class="frm st">n₅ чётное<span class="imp">⇒</span>n₅ = 2, 4 или 6</div></div>
+<div id="a4" data-art="4"><div class="frm st">n₄ = 5<span class="imp">⇒</span>(1): n₃ + 3 · n₅ = 23</div></div>
+<div id="a5" data-art="5"><div class="frm st">n₃ ≥ 1<span class="imp">⇒</span>3 · n₅ ≤ 22<span class="imp">⇒</span>n₅ ≤ 7</div></div>
+<div id="a6" data-art="6"><div class="frm st">n₅ чётное<span class="imp">⇒</span>n₅ = 2, 4 или 6</div></div>
 <p class="st"><em>«30 учеников»</em> ⇒ n₂ = 30 − n₃ − 5 − n₅ = 25 − n₃ − n₅</p>
 <div class="st"><div class="tw"><table>
 <tr><th>n₅</th><th>n₃ = 23 − 3 · n₅</th><th>n₂ = 25 − n₃ − n₅</th></tr>
@@ -343,9 +344,9 @@
 <p class="st">Везде n₂ ≥ 1 ✓</p>
 <p class="st"><span class="pen2">Возможности с n₄ = 5</span>: <span class="pen2">(6, 17, 5, 2)</span>; <span class="pen2">(10, 11, 5, 4)</span>; <span class="pen2">(14, 5, 5, 6)</span></p>
 <p class="sec st"><b>2. Возможности с n₄ = 10.</b></p>
-<div id="a8" data-art="8"><div class="frm st">n₄ = 10<span class="imp">⇒</span>(1): n₃ + 3 · n₅ = 13</div></div>
-<div id="a9" data-art="9"><div class="frm st">n₃ ≥ 1<span class="imp">⇒</span>3 · n₅ ≤ 12<span class="imp">⇒</span>n₅ ≤ 4</div></div>
-<div id="a10" data-art="10"><div class="frm st">n₅ чётное<span class="imp">⇒</span>n₅ = 2 или 4</div></div>
+<div id="a7" data-art="7"><div class="frm st">n₄ = 10<span class="imp">⇒</span>(1): n₃ + 3 · n₅ = 13</div></div>
+<div id="a8" data-art="8"><div class="frm st">n₃ ≥ 1<span class="imp">⇒</span>3 · n₅ ≤ 12<span class="imp">⇒</span>n₅ ≤ 4</div></div>
+<div id="a9" data-art="9"><div class="frm st">n₅ чётное<span class="imp">⇒</span>n₅ = 2 или 4</div></div>
 <p class="st"><em>«30 учеников»</em> ⇒ n₂ = 30 − n₃ − 10 − n₅ = 20 − n₃ − n₅</p>
 <div class="st"><div class="tw"><table>
 <tr><th>n₅</th><th>n₃ = 13 − 3 · n₅</th><th>n₂ = 20 − n₃ − n₅</th></tr>
