@@ -63,32 +63,19 @@ V = {}
 V['В какой строке и каком столбце стоит 2021?'] = fig(
     svg(table(), 'Таблица из условия', cx(15) + 10, 560), 'Таблица из условия; строки и столбцы пронумерованы.')
 
-# направление: змейка по столбцам 1–14 (линия под числами, числа с тёмной обводкой)
-def snake():
-    s = ''
-    for r in range(1, 8):
-        s += txt(LX - 3.2, cy(r) + CH / 2 + 1.1, r, MUT, 2.6)
-    for c in range(1, 15):
-        s += txt(cx(c) + CW / 2, HY - 2, c, MUT, 2.6)
+# направление: у столбцов 1 и 8 одна пустая клетка (строка 7), но 1 — вниз, 8 — вверх
+def direction():
+    s = table(col_of=lambda r, c: LAB if c in (1, 8) else DIM)
+    s += ARR.format('d').replace("markerWidth='4' markerHeight='4'", "markerWidth='3' markerHeight='3'")
+    for c, col, down in ((1, GOLD, True), (8, BLUE, False)):
         for r in range(1, 8):
-            s += cell(cx(c), r)
-    for r in range(1, 8):
-        s += txt(cx(15) + 4, cy(r) + CH / 2 + 1.1, '…', MUT, 3)
-    s += ARR.format('s').replace("markerWidth='4' markerHeight='4'", "markerWidth='2.4' markerHeight='2.4'")
-    pts = []
-    for c in range(1, 15):
-        rows = [r for r in range(1, 8) if (r, c) in T]
-        if c % 2 == 0: rows.reverse()
-        pts += [(cx(c) + CW / 2, cy(r) + CH / 2) for r in rows]
-    s += (f"<polyline points='{' '.join(f'{x:.1f},{y:.1f}' for x, y in pts)}' fill='none' stroke='{BLUE}' "
-          f"stroke-opacity='0.55' stroke-width='1.6' stroke-linejoin='round' marker-end='url(#ahs)'/>")
-    for (r, c), v in T.items():
-        if c <= 14:
-            s += (f"<text x='{cx(c) + CW / 2:.1f}' y='{cy(r) + CH / 2 + 1.15:.1f}' fill='{LAB}' font-size='3.2' "
-                  f"text-anchor='middle' font-weight='600' stroke='{BG}' stroke-width='1.1' paint-order='stroke'>{v}</text>")
+            s += cell(cx(c), r, col, 0.22 if (r, c) in T else 0.5, col, 0.8)
+        y1, y2 = cy(1) + 1.2, cy(7) + CH - 1.2
+        a, b = (y1, y2) if down else (y2, y1)
+        s += f"<path d='M{cx(c) + 1.6:.1f} {a:.1f}V{b:.1f}' stroke='{col}' stroke-width='0.8' marker-end='url(#ahd)'/>"
     return s
-V['вниз по столбцу 1, вверх по столбцу 2'] = fig(svg(snake(), 'Направление заполнения', cx(15) + 10, 560),
-                                                'Нечётные столбцы — вниз, чётные — вверх.')
+V['но столбец 1 заполняется вниз, а столбец 8 вверх'] = fig(svg(direction(), 'Столбцы 1 и 8', cx(15) + 10, 560),
+                                                           'Столбцы 1 и 8: пустая клетка в строке 7, направления разные.')
 
 # пустые клетки: лесенка снизу вверх, повтор через 7 столбцов
 def blanks():
