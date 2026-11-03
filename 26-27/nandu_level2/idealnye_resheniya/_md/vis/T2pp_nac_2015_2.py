@@ -56,11 +56,6 @@ def hgt(a, b, lab, dx=0, dy=0):   # высота пунктиром с подп�
 # 1. рисунок условия
 V['Чему равна площадь BCEO?'] = fig(svg(full(INK, 0.55) + labels(ALL), 'Рисунок условия'), 'Рисунок из условия.')
 
-# 2. посылки: прямые углы, высота ED и расстояние CD между параллельными
-s = full(INK, 0.5) + rangle(PT['D'], -1, 1, GOLD) + rangle(PT['D'], -1, -1, GOLD) + rangle(PT['C'], -1, 1, GOLD)
-s += line(PT['D'],PT['E'],GOLD,1.1) + line(PT['C'],PT['D'],GOLD,1.1) + at((9,3), 'ED', 4.4, 1.0) + at((9,-2), 'CD', 4.4, 1.0) + labels(ALL)
-V['ED — высота из E на прямую AD'] = fig(svg(s, 'Прямые углы, высоты'), "Углы при C и D прямые; <b style='color:#f0a83c'>ED</b> и <b style='color:#f0a83c'>CD</b> перпендикулярны AD.")
-
 # 3. пять треугольников
 CEN = {'AOE': (4.3,2.0), 'ODE': (7.3,2.0), 'AOB': (3.0,-1.4), 'OBC': (6.0,-2.7), 'CDO': (7.9,-1.2)}
 s = full(INK, 0.5) + ''.join(tri_(n) for n in TC) + ''.join(at(CEN[n], n, 0, 1.0, LAB, 2.6) for n in TC) + labels(ALL)
@@ -88,7 +83,7 @@ V['Пример на числах, не из задачи: основания 4 
 # 9. раздел 1: CDO и AOB — одна высота CD
 s = full() + tri_('AOB', 0.5) + tri_('CDO', 0.5) + hgt(PT['B'], (5,0), 'CD', 3.4, 1.0)
 s += line(PT['C'],PT['D'],GOLD,1.1) + at((9,-2), 'CD', 4.4, 1.0) + at((2,0), 'AO', 0, -1.5, BLUE) + at((6.5,0), 'OD', 0, -1.5, VIO) + names()
-V['у треугольников CDO и AOB общая высота CD'] = fig(svg(s, 'CDO и AOB, высота CD'),
+V['CD перпендикулярна AD и BC, потому что'] = fig(svg(s, 'CDO и AOB, высота CD'),
   f"{cname('CDO')} и {cname('AOB')}: высота у обоих CD, основания OD и AO.")
 # 10. порядок поиска площадей: известна S(ODE); ① AOE, ② AOB, ③ CDO, ④ OBC — номера разделов
 s = full() + ''.join(tri_(n, 0.45) for n in TC)
@@ -101,7 +96,7 @@ V['S(ODE) = 735 → S(AOE) → S(AOB)'] = fig(svg(s, 'Порядок поиск�
 # 11. раздел 4: OBC и AOB — равные основания, одна высота
 s = full() + tri_('AOB', 0.5) + tri_('OBC', 0.5) + hgt(PT['B'], (5,0), 'CD', 3.4, 1.0) + hgt(PT['O'], (4,-4), 'CD', -3.6, 1.0)
 s += line(PT['A'],PT['O'],GOLD,1.0) + line(PT['B'],PT['C'],GOLD,1.0) + tick((2,0), True) + tick((7,-4), True) + names()
-V['у треугольников OBC и AOB одна высота CD'] = fig(svg(s, 'OBC и AOB'),
+V['у треугольников OBC и AOB общая высота CD'] = fig(svg(s, 'OBC и AOB'),
   f"{cname('AOB')} и {cname('OBC')}: основания AO = BC, высота у обоих CD.")
 
 json.dump(V, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)

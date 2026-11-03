@@ -380,3 +380,16 @@ These conventions are load-bearing across all materials — keep them.
     вслух, какую мысль показывает именно движение; не назвал — статика. В сборке за это отвечает класс `fx` на
     `<figure>` (без него иллюстрация статична) и классы `dr` / `fi` / `sl` внутри SVG; у анимированной фигуры
     появляется кнопка «↻ ещё раз».
+
+16. **Факт — не раньше нужды в нём** (нояб 2026, образец №15: «факт даётся раньше, чем в нём возникает нужда»).
+    Every fact, premise, inset technique, notation or auxiliary formula enters at the point where the reader already
+    sees why it is needed: first the need is on screen (a formula with an unknown, a question, a datum that does not
+    yet fit), then the fact that meets it. Applies to all material — textbooks, разборы, ideal solutions.
+    - **Defects:** a block of premises at the top «на всякий случай» (ED ⊥ AD, «CD — расстояние между параллельными»
+      before any height is used); an inset technique placed before the observation that calls for it; a datum quoted
+      on its own line before the observation it serves; a whole step of preparation for later steps (rule 8 (а)).
+    - **Order inside a step:** what is needed → the datum that fits it → the condition that lets it apply → the
+      conclusion («нужно OD : AO» → «дано отношение площадей CDO и AOB, а основания у них как раз OD и AO» → «у них
+      общая высота CD» → «по приёму OD : AO = 5 : 4»).
+    - **Fix:** move the fact to its first use; a side premise becomes a `<small>` justification line right under the
+      observation it supports. The mirror defect — leaning on what comes later — is rule 14 and polirovka class 11.
