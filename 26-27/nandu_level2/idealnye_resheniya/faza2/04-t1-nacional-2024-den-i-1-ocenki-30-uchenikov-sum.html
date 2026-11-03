@@ -151,7 +151,7 @@
   .tldr .openall{display:block;margin:2px 0 10px;background:none;border:1px solid #2b5c3d;color:var(--green);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
   .tldr p.src{font-size:14.5px;margin:14px 0 -8px} .tldr p.src em{color:var(--muted)}
   .res{border-left:3px solid var(--green);background:rgba(88,178,120,.10);border-radius:0 10px 10px 0;padding:8px 18px 10px;margin:18px 0 0}
-  .res .frm{border-left:none;padding-left:0;margin-top:4px} .res p{margin-top:4px} .res table{margin-top:6px}
+  .res .frm{border-left:none;padding-left:0;margin-top:4px} .res p{margin-top:4px} .res table{margin-top:6px} .res > .st:first-child{margin-top:0}
   .note{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:18px 0 0;max-width:none}
   .note p{color:var(--muted);font-size:16px}
 
@@ -328,12 +328,12 @@
 <div class="res st"><div class="frm st">N₃ + 2 · N₄ + 3 · N₅ = 33</div></div>
 <p class="st"><b>Наименьшие значения.</b></p>
 <p class="st">Начнём разбирать остальные условия задачи.</p>
-<p class="st">Каждое из них даёт наименьшее значение одной буквы:</p>
+<p class="st">Каждое из них даёт ограничение на одну или две буквы:</p>
 <div class="st"><div class="tw"><table>
-<tr><th>буква</th><th>условия</th><th>наименьшее значение</th></tr>
-<tr><td>N₂, N₃</td><td><em>«каждую из оценок получил хотя бы один ученик»</em></td><td>1</td></tr>
-<tr><td>N₄</td><td>хотя бы один ученик и <em>«число учеников с оценкой 4 кратно 5»</em></td><td>5</td></tr>
-<tr><td>N₅</td><td>хотя бы один ученик и <em>«число учеников с оценкой 5 чётное»</em></td><td>2</td></tr>
+<tr><th>условие</th><th>ограничение</th></tr>
+<tr><td><em>«каждую из оценок получил хотя бы один ученик»</em></td><td>N₂ ≥ 1, N₃ ≥ 1</td></tr>
+<tr><td>хотя бы один ученик и <em>«число учеников с оценкой 4 кратно 5»</em></td><td>N₄ ≥ 5</td></tr>
+<tr><td>хотя бы один ученик и <em>«число учеников с оценкой 5 чётное»</em></td><td>N₅ ≥ 2</td></tr>
 </table></div></div>
 <div class="res st"><p class="st">N₂ ≥ 1; N₃ ≥ 1; N₄ ≥ 5; N₅ ≥ 2</p></div>
 <p class="st"><b>Наибольшие значения.</b></p>
@@ -356,13 +356,10 @@
 <div class="res st"><div class="frm st">N₅ = 2, 4 или 6</div></div>
 <p class="st"><b>Сводка ограничений.</b></p>
 <p class="st">N₂ и N₃ находятся, когда выбраны N₄ и N₅: N₃ — из уравнения, N₂ — из <em>«30 учеников»</em>.</p>
-<div class="res st"><div class="st"><div class="tw"><table>
-<tr><th>буква</th><th>ограничение</th></tr>
-<tr><td>N₄</td><td>5 или 10</td></tr>
-<tr><td>N₅</td><td>2, 4 или 6</td></tr>
-<tr><td>N₃</td><td>N₃ = 33 − 2 · N₄ − 3 · N₅, и N₃ ≥ 1</td></tr>
-<tr><td>N₂</td><td>N₂ = 30 − N₃ − N₄ − N₅, и N₂ ≥ 1</td></tr>
-</table></div></div></div>
+<div class="res st"><div class="frm st">N₄ = 5 или 10</div>
+<div class="frm st">N₅ = 2, 4 или 6</div>
+<div class="frm st">N₃ = 33 − 2 · N₄ − 3 · N₅ и N₃ ≥ 1</div>
+<div class="frm st">N₂ = 30 − N₃ − N₄ − N₅ и N₂ ≥ 1</div></div>
 <p class="st"><b>У N₄ меньше всего значений ⇒ разбиваем на миры по N₄.</b></p>
 <div id="a5" data-art="5"><div class="plan st"><div class="frm st">Все возможности = <span class="pen2">возможности с N₄ = 5</span> и <span class="pen3">возможности с N₄ = 10</span></div></div></div>
 <p class="sec st"><b>1. Возможности с N₄ = 5.</b></p>
