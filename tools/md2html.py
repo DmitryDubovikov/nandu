@@ -541,6 +541,8 @@ def doc_kind(src_path):
     name = os.path.basename(src_path or '')
     if '_idealnye' in name:
         return 'idealnye'   # идеальные решения образцов: одна колонка, без остатка и без боевой записи
+    if '_paket_' in name:
+        return 'single'     # пакеты этапа Г: сплошная страница без левой колонки (решение родителя 3.11.2026)
     if '_kombinatorika_' in name:
         return 'single'     # учебник комбинаторики: одна колонка, без сухого остатка (решение родителя 24.10.2026)
     if name.startswith('math5_') and '_uchebnik' in name:
@@ -959,7 +961,7 @@ def build_pages(md, visuals=None, src_path=None):
         prev = f'<a href="{names[n-1]}">← {html.escape(plain(chapters[n-1]["title"]))}</a>' if n else ''
         nxt = f'<a href="{names[n+1]}">{html.escape(plain(chapters[n+1]["title"]))} →</a>' if n < len(chapters) - 1 else ''
         chapnav = (f'<a href="index.html">все главы</a> · {n+1} из {len(chapters)}')
-        partlab = f'<p class="chapnav">{chapnav}</p>' if kind == 'single' else ''
+        partlab = f'<p class="chapnav">{chapnav}</p>' if kind == 'single' and len(chapters) > 1 else ''
         if c.get('ispart'):
             shown_part = c['title']   # заголовок части уже стоит титулом страницы
         if c['part'] and c['part'] != shown_part:
