@@ -18,7 +18,8 @@
 3. **Прочитай до начала:** правило 7 и правила 8–16 `CLAUDE.md`; `idealnye_resheniya/_md/CHECKLIST.md`; идеальный
    образец типа (таблица «Образец каждого из 17 типов» в `resheniya_korpusa/PROMPT_sleduyushchiy_tip.md`); реестр
    приёмов — §5 `nandu_n2_obraztsy.md` и вердикты §4 этого типа; решения корпуса типа —
-   `resheniya_korpusa/<код>/_md/` и таблицу новых приёмов и отступлений наверху `resheniya_korpusa/<код>/index.html`.
+   `resheniya_korpusa/<код>/_md/`; новые приёмы и отступления от образца по задачам печатает
+   `python3 26-27/nandu_level2/resheniya_korpusa/sobrat.py <код>`.
 
 ## Шаг 1 — страница приёмов (пишешь сам, это единственное, что я читаю)
 
