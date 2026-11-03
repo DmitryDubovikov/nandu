@@ -206,10 +206,13 @@ These conventions are load-bearing across all materials — keep them.
    and 70 % (round 2) — same move, only the counting cut, new plots, each with a full solution in the model's shape and
    a brute-force-checked answer, unfit if brute force beats the move; **recognition statements** in **separate new
    plots** (a round problem shown again would be remembered; the level-1 corpus is not new to the child either), each
-   with the move and the «ответ = операнды» formula, checked by a blind agent naming the same move. Counts per type:
-   enumeration types (Т3…Т3‴, Т1″, Т1‴, Т4, Т4′, Т5, Т6) 4–5 / 2–3 / 6–8, the other seven 1 / 1 / 2 — weight by
-   trouble, nobody dropped; (3) **rounds 1 and 2 by type**, in tour order, one session = one type (the parent: focused
-   load on one muscle consolidates the move; no mixed warm-ups inside them); each type of round 2 closes with one
+   with the move and the «ответ = операнды» formula, checked by a blind agent naming the same move. Counts per type
+   (3 Nov 2026, between frequency and trouble): round problems by priority = importance × trouble k (importance 1–10
+   = chance of meeting the type on national 0.5 / provincial 0.2 / qualifying 0.3, table in
+   `nandu_n2_tipologia_svodnaya.md`; k = 1 enumeration, 0.7 new level-2 geometry, 0.5 known from level 1),
+   recognition statements by trouble alone (every enumeration type ≥ 6, however rare); floor 1 / 1 / 2, nobody
+   dropped; the table is in the roadmap; (3) **rounds 1 and 2 by type**, in tour order, one session = one type (the
+   parent: focused load on one muscle consolidates the move; no mixed warm-ups inside them); each type of round 2 closes with one
    battle corpus problem; **round 3 mixed and unlabelled**: the recognition statements (write examples, name the move
    and formula, stop before the mechanics, ≤ 10 min) plus 100 % new-plot problems on time — its size is set from the
    journal of rounds 1–2; (4) **battle** in two separate windows, before provincial + regional and before national
@@ -295,6 +298,9 @@ These conventions are load-bearing across all materials — keep them.
    **A section heading names what the section finds** (окт 2026): the plan formula is written through named operands
    — N(паролей) = N(букв на месте 1) · N(мест для 7) · N(заполнений свободных мест) — and each heading is one of them
    («2. N(заполнений свободных мест).»), never a description («2. Два свободных места»); the section ends «N(…) = число».
+   **In doubt how to name an unknown — x, unless contraindicated** (нояб 2026, решение родителя): not when x is taken,
+   not when the quantity has its English-initial letter (b, w, g) or a settled notation (N(…), S(…)); never Latin c, a, o,
+   y, k — they read as Russian с, а, о, у, к. Details: `idealnye_resheniya/_md/CHECKLIST.md`.
    **Digits only for numbers, words only for counts and sets** (окт 2026): a number standing in a cell or an equation is
    written in digits — «3 уже стоит», never «тройка уже стоит»; words name a count or a group — «три места», «четыре
    числа», «тройка» = a tuple of three. Formulas are exempt (4 · 3 = 12). Applies to every ideal solution.
