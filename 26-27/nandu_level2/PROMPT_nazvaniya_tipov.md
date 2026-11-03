@@ -58,7 +58,6 @@
 
 Внеси принятые названия и определения: `nandu_n2_tipologia_svodnaya.md`, таблицы `nandu_n2_roadmap.md`,
 `nandu_n2_obraztsy.md`, раздел Domain model в `CLAUDE.md`, промпты `pakety/PROMPT_sleduyushchiy_paket.md` (заголовок
-страницы приёмов = `# <код> — <название>` + определение) и `resheniya_korpusa/PROMPT_sleduyushchiy_tip.md`; шапку
-готовой страницы `pakety/T1/T1_stranica.md`, пересобери её (`python3 26-27/nandu_level2/pakety/sobrat.py T1`).
+страницы приёмов = `# <код> — <название>` + определение) и `resheniya_korpusa/PROMPT_sleduyushchiy_tip.md`.
 Перенос задач между типами — только тех, что я подтвердил, в `nandu_n2_klassifikaciya.csv`. Закоммить только свои
 файлы.
