@@ -55,11 +55,11 @@ V['ABCD и OBCD — трапеции с высотой CD'] = fig(svg(s, 'Пря
 # 3–6. артефакт: каждое спрошенное
 s = full() + fill(['C','D','O'], BLUE) + fill(['O','D','E'], GREEN) + line(PT['O'],PT['D'],GOLD,1.1) + names()
 V['а) площадь CEO'] = fig(svg(s, 'CEO = CDO + ODE'),
-  "<b style='color:#5ba8f5'>CDO</b> и <b style='color:#5fd38d'>ODE</b>, общий катет OD.")
+  "<b style='color:#5ba8f5'>CDO</b> и <b style='color:#5fd38d'>ODE</b>.")
 s = full() + fill(['A','D','E'], GOLD, 0.4) + rangle(PT['D'], -1, 1, LAB) + names()
-V['б) площадь ADE'] = fig(svg(s, 'ADE'), "Катеты AD и DE.")
+V['б) площадь ADE'] = fig(svg(s, 'ADE'), '')
 s = full() + fill(['A','B','C','D'], GOLD, 0.4) + line(PT['C'],PT['D'],LAB,1.1) + names()
-V['в) площадь ABCD'] = fig(svg(s, 'ABCD'), "Основания AD и BC, высота CD.")
+V['в) площадь ABCD'] = fig(svg(s, 'ABCD'), '')
 s = full() + fill(['O','B','C','D'], BLUE) + fill(['O','D','E'], GREEN) + line(PT['O'],PT['D'],GOLD,1.1) + names()
 V['г) площадь BCEO'] = fig(svg(s, 'BCEO = OBCD + ODE'),
   "<b style='color:#5ba8f5'>OBCD</b> и <b style='color:#5fd38d'>ODE</b>.")
