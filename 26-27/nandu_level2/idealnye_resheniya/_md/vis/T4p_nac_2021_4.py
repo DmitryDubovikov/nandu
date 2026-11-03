@@ -63,33 +63,28 @@ V = {}
 V['В какой строке и каком столбце стоит 2021?'] = fig(
     svg(table(), 'Таблица из условия', cx(15) + 10, 560), 'Таблица из условия; строки и столбцы пронумерованы.')
 
-# направление: у столбцов 1 и 8 одна пустая клетка (строка 7), но 1 — вниз, 8 — вверх
-def direction():
-    s = table(col_of=lambda r, c: LAB if c in (1, 8) else DIM)
-    s += ARR.format('d').replace("markerWidth='4' markerHeight='4'", "markerWidth='3' markerHeight='3'")
-    for c, col, down in ((1, GOLD, True), (8, BLUE, False)):
+# выписанные признаки столбцов 1–14: схема без чисел, как от руки — пустая клетка золотом, стрелка направления
+def features():
+    w, h, gap, y0 = 5, 3.2, 3.2, 6                # мини-клетка, промежуток между столбцами, верх клеток
+    s = ARR.format('f').replace("markerWidth='4' markerHeight='4'", "markerWidth='3' markerHeight='3'")
+    def lab(y, t, col):
+        return f"<text x='4' y='{y:.1f}' fill='{col}' font-size='2.6' text-anchor='end' font-weight='600'>{t}</text>"
+    for c in range(1, 15):
+        x = 8 + (c - 1) * (w + gap)
+        s += txt(x + w / 2, y0 - 2, c, MUT, 2.6)
+        blank = 7 - (c - 1) % 7
         for r in range(1, 8):
-            s += cell(cx(c), r, col, 0.22 if (r, c) in T else 0.5, col, 0.8)
-        y1, y2 = cy(1) + 1.2, cy(7) + CH - 1.2
-        a, b = (y1, y2) if down else (y2, y1)
-        s += f"<path d='M{cx(c) + 1.6:.1f} {a:.1f}V{b:.1f}' stroke='{col}' stroke-width='0.8' marker-end='url(#ahd)'/>"
-    return s
-V['но столбец 1 заполняется вниз, а столбец 8 вверх'] = fig(svg(direction(), 'Столбцы 1 и 8', cx(15) + 10, 560),
-                                                           'Столбцы 1 и 8: пустая клетка в строке 7, направления разные.')
-
-# пустые клетки: лесенка снизу вверх, повтор через 7 столбцов
-def blanks():
-    s = table(col_of=lambda r, c: DIM, heads=True)
-    for k in (0, 7):
-        pts = []
-        for c in range(1 + k, 8 + k):
-            r = 7 - (c - 1) % 7
-            s += cell(cx(c), r, GOLD, 0.45, GOLD, 0.8)
-            pts.append((cx(c) + CW / 2, cy(r) + CH / 2))
-        s += f"<polyline points='{' '.join(f'{x:.1f},{y:.1f}' for x, y in pts)}' fill='none' stroke='{GOLD}' stroke-width='0.6' stroke-dasharray='1.2 1'/>"
-    return s
-V['в следующем столбце она на строку выше'] = fig(svg(blanks(), 'Пустые клетки', cx(15) + 10, 560),
-                                                'Пустые клетки: строки 7, 6, …, 1 и снова 7.')
+            on = r == blank
+            s += (f"<rect x='{x}' y='{y0 + (r - 1) * h:.1f}' width='{w}' height='{h}' "
+                  f"fill='{GOLD if on else 'none'}' fill-opacity='0.55' stroke='{GOLD if on else DIM}' stroke-width='{0.6 if on else 0.3}'/>")
+        a, b = (y0 + 0.8, y0 + 7 * h - 0.8) if c % 2 else (y0 + 7 * h - 0.8, y0 + 0.8)
+        s += f"<path d='M{x + w / 2} {a:.1f}V{b:.1f}' stroke='{BLUE}' stroke-width='0.7' marker-end='url(#ahf)'/>"
+        s += txt(x + w / 2, y0 + 7 * h + 4.4, blank, GOLD, 3, '700')
+        s += txt(x + w / 2, y0 + 7 * h + 9, '↓' if c % 2 else '↑', BLUE, 3.4, '700')
+    s += lab(y0 - 2, 'столбец', MUT) + lab(y0 + 7 * h + 4.4, 'пустая клетка', GOLD) + lab(y0 + 7 * h + 9, 'направление', BLUE)
+    vb = f"-20 0 {8 + 14 * (w + gap) + 22:.0f} {y0 + 7 * h + 12:.0f}"
+    return f"<svg viewBox='{vb}' role='img' aria-label='Столбцы 1–14' style='max-width:520px'>{s}</svg>"
+V['Выпишем строку пустой клетки и направление для столбцов 1–14'] = fig(features(), 'Столбцы 1–14: строка пустой клетки и направление.')
 
 # правило (*): копия столбца 1 переезжает на место столбца 15, числа становятся на 168 больше
 def rule():
