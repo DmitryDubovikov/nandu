@@ -324,40 +324,40 @@
 <h4 class="st">Часть 1 — запись системы</h4>
 <p class="st">s, t, j — сколько долларов стоит без скидки одна рубашка, одна пара брюк, один джемпер.</p>
 <p class="st"><em>«5А заказал 4 рубашки, 4 пары брюк и 5 джемперов и заплатил $500»</em> ⇒</p>
-<div id="a0" data-art="0"><div class="frm st">(1) (4 · s) + (4 · t) + (5 · j) = 500</div></div>
+<div id="a0" data-art="0"><div class="frm st">(1) 4s + 4t + 5j = 500</div></div>
 <p class="st"><em>«5Б заказал 4 рубашки, 4 пары брюк и 10 джемперов и заплатил $740»</em> ⇒ в заказе 10 джемперов, а скидка даётся, <em>«если в заказе не меньше 10 джемперов»</em> ⇒ на джемперы 5Б действует скидка.</p>
 <p class="st"><b>Дано:</b> <em>«скидку 10 % на джемперы»</em> ⇒ за джемпер платят 100 − 10 = 90 % его цены.</p>
-<div id="a1" data-art="1"><div class="frm st">(2) (4 · s) + (4 · t) + (10 · (j · 90/100)) = 740</div></div>
+<div id="a1" data-art="1"><div class="frm st">(2) 4s + 4t + (10(j · 90/100)) = 740</div></div>
 <p class="st"><em>«Заказ 5В из 4 рубашек и 2 джемперов стоит столько же, сколько заказ 5Г из 6 пар брюк»</em> ⇒ приравняем стоимости двух заказов:</p>
-<div id="a2" data-art="2"><div class="frm st">(3) (4 · s) + (2 · j) = (6 · t)</div></div>
+<div id="a2" data-art="2"><div class="frm st">(3) 4s + 2j = 6t</div></div>
 <p class="st">⚠ Скидка 10 % значит, что за джемпер платят 90 % его цены, а не 10 %.</p>
 <p class="st">⚠ Скидка есть только в (2): в заказах 5А и 5В меньше 10 джемперов, поэтому в (1) и (3) джемпер стоит полную цену.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) 4 · s + 4 · t + 5 · j = 500
-(2) 4 · s + 4 · t + 10 · j · 90/100 = 740
-(3) 4 · s + 2 · j = 6 · t                     | : 2   | − 3 · t</pre>
+<pre class="sys st">(1) 4s + 4t + 5j = 500
+(2) 4s + 4t + 10j · 90/100 = 740
+(3) 4s + 2j = 6t                     | : 2   | − 3t</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) <span class="pen2">4 · s + 4 · t</span> + 5 · j = 500
-(2) <span class="pen2">4 · s + 4 · t</span> + 9 · j = 740
-(3) 2 · s − 3 · t + j = 0</pre>
+<pre class="sys st">(1) <span class="pen2">4s + 4t</span> + 5j = 500
+(2) <span class="pen2">4s + 4t</span> + 9j = 740
+(3) 2s − 3t + j = 0</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(2) − (1)</span>   4 · j = 240    | : 4
+<pre class="sys st"><span class="pen2">(2) − (1)</span>   4j = 240    | : 4
               j = 60</pre>
 <p class="st"><b>Система:</b> j найдено, подставляется в (1) и (3).</p>
-<pre class="sys st">(1) 4 · s + 4 · t + 5 · <span class="pen1">60</span> = 500
-(3) 2 · s − 3 · t + <span class="pen1">60</span> = 0
+<pre class="sys st">(1) 4s + 4t + 5 · <span class="pen1">60</span> = 500
+(3) 2s − 3t + <span class="pen1">60</span> = 0
 j = 60</pre>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(4) 4 · s + 4 · t = 200    | : 4
-(5) 2 · s − 3 · t = −60
+<pre class="sys st">(4) 4s + 4t = 200    | : 4
+(5) 2s − 3t = −60
 j = 60</pre>
 <p class="st"><b>Причёсанная система:</b></p>
 <pre class="sys st">(4) <span class="pen3">s</span> + t = 50
-(5) <span class="pen3">2 · s</span> − 3 · t = −60
+(5) <span class="pen3">2s</span> − 3t = −60
 j = 60</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">2 · (4) − (5)</span>   5 · t = 160    | : 5
+<pre class="sys st"><span class="pen3">2 · (4) − (5)</span>   5t = 160    | : 5
                   t = 32
 (4)               s = 50 − <span class="pen1">32</span> = 18</pre>
 <p class="st"><b>Система решена:</b></p>

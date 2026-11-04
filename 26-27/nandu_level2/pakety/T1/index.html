@@ -334,37 +334,37 @@
 <tr><td>«если бы» 2 (3 м льна → шёлк)</td><td>12 + 3</td><td>18 − 3</td><td>30</td></tr>
 </table></div></div>
 <p class="st"><em>«Весь заказ стоит $1032»</em> ⇒</p>
-<div id="a0" data-art="0"><div class="frm st">(1) (12 · s) + (18 · l) + (30 · w) = 1032</div></div>
+<div id="a0" data-art="0"><div class="frm st">(1) 12s + 18l + 30w = 1032</div></div>
 <p class="st"><em>«…то заказ стоил бы $1128»</em> — по строке «если бы» 1 ⇒</p>
-<div id="a1" data-art="1"><div class="frm st">(2) (12 · s) + (30 · l) + (18 · w) = 1128</div></div>
+<div id="a1" data-art="1"><div class="frm st">(2) 12s + 30l + 18w = 1128</div></div>
 <p class="st"><em>«…то заказ стоил бы $1095»</em> — по строке «если бы» 2 ⇒</p>
-<div id="a2" data-art="2"><div class="frm st">(3) ((12 + 3) · s) + ((18 − 3) · l) + (30 · w) = 1095</div></div>
+<div id="a2" data-art="2"><div class="frm st">(3) (12 + 3)s + (18 − 3)l + 30w = 1095</div></div>
 <p class="st">⚠ В (2) меняются только метры льна и шерсти, цена метра каждой ткани не меняется.</p>
 <p class="st">⚠ В (3) 3 м льна не пропадают, а становятся шёлком: шёлка 15 м, а не 12 м.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) 12 · s + 18 · l + 30 · w = 1032    | : 6
-(2) 12 · s + 30 · l + 18 · w = 1128    | : 6
-(3) (12 + 3) · s + (18 − 3) · l + 30 · w = 1095    | : 15</pre>
+<pre class="sys st">(1) 12s + 18l + 30w = 1032    | : 6
+(2) 12s + 30l + 18w = 1128    | : 6
+(3) (12 + 3)s + (18 − 3)l + 30w = 1095    | : 15</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) <span class="pen2">2 · s</span> + 3 · l + 5 · w = 172
-(2) <span class="pen2">2 · s</span> + 5 · l + 3 · w = 188
-(3) s + l + 2 · w = 73</pre>
+<pre class="sys st">(1) <span class="pen2">2s</span> + 3l + 5w = 172
+(2) <span class="pen2">2s</span> + 5l + 3w = 188
+(3) s + l + 2w = 73</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(2) − (1)</span>   2 · l − 2 · w = 16    | : 2
+<pre class="sys st"><span class="pen2">(2) − (1)</span>   2l − 2w = 16    | : 2
               (4) l − w = 8</pre>
 <p class="st"><b>Система:</b> (4) встаёт на место (2).</p>
-<pre class="sys st">(1) <span class="pen3">2 · s</span> + 3 · l + 5 · w = 172
-(3) <span class="pen3">s</span> + l + 2 · w = 73
+<pre class="sys st">(1) <span class="pen3">2s</span> + 3l + 5w = 172
+(3) <span class="pen3">s</span> + l + 2w = 73
 (4) l − w = 8</pre>
 <p class="st"><b>Ходы:</b></p>
 <pre class="sys st"><span class="pen3">(1) − 2 · (3)</span>   (5) l + w = 26</pre>
 <p class="st"><b>Система:</b> (5) встаёт на место (1).</p>
-<pre class="sys st">(3) s + l + 2 · w = 73
+<pre class="sys st">(3) s + l + 2w = 73
 (4) l − <span class="pen4">w</span> = 8
 (5) l + <span class="pen4">w</span> = 26</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen4">(4) + (5)</span>   2 · l = 34    | : 2
+<pre class="sys st"><span class="pen4">(4) + (5)</span>   2l = 34    | : 2
               l = 17
 (5)           w = 26 − <span class="pen1">17</span> = 9</pre>
 <p class="st"><b>Система:</b> l и w найдены, подставляются в (3).</p>
@@ -384,47 +384,47 @@ w = 9</pre>
 <p class="st">Если в условии кроме настоящего набора есть воображаемый («если бы … было вдвое больше, а … вдвое меньше»), то рисуем таблицу «настоящая / «если бы»», и данные воображаемого набора записываем по строке «если бы».</p>
 <div class="card task st"><span class="tag">Условие</span><p>За утро почта приняла посылки по 1 кг, по 2 кг и по 5 кг. Известно:</p><ul class="st"><li>всего почта приняла 48 посылок;</li><li>все посылки вместе весят 100 кг;</li><li>если бы посылок по 5 кг было вдвое больше, а посылок по 2 кг — вдвое меньше, то все посылки вместе весили бы 129 кг.</li></ul><p>Сколько посылок каждого веса приняла почта?</p></div>
 <h4 class="st">Часть 1 — запись системы</h4>
-<p class="st">p1, p2, p5 — сколько почта приняла посылок по 1 кг, 2 кг, 5 кг.</p>
+<p class="st">p₁, p₂, p₅ — сколько почта приняла посылок по 1 кг, 2 кг, 5 кг.</p>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>1 кг</th><th>2 кг</th><th>5 кг</th></tr>
-<tr><td>настоящая</td><td>p1</td><td>p2</td><td>p5</td></tr>
-<tr><td>«если бы»</td><td>p1</td><td>p2 : 2</td><td>2 · p5</td></tr>
+<tr><td>настоящая</td><td>p₁</td><td>p₂</td><td>p₅</td></tr>
+<tr><td>«если бы»</td><td>p₁</td><td>p₂ : 2</td><td>2p₅</td></tr>
 </table></div></div>
 <p class="st"><em>«Всего почта приняла 48 посылок»</em> ⇒</p>
-<div id="a3" data-art="3"><div class="frm st">(1) p1 + p2 + p5 = 48</div></div>
+<div id="a3" data-art="3"><div class="frm st">(1) p₁ + p₂ + p₅ = 48</div></div>
 <p class="st"><em>«…все посылки вместе весят 100 кг»</em> ⇒</p>
-<div id="a4" data-art="4"><div class="frm st">(2) (1 · p1) + (2 · p2) + (5 · p5) = 100</div></div>
+<div id="a4" data-art="4"><div class="frm st">(2) 1p₁ + 2p₂ + 5p₅ = 100</div></div>
 <p class="st"><em>«…то все посылки вместе весили бы 129 кг»</em> — по строке «если бы» ⇒</p>
-<div id="a5" data-art="5"><div class="frm st">(3) (1 · p1) + (2 · (p2 : 2)) + (5 · (2 · p5)) = 129</div></div>
+<div id="a5" data-art="5"><div class="frm st">(3) 1p₁ + (2(p₂ : 2)) + (5(2p₅)) = 129</div></div>
 <p class="st">⚠ В (3) количества посылок по 2 кг и по 5 кг — из строки «если бы», а не настоящие.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) p1 + p2 + p5 = 48
-(2) p1 + 2 · p2 + 5 · p5 = 100
-(3) p1 + 2 · (p2 : 2) + 5 · 2 · p5 = 129</pre>
+<pre class="sys st">(1) p₁ + p₂ + p₅ = 48
+(2) p₁ + 2p₂ + 5p₅ = 100
+(3) p₁ + 2(p₂ : 2) + 5 · 2p₅ = 129</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) <span class="pen2">p1 + p2</span> + p5 = 48
-(2) p1 + 2 · p2 + 5 · p5 = 100
-(3) <span class="pen2">p1 + p2</span> + 10 · p5 = 129</pre>
+<pre class="sys st">(1) <span class="pen2">p₁ + p₂</span> + p₅ = 48
+(2) p₁ + 2p₂ + 5p₅ = 100
+(3) <span class="pen2">p₁ + p₂</span> + 10p₅ = 129</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(3) − (1)</span>   9 · p5 = 81    | : 9
-              p5 = 9</pre>
-<p class="st"><b>Система:</b> p5 найдено, подставляется в (1) и (2).</p>
-<pre class="sys st">(1) p1 + p2 + <span class="pen1">9</span> = 48
-(2) p1 + 2 · p2 + 5 · <span class="pen1">9</span> = 100
-p5 = 9</pre>
+<pre class="sys st"><span class="pen2">(3) − (1)</span>   9p₅ = 81    | : 9
+              p₅ = 9</pre>
+<p class="st"><b>Система:</b> p₅ найдено, подставляется в (1) и (2).</p>
+<pre class="sys st">(1) p₁ + p₂ + <span class="pen1">9</span> = 48
+(2) p₁ + 2p₂ + 5 · <span class="pen1">9</span> = 100
+p₅ = 9</pre>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(4) <span class="pen3">p1</span> + p2 = 39
-(5) <span class="pen3">p1</span> + 2 · p2 = 55
-p5 = 9</pre>
+<pre class="sys st">(4) <span class="pen3">p₁</span> + p₂ = 39
+(5) <span class="pen3">p₁</span> + 2p₂ = 55
+p₅ = 9</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">(5) − (4)</span>   p2 = 16
-(4)           p1 = 39 − <span class="pen1">16</span> = 23</pre>
+<pre class="sys st"><span class="pen3">(5) − (4)</span>   p₂ = 16
+(4)           p₁ = 39 − <span class="pen1">16</span> = 23</pre>
 <p class="st"><b>Система решена:</b></p>
-<pre class="sys st">p1 = 23
-p2 = 16
-p5 = 9</pre>
-<p class="st"><b>Проверка</b> — подстановка в (2) и (3), и половина p2 — целое число:</p>
+<pre class="sys st">p₁ = 23
+p₂ = 16
+p₅ = 9</pre>
+<p class="st"><b>Проверка</b> — подстановка в (2) и (3), и половина p₂ — целое число:</p>
 <ul class="st"><li>(2): 23 + 32 + 45 = 100 ✓</li><li>(3): 23 + 16 + 90 = 129 ✓</li><li>16 : 2 = 8 ✓</li></ul>
 <p class="st"><b>Ответ на задачу:</b> почта приняла 23 посылки по 1 кг, 16 посылок по 2 кг и 9 посылок по 5 кг.</p>
 <h3 class="st">3. Доля и скидка — множителем после целого</h3>
@@ -441,32 +441,32 @@ p5 = 9</pre>
 <p class="st"><em>«Всего заказано 20 пицц»</em> ⇒</p>
 <div id="a6" data-art="6"><div class="frm st">(1) v + m + p = 20</div></div>
 <p class="st"><em>«…только на грибные пиццы, то за весь заказ надо заплатить $238»</em> — по строке «скидка на грибные» ⇒</p>
-<div id="a7" data-art="7"><div class="frm st">(2) (8 · v) + ((12 · 75/100) · m) + (16 · p) = 238</div></div>
+<div id="a7" data-art="7"><div class="frm st">(2) 8v + (12 · 75/100)m + 16p = 238</div></div>
 <p class="st"><em>«…только на пиццы пепперони, то за весь заказ надо заплатить $220»</em> — по строке «скидка на пепперони» ⇒</p>
-<div id="a8" data-art="8"><div class="frm st">(3) (8 · v) + (12 · m) + ((16 · 75/100) · p) = 220</div></div>
+<div id="a8" data-art="8"><div class="frm st">(3) 8v + 12m + (16 · 75/100)p = 220</div></div>
 <p class="st">⚠ Скидка 25 % значит, что за пиццу платят 75 % её цены, а не 25 %.</p>
 <p class="st">⚠ Скидка в (2) и в (3) только на один вид пиццы: в (2) пицца пепперони стоит полные $16, в (3) грибная пицца стоит полные $12.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(1) v + m + p = 20
-(2) 8 · v + 12 · 75/100 · m + 16 · p = 238
-(3) 8 · v + 12 · m + 16 · 75/100 · p = 220    | : 4</pre>
+(2) 8v + (12 · 75/100)m + 16p = 238
+(3) 8v + 12m + (16 · 75/100)p = 220    | : 4</pre>
 <p class="st"><b>Причёсанная система:</b></p>
 <pre class="sys st">(1) v + <span class="pen2">m + p</span> = 20
-(2) 8 · v + 9 · m + 16 · p = 238
-(3) 2 · v + <span class="pen2">3 · m + 3 · p</span> = 55</pre>
+(2) 8v + 9m + 16p = 238
+(3) 2v + <span class="pen2">3m + 3p</span> = 55</pre>
 <p class="st"><b>Ходы:</b></p>
 <pre class="sys st"><span class="pen2">3 · (1) − (3)</span>   v = 5</pre>
 <p class="st"><b>Система:</b> v найдено, подставляется в (1) и (2).</p>
 <pre class="sys st">(1) <span class="pen1">5</span> + m + p = 20
-(2) 8 · <span class="pen1">5</span> + 9 · m + 16 · p = 238
+(2) 8 · <span class="pen1">5</span> + 9m + 16p = 238
 v = 5</pre>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(4) <span class="pen3">m</span> + p = 15
-(5) <span class="pen3">9 · m</span> + 16 · p = 198
+(5) <span class="pen3">9m</span> + 16p = 198
 v = 5</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">(5) − 9 · (4)</span>   7 · p = 63    | : 7
+<pre class="sys st"><span class="pen3">(5) − 9 · (4)</span>   7p = 63    | : 7
                   p = 9
 (4)               m = 15 − <span class="pen1">9</span> = 6</pre>
 <p class="st"><b>Система решена:</b></p>
@@ -492,23 +492,23 @@ p = 9</pre>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(1) b · 1/2 + p · 1/2 + m · 1/2 = 255     | · 2
 (2) b · 1/2 + p · 1/2 + m = 360           | · 2
-(3) b · 1/2 + p = b + m · 1/2         | · 2   | − 2 · b − m</pre>
+(3) b · 1/2 + p = b + m · 1/2         | · 2   | − 2b − m</pre>
 <p class="st"><b>Причёсанная система:</b></p>
 <pre class="sys st">(1) <span class="pen2">b + p</span> + m = 510
-(2) <span class="pen2">b + p</span> + 2 · m = 720
-(3) −b + 2 · p − m = 0</pre>
+(2) <span class="pen2">b + p</span> + 2m = 720
+(3) −b + 2p − m = 0</pre>
 <p class="st"><b>Ходы:</b></p>
 <pre class="sys st"><span class="pen2">(2) − (1)</span>   m = 210</pre>
 <p class="st"><b>Система:</b> m найдено, подставляется в (1) и (3).</p>
 <pre class="sys st">(1) b + p + <span class="pen1">210</span> = 510
-(3) −b + 2 · p − <span class="pen1">210</span> = 0
+(3) −b + 2p − <span class="pen1">210</span> = 0
 m = 210</pre>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(4) <span class="pen3">b</span> + p = 300
-(5) <span class="pen3">−b</span> + 2 · p = 210
+(5) <span class="pen3">−b</span> + 2p = 210
 m = 210</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">(4) + (5)</span>   3 · p = 510          | : 3
+<pre class="sys st"><span class="pen3">(4) + (5)</span>   3p = 510          | : 3
               p = 170
 (4)           b = 300 − <span class="pen1">170</span> = 130</pre>
 <p class="st"><b>Система решена:</b></p>
@@ -531,33 +531,33 @@ m = 210</pre>
 <p class="st"><b>Дано:</b> <em>«действует только скидка»</em> ⇒ в день, когда на товар нет скидки, пара стоит две полные цены одной единицы товара.</p>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>пара кукол</th><th>пара мячей</th></tr>
-<tr><td>цена пары в субботу</td><td>d + d · 60/100</td><td>2 · b</td></tr>
-<tr><td>цена пары в воскресенье</td><td>2 · d</td><td>b + b · 50/100</td></tr>
+<tr><td>цена пары в субботу</td><td>d + d · 60/100</td><td>2b</td></tr>
+<tr><td>цена пары в воскресенье</td><td>2d</td><td>b + b · 50/100</td></tr>
 <tr><td>пар в покупке</td><td>2</td><td>3</td></tr>
 </table></div></div>
 <p class="st"><em>«…в субботу, то заплатит $232»</em> — по строке «цена пары в субботу» ⇒</p>
-<div id="a12" data-art="12"><div class="frm st">(1) (2 · (d + d · 60/100)) + (3 · (2 · b)) = 232</div></div>
+<div id="a12" data-art="12"><div class="frm st">(1) (2(d + d · 60/100)) + (3(2b)) = 232</div></div>
 <p class="st"><em>«…в воскресенье, то заплатит $230»</em> — по строке «цена пары в воскресенье» ⇒</p>
-<div id="a13" data-art="13"><div class="frm st">(2) (2 · (2 · d)) + (3 · (b + b · 50/100)) = 230</div></div>
+<div id="a13" data-art="13"><div class="frm st">(2) (2(2d)) + (3(b + b · 50/100)) = 230</div></div>
 <p class="st">⚠ Скидка 40 % значит, что за вторую куклу платят 60 % её цены, а не 40 %.</p>
 <p class="st">⚠ Скидка действует в каждой паре: из шести мячей со скидкой три, а не один.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) 2 · (d + d · 60/100) + 3 · 2 · b = 232    | · 100 : 40
-(2) 2 · 2 · d + 3 · (b + b · 50/100) = 230    | · 100 : 50</pre>
+<pre class="sys st">(1) 2(d + d · 60/100) + 3 · 2b = 232    | · 100 : 40
+(2) 2 · 2d + 3(b + b · 50/100) = 230    | · 100 : 50</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) <span class="pen2">8 · d</span> + 15 · b = 580
-(2) <span class="pen2">8 · d</span> + 9 · b = 460</pre>
+<pre class="sys st">(1) <span class="pen2">8d</span> + 15b = 580
+(2) <span class="pen2">8d</span> + 9b = 460</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(1) − (2)</span>   6 · b = 120    | : 6
+<pre class="sys st"><span class="pen2">(1) − (2)</span>   6b = 120    | : 6
               b = 20
-(2)           8 · d = 460 − 9 · <span class="pen1">20</span> = 280    | : 8
+(2)           8d = 460 − 9 · <span class="pen1">20</span> = 280    | : 8
               d = 35</pre>
 <p class="st"><b>Система решена:</b></p>
 <pre class="sys st">d = 35
 b = 20</pre>
 <p class="st"><b>Проверка</b> — подстановка в (1) и (2):</p>
-<ul class="st"><li>(1): 2 · (35 + 21) + 3 · (2 · 20) = 112 + 120 = 232 ✓</li><li>(2): 2 · (2 · 35) + 3 · (20 + 10) = 140 + 90 = 230 ✓</li></ul>
+<ul class="st"><li>(1): 2(35 + 21) + 3(2 · 20) = 112 + 120 = 232 ✓</li><li>(2): 2(2 · 35) + 3(20 + 10) = 140 + 90 = 230 ✓</li></ul>
 <h4 class="st">б) Найдём сумму покупки без скидок</h4>
 <p class="st"><b>Дано:</b> <em>«без скидок»</em> ⇒ каждая кукла и каждый мяч в покупке стоят полную цену.</p>
 <div id="a14" data-art="14"><div class="frm st">б) S_{без скидок} = (4 · 35) + (6 · 20) = 140 + 120 = 260</div></div>
@@ -571,23 +571,23 @@ b = 20</pre>
 <p class="st">t, l, w — сколько песо стоит одна чашка чая, один стакан лимонада, одна вафля.</p>
 <p class="st">x — сколько песо стоит заказ из одной чашки чая, одного стакана лимонада и двух вафель.</p>
 <p class="st"><em>«За две чашки чая, один стакан лимонада и три вафли заплатили 690 песо»</em> ⇒</p>
-<div id="a15" data-art="15"><div class="frm st">(1) (2 · t) + (1 · l) + (3 · w) = 690</div></div>
+<div id="a15" data-art="15"><div class="frm st">(1) 2t + 1l + 3w = 690</div></div>
 <p class="st"><em>«За одну чашку чая, два стакана лимонада и три вафли заплатили 660 песо»</em> ⇒</p>
-<div id="a16" data-art="16"><div class="frm st">(2) (1 · t) + (2 · l) + (3 · w) = 660</div></div>
+<div id="a16" data-art="16"><div class="frm st">(2) 1t + 2l + 3w = 660</div></div>
 <p class="st"><em>«Сколько песо стоит заказ из одной чашки чая, одного стакана лимонада и двух вафель?»</em> ⇒</p>
-<div id="a17" data-art="17"><div class="frm st">(3) (1 · t) + (1 · l) + (2 · w) = x</div></div>
+<div id="a17" data-art="17"><div class="frm st">(3) 1t + 1l + 2w = x</div></div>
 <p class="st">⚠ Все три цены по отдельности найти нельзя: неизвестных цен три, а уравнений из условия два.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) <span class="pen2">2 · t + l</span> + 3 · w = 690
-(2) <span class="pen2">t + 2 · l</span> + 3 · w = 660
-(3) t + l + 2 · w = x</pre>
+<pre class="sys st">(1) <span class="pen2">2t + l</span> + 3w = 690
+(2) <span class="pen2">t + 2l</span> + 3w = 660
+(3) t + l + 2w = x</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(1) + (2)</span>   3 · t + 3 · l + 6 · w = 1350    | : 3
-              (4) t + l + 2 · w = 450</pre>
+<pre class="sys st"><span class="pen2">(1) + (2)</span>   3t + 3l + 6w = 1350    | : 3
+              (4) t + l + 2w = 450</pre>
 <p class="st"><b>Система:</b> для x хватает (3) и (4).</p>
-<pre class="sys st">(3) <span class="pen3">t + l + 2 · w</span> = x
-(4) <span class="pen3">t + l + 2 · w</span> = 450</pre>
+<pre class="sys st">(3) <span class="pen3">t + l + 2w</span> = x
+(4) <span class="pen3">t + l + 2w</span> = 450</pre>
 <p class="st"><b>Ходы:</b></p>
 <pre class="sys st"><span class="pen3">(3) − (4)</span>   0 = x − 450    | + 450
               x = 450</pre>
@@ -645,47 +645,47 @@ d = 9</pre>
 <p class="st">Если одна и та же буква стоит в двух уравнениях с разными множителями, то одно уравнение умножаем так, чтобы множители при этой букве сравнялись, и вычитаем: ход <code>(5) − 3 · (4)</code>.</p>
 <div class="card task st"><span class="tag">Условие</span><p>На складе лежат наборы конструктора трёх видов: маленькие по 20 деталей, средние по 30 деталей и большие по 50 деталей. Известно:</p><ul class="st"><li>всего на складе 19 наборов;</li><li>во всех наборах вместе 590 деталей;</li><li>если бы маленьких наборов было вдвое больше, а средних и больших столько же, то во всех наборах было бы 710 деталей.</li></ul><p>Сколько на складе наборов каждого вида?</p></div>
 <h4 class="st">Часть 1 — запись системы</h4>
-<p class="st">s20, s30, s50 — сколько на складе наборов по 20, 30, 50 деталей.</p>
+<p class="st">s₂₀, s₃₀, s₅₀ — сколько на складе наборов по 20, 30, 50 деталей.</p>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>20 деталей</th><th>30 деталей</th><th>50 деталей</th></tr>
-<tr><td>настоящая</td><td>s20</td><td>s30</td><td>s50</td></tr>
-<tr><td>«если бы»</td><td>2 · s20</td><td>s30</td><td>s50</td></tr>
+<tr><td>настоящая</td><td>s₂₀</td><td>s₃₀</td><td>s₅₀</td></tr>
+<tr><td>«если бы»</td><td>2s₂₀</td><td>s₃₀</td><td>s₅₀</td></tr>
 </table></div></div>
 <p class="st"><em>«Всего на складе 19 наборов»</em> ⇒</p>
-<div id="a21" data-art="21"><div class="frm st">(1) s20 + s30 + s50 = 19</div></div>
+<div id="a21" data-art="21"><div class="frm st">(1) s₂₀ + s₃₀ + s₅₀ = 19</div></div>
 <p class="st"><em>«…во всех наборах вместе 590 деталей»</em> ⇒</p>
-<div id="a22" data-art="22"><div class="frm st">(2) (20 · s20) + (30 · s30) + (50 · s50) = 590</div></div>
+<div id="a22" data-art="22"><div class="frm st">(2) 20s₂₀ + 30s₃₀ + 50s₅₀ = 590</div></div>
 <p class="st"><em>«…то во всех наборах было бы 710 деталей»</em> — по строке «если бы» ⇒</p>
-<div id="a23" data-art="23"><div class="frm st">(3) (20 · (2 · s20)) + (30 · s30) + (50 · s50) = 710</div></div>
+<div id="a23" data-art="23"><div class="frm st">(3) (20(2s₂₀)) + 30s₃₀ + 50s₅₀ = 710</div></div>
 <p class="st">⚠ В (3) количество маленьких наборов — из строки «если бы», а не настоящее.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) s20 + s30 + s50 = 19
-(2) 20 · s20 + 30 · s30 + 50 · s50 = 590     | : 10
-(3) 20 · 2 · s20 + 30 · s30 + 50 · s50 = 710     | : 10</pre>
+<pre class="sys st">(1) s₂₀ + s₃₀ + s₅₀ = 19
+(2) 20s₂₀ + 30s₃₀ + 50s₅₀ = 590     | : 10
+(3) 20 · 2s₂₀ + 30s₃₀ + 50s₅₀ = 710     | : 10</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) s20 + s30 + s50 = 19
-(2) 2 · s20 + <span class="pen2">3 · s30 + 5 · s50</span> = 59
-(3) 4 · s20 + <span class="pen2">3 · s30 + 5 · s50</span> = 71</pre>
+<pre class="sys st">(1) s₂₀ + s₃₀ + s₅₀ = 19
+(2) 2s₂₀ + <span class="pen2">3s₃₀ + 5s₅₀</span> = 59
+(3) 4s₂₀ + <span class="pen2">3s₃₀ + 5s₅₀</span> = 71</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(3) − (2)</span>   2 · s20 = 12    | : 2
-              s20 = 6</pre>
-<p class="st"><b>Система:</b> s20 найдено, подставляется в (1) и (2).</p>
-<pre class="sys st">(1) <span class="pen1">6</span> + s30 + s50 = 19
-(2) 2 · <span class="pen1">6</span> + 3 · s30 + 5 · s50 = 59
-s20 = 6</pre>
+<pre class="sys st"><span class="pen2">(3) − (2)</span>   2s₂₀ = 12    | : 2
+              s₂₀ = 6</pre>
+<p class="st"><b>Система:</b> s₂₀ найдено, подставляется в (1) и (2).</p>
+<pre class="sys st">(1) <span class="pen1">6</span> + s₃₀ + s₅₀ = 19
+(2) 2 · <span class="pen1">6</span> + 3s₃₀ + 5s₅₀ = 59
+s₂₀ = 6</pre>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(4) <span class="pen3">s30</span> + s50 = 13
-(5) <span class="pen3">3 · s30</span> + 5 · s50 = 47
-s20 = 6</pre>
+<pre class="sys st">(4) <span class="pen3">s₃₀</span> + s₅₀ = 13
+(5) <span class="pen3">3s₃₀</span> + 5s₅₀ = 47
+s₂₀ = 6</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">(5) − 3 · (4)</span>   2 · s50 = 8    | : 2
-                  s50 = 4
-(4)               s30 = 13 − <span class="pen1">4</span> = 9</pre>
+<pre class="sys st"><span class="pen3">(5) − 3 · (4)</span>   2s₅₀ = 8    | : 2
+                  s₅₀ = 4
+(4)               s₃₀ = 13 − <span class="pen1">4</span> = 9</pre>
 <p class="st"><b>Система решена:</b></p>
-<pre class="sys st">s20 = 6
-s30 = 9
-s50 = 4</pre>
+<pre class="sys st">s₂₀ = 6
+s₃₀ = 9
+s₅₀ = 4</pre>
 <p class="st"><b>Проверка</b> — подстановка в (2) и (3):</p>
 <ul class="st"><li>(2): 120 + 270 + 200 = 590 ✓</li><li>(3): 240 + 270 + 200 = 710 ✓</li></ul>
 <p class="st"><b>Ответ на задачу:</b> на складе 6 маленьких наборов, 9 средних и 4 больших.</p>
@@ -699,27 +699,27 @@ s50 = 4</pre>
 <p class="st"><em>«…пенал стоит столько же, сколько линейка и точилка вместе»</em> ⇒</p>
 <div id="a25" data-art="25"><div class="frm st">(2) p = r + s</div></div>
 <p class="st"><em>«…за один пенал и две линейки платят 105 песо»</em> ⇒</p>
-<div id="a26" data-art="26"><div class="frm st">(3) (1 · p) + (2 · r) = 105</div></div>
+<div id="a26" data-art="26"><div class="frm st">(3) 1p + 2r = 105</div></div>
 <p class="st">⚠ В (1) на 2 делится цена линейки, а не цена точилки.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(1) s = r : 2          | · 2
 (2) p = r + s
-(3) p + 2 · r = 105</pre>
+(3) p + 2r = 105</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) r = 2 · s
+<pre class="sys st">(1) r = 2s
 (2) <span class="pen2">p</span> = r + s
-(3) <span class="pen2">p</span> + 2 · r = 105</pre>
+(3) <span class="pen2">p</span> + 2r = 105</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(2) в (3)</span>   (r + s) + 2 · r = 105
-              (4) 3 · r + s = 105</pre>
+<pre class="sys st"><span class="pen2">(2) в (3)</span>   (r + s) + 2r = 105
+              (4) 3r + s = 105</pre>
 <p class="st"><b>Система:</b> (4) встаёт на место (3).</p>
-<pre class="sys st">(1) <span class="pen3">r</span> = 2 · s
+<pre class="sys st">(1) <span class="pen3">r</span> = 2s
 (2) p = r + s
 (4) 3 · <span class="pen3">r</span> + s = 105</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">(1) в (4)</span>   3 · (2 · s) + s = 105
-              7 · s = 105    | : 7
+<pre class="sys st"><span class="pen3">(1) в (4)</span>   3(2s) + s = 105
+              7s = 105    | : 7
               s = 15
 (1)           r = 2 · <span class="pen1">15</span> = 30</pre>
 <p class="st"><b>Система:</b> s и r найдены, подставляются в (2).</p>

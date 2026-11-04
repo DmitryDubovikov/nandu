@@ -322,48 +322,48 @@
 <h3 class="st">T1-30-1 — прокат лодок</h3>
 <div class="card task st"><span class="tag">Условие</span><p>Пункт проката на озере сдаёт двухместные, четырёхместные и шестиместные лодки. Известно:</p><ul class="st"><li>всего в пункте 25 лодок;</li><li>во всех лодках вместе 102 места;</li><li>если бы четырёхместных лодок было вдвое больше, а шестиместных — вдвое меньше, то всего было бы 26 лодок.</li></ul><p>Сколько в пункте лодок каждого вида?</p></div>
 <h4 class="st">Часть 1 — запись системы</h4>
-<p class="st">b2, b4, b6 — сколько в пункте лодок на 2, 4, 6 мест.</p>
+<p class="st">b₂, b₄, b₆ — сколько в пункте лодок на 2, 4, 6 мест.</p>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>2 места</th><th>4 места</th><th>6 мест</th></tr>
-<tr><td>настоящая</td><td>b2</td><td>b4</td><td>b6</td></tr>
-<tr><td>«если бы»</td><td>b2</td><td>2 · b4</td><td>b6 : 2</td></tr>
+<tr><td>настоящая</td><td>b₂</td><td>b₄</td><td>b₆</td></tr>
+<tr><td>«если бы»</td><td>b₂</td><td>2b₄</td><td>b₆ : 2</td></tr>
 </table></div></div>
 <p class="st"><em>«Всего в пункте 25 лодок»</em> ⇒</p>
-<div id="a0" data-art="0"><div class="frm st">(1) b2 + b4 + b6 = 25</div></div>
+<div id="a0" data-art="0"><div class="frm st">(1) b₂ + b₄ + b₆ = 25</div></div>
 <p class="st"><em>«…во всех лодках вместе 102 места»</em> ⇒</p>
-<div id="a1" data-art="1"><div class="frm st">(2) (2 · b2) + (4 · b4) + (6 · b6) = 102</div></div>
+<div id="a1" data-art="1"><div class="frm st">(2) 2b₂ + 4b₄ + 6b₆ = 102</div></div>
 <p class="st"><em>«…то всего было бы 26 лодок»</em> — по строке «если бы» ⇒</p>
-<div id="a2" data-art="2"><div class="frm st">(3) b2 + (2 · b4) + (b6 : 2) = 26</div></div>
+<div id="a2" data-art="2"><div class="frm st">(3) b₂ + 2b₄ + (b₆ : 2) = 26</div></div>
 <p class="st">⚠ В (3) количества четырёхместных и шестиместных лодок — из строки «если бы», а не настоящие.</p>
 <p class="st">⚠ В (3) считаются лодки, а не места: число мест в лодке (2, 4, 6) в (3) множителем не входит.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) b2 + b4 + b6 = 25
-(2) 2 · b2 + 4 · b4 + 6 · b6 = 102    | : 2
-(3) b2 + 2 · b4 + b6 : 2 = 26         | · 2</pre>
+<pre class="sys st">(1) b₂ + b₄ + b₆ = 25
+(2) 2b₂ + 4b₄ + 6b₆ = 102    | : 2
+(3) b₂ + 2b₄ + b₆ : 2 = 26         | · 2</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) b2 + b4 + b6 = 25
-(2) <span class="pen2">b2 + 2 · b4</span> + 3 · b6 = 51
-(3) <span class="pen2">2 · b2 + 4 · b4</span> + b6 = 52</pre>
+<pre class="sys st">(1) b₂ + b₄ + b₆ = 25
+(2) <span class="pen2">b₂ + 2b₄</span> + 3b₆ = 51
+(3) <span class="pen2">2b₂ + 4b₄</span> + b₆ = 52</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">2 · (2) − (3)</span>   5 · b6 = 50    | : 5
-                  b6 = 10</pre>
-<p class="st"><b>Система:</b> b6 найдено, подставляется в (1) и (2).</p>
-<pre class="sys st">(1) b2 + b4 + <span class="pen1">10</span> = 25
-(2) b2 + 2 · b4 + 3 · <span class="pen1">10</span> = 51
-b6 = 10</pre>
+<pre class="sys st"><span class="pen2">2 · (2) − (3)</span>   5b₆ = 50    | : 5
+                  b₆ = 10</pre>
+<p class="st"><b>Система:</b> b₆ найдено, подставляется в (1) и (2).</p>
+<pre class="sys st">(1) b₂ + b₄ + <span class="pen1">10</span> = 25
+(2) b₂ + 2b₄ + 3 · <span class="pen1">10</span> = 51
+b₆ = 10</pre>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(4) <span class="pen3">b2</span> + b4 = 15
-(5) <span class="pen3">b2</span> + 2 · b4 = 21
-b6 = 10</pre>
+<pre class="sys st">(4) <span class="pen3">b₂</span> + b₄ = 15
+(5) <span class="pen3">b₂</span> + 2b₄ = 21
+b₆ = 10</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">(5) − (4)</span>   b4 = 6
-(4)           b2 = 15 − <span class="pen1">6</span> = 9</pre>
+<pre class="sys st"><span class="pen3">(5) − (4)</span>   b₄ = 6
+(4)           b₂ = 15 − <span class="pen1">6</span> = 9</pre>
 <p class="st"><b>Система решена:</b></p>
-<pre class="sys st">b2 = 9
-b4 = 6
-b6 = 10</pre>
-<p class="st"><b>Проверка</b> — подстановка в (2) и (3), и половина b6 — целое число:</p>
+<pre class="sys st">b₂ = 9
+b₄ = 6
+b₆ = 10</pre>
+<p class="st"><b>Проверка</b> — подстановка в (2) и (3), и половина b₆ — целое число:</p>
 <ul class="st"><li>(2): 18 + 24 + 60 = 102 ✓</li><li>(3): 9 + 12 + 5 = 26 ✓</li><li>10 : 2 = 5 ✓</li></ul>
 <p class="st"><b>Ответ на задачу:</b> в пункте 9 двухместных лодок, 6 четырёхместных и 10 шестиместных.</p>
 <h3 class="st">T1-30-2 — коллекция марок</h3>
@@ -375,29 +375,29 @@ b6 = 10</pre>
 <p class="st"><em>«Если не считать марки с поездами, то марок 44»</em> ⇒</p>
 <div id="a4" data-art="4"><div class="frm st">(2) b + f = 44</div></div>
 <p class="st"><em>«Если не считать марки с цветами, то марок втрое больше, чем если не считать марки с птицами»</em> ⇒ приравняем число марок, кроме марок с цветами, и утроенное число марок, кроме марок с птицами:</p>
-<div id="a5" data-art="5"><div class="frm st">(3) b + t = 3 · (f + t)</div></div>
+<div id="a5" data-art="5"><div class="frm st">(3) b + t = 3(f + t)</div></div>
 <p class="st">⚠ Без марок с цветами остаются марки с птицами и с поездами: слева в (3) стоят b и t, а не f.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(1) b + f + t = 50
 (2) b + f = 44
-(3) b + t = 3 · (f + t)    | − 3 · (f + t)</pre>
+(3) b + t = 3(f + t)    | − 3(f + t)</pre>
 <p class="st"><b>Причёсанная система:</b></p>
 <pre class="sys st">(1) <span class="pen2">b + f</span> + t = 50
 (2) <span class="pen2">b + f</span> = 44
-(3) b − 3 · f − 2 · t = 0</pre>
+(3) b − 3f − 2t = 0</pre>
 <p class="st"><b>Ходы:</b></p>
 <pre class="sys st"><span class="pen2">(1) − (2)</span>   t = 6</pre>
 <p class="st"><b>Система:</b> t найдено, подставляется в (3).</p>
 <pre class="sys st">(2) b + f = 44
-(3) b − 3 · f − 2 · <span class="pen1">6</span> = 0
+(3) b − 3f − 2 · <span class="pen1">6</span> = 0
 t = 6</pre>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(2) <span class="pen3">b</span> + f = 44
-(4) <span class="pen3">b</span> − 3 · f = 12
+(4) <span class="pen3">b</span> − 3f = 12
 t = 6</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen3">(2) − (4)</span>   4 · f = 32    | : 4
+<pre class="sys st"><span class="pen3">(2) − (4)</span>   4f = 32    | : 4
               f = 8
 (2)           b = 44 − <span class="pen1">8</span> = 36</pre>
 <p class="st"><b>Система решена:</b></p>
@@ -405,7 +405,7 @@ t = 6</pre>
 f = 8
 t = 6</pre>
 <p class="st"><b>Проверка</b> — подстановка в (1) и (3):</p>
-<ul class="st"><li>(1): 36 + 8 + 6 = 50 ✓</li><li>(3): 36 + 6 = 42 и 3 · (8 + 6) = 3 · 14 = 42 ✓</li></ul>
+<ul class="st"><li>(1): 36 + 8 + 6 = 50 ✓</li><li>(3): 36 + 6 = 42 и 3(8 + 6) = 3 · 14 = 42 ✓</li></ul>
 <p class="st"><b>Ответ на задачу:</b> в коллекции 36 марок с птицами, 8 марок с цветами и 6 марок с поездами.</p>
 <div class="pager"></div>
 </main>

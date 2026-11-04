@@ -322,63 +322,63 @@
 <h3 class="st">T1-70-1 — номера гостиницы</h3>
 <div class="card task st"><span class="tag">Условие</span><p>В гостинице есть номера на 1, 2, 3 и 4 человека. Известно:</p><ul class="st"><li>всего в гостинице 146 номеров;</li><li>если заселить все номера полностью, то в них поместятся 306 человек;</li><li>если бы номеров на 1 человека было вдвое больше, а номеров на 4 человека — вдвое меньше, то всего было бы 183 номера;</li><li>и в них поместились бы 316 человек;</li><li>ночь в номере на 1 человека стоит $30, на 2 человека $50, на 3 человека $60, на 4 человека $70.</li></ul><p>Вопросы:</p><ul class="st"><li>а) Сколько в гостинице номеров каждого вида?</li><li>б) Сколько долларов получит гостиница за одну ночь, если заняты все номера?</li></ul></div>
 <h4 class="st">Часть 1 — запись системы</h4>
-<p class="st">r1, r2, r3, r4 — сколько в гостинице номеров на 1, 2, 3, 4 человека.</p>
+<p class="st">r₁, r₂, r₃, r₄ — сколько в гостинице номеров на 1, 2, 3, 4 человека.</p>
 <div class="st"><div class="tw"><table>
 <tr><th></th><th>на 1</th><th>на 2</th><th>на 3</th><th>на 4</th></tr>
-<tr><td>настоящая</td><td>r1</td><td>r2</td><td>r3</td><td>r4</td></tr>
-<tr><td>«если бы»</td><td>2 · r1</td><td>r2</td><td>r3</td><td>r4 : 2</td></tr>
+<tr><td>настоящая</td><td>r₁</td><td>r₂</td><td>r₃</td><td>r₄</td></tr>
+<tr><td>«если бы»</td><td>2r₁</td><td>r₂</td><td>r₃</td><td>r₄ : 2</td></tr>
 </table></div></div>
 <p class="st"><em>«Всего в гостинице 146 номеров»</em> ⇒</p>
-<div id="a0" data-art="0"><div class="frm st">(1) r1 + r2 + r3 + r4 = 146</div></div>
+<div id="a0" data-art="0"><div class="frm st">(1) r₁ + r₂ + r₃ + r₄ = 146</div></div>
 <p class="st"><em>«…в них поместятся 306 человек»</em> ⇒</p>
-<div id="a1" data-art="1"><div class="frm st">(2) (1 · r1) + (2 · r2) + (3 · r3) + (4 · r4) = 306</div></div>
+<div id="a1" data-art="1"><div class="frm st">(2) 1r₁ + 2r₂ + 3r₃ + 4r₄ = 306</div></div>
 <p class="st"><em>«…то всего было бы 183 номера»</em> — по строке «если бы» ⇒</p>
-<div id="a2" data-art="2"><div class="frm st">(3) (2 · r1) + r2 + r3 + (r4 : 2) = 183</div></div>
+<div id="a2" data-art="2"><div class="frm st">(3) 2r₁ + r₂ + r₃ + (r₄ : 2) = 183</div></div>
 <p class="st"><em>«…и в них поместились бы 316 человек»</em> — по строке «если бы» ⇒</p>
-<div id="a3" data-art="3"><div class="frm st">(4) (1 · (2 · r1)) + (2 · r2) + (3 · r3) + (4 · (r4 : 2)) = 316</div></div>
+<div id="a3" data-art="3"><div class="frm st">(4) (1(2r₁)) + 2r₂ + 3r₃ + (4(r₄ : 2)) = 316</div></div>
 <p class="st">⚠ В (4) количества номеров на 1 и на 4 человека — из строки «если бы», а не настоящие.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(1) r1 + r2 + r3 + r4 = 146
-(2) r1 + 2 · r2 + 3 · r3 + 4 · r4 = 306
-(3) 2 · r1 + r2 + r3 + r4 : 2 = 183         | · 2
-(4) 2 · r1 + 2 · r2 + 3 · r3 + 4 · (r4 : 2) = 316</pre>
+<pre class="sys st">(1) r₁ + r₂ + r₃ + r₄ = 146
+(2) r₁ + 2r₂ + 3r₃ + 4r₄ = 306
+(3) 2r₁ + r₂ + r₃ + r₄ : 2 = 183         | · 2
+(4) 2r₁ + 2r₂ + 3r₃ + 4(r₄ : 2) = 316</pre>
 <p class="st"><b>Причёсанная система:</b></p>
-<pre class="sys st">(1) r1 + <span class="pen2">r2 + r3</span> + r4 = 146
-(2) r1 + <span class="pen3">2 · r2 + 3 · r3</span> + 4 · r4 = 306
-(3) 4 · r1 + <span class="pen2">2 · r2 + 2 · r3</span> + r4 = 366
-(4) 2 · r1 + <span class="pen3">2 · r2 + 3 · r3</span> + 2 · r4 = 316</pre>
+<pre class="sys st">(1) r₁ + <span class="pen2">r₂ + r₃</span> + r₄ = 146
+(2) r₁ + <span class="pen3">2r₂ + 3r₃</span> + 4r₄ = 306
+(3) 4r₁ + <span class="pen2">2r₂ + 2r₃</span> + r₄ = 366
+(4) 2r₁ + <span class="pen3">2r₂ + 3r₃</span> + 2r₄ = 316</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen2">(3) − 2 · (1)</span>   (5) 2 · r1 − r4 = 74
-<span class="pen3">(4) − (2)</span>       (6) r1 − 2 · r4 = 10</pre>
+<pre class="sys st"><span class="pen2">(3) − 2 · (1)</span>   (5) 2r₁ − r₄ = 74
+<span class="pen3">(4) − (2)</span>       (6) r₁ − 2r₄ = 10</pre>
 <p class="st"><b>Система:</b> (5) и (6) встают на место (3) и (4).</p>
-<pre class="sys st">(1) r1 + r2 + r3 + r4 = 146
-(2) r1 + 2 · r2 + 3 · r3 + 4 · r4 = 306
-(5) <span class="pen4">2 · r1</span> − r4 = 74
-(6) <span class="pen4">r1</span> − 2 · r4 = 10</pre>
+<pre class="sys st">(1) r₁ + r₂ + r₃ + r₄ = 146
+(2) r₁ + 2r₂ + 3r₃ + 4r₄ = 306
+(5) <span class="pen4">2r₁</span> − r₄ = 74
+(6) <span class="pen4">r₁</span> − 2r₄ = 10</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen4">(5) − 2 · (6)</span>   3 · r4 = 54          | : 3
-                  r4 = 18
-(6)               r1 = 10 + 2 · <span class="pen1">18</span> = 46</pre>
-<p class="st"><b>Система:</b> r1 и r4 найдены, подставляются в (1) и (2).</p>
-<pre class="sys st">(1) <span class="pen1">46</span> + r2 + r3 + <span class="pen1">18</span> = 146
-(2) <span class="pen1">46</span> + 2 · r2 + 3 · r3 + 4 · <span class="pen1">18</span> = 306
-r1 = 46
-r4 = 18</pre>
+<pre class="sys st"><span class="pen4">(5) − 2 · (6)</span>   3r₄ = 54          | : 3
+                  r₄ = 18
+(6)               r₁ = 10 + 2 · <span class="pen1">18</span> = 46</pre>
+<p class="st"><b>Система:</b> r₁ и r₄ найдены, подставляются в (1) и (2).</p>
+<pre class="sys st">(1) <span class="pen1">46</span> + r₂ + r₃ + <span class="pen1">18</span> = 146
+(2) <span class="pen1">46</span> + 2r₂ + 3r₃ + 4 · <span class="pen1">18</span> = 306
+r₁ = 46
+r₄ = 18</pre>
 <p class="st"><b>Система:</b></p>
-<pre class="sys st">(7) <span class="pen5">r2</span> + r3 = 82
-(8) <span class="pen5">2 · r2</span> + 3 · r3 = 188
-r1 = 46
-r4 = 18</pre>
+<pre class="sys st">(7) <span class="pen5">r₂</span> + r₃ = 82
+(8) <span class="pen5">2r₂</span> + 3r₃ = 188
+r₁ = 46
+r₄ = 18</pre>
 <p class="st"><b>Ходы:</b></p>
-<pre class="sys st"><span class="pen5">(8) − 2 · (7)</span>   r3 = 24
-(7)               r2 = 82 − <span class="pen1">24</span> = 58</pre>
+<pre class="sys st"><span class="pen5">(8) − 2 · (7)</span>   r₃ = 24
+(7)               r₂ = 82 − <span class="pen1">24</span> = 58</pre>
 <p class="st"><b>Система решена:</b></p>
-<pre class="sys st">r1 = 46
-r2 = 58
-r3 = 24
-r4 = 18</pre>
-<p class="st"><b>Проверка</b> — подстановка в (3) и (4), и половина r4 — целое число:</p>
+<pre class="sys st">r₁ = 46
+r₂ = 58
+r₃ = 24
+r₄ = 18</pre>
+<p class="st"><b>Проверка</b> — подстановка в (3) и (4), и половина r₄ — целое число:</p>
 <ul class="st"><li>(3): 92 + 58 + 24 + 9 = 183 ✓</li><li>(4): 92 + 116 + 72 + 36 = 316 ✓</li><li>18 : 2 = 9 ✓</li></ul>
 <h4 class="st">б) Найдём, сколько гостиница получит за одну ночь</h4>
 <p class="st"><b>Дано:</b> <em>«…если заняты все номера»</em> ⇒ за ночь платят за каждый из 146 номеров по цене его вида.</p>
@@ -401,29 +401,29 @@ r4 = 18</pre>
 <p class="st"><em>«За первую неделю месяца спортзал продал всего 90 абонементов»</em> ⇒</p>
 <div id="a4" data-art="4"><div class="frm st">(1) p + g + t = 90</div></div>
 <p class="st"><em>«…за первую неделю спортзал собрал $3048»</em> — по строке «цена на первой неделе» ⇒</p>
-<div id="a5" data-art="5"><div class="frm st">(2) (24 · p) + (36 · g) + (40 · t) = 3048</div></div>
+<div id="a5" data-art="5"><div class="frm st">(2) 24p + 36g + 40t = 3048</div></div>
 <p class="st"><em>«…на второй неделе спортзал продаст столько же абонементов каждого вида, сколько за первую неделю, то соберёт $2928»</em> — по строке «цена на второй неделе» ⇒</p>
-<div id="a6" data-art="6"><div class="frm st">(3) (24 · p) + (36 · g) + ((40 · 90/100) · t) = 2928</div></div>
+<div id="a6" data-art="6"><div class="frm st">(3) 24p + 36g + (40 · 90/100)t = 2928</div></div>
 <p class="st">⚠ Скидка 10 % значит, что за абонемент на теннис платят 90 % его цены, а не 10 %.</p>
 <p class="st">⚠ Скидка только на абонемент на теннис: в (3) абонемент в бассейн стоит полные $24, абонемент в тренажёрный зал полные $36.</p>
 <h4 class="st">Часть 2 — решение системы</h4>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(1) p + g + t = 90
-(2) 24 · p + 36 · g + 40 · t = 3048             | : 4
-(3) 24 · p + 36 · g + 40 · 90/100 · t = 2928    | : 12</pre>
+(2) 24p + 36g + 40t = 3048             | : 4
+(3) 24p + 36g + (40 · 90/100)t = 2928    | : 12</pre>
 <p class="st"><b>Причёсанная система:</b></p>
 <pre class="sys st">(1) p + <span class="pen2">g + t</span> = 90
-(2) 6 · p + 9 · g + 10 · t = 762
-(3) 2 · p + <span class="pen2">3 · g + 3 · t</span> = 244</pre>
+(2) 6p + 9g + 10t = 762
+(3) 2p + <span class="pen2">3g + 3t</span> = 244</pre>
 <p class="st"><b>Ходы:</b></p>
 <pre class="sys st"><span class="pen2">3 · (1) − (3)</span>   p = 26</pre>
 <p class="st"><b>Система:</b> p найдено, подставляется в (1) и (2).</p>
 <pre class="sys st">(1) <span class="pen1">26</span> + g + t = 90
-(2) 6 · <span class="pen1">26</span> + 9 · g + 10 · t = 762
+(2) 6 · <span class="pen1">26</span> + 9g + 10t = 762
 p = 26</pre>
 <p class="st"><b>Система:</b></p>
 <pre class="sys st">(4) <span class="pen3">g</span> + t = 64
-(5) <span class="pen3">9 · g</span> + 10 · t = 606
+(5) <span class="pen3">9g</span> + 10t = 606
 p = 26</pre>
 <p class="st"><b>Ходы:</b></p>
 <pre class="sys st"><span class="pen3">(5) − 9 · (4)</span>   t = 30
@@ -435,13 +435,13 @@ t = 30</pre>
 <p class="st"><b>Проверка</b> — подстановка в (1), (2) и (3):</p>
 <ul class="st"><li>(1): 26 + 34 + 30 = 90 ✓</li><li>(2): 624 + 1224 + 1200 = 3048 ✓</li><li>(3): 624 + 1224 + 1080 = 2928 ✓</li></ul>
 <h4 class="st">б) Найдём выручку за третью неделю</h4>
-<p class="st">p3, g3, t3 — сколько абонементов в бассейн, в тренажёрный зал и на теннис спортзал продал за третью неделю.</p>
+<p class="st">p₃, g₃, t₃ — сколько абонементов в бассейн, в тренажёрный зал и на теннис спортзал продал за третью неделю.</p>
 <p class="st"><b>Дано:</b> <em>«…абонементов в бассейн было вдвое больше, чем за первую неделю»</em> ⇒</p>
-<div id="a7" data-art="7"><div class="frm st">p3 = 2 · p = 2 · 26 = 52</div></div>
+<div id="a7" data-art="7"><div class="frm st">p₃ = 2p = 2 · 26 = 52</div></div>
 <p class="st"><b>Дано:</b> <em>«…абонементов на теннис вдвое меньше, чем за первую неделю»</em> ⇒</p>
-<div id="a8" data-art="8"><div class="frm st">t3 = t : 2 = 30 : 2 = 15</div></div>
+<div id="a8" data-art="8"><div class="frm st">t₃ = t : 2 = 30 : 2 = 15</div></div>
 <p class="st"><b>Дано:</b> <em>«…тоже продал всего 90 абонементов»</em> ⇒ абонементов в тренажёрный зал столько, сколько остаётся:</p>
-<div id="a9" data-art="9"><div class="frm st">g3 = 90 − p3 − t3 = 90 − 52 − 15 = 23</div></div>
+<div id="a9" data-art="9"><div class="frm st">g₃ = 90 − p₃ − t₃ = 90 − 52 − 15 = 23</div></div>
 <p class="st"><b>Дано:</b> <em>«в первую и третью недели скидок нет»</em> ⇒ на третьей неделе цены как на первой неделе: $24, $36, $40.</p>
 <div id="a10" data-art="10"><div class="frm st">б) S_{третьей недели} = (24 · 52) + (36 · 23) + (40 · 15) = 1248 + 828 + 600 = 2676</div></div>
 <p class="st">⚠ Абонементов в тренажёрный зал на третьей неделе не столько же, сколько на первой: их число находим из «всего 90».</p>
