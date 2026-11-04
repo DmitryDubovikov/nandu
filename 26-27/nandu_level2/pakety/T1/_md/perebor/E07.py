@@ -1,12 +1,4 @@
-sols = []
-for a in range(1, 346):
-    for b in range(1, 661):
-        if 2*a + b >= 690 or a + 2*b >= 660:
-            continue
-        for c in range(1, 231):
-            if 2*a + b + 3*c == 690 and a + 2*b + 3*c == 660:
-                sols.append((a, b, c))
-print("решений:", len(sols))
-print("значения a+b+2c:", sorted({a + b + 2*c for a, b, c in sols}))
-print("пример:", sols[:3])
-print("a-b:", sorted({a-b for a,b,c in sols}))
+# Пример раздела 6: кафе, три чека, спрошенный заказ 2 чая + 2 лимонада + вафля + кекс
+sols = [(t, l, w, k) for t in range(1, 100) for l in range(1, 100) for w in range(1, 100) for k in range(1, 100)
+        if 3*t + l + w == 210 and 3*t + l + k == 200 and t + 3*l + 3*k == 280]
+print(len(sols), 'наборов цен; стоимость заказа:', {2*t + 2*l + w + k for t, l, w, k in sols})   # 79 наборов; {250}
