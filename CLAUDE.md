@@ -75,7 +75,7 @@ method in the repo:
    under its name and notation, **before** the corpus is solved, so agents name one move one way.
 4. **В. Corpus solutions of the three upper stages** — national 72, regional 42, provincial 30 = 144 problems, solved by
    agents with reference to the model of the same subtype and the registry; answers blind-checked and brute-forced;
-   the parent does not read them (3 Nov 2026) — a type is checked through its page of moves at stage Г. Interescolar and zonal are not solved (everything there recurs higher, except pure
+   the parent does not read them (3 Nov 2026) — a type is checked through its textbook at stage Г. Interescolar and zonal are not solved (everything there recurs higher, except pure
    perimeters, covered at level 1); the regional is required (only there Т1⁗).
 5. **Г. A textbook per type** (17), built as soon as the type is solved in the corpus: the textbook (every move on a worked example), scaled problems,
    recognition statements — see rule 7.
