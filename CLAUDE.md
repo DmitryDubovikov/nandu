@@ -77,7 +77,7 @@ method in the repo:
    agents with reference to the model of the same subtype and the registry; answers blind-checked and brute-forced;
    the parent does not read them (3 Nov 2026) — a type is checked through its page of moves at stage Г. Interescolar and zonal are not solved (everything there recurs higher, except pure
    perimeters, covered at level 1); the regional is required (only there Т1⁗).
-5. **Г. A textbook per type** (17), built as soon as the type is solved in the corpus: an A4 page, scaled problems,
+5. **Г. A textbook per type** (17), built as soon as the type is solved in the corpus: the textbook (every move on a worked example), scaled problems,
    recognition statements — see rule 7.
 6. **Д. Three rounds** (1–2 by type, 3 mixed), **Е. battle** in two windows — before provincial + regional and before
    national — see rule 7.
@@ -204,10 +204,11 @@ These conventions are load-bearing across all materials — keep them.
    **recognition** — the problem looked completely new, although every type was familiar; the parent's hypothesis
    (3 Nov): the move was not recognised because it was **not consolidated** — not repeated in many plots. Geometry and
    systems were never the trouble. So: (1) ideal solutions stay the base — moves come only from accepted solutions;
-   (2) a **textbook per type** (17): an **A4 page** — the type's moves (from the corpus solutions, not only the model),
-   one line each «что видно в выписанных примерах → первая формула · имя хода», names and notation as in the
-   solutions, the sign describes the problem's **structure**, not its plot, and for enumeration types the first line is
-   **«выпиши 3–5 примеров и посмотри, что повторяется»**; **scaled problems** at 30/50 % of a battle problem (round 1)
+   (2) a **textbook per type** (17): the **textbook** (4 Nov 2026, replaces the A4 page) — every move of the type (from the corpus
+   solutions, not only the model), most frequent first, each as one line «что видно в условии → первая формула» plus a
+   **worked example**: an artificial problem built like a battle problem at 20–30 % scale, new plot, solved exactly like
+   the type's ideal solution (layout and logic); names and notation as in the solutions; for enumeration types the
+   textbook opens with **«выпиши 3–5 примеров и посмотри, что повторяется»**; the problem sets are separate linked pages; **scaled problems** at 30/50 % of a battle problem (round 1)
    and 70 % (round 2) — same move, only the counting cut, new plots, each with a full solution in the model's shape and
    a brute-force-checked answer, unfit if brute force beats the move; **recognition statements** in **separate new
    plots** (a round problem shown again would be remembered; the level-1 corpus is not new to the child either), each
@@ -223,7 +224,7 @@ These conventions are load-bearing across all materials — keep them.
    journal of rounds 1–2; (4) **battle** in two separate windows, before provincial + regional and before national
    (longer than a month); the level-2 corpus is kept for it (rule 1); (5) every problem has a through number
    `<тип>-<уровень>-<№>` (`T3pp-30-2`, level O/30/50/70/100/B, battle by source `T6-B-prov23-3`) and every attempt of
-   the child is timed in `26-27/nandu_level2/zhurnal.md`. **Nothing can be opened on a tour** — the pages are learned
+   the child is timed in `26-27/nandu_level2/zhurnal.md`. **Nothing can be opened on a tour** — the moves are learned
    by heart. The type textbook is not a chapter textbook: rule 1 applies to it (its small-print list of battle-problem sources is the parent's exception, 3 Nov 2026), rules 2, 3, 6 do not. The combinatorics textbook
    (`26-27/nandu_level2/kombinatorika/`) is a separate project and stays. Rules 2, 3, 6 below apply to textbooks and
    reshebniks already written or explicitly requested.

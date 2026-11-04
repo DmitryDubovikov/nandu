@@ -59,7 +59,7 @@
 ## Когда я приму
 
 Внеси принятые названия и определения: `nandu_n2_tipologia_svodnaya.md`, таблицы `nandu_n2_roadmap.md`,
-`nandu_n2_obraztsy.md`, раздел Domain model в `CLAUDE.md`, промпты `pakety/PROMPT_sleduyushchiy_paket.md` (заголовок
+`nandu_n2_obraztsy.md`, раздел Domain model в `CLAUDE.md`, промпты `pakety/PROMPT_uchebnik_tipa.md` (заголовок
 страницы приёмов = `# <код> — <название>` + определение) и `resheniya_korpusa/PROMPT_sleduyushchiy_tip.md`.
 Перенос задач между типами — только тех, что я подтвердил, в `nandu_n2_klassifikaciya.csv`. Закоммить только свои
 файлы.
