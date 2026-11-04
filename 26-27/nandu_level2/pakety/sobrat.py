@@ -100,11 +100,30 @@ def title_and_rest(t, fallback):
     return fallback, t
 
 
+def hide_solutions(t, lv):
+    """Наборы: условие видно, решение и ответ — под свёрнутым блоком (решение родителя 4.11.2026).
+
+    Раздел задачи «## <номер> — <сюжет>»: всё от первого «### …» (у опознания — от «**Приём:**») до конца
+    раздела уходит в <details>, который md2html рисует свёрнутым.
+    """
+    start = r'^\*\*Приём:\*\*' if lv == 'O' else r'^### '
+    summary = 'Приём и формула' if lv == 'O' else 'Решение и ответ'
+    parts = re.split(r'(?m)^(?=## )', t)
+    out = []
+    for p in parts:
+        m = re.search(start, p, re.M)
+        if p.startswith('## ') and m:
+            body = p[m.start():].rstrip()
+            p = p[:m.start()] + f'<details>\n<summary>{summary}</summary>\n\n{body}\n\n</details>\n\n'
+        out.append(p)
+    return ''.join(out)
+
+
 pages = {'index.html': title_and_rest(src['stranica'], f'Учебник {kod_ru}')}
 for lv, name in LEVELS.items():
     if lv in src:
         title, rest = title_and_rest(src[lv], f'{kod_ru} · {name}')
-        pages[f'{kod}-{lv}.html'] = (title, f'[← учебник {kod_ru}](index.html)\n\n' + rest)
+        pages[f'{kod}-{lv}.html'] = (title, f'[← учебник {kod_ru}](index.html)\n\n' + hide_solutions(rest, lv))
 
 for stale in glob.glob(os.path.join(P, '*.html')):
     os.remove(stale)
