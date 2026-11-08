@@ -123,20 +123,30 @@ def hide_solutions(t, lv):
 
 
 def po_glavam(title, rest):
-    """Учебник по главам (решение родителя 8.11.2026, учебник Т3′: «HTML получился огромным»).
+    """Учебник по главам (решения родителя 8.11.2026, учебник Т3′: «HTML получился огромным»; группировка приёмов).
 
-    index.html — оглавление: шапка, ритуал, «## Приёмы» (по строке на приём: ссылка на главу и строка-признак),
-    «## Задачи». Каждый раздел «## N. <приём>» — своя страница glava-NN.html с переходами по главам.
+    index.html — оглавление: шапка, «## Ритуал и приёмы» (по строке на главу: ссылка и строка-признак; разделы
+    «## Группа: <что видно в условии>» — подзаголовки между строками), «## Задачи». Каждый раздел «## N. <приём>»
+    (N = 0 — ритуал) — своя страница glava-NN.html с переходами по главам.
     """
     secs = re.split(r'(?m)^(?=## )', rest)
     head, secs = secs[0], secs[1:]
-    glavy = [(m.group(1), m.group(2).strip(), s) for s in secs if (m := re.match(r'## (\d+)\. (.+)\n', s))]
-    prochee = [s for s in secs if not re.match(r'## \d+\. ', s)]
     fn = lambda n: f'glava-{int(n):02d}.html'
-    out, items = {}, []
+    glavy, items, prochee = [], [], []
+    for s in secs:
+        m = re.match(r'## (\d+)\. (.+)\n', s)
+        g = re.match(r'## Группа: (.+)', s)
+        if m:
+            glavy.append((m.group(1), m.group(2).strip(), s))
+            body = s.split('\n', 1)[1].strip()
+            items.append(f'- [{m.group(1)}. {m.group(2).strip()}]({fn(m.group(1))}): {body.split(chr(10) * 2, 1)[0].strip()}')
+        elif g:
+            items.append(f'\n### {g.group(1).strip()}\n')
+        else:
+            prochee.append(s)
+    out = {}
     for i, (n, name, s) in enumerate(glavy):
         body = s.split('\n', 1)[1].strip()
-        items.append(f'- [{n}. {name}]({fn(n)}): {body.split(chr(10) * 2, 1)[0].strip()}')
         nav = []
         if i > 0:
             nav.append(f'[← {glavy[i - 1][0]}. {glavy[i - 1][1]}]({fn(glavy[i - 1][0])})')
@@ -145,8 +155,8 @@ def po_glavam(title, rest):
         out[fn(n)] = (f'{n}. {name}', '[← оглавление учебника](index.html)\n\n' + body + '\n\n' + '\n\n'.join(nav) + '\n')
     zad = [s for s in prochee if s.startswith('## Задачи')]
     ostalnoe = [s for s in prochee if not s.startswith('## Задачи')]
-    idx = (head.rstrip() + '\n\n' + ''.join(ostalnoe).rstrip() + '\n\n## Приёмы\n\n' + '\n'.join(items)
-           + '\n\n' + ''.join(zad))
+    idx = (head.rstrip() + '\n\n' + ''.join(ostalnoe).rstrip() + '\n\n## Ритуал и приёмы\n\n'
+           + '\n'.join(items) + '\n\n' + ''.join(zad))
     return {'index.html': (title, idx), **out}
 
 
