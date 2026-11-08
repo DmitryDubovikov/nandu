@@ -8,8 +8,11 @@
     pakety/<код>/_md/<код>-30.md, -50.md, -70.md — задачи с решениями, раздел «## <код>-30-1 — <сюжет>»
     pakety/<код>/_md/<код>-O.md      — условия на опознание, раздел «## <код>-O-1 — <сюжет>»
     pakety/<код>/_md/perebor/*.py    — переборы (в сборку не входят)
-Выход — сплошные страницы без левой колонки:
-    pakety/<код>/index.html (учебник), pakety/<код>/<код>-30.html, -50, -70, -O.
+Выход — страницы без левой колонки:
+    pakety/<код>/index.html — оглавление учебника (шапка, ритуал, по строке на приём, ссылки на задачи),
+    pakety/<код>/glava-NN.html — глава на каждый раздел «## N. <приём>» (решение родителя 8.11.2026);
+    учебник с меткой <!-- одной страницей --> (Т1) — одна сплошная index.html, как раньше;
+    pakety/<код>/<код>-30.html, -50, -70, -O.
 Ненулевой код, если md2html --check нашёл потерянный или дописанный текст.
 """
 import glob, json, os, re, shutil, subprocess, sys, tempfile
@@ -119,7 +122,40 @@ def hide_solutions(t, lv):
     return ''.join(out)
 
 
-pages = {'index.html': title_and_rest(src['stranica'], f'Учебник {kod_ru}')}
+def po_glavam(title, rest):
+    """Учебник по главам (решение родителя 8.11.2026, учебник Т3′: «HTML получился огромным»).
+
+    index.html — оглавление: шапка, ритуал, «## Приёмы» (по строке на приём: ссылка на главу и строка-признак),
+    «## Задачи». Каждый раздел «## N. <приём>» — своя страница glava-NN.html с переходами по главам.
+    """
+    secs = re.split(r'(?m)^(?=## )', rest)
+    head, secs = secs[0], secs[1:]
+    glavy = [(m.group(1), m.group(2).strip(), s) for s in secs if (m := re.match(r'## (\d+)\. (.+)\n', s))]
+    prochee = [s for s in secs if not re.match(r'## \d+\. ', s)]
+    fn = lambda n: f'glava-{int(n):02d}.html'
+    out, items = {}, []
+    for i, (n, name, s) in enumerate(glavy):
+        body = s.split('\n', 1)[1].strip()
+        items.append(f'- [{n}. {name}]({fn(n)}): {body.split(chr(10) * 2, 1)[0].strip()}')
+        nav = []
+        if i > 0:
+            nav.append(f'[← {glavy[i - 1][0]}. {glavy[i - 1][1]}]({fn(glavy[i - 1][0])})')
+        if i + 1 < len(glavy):
+            nav.append(f'[{glavy[i + 1][0]}. {glavy[i + 1][1]} →]({fn(glavy[i + 1][0])})')
+        out[fn(n)] = (f'{n}. {name}', '[← оглавление учебника](index.html)\n\n' + body + '\n\n' + '\n\n'.join(nav) + '\n')
+    zad = [s for s in prochee if s.startswith('## Задачи')]
+    ostalnoe = [s for s in prochee if not s.startswith('## Задачи')]
+    idx = (head.rstrip() + '\n\n' + ''.join(ostalnoe).rstrip() + '\n\n## Приёмы\n\n' + '\n'.join(items)
+           + '\n\n' + ''.join(zad))
+    return {'index.html': (title, idx), **out}
+
+
+# Учебник по главам, если в нём есть разделы «## N. …»; Т1 оставлен одной страницей меткой <!-- одной страницей -->
+title0, rest0 = title_and_rest(src['stranica'], f'Учебник {kod_ru}')
+if '<!-- одной страницей -->' in src['stranica'] or not re.search(r'(?m)^## \d+\. ', rest0):
+    pages = {'index.html': (title0, rest0)}
+else:
+    pages = po_glavam(title0, rest0)
 for lv, name in LEVELS.items():
     if lv in src:
         title, rest = title_and_rest(src[lv], f'{kod_ru} · {name}')
