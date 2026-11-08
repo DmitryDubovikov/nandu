@@ -231,10 +231,15 @@ def task_question(q):
     """Вопрос постановки: абзац или «Вопросы:» + список вопросов."""
     if not q:
         return ''
-    if '\n' in q:
-        head, lst = q.split('\n', 1)
-        return f'<p>{inline(head)}</p>' + render_list(lst)
-    return f'<p>{inline(q)}</p>'
+    out = ''
+    # вторая часть данных («Она вешает так, чтобы:» + список) и вопрос — отдельные абзацы через \n\n
+    for part in q.split('\n\n'):
+        if '\n' in part:
+            head, lst = part.split('\n', 1)
+            out += f'<p>{inline(head)}</p>' + render_list(lst)
+        else:
+            out += f'<p>{inline(part)}</p>'
+    return out
 
 
 def fold_task_lists(blocks):
@@ -432,6 +437,10 @@ def render_item(x):
 def render_inner(md, visuals=None, used=None):
     parts = []
     for k2, v2 in parse(md):
+        if visuals is not None and k2 in ('cols', 'box', 'spoiler'):
+            # вложенный блок сам ставит свои иллюстрации внутрь себя
+            parts.append({'cols': render_cols, 'box': render_box, 'spoiler': render_spoiler}[k2](v2, visuals, used))
+            continue
         parts.append(render_block((k2, v2)))
         if visuals is not None:
             key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v2)).strip()
@@ -444,6 +453,12 @@ def render_box(v, visuals=None, used=None):
     tag, body = v.split('\x1f', 1)
     return (f'<div class="card box st"><span class="tag">{inline(tag)}</span>'
             f'{render_inner(body, visuals, used)}</div>')
+
+def render_spoiler(v, visuals=None, used=None):
+    """Свёрнутый блок: иллюстрации решения встают внутрь него, а не под ним (иначе рисунок выдаёт решение)."""
+    head, body = v.split('\x1f', 1)
+    return (f'<details class="card spoiler st"><summary>{inline(head)}</summary>'
+            f'{render_inner(body, visuals, used)}</details>')
 
 def render_cols(v, visuals=None, used=None):
     out = []
@@ -922,6 +937,9 @@ def build_pages(md, visuals=None, src_path=None):
                 continue
             if k == 'box':
                 body.append(render_box(v, visuals, used))
+                continue
+            if k == 'spoiler':
+                body.append(render_spoiler(v, visuals, used))
                 continue
             h = render_block((k, v))
             if idx in at:

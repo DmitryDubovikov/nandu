@@ -127,6 +127,21 @@ for lv, name in LEVELS.items():
 
 for stale in glob.glob(os.path.join(P, '*.html')):
     os.remove(stale)
+vis_all = {}
+for j in glob.glob(os.path.join(M, '**', '*.vis.json'), recursive=True):
+    if not os.path.basename(j).startswith('nandu_n2_paket_'):
+        vis_all.update(json.load(open(j)))
+
+
+def norm(t):
+    """Текст так, как md2html ищет в нём якорь рисунка."""
+    return re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', t))
+
+
+# рисунок идёт только на страницу, где стоит его якорь; якорь, которого нет ни на одной странице, — ⚠
+for a in vis_all:
+    if not any(a in norm(r) for _, r in pages.values()):
+        print(f'  ⚠ рисунок без якоря ни на одной странице: «{a[:70]}»')
 rc = 0
 for out, (title, rest) in pages.items():
     tag = out[:-5].replace('index', 'uchebnik')
@@ -134,10 +149,7 @@ for out, (title, rest) in pages.items():
     # одна глава на страницу: титул документа отдельно, весь текст — внутри одного «##»
     body = f'# Учебник {kod_ru}\n\n---\n\n## {title}\n\n{demote(rest).strip()}\n'
     open(md, 'w').write(body)
-    vis = {}
-    for j in glob.glob(os.path.join(M, '**', '*.vis.json'), recursive=True):
-        if not os.path.basename(j).startswith('nandu_n2_paket_'):
-            vis.update(json.load(open(j)))
+    vis = {a: f for a, f in vis_all.items() if a in norm(body)}
     vp = md[:-3] + '.vis.json'
     json.dump(vis, open(vp, 'w'), ensure_ascii=False, indent=1)
     with tempfile.TemporaryDirectory() as tmp:
