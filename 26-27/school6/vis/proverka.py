@@ -21,6 +21,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 CONV = os.path.join(ROOT, 'tools', 'md2html.py')
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+TMP = os.path.join(HERE, 'kadry', '.tmp')   # временные страницы — вне папки сборки (она в git)
+os.makedirs(TMP, exist_ok=True)
 
 # доиграть всё: проявление текста, анимации рисунков; потом прокрутить к Y
 FINISH = ("<script>(function(){var r=document.documentElement;r.classList.add('anim');"
@@ -61,11 +63,11 @@ def phone(inner, w=400, h=900):
 
 def probe(page, w):
     """Высота страницы и список вылезаний при ширине w (узкая ширина — через iframe)."""
-    tmp = page[:-5] + f'.__probe{w}.html'
+    tmp = os.path.join(TMP, f'__probe{w}.html')
     h = open(page).read().replace('</body>', FINISH % OVERFLOW + '</body>')
     open(tmp, 'w').write(h)
     if w < 600:
-        wrap = page[:-5] + '.__phone.html'
+        wrap = os.path.join(TMP, '__phone.html')
         open(wrap, 'w').write(phone(tmp, w))
         out = chrome('file://' + wrap, 700, 900, dump=True)
         os.remove(wrap)
@@ -156,7 +158,7 @@ def main():
         hd, _ = probe(p, 1440)
         step = 1500
         for k, y in enumerate(range(0, max(hd - 60, 1), step)):
-            tmp = p[:-5] + '.__shot.html'
+            tmp = os.path.join(TMP, '__shot.html')
             open(tmp, 'w').write(h.replace('</body>', FINISH % f"document.querySelector('.wrap').style.marginTop='-{y}px';" + '</body>'))
             chrome('file://' + tmp, 1440, step, os.path.join(kd, 'стр', f'{tag}_d{k + 1}.png'))
             os.remove(tmp)
