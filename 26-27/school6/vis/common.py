@@ -183,41 +183,56 @@ class NumLine:
 
 
 class Plane:
-    """Координатная плоскость: клетка cell px, начало O в (ox, oy) px; X(x), Y(y) — пиксели."""
+    """Координатная плоскость. Границы — в единицах величин; одна клетка (cell px) = xu единиц по x и yu по y.
 
-    def __init__(self, xmin, xmax, ymin, ymax, cell=30, pad=24):
+    p = Plane(-3, 4, -2, 3)                          # клетка = 1 по обеим осям
+    p = Plane(0, 6, 0, 20, xu=1, yu=2)               # свеча: клетка по h — 2 см
+    p.grid(xname='t, ч', yname='h, см', ylabels=range(0, 21, 4))
+    X(x), Y(y), P(x, y) — пиксели точки; svg(body) — готовый <svg>.
+    """
+
+    def __init__(self, xmin, xmax, ymin, ymax, cell=30, pad=24, xu=1, yu=1):
         self.xmin, self.xmax, self.ymin, self.ymax, self.c, self.pad = xmin, xmax, ymin, ymax, cell, pad
-        self.w = (xmax - xmin) * cell + 2 * pad
-        self.h = (ymax - ymin) * cell + 2 * pad
+        self.xu, self.yu = xu, yu
+        self.w = (xmax - xmin) / xu * cell + 2 * pad
+        self.h = (ymax - ymin) / yu * cell + 2 * pad
 
     def X(self, x):
-        return self.pad + (x - self.xmin) * self.c
+        return self.pad + (x - self.xmin) / self.xu * self.c
 
     def Y(self, y):
-        return self.pad + (self.ymax - y) * self.c
+        return self.pad + (self.ymax - y) / self.yu * self.c
 
     def P(self, x, y):
         return self.X(x), self.Y(y)
 
-    def grid(self, stroke='#26303d', labels=True, size=12):
+    @staticmethod
+    def _steps(a, b, u):
+        k, out = 0, []
+        while a + k * u <= b + 1e-9:
+            v = a + k * u
+            out.append(int(v) if abs(v - round(v)) < 1e-9 else v)
+            k += 1
+        return out
+
+    def grid(self, stroke='#26303d', labels=True, size=12, xname='x', yname='y', xlabels=None, ylabels=None):
         out = ''
-        for x in range(self.xmin, self.xmax + 1):
+        xs, ys = self._steps(self.xmin, self.xmax, self.xu), self._steps(self.ymin, self.ymax, self.yu)
+        for x in xs:
             out += line(self.X(x), self.Y(self.ymin), self.X(x), self.Y(self.ymax), stroke, 1)
-        for y in range(self.ymin, self.ymax + 1):
+        for y in ys:
             out += line(self.X(self.xmin), self.Y(y), self.X(self.xmax), self.Y(y), stroke, 1)
-        ax = []
         if self.ymin <= 0 <= self.ymax:
-            ax.append(line(self.X(self.xmin) - 6, self.Y(0), self.X(self.xmax) + 10, self.Y(0), MUTED, 1.8))
-            ax.append(t(self.X(self.xmax) + 14, self.Y(0) - 8, 'x', MUTED, 14))
+            out += line(self.X(self.xmin) - 6, self.Y(0), self.X(self.xmax) + 10, self.Y(0), MUTED, 1.8)
+            out += t(self.X(self.xmax) + 14, self.Y(0) - 8, xname, MUTED, 14, anchor='end' if len(xname) > 1 else 'middle')
         if self.xmin <= 0 <= self.xmax:
-            ax.append(line(self.X(0), self.Y(self.ymin) + 6, self.X(0), self.Y(self.ymax) - 10, MUTED, 1.8))
-            ax.append(t(self.X(0) + 12, self.Y(self.ymax) - 10, 'y', MUTED, 14))
-        out += ''.join(ax)
+            out += line(self.X(0), self.Y(self.ymin) + 6, self.X(0), self.Y(self.ymax) - 10, MUTED, 1.8)
+            out += t(self.X(0) + 10, self.Y(self.ymax) - 10, yname, MUTED, 14, anchor='start')
         if labels:
-            for x in range(self.xmin, self.xmax + 1):
+            for x in (xlabels if xlabels is not None else xs):
                 if x:
                     out += t(self.X(x), self.Y(0) + 17, x, MUTED, size)
-            for y in range(self.ymin, self.ymax + 1):
+            for y in (ylabels if ylabels is not None else ys):
                 if y:
                     out += t(self.X(0) - 9, self.Y(y) + 4, y, MUTED, size, anchor='end')
             out += t(self.X(0) - 9, self.Y(0) + 17, 0, MUTED, size, anchor='end')
@@ -290,3 +305,15 @@ def height(v, a, b, stroke=GOLD, dash='5 4', label=None, ext=MUTED, s=11):
         n = math.hypot(nx, ny) or 1
         out += t(round(mx + nx / n * 12, 1), round(my + ny / n * 12 + 5, 1), label, stroke, 15)
     return out, foot
+
+
+def brace(x1, x2, y, text=None, up=True, col=MUTED, size=14, fill=None):
+    """Фигурная скобка над (up) или под отрезком x1…x2 на уровне y, с подписью text посередине (как в school5/drobi.py)."""
+    k = -8 if up else 8
+    m = (x1 + x2) / 2
+    out = (f"<path d='M{x1} {y} q0 {k} 8 {k} L{m-6} {y+k} q6 0 6 {k} q0 {-k} 6 {-k} L{x2-8} {y+k} "
+           f"q8 0 8 {-k}' fill='none' stroke='{col}' stroke-width='1.5'/>")
+    if text is not None:
+        ty = y + 2 * k - 6 if up else y + 2 * k + size + 2
+        out += t(round(m, 1), round(ty, 1), text, fill or col, size)
+    return out
