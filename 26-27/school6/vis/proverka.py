@@ -3,7 +3,8 @@
 
 1. Собирает учебник с его .vis.json и прогоняет сверку текста (md2html --check: потеряно / дописано = 0).
 2. Ловит рисунки без якоря, рисунки, не вставшие на страницу, повторы id маркеров, ASCII-блоки без замены.
-3. На узкой ширине (400 px) ищет вылезание: страница шире экрана, рисунок/таблица/формула шире колонки.
+3. На узкой ширине (400 px) ищет вылезание: страница шире экрана, рисунок/формула/карточка шире колонки
+   (таблица в обёртке .tw прокручивается вбок сама — это не ошибка).
 4. С --kadry снимает headless Chrome:
    стр/<глава>_d<k>.png  — страница целиком на десктопе 1440 px, срезами по 1500 px, анимации доиграны;
    фиг/<глава>_<n>_400.png — каждый рисунок главы на ширине телефона, доигранный;
@@ -31,7 +32,7 @@ FINISH = ("<script>(function(){var r=document.documentElement;r.classList.add('a
 OVERFLOW = ("var W=document.documentElement.clientWidth,bad=[];"
             "if(document.documentElement.scrollWidth>W+1)bad.push('страница шире экрана: '+document.documentElement.scrollWidth+' > '+W);"
             "document.querySelectorAll('main figure, main svg, main table, main .frm, main pre:not([hidden]), main .card, main img')"
-            ".forEach(function(e){var b=e.getBoundingClientRect();if(b.width&&(b.right>W+1||b.left<-1))"
+            ".forEach(function(e){if(e.closest('.tw'))return;var b=e.getBoundingClientRect();if(b.width&&(b.right>W+1||b.left<-1))"
             "bad.push(e.tagName.toLowerCase()+(e.className&&e.className.baseVal===undefined?'.'+e.className:'')+"
             "' вылезает: '+Math.round(b.left)+'…'+Math.round(b.right)+' при ширине '+W+' — '+"
             "(e.textContent||'').trim().slice(0,60));});"
@@ -40,20 +41,36 @@ OVERFLOW = ("var W=document.documentElement.clientWidth,bad=[];"
 
 
 def chrome(url, w, h, png=None, dump=False, scale=1):
-    args = [CHROME, '--headless=new', '--disable-gpu', '--hide-scrollbars', f'--window-size={w},{h}',
-            f'--force-device-scale-factor={scale}', f'--user-data-dir={os.path.join(HERE, "kadry", ".chrome")}',
-            '--virtual-time-budget=4000']
+    args = [CHROME, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files',
+            f'--window-size={w},{h}', f'--force-device-scale-factor={scale}',
+            f'--user-data-dir={os.path.join(HERE, "kadry", ".chrome")}', '--virtual-time-budget=5000']
     args += ['--dump-dom'] if dump else [f'--screenshot={png}']
     r = subprocess.run(args + [url], capture_output=True, text=True)
     return r.stdout
 
 
+def phone(inner, w=400, h=900):
+    """Окно Chrome уже ~500 px не бывает — телефон изображает iframe шириной w (его медиазапросы видят w)."""
+    return ('<!doctype html><html><body style="margin:0;background:#000">'
+            f'<iframe id="__f" src="file://{inner}" scrolling="no" style="width:{w}px;height:{h}px;border:0;display:block"></iframe>'
+            '<script>document.getElementById("__f").onload=function(){var fr=this;setTimeout(function(){'
+            'try{var o=fr.contentDocument.getElementById("__ovf");if(o){var c=document.createElement("pre");'
+            'c.id="__ovf";c.textContent=o.textContent;document.body.appendChild(c);}}catch(e){}},1500);};</script>'
+            '</body></html>')
+
+
 def probe(page, w):
-    """Высота страницы и список вылезаний при ширине w."""
+    """Высота страницы и список вылезаний при ширине w (узкая ширина — через iframe)."""
     tmp = page[:-5] + f'.__probe{w}.html'
     h = open(page).read().replace('</body>', FINISH % OVERFLOW + '</body>')
     open(tmp, 'w').write(h)
-    out = chrome('file://' + tmp, w, 900, dump=True)
+    if w < 600:
+        wrap = page[:-5] + '.__phone.html'
+        open(wrap, 'w').write(phone(tmp, w))
+        out = chrome('file://' + wrap, 700, 900, dump=True)
+        os.remove(wrap)
+    else:
+        out = chrome('file://' + tmp, w, 900, dump=True)
     os.remove(tmp)
     m = re.search(r'<pre id="__ovf">(.*?)</pre>', out, re.S)
     if not m:
@@ -136,18 +153,22 @@ def main():
         # 1) страница целиком на десктопе, срезами
         hd, _ = probe(p, 1440)
         step = 1500
-        for k, y in enumerate(range(0, max(hd, 1), step)):
+        for k, y in enumerate(range(0, max(hd - 60, 1), step)):
             tmp = p[:-5] + '.__shot.html'
             open(tmp, 'w').write(h.replace('</body>', FINISH % f"document.querySelector('.wrap').style.marginTop='-{y}px';" + '</body>'))
             chrome('file://' + tmp, 1440, step, os.path.join(kd, 'стр', f'{tag}_d{k + 1}.png'))
             os.remove(tmp)
         style = re.search(r'<style>.*?</style>', h, re.S).group(0)
-        # 2) каждый рисунок на ширине телефона, доигранный
+        # 2) каждый рисунок на ширине телефона, доигранный: страница-рисунок внутри iframe 400 px
         for i, f in enumerate(figs, 1):
             tmp = os.path.join(kd, 'фиг', '__f.html')
-            open(tmp, 'w').write(iso_page(style, [f], 400) + FINISH % '' + '</body></html>')
-            chrome('file://' + tmp, 400, 1400, os.path.join(kd, 'фиг', f'{tag}_{i}_400.png'))
+            wrap = os.path.join(kd, 'фиг', '__w.html')
+            open(tmp, 'w').write(iso_page(style, [f], 400).replace('max-width:400px;padding:16px', 'padding:16px')
+                                 + FINISH % '' + '</body></html>')
+            open(wrap, 'w').write(phone(tmp))
+            chrome('file://' + wrap, 600, 900, os.path.join(kd, 'фиг', f'{tag}_{i}_400.png'))
             os.remove(tmp)
+            os.remove(wrap)
         # 3) анимации: начало и конец
         for i, f in enumerate(figs, 1):
             if not re.match(r'<figure class="[^"]*\bfx\b', f):
@@ -155,7 +176,7 @@ def main():
             for when, js in (('start', ''), ('end', FINISH % '')):
                 tmp = os.path.join(kd, 'анм', '__a.html')
                 open(tmp, 'w').write(iso_page(style, [f], 760) + js + '</body></html>')
-                chrome('file://' + tmp, 800, 1400, os.path.join(kd, 'анм', f'{tag}_{i}_{when}.png'))
+                chrome('file://' + tmp, 800, 900, os.path.join(kd, 'анм', f'{tag}_{i}_{when}.png'))
                 os.remove(tmp)
     print(f'итого: рисунков {tot_f}, анимаций {tot_a}')
     if kadry:
