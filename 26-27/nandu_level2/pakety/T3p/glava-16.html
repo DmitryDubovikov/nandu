@@ -328,7 +328,7 @@
 c₅ &lt; c₃</pre>
 <p class="st"><b>Вопрос: высоту какой площадки выбрать первой?</b></p>
 <p class="st"><b>Миры по клетке, которая связывает две части:</b> между левым столбцом c₁, c₄ и правым столбцом c₃, c₅ нет ни одной стрелки, они связаны только через среднюю площадку c₂ ⇒ разобьём способы на миры по c₂.</p>
-<p class="st"><b>Выпишем по порядку:</b> c₂ = 1, потом 2, 3, 4, 5, 6, и для каждой — какие высоты ниже c₂ остаются для c₄ и c₁ и какие высоты выше c₂ остаются для c₃.</p>
+<p class="st"><b>Выпишем по порядку:</b> c₂ = 1, потом 2, 3, 4, 5, 6.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>c₂</th><th>высоты ниже c₂</th><th>высоты выше c₂</th><th>годится?</th></tr>
 <tr><td>1</td><td>нет</td><td>2, 3, 4, 5, 6</td><td>нет: для c₄ и c₁ нет высот</td></tr>
@@ -338,7 +338,6 @@ c₅ &lt; c₃</pre>
 <tr><td>5</td><td>1, 2, 3, 4</td><td>6</td><td>да</td></tr>
 <tr><td>6</td><td>1, 2, 3, 4, 5</td><td>нет</td><td>нет: для c₃ нет высоты</td></tr>
 </table></div></div>
-<p class="st"><b>Как устроен список:</b> три строки из шести не годятся ⇒ миров три.</p>
 <div id="a1" data-art="1"><div class="frm st">N = N(c₂ = 3) + N(c₂ = 4) + N(c₂ = 5)</div></div>
 <p class="sec st"><b>1. Мир N(c₂ = 3).</b></p>
 <figure class='st'><svg viewBox='0 0 64 38' role='img' aria-label='Схема площадок' style='max-width:240px'><defs><marker id='ah' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0,0 L6,3 L0,6 z' fill='#cfdae6'/></marker></defs><line x1='15.5' y1='8' x2='24' y2='8' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='39.5' y1='8' x2='48' y2='8' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='8' y1='22.5' x2='8' y2='16' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='56' y1='22.5' x2='56' y2='16' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><circle cx='8' cy='8' r='6' fill='#5fd38d' fill-opacity='0.22'/><circle cx='8' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='8' y='9.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><circle cx='32' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='32' y='10' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>3</text><circle cx='56' cy='8' r='6' fill='#5aa9e6' fill-opacity='0.22'/><circle cx='56' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='56' y='9.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><circle cx='8' cy='30' r='6' fill='#5fd38d' fill-opacity='0.22'/><circle cx='8' cy='30' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='8' y='31.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><circle cx='56' cy='30' r='6' fill='#5aa9e6' fill-opacity='0.22'/><circle cx='56' cy='30' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='56' y='31.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text></svg><figcaption>N(c₂ = 3)</figcaption></figure>
@@ -351,7 +350,7 @@ c₅ &lt; c₃</pre>
 <p class="st"><b>Заметим:</b> в условиях левого столбца нет c₃ и c₅, а в условиях правого столбца нет c₁ и c₄ ⇒ любые высоты левого столбца годятся с любыми высотами правого:</p>
 <div id="a2" data-art="2"><div class="frm st">N(c₂ = 3) = N(левый, c₂ = 3) · N(правый, c₂ = 3)</div></div>
 <p class="subsec st"><b>1.1. N(левый, c₂ = 3).</b></p>
-<p class="st"><b>Выпишем по порядку:</b> c₁ = 1, потом 2, и для каждой — c₄ ниже c₁.</p>
+<p class="st"><b>Выпишем по порядку:</b> c₁ = 1, потом 2.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>c₁ (ниже 3)</th><th>c₄ (ниже c₁)</th><th>строк</th></tr>
 <tr><td>1</td><td>высот нет</td><td>0</td></tr>
@@ -359,36 +358,35 @@ c₅ &lt; c₃</pre>
 </table></div></div>
 <div id="a3" data-art="3"><div class="frm st">N(левый, c₂ = 3) = 1</div></div>
 <p class="subsec st"><b>1.2. N(правый, c₂ = 3).</b></p>
-<p class="st"><b>Выпишем по порядку:</b> c₃ = 4, потом 5, 6, и для каждой — c₅ ниже c₃.</p>
+<p class="st"><b>Выпишем по порядку:</b> c₃ = 4, потом 5, 6.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>c₃ (выше 3)</th><th>c₅ (ниже c₃)</th><th>строк</th></tr>
 <tr><td>4</td><td>1, 2, 3</td><td>3</td></tr>
 <tr><td>5</td><td>1, 2, 3, 4</td><td>4</td></tr>
 <tr><td>6</td><td>1, 2, 3, 4, 5</td><td>5</td></tr>
 </table></div></div>
-<p class="st"><b>Как устроен список:</b></p>
-<ul class="st"><li>c₅ сравнивается только с c₃: в списке есть и c₅ = 3, хотя c₂ = 3, — высоты разных площадок могут совпадать;</li><li>длина группы зависит от c₃: 3, 4 и 5 строк.</li></ul>
+<p class="st"><b>Как устроен список:</b> c₅ сравнивается только с c₃ ⇒ в списке есть и c₅ = 3, хотя c₂ = 3.</p>
 <div id="a4" data-art="4"><div class="frm st">N(правый, c₂ = 3) = 3 + 4 + 5 = 12</div></div>
 <p class="subsec st"><b>1.3. Сборка мира.</b></p>
 <div id="a5" data-art="5"><div class="frm st">N(c₂ = 3) = 1 · 12 = 12</div></div>
 <p class="sec st"><b>2. Миры N(c₂ = 4) и N(c₂ = 5).</b></p>
-<p class="st">Счёт тот же, меняется только c₂: левый столбец выписываем по c₁, правый — по c₃.</p>
-<div class="cols2"><div class="col"><div class="frm st">N(c₂ = 4)</div><p class="st"><em>Левый столбец:</em></p><div class="st"><div class="tw"><table>
+<p class="st">Счёт тот же, меняется только c₂.</p>
+<div class="cols2"><div class="col"><div class="frm st">N(c₂ = 4)</div><div class="st"><div class="tw"><table>
 <tr><th>c₁ (ниже 4)</th><th>c₄ (ниже c₁)</th><th>строк</th></tr>
 <tr><td>1</td><td>высот нет</td><td>0</td></tr>
 <tr><td>2</td><td>1</td><td>1</td></tr>
 <tr><td>3</td><td>1, 2</td><td>2</td></tr>
-</table></div></div><div class="frm st">N(левый, c₂ = 4) = 1 + 2 = 3</div><p class="st"><em>Правый столбец:</em></p><div class="st"><div class="tw"><table>
+</table></div></div><div class="frm st">N(левый, c₂ = 4) = 1 + 2 = 3</div><div class="st"><div class="tw"><table>
 <tr><th>c₃ (выше 4)</th><th>c₅ (ниже c₃)</th><th>строк</th></tr>
 <tr><td>5</td><td>1, 2, 3, 4</td><td>4</td></tr>
 <tr><td>6</td><td>1, 2, 3, 4, 5</td><td>5</td></tr>
-</table></div></div><div class="frm st">N(правый, c₂ = 4) = 4 + 5 = 9</div><div class="frm st">N(c₂ = 4) = 3 · 9 = 27</div></div><div class="col"><div class="frm st">N(c₂ = 5)</div><p class="st"><em>Левый столбец:</em></p><div class="st"><div class="tw"><table>
+</table></div></div><div class="frm st">N(правый, c₂ = 4) = 4 + 5 = 9</div><div class="frm st">N(c₂ = 4) = 3 · 9 = 27</div></div><div class="col"><div class="frm st">N(c₂ = 5)</div><div class="st"><div class="tw"><table>
 <tr><th>c₁ (ниже 5)</th><th>c₄ (ниже c₁)</th><th>строк</th></tr>
 <tr><td>1</td><td>высот нет</td><td>0</td></tr>
 <tr><td>2</td><td>1</td><td>1</td></tr>
 <tr><td>3</td><td>1, 2</td><td>2</td></tr>
 <tr><td>4</td><td>1, 2, 3</td><td>3</td></tr>
-</table></div></div><div class="frm st">N(левый, c₂ = 5) = 1 + 2 + 3 = 6</div><p class="st"><em>Правый столбец:</em></p><div class="st"><div class="tw"><table>
+</table></div></div><div class="frm st">N(левый, c₂ = 5) = 1 + 2 + 3 = 6</div><div class="st"><div class="tw"><table>
 <tr><th>c₃ (выше 5)</th><th>c₅ (ниже c₃)</th><th>строк</th></tr>
 <tr><td>6</td><td>1, 2, 3, 4, 5</td><td>5</td></tr>
 </table></div></div><div class="frm st">N(правый, c₂ = 5) = 5</div><div class="frm st">N(c₂ = 5) = 6 · 5 = 30</div></div></div>
