@@ -30,7 +30,7 @@ def inline(s):
         s = pens(s)
     return s
 
-STACK_FRACTIONS = False     # включается для учебников 5 класса (math5_*): см. build_pages
+STACK_FRACTIONS = False     # включается для школьных учебников (math5_*, math6_*): см. build_pages
 VULGAR = {'½': '1/2', '⅓': '1/3', '⅔': '2/3', '¼': '1/4', '¾': '3/4', '⅕': '1/5', '⅖': '2/5', '⅗': '3/5',
           '⅘': '4/5', '⅙': '1/6', '⅚': '5/6', '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8'}
 
@@ -560,8 +560,8 @@ def doc_kind(src_path):
         return 'single'     # пакеты этапа Г: сплошная страница без левой колонки (решение родителя 3.11.2026)
     if '_kombinatorika_' in name:
         return 'single'     # учебник комбинаторики: одна колонка, без сухого остатка (решение родителя 24.10.2026)
-    if name.startswith('math5_') and '_uchebnik' in name:
-        return 'single'     # школьные учебники 5 класса: одна колонка, как учебник комбинаторики (решение родителя 25.10.2026)
+    if name.startswith(('math5_', 'math6_')) and '_uchebnik' in name:
+        return 'single'     # школьные учебники 5–6 класса: одна колонка, как учебник комбинаторики (решение родителя 25.10.2026)
     if '_uchebnik' in name:
         return 'uchebnik'
     if re.search(r'_(resheniya|reshebnik|klyuch|podskazki)', name):
@@ -901,7 +901,7 @@ def build_pages(md, visuals=None, src_path=None):
     global STACK_FRACTIONS
     visuals = visuals or {}
     kind = doc_kind(src_path)
-    STACK_FRACTIONS = os.path.basename(src_path or '').startswith('math5_')
+    STACK_FRACTIONS = os.path.basename(src_path or '').startswith(('math5_', 'math6_'))
     page_tpl = TEMPLATE.replace('</style>', FRAC_CSS + '</style>', 1) if STACK_FRACTIONS else TEMPLATE
     title, sub, chapters, pre = split_chapters(md)
     files, used, shown_part = {}, set(), None
@@ -950,7 +950,12 @@ def build_pages(md, visuals=None, src_path=None):
                 if anchor in key and anchor not in used:
                     used.add(anchor)
                     figs.append(figure)
-            if figs and k == 'p' and TASK_HEAD.match(v):
+            if figs and k == 'code' and any('class="zamena' in f or 'zamena"' in f for f in figs):
+                # ASCII-рисунок заменён SVG (CLAUDE.md, правило 8: «ASCII boards … become SVG»):
+                # рисунок встаёт на место блока, исходник остаётся в разметке скрытым — сверка текста его видит
+                body.extend(figs)
+                body.append(h.replace('<pre class="ascii st">', '<pre class="ascii st zam" hidden>', 1))
+            elif figs and k == 'p' and TASK_HEAD.match(v):
                 # рисунок условия встаёт справа от рамки постановки, а не под ней
                 body.append(f'<div class="taskfig">{h}<div class="tf-fig">{"".join(figs)}</div></div>')
             else:
