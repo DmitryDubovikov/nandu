@@ -323,7 +323,8 @@
 <p class="st">Если первая и последняя буквы слова одинаковые, а одну клетку нельзя брать дважды, то концы сначала выбираются без запрета, а потом вычитаются пары, где первая и последняя буква стоят в одной клетке.</p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Вова вписал буквы в клетки таблички и хочет прочитать на ней слово ТОРТ, выбирая буквы по одной:</p><ul class="st"><li>от буквы можно переходить только к соседней букве;</li><li>одну и ту же клетку нельзя использовать дважды;</li><li>две клетки соседние, если у них есть общая сторона или общая вершина.</li></ul><p>Сколькими способами Вова может прочитать слово ТОРТ? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 58 44' role='img' aria-label='Табличка 3 × 4' style='max-width:300px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='9.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.8'>1</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.8'>2</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='9.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Р</text><text x='29.2' y='3.6' fill='#93a1b1' font-size='2.8'>3</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='43.2' y='3.6' fill='#93a1b1' font-size='2.8'>4</text><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='23.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.8'>5</text><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='23.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>О</text><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.8'>6</text><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='23.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Р</text><text x='29.2' y='17.6' fill='#93a1b1' font-size='2.8'>7</text><rect x='42' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='23.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='43.2' y='17.6' fill='#93a1b1' font-size='2.8'>8</text><rect x='0' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='37.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='1.2' y='31.6' fill='#93a1b1' font-size='2.8'>9</text><rect x='14' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='37.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='15.2' y='31.6' fill='#93a1b1' font-size='2.8'>10</text><rect x='28' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='37.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='29.2' y='31.6' fill='#93a1b1' font-size='2.8'>11</text><rect x='42' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='37.4' fill='#e8eef6' font-size='6' text-anchor='middle' font-weight='700'>Т</text><text x='43.2' y='31.6' fill='#93a1b1' font-size='2.8'>12</text></svg><figcaption>Номера клеток — по строкам.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — путь Т → О → Р → Т по четырём разным клеткам таблички, каждая следующая клетка — соседка предыдущей.</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>О на табличке одна, в клетке 6, а в слове перед О стоит первая Т и сразу за О стоит Р ⇒ и первая Т, и Р стоят в соседках клетки 6.</p></div></div>
+<p class="st"><b>Вопрос: с какой буквы слова начать?</b></p>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>С О: она на табличке одна, в клетке 6 ⇒ первая Т и Р, её соседи в слове, стоят в соседках клетки 6.</p></div></div>
 <p class="st"><b>Выпишем по порядку</b> соседок клетки 6 и их буквы.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>соседка клетки 6</th><th>1</th><th>2</th><th>3</th><th>5</th><th>7</th><th>9</th><th>10</th><th>11</th></tr>
@@ -332,7 +333,6 @@
 <p class="st"><b>Как устроен список:</b></p>
 <ul class="st"><li>Р стоит в двух соседках клетки 6: в клетке 3 (общая вершина) и в клетке 7 (общая сторона);</li><li>Т стоит в шести соседках клетки 6: 1, 2, 5, 9, 10, 11.</li></ul>
 <p class="st">Соседку клетки, в которой стоит буква Т, коротко назовём соседкой-Т: клетка 2 — соседка-Т клетки 6, потому что клетка 2 — соседка клетки 6 и в клетке 2 стоит Т.</p>
-<p class="st">Соседки-Т клетки 6 — клетки 1, 2, 5, 9, 10, 11.</p>
 <p class="st">Миры — по клетке Р:</p>
 <div id="a1" data-art="1"><div class="frm st">(клетка О, клетка Р) = (6, 3), (6, 7)</div></div>
 <div id="a2" data-art="2"><div class="frm st">N = N(6, 3) + N(6, 7)</div></div>
@@ -342,6 +342,8 @@
 <p class="st">Последняя Т стоит в слове сразу за Р ⇒ последняя Т стоит в соседке-Т клетки 3.</p>
 <p class="st">Соседки клетки 3 — клетки 2, 4, 6, 7, 8, и буква Т стоит в клетках 2, 4, 8.</p>
 <p class="st"><em>«одну и ту же клетку нельзя использовать дважды»</em> ⇒ последняя Т не стоит в клетке первой Т.</p>
+<p class="st"><b>Вопрос: в какой клетке могут оказаться и первая, и последняя Т?</b></p>
+<p class="st">Только в клетке 2: она соседка-Т и клетки 6, и клетки 3, то есть общая соседка-Т.</p>
 <p class="st"><b>Выпишем по порядку:</b> первая Т в клетке 1, потом в 2, 5, 9, 10, 11, и для каждой — клетки последней Т.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>первая Т</th><th>последняя Т</th><th>строк</th></tr>
@@ -352,8 +354,7 @@
 <tr><td>10</td><td>2, 4, 8</td><td>3</td></tr>
 <tr><td>11</td><td>2, 4, 8</td><td>3</td></tr>
 </table></div></div>
-<p class="st"><b>Как устроен список:</b></p>
-<ul class="st"><li>групп шесть, и без запрета «дважды» в каждой было бы три строки;</li><li>клетка 2 — соседка-Т и клетки 6, и клетки 3, то есть общая соседка-Т;</li><li>запрет «дважды» убирает одну строку: ту, где и первая, и последняя Т стоят в клетке 2.</li></ul>
+<p class="st"><b>Как устроен список:</b> групп шесть, без запрета «дважды» в каждой было бы три строки, а запрет убирает одну строку: ту, где и первая, и последняя Т стоят в клетке 2.</p>
 <p class="st"><b>Все пары минус совпадения:</b> из всех пар (первая Т, последняя Т) вычитаем пары, где обе Т стоят в одной клетке, а такая пара — это общая соседка-Т.</p>
 <div id="a3" data-art="3"><div class="frm st">N(6, 3) = 6 · 3 − 1 = 17</div></div>
 <p class="st"><small>О и Р в слове по одному разу и отличаются от Т, поэтому клетки О и Р и так не повторяются</small></p>
