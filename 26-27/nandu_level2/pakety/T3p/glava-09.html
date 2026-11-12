@@ -319,7 +319,7 @@
   <h1>9. Соседство, зазоры (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если фишки не могут стоять в клетках с общей стороной или общей вершиной, то в квадрате 2×2 не больше одной фишки, и доска режется на квадраты 2×2, а миры — по пустому квадрату или по месту фишки в квадрате, который граничит с остальными; на полоске «между ними не меньше k» значит, что следующая фишка стоит правее хотя бы на k + 1.</p>
+<p class="st">Если фишки не могут стоять в клетках с общей стороной или общей вершиной, то в квадрате 2×2 не больше одной фишки; на доске в два ряда это значит, что фишки стоят в разных столбцах и среди этих столбцов нет соседних: сначала выбираются столбцы, потом место фишки в каждом столбце. На полоске «между ними не меньше k» значит, что следующая фишка стоит правее хотя бы на k + 1.</p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Пасечник ставит 3 одинаковых улья на луг, разбитый на участки, как на рисунке, так, чтобы:</p><ul class="st"><li>на каждом участке стояло не больше одного улья;</li><li>ульи не стояли на участках, у которых есть общая сторона или общая вершина.</li></ul><p>Сколькими различными способами пасечник может поставить 3 улья? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 86 30' role='img' aria-label='Луг 2×6' style='max-width:460px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='56' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='70' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='0' width='84' height='28' fill='none' stroke='#e8eef6' stroke-width='1.2'/></svg><figcaption>Луг пасечника.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — набор из трёх участков, на которых стоят ульи.</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p><em>«ульи не стояли на участках, у которых есть общая сторона или общая вершина»</em> ⇒ посмотрим на четыре участка, которые образуют квадрат 2×2.</p></div></div>
@@ -335,12 +335,12 @@
 <tr><th>столбец левого улья</th><th>столбец среднего улья</th><th>столбец правого улья</th><th>строк</th></tr>
 <tr><td>1</td><td>3</td><td>5, 6</td><td>2</td></tr>
 <tr><td>1</td><td>4</td><td>6</td><td>1</td></tr>
-<tr><td>1</td><td>5</td><td>нужен столбец 7, его нет</td><td>0</td></tr>
+<tr><td>1</td><td>5 или 6</td><td>нужен столбец 7 или 8, их нет</td><td>0</td></tr>
 <tr><td>2</td><td>4</td><td>6</td><td>1</td></tr>
-<tr><td>2</td><td>5</td><td>нужен столбец 7, его нет</td><td>0</td></tr>
-<tr><td>3</td><td>5</td><td>нужен столбец 7, его нет</td><td>0</td></tr>
+<tr><td>2</td><td>5 или 6</td><td>нужен столбец 7 или 8, их нет</td><td>0</td></tr>
+<tr><td>3 или 4</td><td>5 или 6</td><td>нужен столбец 7 или 8, их нет</td><td>0</td></tr>
 </table></div></div>
-<p class="st"><b>Как устроен список:</b> годных строк четыре: 1, 3, 5; потом 1, 3, 6; потом 1, 4, 6; потом 2, 4, 6.</p>
+<p class="st"><b>Как устроен список:</b> непустых групп три, в них 2, 1 и 1 тройка: 1, 3, 5; потом 1, 3, 6; потом 1, 4, 6; потом 2, 4, 6.</p>
 <div id="a2" data-art="2"><div class="frm st">N(троек столбцов) = 2 + 1 + 1 = 4</div></div>
 <p class="sec st"><b>2. N(мест ульев в столбцах тройки).</b></p>
 <p class="st">В своём столбце улей стоит сверху или снизу.</p>
