@@ -21,7 +21,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 CONV = os.path.join(ROOT, 'tools', 'md2html.py')
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-TMP = os.path.join(HERE, 'kadry', '.tmp')   # временные страницы — вне папки сборки (она в git)
+# временные страницы и профиль Chrome — вне папки сборки (она в git) и свои у каждого запуска:
+# семь пар проверяются параллельно, общие имена перепутали бы кадры
+TMP = os.path.join(HERE, 'kadry', '.tmp', str(os.getpid()))
 os.makedirs(TMP, exist_ok=True)
 
 # доиграть всё: проявление текста, анимации рисунков; потом прокрутить к Y
@@ -45,7 +47,7 @@ OVERFLOW = ("var W=document.documentElement.clientWidth,bad=[];"
 def chrome(url, w, h, png=None, dump=False, scale=1):
     args = [CHROME, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files',
             f'--window-size={w},{h}', f'--force-device-scale-factor={scale}',
-            f'--user-data-dir={os.path.join(HERE, "kadry", ".chrome")}', '--virtual-time-budget=5000']
+            f'--user-data-dir={os.path.join(TMP, "chrome")}', '--virtual-time-budget=5000']
     args += ['--dump-dom'] if dump else [f'--screenshot={png}']
     r = subprocess.run(args + [url], capture_output=True, text=True)
     return r.stdout
@@ -165,8 +167,8 @@ def main():
         style = re.search(r'<style>.*?</style>', h, re.S).group(0)
         # 2) каждый рисунок на ширине телефона, доигранный: страница-рисунок внутри iframe 400 px
         for i, f in enumerate(figs, 1):
-            tmp = os.path.join(kd, 'фиг', '__f.html')
-            wrap = os.path.join(kd, 'фиг', '__w.html')
+            tmp = os.path.join(TMP, '__f.html')
+            wrap = os.path.join(TMP, '__w.html')
             open(tmp, 'w').write(iso_page(style, [f], 400).replace('max-width:400px;padding:16px', 'padding:16px')
                                  + FINISH % '' + '</body></html>')
             open(wrap, 'w').write(phone(tmp))
@@ -178,13 +180,14 @@ def main():
             if not re.match(r'<figure class="[^"]*\bfx\b', f):
                 continue
             for when, js in (('start', ''), ('end', FINISH % '')):
-                tmp = os.path.join(kd, 'анм', '__a.html')
+                tmp = os.path.join(TMP, '__a.html')
                 open(tmp, 'w').write(iso_page(style, [f], 760) + js + '</body></html>')
                 chrome('file://' + tmp, 800, 900, os.path.join(kd, 'анм', f'{tag}_{i}_{when}.png'))
                 os.remove(tmp)
     print(f'итого: рисунков {tot_f}, анимаций {tot_a}')
     if kadry:
         print('кадры:', os.path.relpath(kd, ROOT))
+    shutil.rmtree(TMP, ignore_errors=True)
     print('ошибок нет' if not bad else f'ошибок: {bad}')
     sys.exit(1 if bad else 0)
 
