@@ -104,6 +104,8 @@ def main():
         print('✗', r.stderr.strip())
     r = subprocess.run([sys.executable, CONV, '--check', md, out], capture_output=True, text=True)
     print(r.stdout.strip())
+    if '✗ заголовок' in r.stdout:
+        bad += 1
     if r.returncode:
         bad += 1
         print('✗ сверка текста:', r.stderr.strip())

@@ -1145,7 +1145,9 @@ def check(md_path, html_path, minrun=3):
             blocks.pop(0)
         heads = [v for k, v in blocks if k in ('h1', 'h2', 'h3', 'h4')]
         pages = norm(visible_text('\n'.join(open(f).read() for f in parts)))
-        lost_t = [h for h in heads if norm(h) not in pages]
+        # без пробелов: тег <code> в заголовке оставляет пробел перед «?» и «)» — заголовок на месте, а сверка его не видела
+        nosp = pages.replace(' ', '')
+        lost_t = [h for h in heads if norm(h).replace(' ', '') not in nosp]
         print('заголовки в тексте страниц: %d из %d' % (len(heads) - len(lost_t), len(heads)))
         for h in lost_t:
             print('  ✗ заголовок', h)
