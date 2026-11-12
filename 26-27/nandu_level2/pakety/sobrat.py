@@ -176,7 +176,11 @@ for stale in glob.glob(os.path.join(P, '*.html')):
 vis_all = {}
 for j in glob.glob(os.path.join(M, '**', '*.vis.json'), recursive=True):
     if not os.path.basename(j).startswith('nandu_n2_paket_'):
-        vis_all.update(json.load(open(j)))
+        vj = json.load(open(j))
+        for a_ in vj:
+            if a_ in vis_all:   # один ключ в двух vis.json: рисунок попадёт не на ту страницу
+                print(f'  ⚠ ключ рисунка в двух vis.json: «{a_[:70]}» ({os.path.basename(j)})')
+        vis_all.update(vj)
 
 
 def norm(t):
