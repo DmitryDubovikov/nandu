@@ -345,7 +345,7 @@ def render_tldr(src, visuals=None, used=None):
         key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v)).strip()
         hit = []
         for anchor, figure in visuals.items():
-            if anchor in key and anchor not in used:
+            if anchor_hit(anchor, key) and anchor not in used:
                 used.add(anchor)
                 hit.append(figure)
         return hit
@@ -445,9 +445,14 @@ def render_inner(md, visuals=None, used=None):
         if visuals is not None:
             key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v2)).strip()
             for anchor, figure in visuals.items():
-                if anchor in key and anchor not in used:
+                if anchor_hit(anchor, key) and anchor not in used:
                     used.add(anchor); parts.append(figure)
     return ''.join(parts)
+
+def anchor_hit(anchor, key):
+    """Якорь рисунка — подстрока текста блока. «=…» — весь текст блока целиком: так ставится рисунок к блоку,
+    чей текст сплошь входит в более ранний блок (ASCII-сетка из одних точек)."""
+    return key == anchor[1:].strip() if anchor.startswith('=') else anchor in key
 
 def render_box(v, visuals=None, used=None):
     tag, body = v.split('\x1f', 1)
@@ -469,7 +474,7 @@ def render_cols(v, visuals=None, used=None):
             if visuals is not None:
                 key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v2)).strip()
                 for anchor, figure in visuals.items():
-                    if anchor in key and anchor not in used:
+                    if anchor_hit(anchor, key) and anchor not in used:
                         used.add(anchor); parts.append(figure)
         out.append(f'<div class="col">{"".join(parts)}</div>')
     return f'<div class="cols2">{"".join(out)}</div>'
@@ -947,7 +952,7 @@ def build_pages(md, visuals=None, src_path=None):
             key = re.sub(r'\s+', ' ', re.sub(r'[*`>#|]', '', v)).strip()
             figs = []
             for anchor, figure in visuals.items():
-                if anchor in key and anchor not in used:
+                if anchor_hit(anchor, key) and anchor not in used:
                     used.add(anchor)
                     figs.append(figure)
             if figs and k == 'code' and any('class="zamena' in f or 'zamena"' in f for f in figs):

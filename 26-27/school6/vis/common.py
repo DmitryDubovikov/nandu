@@ -264,3 +264,29 @@ def sets(items, size=15):
                 f"stroke='{col}' stroke-width='2'/>")
         out += t(lx, ly, name, col, size, weight=600)
     return out
+
+
+def height(v, a, b, stroke=GOLD, dash='5 4', label=None, ext=MUTED, s=11):
+    """Высота из вершины v на прямую ab: пунктир со знаком прямого угла. → (svg, foot).
+
+    Если основание высоты падает вне отрезка ab (тупой угол), продолжение ab до него дорисовывается пунктиром ext —
+    общий случай рисуется общим. label — подпись у середины высоты (например 'h').
+    """
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    k = ((v[0] - a[0]) * dx + (v[1] - a[1]) * dy) / (dx * dx + dy * dy)
+    foot = (a[0] + k * dx, a[1] + k * dy)
+    out = ''
+    if k < 0 or k > 1:
+        near = a if k < 0 else b
+        out += path([near, foot], ext, 1.5, closed=False, dash='4 4')
+    out += path([v, foot], stroke, 2, closed=False, dash=dash)
+    other = b if abs(k) < abs(k - 1) else a          # прямой угол рисуется в сторону лежащего на прямой отрезка
+    if (other[0] - foot[0]) ** 2 + (other[1] - foot[1]) ** 2 < 1:
+        other = a
+    out += right_angle(foot, v, other, s, stroke)
+    if label:
+        mx, my = (v[0] + foot[0]) / 2, (v[1] + foot[1]) / 2
+        nx, ny = -(foot[1] - v[1]), foot[0] - v[0]
+        n = math.hypot(nx, ny) or 1
+        out += t(round(mx + nx / n * 12, 1), round(my + ny / n * 12 + 5, 1), label, stroke, 15)
+    return out, foot
