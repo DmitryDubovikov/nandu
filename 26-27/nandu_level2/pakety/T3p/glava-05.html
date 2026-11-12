@@ -324,53 +324,69 @@
 <p class="st"><b>Способ</b> — раскладка карточек с цифрами 1–6 по клеткам c₁, …, c₆, по одной карточке в клетку.</p>
 <figure class='st'><svg viewBox='-1 -1 44 30' role='img' aria-label='Табло 2×3' style='max-width:300px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><figcaption>Табло: cᵢ — цифра в i-й клетке.</figcaption></figure>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Числа строк складываются столбиком: первый столбец — сотни, второй — десятки, третий — единицы ⇒ запишем сумму через суммы столбцов.</p></div></div>
+<p class="st">Раскладка 132 и 546:</p>
+<pre class="sys st">132 + 546 = 100 · (1 + 5) + 10 · (3 + 4) + (2 + 6)
+          = 600 + 70 + 8
+          = 678</pre>
 <p class="st"><b>Обозначим:</b> S<sub>стр</sub> — сумма чисел двух строк, а S<sub>сот</sub>, S<sub>дес</sub> и S<sub>ед</sub> — суммы цифр в столбцах сотен, десятков и единиц.</p>
 <div id="a1" data-art="1"><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 10 · S<sub>дес</sub> + S<sub>ед</sub></div></div>
 <figure class='st'><svg viewBox='-1 -1 44 37' role='img' aria-label='Табло 2×3' style='max-width:220px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='14' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='28' y='14' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text><text x='7.0' y='33' fill='#5fd38d' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>сот</tspan></text><text x='21.0' y='33' fill='#5ba8f5' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>дес</tspan></text><text x='35.0' y='33' fill='#b48cf0' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>ед</tspan></text></svg><figcaption>Первый столбец — сотни, второй — десятки, третий — единицы.</figcaption></figure>
 <p class="st"><b>Сумма чисел строк — через суммы столбцов:</b> каждая из цифр 1–6 стоит ровно в одном столбце ⇒ сумма трёх столбцов известна заранее:</p>
 <div id="a2" data-art="2"><div class="frm st">S<sub>сот</sub> + S<sub>дес</sub> + S<sub>ед</sub> = 1 + 2 + … + 6 = 21</div></div>
-<p class="st"><b>Значит:</b> S<sub>дес</sub> выражается через S<sub>сот</sub> и S<sub>ед</sub>:</p>
+<p class="st"><b>Значит:</b> три суммы связаны: чем больше одна, тем меньше остаётся двум другим ⇒ выразим S<sub>дес</sub> через S<sub>сот</sub> и S<sub>ед</sub>, и в формуле останутся только две суммы:</p>
 <div id="a3" data-art="3"><div class="frm st">S<sub>дес</sub> = 21 − S<sub>сот</sub> − S<sub>ед</sub></div></div>
 <p class="st">Подставим S<sub>дес</sub> в первую формулу и раскроем скобки:</p>
 <div id="a4" data-art="4"><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 10 · (21 − S<sub>сот</sub> − S<sub>ед</sub>) + S<sub>ед</sub></div></div>
 <div id="a5" data-art="5"><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 210 − 10 · S<sub>сот</sub> − 10 · S<sub>ед</sub> + S<sub>ед</sub></div></div>
 <div class="res st"><div class="frm st">S<sub>стр</sub> = 210 + 90 · S<sub>сот</sub> − 9 · S<sub>ед</sub>   (*)</div></div>
+<p class="st">В раскладке 132 и 546 S<sub>сот</sub> = 6 и S<sub>ед</sub> = 8:</p>
+<pre class="sys st">210 + 90 · 6 − 9 · 8 = 210 + 540 − 72 = 678</pre>
 <p class="st"><b>Значит:</b> S<sub>стр</sub> тем больше, чем больше S<sub>сот</sub> и чем меньше S<sub>ед</sub>.</p>
-<p class="st"><small>если на какой-то доске S<sub>сот</sub> равна своей границе сверху, а S<sub>ед</sub> равна своей границе снизу, то S<sub>стр</sub> на ней наибольшая: на любой другой доске S<sub>сот</sub> меньше или S<sub>ед</sub> больше, и S<sub>стр</sub> меньше</small></p>
-<div id="a6" data-art="6"><div class="plan st"><p class="st">Если есть доска, где S<sub>сот</sub> и S<sub>ед</sub> сразу на своих границах, то:</p>
+<p class="st">S<sub>сот</sub> не бывает больше какого-то числа — это граница сверху для S<sub>сот</sub>.</p>
+<p class="st">S<sub>ед</sub> не бывает меньше какого-то числа — это граница снизу для S<sub>ед</sub>.</p>
+<p class="st">Если в какой-то раскладке S<sub>сот</sub> равна своей границе сверху, а S<sub>ед</sub> равна своей границе снизу, то S<sub>стр</sub> в ней наибольшая.</p>
+<p class="st">В любой раскладке, где S<sub>сот</sub> меньше своей границы или S<sub>ед</sub> больше своей границы, S<sub>стр</sub> меньше.</p>
+<div id="a6" data-art="6"><div class="plan st"><p class="st">Если есть раскладка, где S<sub>сот</sub> и S<sub>ед</sub> сразу на своих границах, то:</p>
 <p class="st">а) наибольшая S<sub>стр</sub> = 210 + 90 · (граница сверху для S<sub>сот</sub>) − 9 · (граница снизу для S<sub>ед</sub>)</p>
 <div class="frm st">б) N = N(S<sub>сот</sub> и S<sub>ед</sub> на границах)</div></div></div>
 <p class="sec st"><b>1. Граница сверху для S<sub>сот</sub>.</b></p>
 <p class="st"><b>Заметим:</b> в столбце сотен две разные цифры из 1–6 ⇒ S<sub>сот</sub> не больше суммы двух наибольших цифр 6 и 5:</p>
 <div class="res st"><div class="frm st">S<sub>сот</sub> ≤ 6 + 5 = 11</div></div>
-<p class="st"><small>S<sub>сот</sub> = 11 только при 5 и 6 в столбце сотен: в любой другой паре хоть одна цифра не больше 4</small></p>
+<p class="st">S<sub>сот</sub> = 11 только при 5 и 6 в столбце сотен: в любой другой паре хоть одна цифра не больше 4 ⇒ сумма не больше 10.</p>
 <p class="sec st"><b>2. Граница снизу для S<sub>ед</sub>.</b></p>
 <p class="st"><b>Дано:</b> <em>«число первой строки чётное»</em> ⇒ c₃ чётная.</p>
 <p class="st"><b>Дано:</b> <em>«число второй строки чётное»</em> ⇒ c₆ чётная.</p>
-<p class="st"><b>Заметим:</b> в c₃ и c₆ стоят две разные цифры из 2, 4, 6 ⇒ S<sub>ед</sub> не меньше суммы двух наименьших чётных цифр 2 и 4:</p>
+<p class="st"><b>Заметим:</b> в c₃ и c₆ стоят две разные цифры из 2, 4, 6.</p>
+<p class="st"><b>Выпишем по порядку</b> пары чётных цифр для c₃ и c₆: по возрастанию меньшей цифры.</p>
+<div class="st"><div class="tw"><table>
+<tr><th>цифры в c₃ и c₆</th><th>S<sub>ед</sub></th></tr>
+<tr><td>2 и 4</td><td>6</td></tr>
+<tr><td>2 и 6</td><td>8</td></tr>
+<tr><td>4 и 6</td><td>10</td></tr>
+</table></div></div>
+<p class="st"><b>Как устроен список:</b> наименьшая S<sub>ед</sub> стоит в первой строке и больше нигде.</p>
 <div class="res st"><div class="frm st">S<sub>ед</sub> = c₃ + c₆ ≥ 2 + 4 = 6</div></div>
-<p class="st"><small>S<sub>ед</sub> = 6 только при 2 и 4 в столбце единиц</small></p>
+<p class="st">S<sub>ед</sub> = 6 только при 2 и 4 в столбце единиц.</p>
 <p class="sec st"><b>3. N(S<sub>сот</sub> и S<sub>ед</sub> на границах).</b></p>
 <p class="st"><b>Из разделов 1 и 2:</b> в столбце сотен 5 и 6, в столбце единиц 2 и 4.</p>
 <p class="st"><b>Значит:</b> в столбце десятков оставшиеся 1 и 3.</p>
 <figure class='st'><svg viewBox='-1 -1 44 30' role='img' aria-label='Табло 2×3' style='max-width:220px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.4' text-anchor='middle'>5 6</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.4' text-anchor='middle'>1 3</text><rect x='28' y='0' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='29.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='35.0' y='9.4' fill='#e8eef6' font-size='3.4' text-anchor='middle'>2 4</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.4' text-anchor='middle'>5 6</text><rect x='14' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₅</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.4' text-anchor='middle'>1 3</text><rect x='28' y='14' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='29.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₆</text><text x='35.0' y='23.4' fill='#e8eef6' font-size='3.4' text-anchor='middle'>2 4</text></svg><figcaption>Сотни, десятки и единицы на границах.</figcaption></figure>
 <p class="st"><b>Заметим:</b> число каждой строки кончается на 2 или на 4 ⇒ «чётное» выполнено само при любом порядке цифр в столбцах.</p>
-<p class="st">N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = N(заполнений c₁ и c₄) · N(заполнений c₂ и c₅) · N(заполнений c₃ и c₆)</p>
-<p class="st">В c₁ и c₄ идут 5 и 6, порядок важен:</p>
-<div id="a7" data-art="7"><div class="frm st">N(заполнений c₁ и c₄) = 2 · 1 = 2</div></div>
-<p class="st">В c₂ и c₅ идут 1 и 3, порядок важен:</p>
-<div id="a8" data-art="8"><div class="frm st">N(заполнений c₂ и c₅) = 2 · 1 = 2</div></div>
-<p class="st">В c₃ и c₆ идут 2 и 4, порядок важен:</p>
-<div id="a9" data-art="9"><div class="frm st">N(заполнений c₃ и c₆) = 2 · 1 = 2</div></div>
-<div id="a10" data-art="10"><div class="frm st">N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 2 · 2 · 2 = 8</div></div>
-<p class="st"><small>5 в c₁: 512 + 634, 514 + 632, 532 + 614, 534 + 612</small></p>
-<p class="st"><small>6 в c₁: 612 + 534, 614 + 532, 632 + 514, 634 + 512</small></p>
+<p class="st"><b>Выпишем по порядку:</b> c₁ = 5, потом 6; для каждой c₂ = 1, потом 3; для каждой c₃ = 2, потом 4; во второй строке стоят вторые цифры столбцов.</p>
+<div class="st"><div class="tw"><table>
+<tr><th>c₁</th><th>число первой строки + число второй строки</th><th>строк</th></tr>
+<tr><td>5</td><td>512 + 634, 514 + 632, 532 + 614, 534 + 612</td><td>4</td></tr>
+<tr><td>6</td><td>612 + 534, 614 + 532, 632 + 514, 634 + 512</td><td>4</td></tr>
+</table></div></div>
+<p class="st"><b>Как устроен список:</b></p>
+<ul class="st"><li>в c₁ стоит 5 или 6, в c₂ стоит 1 или 3, в c₃ стоит 2 или 4;</li><li>в c₄, c₅, c₆ выбора нет: там вторая цифра своего столбца;</li><li>групп две, в каждой 2 · 2 строк.</li></ul>
+<div id="a7" data-art="7"><div class="frm st">N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 2 · 2 · 2 = 8</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<p class="st"><b>Из раздела 3:</b> досок, где S<sub>сот</sub> = 11 и S<sub>ед</sub> = 6, восемь ⇒ границы 11 и 6 достигаются на одной доске.</p>
+<p class="st"><b>Из раздела 3:</b> раскладок, где S<sub>сот</sub> = 11 и S<sub>ед</sub> = 6, восемь ⇒ границы 11 и 6 достигаются в одной раскладке.</p>
 <p class="st">Подставим S<sub>сот</sub> = 11 и S<sub>ед</sub> = 6 в (*):</p>
-<div id="a11" data-art="11"><div class="frm st">а) наибольшая S<sub>стр</sub> = 210 + 90 · 11 − 9 · 6 = 1146</div></div>
+<div id="a8" data-art="8"><div class="frm st">а) наибольшая S<sub>стр</sub> = 210 + 90 · 11 − 9 · 6 = 1146</div></div>
 <p class="st"><small>например, 512 + 634 = 1146</small></p>
-<div id="a12" data-art="12"><div class="frm st">б) N = N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 8</div></div>
+<div id="a9" data-art="9"><div class="frm st">б) N = N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 8</div></div>
 <p class="st"><b>Ответ на задачу:</b></p>
 <p class="st">а) наибольшая сумма равна <b>1146</b>;</p>
 <p class="st">б) Нико может так разложить карточки <b>8 способами</b>.</p>
