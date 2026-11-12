@@ -159,9 +159,10 @@ class NumLine:
             out += t(round(self.x(v), 1), y + 24, fmt(v), INK if (v == 0 and zero) else MUTED, size)
         return out
 
-    def point(self, v, name=None, fill=GOLD, r=5, above=True, size=15):
+    def point(self, v, name=None, fill=GOLD, r=5, above=True, size=15, hollow=False):
+        """Точка числа v; hollow — пустой кружок «здесь числа нет» (граница не входит)."""
         xv = self.x(v)
-        out = dot(xv, self.y, r, fill)
+        out = circle(xv, self.y, r, fill, 2, DARK) if hollow else dot(xv, self.y, r, fill)
         if name:
             out += t(round(xv, 1), self.y - 14 if above else self.y + 40, name, fill, size, weight=600)
         return out
@@ -170,15 +171,16 @@ class NumLine:
         return line(round(self.x(a), 1), self.y + dy, round(self.x(b), 1), self.y + dy, stroke, sw,
                     f" stroke-linecap='round'{extra}")
 
-    def jump(self, a, b, stroke=BLUE, text=None, h=26, marker=None, size=13):
-        """Дуга-прыжок от a к b над прямой (сложение, сдвиг)."""
+    def jump(self, a, b, stroke=BLUE, text=None, h=26, marker=None, size=13, below=False):
+        """Дуга-прыжок от a к b над прямой (сложение, сдвиг); below — под прямой (обратный путь, чередование)."""
         xa, xb = self.x(a), self.x(b)
         mid = (xa + xb) / 2
+        sg = 1 if below else -1
         m = f" marker-end='url(#{marker})'" if marker else ''
-        out = (f"<path d='M{xa:.1f},{self.y - 4} Q{mid:.1f},{self.y - 2 * h} {xb:.1f},{self.y - 4}' "
+        out = (f"<path d='M{xa:.1f},{self.y + sg * 4} Q{mid:.1f},{self.y + sg * 2 * h} {xb:.1f},{self.y + sg * 4}' "
                f"fill='none' stroke='{stroke}' stroke-width='2'{m}/>")
         if text:
-            out += t(round(mid, 1), self.y - h - 6, text, stroke, size)
+            out += t(round(mid, 1), self.y + h + 16 if below else self.y - h - 6, text, stroke, size)
         return out
 
 
