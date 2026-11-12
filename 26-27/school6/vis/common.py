@@ -319,3 +319,24 @@ def brace(x1, x2, y, text=None, up=True, col=MUTED, size=14, fill=None):
         ty = y + 2 * k - 6 if up else y + 2 * k + size + 2
         out += t(round(m, 1), round(ty, 1), text, fill or col, size)
     return out
+
+
+def turn(c, deg, body, d, cls='sl'):
+    """Копия body поворачивается вокруг точки c на deg градусов (по часовой на экране — положительный deg) к моменту d.
+
+    Обёртка переносит начало координат в c: промежуточные кадры вращаются вокруг c, а не уезжают.
+    Без fx-фигуры копия сразу стоит в конечном положении.
+    """
+    cx, cy = c
+    return (f"<g transform='translate({cx:.1f},{cy:.1f})'>"
+            f"<g class='{cls}' style='--d:{d}s;--to:rotate({deg}deg)'>"
+            f"<g transform='translate({-cx:.1f},{-cy:.1f})'>{body}</g></g></g>")
+
+
+def flip(p, q, body, d, cls='sl'):
+    """Копия body перегибается через прямую pq к моменту d (как лист бумаги: сплющивается к прямой и раскрывается
+    по другую сторону). Обёртка делает pq осью x; внутри --to: scale(1,-1) — отражение в этой оси."""
+    ang = math.degrees(math.atan2(q[1] - p[1], q[0] - p[0]))
+    return (f"<g transform='translate({p[0]:.1f},{p[1]:.1f}) rotate({ang:.3f})'>"
+            f"<g class='{cls}' style='--d:{d}s;--to:scale(1,-1)'>"
+            f"<g transform='rotate({-ang:.3f}) translate({-p[0]:.1f},{-p[1]:.1f})'>{body}</g></g></g>")
