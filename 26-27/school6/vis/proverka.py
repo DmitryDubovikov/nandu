@@ -49,8 +49,14 @@ def chrome(url, w, h, png=None, dump=False, scale=1):
             f'--window-size={w},{h}', f'--force-device-scale-factor={scale}',
             f'--user-data-dir={os.path.join(TMP, "chrome")}', '--virtual-time-budget=5000']
     args += ['--dump-dom'] if dump else [f'--screenshot={png}']
-    r = subprocess.run(args + [url], capture_output=True, text=True)
-    return r.stdout
+    for _ in range(3):      # headless Chrome изредка зависает на снимке: убиваем и снимаем заново
+        try:
+            r = subprocess.run(args + [url], capture_output=True, text=True, timeout=60)
+            return r.stdout
+        except subprocess.TimeoutExpired:
+            print('  … Chrome завис, повтор:', os.path.basename(png or url), flush=True)
+    print('  ✗ кадр не снят:', os.path.basename(png or url), flush=True)
+    return ''
 
 
 def phone(inner, w=400, h=900):
