@@ -91,6 +91,7 @@
 
   .frm{font:clamp(18px,1.7vw,22px)/1.6 var(--mono);color:var(--ink);margin:18px 0 0;
     padding-left:14px;border-left:2px solid var(--gold)}
+  .ascii.zam{display:none}
   .ascii{font:14.5px/1.55 var(--mono);color:var(--muted);background:var(--bg2);border-radius:10px;
     padding:16px 18px;margin:16px 0 0;overflow-x:auto}
 
@@ -327,8 +328,7 @@
 <figure class='st'><div class='fgrid'><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Пароль' style='max-width:190px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.2' fill='#5ba8f5' font-size='3.4' text-anchor='middle' font-weight='700'>буква</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></div><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Пароль' style='max-width:190px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.2' fill='#5ba8f5' font-size='3.4' text-anchor='middle' font-weight='700'>буква</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text><rect x='42' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg></div><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Пароль' style='max-width:190px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.2' fill='#5ba8f5' font-size='3.4' text-anchor='middle' font-weight='700'>буква</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text></svg></div></div></figure>
 <p class="st">После буквы и 7 остаются одиннадцать знаков: четыре буквы, цифры 1, 3, 5, 9 и три символа.</p>
 <p class="st"><small>E на месте 1 → остаются A, I, O, U; U на месте 1 → A, E, I, O — при любой букве четыре буквы</small></p>
-<p class="st">При любом месте 7 задача про свободные места одна и та же: заполнить два места разными знаками из одиннадцати оставшихся так, чтобы среди них был хотя бы один символ.</p>
-<p class="st">Ни одно правило пароля не говорит о местах 2, 3 и 4 по отдельности, поэтому у этой задачи один и тот же ответ при любом месте 7.</p>
+<p class="st">Ни одно правило пароля не говорит о местах 2, 3 и 4 по отдельности, поэтому при любом месте 7 задача про свободные места одна и та же: заполнить два места разными знаками из одиннадцати оставшихся так, чтобы среди них был хотя бы один символ.</p>
 <p class="st">Ни один ход не меняет число вариантов следующего, поэтому три хода перемножаются:</p>
 <div id="a1" data-art="1"><div class="frm st">N(паролей) = N(букв на месте 1) · N(мест для 7) · N(заполнений свободных мест)</div></div>
 <p class="sec st"><b>1. N(букв на месте 1) и N(мест для 7).</b></p>
@@ -358,6 +358,13 @@
       });
     },{threshold:0.05,rootMargin:'0px 0px -4% 0px'});
     document.querySelectorAll('.st').forEach(function(el){io.observe(el);});
+    // анимированная иллюстрация играет, когда видна почти целиком (без этого .fi оставались невидимыми до «ещё раз»)
+    var io3=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('seen');io3.unobserve(e.target);}
+      });
+    },{threshold:0.5});
+    document.querySelectorAll('figure.fx').forEach(function(f){io3.observe(f);});
 
     var arts=[].slice.call(document.querySelectorAll('.art'));
     var secs=[].slice.call(document.querySelectorAll('[data-art]'));
