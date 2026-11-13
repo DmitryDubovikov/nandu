@@ -142,7 +142,7 @@ class NumLine:
         self.x0, self.x1, self.v0, self.v1, self.y = x0, x1, v0, v1, y
 
     def x(self, v):
-        return self.x0 + (v - self.v0) * (self.x1 - self.x0) / (self.v1 - self.v0)
+        return float(self.x0 + (v - self.v0) * (self.x1 - self.x0) / (self.v1 - self.v0))   # Fraction → float
 
     def axis(self, step=1, labels=None, fmt=str, stroke=MUTED, zero=True, arrow=True, size=13):
         y = self.y

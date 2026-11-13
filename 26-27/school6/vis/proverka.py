@@ -171,8 +171,8 @@ def main():
             wrap = os.path.join(TMP, '__w.html')
             open(tmp, 'w').write(iso_page(style, [f], 400).replace('max-width:400px;padding:16px', 'padding:16px')
                                  + FINISH % '' + '</body></html>')
-            open(wrap, 'w').write(phone(tmp))
-            chrome('file://' + wrap, 600, 900, os.path.join(kd, 'фиг', f'{tag}_{i}_400.png'))
+            open(wrap, 'w').write(phone(tmp, h=1600))
+            chrome('file://' + wrap, 600, 1600, os.path.join(kd, 'фиг', f'{tag}_{i}_400.png'))
             os.remove(tmp)
             os.remove(wrap)
         # 3) анимации: начало и конец
