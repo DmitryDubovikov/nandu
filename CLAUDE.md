@@ -1,12 +1,12 @@
 # CLAUDE.md
 
-> ## ⛔ ЖЁСТКОЕ ТРЕБОВАНИЕ К РЕШЕНИЯМ ЗАДАЧ: ПЕРВАЯ ИДЕЯ → СРАЗУ НЕСГОРАЕМЫЙ АРТЕФАКТ
+> ## ⛔ Решения задач: первая идея → сразу несгораемый артефакт
 >
-> **НАРУШЕНИЕ = РЕШЕНИЕ НЕ ПРИНИМАЕТСЯ.** Действует для **любого решения задачи**: идеальные решения образцов, разборы,
+> Решение, где артефакт запаздывает, родитель не принимает. Действует для **любого решения задачи**: идеальные решения образцов, разборы,
 > решённые примеры и решения в решебниках/ключах. **На теорию учебника без задачи не распространяется** — в объяснение
 > понятия или приёма, где задачи нет, артефакты не подмешиваются.
 >
-> **ПЕРВАЯ ИДЕЯ СРАЗУ ДАЁТ ФОРМУЛУ «ОТВЕТ = ОПЕРАНДЫ». ДАЛЬШЕ КАЖДЫЙ РАЗДЕЛ СЧИТАЕТ РОВНО ОДИН ОПЕРАНД.**
+> **Первая идея сразу даёт формулу «ответ = операнды»; дальше каждый раздел считает ровно один операнд.**
 >
 > - До артефакта — **только** то, без чего его не выписать: что считается одним способом («Способ — …») и *цитата условия* ⇒ вывод. Никаких «Жанр ответа»,
 >   «Обозначения», «Заметь главное»-эссе, «как будем считать дальше» — то, как найдётся операнд (кратность, остатки, перебор),
@@ -29,7 +29,7 @@
 >   ход образца (Яковлев, Шень): ⛔-блок и правило 8 к ним не применяются, если у образца нет плана и операндов
 >   (решение родителя 24.10.2026 — обёртка N(пар) · N(соусов к паре) поверх четырёх фраз Яковлева была забракована).
 > - Полный список дефектов, найденных родителем: `26-27/nandu_level2/idealnye_resheniya/_md/CHECKLIST.md`.
->   `sobrat.py` печатает ⚠ по образцам, где артефакт запаздывает или заголовок не операнд, — ⚠ чинится до показа родителю.
+>   `26-27/nandu_level2/idealnye_resheniya/_md/sobrat.py` печатает ⚠ по образцам, где артефакт запаздывает или заголовок не операнд, — ⚠ чинится до показа родителю.
 >
 > Решение родителя 24.10.2026: «сплошной текст, сплошная неструктурированная болтовня… первая идея должна приводить сразу к
 > несгораемому артефакту… Не нужно забегать вперёд».
@@ -181,30 +181,29 @@ These conventions are load-bearing across all materials — keep them.
    answer, no technique), solves it and, where possible, runs a brute-force program; a mismatch or an ambiguity
    complaint means the problem is rewritten, not patched in brackets. No unchecked answers. The user does not
    proofread — quality rests on verification done inside the work.
-5. Language is Russian. **Real mathematical terminology is allowed and expected** (July 2026 decision, reversing the
-   earlier ban): «сочетания», «размещения», «перестановки», «факториал», «остаток по модулю», «делимость», «инвариант»
+5. Language is Russian. **Real mathematical terminology is allowed and expected** (July 2026 decision):
+   «сочетания», «размещения», «перестановки», «факториал», «остаток по модулю», «делимость», «инвариант»
    and the like are working vocabulary, not just 🔎 footnotes. The requirement is pedagogical, not lexical:
    introduce a term the first time it appears — name it, show it on the numbers of a concrete example, then use it freely.
    Do not retro-translate existing materials wholesale. **Systems of linear equations are named by their standard methods**
    (метод подстановки, метод сложения/вычитания = исключение неизвестной, приведение к треугольному виду);
-   the nickname «вычти сценарий» was retired (Aug 2026) and purged. «Сценарий» stays legitimate only where it names a
+   «вычти сценарий» is not a move name. «Сценарий» is legitimate only where it names a
    *situation in the statement* («если бы…»), i.e. at the translation stage, never as the name of a solving move.
 6. Each textbook opens with «ритуалы» (standing habits) and each chapter includes typical mistakes; worked examples
    follow the step format of rule 8. A move is named and written exactly as in the ideal solution it came from.
-7. **Solutions first, moves from them** (Oct 2026 — replaces the old «corpus → chapter ladder → textbook» workflow,
-   now in `arhiv/`; order fixed by the parent 2 Nov 2026). A course is built in this order: (а) one model corpus problem
+7. **Solutions first, moves from them** (order fixed by the parent 2 Nov 2026). A course is built in this order: (а) one model corpus problem
    per typology subtype; (б) an ideal solution of each, polished with the parent until accepted; (в) the registry of
    moves those solutions use — the naming dictionary; (г) solutions of the corpus of the upper stages (level 2:
    national, regional, provincial — 144 problems) with reference to the models; (д) a **textbook per type**,
    derived from the solved corpus; (е) **three rounds**, then battle problems.
    No chapter is planned from the typology alone, and no textbook is written before its moves exist in
    accepted solutions. Level 2 runs it in `26-27/nandu_level2/nandu_n2_roadmap.md`.
-   **Type textbooks and three rounds instead of chapter textbooks and maps** (parent's decisions 2–3 Nov 2026, after the
+   **Type textbooks and three rounds** (parent's decisions 2–3 Nov 2026, after the
    2026 tours). Diagnosis: the child lost the enumeration problems (counting, «все возможности», boards) on
    **recognition** — the problem looked completely new, although every type was familiar; the parent's hypothesis
    (3 Nov): the move was not recognised because it was **not consolidated** — not repeated in many plots. Geometry and
    systems were never the trouble. So: (1) ideal solutions stay the base — moves come only from accepted solutions;
-   (2) a **textbook per type** (17): the **textbook** (4 Nov 2026, replaces the A4 page) — every move of the type (from the corpus
+   (2) a **textbook per type** (17): the **textbook** (4 Nov 2026) — every move of the type (from the corpus
    solutions, not only the model), most frequent first, each as one line «что видно в условии → первая формула» plus a
    **worked example**: an artificial problem built like a battle problem at 20–30 % scale, new plot, solved exactly like
    the type's ideal solution (layout and logic); names and notation as in the solutions; for enumeration types the
@@ -226,7 +225,7 @@ These conventions are load-bearing across all materials — keep them.
    `<тип>-<уровень>-<№>` (`T3pp-30-2`, level O/30/50/70/100/B, battle by source `T6-B-prov23-3`) and every attempt of
    the child is timed in `26-27/nandu_level2/zhurnal.md`. **Nothing can be opened on a tour** — the moves are learned
    by heart. The type textbook is not a chapter textbook: rule 1 applies to it (its small-print list of battle-problem sources is the parent's exception, 3 Nov 2026), rules 2, 3, 6 do not. The combinatorics textbook
-   (`26-27/nandu_level2/kombinatorika/`) is a separate project and stays. Rules 2, 3, 6 below apply to textbooks and
+   (`26-27/nandu_level2/kombinatorika/`) is a separate project and stays. Rules 2, 3, 6 above apply only to textbooks and
    reshebniks already written or explicitly requested.
 8. **Разборы and composite worked examples are iterative steps with несгораемые артефакты** (июль–авг 2026 decision).
    Structure (in problem solutions the plan IS the first-idea artifact of the ⛔ block at the top of this file):
@@ -341,8 +340,8 @@ These conventions are load-bearing across all materials — keep them.
       memorised strings; a dozen constructions transfer to an unseen problem. The provincial book lives in
       `25-26/nandu_level1/provincial/nandu_n1_provincial_pamyatka.md`, section «💬 Что писать словами». New material reuses those wordings verbatim
       where the приём matches, and only extends the book when the приём is genuinely new — extending it is a book edit,
-      not a local one. **The national branch has no phrases yet**: it gets its own phrase-book section in the national
-      памятка, seeded from the provincial one, before phrases are added to national material.
+      not a local one. The national book is the same section of
+      `25-26/nandu_level1/national/nandu_n1_nacional_pamyatka.md`.
     - **Budget ≈180 Spanish characters** (two handwritten lines), simple rioplatense at 10–11-year-old level.
     - **Verification by rule 4's standard**, plus: the claim is *true*, it carries justification rather than arithmetic,
       the Spanish is natural, it fits the budget. The first pass caught three false phrases — not a formality.
@@ -380,8 +379,7 @@ These conventions are load-bearing across all materials — keep them.
       «Шаг 5 — нужны a и c по отдельности» → «Шаг 5 — в третьем данном контуре стоит a, но не стоит c».
     - **Законно и трогать не надо**, когда величина названа в плане («Ответ = Д × М» → «Шаг 2 — нужно М»), спрошена
       в условии или когда план сам задал порядок («c, v, s, а затем стороны треугольника»).
-    - Весь слой виден по `grep -rn "Шаг [0-9] — нуж"` (форма «нужен» прежним шаблоном не ловилась). Сплошная чистка
-      прошла в сент. 2026; хук `tools/pre-commit.sh` тормозит новые такие заголовки.
+    - Весь слой виден по `grep -rn "Шаг [0-9] — нуж"`; хук `tools/pre-commit.sh` тормозит новые такие заголовки.
 
 15. **Анимация — только там, где показывает ход** (сент 2026). Материал читается с экрана (см. выше), движение
     доступно всегда — и именно поэтому его надо держать в узде. Анимируется **переход**: как отрезок переезжает на
