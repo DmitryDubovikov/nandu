@@ -204,8 +204,9 @@ These conventions are load-bearing across all materials — keep them.
    (3 Nov): the move was not recognised because it was **not consolidated** — not repeated in many plots. Geometry and
    systems were never the trouble. So: (1) ideal solutions stay the base — moves come only from accepted solutions;
    (2) a **textbook per type** (17): the **textbook** (4 Nov 2026) — every move of the type (from the corpus
-   solutions, not only the model), most frequent first, each as one line «что видно в условии → первая формула» plus a
-   **worked example**: an artificial problem built like a battle problem at 20–30 % scale, new plot, solved exactly like
+   solutions, not only the model), most frequent first, each as a memorable hook name and a rule «что видно в условии ⇒
+   что делать» (14 Nov 2026; format in `26-27/nandu_level2/pakety/PROMPT_uchebnik_tipa.md`, item 3) plus a
+   **worked example** with a `:::priem` frame where the move is first applied: an artificial problem built like a battle problem at 20–30 % scale, new plot, solved exactly like
    the type's ideal solution (layout and logic); names and notation as in the solutions; for enumeration types the
    textbook opens with the ritual **«выпиши по порядку и посмотри, как устроен список»** (rule 17); the problem sets are separate linked pages; **scaled problems** at 30/50 % of a battle problem (round 1)
    and 70 % (round 2) — same move, only the counting cut, new plots, each with a full solution in the model's shape and
