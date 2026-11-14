@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>3. Места по очереди: последним — место, где вариантов всегда поровну (новый)</title>
+<title>3. Последняя клетка доводит сумму до кратной (новый)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,20 +321,17 @@
 </aside>
 <main>
   
-  <h1>3. Места по очереди: последним — место, где вариантов всегда поровну (новый)</h1>
+  <h1>3. Последняя клетка доводит сумму до кратной (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если условие стоит на всю доску сразу (сумма делится на 3, сумма чётная), то клетки заполняются по очереди так, чтобы у последней клетки число вариантов не зависело от остальных.</p>
+<p class="st">Сумма всех клеток должна делиться на заданное число ⇒ все клетки, кроме последней, заполняй любыми числами. Что бы в них ни стояло, для последней клетки годится одно и то же количество чисел.</p>
 <p class="st"><small><b>Боевые задачи (2):</b> нац 2024 I №3 · нац 2025 II №6</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>У чемодана кодовый замок из четырёх колёсиков в ряд, и код на нём набирают так:</p><ul class="st"><li>на каждом колёсике выставляют одну из цифр 1, 2, 3, 4, 5, 6;</li><li>цифры на разных колёсиках могут повторяться;</li><li>сумма четырёх цифр кода делится на 3;</li><li>чётных цифр в коде не больше одной.</li></ul><p>Сколько различных кодов можно набрать? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 58 16' role='img' aria-label='Замок из четырёх колёсиков' style='max-width:320px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text></svg><figcaption>cᵢ — цифра на i-м колёсике слева.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — код: цифры на колёсиках c₁, c₂, c₃, c₄ слева направо; 1155 и 1515 — разные коды.</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p><em>«чётных цифр в коде не больше одной»</em> ⇒ в коде ни одной чётной цифры или ровно одна.</p></div></div>
 <div id="a1" data-art="1"><div class="frm st">N = N(нет чётных) + N(одна чётная)</div></div>
 <p class="sec st"><b>1. N(нет чётных).</b></p>
-<p class="st">На каждом колёсике стоит одна из цифр 1, 3, 5, и осталось условие <em>«сумма четырёх цифр кода делится на 3»</em>.</p>
-<p class="st"><b>Вопрос: c₁, c₂, c₃ уже стоят — сколько цифр годится в c₄?</b></p>
-<p class="st"><b>Выпишем по порядку:</b> c₁ = 1, в c₂ стоит 1, потом 3, в c₃ стоит 1, потом 3, 5.</p>
-<div class="st"><div class="tw"><table>
+<div class="card priem st"><span class="tag">Приём</span><p class="hook">Последняя клетка доводит сумму до кратной</p><p class="st">На каждом колёсике стоит одна из цифр 1, 3, 5, и осталось условие <em>«сумма четырёх цифр кода делится на 3»</em>.</p><p class="st"><b>Вопрос: c₁, c₂, c₃ уже стоят — сколько цифр годится в c₄?</b></p><p class="st"><b>Выпишем по порядку:</b> c₁ = 1, в c₂ стоит 1, потом 3, в c₃ стоит 1, потом 3, 5.</p><div class="st"><div class="tw"><table>
 <tr><th>c₁, c₂, c₃</th><th>сумма трёх</th><th>сумма кода при c₄ = 1</th><th>при c₄ = 3</th><th>при c₄ = 5</th><th>годится c₄</th></tr>
 <tr><td>1, 1, 1</td><td>3</td><td>4</td><td class="new"><b>6</b></td><td>8</td><td>3</td></tr>
 <tr><td>1, 1, 3</td><td>5</td><td class="new"><b>6</b></td><td>8</td><td>10</td><td>1</td></tr>
@@ -338,36 +339,31 @@
 <tr><td>1, 3, 1</td><td>5</td><td class="new"><b>6</b></td><td>8</td><td>10</td><td>1</td></tr>
 <tr><td>1, 3, 3</td><td>7</td><td>8</td><td>10</td><td class="new"><b>12</b></td><td>5</td></tr>
 <tr><td>1, 3, 5</td><td>9</td><td>10</td><td class="new"><b>12</b></td><td>14</td><td>3</td></tr>
-</table></div></div>
-<p class="st"><b>Как устроен список:</b> в каждой строке на 3 делится ровно одна сумма кода из трёх.</p>
-<p class="st"><b>Заметим:</b> три суммы кода в строке идут через 2, а из трёх чисел, которые идут через 2, на 3 делится ровно одно ⇒ так будет в любой строке списка.</p>
-<p class="st"><b>Последним — место, где вариантов всегда поровну:</b> в c₁, c₂, c₃ стоят любые из цифр 1, 3, 5, а в c₄ при любых c₁, c₂, c₃ годится ровно одна цифра.</p>
-<figure class='st'><svg viewBox='-1 -1 58 16' role='img' aria-label='Замок из четырёх колёсиков' style='max-width:260px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='29.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='35.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='43.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><rect x='42.8' y='0.8' width='12.4' height='12.4' fill='none' stroke='#f0a83c' stroke-width='0.9'/><text x='49.0' y='9.6' fill='#f0a83c' font-size='6' text-anchor='middle' font-weight='700'>?</text></svg><figcaption>Зелёные клетки — любая из 1, 3, 5; в золотой — одна цифра.</figcaption></figure>
-<div id="a2" data-art="2"><div class="frm st">N(нет чётных) = 3 · 3 · 3 · 1 = 27</div></div>
+</table></div></div><p class="st"><b>Как устроен список:</b> в каждой строке на 3 делится ровно одна сумма кода из трёх.</p><p class="st"><b>Заметим:</b> три суммы кода в строке идут через 2, а из трёх чисел, которые идут через 2, на 3 делится ровно одно ⇒ так будет в любой строке списка.</p><p class="st">В c₁, c₂, c₃ стоят любые из цифр 1, 3, 5, а в c₄ при любых c₁, c₂, c₃ годится ровно одна цифра.</p><figure class='st'><svg viewBox='-1 -1 58 16' role='img' aria-label='Замок из четырёх колёсиков' style='max-width:260px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='29.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='35.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='43.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><rect x='42.8' y='0.8' width='12.4' height='12.4' fill='none' stroke='#f0a83c' stroke-width='0.9'/><text x='49.0' y='9.6' fill='#f0a83c' font-size='6' text-anchor='middle' font-weight='700'>?</text></svg><figcaption>Зелёные клетки — любая из 1, 3, 5; в золотой — одна цифра.</figcaption></figure><div class="frm st">N(нет чётных) = 3 · 3 · 3 · 1 = 27</div></div>
 <p class="sec st"><b>2. N(одна чётная).</b></p>
 <p class="st">Чётная цифра стоит на одном из четырёх колёсиков:</p>
-<div id="a3" data-art="3"><div class="frm st">N(одна чётная) = N(чётная в c₁) + N(чётная в c₂) + N(чётная в c₃) + N(чётная в c₄)</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(одна чётная) = N(чётная в c₁) + N(чётная в c₂) + N(чётная в c₃) + N(чётная в c₄)</div></div>
 <p class="subsec st"><b>2.1. N(чётная в c₁).</b></p>
 <p class="st">В c₁ стоит одна из цифр 2, 4, 6, в c₂, c₃, c₄ — одна из цифр 1, 3, 5 ⇒ суммы кода снова идут через 2 ⇒ в c₄ при любых c₁, c₂, c₃ годится ровно одна цифра:</p>
-<div id="a4" data-art="4"><div class="frm st">N(чётная в c₁) = 3 · 3 · 3 · 1 = 27</div></div>
+<div id="a3" data-art="3"><div class="frm st">N(чётная в c₁) = 3 · 3 · 3 · 1 = 27</div></div>
 <p class="subsec st"><b>2.2. N(чётная в c₂) и N(чётная в c₃).</b></p>
 <p class="st">В c₄ снова стоит одна из цифр 1, 3, 5 ⇒ счёт тот же:</p>
-<div id="a5" data-art="5"><div class="frm st">N(чётная в c₂) = N(чётная в c₃) = 27</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(чётная в c₂) = N(чётная в c₃) = 27</div></div>
 <p class="subsec st"><b>2.3. N(чётная в c₄).</b></p>
 <p class="st">В c₁, c₂, c₃ стоят любые из цифр 1, 3, 5, в c₄ — одна из цифр 2, 4, 6.</p>
 <p class="st">c₁, c₂, c₃ = 3, 5, 5 ⇒ суммы кода при c₄ = 2, 4, 6 равны 15, 17, 19 ⇒ годится только c₄ = 2.</p>
 <p class="st">Суммы кода и здесь идут через 2 ⇒ в c₄ годится ровно одна цифра:</p>
-<div id="a6" data-art="6"><div class="frm st">N(чётная в c₄) = 3 · 3 · 3 · 1 = 27</div></div>
+<div id="a5" data-art="5"><div class="frm st">N(чётная в c₄) = 3 · 3 · 3 · 1 = 27</div></div>
 <p class="subsec st"><b>2.4. Сборка мира.</b></p>
 <figure class='st'><div class='fgrid2'><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Замок из четырёх колёсиков'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>2 4 6</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='29.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='35.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='43.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><rect x='42.8' y='0.8' width='12.4' height='12.4' fill='none' stroke='#f0a83c' stroke-width='0.9'/><text x='49.0' y='9.6' fill='#f0a83c' font-size='6' text-anchor='middle' font-weight='700'>?</text></svg><p class='ccap'>чётная в c₂</p></div><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Замок из четырёх колёсиков'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='29.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='35.0' y='9.4' fill='#e8eef6' font-size='3.2' text-anchor='middle'>1 3 5</text><rect x='42' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='43.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><rect x='42.8' y='0.8' width='12.4' height='12.4' fill='none' stroke='#f0a83c' stroke-width='0.9'/><text x='49.0' y='9.6' fill='#f0a83c' font-size='6' text-anchor='middle' font-weight='700'>?</text></svg><p class='ccap'>чётная в c₄</p></div></div><figcaption>Синяя клетка — чётная цифра, зелёные — нечётная, в золотой — одна цифра.</figcaption></figure>
-<div id="a7" data-art="7"><div class="frm st">N(одна чётная) = 27 + 27 + 27 + 27 = 108</div></div>
+<div id="a6" data-art="6"><div class="frm st">N(одна чётная) = 27 + 27 + 27 + 27 = 108</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a8" data-art="8"><div class="frm st">N = 27 + 108 = 135</div></div>
+<div id="a7" data-art="7"><div class="frm st">N = 27 + 108 = 135</div></div>
 <p class="st"><b>Ответ на задачу:</b> можно набрать <b>135 различных кодов</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>«Не больше одной» прочитать как «ровно одна» — выйдет 108.</li><li>Забыть выбрать место для чётной цифры — выйдет 54.</li><li>Считать наборы цифр, а не коды: 1155 и 1515 — разные коды, а набор один — выйдет 15.</li></ul>
-<p class="st"><a href="glava-02.html">← 2. Общая клетка — сократить равенство на неё (новый)</a></p>
-<p class="st"><a href="glava-04.html">4. Квадрат через разложение (новый) →</a></p>
+<p class="st"><a href="glava-02.html">← 2. Общую клетку двух линий вычеркни (новый)</a></p>
+<p class="st"><a href="glava-04.html">4. В квадратном числе все множители парные (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>

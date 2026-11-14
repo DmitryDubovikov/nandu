@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>8. Склейка в блок (новый)</title>
+<title>8. Фишки одного цвета ⇒ один блок (новый)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,26 +321,19 @@
 </aside>
 <main>
   
-  <h1>8. Склейка в блок (новый)</h1>
+  <h1>8. Фишки одного цвета ⇒ один блок (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если все фишки одного цвета должны стоять вместе, то каждый цвет стоит одним блоком: миры задаёт порядок блоков, а в каждом мире перемножаются порядки фишек внутри блоков.</p>
+<p class="st">Фишки одного цвета стоят подряд ⇒ они образуют блок. Сначала считай порядки блоков, потом порядки фишек внутри каждого блока. Числа перемножаются.</p>
 <p class="st"><small><b>Боевые задачи (1):</b> пров 2024 №3</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>У Лизы одиннадцать флажков трёх цветов, на каждом флажке номер:</p><ul class="st"><li>четыре зелёных флажка с номерами 1, 2, 3 и 5;</li><li>три красных флажка с номерами 7, 8 и 9;</li><li>четыре жёлтых флажка с номерами 4, 5, 6 и 7.</li></ul><p>Она вешает все флажки в ряд на верёвку, по одному на каждое из одиннадцати мест, так, чтобы:</p><ul class="st"><li>все флажки одного цвета висели подряд;</li><li>все флажки с одним и тем же номером висели рядом.</li></ul><p>Сколькими способами Лиза может повесить флажки? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -2 156 18' role='img' aria-label='Верёвка с флажками' style='max-width:540px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='84' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='98' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='112' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='126' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='140' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg><figcaption>Одиннадцать мест на верёвке.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — расстановка одиннадцати флажков по местам на верёвке.</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p><em>«все флажки одного цвета висели подряд»</em> ⇒ каждый цвет висит одним блоком, блоков три.</p></div></div>
-<p class="st"><b>Дано:</b> <em>«все флажки с одним и тем же номером висели рядом»</em>, а на двух флажках стоят только номера 5 и 7 ⇒ правило касается только двух пар флажков: зелёный 5 с жёлтым 5 и жёлтый 7 с красным 7.</p>
-<p class="st"><b>Вопрос: где флажки разного цвета висят рядом, если каждый цвет — один блок?</b></p>
-<p class="st">Только на стыке двух блоков ⇒ жёлтому блоку нужны два стыка: с зелёным блоком для номера 5 и с красным для номера 7.</p>
-<p class="st"><b>Выпишем по порядку</b> место жёлтого блока: слева, в середине, справа.</p>
-<div class="st"><div class="tw"><table>
+<div class="card priem split st"><span class="tag">Приём</span><p class="hook">Фишки одного цвета ⇒ один блок</p><p class="st"><em>«все флажки одного цвета висели подряд»</em> ⇒ каждый цвет висит одним блоком, блоков три.</p><p class="st"><b>Дано:</b> <em>«все флажки с одним и тем же номером висели рядом»</em>, а на двух флажках стоят только номера 5 и 7 ⇒ правило касается только двух пар флажков: зелёный 5 с жёлтым 5 и жёлтый 7 с красным 7.</p><p class="st"><b>Вопрос: где флажки разного цвета висят рядом, если каждый цвет — один блок?</b></p><p class="st">Только на стыке двух блоков ⇒ жёлтому блоку нужны два стыка: с зелёным блоком для номера 5 и с красным для номера 7.</p><p class="st"><b>Выпишем по порядку</b> место жёлтого блока: слева, в середине, справа.</p><div class="st"><div class="tw"><table>
 <tr><th>жёлтый блок</th><th>что выходит</th><th>строк</th></tr>
 <tr><td>слева</td><td>у жёлтого блока один соседний блок, а стыков ему нужно два</td><td>0</td></tr>
 <tr><td>в середине</td><td>зелёный блок слева или красный блок слева</td><td>выпишем ниже</td></tr>
 <tr><td>справа</td><td>у жёлтого блока снова один соседний блок</td><td>0</td></tr>
-</table></div></div>
-<p class="st"><b>Как устроен список:</b> две группы пустые ⇒ жёлтый блок висит в середине, а слева от него висит зелёный блок или красный.</p>
-<div id="a1" data-art="1"><div class="frm st">N = N(зелёный слева) + N(красный слева)</div></div>
+</table></div></div><p class="st"><b>Как устроен список:</b> две группы пустые ⇒ жёлтый блок висит в середине, а слева от него висит зелёный блок или красный.</p><div class="frm st">N = N(зелёный слева) + N(красный слева)</div><p class="st">В каждом из двух слагаемых порядок трёх блоков известен ⇒ каждое слагаемое считается гораздо проще, чем задача в целом.</p><p class="st">Цель приёма: разбить одну сложную задачу на несколько простых.</p></div>
 <p class="sec st"><b>1. Миры N(зелёный слева) и N(красный слева).</b></p>
 <figure class='st'><svg viewBox='-1 -2 156 18' role='img' aria-label='Верёвка с флажками' style='max-width:540px'><rect x='0' y='0' width='14' height='14' fill='#5cb87a' fill-opacity='0.25'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='#5cb87a' fill-opacity='0.25'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='#5cb87a' fill-opacity='0.25'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='#5cb87a' fill-opacity='0.25'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>5</text><rect x='56' y='0' width='14' height='14' fill='#e8c547' fill-opacity='0.25'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>5</text><rect x='70' y='0' width='14' height='14' fill='#e8c547' fill-opacity='0.25'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='84' y='0' width='14' height='14' fill='#e8c547' fill-opacity='0.25'/><rect x='84' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='98' y='0' width='14' height='14' fill='#e8c547' fill-opacity='0.25'/><rect x='98' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='105.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text><rect x='112' y='0' width='14' height='14' fill='#e5636b' fill-opacity='0.25'/><rect x='112' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='119.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>7</text><rect x='126' y='0' width='14' height='14' fill='#e5636b' fill-opacity='0.25'/><rect x='126' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='140' y='0' width='14' height='14' fill='#e5636b' fill-opacity='0.25'/><rect x='140' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='56' y1='-1' x2='56' y2='15' stroke='#cfdae6' stroke-width='1.4'/><line x1='112' y1='-1' x2='112' y2='15' stroke='#cfdae6' stroke-width='1.4'/></svg><figcaption>Мир «зелёный слева».</figcaption></figure>
 <p class="st">В мире N(зелёный слева) блоки висят так: зелёный, жёлтый, красный.</p>
@@ -355,21 +352,21 @@
 </table></div></div>
 <p class="st"><b>Как устроен список:</b></p>
 <ul class="st"><li>групп шесть: на первом месте любой из трёх зелёных, на втором любой из двух оставшихся, на третьем последний;</li><li>в каждой группе четыре строки: два порядка жёлтых, и для каждого два порядка красных.</li></ul>
-<div id="a2" data-art="2"><div class="frm st">N(порядков в зелёном) = 3 · 2 · 1 = 6</div></div>
-<div id="a3" data-art="3"><div class="frm st">N(порядков в жёлтом) = 2 · 1 = 2</div></div>
-<div id="a4" data-art="4"><div class="frm st">N(порядков в красном) = 2 · 1 = 2</div></div>
-<p class="st"><b>Склейка в блок:</b> порядок флажков в одном блоке не меняет того, что годится в других блоках ⇒ порядки в блоках перемножаются:</p>
-<div id="a5" data-art="5"><div class="frm st">N(зелёный слева) = N(порядков в зелёном) · N(порядков в жёлтом) · N(порядков в красном)</div></div>
-<div id="a6" data-art="6"><div class="frm st">N(зелёный слева) = 6 · 2 · 2 = 24</div></div>
+<div id="a0" data-art="0"><div class="frm st">N(порядков в зелёном) = 3 · 2 · 1 = 6</div></div>
+<div id="a1" data-art="1"><div class="frm st">N(порядков в жёлтом) = 2 · 1 = 2</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(порядков в красном) = 2 · 1 = 2</div></div>
+<p class="st"><b>Фишки одного цвета ⇒ один блок:</b> порядок флажков в одном блоке не меняет того, что годится в других блоках ⇒ порядки в блоках перемножаются:</p>
+<div id="a3" data-art="3"><div class="frm st">N(зелёный слева) = N(порядков в зелёном) · N(порядков в жёлтом) · N(порядков в красном)</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(зелёный слева) = 6 · 2 · 2 = 24</div></div>
 <p class="st">В мире N(красный слева) блоки висят так: красный, жёлтый, зелёный ⇒ каждая строка списка читается справа налево, строк столько же:</p>
-<div id="a7" data-art="7"><div class="frm st">N(красный слева) = 24</div></div>
+<div id="a5" data-art="5"><div class="frm st">N(красный слева) = 24</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a8" data-art="8"><div class="frm st">N = 24 + 24 = 48</div></div>
+<div id="a6" data-art="6"><div class="frm st">N = 24 + 24 = 48</div></div>
 <p class="st"><b>Ответ на задачу:</b> Лиза может повесить флажки <b>48 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Считать все шесть порядков трёх блоков, не заметив, что жёлтый обязан висеть в середине: выйдет 144.</li><li>Переставлять внутри жёлтого блока все четыре флажка, вместе с 5 и 7: выйдет 576.</li><li>Посчитать только мир «зелёный слева», забыв зеркальный: выйдет 24.</li></ul>
-<p class="st"><a href="glava-07.html">← 7. Все минус плохие, пересечение вернуть (новый)</a></p>
-<p class="st"><a href="glava-09.html">9. Соседство, зазоры (новый) →</a></p>
+<p class="st"><a href="glava-07.html">← 7. Все расстановки минус расстановки с пустой секцией (новый)</a></p>
+<p class="st"><a href="glava-09.html">9. Фишка занимает три столбца: свой и два соседних (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>

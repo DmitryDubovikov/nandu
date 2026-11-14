@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>6. Сколько сверх наименьшего</title>
+<title>6. Дай каждому цвету наименьшее, считай клетки сверх него</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,35 +321,27 @@
 </aside>
 <main>
   
-  <h1>6. Сколько сверх наименьшего</h1>
+  <h1>6. Дай каждому цвету наименьшее, считай клетки сверх него</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если для каждого цвета сказано, сколько клеток им закрасить («1 или 2»), то сложи наименьшие количества и посмотри, сколько клеток остаётся сверх них: миры — по тому, что стоит в этих клетках.</p>
+<p class="st">Для каждого цвета задано наименьшее и наибольшее число клеток ⇒ сначала отдай каждому цвету его наименьшее число клеток. Сверх этого остаётся мало клеток ⇒ миры по тому, чем заняты оставшиеся клетки.</p>
 <p class="st"><small><b>Боевые задачи (1):</b> рег 2022 №3</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>У Лены есть жёлтая, голубая и фиолетовая краска, и она хочет покрасить все или некоторые из пяти скворечников, висящих в ряд на заборе, так, чтобы:</p><ul class="st"><li>каждый покрашенный скворечник был одного цвета;</li><li>какие-то скворечники могли остаться непокрашенными;</li><li>жёлтых скворечников было 1 или 2;</li><li>голубых скворечников было 1 или 2;</li><li>фиолетовых скворечников было 2 или 3.</li></ul><p>Сколькими способами Лена может покрасить скворечники? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 72 16' role='img' aria-label='Пять скворечников в ряд' style='max-width:400px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>1</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>2</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>3</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>4</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>5</text></svg><figcaption>Пять скворечников в ряд.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — раскраска пяти скворечников ряда.</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Жёлтых и голубых скворечников <em>«1 или 2»</em>, фиолетовых <em>«2 или 3»</em>, а скворечников всего пять.</p></div></div>
-<p class="st"><b>Вопрос: какие «или» помещаются в пять скворечников вместе?</b></p>
-<p class="st"><b>Сколько сверх наименьшего:</b> один жёлтый, один голубой и два фиолетовых занимают четыре скворечника из пяти ⇒ сверх них в ряду есть ещё один скворечник.</p>
-<div id="a1" data-art="1"><div class="frm st">N(покрашенных) ≥ 1 + 1 + 2 = 4</div></div>
-<div id="a2" data-art="2"><div class="frm st">N(скворечников сверх наименьших) = 5 − 4 = 1</div></div>
-<p class="st"><b>Выпишем по порядку:</b> каким может быть ещё один скворечник — в том порядке, в каком о них говорит условие: непокрашенный, жёлтый, голубой, фиолетовый, и для каждого — сколько тогда в ряду скворечников каждого цвета.</p>
-<div class="st"><div class="tw"><table>
+<div class="card priem split st"><span class="tag">Приём</span><p class="hook">Дай каждому цвету наименьшее, считай клетки сверх него</p><p class="st">Жёлтых и голубых скворечников <em>«1 или 2»</em>, фиолетовых <em>«2 или 3»</em>, а скворечников всего пять.</p><p class="st"><b>Вопрос: какие «или» помещаются в пять скворечников вместе?</b></p><p class="st">Один жёлтый, один голубой и два фиолетовых занимают четыре скворечника из пяти ⇒ сверх них в ряду есть ещё один скворечник.</p><div class="frm st">N(покрашенных) ≥ 1 + 1 + 2 = 4</div><div class="frm st">N(скворечников сверх наименьших) = 5 − 4 = 1</div><p class="st"><b>Выпишем по порядку:</b> каким может быть ещё один скворечник — в том порядке, в каком о них говорит условие: непокрашенный, жёлтый, голубой, фиолетовый, и для каждого — сколько тогда в ряду скворечников каждого цвета.</p><div class="st"><div class="tw"><table>
 <tr><th>ещё один скворечник</th><th>жёлтых</th><th>голубых</th><th>фиолетовых</th><th>непокрашенных</th><th>годится?</th></tr>
 <tr><td>непокрашенный</td><td>1</td><td>1</td><td>2</td><td>1</td><td>да: <em>«какие-то скворечники могли остаться непокрашенными»</em></td></tr>
 <tr><td>жёлтый</td><td>2</td><td>1</td><td>2</td><td>0</td><td>да: жёлтых <em>«1 или 2»</em></td></tr>
 <tr><td>голубой</td><td>1</td><td>2</td><td>2</td><td>0</td><td>да: голубых <em>«1 или 2»</em></td></tr>
 <tr><td>фиолетовый</td><td>1</td><td>1</td><td>3</td><td>0</td><td>да: фиолетовых <em>«2 или 3»</em></td></tr>
-</table></div></div>
-<p class="st"><b>Как устроен список:</b> других красок у Лены нет ⇒ строк четыре, все четыре годятся ⇒ миров четыре.</p>
-<div id="a3" data-art="3"><div class="frm st">N = N(непокрашенный скворечник) + N(два жёлтых) + N(два голубых) + N(три фиолетовых)</div></div>
+</table></div></div><p class="st"><b>Как устроен список:</b> других красок у Лены нет ⇒ строк четыре, все четыре годятся ⇒ миров четыре.</p><div class="frm st">N = N(непокрашенный скворечник) + N(два жёлтых) + N(два голубых) + N(три фиолетовых)</div><p class="st">В каждом мире известно, сколько в ряду скворечников каждого цвета и сколько непокрашенных ⇒ каждый мир считается гораздо проще, чем задача в целом.</p><p class="st">Цель приёма: разбить одну сложную задачу на несколько простых.</p></div>
 <p class="sec st"><b>1. N(непокрашенный скворечник).</b></p>
 <figure class='st'><svg viewBox='-1 -1 72 16' role='img' aria-label='Пять скворечников в ряд'><rect x='0' y='0' width='14' height='14' fill='#9b7be0' fill-opacity='0.55'/><text x='7.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Ф</text><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='#5aa0e6' fill-opacity='0.55'/><text x='21.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Г</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='#e8c547' fill-opacity='0.55'/><text x='49.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Ж</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='56' y='0' width='14' height='14' fill='#9b7be0' fill-opacity='0.55'/><text x='63.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Ф</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg><figcaption>Пример: Ж — жёлтый, Г — голубой, Ф — фиолетовый, пустой — непокрашенный.</figcaption></figure>
 <p class="st">В ряду один жёлтый, один голубой, два фиолетовых и один непокрашенный скворечник.</p>
 <p class="st">Жёлтым красим любой из пяти скворечников, голубым любой из четырёх оставшихся, непокрашенным оставляем любой из трёх оставшихся.</p>
 <p class="st">Остальные два скворечника красим фиолетовым, выбирать больше нечего.</p>
 <p class="st">N(непокрашенный скворечник) = N(мест для жёлтого) · N(мест для голубого) · N(мест для непокрашенного)</p>
-<div id="a4" data-art="4"><div class="frm st">N(непокрашенный скворечник) = 5 · 4 · 3 = 60</div></div>
+<div id="a0" data-art="0"><div class="frm st">N(непокрашенный скворечник) = 5 · 4 · 3 = 60</div></div>
 <p class="sec st"><b>2. Миры N(два жёлтых) и N(два голубых).</b></p>
 <figure class='st'><svg viewBox='-1 -1 72 16' role='img' aria-label='Пять скворечников в ряд'><rect x='0' y='0' width='14' height='14' fill='#e8c547' fill-opacity='0.55'/><text x='7.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Ж</text><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='#9b7be0' fill-opacity='0.55'/><text x='21.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Ф</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='#5aa0e6' fill-opacity='0.55'/><text x='35.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Г</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='#e8c547' fill-opacity='0.55'/><text x='49.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Ж</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='56' y='0' width='14' height='14' fill='#9b7be0' fill-opacity='0.55'/><text x='63.0' y='9.0' fill='#cfdae6' font-size='5.6' text-anchor='middle' font-weight='700'>Ф</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg><figcaption>Пример мира двух жёлтых.</figcaption></figure>
 <p class="st">В мире N(два жёлтых) в ряду два жёлтых, один голубой и два фиолетовых скворечника.</p>
@@ -359,25 +355,25 @@
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> правый жёлтый висит только правее левого ⇒ каждая группа на 1 короче предыдущей.</p>
 <p class="st">Покрасить два жёлтых — это только выбрать два скворечника из пяти, переставлять нечего:</p>
-<div id="a5" data-art="5"><div class="frm st">N(мест для двух жёлтых) = C(5, 2) = 4 + 3 + 2 + 1 = 10</div></div>
+<div id="a1" data-art="1"><div class="frm st">N(мест для двух жёлтых) = C(5, 2) = 4 + 3 + 2 + 1 = 10</div></div>
 <p class="st">Голубым красим любой из трёх оставшихся скворечников.</p>
 <p class="st">Остальные два скворечника красим фиолетовым.</p>
-<div id="a6" data-art="6"><div class="frm st">N(два жёлтых) = N(мест для двух жёлтых) · N(мест для голубого) = 10 · 3 = 30</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(два жёлтых) = N(мест для двух жёлтых) · N(мест для голубого) = 10 · 3 = 30</div></div>
 <p class="st">В мире N(два голубых) в ряду один жёлтый, два голубых и два фиолетовых скворечника.</p>
 <p class="st">Для жёлтых и для голубых условие одно и то же, <em>«1 или 2»</em> ⇒ список тот же, только цвета поменялись: два голубых занимают одну из тех же 10 пар скворечников, жёлтым красим любой из трёх оставшихся.</p>
-<div id="a7" data-art="7"><div class="frm st">N(два голубых) = 10 · 3 = 30</div></div>
+<div id="a3" data-art="3"><div class="frm st">N(два голубых) = 10 · 3 = 30</div></div>
 <p class="sec st"><b>3. N(три фиолетовых).</b></p>
 <p class="st">В ряду один жёлтый, один голубой и три фиолетовых скворечника.</p>
 <p class="st">Жёлтым красим любой из пяти скворечников, голубым любой из четырёх оставшихся.</p>
 <p class="st">Остальные три скворечника красим фиолетовым.</p>
-<div id="a8" data-art="8"><div class="frm st">N(три фиолетовых) = N(мест для жёлтого) · N(мест для голубого) = 5 · 4 = 20</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(три фиолетовых) = N(мест для жёлтого) · N(мест для голубого) = 5 · 4 = 20</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a9" data-art="9"><div class="frm st">N = 60 + 30 + 30 + 20 = 140</div></div>
+<div id="a5" data-art="5"><div class="frm st">N = 60 + 30 + 30 + 20 = 140</div></div>
 <p class="st"><b>Ответ на задачу:</b> Лена может покрасить скворечники <b>140 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Пропустить «могли остаться непокрашенными» и покрасить все скворечники: потеряется мир с непокрашенным скворечником, выйдет 80.</li><li>Красить два жёлтых скворечника двумя порядками: выйдет 60 вместо 30 в мирах двух жёлтых и двух голубых, всего 200.</li></ul>
-<p class="st"><a href="glava-05.html">← 5. Сумма чисел строк — через суммы столбцов (новый)</a></p>
-<p class="st"><a href="glava-07.html">7. Все минус плохие, пересечение вернуть (новый) →</a></p>
+<p class="st"><a href="glava-05.html">← 5. Цифра в столбце сотен весит 100 (новый)</a></p>
+<p class="st"><a href="glava-07.html">7. Все расстановки минус расстановки с пустой секцией (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>15. Равноправные места — один счёт</title>
+<title>15. Поворот или отражение превращает мир в мир ⇒ способов поровну</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,10 +321,10 @@
 </aside>
 <main>
   
-  <h1>15. Равноправные места — один счёт</h1>
+  <h1>15. Поворот или отражение превращает мир в мир ⇒ способов поровну</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если поворот или отражение доски переводит каждую расстановку одного мира в расстановку другого, то в двух мирах способов поровну, и считается только один мир.</p>
+<p class="st">Поворот или отражение доски превращает каждую расстановку одного мира в расстановку другого ⇒ в двух мирах способов поровну ⇒ посчитай один мир, во втором мире способов столько же.</p>
 <p class="st"><small><b>Боевые задачи (4):</b> пров 2024 №3 · нац 2019 I №3 · нац 2021 II №6 · нац 2025 II №6</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Тимо кладёт паркет на пол кладовки с рисунка:</p><ul class="st"><li>у него три одинаковые дощечки;</li><li>каждая дощечка закрывает две соседние клетки пола;</li><li>дощечку можно положить горизонтально или вертикально;</li><li>дощечки не налезают друг на друга и не выходят за край пола.</li></ul><p>Сколькими различными способами Тимо может положить все три дощечки? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 44 44' role='img' aria-label='Пол' style='max-width:180px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg><figcaption>Пол кладовки.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — набор мест трёх одинаковых дощечек.</p>
@@ -332,10 +336,7 @@
 <p class="st">В строке из трёх клеток дощечка закрывает левую и среднюю клетки (лежит слева) или среднюю и правую (лежит справа).</p>
 <p class="st">В каждой из трёх строк выбор свой:</p>
 <div id="a2" data-art="2"><div class="frm st">N(три гориз.) = 2 · 2 · 2 = 8</div></div>
-<p class="st"><b>Вопрос: нужно ли считать N(без гориз.) заново?</b></p>
-<p class="st">Нет: пол — квадрат 3×3, и при повороте пола на четверть оборота каждая горизонтальная дощечка становится вертикальной, а каждая вертикальная — горизонтальной.</p>
-<p class="st"><b>Равноправные места — один счёт:</b> поворот превращает каждую раскладку с тремя горизонтальными дощечками в раскладку без горизонтальных, а обратный поворот возвращает раскладку назад ⇒ в двух мирах раскладок поровну:</p>
-<div id="a3" data-art="3"><div class="frm st">N(без гориз.) = N(три гориз.) = 8</div></div>
+<div class="card priem st"><span class="tag">Приём</span><p class="hook">Поворот или отражение превращает мир в мир ⇒ способов поровну</p><p class="st"><b>Вопрос: нужно ли считать N(без гориз.) заново?</b></p><p class="st">Нет: пол — квадрат 3×3, и при повороте пола на четверть оборота каждая горизонтальная дощечка становится вертикальной, а каждая вертикальная — горизонтальной.</p><p class="st">Поворот превращает каждую раскладку с тремя горизонтальными дощечками в раскладку без горизонтальных, а обратный поворот возвращает раскладку назад ⇒ в двух мирах раскладок поровну:</p><div class="frm st">N(без гориз.) = N(три гориз.) = 8</div></div>
 <p class="sec st"><b>2. Миры N(две гориз.) и N(одна гориз.).</b></p>
 <p class="st">В мире N(две гориз.) третья дощечка вертикальная и проходит через две строки из трёх (дальше коротко: строки вертикальной).</p>
 <p class="st"><b>Выпишем по порядку:</b> место вертикальной дощечки — в левом столбце, потом в среднем, в правом, в каждом столбце сверху, потом снизу.</p>
@@ -353,27 +354,27 @@
 <figure class='st'><div class='fgrid2'><div class='cell'><svg viewBox='-1 -1 44 16' role='img' aria-label='Пол' style='max-width:120px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='1.6' y='1.6' width='24.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg><p class='ccap'>слева</p></div><div class='cell'><svg viewBox='-1 -1 44 16' role='img' aria-label='Пол' style='max-width:120px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='15.6' y='1.6' width='24.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg><p class='ccap'>справа</p></div></div></figure>
 <p class="st"><b>Значит:</b> если вертикальная дощечка лежит в среднем столбце, то в обеих строках вертикальной средняя клетка занята ⇒ для двух горизонтальных остаётся одна строка ⇒ два места в среднем столбце не годятся.</p>
 <p class="st"><b>Как устроен список:</b> при каждом из четырёх мест в крайних столбцах в каждой из двух строк вертикальной свободны две соседние клетки, а третья строка свободна целиком ⇒ мест для двух горизонтальных одно и то же число.</p>
-<div id="a4" data-art="4"><div class="frm st">N(две гориз.) = N(мест для вертикальной) · N(мест для горизонтальных)</div></div>
+<div id="a3" data-art="3"><div class="frm st">N(две гориз.) = N(мест для вертикальной) · N(мест для горизонтальных)</div></div>
 <p class="subsec st"><b>2.1. N(мест для вертикальной).</b></p>
 <p class="st">Крайних столбцов два, и в своём столбце вертикальная дощечка лежит сверху или снизу:</p>
-<div id="a5" data-art="5"><div class="frm st">N(мест для вертикальной) = 2 · 2 = 4</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(мест для вертикальной) = 2 · 2 = 4</div></div>
 <p class="subsec st"><b>2.2. N(мест для горизонтальных).</b></p>
 <p class="st">Считаем для первого места из списка: нижняя строка свободна целиком (дальше коротко: свободная строка).</p>
 <p class="st">В свободной строке помещается только одна горизонтальная ⇒ в свободной строке лежит одна или ни одной:</p>
-<div id="a6" data-art="6"><div class="frm st">N(мест для горизонтальных) = N(ни одной в свободной строке) + N(одна в свободной строке)</div></div>
+<div id="a5" data-art="5"><div class="frm st">N(мест для горизонтальных) = N(ни одной в свободной строке) + N(одна в свободной строке)</div></div>
 <div class="cols2"><div class="col"><p class="st"><b>N(ни одной в свободной строке)</b></p><p class="st">Горизонтальные лежат по одной в каждой из двух строк вертикальной, и каждая ложится на две свободные клетки одним способом.</p><figure class='st'><svg viewBox='-1 -1 44 44' role='img' aria-label='Пол' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='1.6' y='1.6' width='10.8' height='24.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><rect x='15.6' y='1.6' width='24.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><rect x='15.6' y='15.6' width='24.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg></figure><div class="frm st">N(ни одной в свободной строке) = 1 · 1 = 1</div></div><div class="col"><p class="st"><b>N(одна в свободной строке)</b></p><p class="st">Дощечка в свободной строке лежит слева или справа.</p><p class="st">Вторая горизонтальная ложится в одну из двух строк вертикальной, на две свободные клетки одним способом.</p><figure class='st'><svg viewBox='-1 -1 44 44' role='img' aria-label='Пол' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='1.6' y='1.6' width='10.8' height='24.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><rect x='15.6' y='15.6' width='24.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><rect x='1.6' y='29.6' width='24.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg></figure><div class="frm st">N(одна в свободной строке) = 2 · 2 = 4</div></div></div>
-<div id="a7" data-art="7"><div class="frm st">N(мест для горизонтальных) = 1 + 4 = 5</div></div>
+<div id="a6" data-art="6"><div class="frm st">N(мест для горизонтальных) = 1 + 4 = 5</div></div>
 <p class="subsec st"><b>2.3. Сборка мира.</b></p>
-<div id="a8" data-art="8"><div class="frm st">N(две гориз.) = 4 · 5 = 20</div></div>
-<p class="st"><b>Равноправные места — один счёт:</b> поворот снова превращает каждую раскладку с двумя горизонтальными дощечками в раскладку с одной горизонтальной:</p>
-<div id="a9" data-art="9"><div class="frm st">N(одна гориз.) = N(две гориз.) = 20</div></div>
+<div id="a7" data-art="7"><div class="frm st">N(две гориз.) = 4 · 5 = 20</div></div>
+<p class="st"><b>Поворот или отражение превращает мир в мир ⇒ способов поровну:</b> поворот снова превращает каждую раскладку с двумя горизонтальными дощечками в раскладку с одной горизонтальной:</p>
+<div id="a8" data-art="8"><div class="frm st">N(одна гориз.) = N(две гориз.) = 20</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a10" data-art="10"><div class="frm st">N = 8 + 20 + 20 + 8 = 56</div></div>
+<div id="a9" data-art="9"><div class="frm st">N = 8 + 20 + 20 + 8 = 56</div></div>
 <p class="st"><b>Ответ на задачу:</b> Тимо может положить дощечки <b>56 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Считать три одинаковые дощечки разными: выйдет 56 · 6 = 336.</li><li>Взять только раскладки, где все дощечки лежат одинаково: выйдет 8 + 8 = 16.</li></ul>
-<p class="st"><a href="glava-14.html">← 14. Порядок навязан — только выбор клеток</a></p>
-<p class="st"><a href="glava-16.html">16. Миры по клетке, которая связывает две части (новый) →</a></p>
+<p class="st"><a href="glava-14.html">← 14. Клетки выбрал ⇒ фишки встали сами</a></p>
+<p class="st"><a href="glava-16.html">16. Закрепи клетку, которая связывает две части (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>

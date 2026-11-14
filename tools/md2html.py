@@ -161,6 +161,12 @@ def parse(md):
             i += 1; continue
         if s == '---':
             blocks.append(('hr', '')); i += 1; continue
+        if s.startswith(':::priem'):
+            # рамка «приём сработал»: :::priem <крючок> … ::: — точка решения, где приём разбивает задачу на подзадачи
+            j = i + 1; buf = []
+            while j < len(lines) and lines[j].strip() != ':::':
+                buf.append(lines[j]); j += 1
+            blocks.append(('box', 'Приём: ' + s[8:].strip() + '\x1f' + '\n'.join(buf))); i = j + 1; continue
         if s.startswith(':::box'):
             # врезка: :::box <ярлык> … ::: — общий приём, не относящийся к задаче, внутри решения
             j = i + 1; buf = []
@@ -456,6 +462,10 @@ def anchor_hit(anchor, key):
 
 def render_box(v, visuals=None, used=None):
     tag, body = v.split('\x1f', 1)
+    if tag.startswith('Приём: '):
+        cls = 'priem split' if 'Цель приёма:' in body else 'priem'   # split: приём дал формулу из операндов — разделы-операнды ниже красятся цветом рамки
+        return (f'<div class="card {cls} st"><span class="tag">Приём</span><p class="hook">{inline(tag[7:])}</p>'
+                f'{render_inner(body, visuals, used)}</div>')
     return (f'<div class="card box st"><span class="tag">{inline(tag)}</span>'
             f'{render_inner(body, visuals, used)}</div>')
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>10. Полоска в ряду: сколько помещается (новый)</title>
+<title>10. Полоска длиннее половины ряда ⇒ в ряду она одна и закрывает середину (новый)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,10 +321,10 @@
 </aside>
 <main>
   
-  <h1>10. Полоска в ряду: сколько помещается (новый)</h1>
+  <h1>10. Полоска длиннее половины ряда ⇒ в ряду она одна и закрывает середину (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если ряд доски короче двух полосок, то в ряду лежит не больше одной полоски, и где бы она ни лежала, она закрывает средние клетки ряда.</p>
+<p class="st">Полоска длиннее половины ряда ⇒ вторая такая полоска в ряд не помещается, и при любом положении полоски средние клетки ряда лежат под ней. Ряд — это строка или столбец доски.</p>
 <p class="st"><small><b>Боевые задачи (1):</b> нац 2025 II №6</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Пабло укладывает детали в лоток ящика для инструментов с рисунка:</p><ul class="st"><li>дно лотка разбито на клетки;</li><li>у Пабло два одинаковых бруска и один кубик;</li><li>каждый брусок закрывает три клетки в ряд;</li><li>кубик закрывает одну клетку;</li><li>брусок можно положить горизонтально или вертикально;</li><li>детали не налезают друг на друга и не выходят за край лотка.</li></ul><p>Сколькими различными способами Пабло может уложить все три детали? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><div class='fgrid2'><div class='cell'><svg viewBox='-1 -1 58 44' role='img' aria-label='Лоток' style='max-width:200px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/></svg><p class='ccap'>дно лотка</p></div><div class='cell'><svg viewBox='-1 -1 46 40' role='img' aria-label='Детали' style='max-width:150px'><rect x='1.6' y='1.6' width='38.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><text x='21' y='19.5' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>брусок (их два)</text><rect x='15.6' y='23.6' width='10.8' height='10.8' rx='1.5' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><text x='21' y='38.5' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>кубик</text></svg><p class='ccap'>детали</p></div></div><figcaption>Лоток ящика для инструментов.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — набор мест двух одинаковых брусков и место кубика.</p>
@@ -328,16 +332,12 @@
 <p class="st"><em>«горизонтально или вертикально»</em> ⇒ раскладки брусков делятся по тому, сколько брусков лежит горизонтально (коротко гориз.): ни одного, один или два.</p>
 <div id="a1" data-art="1"><div class="frm st">N = (N(без гориз.) + N(один гориз.) + N(два гориз.)) · 6</div></div>
 <p class="sec st"><b>1. N(без гориз.).</b></p>
-<p class="st"><b>Полоска в ряду, сколько помещается:</b> в столбце три клетки, и вертикальный брусок закрывает его целиком ⇒ в столбце не больше одного бруска, и лежит он там одним способом.</p>
-<p class="st"><b>Значит:</b> два вертикальных бруска стоят в двух разных столбцах из четырёх.</p>
-<p class="st"><b>Выпишем по порядку:</b> <em>«два одинаковых бруска»</em> ⇒ первым называем левый брусок: в 1-м столбце, потом во 2-м, в 3-м.</p>
-<div class="st"><div class="tw"><table>
+<div class="card priem st"><span class="tag">Приём</span><p class="hook">Полоска длиннее половины ряда ⇒ в ряду она одна и закрывает середину</p><p class="st">В столбце три клетки, и вертикальный брусок закрывает его целиком ⇒ в столбце не больше одного бруска, и лежит он там одним способом.</p><p class="st"><b>Значит:</b> два вертикальных бруска стоят в двух разных столбцах из четырёх.</p><p class="st"><b>Выпишем по порядку:</b> <em>«два одинаковых бруска»</em> ⇒ первым называем левый брусок: в 1-м столбце, потом во 2-м, в 3-м.</p><div class="st"><div class="tw"><table>
 <tr><th>столбец левого бруска</th><th>столбец правого бруска</th><th>строк</th></tr>
 <tr><td>1</td><td>2, 3, 4</td><td>3</td></tr>
 <tr><td>2</td><td>3, 4</td><td>2</td></tr>
 <tr><td>3</td><td>4</td><td>1</td></tr>
-</table></div></div>
-<div id="a2" data-art="2"><div class="frm st">N(без гориз.) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
+</table></div></div><div class="frm st">N(без гориз.) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
 <p class="sec st"><b>2. N(один гориз.).</b></p>
 <p class="st"><b>Выпишем по порядку</b> места горизонтального бруска в строке из четырёх клеток: левый край бруска на 1-й клетке строки, потом на 2-й.</p>
 <div class="st"><div class="tw"><table>
@@ -349,9 +349,9 @@
 <figure class='st'><div class='fgrid2'><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Лоток' style='max-width:160px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='1.6' y='1.6' width='38.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg><p class='ccap'>слева</p></div><div class='cell'><svg viewBox='-1 -1 58 16' role='img' aria-label='Лоток' style='max-width:160px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='15.6' y='1.6' width='38.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg><p class='ccap'>справа</p></div></div></figure>
 <p class="st">В столбце три клетки ⇒ вертикальный брусок проходит через все три строки, и через строку горизонтального тоже.</p>
 <p class="st"><b>Вопрос: какую клетку в строке горизонтального бруска может занять вертикальный?</b></p>
-<p class="st"><b>Полоска в ряду, какие клетки закрывает всегда:</b> клетки 2 и 3 стоят в обеих строках списка ⇒ где бы горизонтальный брусок ни лежал, он закрывает две средние клетки строки, поэтому вертикальный брусок лежит в крайнем столбце.</p>
+<p class="st"><b>Полоска длиннее половины ряда ⇒ в ряду она одна и закрывает середину:</b> клетки 2 и 3 стоят в обеих строках списка ⇒ где бы горизонтальный брусок ни лежал, он закрывает две средние клетки строки, поэтому вертикальный брусок лежит в крайнем столбце.</p>
 <figure class='st'><div class='fgrid2'><div class='cell'><svg viewBox='-1 -1 58 44' role='img' aria-label='Лоток' style='max-width:170px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='1.6' y='1.6' width='10.8' height='38.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><rect x='15.6' y='15.6' width='38.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg><p class='ccap'>в левом столбце</p></div><div class='cell'><svg viewBox='-1 -1 58 44' role='img' aria-label='Лоток' style='max-width:170px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='28' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='43.6' y='1.6' width='10.8' height='38.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/><rect x='1.6' y='15.6' width='38.8' height='10.8' rx='2' fill='#f0a83c' fill-opacity='0.35' stroke='#f0a83c' stroke-width='0.9'/></svg><p class='ccap'>в правом столбце</p></div></div></figure>
-<div id="a3" data-art="3"><div class="frm st">N(мест для вертикального) = 2</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(мест для вертикального) = 2</div></div>
 <p class="st"><b>Выпишем по порядку:</b> вертикальный брусок в 1-м столбце, потом в 4-м.</p>
 <div class="st"><div class="tw"><table>
 <tr><th>столбец вертикального</th><th>горизонтальный в своей строке</th><th>строк лотка для горизонтального</th></tr>
@@ -359,10 +359,10 @@
 <tr><td>4</td><td>4-я клетка строки занята ⇒ лежит слева, на клетках 1, 2, 3</td><td>3</td></tr>
 </table></div></div>
 <p class="st">Место в строке у горизонтального одно, а строку выбирают из трёх.</p>
-<div id="a4" data-art="4"><div class="frm st">N(мест для горизонтального) = 3</div></div>
-<div id="a5" data-art="5"><div class="frm st">N(один гориз.) = N(мест для вертикального) · N(мест для горизонтального) = 2 · 3 = 6</div></div>
+<div id="a3" data-art="3"><div class="frm st">N(мест для горизонтального) = 3</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(один гориз.) = N(мест для вертикального) · N(мест для горизонтального) = 2 · 3 = 6</div></div>
 <p class="sec st"><b>3. N(два гориз.).</b></p>
-<p class="st"><b>Полоска в ряду, сколько помещается:</b> в строке четыре клетки, а два бруска заняли бы 3 + 3 = 6 клеток ⇒ в строке не больше одного горизонтального бруска.</p>
+<p class="st"><b>Полоска длиннее половины ряда ⇒ в ряду она одна и закрывает середину:</b> в строке четыре клетки, а два бруска заняли бы 3 + 3 = 6 клеток ⇒ в строке не больше одного горизонтального бруска.</p>
 <p class="st"><b>Значит:</b> два горизонтальных бруска лежат в двух разных строках, и одна строка из трёх остаётся без бруска.</p>
 <p class="st"><b>Выпишем по порядку</b> для каждой из трёх строк без бруска:</p>
 <div class="st"><div class="tw"><table>
@@ -370,14 +370,14 @@
 <tr><td>(слева, слева), (слева, справа), (справа, слева), (справа, справа)</td><td>4</td></tr>
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> групп три, в каждой 2 · 2 строк: у бруска выше два места в своей строке, у бруска ниже тоже два.</p>
-<div id="a6" data-art="6"><div class="frm st">N(два гориз.) = 3 · 2 · 2 = 12</div></div>
+<div id="a5" data-art="5"><div class="frm st">N(два гориз.) = 3 · 2 · 2 = 12</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a7" data-art="7"><div class="frm st">N = (6 + 6 + 12) · 6 = 24 · 6 = 144</div></div>
+<div id="a6" data-art="6"><div class="frm st">N = (6 + 6 + 12) · 6 = 24 · 6 = 144</div></div>
 <p class="st"><b>Ответ на задачу:</b> Пабло может уложить детали <b>144 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Считать два одинаковых бруска разными: выйдет 144 · 2 = 288.</li><li>Взять любые два из десяти мест бруска (шесть горизонтальных и четыре вертикальных), не проверив, что бруски не налезают друг на друга: выйдет 45 · 6 = 270.</li><li>Забыть место кубика: выйдет 24.</li></ul>
-<p class="st"><a href="glava-09.html">← 9. Соседство, зазоры (новый)</a></p>
-<p class="st"><a href="glava-11.html">11. Кратчайший путь — места для ходов вверх, дыру обходят миры (новый) →</a></p>
+<p class="st"><a href="glava-09.html">← 9. Фишка занимает три столбца: свой и два соседних (новый)</a></p>
+<p class="st"><a href="glava-11.html">11. Кратчайший путь задан номерами ходов вверх (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>

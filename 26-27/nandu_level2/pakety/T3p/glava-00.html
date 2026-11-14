@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>0. Ритуал: выпиши по порядку</title>
+<title>0. Ритуал: выпиши способы по порядку</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,10 +321,11 @@
 </aside>
 <main>
   
-  <h1>0. Ритуал: выпиши по порядку</h1>
+  <h1>0. Ритуал: выпиши способы по порядку</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если не видно, с чего начать счёт, или не помнишь формулу, то выписывай способы в строгом порядке: сначала все, где первая фишка стоит на 1-м месте, потом все, где на 2-м, и так далее.</p>
+<p class="st">Не видно, с чего начать ⇒ выписывай способы в строгом порядке: сначала все способы с наименьшим первым выбором, потом со следующим, и так до конца. Способы с одинаковым первым выбором составляют группу.</p>
+<p class="st"><small>Первый выбор: место первой фишки, число в клетке, взятой первой, место первого хода вверх.</small></p>
 <p class="st">Первой бери клетку, о которой говорит условие: задана сумма двух клеток — выписывай по одной из них.</p>
 <p class="st">Строгий порядок нужен для двух вещей: ни один способ не пропущен и не выписан дважды, и список сам показывает формулу.</p>
 <p class="st">Выписывай, пока не станет видно, как устроен список: сколько в нём групп и сколько строк в каждой группе.</p>
@@ -354,7 +359,7 @@
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> правая кружка висит только правее левой ⇒ каждая группа на 1 короче предыдущей.</p>
 <div id="a1" data-art="1"><div class="frm st">N(две белые) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
-<p class="st">Это приём «Порядок навязан — только выбор клеток»: повесить две одинаковые кружки — это только выбрать два крючка из четырёх без порядка, а число таких выборов C(4, 2) называется числом сочетаний.</p>
+<p class="st">Это приём «Клетки выбрал ⇒ фишки встали сами»: повесить две одинаковые кружки — это только выбрать два крючка из четырёх без порядка, а число таких выборов C(4, 2) называется числом сочетаний.</p>
 <h4 class="st">Пример 2. Жук на плитках</h4>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Жук ползёт по плиткам с рисунка из плитки S в плитку D:</p><ul class="st"><li>за один ход жук переползает на соседнюю плитку справа или на соседнюю плитку сверху;</li><li>D на три плитки правее S и на две плитки выше.</li></ul><p>Сколькими путями жук может доползти от S до D?</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-2 -2 52 40' role='img' aria-label='Плитки, S слева внизу, D справа вверху' style='max-width:200px'><rect x='0' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='12' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='24' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='36' y='0' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='12' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='12' y='12' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='24' y='12' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='36' y='12' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='24' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='12' y='24' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='24' y='24' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='36' y='24' width='12' height='12' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='6' y='32' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>S</text><text x='42' y='8' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>D</text></svg></figure></div></div>
 <p class="st"><b>Выпишем по порядку:</b> путь запишем словом, П — ход вправо, В — ход вверх, слова идут по алфавиту.</p>
@@ -369,7 +374,7 @@
 <p class="st"><b>Как устроен список:</b></p>
 <ul class="st"><li>в каждом слове пять букв: три П и две В;</li><li>слова отличаются только местами двух букв В;</li><li>вторая В стоит только правее первой ⇒ каждая группа на 1 короче предыдущей.</li></ul>
 <div id="a2" data-art="2"><div class="frm st">N = 4 + 3 + 2 + 1 = 10</div></div>
-<p class="st">Это приём «Кратчайший путь — места для ходов вверх»: путь — это выбор двух мест для В из пяти, список устроен так же, как у двух белых кружек.</p>
+<p class="st">Это приём «Кратчайший путь задан номерами ходов вверх»: путь — это выбор двух мест для В из пяти, список устроен так же, как у двух белых кружек.</p>
 <h4 class="st">Пример 3. Коврик в коридоре</h4>
 <div class="card task st"><span class="tag">Условие</span><p>Пол коридора — шесть плиток в ряд, и на пол кладут коврик, который закрывает четыре плитки подряд.</p></div>
 <p class="st">Вопросы:</p>
@@ -385,7 +390,7 @@
 <p class="st"><b>Как устроен список:</b> в первой строке справа от коврика свободны 6 − 4 = 2 плитки ⇒ коврик сдвигается вправо два раза ⇒ строк 2 + 1.</p>
 <div id="a3" data-art="3"><div class="frm st">а) N = 6 − 4 + 1 = 3</div></div>
 <p class="st">б) Плитки 3 и 4 стоят в каждой строке списка ⇒ они закрыты при любом положении коврика.</p>
-<p class="st">Это приём «Полоска в ряду: сколько помещается».</p>
+<p class="st">Это приём «Полоска длиннее половины ряда ⇒ в ряду она одна и закрывает середину».</p>
 <h4 class="st">Пример 4. Поезд из трёх вагонов</h4>
 <div class="card task st"><span class="tag">Условие</span><p>Из шести вагонов с номерами от 1 до 6 составляют поезд из трёх вагонов так, чтобы произведение номеров 1-го и 3-го вагонов равнялось 12.</p></div>
 <p class="st">Сколькими способами можно составить поезд?</p>
@@ -406,7 +411,7 @@
 <div id="a5" data-art="5"><div class="frm st">N(2, 6) = 4</div></div>
 <p class="st">В остальных мирах 2-й вагон тоже любой из четырёх оставшихся:</p>
 <div id="a6" data-art="6"><div class="frm st">N = 4 + 4 + 4 + 4 = 16</div></div>
-<p class="st">Это приём «Миры — пары под жёстким условием».</p>
+<p class="st">Это приём «Сумма или произведение двух клеток заданы ⇒ первая решает вторую».</p>
 <h4 class="st">Пример 5. Книги на полке</h4>
 <div class="card task st"><span class="tag">Условие</span><p>У Пети восемь книг трёх серий, на корешке каждой книги буква:</p><ul class="st"><li>три жёлтые книги с буквами А, Б и В;</li><li>три зелёные книги с буквами Г, Д и Е;</li><li>две синие книги с буквами Б и Г.</li></ul><p>Он ставит все книги в ряд на полку так, чтобы:</p><ul class="st"><li>все книги одной серии стояли подряд;</li><li>все книги с одной и той же буквой стояли рядом.</li></ul><p>Сколькими способами Петя может расставить книги?</p></div>
 <p class="st"><b>Выпишем по порядку:</b> <em>«все книги одной серии стояли подряд»</em> ⇒ на полке три блока, и сначала выпишем место синего блока: слева, в середине, справа.</p>
@@ -426,8 +431,8 @@
 <p class="st">Если зелёный блок слева, то каждая строка списка читается справа налево:</p>
 <div id="a9" data-art="9"><div class="frm st">N(зелёный слева) = 4</div></div>
 <div id="a10" data-art="10"><div class="frm st">N = 4 + 4 = 8</div></div>
-<p class="st">Это приём «Склейка в блок».</p>
-<p class="st"><a href="glava-01.html">1. Миры — пары под жёстким условием →</a></p>
+<p class="st">Это приём «Фишки одного цвета ⇒ один блок».</p>
+<p class="st"><a href="glava-01.html">1. Сумма или произведение двух клеток заданы ⇒ первая решает вторую →</a></p>
 <div class="pager"></div>
 </main>
 </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>4. Квадрат через разложение (новый)</title>
+<title>4. В квадратном числе все множители парные (новый)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,17 +321,17 @@
 </aside>
 <main>
   
-  <h1>4. Квадрат через разложение (новый)</h1>
+  <h1>4. В квадратном числе все множители парные (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если произведение чисел на доске должно быть квадратом, то числа раскладываются на простые множители, и миры — по числу клеток с нечётным числом какого-то множителя.</p>
+<p class="st">Квадратное число — это число, простые множители которого разбиваются на пары одинаковых ⇒ разложи числа в клетках на простые множители. Множителю, оставшемуся без пары в своей клетке, пару даёт только такой же множитель из другой клетки.</p>
 <p class="st"><small><b>Боевые задачи (1):</b> нац 2024 I №3</small></p>
-<div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Маша выкладывает карточки с цифрами на доску 2×2:</p><ul class="st"><li>на подносе лежат карточки с цифрами 2, 4 и 9, каждой цифры сколько угодно;</li><li>в каждую клетку доски Маша кладёт одну карточку;</li><li>цифры на доске могут повторяться;</li><li>произведение четырёх цифр на доске должно быть квадратом целого числа.</li></ul><p>Сколькими различными способами Маша может заполнить доску? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:220px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text></svg><figcaption>cᵢ — цифра в i-й клетке.</figcaption></figure></div></div>
+<div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Маша выкладывает карточки с цифрами на доску 2×2:</p><ul class="st"><li>на подносе лежат карточки с цифрами 2, 4 и 9, каждой цифры сколько угодно;</li><li>в каждую клетку доски Маша кладёт одну карточку;</li><li>цифры на доске могут повторяться;</li><li>произведение четырёх цифр на доске должно быть квадратным числом (произведением целого числа на себя).</li></ul><p>Сколькими различными способами Маша может заполнить доску? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:220px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text></svg><figcaption>cᵢ — цифра в i-й клетке.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — запись в клетки c₁, c₂, c₃, c₄ цифр из 2, 4, 9, цифры могут повторяться; (2, 2, 4, 9) и (2, 4, 2, 9) — разные способы.</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Какие заполнения годятся, сразу не видно ⇒ выпишем несколько заполнений по порядку и посмотрим, у каких произведение — квадрат.</p></div></div>
+<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p>Какие заполнения годятся, сразу не видно ⇒ выпишем несколько заполнений по порядку и посмотрим, у каких произведение — квадратное число.</p></div></div>
 <p class="st"><b>Выпишем по порядку:</b> в c₂ и c₃ стоит 4; в c₁ стоит 2, потом 4; в c₄ стоит 2, потом 4, 9.</p>
 <div class="st"><div class="tw"><table>
-<tr><th>c₁, c₂, c₃, c₄</th><th>произведение</th><th>квадрат?</th></tr>
+<tr><th>c₁, c₂, c₃, c₄</th><th>произведение</th><th>квадратное число?</th></tr>
 <tr><td>2, 4, 4, 2</td><td>64</td><td>да: 8 · 8</td></tr>
 <tr><td>2, 4, 4, 4</td><td>128</td><td>нет: 11 · 11 = 121, а 12 · 12 = 144</td></tr>
 <tr><td>2, 4, 4, 9</td><td>288</td><td>нет: 16 · 16 = 256, а 17 · 17 = 289</td></tr>
@@ -335,21 +339,20 @@
 <tr><td>4, 4, 4, 4</td><td>256</td><td>да: 16 · 16</td></tr>
 <tr><td>4, 4, 4, 9</td><td>576</td><td>да: 24 · 24</td></tr>
 </table></div></div>
-<p class="st"><b>Как устроен список:</b> без цифры 2 или с двумя цифрами 2 — квадрат, с одной цифрой 2 — нет.</p>
+<p class="st"><b>Как устроен список:</b> без цифры 2 или с двумя цифрами 2 — квадратное число, с одной цифрой 2 — нет.</p>
 <p class="st"><b>Вопрос: чем 2 отличается от 4 и 9?</b></p>
 <p class="st">4 = 2 · 2 и 9 = 3 · 3 — пары одинаковых множителей, а 2 — множитель без пары.</p>
 <pre class="sys st">4 · 4 · 4 · 9 = (2 · 2) · (2 · 2) · (2 · 2) · (3 · 3) = (2 · 2 · 2 · 3) · (2 · 2 · 2 · 3) = 24 · 24
-2 · 4 · 4 · 9 = 2 · (2 · 2) · (2 · 2) · (3 · 3)          у первой 2 пары нет  ⇒ не квадрат</pre>
-<div class="card box st"><span class="tag">Приём — квадрат через разложение</span><p class="st">Число — квадрат, если его простые множители разбиваются на пары одинаковых: из каждой пары один множитель идёт в первую скобку, другой во вторую.</p><p class="st">Пример на числах, не из задачи:</p><pre class="sys st">100 = 2 · 2 · 5 · 5 = (2 · 5) · (2 · 5) = 10 · 10
-20 = 2 · 2 · 5                                       у 5 пары нет  ⇒ не квадрат</pre></div>
-<p class="st"><b>Квадрат через разложение:</b> пару множителю 2 даёт только другая клетка с 2 ⇒ клеток с 2 ни одной, две или четыре.</p>
-<div id="a1" data-art="1"><div class="frm st">N = N(нет 2) + N(2 в двух клетках) + N(2 во всех клетках)</div></div>
+2 · 4 · 4 · 9 = 2 · (2 · 2) · (2 · 2) · (3 · 3)          у первой 2 пары нет  ⇒ не квадратное число</pre>
+<div class="card box st"><span class="tag">Общий факт</span><p class="st">Число — квадратное, если его простые множители разбиваются на пары одинаковых: из каждой пары один множитель идёт в первую скобку, другой во вторую.</p><p class="st">Пример на числах, не из задачи:</p><pre class="sys st">100 = 2 · 2 · 5 · 5 = (2 · 5) · (2 · 5) = 10 · 10
+20 = 2 · 2 · 5                                       у 5 пары нет  ⇒ не квадратное число</pre></div>
+<div class="card priem split st"><span class="tag">Приём</span><p class="hook">В квадратном числе все множители парные</p><p class="st">Пару множителю 2 даёт только другая клетка с 2 ⇒ клеток с 2 ни одной, две или четыре.</p><div class="frm st">N = N(нет 2) + N(2 в двух клетках) + N(2 во всех клетках)</div><p class="st">В каждом мире известно, в скольких клетках стоит 2 ⇒ каждый мир считается гораздо проще, чем задача в целом.</p><p class="st">Цель приёма: разбить одну сложную задачу на несколько простых.</p></div>
 <p class="sec st"><b>1. N(нет 2).</b></p>
 <p class="st">В каждой клетке стоит 4 или 9.</p>
 <figure class='st'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text></svg><figcaption>Зелёные клетки — 4 или 9; годится любое заполнение.</figcaption></figure>
-<p class="st">Каждая клетка приносит готовую пару ⇒ произведение — квадрат при любом заполнении.</p>
+<p class="st">Каждая клетка приносит готовую пару ⇒ произведение — квадратное число при любом заполнении.</p>
 <p class="st"><small>например, 4 · 9 · 9 · 4 = 1296 = 36 · 36</small></p>
-<div id="a2" data-art="2"><div class="frm st">N(нет 2) = 2 · 2 · 2 · 2 = 16</div></div>
+<div id="a1" data-art="1"><div class="frm st">N(нет 2) = 2 · 2 · 2 · 2 = 16</div></div>
 <p class="sec st"><b>2. N(2 в двух клетках).</b></p>
 <p class="st"><b>Выпишем по порядку</b> места для двух клеток с 2: первой называем клетку с меньшим номером.</p>
 <div class="st"><div class="tw"><table>
@@ -359,38 +362,38 @@
 <tr><td>c₃</td><td>c₄</td><td>1</td></tr>
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> вторая клетка стоит только после первой ⇒ каждая группа на 1 короче предыдущей.</p>
-<div id="a3" data-art="3"><div class="frm st">N(мест для двух клеток с 2) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(мест для двух клеток с 2) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
 <p class="st">Каждая пара клеток с 2 — свой мир:</p>
-<div id="a4" data-art="4"><div class="frm st">N(2 в двух клетках) = N(2 в c₁ и c₂) + N(2 в c₁ и c₃) + … + N(2 в c₃ и c₄)</div></div>
+<div id="a3" data-art="3"><div class="frm st">N(2 в двух клетках) = N(2 в c₁ и c₂) + N(2 в c₁ и c₃) + … + N(2 в c₃ и c₄)</div></div>
 <p class="subsec st"><b>2.1. N(2 в c₁ и c₂).</b></p>
 <p class="st">В c₁ и c₂ стоит 2, в c₃ и c₄ стоит 4 или 9.</p>
 <p class="st"><b>Выпишем по порядку:</b> c₃ = 4, потом 9, и для каждой c₄ = 4, потом 9.</p>
 <div class="st"><div class="tw"><table>
-<tr><th>c₃, c₄</th><th>произведение на доске</th><th>квадрат?</th></tr>
+<tr><th>c₃, c₄</th><th>произведение на доске</th><th>квадратное число?</th></tr>
 <tr><td>4, 4</td><td>2 · 2 · 4 · 4 = 64</td><td>да: 8 · 8</td></tr>
 <tr><td>4, 9</td><td>2 · 2 · 4 · 9 = 144</td><td>да: 12 · 12</td></tr>
 <tr><td>9, 4</td><td>2 · 2 · 9 · 4 = 144</td><td>да: 12 · 12</td></tr>
 <tr><td>9, 9</td><td>2 · 2 · 9 · 9 = 324</td><td>да: 18 · 18</td></tr>
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> групп две, в каждой две строки, и все строки годятся.</p>
-<div id="a5" data-art="5"><div class="frm st">N(2 в c₁ и c₂) = 1 · 1 · 2 · 2 = 4</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(2 в c₁ и c₂) = 1 · 1 · 2 · 2 = 4</div></div>
 <p class="subsec st"><b>2.2. N(2 в c₁ и c₃), …, N(2 в c₃ и c₄).</b></p>
 <p class="st">Пар клеток с 2 шесть, и при каждой паре доска устроена одинаково: в двух клетках стоит 2, в двух других 4 или 9 ⇒ в каждом из остальных пяти миров счёт тот же:</p>
 <figure class='st'><div class='fgrid'><div class='cell'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text></svg><p class='ccap'>{c₁, c₂}</p></div><div class='cell'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='0' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='14' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text></svg><p class='ccap'>{c₁, c₃}</p></div><div class='cell'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text></svg><p class='ccap'>{c₁, c₄}</p></div><div class='cell'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='0' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='14' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text></svg><p class='ccap'>{c₂, c₃}</p></div><div class='cell'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text></svg><p class='ccap'>{c₂, c₄}</p></div><div class='cell'><svg viewBox='-1 -1 30 30' role='img' aria-label='Доска 2×2' style='max-width:150px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₁</text><text x='7.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='14' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='3.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₂</text><text x='21.0' y='9.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>4 9</text><rect x='0' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='1.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₃</text><text x='7.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text><rect x='14' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.25'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='15.2' y='17.6' fill='#93a1b1' font-size='2.6' font-style='italic'>c₄</text><text x='21.0' y='23.4' fill='#e8eef6' font-size='3.6' text-anchor='middle'>2</text></svg><p class='ccap'>{c₃, c₄}</p></div></div><figcaption>Синие клетки — 2, зелёные — 4 или 9.</figcaption></figure>
-<div id="a6" data-art="6"><div class="frm st">1 · 1 · 2 · 2 = 4</div></div>
+<div id="a5" data-art="5"><div class="frm st">1 · 1 · 2 · 2 = 4</div></div>
 <p class="subsec st"><b>2.3. Сборка мира.</b></p>
-<div id="a7" data-art="7"><div class="frm st">N(2 в двух клетках) = 6 · 4 = 24</div></div>
+<div id="a6" data-art="6"><div class="frm st">N(2 в двух клетках) = 6 · 4 = 24</div></div>
 <p class="sec st"><b>3. N(2 во всех клетках).</b></p>
 <p class="st">В каждой клетке стоит 2 ⇒ заполнение одно:</p>
-<div id="a8" data-art="8"><div class="frm st">2 · 2 · 2 · 2 = 16 = 4 · 4</div></div>
-<div id="a9" data-art="9"><div class="frm st">N(2 во всех клетках) = 1 · 1 · 1 · 1 = 1</div></div>
+<div id="a7" data-art="7"><div class="frm st">2 · 2 · 2 · 2 = 16 = 4 · 4</div></div>
+<div id="a8" data-art="8"><div class="frm st">N(2 во всех клетках) = 1 · 1 · 1 · 1 = 1</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a10" data-art="10"><div class="frm st">N = 16 + 24 + 1 = 41</div></div>
+<div id="a9" data-art="9"><div class="frm st">N = 16 + 24 + 1 = 41</div></div>
 <p class="st"><b>Ответ на задачу:</b> Маша может заполнить доску <b>41 способом</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Считать наборы цифр, а не заполнения доски: (2, 2, 4, 9) и (2, 4, 2, 9) — разные заполнения, а набор один — выйдет 9.</li><li>Забыть выбрать места для двух клеток с 2 — выйдет 21.</li><li>Решить, что в c₄ при любых c₁, c₂, c₃ годится ровно одна цифра: выйдет 27, а при c₁, c₂, c₃ = 4, 4, 4 в c₄ годятся и 4, и 9.</li></ul>
-<p class="st"><a href="glava-03.html">← 3. Места по очереди: последним — место, где вариантов всегда поровну (новый)</a></p>
-<p class="st"><a href="glava-05.html">5. Сумма чисел строк — через суммы столбцов (новый) →</a></p>
+<p class="st"><a href="glava-03.html">← 3. Последняя клетка доводит сумму до кратной (новый)</a></p>
+<p class="st"><a href="glava-05.html">5. Цифра в столбце сотен весит 100 (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>

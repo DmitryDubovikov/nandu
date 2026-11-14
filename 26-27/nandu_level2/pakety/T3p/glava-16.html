@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>16. Миры по клетке, которая связывает две части (новый)</title>
+<title>16. Закрепи клетку, которая связывает две части (новый)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,20 +321,17 @@
 </aside>
 <main>
   
-  <h1>16. Миры по клетке, которая связывает две части (новый)</h1>
+  <h1>16. Закрепи клетку, которая связывает две части (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если две части доски не связаны между собой ничем, кроме одной клетки, то миры — по числу в этой клетке, а внутри мира число способов для одной части умножается на число способов для другой.</p>
+<p class="st">Две части доски связаны только через одну клетку ⇒ закрепи число в этой клетке: каждое подходящее число задаёт свой мир. Внутри мира части не зависят друг от друга ⇒ число способов одной части умножается на число способов другой.</p>
 <p class="st"><small><b>Боевые задачи (2):</b> пров 2014 №3 · нац 2016 №3</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Для пяти площадок детской горки, соединённых лесенками, как на схеме, выбирают высоты по таким правилам:</p><ul class="st"><li>высота каждой площадки равна целому числу ступенек от 1 до 6;</li><li>каждая лесенка ведёт вверх: площадка, куда указывает стрелка, выше площадки, откуда стрелка выходит;</li><li>высоты разных площадок могут совпадать.</li></ul><p>Сколькими различными способами можно выбрать высоты площадок? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='0 0 64 38' role='img' aria-label='Схема площадок' style='max-width:360px'><defs><marker id='ah' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0,0 L6,3 L0,6 z' fill='#cfdae6'/></marker></defs><line x1='15.5' y1='8' x2='24' y2='8' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='39.5' y1='8' x2='48' y2='8' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='8' y1='22.5' x2='8' y2='16' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='56' y1='22.5' x2='56' y2='16' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><circle cx='8' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='8' y='9.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><circle cx='32' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='32' y='9.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><circle cx='56' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='56' y='9.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><circle cx='8' cy='30' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='8' y='31.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><circle cx='56' cy='30' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='56' y='31.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text></svg><figcaption>cᵢ — высота i-й площадки.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — выбор высот c₁, …, c₅ из чисел от 1 до 6, повторы разрешены.</p>
 <div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p><em>«площадка, куда указывает стрелка, выше площадки, откуда стрелка выходит»</em> ⇒ по стрелкам схемы высота растёт:</p></div></div>
 <pre class="sys st">c₄ &lt; c₁ &lt; c₂ &lt; c₃
 c₅ &lt; c₃</pre>
-<p class="st"><b>Вопрос: высоту какой площадки выбрать первой?</b></p>
-<p class="st"><b>Миры по клетке, которая связывает две части:</b> между левым столбцом c₁, c₄ и правым столбцом c₃, c₅ нет ни одной стрелки, они связаны только через среднюю площадку c₂ ⇒ разобьём способы на миры по c₂.</p>
-<p class="st"><b>Выпишем по порядку:</b> c₂ = 1, потом 2, 3, 4, 5, 6.</p>
-<div class="st"><div class="tw"><table>
+<div class="card priem split st"><span class="tag">Приём</span><p class="hook">Закрепи клетку, которая связывает две части</p><p class="st"><b>Вопрос: высоту какой площадки выбрать первой?</b></p><p class="st">Между левым столбцом c₁, c₄ и правым столбцом c₃, c₅ нет ни одной стрелки, они связаны только через среднюю площадку c₂ ⇒ разобьём способы на миры по c₂.</p><p class="st"><b>Выпишем по порядку:</b> c₂ = 1, потом 2, 3, 4, 5, 6.</p><div class="st"><div class="tw"><table>
 <tr><th>c₂</th><th>высоты ниже c₂</th><th>высоты выше c₂</th><th>годится?</th></tr>
 <tr><td>1</td><td>нет</td><td>2, 3, 4, 5, 6</td><td>нет: для c₄ и c₁ нет высот</td></tr>
 <tr><td>2</td><td>1</td><td>3, 4, 5, 6</td><td>нет: для c₄ и c₁ нужны две разные высоты, а ниже 2 одна</td></tr>
@@ -338,8 +339,7 @@ c₅ &lt; c₃</pre>
 <tr><td>4</td><td>1, 2, 3</td><td>5, 6</td><td>да</td></tr>
 <tr><td>5</td><td>1, 2, 3, 4</td><td>6</td><td>да</td></tr>
 <tr><td>6</td><td>1, 2, 3, 4, 5</td><td>нет</td><td>нет: для c₃ нет высоты</td></tr>
-</table></div></div>
-<div id="a1" data-art="1"><div class="frm st">N = N(c₂ = 3) + N(c₂ = 4) + N(c₂ = 5)</div></div>
+</table></div></div><div class="frm st">N = N(c₂ = 3) + N(c₂ = 4) + N(c₂ = 5)</div><p class="st">В каждом мире высота c₂ известна ⇒ каждый мир считается гораздо проще, чем задача в целом.</p><p class="st">Цель приёма: разбить одну сложную задачу на несколько простых.</p></div>
 <p class="sec st"><b>1. Мир N(c₂ = 3).</b></p>
 <figure class='st'><svg viewBox='0 0 64 38' role='img' aria-label='Схема площадок' style='max-width:240px'><defs><marker id='ah' viewBox='0 0 6 6' refX='5' refY='3' markerWidth='4' markerHeight='4' orient='auto'><path d='M0,0 L6,3 L0,6 z' fill='#cfdae6'/></marker></defs><line x1='15.5' y1='8' x2='24' y2='8' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='39.5' y1='8' x2='48' y2='8' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='8' y1='22.5' x2='8' y2='16' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><line x1='56' y1='22.5' x2='56' y2='16' stroke='#cfdae6' stroke-width='0.7' marker-end='url(#ah)'/><circle cx='8' cy='8' r='6' fill='#5fd38d' fill-opacity='0.22'/><circle cx='8' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='8' y='9.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><circle cx='32' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='32' y='10' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>3</text><circle cx='56' cy='8' r='6' fill='#5aa9e6' fill-opacity='0.22'/><circle cx='56' cy='8' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='56' y='9.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><circle cx='8' cy='30' r='6' fill='#5fd38d' fill-opacity='0.22'/><circle cx='8' cy='30' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='8' y='31.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><circle cx='56' cy='30' r='6' fill='#5aa9e6' fill-opacity='0.22'/><circle cx='56' cy='30' r='6' fill='none' stroke='#cfdae6' stroke-width='0.6'/><text x='56' y='31.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text></svg><figcaption>N(c₂ = 3)</figcaption></figure>
 <p class="st">В мире c₂ = 3 условия делятся на две части:</p>
@@ -349,7 +349,7 @@ c₅ &lt; c₃</pre>
 <tr><td>правый</td><td>c₃ и c₅</td><td>3 &lt; c₃ и c₅ &lt; c₃</td></tr>
 </table></div></div>
 <p class="st"><b>Заметим:</b> в условиях левого столбца нет c₃ и c₅, а в условиях правого столбца нет c₁ и c₄ ⇒ любые высоты левого столбца годятся с любыми высотами правого:</p>
-<div id="a2" data-art="2"><div class="frm st">N(c₂ = 3) = N(левый, c₂ = 3) · N(правый, c₂ = 3)</div></div>
+<div id="a1" data-art="1"><div class="frm st">N(c₂ = 3) = N(левый, c₂ = 3) · N(правый, c₂ = 3)</div></div>
 <p class="subsec st"><b>1.1. N(левый, c₂ = 3).</b></p>
 <p class="st"><b>Выпишем по порядку:</b> c₁ = 1, потом 2.</p>
 <div class="st"><div class="tw"><table>
@@ -357,7 +357,7 @@ c₅ &lt; c₃</pre>
 <tr><td>1</td><td>высот нет</td><td>0</td></tr>
 <tr><td>2</td><td>1</td><td>1</td></tr>
 </table></div></div>
-<div id="a3" data-art="3"><div class="frm st">N(левый, c₂ = 3) = 1</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(левый, c₂ = 3) = 1</div></div>
 <p class="subsec st"><b>1.2. N(правый, c₂ = 3).</b></p>
 <p class="st"><b>Выпишем по порядку:</b> c₃ = 4, потом 5, 6.</p>
 <div class="st"><div class="tw"><table>
@@ -367,9 +367,9 @@ c₅ &lt; c₃</pre>
 <tr><td>6</td><td>1, 2, 3, 4, 5</td><td>5</td></tr>
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> c₅ сравнивается только с c₃ ⇒ в списке есть и c₅ = 3, хотя c₂ = 3.</p>
-<div id="a4" data-art="4"><div class="frm st">N(правый, c₂ = 3) = 3 + 4 + 5 = 12</div></div>
+<div id="a3" data-art="3"><div class="frm st">N(правый, c₂ = 3) = 3 + 4 + 5 = 12</div></div>
 <p class="subsec st"><b>1.3. Сборка мира.</b></p>
-<div id="a5" data-art="5"><div class="frm st">N(c₂ = 3) = 1 · 12 = 12</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(c₂ = 3) = 1 · 12 = 12</div></div>
 <p class="sec st"><b>2. Миры N(c₂ = 4) и N(c₂ = 5).</b></p>
 <p class="st">Счёт тот же, меняется только c₂.</p>
 <div class="cols2"><div class="col"><div class="frm st">N(c₂ = 4)</div><div class="st"><div class="tw"><table>
@@ -392,11 +392,11 @@ c₅ &lt; c₃</pre>
 <tr><td>6</td><td>1, 2, 3, 4, 5</td><td>5</td></tr>
 </table></div></div><div class="frm st">N(правый, c₂ = 5) = 5</div><div class="frm st">N(c₂ = 5) = 6 · 5 = 30</div></div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a6" data-art="6"><div class="frm st">N = 12 + 27 + 30 = 69</div></div>
+<div id="a5" data-art="5"><div class="frm st">N = 12 + 27 + 30 = 69</div></div>
 <p class="st"><b>Ответ на задачу:</b> высоты площадок можно выбрать <b>69 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Брать пять разных высот, хотя повторы разрешены: c₅ может равняться c₁, c₂ или c₄ — выйдет 24.</li><li>Сложить в каждом мире N(левый, …) и N(правый, …) вместо умножения — выйдет 36.</li></ul>
-<p class="st"><a href="glava-15.html">← 15. Равноправные места — один счёт</a></p>
+<p class="st"><a href="glava-15.html">← 15. Поворот или отражение превращает мир в мир ⇒ способов поровну</a></p>
 <div class="pager"></div>
 </main>
 </div>

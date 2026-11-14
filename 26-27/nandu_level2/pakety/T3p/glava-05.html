@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>5. Сумма чисел строк — через суммы столбцов (новый)</title>
+<title>5. Цифра в столбце сотен весит 100 (новый)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,39 +321,19 @@
 </aside>
 <main>
   
-  <h1>5. Сумма чисел строк — через суммы столбцов (новый)</h1>
+  <h1>5. Цифра в столбце сотен весит 100 (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если спрашивают наибольшую сумму чисел, записанных строками доски, то числа складываются столбиком, и сумма выражается через суммы столбцов: она тем больше, чем больше сотни и чем меньше единицы.</p>
+<p class="st">Числа, записанные в строках доски, складываются столбиком ⇒ цифра из столбца сотен прибавляет к сумме в 100 раз больше себя, цифра из столбца единиц прибавляет только себя ⇒ большие цифры ставь в столбец сотен, малые в столбец единиц.</p>
 <p class="st"><small><b>Боевые задачи (1):</b> пров 2016 №3</small></p>
 <div class="card task st"><span class="tag">Условие</span><p>Нико раскладывает на табло из двух строк по три клетки шесть карточек с цифрами 1, 2, 3, 4, 5, 6 так, чтобы:</p><ul class="st"><li>в каждой клетке лежала одна карточка;</li><li>каждая строка, прочитанная слева направо, давала трёхзначное число;</li><li>число первой строки было чётным;</li><li>число второй строки было чётным;</li><li>сумма чисел первой и второй строк была наибольшей из возможных.</li></ul><p>Вопросы:</p><ul class="st"><li>а) Чему равна эта сумма?</li><li>б) Сколькими способами Нико может разложить карточки, чтобы получить эту сумму? Объясни, как ты их считал.</li></ul></div>
 <p class="st"><b>Способ</b> — раскладка карточек с цифрами 1–6 по клеткам c₁, …, c₆, по одной карточке в клетку.</p>
 <figure class='st'><svg viewBox='-1 -1 44 30' role='img' aria-label='Табло 2×3' style='max-width:300px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text></svg><figcaption>Табло: cᵢ — цифра в i-й клетке.</figcaption></figure>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p><em>«сумма чисел первой и второй строк была наибольшей из возможных»</em> ⇒ возьмём одну раскладку и сложим её числа по разрядам.</p></div></div>
-<p class="st">Раскладка 132 и 546:</p>
-<pre class="sys st">132 + 546 = 100 · (1 + 5) + 10 · (3 + 4) + (2 + 6)
+<div class="card priem split st"><span class="tag">Приём</span><p class="hook">Цифра в столбце сотен весит 100</p><p class="st"><em>«сумма чисел первой и второй строк была наибольшей из возможных»</em> ⇒ возьмём одну раскладку и сложим её числа по разрядам.</p><p class="st">Раскладка 132 и 546:</p><pre class="sys st">132 + 546 = 100 · (1 + 5) + 10 · (3 + 4) + (2 + 6)
           = 600 + 70 + 8
-          = 678</pre>
-<p class="st"><b>Обозначим:</b> S<sub>стр</sub> — сумма чисел двух строк, а S<sub>сот</sub>, S<sub>дес</sub> и S<sub>ед</sub> — суммы цифр в столбцах сотен, десятков и единиц.</p>
-<div id="a1" data-art="1"><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 10 · S<sub>дес</sub> + S<sub>ед</sub></div></div>
-<figure class='st'><svg viewBox='-1 -1 44 37' role='img' aria-label='Табло 2×3' style='max-width:220px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='14' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='28' y='14' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text><text x='7.0' y='33' fill='#5fd38d' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>сот</tspan></text><text x='21.0' y='33' fill='#5ba8f5' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>дес</tspan></text><text x='35.0' y='33' fill='#b48cf0' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>ед</tspan></text></svg><figcaption>Первый столбец — сотни, второй — десятки, третий — единицы.</figcaption></figure>
-<p class="st"><b>Вопрос: можно ли сделать большими все три суммы столбцов сразу?</b></p>
-<p class="st">Нет: каждая из цифр 1–6 стоит ровно в одном столбце ⇒ сумма трёх столбцов известна заранее:</p>
-<div id="a2" data-art="2"><div class="frm st">S<sub>сот</sub> + S<sub>дес</sub> + S<sub>ед</sub> = 1 + 2 + … + 6 = 21</div></div>
-<p class="st">Выразим S<sub>дес</sub> через S<sub>сот</sub> и S<sub>ед</sub>, и в формуле останутся только две суммы:</p>
-<div id="a3" data-art="3"><div class="frm st">S<sub>дес</sub> = 21 − S<sub>сот</sub> − S<sub>ед</sub></div></div>
-<p class="st">Подставим S<sub>дес</sub> в первую формулу и раскроем скобки:</p>
-<div id="a4" data-art="4"><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 10 · (21 − S<sub>сот</sub> − S<sub>ед</sub>) + S<sub>ед</sub></div></div>
-<div id="a5" data-art="5"><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 210 − 10 · S<sub>сот</sub> − 10 · S<sub>ед</sub> + S<sub>ед</sub></div></div>
-<div class="res st"><div class="frm st">S<sub>стр</sub> = 210 + 90 · S<sub>сот</sub> − 9 · S<sub>ед</sub>   (*)</div></div>
-<p class="st">В раскладке 132 и 546 S<sub>сот</sub> = 6 и S<sub>ед</sub> = 8:</p>
-<pre class="sys st">210 + 90 · 6 − 9 · 8 = 210 + 540 − 72 = 678</pre>
-<p class="st"><b>Сумма чисел строк — через суммы столбцов:</b> S<sub>стр</sub> тем больше, чем больше S<sub>сот</sub> и чем меньше S<sub>ед</sub>.</p>
-<p class="st">S<sub>сот</sub> не бывает больше какого-то числа — это граница сверху для S<sub>сот</sub>, а S<sub>ед</sub> не бывает меньше какого-то числа — это граница снизу для S<sub>ед</sub>.</p>
-<div id="a6" data-art="6"><div class="plan st"><p class="st">Если есть раскладка, где S<sub>сот</sub> и S<sub>ед</sub> сразу на своих границах, то:</p>
+          = 678</pre><p class="st"><b>Обозначим:</b> S<sub>стр</sub> — сумма чисел двух строк, а S<sub>сот</sub>, S<sub>дес</sub> и S<sub>ед</sub> — суммы цифр в столбцах сотен, десятков и единиц.</p><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 10 · S<sub>дес</sub> + S<sub>ед</sub></div><figure class='st'><svg viewBox='-1 -1 44 37' role='img' aria-label='Табло 2×3' style='max-width:220px'><rect x='0' y='0' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='0' y='14' width='14' height='14' fill='#5fd38d' fill-opacity='0.22'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='14' y='14' width='14' height='14' fill='#5ba8f5' fill-opacity='0.22'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><rect x='28' y='14' width='14' height='14' fill='#b48cf0' fill-opacity='0.22'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='22.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₆</text><text x='7.0' y='33' fill='#5fd38d' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>сот</tspan></text><text x='21.0' y='33' fill='#5ba8f5' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>дес</tspan></text><text x='35.0' y='33' fill='#b48cf0' font-size='3.6' text-anchor='middle' font-style='italic'>S<tspan font-size='2.6' dy='0.9'>ед</tspan></text></svg><figcaption>Первый столбец — сотни, второй — десятки, третий — единицы.</figcaption></figure><p class="st"><b>Вопрос: можно ли сделать большими все три суммы столбцов сразу?</b></p><p class="st">Нет: каждая из цифр 1–6 стоит ровно в одном столбце ⇒ сумма трёх столбцов известна заранее:</p><div class="frm st">S<sub>сот</sub> + S<sub>дес</sub> + S<sub>ед</sub> = 1 + 2 + … + 6 = 21</div><p class="st">Выразим S<sub>дес</sub> через S<sub>сот</sub> и S<sub>ед</sub>, и в формуле останутся только две суммы:</p><div class="frm st">S<sub>дес</sub> = 21 − S<sub>сот</sub> − S<sub>ед</sub></div><p class="st">Подставим S<sub>дес</sub> в первую формулу и раскроем скобки:</p><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 10 · (21 − S<sub>сот</sub> − S<sub>ед</sub>) + S<sub>ед</sub></div><div class="frm st">S<sub>стр</sub> = 100 · S<sub>сот</sub> + 210 − 10 · S<sub>сот</sub> − 10 · S<sub>ед</sub> + S<sub>ед</sub></div><div class="res st"><div class="frm st">S<sub>стр</sub> = 210 + 90 · S<sub>сот</sub> − 9 · S<sub>ед</sub>   (*)</div></div><p class="st">В раскладке 132 и 546 S<sub>сот</sub> = 6 и S<sub>ед</sub> = 8:</p><pre class="sys st">210 + 90 · 6 − 9 · 8 = 210 + 540 − 72 = 678</pre><p class="st">Сумма S<sub>стр</sub> тем больше, чем больше S<sub>сот</sub> и чем меньше S<sub>ед</sub>.</p><p class="st">S<sub>сот</sub> не бывает больше какого-то числа — это граница сверху для S<sub>сот</sub>, а S<sub>ед</sub> не бывает меньше какого-то числа — это граница снизу для S<sub>ед</sub>.</p><div class="plan st"><p class="st">Если есть раскладка, где S<sub>сот</sub> и S<sub>ед</sub> сразу на своих границах, то:</p>
 <p class="st">а) наибольшая S<sub>стр</sub> = 210 + 90 · (граница сверху для S<sub>сот</sub>) − 9 · (граница снизу для S<sub>ед</sub>)</p>
-<div class="frm st">б) N = N(S<sub>сот</sub> и S<sub>ед</sub> на границах)</div></div></div>
-<p class="st"><small>в любой раскладке, где S<sub>сот</sub> меньше своей границы или S<sub>ед</sub> больше своей границы, S<sub>стр</sub> меньше</small></p>
+<div class="frm st">б) N = N(S<sub>сот</sub> и S<sub>ед</sub> на границах)</div></div><p class="st"><small>в любой раскладке, где S<sub>сот</sub> меньше своей границы или S<sub>ед</sub> больше своей границы, S<sub>стр</sub> меньше</small></p><p class="st">Каждая граница зависит только от своего столбца, а раскладки считаются при уже известных S<sub>сот</sub> и S<sub>ед</sub> ⇒ две границы и число раскладок считаются гораздо проще, чем задача в целом.</p><p class="st">Цель приёма: разбить одну сложную задачу на несколько простых.</p></div>
 <p class="sec st"><b>1. Граница сверху для S<sub>сот</sub>.</b></p>
 <p class="st">В столбце сотен две разные цифры из 1–6 ⇒ S<sub>сот</sub> не больше суммы двух наибольших цифр 6 и 5:</p>
 <div class="res st"><div class="frm st">S<sub>сот</sub> ≤ 6 + 5 = 11</div></div>
@@ -381,20 +365,20 @@
 </table></div></div>
 <p class="st"><b>Как устроен список:</b></p>
 <ul class="st"><li>в c₁ стоит 5 или 6, в c₂ стоит 1 или 3, в c₃ стоит 2 или 4;</li><li>в c₄, c₅, c₆ выбора нет: там вторая цифра своего столбца;</li><li>групп две, в каждой 2 · 2 строк.</li></ul>
-<div id="a7" data-art="7"><div class="frm st">N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 2 · 2 · 2 = 8</div></div>
+<div id="a0" data-art="0"><div class="frm st">N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 2 · 2 · 2 = 8</div></div>
 <p class="sec st"><b>Сборка.</b></p>
 <p class="st"><b>Из раздела 3:</b> раскладок, где S<sub>сот</sub> = 11 и S<sub>ед</sub> = 6, восемь ⇒ границы 11 и 6 достигаются в одной раскладке.</p>
 <p class="st">Подставим S<sub>сот</sub> = 11 и S<sub>ед</sub> = 6 в (*):</p>
-<div id="a8" data-art="8"><div class="frm st">а) наибольшая S<sub>стр</sub> = 210 + 90 · 11 − 9 · 6 = 1146</div></div>
+<div id="a1" data-art="1"><div class="frm st">а) наибольшая S<sub>стр</sub> = 210 + 90 · 11 − 9 · 6 = 1146</div></div>
 <p class="st"><small>например, 512 + 634 = 1146</small></p>
-<div id="a9" data-art="9"><div class="frm st">б) N = N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 8</div></div>
+<div id="a2" data-art="2"><div class="frm st">б) N = N(S<sub>сот</sub> и S<sub>ед</sub> на границах) = 8</div></div>
 <p class="st"><b>Ответ на задачу:</b></p>
 <p class="st">а) наибольшая сумма равна <b>1146</b>;</p>
 <p class="st">б) Нико может так разложить карточки <b>8 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Взять в единицы две наименьшие цифры 1 и 2, забыв, что оба числа чётные: выйдет сумма 1173, но число с 1 на конце нечётное.</li><li>Сделать наибольшим число первой строки, 654, а второе собрать из остатка, 312: выйдет 966, а не наибольшая сумма.</li><li>Считать раскладки 512 + 634 и 634 + 512 одной, раз числа те же: выйдет 4 вместо 8.</li></ul>
-<p class="st"><a href="glava-04.html">← 4. Квадрат через разложение (новый)</a></p>
-<p class="st"><a href="glava-06.html">6. Сколько сверх наименьшего →</a></p>
+<p class="st"><a href="glava-04.html">← 4. В квадратном числе все множители парные (новый)</a></p>
+<p class="st"><a href="glava-06.html">6. Дай каждому цвету наименьшее, считай клетки сверх него →</a></p>
 <div class="pager"></div>
 </main>
 </div>

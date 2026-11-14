@@ -139,7 +139,7 @@ def po_glavam(title, rest):
         if m:
             glavy.append((m.group(1), m.group(2).strip(), s))
             body = s.split('\n', 1)[1].strip()
-            items.append(f'- [{m.group(1)}. {m.group(2).strip()}]({fn(m.group(1))}): {body.split(chr(10) * 2, 1)[0].strip()}')
+            items.append(f'- [{m.group(1)}. {m.group(2).strip()}]({fn(m.group(1))}): {chr(32).join(body.split(chr(10) * 2, 1)[0].split())}')
         elif g:
             items.append(f'\n### {g.group(1).strip()}\n')
         else:

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>14. Порядок навязан — только выбор клеток</title>
+<title>14. Клетки выбрал ⇒ фишки встали сами</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,10 +321,10 @@
 </aside>
 <main>
   
-  <h1>14. Порядок навязан — только выбор клеток</h1>
+  <h1>14. Клетки выбрал ⇒ фишки встали сами</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если условие само задаёт, какая из двух фишек стоит левее, или фишки одинаковые, то расставить пару — это только выбрать две клетки из свободных, переставлять нечего.</p>
+<p class="st">Условие само говорит, какая из двух фишек стоит левее, или фишки одинаковые ⇒ в выбранные две клетки фишки встают одним способом ⇒ способов столько, сколько пар клеток.</p>
 <p class="st"><small><b>Боевые задачи (12):</b> инт 2025 №3 · зон 2016 №3 · зон 2019 №3 · зон 2024 №3 · зон 2026 №3 · пров 2014 №3 · рег 2022 №3 · рег 2023 №3 · нац 2019 I №3 · нац 2019 II №6 · нац 2025 II №6 · нац 2026 I №3</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Лукас ставит пять из своих шести машинок с номерами от 1 до 6 на игрушечную стоянку из пяти мест в ряд так, чтобы:</p><ul class="st"><li>на каждом месте стояла ровно одна машинка;</li><li>на среднем месте стояла машинка с номером больше 4;</li><li>машинки 1 и 2 обе стояли на стоянке;</li><li>машинка 1 стояла левее машинки 2.</li></ul><p>Сколькими различными способами Лукас может расставить машинки? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 72 16' role='img' aria-label='Стоянка' style='max-width:400px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₂</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₃</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₄</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₅</text></svg><figcaption>pᵢ — номер машинки на i-м месте.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — размещение пяти из машинок 1–6 по местам p₁, …, p₅.</p>
@@ -334,18 +338,13 @@
 <p class="st">Какие бы два места ни заняли машинки 1 и 2, на двух других местах стоят две из одних и тех же машинок 3, 4, 6 ⇒ умножение:</p>
 <div id="a3" data-art="3"><div class="frm st">N(p₃ = 5) = N(мест для машинок 1 и 2) · N(две из машинок 3, 4, 6 на двух других местах)</div></div>
 <p class="subsec st"><b>1.1. N(мест для машинок 1 и 2).</b></p>
-<p class="st"><b>Дано:</b> <em>«машинка 1 стояла левее машинки 2»</em> ⇒ из двух мест машинок 1 и 2 на более левом стоит машинка 1.</p>
-<p class="st"><b>Выпишем по порядку:</b> место машинки 1 — p₁, потом p₂, p₄, p₅.</p>
-<div class="st"><div class="tw"><table>
+<div class="card priem st"><span class="tag">Приём</span><p class="hook">Клетки выбрал ⇒ фишки встали сами</p><p class="st"><b>Дано:</b> <em>«машинка 1 стояла левее машинки 2»</em> ⇒ из двух мест машинок 1 и 2 на более левом стоит машинка 1.</p><p class="st"><b>Выпишем по порядку:</b> место машинки 1 — p₁, потом p₂, p₄, p₅.</p><div class="st"><div class="tw"><table>
 <tr><th>место машинки 1</th><th>место машинки 2</th><th>строк</th></tr>
 <tr><td>p₁</td><td>p₂, p₄, p₅</td><td>3</td></tr>
 <tr><td>p₂</td><td>p₄, p₅</td><td>2</td></tr>
 <tr><td>p₄</td><td>p₅</td><td>1</td></tr>
 <tr><td>p₅</td><td>правее свободных мест нет</td><td>0</td></tr>
-</table></div></div>
-<p class="st"><b>Порядок навязан — только выбор клеток:</b> расставить машинки 1 и 2 — это только выбрать два места из четырёх, переставлять внутри пары нечего.</p>
-<figure class='st'><svg viewBox='-1 -1 72 16' role='img' aria-label='Стоянка' style='max-width:400px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>1</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>5</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₄</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>2</text></svg><figcaption>Выбор {p₂, p₅}.</figcaption></figure>
-<div id="a4" data-art="4"><div class="frm st">N(мест для машинок 1 и 2) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
+</table></div></div><p class="st">Расставить машинки 1 и 2 — это только выбрать два места из четырёх, переставлять внутри пары нечего.</p><figure class='st'><svg viewBox='-1 -1 72 16' role='img' aria-label='Стоянка' style='max-width:400px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='7.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₁</text><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='21.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>1</text><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='35.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>5</text><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='49.0' y='8.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>p₄</text><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><text x='63.0' y='9.0' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>2</text></svg><figcaption>Выбор {p₂, p₅}.</figcaption></figure><div class="frm st">N(мест для машинок 1 и 2) = C(4, 2) = 3 + 2 + 1 = 6</div></div>
 <p class="subsec st"><b>1.2. N(две из машинок 3, 4, 6 на двух других местах).</b></p>
 <p class="st">Про машинки 3, 4, 6 условие не говорит, какая стоит левее ⇒ (3, 4) и (4, 3) — разные способы.</p>
 <p class="st"><b>Выпишем по порядку:</b> на более левом из двух мест стоит машинка 3, потом 4, 6.</p>
@@ -356,18 +355,18 @@
 <tr><td>6</td><td>3, 4</td><td>2</td></tr>
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> групп три, в каждой две строки ⇒ умножение.</p>
-<div id="a5" data-art="5"><div class="frm st">N(две из машинок 3, 4, 6 на двух других местах) = 3 · 2 = 6</div></div>
+<div id="a4" data-art="4"><div class="frm st">N(две из машинок 3, 4, 6 на двух других местах) = 3 · 2 = 6</div></div>
 <p class="subsec st"><b>1.3. Сборка миров.</b></p>
-<div id="a6" data-art="6"><div class="frm st">N(p₃ = 5) = 6 · 6 = 36</div></div>
+<div id="a5" data-art="5"><div class="frm st">N(p₃ = 5) = 6 · 6 = 36</div></div>
 <p class="st">В мире N(p₃ = 6) свободны те же места, а вместо машинок 3, 4, 6 — машинки 3, 4, 5 ⇒ оба списка устроены так же:</p>
-<div id="a7" data-art="7"><div class="frm st">N(p₃ = 6) = 6 · 6 = 36</div></div>
+<div id="a6" data-art="6"><div class="frm st">N(p₃ = 6) = 6 · 6 = 36</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a8" data-art="8"><div class="frm st">N = 36 + 36 = 72</div></div>
+<div id="a7" data-art="7"><div class="frm st">N = 36 + 36 = 72</div></div>
 <p class="st"><b>Ответ на задачу:</b> Лукас может расставить машинки <b>72 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Ставить машинки 1 и 2 на пару мест двумя порядками: выйдет 144.</li><li>«Левее» прочитать как «сразу слева, рядом»: годятся только пары {p₁, p₂} и {p₄, p₅}, выйдет 24.</li><li>«Больше 4» прочитать как «не меньше 4» и пустить на p₃ ещё машинку 4: выйдет 108.</li></ul>
-<p class="st"><a href="glava-13.html">← 13. Прямоугольник сетки — пара вертикалей и пара горизонталей (новый)</a></p>
-<p class="st"><a href="glava-15.html">15. Равноправные места — один счёт →</a></p>
+<p class="st"><a href="glava-13.html">← 13. Прямоугольник — это пара вертикалей и пара горизонталей (новый)</a></p>
+<p class="st"><a href="glava-15.html">15. Поворот или отражение превращает мир в мир ⇒ способов поровну →</a></p>
 <div class="pager"></div>
 </main>
 </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>1. Миры — пары под жёстким условием</title>
+<title>1. Сумма или произведение двух клеток заданы ⇒ первая решает вторую</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,17 +321,14 @@
 </aside>
 <main>
   
-  <h1>1. Миры — пары под жёстким условием</h1>
+  <h1>1. Сумма или произведение двух клеток заданы ⇒ первая решает вторую</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если условие жёстко связывает две клетки (задана их сумма или произведение), а числа берутся из короткого набора, то выпиши все подходящие пары: каждая пара — свой мир.</p>
+<p class="st">Сумма или произведение двух клеток заданы ⇒ число в одной клетке однозначно даёт число в другой. Выпиши все пары чисел (в первой клетке, во второй), которые дают заданную сумму или произведение. Каждая пара чисел задаёт свой мир.</p>
 <p class="st"><small><b>Боевые задачи (3):</b> зон 2021 №3 · рег 2016 №3 · нац 2019 II №6</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>На дверцы пяти шкафчиков, стоящих в ряд, Лусия хочет наклеить цифры от 1 до 6 так, чтобы:</p><ul class="st"><li>на каждой дверце была одна цифра;</li><li>цифры не повторялись;</li><li>сумма цифр на 2-м и на 4-м шкафчиках равнялась 8;</li><li>на 1-м шкафчике не было цифры 5.</li></ul><p>Сколькими различными способами Лусия может наклеить цифры? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 72 22' role='img' aria-label='Ряд шкафчиков' style='max-width:380px'><rect x='0' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='11' y1='9' x2='11' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='6.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='25' y1='9' x2='25' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='20.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₂</text><rect x='28' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='39' y1='9' x2='39' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='34.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='53' y1='9' x2='53' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='48.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₄</text><rect x='56' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='67' y1='9' x2='67' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='62.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text></svg><figcaption>cᵢ — цифра на дверце i-го шкафчика.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — какая цифра на какой дверце c₁, …, c₅; цифр шесть, дверец пять, одна цифра остаётся лишней.</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p><em>«сумма цифр на 2-м и на 4-м шкафчиках равнялась 8»</em> ⇒ цифра в c₂ решает, какая цифра стоит в c₄.</p></div></div>
-<p class="st"><b>Вопрос: при каких c₂ цифра для c₄ найдётся?</b></p>
-<p class="st"><b>Выпишем по порядку:</b> c₂ = 1, потом 2, 3, 4, 5, 6, и для каждой c₄ = 8 − c₂.</p>
-<div class="st"><div class="tw"><table>
+<div class="card priem split st"><span class="tag">Приём</span><p class="hook">Сумма или произведение двух клеток заданы ⇒ первая решает вторую</p><p class="st"><em>«сумма цифр на 2-м и на 4-м шкафчиках равнялась 8»</em> ⇒ цифра в c₂ решает, какая цифра стоит в c₄.</p><p class="st"><b>Вопрос: при каких c₂ найдётся подходящая цифра для c₄?</b></p><p class="st"><b>Выпишем по порядку:</b> c₂ = 1, потом 2, 3, 4, 5, 6, и для каждой c₄ = 8 − c₂.</p><div class="st"><div class="tw"><table>
 <tr><th>c₂</th><th>c₄</th><th>годится?</th></tr>
 <tr><td>1</td><td>7</td><td>нет: цифры 7 в наборе нет</td></tr>
 <tr><td>2</td><td>6</td><td>да</td></tr>
@@ -335,10 +336,7 @@
 <tr><td>4</td><td>4</td><td>нет: цифры не повторяются</td></tr>
 <tr><td>5</td><td>3</td><td>да</td></tr>
 <tr><td>6</td><td>2</td><td>да</td></tr>
-</table></div></div>
-<p class="st"><b>Миры — пары под жёстким условием:</b> годных пар четыре, каждая пара — свой мир.</p>
-<div id="a1" data-art="1"><div class="frm st">N = N(2, 6) + N(3, 5) + N(5, 3) + N(6, 2)</div></div>
-<p class="st"><small>в скобках (c₂, c₄)</small></p>
+</table></div></div><p class="st"><b>Как устроен список:</b> годных пар чисел (c₂, c₄) четыре, каждая пара задаёт свой мир.</p><div class="frm st">N = N(2, 6) + N(3, 5) + N(5, 3) + N(6, 2)</div><p class="st"><small>в скобках (c₂, c₄)</small></p><p class="st">В каждом мире c₂ и c₄ уже заняты ⇒ остаётся расставить цифры в c₁, c₃, c₅, и каждый мир считается гораздо проще, чем задача в целом.</p><p class="st">Цель приёма: разбить одну сложную задачу на несколько простых.</p></div>
 <p class="sec st"><b>1. Миры N(2, 6) и N(6, 2).</b></p>
 <figure class='st'><svg viewBox='-1 -1 72 31' role='img' aria-label='Ряд шкафчиков' style='max-width:380px'><rect x='0' y='0' width='14' height='20' fill='#e5534b' fill-opacity='0.16'/><rect x='0' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='11' y1='9' x2='11' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='6.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><text x='6.5' y='17.6' fill='#e5534b' font-size='3.6' text-anchor='middle'>≠ 5</text><rect x='14' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='25' y1='9' x2='25' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='20.5' y='12.2' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>2</text><rect x='28' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='39' y1='9' x2='39' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='34.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='53' y1='9' x2='53' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='48.5' y='12.2' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>6</text><rect x='56' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='67' y1='9' x2='67' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='62.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><text x='0' y='27' fill='#93a1b1' font-size='4.2'>оставшиеся цифры: 1, 3, 4, 5</text></svg><figcaption>N(2, 6)</figcaption></figure>
 <p class="st">В c₂ и c₄ стоят 2 и 6 ⇒ для c₁, c₃, c₅ остаются цифры 1, 3, 4, 5.</p>
@@ -352,24 +350,24 @@
 </table></div></div>
 <p class="st"><small>c₁ = 1: (c₃, c₅) = (3, 4), (3, 5), (4, 3), (4, 5), (5, 3), (5, 4) — в c₃ любая из трёх цифр, в c₅ любая из двух других</small></p>
 <p class="st"><b>Как устроен список:</b> групп три, в каждой 3 · 2 строк.</p>
-<div id="a2" data-art="2"><div class="frm st">N(2, 6) = 3 · 3 · 2 = 18</div></div>
+<div id="a0" data-art="0"><div class="frm st">N(2, 6) = 3 · 3 · 2 = 18</div></div>
 <p class="st">В мире N(6, 2) в c₂ и c₄ стоят те же цифры 2 и 6, и запрет на c₁ тот же ⇒ список тот же:</p>
-<div id="a3" data-art="3"><div class="frm st">N(6, 2) = 18</div></div>
+<div id="a1" data-art="1"><div class="frm st">N(6, 2) = 18</div></div>
 <p class="sec st"><b>2. Миры N(3, 5) и N(5, 3).</b></p>
 <figure class='st'><svg viewBox='-1 -1 72 31' role='img' aria-label='Ряд шкафчиков' style='max-width:380px'><rect x='0' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='11' y1='9' x2='11' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='6.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₁</text><rect x='14' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='25' y1='9' x2='25' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='20.5' y='12.2' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>3</text><rect x='28' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='39' y1='9' x2='39' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='34.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₃</text><rect x='42' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='53' y1='9' x2='53' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='48.5' y='12.2' fill='#f0a83c' font-size='5.6' text-anchor='middle' font-weight='700'>5</text><rect x='56' y='0' width='14' height='20' fill='none' stroke='#cfdae6' stroke-width='0.5'/><line x1='67' y1='9' x2='67' y2='12' stroke='#cfdae6' stroke-width='0.6'/><text x='62.5' y='11.6' fill='#93a1b1' font-size='4.4' text-anchor='middle' font-style='italic'>c₅</text><text x='0' y='27' fill='#93a1b1' font-size='4.2'>оставшиеся цифры: 1, 2, 4, 6</text></svg><figcaption>N(3, 5)</figcaption></figure>
 <p class="st">В c₂ и c₄ стоят 3 и 5 ⇒ для c₁, c₃, c₅ остаются цифры 1, 2, 4, 6.</p>
 <p class="st">5 среди них нет ⇒ запрет <em>«на 1-м шкафчике не было цифры 5»</em> ничего не убирает, в c₁ годится любая из четырёх цифр.</p>
 <p class="st">В c₃ — любая из трёх цифр, которые остались после c₁, в c₅ — любая из двух, которые остались после c₃:</p>
-<div id="a4" data-art="4"><div class="frm st">N(3, 5) = 4 · 3 · 2 = 24</div></div>
+<div id="a2" data-art="2"><div class="frm st">N(3, 5) = 4 · 3 · 2 = 24</div></div>
 <p class="st">В мире N(5, 3) в c₂ и c₄ стоят те же цифры 3 и 5 ⇒ список тот же:</p>
-<div id="a5" data-art="5"><div class="frm st">N(5, 3) = 24</div></div>
+<div id="a3" data-art="3"><div class="frm st">N(5, 3) = 24</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a6" data-art="6"><div class="frm st">N = 18 + 24 + 24 + 18 = 84</div></div>
+<div id="a4" data-art="4"><div class="frm st">N = 18 + 24 + 24 + 18 = 84</div></div>
 <p class="st"><b>Ответ на задачу:</b> Лусия может наклеить цифры <b>84 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Взять ещё пару (4, 4), забыв, что цифры не повторяются: выйдет 132.</li><li>Выписать только (2, 6) и (3, 5), без пар с переставленными цифрами: выйдет 42.</li><li>Забыть c₁ ≠ 5 в мирах N(2, 6) и N(6, 2): выйдет 96.</li></ul>
-<p class="st"><a href="glava-00.html">← 0. Ритуал: выпиши по порядку</a></p>
-<p class="st"><a href="glava-02.html">2. Общая клетка — сократить равенство на неё (новый) →</a></p>
+<p class="st"><a href="glava-00.html">← 0. Ритуал: выпиши способы по порядку</a></p>
+<p class="st"><a href="glava-02.html">2. Общую клетку двух линий вычеркни (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>

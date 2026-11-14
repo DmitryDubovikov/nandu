@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>9. Соседство, зазоры (новый)</title>
+<title>9. Фишка занимает три столбца: свой и два соседних (новый)</title>
 <style>
   :root{
     --bg:#0d1117; --bg2:#131923; --ink:#e8eef6; --muted:#93a1b1; --dim:#5d6b7c;
@@ -180,6 +180,10 @@
   .cols2>.col>:first-child{margin-top:0}
   details.spoiler{background:var(--bg2);border-left:3px solid var(--muted);padding:12px 18px 14px} details.spoiler summary{cursor:pointer;color:var(--muted);font-weight:600} details.spoiler[open] summary{margin-bottom:8px}
   .card.box{background:var(--bg2);border-left:3px solid var(--muted);padding:14px 18px 16px} .card.box p,.card.box .frm{margin-top:10px} .card.box figure{background:transparent;padding:8px 0 0}
+  .card.priem{background:#10201a;border:1px solid #2f6b4a;border-left:4px solid var(--green);border-radius:12px;padding:14px 20px 18px}
+  .card.priem .tag{color:var(--green)} .card.priem .hook{font-size:clamp(20px,2.1vw,25px);line-height:1.3;font-weight:700;color:var(--green);margin-top:4px}
+  .card.priem p,.card.priem .frm{margin-top:10px} .card.priem .frm{border-left-color:var(--green)} .card.priem figure{background:transparent;padding:8px 0 0}
+  .card.priem.split~p.sec,.card.priem.split~p.sec b{color:var(--green)}
   @media (max-width:700px){.cols2{grid-template-columns:1fr}}
   .num{display:inline-flex;vertical-align:middle}
   ol.num{display:block}
@@ -317,18 +321,14 @@
 </aside>
 <main>
   
-  <h1>9. Соседство, зазоры (новый)</h1>
+  <h1>9. Фишка занимает три столбца: свой и два соседних (новый)</h1>
   <p class="sub">Учебник Т3′</p>
 <p class="st"><a href="index.html">← оглавление учебника</a></p>
-<p class="st">Если фишки не могут стоять в клетках с общей стороной или общей вершиной, то в квадрате 2×2 не больше одной фишки; на доске в два ряда это значит, что фишки стоят в разных столбцах и среди этих столбцов нет соседних: сначала выбираются столбцы, потом место фишки в каждом столбце; на полоске «между ними не меньше k» значит, что следующая фишка стоит правее хотя бы на k + 1.</p>
+<p class="st">Фишки не касаются ни стороной, ни углом ⇒ на доске в два ряда в столбце фишки и в двух соседних столбцах других фишек нет. Выбери столбцы, среди которых нет соседних, потом в каждом выбранном столбце верхнюю или нижнюю клетку. На полоске между фишками должно быть не меньше k клеток ⇒ номер клетки следующей фишки больше номера клетки предыдущей хотя бы на k + 1.</p>
 <p class="st"><small><b>Боевые задачи (4):</b> зон 2017 №3 · зон 2025 №3 · пров 2014 №3 · нац 2019 I №3</small></p>
 <div class="taskfig"><div class="card task st"><span class="tag">Условие</span><p>Пасечник ставит 3 одинаковых улья на луг, разбитый на участки, как на рисунке, так, чтобы:</p><ul class="st"><li>на каждом участке стояло не больше одного улья;</li><li>ульи не стояли на участках, у которых есть общая сторона или общая вершина.</li></ul><p>Сколькими различными способами пасечник может поставить 3 улья? Объясни, как ты их считал.</p></div><div class="tf-fig"><figure class='st'><svg viewBox='-1 -1 86 30' role='img' aria-label='Луг 2×6' style='max-width:460px'><rect x='0' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='56' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='70' y='0' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='14' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='28' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='42' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='56' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='70' y='14' width='14' height='14' fill='none' stroke='#cfdae6' stroke-width='0.5'/><rect x='0' y='0' width='84' height='28' fill='none' stroke='#e8eef6' stroke-width='1.2'/></svg><figcaption>Луг пасечника.</figcaption></figure></div></div>
 <p class="st"><b>Способ</b> — набор из трёх участков, на которых стоят ульи.</p>
-<div id="a0" data-art="0"><div class="card idea st"><span class="tag">Идея</span><p><em>«ульи не стояли на участках, у которых есть общая сторона или общая вершина»</em>, а луг — два ряда по шесть участков.</p></div></div>
-<p class="st"><b>Вопрос: какие участки закрывает один улей?</b></p>
-<p class="st">Второй участок своего столбца и оба участка каждого соседнего столбца — все, что лежат с ним в одном квадрате 2×2.</p>
-<p class="st"><b>Соседство, зазоры:</b> три улья стоят в трёх разных столбцах, и среди этих столбцов нет соседних.</p>
-<div id="a1" data-art="1"><div class="frm st">N = N(троек столбцов) · N(мест ульев в столбцах тройки)</div></div>
+<div class="card priem split st"><span class="tag">Приём</span><p class="hook">Фишка занимает три столбца: свой и два соседних</p><p class="st"><em>«ульи не стояли на участках, у которых есть общая сторона или общая вершина»</em>, а луг — два ряда по шесть участков.</p><p class="st"><b>Вопрос: какие участки закрывает один улей?</b></p><p class="st">Второй участок своего столбца и оба участка каждого соседнего столбца — все, что лежат с ним в одном квадрате 2×2.</p><p class="st">Три улья стоят в трёх разных столбцах, и среди этих столбцов нет соседних.</p><div class="frm st">N = N(троек столбцов) · N(мест ульев в столбцах тройки)</div><p class="st">Первый множитель считает только тройки столбцов, второй считает только места ульев в столбцах тройки ⇒ каждый множитель считается гораздо проще, чем задача в целом.</p><p class="st">Цель приёма: разбить одну сложную задачу на несколько простых.</p></div>
 <p class="sec st"><b>1. N(троек столбцов).</b></p>
 <p class="st"><b>Выпишем по порядку:</b> столбцы пронумеруем слева направо от 1 до 6; столбец левого улья по возрастанию, для него столбец среднего улья, потом столбец правого; каждый следующий столбец правее предыдущего хотя бы на 2.</p>
 <div class="st"><div class="tw"><table>
@@ -341,18 +341,18 @@
 <tr><td>3 или 4</td><td>5 или 6</td><td>нужен столбец 7 или 8, их нет</td><td>0</td></tr>
 </table></div></div>
 <p class="st"><b>Как устроен список:</b> непустых групп три, в них 2, 1 и 1 тройка: 1, 3, 5; потом 1, 3, 6; потом 1, 4, 6; потом 2, 4, 6.</p>
-<div id="a2" data-art="2"><div class="frm st">N(троек столбцов) = 2 + 1 + 1 = 4</div></div>
+<div id="a0" data-art="0"><div class="frm st">N(троек столбцов) = 2 + 1 + 1 = 4</div></div>
 <p class="sec st"><b>2. N(мест ульев в столбцах тройки).</b></p>
 <p class="st">В своём столбце улей стоит сверху или снизу.</p>
 <p class="st">Между любыми двумя столбцами тройки лежит хотя бы один столбец ⇒ ульи друг друга не касаются, где бы они ни стояли в своих столбцах ⇒ в каждом из трёх столбцов выбор свой:</p>
-<div id="a3" data-art="3"><div class="frm st">N(мест ульев в столбцах тройки) = 2 · 2 · 2 = 8</div></div>
+<div id="a1" data-art="1"><div class="frm st">N(мест ульев в столбцах тройки) = 2 · 2 · 2 = 8</div></div>
 <p class="sec st"><b>Сборка.</b></p>
-<div id="a4" data-art="4"><div class="frm st">N = 4 · 8 = 32</div></div>
+<div id="a2" data-art="2"><div class="frm st">N = 4 · 8 = 32</div></div>
 <p class="st"><b>Ответ на задачу:</b> пасечник может поставить ульи <b>32 способами</b>.</p>
 <p class="st"><b>⚠ Ловушки.</b></p>
 <ul class="st"><li>Считать ульи разными и учитывать, какой улей куда встал, — выйдет 192.</li><li>Запретить только общую сторону и забыть общую вершину — выйдет 88.</li><li>Взять любые три разных столбца и не проверить, что среди них нет соседних, — выйдет 160.</li></ul>
-<p class="st"><a href="glava-08.html">← 8. Склейка в блок (новый)</a></p>
-<p class="st"><a href="glava-10.html">10. Полоска в ряду: сколько помещается (новый) →</a></p>
+<p class="st"><a href="glava-08.html">← 8. Фишки одного цвета ⇒ один блок (новый)</a></p>
+<p class="st"><a href="glava-10.html">10. Полоска длиннее половины ряда ⇒ в ряду она одна и закрывает середину (новый) →</a></p>
 <div class="pager"></div>
 </main>
 </div>
