@@ -122,6 +122,32 @@ def hide_solutions(t, lv):
     return ''.join(out)
 
 
+def hide_chapter_solutions(body):
+    """Главы учебника: условие видно, решение примера — под свёрнутым «Решение и ответ» (решение родителя 16.11.2026).
+
+    Решение начинается с первой строки после «**Условие.**», которая открывается «**» или «:::» (Способ, Выпишем,
+    Дано, рамка приёма), и идёт до следующего заголовка / «**Условие.**» или до конца главы.
+    """
+    lines = body.split('\n')
+    out, i, n = [], 0, len(lines)
+    while i < n:
+        out.append(lines[i])
+        if not lines[i].startswith('**Условие.**'):
+            i += 1; continue
+        j = i + 1
+        while j < n and not (lines[j].startswith('**') or lines[j].startswith(':::') or lines[j].startswith('#')):
+            out.append(lines[j]); j += 1
+        if j >= n or lines[j].startswith('#') or lines[j].startswith('**Условие.**'):
+            print(f'  ⚠ у условия «{lines[i][13:60]}» не найдено решение'); i = j; continue
+        k = j
+        while k < n and not (lines[k].startswith('#') or lines[k].startswith('**Условие.**')):
+            k += 1
+        sol = '\n'.join(lines[j:k]).rstrip()
+        out += ['<details>', '<summary>Решение и ответ</summary>', '', sol, '', '</details>', '']
+        i = k
+    return '\n'.join(out)
+
+
 def po_glavam(title, rest):
     """Учебник по главам (решения родителя 8.11.2026, учебник Т3′: «HTML получился огромным»; группировка приёмов).
 
@@ -146,7 +172,7 @@ def po_glavam(title, rest):
             prochee.append(s)
     out = {}
     for i, (n, name, s) in enumerate(glavy):
-        body = s.split('\n', 1)[1].strip()
+        body = hide_chapter_solutions(s.split('\n', 1)[1].strip())
         nav = []
         if i > 0:
             nav.append(f'[← {glavy[i - 1][0]}. {glavy[i - 1][1]}]({fn(glavy[i - 1][0])})')
